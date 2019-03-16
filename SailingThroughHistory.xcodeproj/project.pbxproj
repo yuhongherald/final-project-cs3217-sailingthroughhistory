@@ -28,6 +28,7 @@
 		9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5D2223A4875005291EE /* LaunchScreen.storyboard */; };
 		9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */; };
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
+		A36E5A3EF544FF538E847194 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
+		822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		965E0332223A4B3C005F7D79 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		965E0334223A4B84005F7D79 /* Sea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sea.swift; sourceTree = "<group>"; };
 		965E0336223A4BB3005F7D79 /* VolatileModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileModifier.swift; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36E5A3EF544FF538E847194 /* Pods_SailingThroughHistory.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +107,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38DFED7D720553198BABBF4C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */,
+				854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		965E0331223A4B2F005F7D79 /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +157,8 @@
 				9690F5DD223A4875005291EE /* SailingThroughHistoryTests */,
 				9690F5E8223A4875005291EE /* SailingThroughHistoryUITests */,
 				9690F5C7223A4874005291EE /* Products */,
+				38DFED7D720553198BABBF4C /* Pods */,
+				FAE90656E948375308CC41E5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -191,6 +207,14 @@
 			path = SailingThroughHistoryUITests;
 			sourceTree = "<group>";
 		};
+		FAE90656E948375308CC41E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -198,10 +222,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9690F5EE223A4875005291EE /* Build configuration list for PBXNativeTarget "SailingThroughHistory" */;
 			buildPhases = (
+				96AF5BCC470BB04DCD582C42 /* [CP] Check Pods Manifest.lock */,
 				9690F5C2223A4874005291EE /* Sources */,
 				9690F5C3223A4874005291EE /* Frameworks */,
 				9690F5C4223A4874005291EE /* Resources */,
 				96737EA9223D5C8E00D04C33 /* ShellScript */,
+				C92292068F333239A814FA00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -331,6 +357,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		96AF5BCC470BB04DCD582C42 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SailingThroughHistory-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C92292068F333239A814FA00 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountdownLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -527,6 +595,7 @@
 		};
 		9690F5EF223A4875005291EE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -545,6 +614,7 @@
 		};
 		9690F5F0223A4875005291EE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

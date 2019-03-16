@@ -13,6 +13,7 @@ class Interface {
     let bounds: CGRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 2048, height: 1536))
     let background: String = "southandsoutheastasia.png"
     let events = PublishSubject<InterfaceEvents>()
+    let monthSymbols = Calendar.current.monthSymbols
     var pendingEvents = [InterfaceEvent]()
     var objects = [GameObject]()
 
@@ -23,6 +24,13 @@ class Interface {
 
     func updatePosition(of object: GameObject) {
         pendingEvents.append(.move(object, toFrame: object.frame))
+    }
+
+    func changeMonth(to newMonth: Int) {
+        if !monthSymbols.indices.contains(newMonth) {
+            preconditionFailure("\(newMonth) is not a valid month.")
+        }
+        pendingEvents.append(.changeMonth(toMonth: monthSymbols[newMonth]))
     }
 
     func broadcastInterfaceChanges(withDuration duration: TimeInterval) {
