@@ -4,4 +4,10 @@
    <FileRef
       location = "container:SailingThroughHistory.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:SailingThroughHistory.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
 </Workspace>

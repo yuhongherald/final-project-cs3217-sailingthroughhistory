@@ -1,21 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainGameViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Sq-IX-ntE">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yzi-uC-Odn">
+                                <rect key="frame" x="0.0" y="10" width="1024" height="768"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVf-si-Kdw">
+                                        <rect key="frame" x="103" y="53" width="682" height="122"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="kVf-si-Kdw" secondAttribute="trailing" constant="239" id="LMm-tG-7Xx"/>
+                                    <constraint firstAttribute="bottom" secondItem="kVf-si-Kdw" secondAttribute="bottom" constant="593" id="OOL-w5-fKc"/>
+                                    <constraint firstItem="kVf-si-Kdw" firstAttribute="leading" secondItem="Yzi-uC-Odn" secondAttribute="leading" constant="103" id="hWh-iN-LSZ"/>
+                                    <constraint firstItem="kVf-si-Kdw" firstAttribute="top" secondItem="Yzi-uC-Odn" secondAttribute="top" constant="53" id="rJk-h1-tbr"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="January" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nf-n2-xli">
+                                <rect key="frame" x="460.5" y="20" width="103" height="36"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6nf-n2-xli" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="01i-ni-X3f"/>
+                            <constraint firstItem="Yzi-uC-Odn" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="7r0-a8-t60"/>
+                            <constraint firstItem="9Sq-IX-ntE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8iA-YV-JvT"/>
+                            <constraint firstItem="6nf-n2-xli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GYk-OA-eX0"/>
+                            <constraint firstItem="Yzi-uC-Odn" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Ikg-Iz-fjm"/>
+                            <constraint firstItem="6nf-n2-xli" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QxV-sm-yoD"/>
+                            <constraint firstItem="Yzi-uC-Odn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YbC-cb-R6m"/>
+                            <constraint firstItem="9Sq-IX-ntE" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="e5K-Ad-nhr"/>
+                            <constraint firstItem="9Sq-IX-ntE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="fZj-Xl-98B"/>
+                            <constraint firstItem="Yzi-uC-Odn" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="k9H-XP-R8A"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6nf-n2-xli" secondAttribute="trailing" id="lRl-YQ-kVK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6nf-n2-xli" secondAttribute="bottom" id="omC-Ki-5LY"/>
+                            <constraint firstItem="9Sq-IX-ntE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="t9V-ob-lRK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="backgroundImageView" destination="9Sq-IX-ntE" id="4ND-FK-iTu"/>
+                        <outlet property="gameArea" destination="kVf-si-Kdw" id="rkt-W7-LK4"/>
+                        <outlet property="monthLabel" destination="6nf-n2-xli" id="Bas-Lj-mTh"/>
+                        <outlet property="testLabel" destination="kVf-si-Kdw" id="huq-74-bj1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

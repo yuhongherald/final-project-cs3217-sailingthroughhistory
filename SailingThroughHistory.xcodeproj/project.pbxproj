@@ -13,8 +13,16 @@
 		965E0339223A4BFA005F7D79 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0338223A4BFA005F7D79 /* Weather.swift */; };
 		965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033B223A7127005F7D79 /* CGPoint+Arithmetic.swift */; };
 		965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033D223A8EBA005F7D79 /* Pirate.swift */; };
+		965E0340223A9AD1005F7D79 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033F223A9AD1005F7D79 /* Port.swift */; };
+		965E0343223AD976005F7D79 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0342223AD976005F7D79 /* Interface.swift */; };
+		965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */; };
+		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
+		96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */; };
+		96737EA4223D335100D04C33 /* View+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA3223D335100D04C33 /* View+Translate.swift */; };
+		96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA5223D398200D04C33 /* CGRect+Translate.swift */; };
+		96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA7223D56CD00D04C33 /* ControllerUtils.swift */; };
 		9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5C9223A4874005291EE /* AppDelegate.swift */; };
-		9690F5CC223A4874005291EE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5CB223A4874005291EE /* ViewController.swift */; };
+		9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5CB223A4874005291EE /* MainGameViewController.swift */; };
 		9690F5CF223A4874005291EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5CD223A4874005291EE /* Main.storyboard */; };
 		9690F5D1223A4875005291EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5D0223A4875005291EE /* Assets.xcassets */; };
 		9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5D2223A4875005291EE /* LaunchScreen.storyboard */; };
@@ -46,9 +54,17 @@
 		965E0338223A4BFA005F7D79 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		965E033B223A7127005F7D79 /* CGPoint+Arithmetic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Arithmetic.swift"; sourceTree = "<group>"; };
 		965E033D223A8EBA005F7D79 /* Pirate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pirate.swift; sourceTree = "<group>"; };
+		965E033F223A9AD1005F7D79 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
+		965E0342223AD976005F7D79 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
+		965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvent.swift; sourceTree = "<group>"; };
+		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
+		96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvents.swift; sourceTree = "<group>"; };
+		96737EA3223D335100D04C33 /* View+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Translate.swift"; sourceTree = "<group>"; };
+		96737EA5223D398200D04C33 /* CGRect+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Translate.swift"; sourceTree = "<group>"; };
+		96737EA7223D56CD00D04C33 /* ControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerUtils.swift; sourceTree = "<group>"; };
 		9690F5C6223A4874005291EE /* SailingThroughHistory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SailingThroughHistory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5C9223A4874005291EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9690F5CB223A4874005291EE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9690F5CB223A4874005291EE /* MainGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGameViewController.swift; sourceTree = "<group>"; };
 		9690F5CE223A4874005291EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9690F5D0223A4875005291EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9690F5D3223A4875005291EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -94,6 +110,7 @@
 				965E0336223A4BB3005F7D79 /* VolatileModifier.swift */,
 				965E0338223A4BFA005F7D79 /* Weather.swift */,
 				965E033D223A8EBA005F7D79 /* Pirate.swift */,
+				965E033F223A9AD1005F7D79 /* Port.swift */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -102,8 +119,21 @@
 			isa = PBXGroup;
 			children = (
 				965E033B223A7127005F7D79 /* CGPoint+Arithmetic.swift */,
+				96737EA5223D398200D04C33 /* CGRect+Translate.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		96737EA2223D319A00D04C33 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				965E0342223AD976005F7D79 /* Interface.swift */,
+				965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */,
+				96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */,
+				96737EA3223D335100D04C33 /* View+Translate.swift */,
+				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
+			);
+			path = Interface;
 			sourceTree = "<group>";
 		};
 		9690F5BD223A4874005291EE = {
@@ -129,14 +159,16 @@
 		9690F5C8223A4874005291EE /* SailingThroughHistory */ = {
 			isa = PBXGroup;
 			children = (
+				96737EA2223D319A00D04C33 /* Interface */,
 				965E033A223A7110005F7D79 /* Common */,
 				965E0331223A4B2F005F7D79 /* Parameters */,
 				9690F5C9223A4874005291EE /* AppDelegate.swift */,
-				9690F5CB223A4874005291EE /* ViewController.swift */,
+				9690F5CB223A4874005291EE /* MainGameViewController.swift */,
 				9690F5CD223A4874005291EE /* Main.storyboard */,
 				9690F5D0223A4875005291EE /* Assets.xcassets */,
 				9690F5D2223A4875005291EE /* LaunchScreen.storyboard */,
 				9690F5D5223A4875005291EE /* Info.plist */,
+				96737E9E223CF1CB00D04C33 /* GameObject.swift */,
 			);
 			path = SailingThroughHistory;
 			sourceTree = "<group>";
@@ -169,6 +201,7 @@
 				9690F5C2223A4874005291EE /* Sources */,
 				9690F5C3223A4874005291EE /* Frameworks */,
 				9690F5C4223A4874005291EE /* Resources */,
+				96737EA9223D5C8E00D04C33 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -285,19 +318,43 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		96737EA9223D5C8E00D04C33 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9690F5C2223A4874005291EE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
+				965E0343223AD976005F7D79 /* Interface.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
-				9690F5CC223A4874005291EE /* ViewController.swift in Sources */,
+				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
+				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
+				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
+				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
+				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
+				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
+				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,7 +539,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nus.CS3217;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -500,7 +557,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nus.CS3217;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

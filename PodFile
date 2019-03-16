@@ -1,0 +1,8 @@
+# Podfile
+use_frameworks!
+
+target 'SailingThroughHistory' do
+    pod 'RxSwift',           '~> 4.0'
+    pod 'RxCocoa',           '~> 4.0'
+    pod 'CountdownLabel',    '~> 4.0.1'
+end
