@@ -9,4 +9,5 @@
 import UIKit
 
 class Node: GameObject {
+    var neighbours = [Node]()
 }

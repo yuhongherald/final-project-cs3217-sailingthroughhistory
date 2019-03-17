@@ -16,10 +16,11 @@ class Interface {
     let monthSymbols = Calendar.current.monthSymbols
     var pendingEvents = [InterfaceEvent]()
     var objects = [GameObject]()
+    var paths = [GameObject: [Path]]()
 
     func add(object: GameObject) {
         objects.append(object)
-        pendingEvents.append(.add(object, atFrame: object.frame))
+        pendingEvents.append(.addObject(object, atFrame: object.frame))
     }
 
     func updatePosition(of object: GameObject) {
@@ -35,6 +36,20 @@ class Interface {
 
     func pauseAndShowAlert(titled title: String, withMsg msg: String) {
         pendingEvents.append(.pauseAndShowAlert(titled: title, withMsg: msg))
+    }
+
+    func add(path: Path) {
+        if paths[path.fromObject] == nil {
+            paths[path.fromObject] = []
+        }
+
+        if paths[path.toObject] == nil {
+            paths[path.toObject] = []
+        }
+
+        paths[path.fromObject]?.append(path)
+        paths[path.toObject]?.append(path)
+        pendingEvents.append(.addPath(path))
     }
 
     /// TODO: Modify to take in current player.
