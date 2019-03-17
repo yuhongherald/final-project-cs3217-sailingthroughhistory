@@ -10,8 +10,13 @@ import UIKit
 import RxSwift
 
 class MainGameViewController: UIViewController {
-    private static let enablePan = true
-
+    @IBOutlet private weak var gameAndBackgroundWrapper: UIView!
+    @IBOutlet private weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.delegate = self
+            scrollView.maximumZoomScale = 3
+        }
+    }
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
     @IBOutlet private weak var monthLabel: UILabel!
@@ -37,23 +42,11 @@ class MainGameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let image = UIImage(named: interface.background) {
-            backgroundImageView.contentMode = .topLeft
-            backgroundImageView.image = image
-            backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
-            gameArea.frame = backgroundImageView.frame
-        }
+        initBackground()
+        subscribeToInterface()
 
-        interface.events.observeOn(SerialDispatchQueueScheduler(qos: .userInteractive)).subscribe { [weak self] in
-            guard let events = $0.element else {
-                return
-            }
-
-            self?.handle(events: events)
-        }.disposed(by: disposeBag)
-        /*
-         Uncomment to test interface
-         DispatchQueue.global(qos: .background).async { [weak self] in
+         //Uncomment to test interface
+         /*DispatchQueue.global(qos: .background).async { [weak self] in
             let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
             self?.interface.add(object: object)
             self?.interface.broadcastInterfaceChanges(withDuration: 3)
@@ -75,46 +68,23 @@ class MainGameViewController: UIViewController {
         /// TODO: Roll dice logic
     }
 
-    @IBAction func onPinchGesture(_ sender: UIPinchGestureRecognizer) {
-        if !MainGameViewController.enablePan {
+    private func initBackground() {
+        guard let image = UIImage(named: interface.background) else {
             return
         }
 
-        let views = [backgroundImageView, gameArea]
-        if sender.state == .changed {
-            let scale = sender.scale * originalScale
-            views.forEach {
-                $0?.transform = CGAffineTransform(scaleX: scale, y: scale)
-            }
-        } else if sender.state == .began || sender.state == .ended {
-            originalScale = backgroundImageView.transform.a
-        }
+        backgroundImageView.contentMode = .scaleToFill
+        backgroundImageView.image = image
     }
 
-    @IBAction func onPanGesture(_ sender: UIPanGestureRecognizer) {
-        if !MainGameViewController.enablePan {
-            return
-        }
-        let translation = sender.translation(in: sender.view)
-        let views = [backgroundImageView, gameArea]
-        if sender.state == .changed {
-            views.forEach {
-                var transform = CGAffineTransform(scaleX: originalScale, y: originalScale)
-                transform = transform.concatenating(CGAffineTransform(translationX: translation.x, y: translation.y)
-                )
-                $0?.transform = transform
+    private func subscribeToInterface() {
+        interface.events.observeOn(SerialDispatchQueueScheduler(qos: .userInteractive)).subscribe { [weak self] in
+            guard let events = $0.element else {
+                return
             }
-        } else if sender.state == .ended {
-            views.forEach {
-                guard let view = $0 else {
-                    return
-                }
-                let frame = view.frame
-                view.transform = view.transform.concatenating(
-                    CGAffineTransform(translationX: -translation.x, y: -translation.y))
-                view.frame = frame
-            }
-        }
+
+            self?.handle(events: events)
+            }.disposed(by: disposeBag)
     }
 
     private func handle(events: InterfaceEvents) {
@@ -163,6 +133,7 @@ class MainGameViewController: UIViewController {
         guard let objectView = views[object] else {
             return
         }
+        print(objectView.frame, gameArea.frame)
         UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: { [unowned self] in
             objectView.frame = CGRect.translatingFrom(otherBounds: self.interface.bounds, otherFrame: dest,
                                                       to: self.gameArea.bounds)
@@ -192,5 +163,11 @@ class MainGameViewController: UIViewController {
                 }, completion: { _ in
                     callback() })
         })
+    }
+}
+
+extension MainGameViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return gameAndBackgroundWrapper
     }
 }
