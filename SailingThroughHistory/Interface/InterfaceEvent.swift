@@ -15,4 +15,5 @@ enum InterfaceEvent {
     case add(_: GameObject, atFrame: CGRect)
     case changeMonth(toMonth: String)
     case playerTurnStart
+    case pauseAndShowAlert(titled: String, withMsg: String)
 }

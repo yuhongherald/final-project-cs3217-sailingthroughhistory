@@ -33,6 +33,10 @@ class Interface {
         pendingEvents.append(.changeMonth(toMonth: monthSymbols[newMonth]))
     }
 
+    func pauseAndShowAlert(titled title: String, withMsg msg: String) {
+        pendingEvents.append(.pauseAndShowAlert(titled: title, withMsg: msg))
+    }
+
     /// TODO: Modify to take in current player.
     func playerTurnStart() {
         pendingEvents.append(.playerTurnStart)
