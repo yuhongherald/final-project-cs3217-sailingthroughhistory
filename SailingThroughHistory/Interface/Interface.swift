@@ -11,7 +11,7 @@ import UIKit
 
 class Interface {
     let bounds: CGRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 2048, height: 1536))
-    let background: String = "southandsoutheastasia.png"
+    let background: String = "1799-Asia.png"
     let events = PublishSubject<InterfaceEvents>()
     let monthSymbols = Calendar.current.monthSymbols
     var pendingEvents = [InterfaceEvent]()
@@ -31,6 +31,11 @@ class Interface {
             preconditionFailure("\(newMonth) is not a valid month.")
         }
         pendingEvents.append(.changeMonth(toMonth: monthSymbols[newMonth]))
+    }
+
+    /// TODO: Modify to take in current player.
+    func playerTurnStart() {
+        pendingEvents.append(.playerTurnStart)
     }
 
     func broadcastInterfaceChanges(withDuration duration: TimeInterval) {

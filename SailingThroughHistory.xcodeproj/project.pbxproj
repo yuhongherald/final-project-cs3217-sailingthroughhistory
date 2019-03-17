@@ -21,6 +21,8 @@
 		96737EA4223D335100D04C33 /* View+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA3223D335100D04C33 /* View+Translate.swift */; };
 		96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA5223D398200D04C33 /* CGRect+Translate.swift */; };
 		96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA7223D56CD00D04C33 /* ControllerUtils.swift */; };
+		96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EAA223D772900D04C33 /* UIVIew+Border.swift */; };
+		96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */; };
 		9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5C9223A4874005291EE /* AppDelegate.swift */; };
 		9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5CB223A4874005291EE /* MainGameViewController.swift */; };
 		9690F5CF223A4874005291EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5CD223A4874005291EE /* Main.storyboard */; };
@@ -66,6 +68,8 @@
 		96737EA3223D335100D04C33 /* View+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Translate.swift"; sourceTree = "<group>"; };
 		96737EA5223D398200D04C33 /* CGRect+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Translate.swift"; sourceTree = "<group>"; };
 		96737EA7223D56CD00D04C33 /* ControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerUtils.swift; sourceTree = "<group>"; };
+		96737EAA223D772900D04C33 /* UIVIew+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Border.swift"; sourceTree = "<group>"; };
+		96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonRounded.swift; sourceTree = "<group>"; };
 		9690F5C6223A4874005291EE /* SailingThroughHistory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SailingThroughHistory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5C9223A4874005291EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9690F5CB223A4874005291EE /* MainGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGameViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 				96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */,
 				96737EA3223D335100D04C33 /* View+Translate.swift */,
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
+				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
+				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -286,19 +292,22 @@
 				TargetAttributes = {
 					9690F5C5223A4874005291EE = {
 						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
 					};
 					9690F5D9223A4875005291EE = {
 						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 9690F5C5223A4874005291EE;
 					};
 					9690F5E4223A4875005291EE = {
 						CreatedOnToolsVersion = 10.1;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 9690F5C5223A4874005291EE;
 					};
 				};
 			};
 			buildConfigurationList = 9690F5C1223A4874005291EE /* Build configuration list for PBXProject "SailingThroughHistory" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -418,11 +427,13 @@
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
+				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
+				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,8 +598,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -601,10 +611,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistory/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.CS3217;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -620,10 +627,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistory/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.CS3217;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -639,11 +643,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistoryTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.SailingThroughHistoryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -660,11 +660,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistoryTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.SailingThroughHistoryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -680,11 +676,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistoryUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.SailingThroughHistoryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -700,11 +692,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistoryUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.SailingThroughHistoryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
