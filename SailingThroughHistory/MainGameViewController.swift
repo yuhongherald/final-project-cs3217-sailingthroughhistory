@@ -78,6 +78,10 @@ class MainGameViewController: UIViewController {
     }
 
     private func subscribeToInterface() {
+        interface.objects.forEach {
+            add(object: $0, at: $0.frame, withDuration: 1, callback: {})
+        }
+
         interface.events.observeOn(SerialDispatchQueueScheduler(qos: .userInteractive)).subscribe { [weak self] in
             guard let events = $0.element else {
                 return
@@ -112,9 +116,17 @@ class MainGameViewController: UIViewController {
             changeMonth(to: newMonth, withDuration: duration, callback: callback)
         case .playerTurnStart:
             playerTurnStart()
+        case .pauseAndShowAlert(let title, let msg):
+            pauseAndShowAlert(titled: title, withMsg: msg, callback: callback)
         default:
             print("Unsupported event not handled.")
         }
+    }
+
+    private func pauseAndShowAlert(titled title: String, withMsg msg: String, callback: @escaping () -> Void) {
+        let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg, action: callback)
+
+        present(alert, animated: true, completion: nil)
     }
 
     private func playerTurnStart() {
@@ -133,7 +145,6 @@ class MainGameViewController: UIViewController {
         guard let objectView = views[object] else {
             return
         }
-        print(objectView.frame, gameArea.frame)
         UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: { [unowned self] in
             objectView.frame = CGRect.translatingFrom(otherBounds: self.interface.bounds, otherFrame: dest,
                                                       to: self.gameArea.bounds)
@@ -142,6 +153,7 @@ class MainGameViewController: UIViewController {
 
     private func add(object: GameObject, at frame: CGRect, withDuration duration: TimeInterval,
                      callback: @escaping () -> Void) {
+        views[object]?.removeFromSuperview()
         let image = UIImage(named: object.image)
         let view = UIImageView(image: image)
         views[object] = view
