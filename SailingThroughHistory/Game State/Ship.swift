@@ -18,7 +18,7 @@ class Ship {
     public init(node: Node)
     {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
-        self.location = Variable(location)
+        self.location = GameVariable(value: location)
     }
     
     public func getNodesInRange(roll: Int) -> [Node] {

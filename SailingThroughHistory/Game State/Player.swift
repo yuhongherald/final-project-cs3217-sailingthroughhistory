@@ -9,8 +9,8 @@
 import Foundation
 
 class Player: GenericPlayer {
-    public let money = GameVariable(0)
-    public let state = GameVariable(PlayerState.endTurn)
+    public let money = GameVariable(value: 0)
+    public let state = GameVariable(value: PlayerState.endTurn)
 
     private let ship: Ship
     
@@ -18,45 +18,45 @@ class Player: GenericPlayer {
         ship = Ship(node: node)
     }
 
-    func buyUpgrade(upgrade: Upgrade) {
+    public func buyUpgrade(upgrade: Upgrade) {
     }
     
-    func getOwnedPorts() -> [Port] {
+    public func getOwnedPorts() -> [Port] {
         return []
     }
     
-    func setTax(port: Port) {
+    public func setTax(port: Port) {
     }
     
-    func move(node: Node) {
+    public func move(node: Node) {
         ship.move(node: node)
     }
     
-    func getNodesInRange(roll: Int) -> [Node] {
+    public func getNodesInRange(roll: Int) -> [Node] {
         return ship.getNodesInRange(roll: roll)
     }
     
-    func canDock() -> Bool {
+    public func canDock() -> Bool {
         return false
     }
     
-    func dock() {
+    public func dock() {
     }
     
-    func getMaxPurchaseAmount(itemType: ItemType) -> Int {
+    public func getMaxPurchaseAmount(itemType: ItemType) -> Int {
         return 0
     }
     
-    func getMaxSellAmount(itemType: ItemType) -> Int {
+    public func getMaxSellAmount(itemType: ItemType) -> Int {
         return 0
     }
     
-    func buy(itemType: ItemType, quantity: Int) {
+    public func buy(itemType: ItemType, quantity: Int) {
     }
     
-    func sell(itemType: ItemType, quantity: Int) {
+    public func sell(itemType: ItemType, quantity: Int) {
     }
     
-    func endTurn() {
+    public func endTurn() {
     }
 }
