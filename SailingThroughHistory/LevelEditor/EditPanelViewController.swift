@@ -9,8 +9,10 @@
 import UIKit
 protocol EditPanelDelegateProtocol {
     func clicked(_ select: EditableObject)
+    func addMap(_ image: UIImage)
 }
-class EditPanelViewController: UIViewController {
+
+class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var delegate:EditPanelDelegateProtocol?
 
     override func viewDidLoad() {
@@ -19,7 +21,22 @@ class EditPanelViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func addMapPressed(_ sender: Any) {
-        // TODO: add external image
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+
+        imagePicker.allowsEditing = false
+
+        self.present(imagePicker, animated:
+            true)
+    }
+
+    @IBAction func addPiratePressed(_ sender: Any) {
+        delegate?.clicked(.pirate)
+    }
+
+    @IBAction func addPortPressed(_ sender: Any) {
+        delegate?.clicked(.port)
     }
 
     @IBAction func addSeaPressed(_ sender: Any) {
@@ -30,21 +47,24 @@ class EditPanelViewController: UIViewController {
         delegate?.clicked(.path)
     }
 
-    @IBAction func addPortPressed(_ sender: Any) {
-        delegate?.clicked(.port)
+    @IBAction func editParamPressed(_ sender: Any) {
+    }
+
+    @IBAction func editItemPressed(_ sender: Any) {
+    }
+
+    @IBAction func editEventsPressed(_ sender: Any) {
     }
 
     @IBAction func removePressed(_ sender: Any) {
         delegate?.clicked(.erase)
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            delegate?.addMap(image)
+        }
+
+        self.dismiss(animated: true, completion: nil)
     }
-    */
-
 }

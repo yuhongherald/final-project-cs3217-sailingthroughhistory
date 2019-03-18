@@ -28,7 +28,7 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(add(_:)))
         view.addGestureRecognizer(tapGesture)
 
-        let image = UIImage(named: Interface().background)
+        let image = UIImage(named: "worldmap1815")
         map.image = image
     }
 
@@ -129,5 +129,9 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
     func clicked(_ select: EditableObject) {
         editPanel.isHidden = true
         editObject = select
+    }
+
+    func addMap(_ image: UIImage) {
+        map.image = image
     }
 }
