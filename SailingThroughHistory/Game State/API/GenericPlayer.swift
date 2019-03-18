@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import RxSwift
 
 protocol GenericPlayer {
-    var money: Variable<Int> { get }
-    var state: Variable<PlayerState> { get }
+    var money: GameVariable<Int> { get }
+    var state: GameVariable<PlayerState> { get }
     
     init(node: Node)
     

@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import RxSwift
 
 class Ship {
-    private var location: Variable<Location>
+    private var location: GameVariable<Location>
     private var items = [ItemType]()
     private var capacity = 0
     private var chassis: Upgrade?

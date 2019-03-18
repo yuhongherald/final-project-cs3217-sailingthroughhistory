@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import RxSwift
 
 class Player: GenericPlayer {
-    public let money = Variable(0)
-    public let state = Variable(PlayerState.endTurn)
+    public let money = GameVariable(0)
+    public let state = GameVariable(PlayerState.endTurn)
 
     private let ship: Ship
     
