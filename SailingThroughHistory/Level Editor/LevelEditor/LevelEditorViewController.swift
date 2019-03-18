@@ -10,10 +10,11 @@ import UIKit
 
 class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UIGestureRecognizerDelegate {
     @IBOutlet weak var editPanel: UIView!
-    @IBOutlet weak var map: UIImageView!
-    var editObject: EditableObject?
+    @IBOutlet weak var mapBackground: UIImageView!
+    let map = Map()
+    var editMode: EditableObject?
     var lineLayer: CAShapeLayer!
-    var destination: UIImageView?
+    var destination: NodeView?
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let castedDest = segue.destination as? EditPanelViewController else {
@@ -29,7 +30,8 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
         view.addGestureRecognizer(tapGesture)
 
         let image = UIImage(named: "worldmap1815")
-        map.image = image
+        mapBackground.image = image
+        map.addMap(mapBackground)
     }
 
     @IBAction func editPressed(_ sender: Any) {
@@ -38,61 +40,52 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
     }
 
     @IBAction func savePressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Save Level with Name: ", message: nil, preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save",
-                                       style: .default,
-                                       handler: { _ in
-                                        guard let fileName = alert.textFields?.first?.text else {
-                                            return
-                                        }
-                                        //TODO: save level with name
-        })
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-
-        alert.addTextField { (textFiled: UITextField) in
-            textFiled.keyboardAppearance = .default
-            textFiled.keyboardType = .default
-            textFiled.placeholder = "Input level name here"
-            textFiled.clearButtonMode = .whileEditing
-        }
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-
-        self.present(alert, animated: true, completion: nil)
+        let alert = UIAlert(title: "Save Level with Name: ", confirm: { _ in
+            //TODO: save level with name
+        }, textPlaceHolder: "Input level name here")
+        alert.present(in: self)
     }
 
     /// Add/Rmove icons to the map
     @objc func add(_ sender: UITapGestureRecognizer) {
-        if !editPanel.isHidden, editObject != .erase {
+        if !editPanel.isHidden {
             return
         }
 
-        let addedObject = editObject?.getObject(at: sender.location(in: map))
-
         let removeGesture = UITapGestureRecognizer(target: self, action: #selector(remove(_:)))
         let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
+        let location = sender.location(in: self.mapBackground)
 
-        addedObject?.addNodeTo(self.view, with: removeGesture, drawPathGesture)
+        let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
+            guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
+                return
+            }
+            nodeView.addNodeTo(self, map: self.map, with: [removeGesture, drawPathGesture])
+        }, textPlaceHolder: "Input name here.")
+        alert.present(in: self)
     }
 
     @objc func remove(_ sender: UITapGestureRecognizer) {
-        if editObject == .erase {
+        if editMode == .erase {
             sender.view!.removeFromSuperview()
         }
     }
 
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
-        guard editObject == .path else {
+        guard editMode == .path else {
             return
         }
-        let endPoint = sender.location(in: map)
-        let endView = view.hitTest(endPoint, with: nil) as? UIImageView
-        if endView != map, endView != nil {
+        guard let fromNode = sender.view as? NodeView else {
+            return
+        }
+
+        let endPoint = sender.location(in: mapBackground)
+        let endView = view.hitTest(endPoint, with: nil) as? NodeView
+        if endView != nil {
             destination = endView
         }
         let bazier = UIBezierPath()
-        bazier.move(to: (sender.view?.center)!)
+        bazier.move(to: fromNode.center)
 
         switch sender.state {
         case .began:
@@ -100,26 +93,26 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
             lineLayer.strokeColor = UIColor.black.cgColor
             lineLayer.lineWidth = 2.0
 
-            sender.view?.layer.borderColor = UIColor.white.cgColor
-            sender.view?.layer.borderWidth = 3.0
-            map.layer.addSublayer(lineLayer)
+            fromNode.highlighted(true)
+            mapBackground.layer.addSublayer(lineLayer)
         case .changed:
             bazier.addLine(to: endPoint)
             lineLayer.path = bazier.cgPath
 
-            destination?.layer.borderColor = UIColor.white.cgColor
-            destination?.layer.borderWidth = 3.0
+            destination?.highlighted(true)
         case .ended:
-            sender.view?.layer.borderWidth = 0
-            destination?.layer.borderWidth = 0
+            fromNode.highlighted(false)
+            destination?.highlighted(false)
             destination = nil
 
-            guard endView != nil else {
+            guard let toNode = endView else {
                 lineLayer.removeFromSuperlayer()
                 return
             }
 
-            bazier.addLine(to: (endView?.center)!)
+            bazier.addLine(to: toNode.center)
+
+            map.add(path: Path(from: fromNode.node, to: toNode.node))
             lineLayer.path = bazier.cgPath
         default:
             return
@@ -128,10 +121,10 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
 
     func clicked(_ select: EditableObject) {
         editPanel.isHidden = true
-        editObject = select
+        editMode = select
     }
 
     func addMap(_ image: UIImage) {
-        map.image = image
+        mapBackground.image = image
     }
 }

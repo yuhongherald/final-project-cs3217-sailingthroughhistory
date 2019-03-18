@@ -10,8 +10,10 @@ import UIKit
 class Port: Node {
     private static let portNodeSize = CGSize(width: 50, height: 50)
     private static let portNodeImage = "port-node.png"
+    private var owner: String?
 
     init(name: String, pos: CGPoint) {
+        owner = name
         super.init(name: name, image: Port.portNodeImage, frame: CGRect(origin: pos, size: Port.portNodeSize))
     }
 }

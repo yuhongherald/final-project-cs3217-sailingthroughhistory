@@ -20,13 +20,4 @@ class Node: GameObject {
     public func getNodesInRange(range: Double) -> [Node] {
         return []
     }
-
-    public func addNodeTo(_ view: UIView, with gestures: UIGestureRecognizer...) {
-        icon.isUserInteractionEnabled = true
-
-        for gesture in gestures {
-            icon.addGestureRecognizer(gesture)
-        }
-        view.addSubview(icon)
-    }
 }

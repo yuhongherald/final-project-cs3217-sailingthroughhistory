@@ -15,14 +15,14 @@ enum EditableObject {
     case pirate
     case erase
 
-    func getObject(at center: CGPoint) -> Node? {
+    func getNodeView(name: String, at center: CGPoint) -> NodeView? {
         switch self {
         case .sea:
-            return Sea(name: "", pos: center)
+            return NodeView(node: Sea(name: name, pos: center))
         case .port:
-            return Port(name: "", pos: center)
+            return NodeView(node: Port(name: name, pos: center))
         case .pirate:
-            return Pirate(name: "", pos: center)
+            return NodeView(node: Pirate(name: name, pos: center))
         default:
             return nil
         }

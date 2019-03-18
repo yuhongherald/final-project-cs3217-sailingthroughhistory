@@ -254,7 +254,7 @@
                     </view>
                     <connections>
                         <outlet property="editPanel" destination="Eve-zd-5jg" id="iSU-gz-uTa"/>
-                        <outlet property="map" destination="1E8-YA-7dq" id="fjQ-Lx-rQ3"/>
+                        <outlet property="mapBackground" destination="1E8-YA-7dq" id="fjQ-Lx-rQ3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZR3-P0-Tw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
