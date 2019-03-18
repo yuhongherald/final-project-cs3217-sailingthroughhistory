@@ -61,7 +61,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information">
                                 <rect key="frame" x="341.5" y="64" width="341" height="256"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fN-oD-MBu" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -72,6 +72,9 @@
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="hidePortInformationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kdd-qX-w0s"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -190,6 +193,7 @@
                         <outlet property="gameAndBackgroundWrapper" destination="Ph7-HO-lQ1" id="pc9-ya-kwM"/>
                         <outlet property="gameArea" destination="Yzi-uC-Odn" id="qRV-20-8r7"/>
                         <outlet property="monthLabel" destination="6nf-n2-xli" id="Bas-Lj-mTh"/>
+                        <outlet property="portInformationView" destination="hZq-3R-NvY" id="cZb-aG-dOe"/>
                         <outlet property="rollDiceButton" destination="bxt-Al-xiN" id="sr8-uW-nCc"/>
                         <outlet property="scrollView" destination="yCl-MH-qBd" id="sfg-kM-0DH"/>
                         <outlet property="toggleActionPanelButton" destination="8nQ-Ii-rtZ" id="MKl-F8-wAL"/>

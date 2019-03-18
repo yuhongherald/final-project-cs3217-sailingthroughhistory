@@ -64,7 +64,7 @@ class Interface {
                 paths[path.fromObject]?.append(path)
                 paths[path.toObject]?.append(path)
             case .addObject(let object, let frame):
-                objects[object] = frame
+                objectFrames[object] = frame
             default:
                 break
             }

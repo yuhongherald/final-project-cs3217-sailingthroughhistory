@@ -19,6 +19,11 @@ class MainGameViewController: UIViewController {
     }
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
+    @IBOutlet private weak var portInformationView: UIView! {
+        didSet {
+            addBlurBackground(to: portInformationView)
+        }
+    }
     @IBOutlet private weak var monthLabel: UILabel!
     @IBOutlet private weak var toggleActionPanelButton: UIButtonRounded!
     @IBOutlet private weak var actionPanelView: UIView!
@@ -70,10 +75,24 @@ class MainGameViewController: UIViewController {
         actionPanelView.isHidden.toggle()
     }
 
+    @IBAction func hidePortInformationPressed(_ sender: Any) {
+        portInformationView.isHidden = false
+    }
+
     @IBAction func rollDiceButtonPressed(_ sender: UIButtonRounded) {
         sender.isEnabled = false
         sender.set(color: .lightGray)
         /// TODO: Roll dice logic
+    }
+
+    private func addBlurBackground(to view: UIView) {
+        view.backgroundColor = UIColor.clear
+        let blurEffect = UIBlurEffect(style: .extraLight)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.frame = view.bounds
+        blurView.alpha = 0.7
+        view.insertSubview(blurView, at: 0)
     }
 
     private func initBackground() {
