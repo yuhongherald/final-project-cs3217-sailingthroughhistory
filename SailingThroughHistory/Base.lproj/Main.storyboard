@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fZz-0J-H6I">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -74,6 +74,158 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-11" y="-542"/>
+        </scene>
+        <!--Level Editor View Controller-->
+        <scene sceneID="uPZ-4o-SCp">
+            <objects>
+                <viewController id="fZz-0J-H6I" customClass="LevelEditorViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HuG-nD-jJd">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1E8-YA-7dq" customClass="image">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                                <color key="backgroundColor" red="0.54361310900000004" green="0.8980392157" blue="0.83049604160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-V9-wW8">
+                                <rect key="frame" x="725" y="688" width="66" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Edit"/>
+                                <connections>
+                                    <action selector="editPressed:" destination="fZz-0J-H6I" eventType="touchUpInside" id="JyF-7C-rBb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqI-UC-Pv3">
+                                <rect key="frame" x="864" y="688" width="85" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="savePressed:" destination="fZz-0J-H6I" eventType="touchUpInside" id="DRE-xM-6Ag"/>
+                                </connections>
+                            </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eve-zd-5jg">
+                                <rect key="frame" x="0.0" y="559" width="1024" height="209"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Eve-zd-5jg" secondAttribute="height" multiplier="1024:209" id="ehF-4C-amH"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Ijb-LN-WOw" kind="embed" id="3Kc-z5-I5w"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1E8-YA-7dq" firstAttribute="bottom" secondItem="m5A-Sd-kWE" secondAttribute="bottom" id="H9f-KO-6NM"/>
+                            <constraint firstItem="1E8-YA-7dq" firstAttribute="top" secondItem="HuG-nD-jJd" secondAttribute="top" id="Mse-TX-uyd"/>
+                            <constraint firstItem="1E8-YA-7dq" firstAttribute="leading" secondItem="m5A-Sd-kWE" secondAttribute="leading" id="diH-0r-8tD"/>
+                            <constraint firstItem="Eve-zd-5jg" firstAttribute="leading" secondItem="m5A-Sd-kWE" secondAttribute="leading" id="hhu-1h-OXj"/>
+                            <constraint firstItem="1E8-YA-7dq" firstAttribute="trailing" secondItem="m5A-Sd-kWE" secondAttribute="trailing" id="kdh-Qd-iPc"/>
+                            <constraint firstItem="Eve-zd-5jg" firstAttribute="trailing" secondItem="m5A-Sd-kWE" secondAttribute="trailing" id="rYv-AN-r8v"/>
+                            <constraint firstItem="Eve-zd-5jg" firstAttribute="bottom" secondItem="m5A-Sd-kWE" secondAttribute="bottom" id="tTf-rD-GXi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="m5A-Sd-kWE"/>
+                    </view>
+                    <connections>
+                        <outlet property="editPanel" destination="Eve-zd-5jg" id="iSU-gz-uTa"/>
+                        <outlet property="map" destination="1E8-YA-7dq" id="fjQ-Lx-rQ3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZR3-P0-Tw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="776.953125" y="87.5"/>
+        </scene>
+        <!--Edit Panel View Controller-->
+        <scene sceneID="drC-6i-m6q">
+            <objects>
+                <viewController id="Ijb-LN-WOw" customClass="EditPanelViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ylw-qc-8bT">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="209"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EmB-Zu-rIO">
+                                <rect key="frame" x="85" y="129" width="156" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Add Path"/>
+                                <connections>
+                                    <action selector="addPathPressed:" destination="Ijb-LN-WOw" eventType="touchUpInside" id="Kf9-jP-gDN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQe-Ce-msP">
+                                <rect key="frame" x="85" y="88" width="156" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Add Port"/>
+                                <connections>
+                                    <action selector="addPortPressed:" destination="Ijb-LN-WOw" eventType="touchUpInside" id="h1c-pV-Puo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ry-qU-2bf">
+                                <rect key="frame" x="85" y="20" width="177" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Add Pirate"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EXY-oy-WqQ">
+                                <rect key="frame" x="664" y="20" width="268" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Edit Parameters"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtc-Y4-iw4">
+                                <rect key="frame" x="703" y="74" width="190" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Edit Events"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfi-sH-1n2">
+                                <rect key="frame" x="714" y="129" width="169" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Edit Items"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RxV-36-RMI">
+                                <rect key="frame" x="323" y="88" width="155" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Add Map"/>
+                                <connections>
+                                    <action selector="addMapPressed:" destination="Ijb-LN-WOw" eventType="touchUpInside" id="vIC-SR-nz3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K39-oD-iM0">
+                                <rect key="frame" x="323" y="20" width="173" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Add Node"/>
+                                <connections>
+                                    <action selector="addNodePressed:" destination="Ijb-LN-WOw" eventType="touchUpInside" id="efD-34-A0a"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXj-9A-ILn">
+                                <rect key="frame" x="340" y="129" width="139" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Remove"/>
+                                <connections>
+                                    <action selector="editPressed:" destination="fZz-0J-H6I" eventType="touchUpInside" id="dIf-Zk-efq"/>
+                                    <action selector="removePressed:" destination="Ijb-LN-WOw" eventType="touchUpInside" id="Tah-jT-Ufx"/>
+                                    <action selector="removePressed:" destination="fZz-0J-H6I" eventType="touchUpInside" id="ofS-Lm-8L9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="UfN-ZF-f11"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FNj-RA-J66" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="776.953125" y="621.484375"/>
         </scene>
     </scenes>
 </document>

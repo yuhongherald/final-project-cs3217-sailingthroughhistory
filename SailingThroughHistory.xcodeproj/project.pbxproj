@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
+		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
+		1A9FF086223F6DAB00005FCB /* EditableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditableObject.swift */; };
+		1A9FF088223F7FE000005FCB /* EditIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF087223F7FE000005FCB /* EditIcon.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -49,6 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A49D237223E468300A419F4 /* LevelEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelEditorViewController.swift; sourceTree = "<group>"; };
+		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
+		1A9FF085223F6DAB00005FCB /* EditableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableObject.swift; sourceTree = "<group>"; };
+		1A9FF087223F7FE000005FCB /* EditIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIcon.swift; sourceTree = "<group>"; };
 		3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
@@ -107,6 +115,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A9FF084223F6CE400005FCB /* LevelEditor */ = {
+			isa = PBXGroup;
+			children = (
+				1A49D237223E468300A419F4 /* LevelEditorViewController.swift */,
+				1A49D239223F644F00A419F4 /* EditPanelViewController.swift */,
+				1A9FF085223F6DAB00005FCB /* EditableObject.swift */,
+				1A9FF087223F7FE000005FCB /* EditIcon.swift */,
+			);
+			path = LevelEditor;
+			sourceTree = "<group>";
+		};
 		38DFED7D720553198BABBF4C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +194,7 @@
 		9690F5C8223A4874005291EE /* SailingThroughHistory */ = {
 			isa = PBXGroup;
 			children = (
+				1A9FF084223F6CE400005FCB /* LevelEditor */,
 				96737EA2223D319A00D04C33 /* Interface */,
 				965E033A223A7110005F7D79 /* Common */,
 				965E0331223A4B2F005F7D79 /* Parameters */,
@@ -382,7 +402,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -397,7 +417,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -407,6 +427,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */,
 				965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
 				965E0343223AD976005F7D79 /* Interface.swift in Sources */,
@@ -422,7 +443,10 @@
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
+				1A9FF088223F7FE000005FCB /* EditIcon.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
+				1A9FF086223F6DAB00005FCB /* EditableObject.swift in Sources */,
+				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
