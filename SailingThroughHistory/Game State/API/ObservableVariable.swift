@@ -7,7 +7,9 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol ObservableVariable {
+    associatedtype T: Any
     func subscribe(with observer: @escaping (Event<T>) -> Void)
 }

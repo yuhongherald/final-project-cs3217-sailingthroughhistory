@@ -1,5 +1,5 @@
 //
-//  Item.swift
+//  Consumable.swift
 //  SailingThroughHistory
 //
 //  Created by henry on 18/3/19.
@@ -8,9 +8,6 @@
 
 import Foundation
 
-protocol Item {
-    var itemType: ItemType { get }
-    var quantity: Int { get }
-    
-    func getValue(port: Port) -> Int
+protocol Consumable: Item {
+    func consume() -> Bool
 }

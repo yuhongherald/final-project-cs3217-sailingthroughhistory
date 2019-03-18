@@ -10,7 +10,11 @@ import Foundation
 
 class Player {
     private var money = 0
-    private var ship: Ship?
+    private let ship: Ship
+    
+    public init(location: Node) {
+        ship = Ship(location: location)
+    }
     
     public func buy() {
         

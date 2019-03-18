@@ -7,13 +7,19 @@
 //
 
 import Foundation
+import RxSwift
 
 class Ship {
-    private var location: Node?
-    private var items = [Item]()
+    private var location: Variable<Node>
+    private var items = [ItemType]()
     private var capacity = 0
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?
+    
+    public init(location: Node)
+    {
+        self.location = Variable(location)
+    }
     
     public func getNodesInRange() -> [Node] {
         return []

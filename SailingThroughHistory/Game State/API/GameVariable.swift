@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 class GameVariable<T> : ObservableVariable {
-    private let disposeBag = Disposebag()
+    private let disposeBag = DisposeBag()
     private var variable: Variable<T>
     public var value: T {
         get {
@@ -25,7 +25,7 @@ class GameVariable<T> : ObservableVariable {
     }
     
     func subscribe(with observer: @escaping (Event<T>) -> Void) {
-        variable.asObservable().subscribe(onNext: observer).addDisposableTo(disposeBag)
+variable.asObservable().subscribe(observer).disposed(by: disposeBag)
     }
     
 }
