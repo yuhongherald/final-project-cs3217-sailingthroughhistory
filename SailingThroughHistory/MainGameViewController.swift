@@ -24,6 +24,20 @@ class MainGameViewController: UIViewController {
             addBlurBackground(to: portInformationView)
         }
     }
+    @IBOutlet private weak var playerOneInformationView: UIView! {
+        didSet {
+            addBlurBackground(to: playerOneInformationView)
+        }
+    }
+    @IBOutlet private weak var playerTwoInformationView: UIView! {
+        didSet {
+            addBlurBackground(to: playerTwoInformationView)
+        }
+    }
+    @IBOutlet private weak var playerOneGoldView: UILabel!
+    @IBOutlet private weak var playerTwoGoldView: UILabel!
+    @IBOutlet private weak var togglePlayerOneInfoButton: UIButtonRounded!
+    @IBOutlet private weak var togglePlayerTwoInfoButton: UIButtonRounded!
     @IBOutlet private weak var monthLabel: UILabel!
     @IBOutlet private weak var toggleActionPanelButton: UIButtonRounded!
     @IBOutlet private weak var actionPanelView: UIView!
@@ -34,13 +48,17 @@ class MainGameViewController: UIViewController {
     }
 
     let scheduler = SerialDispatchQueueScheduler(qos: .default)
-    var views = [GameObject: UIView]()
+    var views = [GameObject: UIGameImageView]()
     var paths = [GameObject: [Path]]()
-    let disposeBag = DisposeBag()
-    // TODO: Change to actual game state.
-    let interface = Interface()
+    var pathLayers = [Path: CALayer]()
+    /// TODO: Reference to Game Engine
+    var interface: Interface = Interface(players: [])
     var subscription: Disposable?
     var originalScale: CGFloat = 1
+    lazy var togglablePanels: [UIButton: UIView] = [
+        toggleActionPanelButton: actionPanelView,
+        togglePlayerOneInfoButton: playerOneInformationView,
+        togglePlayerTwoInfoButton: playerTwoInformationView]
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -51,32 +69,32 @@ class MainGameViewController: UIViewController {
         initBackground()
 
         //Uncomment to test interface
-        /*let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
         let object2 = GameObject(image: "sea-node.png", frame: CGRect(x: 500, y: 500, width: 50, height: 50))
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
         self.interface.add(path: Path(fromObject: object, toObject: object2))
-        self.interface.broadcastInterfaceChanges(withDuration: 1)*/
+        self.interface.broadcastInterfaceChanges(withDuration: 1)
 
         subscribeToInterface()
 
          //Uncomment to test interface
-         /*DispatchQueue.global(qos: .background).async { [weak self] in
+         DispatchQueue.global(qos: .background).async { [weak self] in
             while true {
                 object.frame = object.frame.applying(CGAffineTransform(translationX: 50, y: 50))
                 self?.interface.updatePosition(of: object)
                 self?.interface.broadcastInterfaceChanges(withDuration: 1)
             }
-        }*/
+        }
     }
 
-    @IBAction func toggleActionPanel(_ sender: UIButtonRounded) {
-        actionPanelView.isHidden.toggle()
+    @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
+        togglablePanels[sender]?.isHidden.toggle()
     }
 
     @IBAction func hidePortInformationPressed(_ sender: Any) {
-        portInformationView.isHidden = false
+        portInformationView.isHidden = true
     }
 
     @IBAction func rollDiceButtonPressed(_ sender: UIButtonRounded) {
@@ -105,6 +123,23 @@ class MainGameViewController: UIViewController {
     }
 
     private func subscribeToInterface() {
+        if let currentTurnOwner = interface.currentTurnOwner {
+            playerTurnStart(player: currentTurnOwner)
+        }
+
+        syncObjectsAndPaths(with: interface)
+        subscribePlayerInformation(players: interface.players)
+
+        interface.subscribe { [weak self] in
+            guard let events = $0.element else {
+                return
+            }
+
+            self?.handle(events: events)
+        }
+    }
+
+    private func syncObjectsAndPaths(with interface: Interface) {
         interface.objectFrames.forEach {
             add(object: $0.key, at: $0.value, withDuration: 0.25, callback: {})
         }
@@ -114,13 +149,30 @@ class MainGameViewController: UIViewController {
                 self?.add(path: path, fadeInDuration: 0.25, callback: {})
             }
         }
+    }
 
-        interface.subscribe { [weak self] in
-            guard let events = $0.element else {
-                return
+    private func subscribePlayerInformation(players: [Player]) {
+        /// TODO: Less hackish
+        if players.indices.contains(0) {
+            players[0].money.subscribe { [weak self] in
+                guard let gold = $0.element else {
+                    self?.playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)Error"
+                    return
+                }
+
+                self?.playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
             }
+        }
 
-            self?.handle(events: events)
+        if players.indices.contains(1) {
+            players[1].money.subscribe { [weak self] in
+                guard let gold = $0.element else {
+                    self?.playerTwoGoldView.text = "\(InterfaceConstants.moneyPrefix)Error"
+                    return
+                }
+
+                self?.playerTwoGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
+            }
         }
     }
 
@@ -145,16 +197,17 @@ class MainGameViewController: UIViewController {
         }
         let startPoint = CGPoint(x: fromFrame.midX, y: fromFrame.midY)
         let endPoint = CGPoint(x: toFrame.midX, y: toFrame.midY)
-        let path = UIBezierPath()
+        let bezierPath = UIBezierPath()
         let layer = CAShapeLayer()
-        path.move(to: startPoint)
-        path.addLine(to: endPoint)
-        layer.path = path.cgPath
+        bezierPath.move(to: startPoint)
+        bezierPath.addLine(to: endPoint)
+        layer.path = bezierPath.cgPath
         layer.strokeColor = UIColor.black.cgColor
         layer.fillColor = UIColor.clear.cgColor
         layer.lineWidth = 4.0
         layer.lineDashPattern = [10.0, 2.0]
         gameArea.layer.addSublayer(layer)
+        pathLayers[path] = layer
         CATransaction.begin()
         CATransaction.setCompletionBlock(callback)
         let animation = CABasicAnimation(keyPath: "strokeEnd")
@@ -164,7 +217,37 @@ class MainGameViewController: UIViewController {
         animation.duration = fadeInDuration
         layer.add(animation, forKey: "drawLineAnimation")
         CATransaction.commit()
+    }
 
+    private func remove(path: Path, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
+        paths[path.fromObject]?.removeAll { $0 == path }
+        paths[path.toObject]?.removeAll { $0 == path }
+        let layer = pathLayers.removeValue(forKey: path)
+        CATransaction.begin()
+        CATransaction.setCompletionBlock {
+            callback()
+            layer?.removeFromSuperlayer()
+        }
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        /* set up animation */
+        animation.fromValue = 1.0
+        animation.toValue = 0.0
+        animation.duration = duration
+        layer?.add(animation, forKey: "drawLineAnimation")
+        CATransaction.commit()
+    }
+
+    private func remove(object: GameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
+        let view = views[object]
+        paths[object]?.forEach { [weak self] in
+            self?.remove(path: $0, withDuration: duration, callback: {})
+        }
+        UIView.animate(withDuration: duration, animations: {
+            view?.alpha = 0
+        }, completion: { _ in
+            view?.removeFromSuperview()
+            callback()
+        })
     }
 
     private func handle(events: InterfaceEvents) {
@@ -192,10 +275,14 @@ class MainGameViewController: UIViewController {
             add(object: object, at: frame, withDuration: duration, callback: callback)
         case .changeMonth(let newMonth):
             changeMonth(to: newMonth, withDuration: duration, callback: callback)
-        case .playerTurnStart:
-            playerTurnStart()
+        case .playerTurnStart(let player):
+            playerTurnStart(player: player)
         case .pauseAndShowAlert(let title, let msg):
             pauseAndShowAlert(titled: title, withMsg: msg, callback: callback)
+        case .removePath(let path):
+            remove(path: path, withDuration: duration, callback: callback)
+        case .removeObject(let object):
+            remove(object: object, withDuration: duration, callback: callback)
         default:
             print("Unsupported event not handled.")
         }
@@ -207,7 +294,7 @@ class MainGameViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func playerTurnStart() {
+    private func playerTurnStart(player: Player) {
         /// TODO: Update with actual player "name"
         let alert = ControllerUtils.getGenericAlert(titled: "Your turn has started.",
                                                     withMsg: "", action: { [weak self] in
@@ -233,7 +320,7 @@ class MainGameViewController: UIViewController {
                      callback: @escaping () -> Void) {
         views[object]?.removeFromSuperview()
         let image = UIImage(named: object.image)
-        let view = UIImageView(image: image)
+        let view = UIGameImageView(image: image, object: object)
         views[object] = view
         view.alpha = 0
         gameArea.addSubview(view)

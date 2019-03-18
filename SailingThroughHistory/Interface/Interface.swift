@@ -15,9 +15,15 @@ class Interface {
     let events = PublishSubject<InterfaceEvents>()
     let disposeBag = DisposeBag()
     let monthSymbols = Calendar.current.monthSymbols
+    let players: [Player]
     var pendingEvents = [InterfaceEvent]()
     var objectFrames = [GameObject: CGRect]()
     var paths = [GameObject: [Path]]()
+    var currentTurnOwner: Player?
+
+    init(players: [Player]) {
+        self.players = players
+    }
 
     func add(object: GameObject) {
         pendingEvents.append(.addObject(object, atFrame: object.frame))
@@ -43,8 +49,8 @@ class Interface {
     }
 
     /// TODO: Modify to take in current player.
-    func playerTurnStart() {
-        pendingEvents.append(.playerTurnStart)
+    func playerTurnStart(player: Player) {
+        pendingEvents.append(.playerTurnStart(player: player))
     }
 
     /// TODO: Change method name to commit and broadcast
@@ -53,18 +59,21 @@ class Interface {
         for event in pendingEvents {
             switch event {
             case .addPath(let path):
-                if paths[path.fromObject] == nil {
-                    paths[path.fromObject] = []
-                }
-
-                if paths[path.toObject] == nil {
-                    paths[path.toObject] = []
-                }
-
-                paths[path.fromObject]?.append(path)
-                paths[path.toObject]?.append(path)
+                addPathToState(path: path)
             case .addObject(let object, let frame):
                 objectFrames[object] = frame
+            case .removePath(let path):
+                paths[path.toObject]?.removeAll { $0 == path }
+                paths[path.fromObject]?.removeAll { $0 == path }
+            case .removeObject(let object):
+                objectFrames[object] = nil
+                paths[object]?.forEach { path in
+                    paths[path.toObject]?.removeAll { otherPath in path == otherPath }
+                }
+            case .playerTurnStart(let player):
+                currentTurnOwner = player
+            case .playerTurnEnd:
+                currentTurnOwner = nil
             default:
                 break
             }
@@ -73,9 +82,30 @@ class Interface {
         events.on(.next(toBroadcast))
     }
 
+    func remove(object: GameObject) {
+        pendingEvents.append(.removeObject(object))
+    }
+
+    func remove(path: Path) {
+        pendingEvents.append(.removePath(path))
+    }
+
     func subscribe(callback: @escaping (Event<InterfaceEvents>) -> Void) {
         return events.observeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
             .subscribe(callback)
             .disposed(by: disposeBag)
+    }
+
+    private func addPathToState(path: Path) {
+        if paths[path.fromObject] == nil {
+            paths[path.fromObject] = []
+        }
+
+        if paths[path.toObject] == nil {
+            paths[path.toObject] = []
+        }
+
+        paths[path.fromObject]?.append(path)
+        paths[path.toObject]?.append(path)
     }
 }

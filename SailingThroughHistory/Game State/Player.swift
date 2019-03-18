@@ -9,8 +9,8 @@
 import Foundation
 
 class Player: GenericPlayer {
-    public let money = GameVariable(0)
-    public let state = GameVariable(PlayerState.endTurn)
+    public let money = GameVariable(value: 0)
+    public let state = GameVariable(value: PlayerState.endTurn)
 
     private let ship: Ship
     

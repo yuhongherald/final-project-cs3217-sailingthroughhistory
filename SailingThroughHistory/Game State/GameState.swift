@@ -34,6 +34,4 @@ class GameState: GenericGameState {
     
     public func endGame() {
     }
-    
-
 }

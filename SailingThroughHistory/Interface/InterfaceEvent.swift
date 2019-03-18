@@ -15,6 +15,10 @@ enum InterfaceEvent {
     case addObject(_: GameObject, atFrame: CGRect)
     case addPath(_: Path)
     case changeMonth(toMonth: String)
-    case playerTurnStart
+    case playerTurnStart(player: Player)
+    case playerTurnEnd
+    case removeObject(_: GameObject)
+    case removePath(_: Path)
     case pauseAndShowAlert(titled: String, withMsg: String)
+    case showTravelChoices(choices: [Node])
 }

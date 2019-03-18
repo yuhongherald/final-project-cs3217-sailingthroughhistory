@@ -17,6 +17,7 @@
 		965E0343223AD976005F7D79 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0342223AD976005F7D79 /* Interface.swift */; };
 		965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */; };
 		966941DA223FD3A900F07A50 /* UIGameImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameImageView.swift */; };
+		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
 		96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */; };
 		96737EA4223D335100D04C33 /* View+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA3223D335100D04C33 /* View+Translate.swift */; };
@@ -84,6 +85,7 @@
 		965E0342223AD976005F7D79 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvent.swift; sourceTree = "<group>"; };
 		966941D9223FD3A900F07A50 /* UIGameImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameImageView.swift; sourceTree = "<group>"; };
+		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvents.swift; sourceTree = "<group>"; };
 		96737EA3223D335100D04C33 /* View+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Translate.swift"; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
 				96877E53223EC7D80020F44C /* Path.swift */,
 				966941D9223FD3A900F07A50 /* UIGameImageView.swift */,
+				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -492,7 +495,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -507,7 +510,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -526,6 +529,7 @@
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
+				966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */,
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
