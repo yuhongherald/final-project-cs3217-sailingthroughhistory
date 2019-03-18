@@ -9,4 +9,7 @@
 import UIKit
 
 class Node: GameObject {
+    public func getNodesInRange(range: Double) -> [Node] {
+        return []
+    }
 }

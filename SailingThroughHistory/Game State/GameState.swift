@@ -9,7 +9,7 @@
 import Foundation
 
 class GameState: GenericGameState {
-    private var players = [GameVariable<Player>]()
+    private var players = [Player]()
     private var level: GameVariable<Level>?
     private var speedMultiplier = 1.0
     
@@ -19,11 +19,17 @@ class GameState: GenericGameState {
     }
     
     public func getNextPlayer() -> Player? {
-        return playerTurnOrder.removeFirst()
+        let nextPlayer = playerTurnOrder.removeFirst()
+        nextPlayer.state.value = PlayerState.moving
+        return nextPlayer
     }
     
     public func startNextTurn(speedMultiplier: Double) {
         self.speedMultiplier = speedMultiplier
+        playerTurnOrder.removeAll()
+        for player in players {
+            playerTurnOrder.append(player)
+        }
     }
     
     public func endGame() {

@@ -7,20 +7,57 @@
 //
 
 import Foundation
+import RxSwift
 
-class Player {
-    private var money = 0
+class Player: GenericPlayer {
+    public let money = Variable(0)
+    public let state = Variable(PlayerState.endTurn)
+
     private let ship: Ship
     
-    public init(location: Node) {
-        ship = Ship(location: location)
+    required public init(node: Node) {
+        ship = Ship(node: node)
+    }
+
+    func buyUpgrade(upgrade: Upgrade) {
     }
     
-    public func buy() {
-        
+    func getOwnedPorts() -> [Port] {
+        return []
     }
     
-    public func sell() {
-        
+    func setTax(port: Port) {
+    }
+    
+    func move(node: Node) {
+        ship.move(node: node)
+    }
+    
+    func getNodesInRange(roll: Int) -> [Node] {
+        return ship.getNodesInRange(roll: roll)
+    }
+    
+    func canDock() -> Bool {
+        return false
+    }
+    
+    func dock() {
+    }
+    
+    func getMaxPurchaseAmount(itemType: ItemType) -> Int {
+        return 0
+    }
+    
+    func getMaxSellAmount(itemType: ItemType) -> Int {
+        return 0
+    }
+    
+    func buy(itemType: ItemType, quantity: Int) {
+    }
+    
+    func sell(itemType: ItemType, quantity: Int) {
+    }
+    
+    func endTurn() {
     }
 }
