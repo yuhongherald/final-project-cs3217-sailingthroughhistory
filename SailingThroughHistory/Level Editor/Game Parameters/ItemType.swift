@@ -9,11 +9,20 @@
 import Foundation
 
 protocol ItemType: GameParameter {
+    var displayName: Int { get }
+    var weight: Int { get }
+    var isConsumable: Bool { get }
+    
+    // Create a quantized representation
     func createItem(quantity: Int) -> Item
+    
+    // Global pricing information
     func getBuyValue(at port: Port) -> Int?
     func getSellValue(at port: Port) -> Int?
     func setBuyValue(at port: Port)
     func setSellValue(at port: Port)
-    func add(port: Port)
-    func delete(pot: Port)
+    
+    // Availability at ports
+    func add(to port: Port)
+    func delete(from pot: Port)
 }

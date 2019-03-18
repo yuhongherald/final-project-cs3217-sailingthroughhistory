@@ -25,7 +25,8 @@ class Player: GenericPlayer {
         return []
     }
     
-    public func setTax(port: Port) {
+    public func setTax(port: Port, amount: Int) {
+        port.taxAmount = amount
     }
     
     public func move(node: Node) {
@@ -37,10 +38,12 @@ class Player: GenericPlayer {
     }
     
     public func canDock() -> Bool {
-        return false
+        return ship.canDock()
     }
     
     public func dock() {
+        let port = ship.dock()
+        port?.collectTax(from: self)
     }
     
     public func getMaxPurchaseAmount(itemType: ItemType) -> Int {
@@ -58,5 +61,12 @@ class Player: GenericPlayer {
     }
     
     public func endTurn() {
+    }
+}
+
+// MARK - Equatable
+extension Player: Equatable {
+    static func == (lhs: Player, rhs: Player) -> Bool {
+        return lhs === rhs
     }
 }

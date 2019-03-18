@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol GenericPlayer {
+protocol GenericPlayer: Equatable {
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }
     
@@ -17,7 +17,7 @@ protocol GenericPlayer {
     // Before moving
     func buyUpgrade(upgrade: Upgrade)
     func getOwnedPorts() -> [Port]
-    func setTax(port: Port)
+    func setTax(port: Port, amount: Int)
     
     // Moving - Auto progress to End turn if cannot dock
     func move(node: Node)

@@ -35,12 +35,19 @@ class Ship {
         location.value = Location(start: node, end: node, fractionToEnd: 0, isDocked: false)
     }
     
-    public func dock() -> Bool {
-        if location.value.fractionToEnd > 0 {
-            return false
+    public func canDock() -> Bool {
+        return location.value.fractionToEnd == 0 && location.value.start is Port
+    }
+    
+    public func dock() -> Port? {
+        guard canDock() else {
+            return nil
+        }
+        guard let port = location.value.start as? Port else {
+            return nil
         }
         location.value = Location(from: location.value, isDocked: true)
-        return true
+        return port
     }
     
     private func computeMovement(roll: Int) -> Double {
