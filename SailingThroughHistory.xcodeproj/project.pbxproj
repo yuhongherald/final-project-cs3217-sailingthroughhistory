@@ -23,6 +23,7 @@
 		96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA7223D56CD00D04C33 /* ControllerUtils.swift */; };
 		96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EAA223D772900D04C33 /* UIVIew+Border.swift */; };
 		96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */; };
+		96877E54223EC7D80020F44C /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96877E53223EC7D80020F44C /* Path.swift */; };
 		9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5C9223A4874005291EE /* AppDelegate.swift */; };
 		9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5CB223A4874005291EE /* MainGameViewController.swift */; };
 		9690F5CF223A4874005291EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5CD223A4874005291EE /* Main.storyboard */; };
@@ -88,6 +89,7 @@
 		96737EA7223D56CD00D04C33 /* ControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerUtils.swift; sourceTree = "<group>"; };
 		96737EAA223D772900D04C33 /* UIVIew+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Border.swift"; sourceTree = "<group>"; };
 		96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonRounded.swift; sourceTree = "<group>"; };
+		96877E53223EC7D80020F44C /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		9690F5C6223A4874005291EE /* SailingThroughHistory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SailingThroughHistory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5C9223A4874005291EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9690F5CB223A4874005291EE /* MainGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGameViewController.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
 				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
 				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
+				96877E53223EC7D80020F44C /* Path.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
+				96877E54223EC7D80020F44C /* Path.swift in Sources */,
 				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,

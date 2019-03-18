@@ -61,6 +61,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information">
+                                <rect key="frame" x="341.5" y="64" width="341" height="256"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fN-oD-MBu" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="206" width="147" height="30"/>
+                                        <state key="normal" title="Hide Port Information"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="3fN-oD-MBu" secondAttribute="bottom" constant="20" symbolic="YES" id="naO-AH-pd8"/>
+                                    <constraint firstItem="3fN-oD-MBu" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="xAx-aP-vby"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Pn-jO-5xF" userLabel="Action Panel">
                                 <rect key="frame" x="0.0" y="512" width="341.5" height="256"/>
                                 <subviews>
@@ -126,6 +150,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="01i-ni-X3f"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="top" secondItem="6nf-n2-xli" secondAttribute="bottom" constant="8" symbolic="YES" id="2yt-xV-pR4"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="93w-mA-raU"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="BKh-th-Hki"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GYk-OA-eX0"/>
@@ -133,6 +158,7 @@
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mu4-Ie-cT6"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NQy-MG-Yoo"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ObH-J3-fir"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Owk-5v-Gea"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qob-fY-pBc"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QxV-sm-yoD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="bottom" id="Ra9-H3-yrl"/>
@@ -144,7 +170,10 @@
                             <constraint firstItem="DYM-A8-9ob" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fUS-bf-sY6"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="g3t-Hd-j3k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yCl-MH-qBd" secondAttribute="bottom" id="gCr-h2-CW3"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="gVl-OD-3BP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="bottom" id="hhb-JF-26f"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6nf-n2-xli" secondAttribute="trailing" id="lRl-YQ-kVK"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="m8d-iH-P1c"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o3e-AA-P7X"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6nf-n2-xli" secondAttribute="bottom" id="omC-Ki-5LY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="DYM-A8-9ob" secondAttribute="bottom" id="pft-gU-4D2"/>

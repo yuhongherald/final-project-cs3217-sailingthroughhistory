@@ -9,6 +9,14 @@
 import UIKit
 
 class Node: GameObject {
+    let name: String
+    var neighbours = [Node]()
+
+    init(name: String, image: String, frame: CGRect) {
+        self.name = name
+        super.init(image: image, frame: frame)
+    }
+    
     public func getNodesInRange(range: Double) -> [Node] {
         return []
     }
