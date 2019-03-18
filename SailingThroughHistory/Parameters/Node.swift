@@ -16,4 +16,8 @@ class Node: GameObject {
         self.name = name
         super.init(image: image, frame: frame)
     }
+    
+    public func getNodesInRange(range: Double) -> [Node] {
+        return []
+    }
 }
