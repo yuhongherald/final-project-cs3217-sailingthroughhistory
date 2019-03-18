@@ -86,13 +86,13 @@ class MainGameViewController: UIViewController {
     }
 
     private func subscribeToInterface() {
-        interface.objects.forEach {
-            add(object: $0, at: $0.frame, withDuration: 0.25, callback: {})
+        interface.objectFrames.forEach {
+            add(object: $0.key, at: $0.value, withDuration: 0.25, callback: {})
         }
 
         interface.paths.keys.forEach { [weak self] in
             interface.paths[$0]?.forEach { path in
-                self?.add(path: path, fadeInDuration: 0.25, callback: { })
+                self?.add(path: path, fadeInDuration: 0.25, callback: {})
             }
         }
 

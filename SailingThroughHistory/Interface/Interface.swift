@@ -16,11 +16,10 @@ class Interface {
     let disposeBag = DisposeBag()
     let monthSymbols = Calendar.current.monthSymbols
     var pendingEvents = [InterfaceEvent]()
-    var objects = [GameObject]()
+    var objectFrames = [GameObject: CGRect]()
     var paths = [GameObject: [Path]]()
 
     func add(object: GameObject) {
-        objects.append(object)
         pendingEvents.append(.addObject(object, atFrame: object.frame))
     }
 
@@ -40,16 +39,6 @@ class Interface {
     }
 
     func add(path: Path) {
-        if paths[path.fromObject] == nil {
-            paths[path.fromObject] = []
-        }
-
-        if paths[path.toObject] == nil {
-            paths[path.toObject] = []
-        }
-
-        paths[path.fromObject]?.append(path)
-        paths[path.toObject]?.append(path)
         pendingEvents.append(.addPath(path))
     }
 
@@ -58,8 +47,28 @@ class Interface {
         pendingEvents.append(.playerTurnStart)
     }
 
+    /// TODO: Change method name to commit and broadcast
     func broadcastInterfaceChanges(withDuration duration: TimeInterval) {
         let toBroadcast = InterfaceEvents(events: pendingEvents, duration: duration)
+        for event in pendingEvents {
+            switch event {
+            case .addPath(let path):
+                if paths[path.fromObject] == nil {
+                    paths[path.fromObject] = []
+                }
+
+                if paths[path.toObject] == nil {
+                    paths[path.toObject] = []
+                }
+
+                paths[path.fromObject]?.append(path)
+                paths[path.toObject]?.append(path)
+            case .addObject(let object, let frame):
+                objects[object] = frame
+            default:
+                break
+            }
+        }
         pendingEvents = []
         events.on(.next(toBroadcast))
     }
