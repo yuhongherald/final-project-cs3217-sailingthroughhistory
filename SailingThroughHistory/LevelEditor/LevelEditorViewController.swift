@@ -11,7 +11,6 @@ import UIKit
 class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UIGestureRecognizerDelegate {
     @IBOutlet weak var editPanel: UIView!
     @IBOutlet weak var map: UIImageView!
-    var icon: UIImage?
     var editObject: EditableObject?
     var lineLayer: CAShapeLayer!
     var destination: UIImageView?
@@ -65,20 +64,16 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
 
     /// Add/Rmove icons to the map
     @objc func add(_ sender: UITapGestureRecognizer) {
-        if !editPanel.isHidden {
+        if !editPanel.isHidden, editObject != .erase {
             return
         }
-        let iconView = UIImageView(image: icon)
-        iconView.frame.size = CGSize(width: 50, height: 50)
-        iconView.center = sender.location(in: map)
+
+        let addedObject = editObject?.getObject(at: sender.location(in: map))
 
         let removeGesture = UITapGestureRecognizer(target: self, action: #selector(remove(_:)))
         let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
-        iconView.isUserInteractionEnabled = true
-        iconView.addGestureRecognizer(removeGesture)
-        iconView.addGestureRecognizer(drawPathGesture)
 
-        view.addSubview(iconView)
+        addedObject?.addNodeTo(self.view, with: removeGesture, drawPathGesture)
     }
 
     @objc func remove(_ sender: UITapGestureRecognizer) {
@@ -133,7 +128,6 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
 
     func clicked(_ select: EditableObject) {
         editPanel.isHidden = true
-        icon = UIImage(named: select.rawValue)
         editObject = select
     }
 }

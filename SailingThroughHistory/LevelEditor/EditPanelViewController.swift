@@ -22,8 +22,8 @@ class EditPanelViewController: UIViewController {
         // TODO: add external image
     }
 
-    @IBAction func addNodePressed(_ sender: Any) {
-        delegate?.clicked(.node)
+    @IBAction func addSeaPressed(_ sender: Any) {
+        delegate?.clicked(.sea)
     }
 
     @IBAction func addPathPressed(_ sender: Any) {

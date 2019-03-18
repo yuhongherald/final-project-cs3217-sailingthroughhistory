@@ -571,12 +571,9 @@
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
 				1A9FF088223F7FE000005FCB /* EditIcon.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
-<<<<<<< HEAD
 				1A9FF086223F6DAB00005FCB /* EditableObject.swift in Sources */,
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
-=======
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
->>>>>>> 66151a00914cb4c96ae0cb67f9f9b399b646ba28
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
