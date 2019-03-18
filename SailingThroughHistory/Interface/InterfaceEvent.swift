@@ -12,6 +12,9 @@ enum InterfaceEvent {
     case toggleUpgradesMenu(isVisible: Bool)
     case arriveAt(port: Port)
     case move(_: GameObject, toFrame: CGRect)
-    case add(_: GameObject, atFrame: CGRect)
+    case addObject(_: GameObject, atFrame: CGRect)
+    case addPath(_: Path)
     case changeMonth(toMonth: String)
+    case playerTurnStart
+    case pauseAndShowAlert(titled: String, withMsg: String)
 }
