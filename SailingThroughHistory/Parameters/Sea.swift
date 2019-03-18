@@ -8,11 +8,11 @@
 
 import UIKit
 
-class Sea: GameObject {
+class Sea: Node {
     private static let seaNodeSize = CGSize(width: 50, height: 50)
     private static let seaNodeImage = "sea-node.png"
 
-    init(pos: CGPoint) {
-        super.init(image: Sea.seaNodeImage, frame: CGRect(origin: pos, size: Sea.seaNodeSize))
+    init(name: String, pos: CGPoint) {
+        super.init(name: name, image: Sea.seaNodeImage, frame: CGRect(origin: pos, size: Sea.seaNodeSize))
     }
 }
