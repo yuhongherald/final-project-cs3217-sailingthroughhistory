@@ -13,6 +13,7 @@ class Interface {
     let bounds: CGRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 2048, height: 1536))
     let background: String = "1799-Asia.png"
     let events = PublishSubject<InterfaceEvents>()
+    let disposeBag = DisposeBag()
     let monthSymbols = Calendar.current.monthSymbols
     var pendingEvents = [InterfaceEvent]()
     var objects = [GameObject]()
@@ -61,5 +62,11 @@ class Interface {
         let toBroadcast = InterfaceEvents(events: pendingEvents, duration: duration)
         pendingEvents = []
         events.on(.next(toBroadcast))
+    }
+
+    func subscribe(callback: @escaping (Event<InterfaceEvents>) -> Void) {
+        return events.observeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
+            .subscribe(callback)
+            .disposed(by: disposeBag)
     }
 }

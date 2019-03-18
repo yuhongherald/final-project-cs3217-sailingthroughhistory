@@ -96,13 +96,13 @@ class MainGameViewController: UIViewController {
             }
         }
 
-        interface.events.observeOn(SerialDispatchQueueScheduler(qos: .userInteractive)).subscribe { [weak self] in
+        interface.subscribe { [weak self] in
             guard let events = $0.element else {
                 return
             }
 
             self?.handle(events: events)
-            }.disposed(by: disposeBag)
+        }
     }
 
     private func add(path: Path, fadeInDuration: TimeInterval, callback: @escaping () -> Void) {
