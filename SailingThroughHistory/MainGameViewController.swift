@@ -29,7 +29,7 @@ class MainGameViewController: UIViewController {
     }
 
     let scheduler = SerialDispatchQueueScheduler(qos: .default)
-    var views = [GameObject: UIView]()
+    var views = [GameObjectUI: UIView]()
     let disposeBag = DisposeBag()
     // TODO: Change to actual game state.
     let interface = Interface()
@@ -128,7 +128,7 @@ class MainGameViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func move(object: GameObject, to dest: CGRect, withDuration duration: TimeInterval,
+    private func move(object: GameObjectUI, to dest: CGRect, withDuration duration: TimeInterval,
                       callback: @escaping () -> Void) {
         guard let objectView = views[object] else {
             return
@@ -140,7 +140,7 @@ class MainGameViewController: UIViewController {
             }, completion: { _ in callback() })
     }
 
-    private func add(object: GameObject, at frame: CGRect, withDuration duration: TimeInterval,
+    private func add(object: GameObjectUI, at frame: CGRect, withDuration duration: TimeInterval,
                      callback: @escaping () -> Void) {
         let image = UIImage(named: object.image)
         let view = UIImageView(image: image)
