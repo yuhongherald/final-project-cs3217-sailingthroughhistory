@@ -8,11 +8,16 @@
 
 import Foundation
 
-class Item {
-    let itemType: ItemType
-    let quantity: Int
+class Item: GenericItem {
+    public let itemType: GenericItemType
+    public var weight: Int {
+        get {
+            return quantity * itemType.weight
+        }
+    }
+    internal var quantity: Int
     
-    public init(itemType: ItemType, quantity: Int) {
+    public required init(itemType: GenericItemType, quantity: Int) {
         self.itemType = itemType
         self.quantity = quantity
     }

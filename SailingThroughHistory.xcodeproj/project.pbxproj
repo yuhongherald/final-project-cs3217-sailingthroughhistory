@@ -37,6 +37,9 @@
 		BA485904223F9112009ED2F6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485903223F9112009ED2F6 /* Location.swift */; };
 		BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485905223F959A009ED2F6 /* GenericPlayer.swift */; };
 		BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485907223FCB4B009ED2F6 /* PlayerState.swift */; };
+		BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48590A2240A00E009ED2F6 /* GenericItem.swift */; };
+		BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48590C2240A151009ED2F6 /* GenericConsumable.swift */; };
+		BA48590F2240A382009ED2F6 /* GenericItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48590E2240A382009ED2F6 /* GenericItemType.swift */; };
 		BA91905B223F256300009F49 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = BA91905A223F256200009F49 /* Images */; };
 		BA91905E223F25CE00009F49 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905D223F25CE00009F49 /* GameState.swift */; };
 		BA919060223F25E400009F49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905F223F25E400009F49 /* Player.swift */; };
@@ -108,6 +111,9 @@
 		BA485903223F9112009ED2F6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		BA485905223F959A009ED2F6 /* GenericPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayer.swift; sourceTree = "<group>"; };
 		BA485907223FCB4B009ED2F6 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
+		BA48590A2240A00E009ED2F6 /* GenericItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericItem.swift; sourceTree = "<group>"; };
+		BA48590C2240A151009ED2F6 /* GenericConsumable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericConsumable.swift; sourceTree = "<group>"; };
+		BA48590E2240A382009ED2F6 /* GenericItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericItemType.swift; sourceTree = "<group>"; };
 		BA91905A223F256200009F49 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		BA91905D223F25CE00009F49 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BA91905F223F25E400009F49 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -302,6 +308,9 @@
 			isa = PBXGroup;
 			children = (
 				BA91906A223F429900009F49 /* GenericLevel.swift */,
+				BA48590E2240A382009ED2F6 /* GenericItemType.swift */,
+				BA48590A2240A00E009ED2F6 /* GenericItem.swift */,
+				BA48590C2240A151009ED2F6 /* GenericConsumable.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -530,14 +539,17 @@
 				BA919072223F447F00009F49 /* ItemType.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
+				BA48590F2240A382009ED2F6 /* GenericItemType.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
 				BA919070223F446800009F49 /* Upgrade.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
+				BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */,
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
+				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,

@@ -9,12 +9,15 @@
 import Foundation
 
 class Player: GenericPlayer {
+    public let name: String
     public let money = GameVariable(value: 0)
     public let state = GameVariable(value: PlayerState.endTurn)
+    public var interface: Interface?
 
     private let ship: Ship
     
-    required public init(node: Node) {
+    required public init(name: String, node: Node) {
+        self.name = name
         ship = Ship(node: node)
     }
 
@@ -46,25 +49,21 @@ class Player: GenericPlayer {
         port?.collectTax(from: self)
     }
     
-    public func getMaxPurchaseAmount(itemType: ItemType) -> Int {
+    public func getMaxPurchaseAmount(itemType: GenericItemType) -> Int {
         return 0
     }
     
-    public func getMaxSellAmount(itemType: ItemType) -> Int {
+    public func getMaxSellAmount(itemType: GenericItemType) -> Int {
         return 0
     }
     
-    public func buy(itemType: ItemType, quantity: Int) {
+    public func buy(itemType: GenericItemType, quantity: Int) {
     }
     
-    public func sell(itemType: ItemType, quantity: Int) {
+    public func sell(itemType: GenericItemType, quantity: Int) {
     }
     
     public func endTurn() {
-    }
-    
-    static func == (lhs: Player, rhs: Player) -> Bool {
-        return lhs === rhs
     }
     
 }

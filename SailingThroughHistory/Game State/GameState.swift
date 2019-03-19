@@ -11,20 +11,24 @@ import Foundation
 class GameState: GenericGameState {
     private var interface: Interface?
     
-    private var players = [Player]()
+    private var players = [GenericPlayer]()
     private var level: GameVariable<GenericLevel>?
     private var speedMultiplier = 1.0
     
-    private var playerTurnOrder = [Player]()
+    private var playerTurnOrder = [GenericPlayer]()
     
     func subscribe(interface: Interface) {
         self.interface = interface
     }
     
     public func loadLevel(level: GenericLevel) {
+        players = level.getPlayers()
+        for var player in players {
+            player.interface = interface
+        }
     }
     
-    public func getNextPlayer() -> Player? {
+    public func getNextPlayer() -> GenericPlayer? {
         let nextPlayer = playerTurnOrder.removeFirst()
         nextPlayer.state.value = PlayerState.moving
         return nextPlayer

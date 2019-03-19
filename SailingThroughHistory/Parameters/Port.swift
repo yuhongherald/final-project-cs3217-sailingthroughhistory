@@ -8,11 +8,11 @@
 
 class Port: Node {
     public var taxAmount = 0
-    public var owner: Player?
+    public var owner: GenericPlayer?
     
-    public func collectTax(from player: Player) {
+    public func collectTax(from player: GenericPlayer) {
         // Prevent event listeners from firing unneccessarily
-        if owner == player {
+        if player == owner {
             return
         }
         player.money.value -= taxAmount

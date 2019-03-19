@@ -58,13 +58,13 @@ class Ship {
     public func getRemainingCapacity() -> Int {
         var remainingCapacity = weightCapacity
         for item in items {
-            remainingCapacity -= item.quantity * item.itemType.weight
+            remainingCapacity -= item.weight
         }
         return remainingCapacity
     }
     
     public func addItem(item: Item) {
-        if getRemainingCapacity() < item.quantity * item.itemType.weight {
+        if getRemainingCapacity() < item.weight {
             
         }
     }

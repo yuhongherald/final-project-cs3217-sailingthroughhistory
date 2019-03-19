@@ -8,11 +8,13 @@
 
 import Foundation
 
-protocol GenericPlayer: Equatable {
+protocol GenericPlayer {
+    var name: String { get }
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }
+    var interface: Interface? { get set }
     
-    init(node: Node)
+    init(name: String, node: Node)
     
     // Before moving
     func buyUpgrade(upgrade: Upgrade)
@@ -28,11 +30,20 @@ protocol GenericPlayer: Equatable {
     func dock()
     
     // Docked - End turn is manual here
-    func getMaxPurchaseAmount(itemType: ItemType) -> Int
-    func getMaxSellAmount(itemType: ItemType) -> Int
-    func buy(itemType: ItemType, quantity: Int)
-    func sell(itemType: ItemType, quantity: Int)
+    func getMaxPurchaseAmount(itemType: GenericItemType) -> Int
+    func getMaxSellAmount(itemType: GenericItemType) -> Int
+    func buy(itemType: GenericItemType, quantity: Int)
+    func sell(itemType: GenericItemType, quantity: Int)
     
     // End turn - supplies are removed here
     func endTurn()
+}
+
+
+func == (lhs: GenericPlayer, rhs: GenericPlayer?) -> Bool {
+    return lhs.name == rhs?.name
+}
+
+func != (lhs: GenericPlayer, rhs: GenericPlayer?) -> Bool {
+    return !(lhs == rhs)
 }

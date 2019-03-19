@@ -8,13 +8,13 @@
 
 import Foundation
 
-class ItemType: GameParameter {
+class ItemType: GenericItemType {
     let displayName: String
     let weight: Int
     private let isConsumable: Bool
     private var valuesAtPort = [Int : Port]()
     
-    public init(displayName: String, weight: Int, isConsumable: Bool) {
+    required public init(displayName: String, weight: Int, isConsumable: Bool) {
         self.displayName = displayName
         self.weight = weight
         self.isConsumable = isConsumable
