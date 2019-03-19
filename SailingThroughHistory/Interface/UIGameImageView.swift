@@ -10,6 +10,7 @@ import UIKit
 
 class UIGameImageView: UIImageView {
     let object: GameObject
+    var tapCallback: ((GameObject) -> Void)?
 
     init(image: UIImage?, object: GameObject) {
         self.object = object
@@ -18,5 +19,9 @@ class UIGameImageView: UIImageView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("Decode has not been implemented.")
+    }
+
+    func callTapCallback() {
+        tapCallback?(object)
     }
 }

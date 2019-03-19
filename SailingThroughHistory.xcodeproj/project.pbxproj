@@ -33,6 +33,7 @@
 		9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5D2223A4875005291EE /* LaunchScreen.storyboard */; };
 		9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */; };
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
+		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
 		A36E5A3EF544FF538E847194 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
 		BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485901223F8B6E009ED2F6 /* Consumable.swift */; };
@@ -107,6 +108,7 @@
 		9690F5E5223A4875005291EE /* SailingThroughHistoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailingThroughHistoryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SailingThroughHistoryUITests.swift; sourceTree = "<group>"; };
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96F658472240E13E006CD412 /* View+SpecialEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SpecialEffects.swift"; sourceTree = "<group>"; };
 		BA4858FF223F89F7009ED2F6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BA485901223F8B6E009ED2F6 /* Consumable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
 		BA485903223F9112009ED2F6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				96877E53223EC7D80020F44C /* Path.swift */,
 				966941D9223FD3A900F07A50 /* UIGameImageView.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
+				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
+				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
 				BA91906B223F429900009F49 /* Level.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,

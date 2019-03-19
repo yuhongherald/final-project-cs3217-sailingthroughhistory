@@ -103,6 +103,26 @@ class MainGameViewController: UIViewController {
         /// TODO: Roll dice logic
     }
 
+    @IBAction func onTapGameArea(_ sender: UITapGestureRecognizer) {
+        let view = gameArea.hitTest(sender.location(in: gameArea), with: nil)
+        guard let gameView = view as? UIGameImageView,
+            let callback = gameView.tapCallback,
+            let _ = gameView.object as? Node else {
+            return
+        }
+
+        gameView.callTapCallback()
+
+        // Remove glow/callback from nodes.
+        views.values
+            .filter { $0.object as? Node != nil }
+            .forEach {
+                $0.removeGlow()
+                $0.tapCallback = nil
+                $0.isUserInteractionEnabled = false
+        }
+    }
+
     private func addBlurBackground(to view: UIView) {
         view.backgroundColor = UIColor.clear
         let blurEffect = UIBlurEffect(style: .extraLight)
@@ -283,9 +303,32 @@ class MainGameViewController: UIViewController {
             remove(path: path, withDuration: duration, callback: callback)
         case .removeObject(let object):
             remove(object: object, withDuration: duration, callback: callback)
+        case .showTravelChoices(let nodes, let selectCallback):
+            makeChoosable(nodes: nodes, withDuration: duration, tapCallback: selectCallback, callback: callback)
         default:
             print("Unsupported event not handled.")
         }
+    }
+
+    private func makeChoosable(nodes: [Node], withDuration duration: TimeInterval, tapCallback: @escaping (GameObject) -> Void, callback: @escaping () -> Void) {
+        if nodes.isEmpty {
+            callback()
+            return
+        }
+
+        nodes.forEach { [weak self] in
+            self?.views[$0]?.isUserInteractionEnabled = true
+            self?.views[$0]?.tapCallback = tapCallback
+        }
+
+        UIView.animate(withDuration: duration, animations: {
+            nodes.forEach { [weak self] in
+                self?.views[$0]?.addGlow(colored: .yellow)
+            }
+        }, completion: { _ in
+            callback()
+        })
+        /// TODO: Add callback to engine
     }
 
     private func pauseAndShowAlert(titled title: String, withMsg msg: String, callback: @escaping () -> Void) {

@@ -30,6 +30,9 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yzi-uC-Odn">
                                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="5DU-mn-IwN" appends="YES" id="UlN-ny-Aee"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -268,6 +271,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="5DU-mn-IwN">
+                    <connections>
+                        <action selector="onTapGameArea:" destination="BYZ-38-t0r" id="B7G-Rg-ga8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
         </scene>
     </scenes>

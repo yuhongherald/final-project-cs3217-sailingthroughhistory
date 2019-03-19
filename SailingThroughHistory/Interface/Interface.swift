@@ -48,9 +48,12 @@ class Interface {
         pendingEvents.append(.addPath(path))
     }
 
-    /// TODO: Modify to take in current player.
     func playerTurnStart(player: Player) {
         pendingEvents.append(.playerTurnStart(player: player))
+    }
+
+    func showTravelChoices(_ nodes: [Node], selectCallback: @escaping (GameObject) -> Void) {
+        pendingEvents.append(.showTravelChoices(choices: nodes, selectCallback: selectCallback))
     }
 
     /// TODO: Change method name to commit and broadcast

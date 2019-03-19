@@ -20,5 +20,5 @@ enum InterfaceEvent {
     case removeObject(_: GameObject)
     case removePath(_: Path)
     case pauseAndShowAlert(titled: String, withMsg: String)
-    case showTravelChoices(choices: [Node])
+    case showTravelChoices(choices: [Node], selectCallback: (GameObject) -> Void)
 }
