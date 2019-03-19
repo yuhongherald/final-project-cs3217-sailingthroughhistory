@@ -12,7 +12,7 @@ import UIKit
 class Interface {
     let bounds: CGRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 2048, height: 1536))
     let background: String = "1799-Asia.png"
-    let events = PublishSubject<InterfaceEvents>()
+    let events = InterfacePublishSubject<InterfaceEvents>()
     let disposeBag = DisposeBag()
     let monthSymbols = Calendar.current.monthSymbols
     let players: [Player]
@@ -82,7 +82,7 @@ class Interface {
             }
         }
         pendingEvents = []
-        events.on(.next(toBroadcast))
+        events.on(next: toBroadcast)
     }
 
     func remove(object: GameObject) {
@@ -94,9 +94,7 @@ class Interface {
     }
 
     func subscribe(callback: @escaping (Event<InterfaceEvents>) -> Void) {
-        return events.observeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
-            .subscribe(callback)
-            .disposed(by: disposeBag)
+        return events.subscribe(callback: callback)
     }
 
     private func addPathToState(path: Path) {

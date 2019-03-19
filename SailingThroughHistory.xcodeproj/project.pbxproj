@@ -34,6 +34,7 @@
 		9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */; };
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
+		96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* InterfacePublishSubject.swift */; };
 		A36E5A3EF544FF538E847194 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
 		BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485901223F8B6E009ED2F6 /* Consumable.swift */; };
@@ -109,6 +110,7 @@
 		9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SailingThroughHistoryUITests.swift; sourceTree = "<group>"; };
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96F658472240E13E006CD412 /* View+SpecialEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SpecialEffects.swift"; sourceTree = "<group>"; };
+		96F6584922412126006CD412 /* InterfacePublishSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfacePublishSubject.swift; sourceTree = "<group>"; };
 		BA4858FF223F89F7009ED2F6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BA485901223F8B6E009ED2F6 /* Consumable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
 		BA485903223F9112009ED2F6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				966941D9223FD3A900F07A50 /* UIGameImageView.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
+				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */,
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
+				96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
 				BA919070223F446800009F49 /* Upgrade.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,

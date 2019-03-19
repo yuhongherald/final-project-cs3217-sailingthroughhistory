@@ -71,11 +71,15 @@ class MainGameViewController: UIViewController {
         //Uncomment to test interface
         let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
-        let object2 = GameObject(image: "sea-node.png", frame: CGRect(x: 500, y: 500, width: 50, height: 50))
+        let object2 = Node(name: "testnode", image: "sea-node.png", frame: CGRect(x: 500, y: 500, width: 50, height: 50))
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
         self.interface.add(path: Path(fromObject: object, toObject: object2))
         self.interface.broadcastInterfaceChanges(withDuration: 1)
+        self.interface.showTravelChoices([object2]) { [weak self] (_: GameObject)  in
+            let alert = ControllerUtils.getGenericAlert(titled: "Title", withMsg: "Msg")
+            self?.present(alert, animated: true, completion: nil)
+            }
 
         subscribeToInterface()
 
@@ -106,7 +110,7 @@ class MainGameViewController: UIViewController {
     @IBAction func onTapGameArea(_ sender: UITapGestureRecognizer) {
         let view = gameArea.hitTest(sender.location(in: gameArea), with: nil)
         guard let gameView = view as? UIGameImageView,
-            let callback = gameView.tapCallback,
+            let _ = gameView.tapCallback,
             let _ = gameView.object as? Node else {
             return
         }
@@ -323,7 +327,7 @@ class MainGameViewController: UIViewController {
 
         UIView.animate(withDuration: duration, animations: {
             nodes.forEach { [weak self] in
-                self?.views[$0]?.addGlow(colored: .yellow)
+                self?.views[$0]?.addGlow(colored: .purple)
             }
         }, completion: { _ in
             callback()
