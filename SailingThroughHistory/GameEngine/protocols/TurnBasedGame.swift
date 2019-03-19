@@ -7,13 +7,15 @@
 //
 
 protocol TurnBasedGame {
+    var externalGameSpeed: Double { get set }
     var playerTurn: PlayerTurn? { get set }
     var currentGameTime: Double { get }
     /// Used to prevent event "tunneling"
     var largestTimeStep: Double { get set }
     /// The amount of time the game looks ahead for an event
     var forecastDuration: Double { get set }
+    func setGameSpeed(using event: GameEvent)
     /// updates the game state by taking a timestep, recursively
     /// also returns the closest forecasted event, if any
-    func updateGameState(deltaTime: Double)
+    func updateGameState(deltaTime: Double) -> GameEvent?
 }

@@ -7,23 +7,22 @@
 //
 
 class GameEngine {
-    private var underlyingGameSpeed: Double = 1
     private var isRunning: Bool = false
     private var isValid: Bool = true
 
     // TODO: extract interface into protocol
     // something for me to draw on
     private let interface: Interface
-    private let gameLogic: TurnBasedGame
+    private var gameLogic: TurnBasedGame
     private let wrapper: AsyncWrap
 
     var gameSpeed: Double {
         get {
-            return underlyingGameSpeed
+            return gameLogic.externalGameSpeed
         }
         set {
             wrapper.async {
-                self.underlyingGameSpeed = newValue
+                self.gameLogic.externalGameSpeed = newValue
             }
         }
     }
@@ -61,8 +60,11 @@ class GameEngine {
 
     private func updateGameState() {
         let newTime = wrapper.getTimestamp()
-        let timeDifference = (newTime - gameLogic.currentGameTime) * gameSpeed
-        gameLogic.updateGameState(deltaTime: timeDifference)
+        let timeDifference = (newTime - gameLogic.currentGameTime)
+        guard let event = gameLogic.updateGameState(deltaTime: timeDifference) else {
+            return
+        }
+        // TODO: Add Player turn logic
     }
 
     private func updateInterface() {
