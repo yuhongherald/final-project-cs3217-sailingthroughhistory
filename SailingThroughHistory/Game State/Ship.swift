@@ -16,16 +16,23 @@ class Ship {
 
     public let location: GameVariable<Location>
 
+    private let suppliesConsumed: [GenericItem]
+    private var isChasedByPirates = false
+    private var turnsToBeingCaught = 0
+
     private var owner: GenericPlayer?
     private var items = [GenericItem]()
     private var weightCapacity = 0
+
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?
     private var shipUI: ShipUI?
 
-    public init(node: Node) {
+    public init(node: Node, suppliesConsumed: [GenericItem]) {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
         self.location = GameVariable(value: location)
+        self.suppliesConsumed = suppliesConsumed
+
         shipUI = ShipUI(ship: self)
     }
 
@@ -34,6 +41,15 @@ class Ship {
     }
 
     // Movement
+    
+    public func startTurn() {
+        if isChasedByPirates && turnsToBeingCaught <= 0 {
+            // TODO: Pirate event
+
+            isChasedByPirates = false
+            turnsToBeingCaught = 0
+        }
+    }
 
     public func getNodesInRange(roll: Int) -> [Node] {
         let movement = computeMovement(roll: roll)
@@ -62,6 +78,8 @@ class Ship {
             return nil
         }
         location.value = Location(from: location.value, isDocked: true)
+        isChasedByPirates = false
+        turnsToBeingCaught = 0
         return port
     }
 
@@ -121,20 +139,33 @@ class Ship {
         owner?.money.value += profit
         items.remove(at: index)
     }
+    
+    public func endTurn() {
+        if isChasedByPirates {
+            turnsToBeingCaught -= 1
+        }
+
+        for supply in suppliesConsumed {
+            let deficeit = consumeRequiredItem(itemType: supply.itemType, quantity: supply.quantity)
+            // TODO: Make player pay for deficeit
+        }
+    }
 
     // Helper functions
 
     private func computeMovement(roll: Int) -> Double {
         var multiplier = 1.0
-        multiplier = applyUpgradesModifiers(to: multiplier)
+        multiplier = applyUpgradeModifiers(to: multiplier)
         return Double(roll) * multiplier
     }
 
-    private func applyUpgradesModifiers(to multiplier: Double) -> Double {
+    private func applyUpgradeModifiers(to multiplier: Double) -> Double {
+        // TODO: Calculate actual multiplier
         return multiplier
     }
 
     private func getWeatherModifier() -> Double {
+        // TODO: Calulate actual multiplier
         var multiplier = 1.0
         return multiplier
     }
@@ -159,4 +190,20 @@ class Ship {
         return true
     }
 
+    private func consumeRequiredItem(itemType: GenericItemType, quantity: Int) -> Int {
+        guard let index = items.firstIndex(where: { $0.itemType == itemType }) else {
+            return quantity
+        }
+        guard let consumable = items[index] as? GenericConsumable else {
+            return 0
+        }
+        let deficeit = consumable.consume(amount: quantity)
+        if items[index].quantity == 0 {
+            items.remove(at: index)
+        }
+        guard deficeit <= 0 else {
+            return consumeRequiredItem(itemType: itemType, quantity: deficeit)
+        }
+        return 0
+    }
 }

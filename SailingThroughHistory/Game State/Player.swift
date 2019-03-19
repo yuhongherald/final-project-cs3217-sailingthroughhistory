@@ -16,36 +16,42 @@ class Player: GenericPlayer {
 
     private let ship: Ship
 
-    required public init(name: String, node: Node) {
+    required init(name: String, node: Node) {
         self.name = name
-        ship = Ship(node: node)
+        ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
     }
-
-    public func buyUpgrade(upgrade: Upgrade) {
+    
+    func startTurn() {
+        ship.startTurn()
     }
 
-    public func getOwnedPorts() -> [Port] {
+    func buyUpgrade(upgrade: Upgrade) {
+        // TODO: Add upgrades
+    }
+
+    func getOwnedPorts() -> [Port] {
+        // TODO: Get actual ports
         return []
     }
 
-    public func setTax(port: Port, amount: Int) {
+    func setTax(port: Port, amount: Int) {
         port.taxAmount = amount
     }
 
-    public func move(node: Node) {
+    func move(node: Node) {
         ship.move(node: node)
     }
 
-    public func getNodesInRange(roll: Int) -> [Node] {
+    func getNodesInRange(roll: Int) -> [Node] {
         return ship.getNodesInRange(roll: roll)
     }
 
-    public func canDock() -> Bool {
+    func canDock() -> Bool {
         return ship.canDock()
     }
 
-    public func dock() {
+    func dock() {
         let port = ship.dock()
         port?.collectTax(from: self)
     }
@@ -54,19 +60,20 @@ class Player: GenericPlayer {
         return ship.getPurchasableItemTypes()
     }
 
-    public func getMaxPurchaseAmount(itemType: GenericItemType) -> Int {
+    func getMaxPurchaseAmount(itemType: GenericItemType) -> Int {
         return ship.getMaxPurchaseAmount(itemType: itemType)
     }
 
-    public func buy(itemType: GenericItemType, quantity: Int) {
+    func buy(itemType: GenericItemType, quantity: Int) {
         ship.buyItem(itemType: itemType, quantity: quantity)
     }
 
-    public func sell(item: GenericItem) {
+    func sell(item: GenericItem) {
         ship.sellItem(item: item)
     }
 
-    public func endTurn() {
+    func endTurn() {
+        ship.endTurn()
     }
 
 }
