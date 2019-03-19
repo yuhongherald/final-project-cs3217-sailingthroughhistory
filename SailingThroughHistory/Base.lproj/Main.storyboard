@@ -64,6 +64,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q59-92-ecD" customClass="CountdownLabel" customModule="CountdownLabel">
+                                <rect key="frame" x="933" y="296" width="71" height="36"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information">
                                 <rect key="frame" x="748" y="84" width="256" height="192"/>
                                 <subviews>
@@ -212,6 +224,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="aBa-ds-mdJ" secondAttribute="top" id="An7-Vh-exN"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="BKh-th-Hki"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aBa-ds-mdJ" secondAttribute="bottom" id="EbP-yz-8c7"/>
+                            <constraint firstItem="q59-92-ecD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GIX-ZC-G64"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="GWu-vH-dFQ"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="GYk-OA-eX0"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Lnl-P6-45G"/>
@@ -235,6 +248,8 @@
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/4" id="gVl-OD-3BP"/>
                             <constraint firstItem="DYM-A8-9ob" firstAttribute="trailing" secondItem="aBa-ds-mdJ" secondAttribute="trailing" constant="-20" id="h2k-cE-5D2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="bottom" id="hhb-JF-26f"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="q59-92-ecD" secondAttribute="bottom" id="ilI-QG-18O"/>
+                            <constraint firstItem="q59-92-ecD" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="bottom" constant="20" id="jqw-ye-X8s"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6nf-n2-xli" secondAttribute="trailing" constant="20" id="lRl-YQ-kVK"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/4" id="m8d-iH-P1c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="leading" id="o0F-2V-7Ut"/>
@@ -247,6 +262,7 @@
                             <constraint firstItem="aBa-ds-mdJ" firstAttribute="leading" secondItem="DYM-A8-9ob" secondAttribute="leading" constant="-20" id="t1v-Ar-Hqa"/>
                             <constraint firstItem="DYM-A8-9ob" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="uUj-jg-M04"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="vdp-tX-Jp2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q59-92-ecD" secondAttribute="trailing" constant="20" id="vhb-x8-09E"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="w0B-KI-dKf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -254,6 +270,7 @@
                     <connections>
                         <outlet property="actionPanelView" destination="5Pn-jO-5xF" id="wyJ-XJ-AES"/>
                         <outlet property="backgroundImageView" destination="9Sq-IX-ntE" id="4ND-FK-iTu"/>
+                        <outlet property="countdownLabel" destination="q59-92-ecD" id="x8m-8y-DjK"/>
                         <outlet property="gameAndBackgroundWrapper" destination="Ph7-HO-lQ1" id="pc9-ya-kwM"/>
                         <outlet property="gameArea" destination="Yzi-uC-Odn" id="qRV-20-8r7"/>
                         <outlet property="monthLabel" destination="6nf-n2-xli" id="Bas-Lj-mTh"/>
@@ -276,6 +293,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="49.8046875" y="23.4375"/>
         </scene>
     </scenes>
 </document>

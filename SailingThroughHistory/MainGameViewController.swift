@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import CountdownLabel
 
 class MainGameViewController: UIViewController {
     @IBOutlet private weak var gameAndBackgroundWrapper: UIView!
@@ -34,6 +35,7 @@ class MainGameViewController: UIViewController {
             addBlurBackground(to: playerTwoInformationView)
         }
     }
+    @IBOutlet private weak var countdownLabel: CountdownLabel!
     @IBOutlet private weak var playerOneGoldView: UILabel!
     @IBOutlet private weak var playerTwoGoldView: UILabel!
     @IBOutlet private weak var togglePlayerOneInfoButton: UIButtonRounded!
@@ -67,15 +69,16 @@ class MainGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initBackground()
-
         //Uncomment to test interface
         let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
         let object2 = Node(name: "testnode", image: "sea-node.png", frame: CGRect(x: 500, y: 500, width: 50, height: 50))
+        let path = Path(fromObject: object, toObject: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
-        self.interface.add(path: Path(fromObject: object, toObject: object2))
+        self.interface.add(path: path)
         self.interface.broadcastInterfaceChanges(withDuration: 1)
+        self.interface.remove(path: path)
         self.interface.showTravelChoices([object2]) { [weak self] (_: GameObject)  in
             let alert = ControllerUtils.getGenericAlert(titled: "Title", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
@@ -148,7 +151,7 @@ class MainGameViewController: UIViewController {
 
     private func subscribeToInterface() {
         if let currentTurnOwner = interface.currentTurnOwner {
-            playerTurnStart(player: currentTurnOwner)
+            playerTurnStart(player: currentTurnOwner, timeLimit: nil, timeOutCallback: { }, callback: { })
         }
 
         syncObjectsAndPaths(with: interface)
@@ -249,8 +252,8 @@ class MainGameViewController: UIViewController {
         let layer = pathLayers.removeValue(forKey: path)
         CATransaction.begin()
         CATransaction.setCompletionBlock {
-            callback()
             layer?.removeFromSuperlayer()
+            callback()
         }
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         /* set up animation */
@@ -299,8 +302,8 @@ class MainGameViewController: UIViewController {
             add(object: object, at: frame, withDuration: duration, callback: callback)
         case .changeMonth(let newMonth):
             changeMonth(to: newMonth, withDuration: duration, callback: callback)
-        case .playerTurnStart(let player):
-            playerTurnStart(player: player)
+        case .playerTurnStart(let player, let timeLimit, let timeOutCallback):
+            playerTurnStart(player: player, timeLimit: timeLimit, timeOutCallback: timeOutCallback, callback: callback)
         case .pauseAndShowAlert(let title, let msg):
             pauseAndShowAlert(titled: title, withMsg: msg, callback: callback)
         case .removePath(let path):
@@ -341,13 +344,22 @@ class MainGameViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func playerTurnStart(player: Player) {
+    private func playerTurnStart(player: Player, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void,
+                                 callback: @escaping () -> Void) {
         /// TODO: Update with actual player "name"
         let alert = ControllerUtils.getGenericAlert(titled: "Your turn has started.",
                                                     withMsg: "", action: { [weak self] in
-                self?.actionPanelView.isHidden = false
-                self?.toggleActionPanelButton.isHidden = false
-            })
+                                                        self?.actionPanelView.isHidden = false
+                                                        self?.toggleActionPanelButton.isHidden = false
+                                                        if let timeLimit = timeLimit {
+                                                            self?.countdownLabel.isHidden = false
+                                                            self?.countdownLabel.addTime(time: 100)
+                                                            self?.countdownLabel.animationType = CountdownEffect.Burn
+                                                            self?.countdownLabel.setCountDownTime(minutes: timeLimit / 60.0)
+                                                            self?.countdownLabel.start(completion: timeOutCallback)
+                                                        }
+                                                        callback()
+        })
 
         present(alert, animated: true, completion: nil)
     }

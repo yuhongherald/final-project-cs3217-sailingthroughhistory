@@ -48,8 +48,8 @@ class Interface {
         pendingEvents.append(.addPath(path))
     }
 
-    func playerTurnStart(player: Player) {
-        pendingEvents.append(.playerTurnStart(player: player))
+    func playerTurnStart(player: Player, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void) {
+        pendingEvents.append(.playerTurnStart(player: player, timeLimit: timeLimit, timeOutCallback: timeOutCallback))
     }
 
     func showTravelChoices(_ nodes: [Node], selectCallback: @escaping (GameObject) -> Void) {
@@ -73,7 +73,7 @@ class Interface {
                 paths[object]?.forEach { path in
                     paths[path.toObject]?.removeAll { otherPath in path == otherPath }
                 }
-            case .playerTurnStart(let player):
+            case .playerTurnStart(let player, _, _):
                 currentTurnOwner = player
             case .playerTurnEnd:
                 currentTurnOwner = nil
