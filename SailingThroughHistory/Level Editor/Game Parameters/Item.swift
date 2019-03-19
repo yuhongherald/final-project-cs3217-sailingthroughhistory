@@ -11,6 +11,6 @@ import Foundation
 protocol Item {
     var itemType: ItemType { get }
     var quantity: Int { get }
-    
+
     func getValue(port: Port) -> Int
 }

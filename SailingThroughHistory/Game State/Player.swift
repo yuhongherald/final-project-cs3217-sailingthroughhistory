@@ -20,14 +20,14 @@ class Player: GenericPlayer {
 
     public func buyUpgrade(upgrade: Upgrade) {
     }
-    
+
     public func getOwnedPorts() -> [Port] {
         return []
     }
-    
+
     public func setTax(port: Port) {
     }
-    
+
     public func move(node: Node) {
         ship.move(node: node)
     }
@@ -35,28 +35,28 @@ class Player: GenericPlayer {
     public func getNodesInRange(roll: Int) -> [Node] {
         return ship.getNodesInRange(roll: roll)
     }
-    
+
     public func canDock() -> Bool {
         return false
     }
-    
+
     public func dock() {
     }
-    
+
     public func getMaxPurchaseAmount(itemType: ItemType) -> Int {
         return 0
     }
-    
+
     public func getMaxSellAmount(itemType: ItemType) -> Int {
         return 0
     }
-    
+
     public func buy(itemType: ItemType, quantity: Int) {
     }
-    
+
     public func sell(itemType: ItemType, quantity: Int) {
     }
-    
+
     public func endTurn() {
     }
 }

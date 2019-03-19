@@ -10,6 +10,6 @@ import Foundation
 
 protocol Level {
     var itemTypes: ItemType { get set }
-    
+
     func getPlayers() -> [Player]
 }

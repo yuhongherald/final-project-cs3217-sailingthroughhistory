@@ -33,7 +33,7 @@ class GameEngine {
         self.gameLogic = gameLogic
         self.wrapper = asyncWrapper
     }
-    
+
     func start(endGame: @escaping () -> Void) {
         if isRunning || !isValid {
             return

@@ -9,7 +9,7 @@
 class GameLogic: TurnBasedGame {
     // TODO: Extract gameState into a protocol
     private let gameState: GameState
-    var playerTurn: PlayerTurn? = nil
+    var playerTurn: PlayerTurn?
     var currentGameTime: Double = 0
     var largestTimeStep: Double = GameConstants.largestTimeStep
     var forecastDuration: Double = GameConstants.forecastDuration
@@ -19,11 +19,10 @@ class GameLogic: TurnBasedGame {
         self.gameState = gameState
     }
 
-    
     func updateGameState(deltaTime: Double) {
         // TODO: Add player turn logic
         var timeDifference = deltaTime
-        while (timeDifference > largestTimeStep) {
+        while timeDifference > largestTimeStep {
             // we break it into multiple cycles
             updateGameStateDeltatime(largestTimeStep)
             timeDifference -= largestTimeStep

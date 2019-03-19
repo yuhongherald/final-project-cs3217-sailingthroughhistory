@@ -7,6 +7,6 @@
 //
 
 protocol Identifiable {
-    associatedtype T: Equatable
-    var identifier: T { get }
+    associatedtype Identifier: Equatable
+    var identifier: Identifier { get }
 }
