@@ -42,6 +42,7 @@ class MainGameViewController: UIViewController {
     @IBOutlet private weak var togglePlayerTwoInfoButton: UIButtonRounded!
     @IBOutlet private weak var monthLabel: UILabel!
     @IBOutlet private weak var toggleActionPanelButton: UIButtonRounded!
+    @IBOutlet private weak var diceResultLabel: UILabel!
     @IBOutlet private weak var actionPanelView: UIView!
     @IBOutlet private weak var rollDiceButton: UIButtonRounded! {
         didSet {
@@ -70,7 +71,7 @@ class MainGameViewController: UIViewController {
         super.viewDidLoad()
         initBackground()
         //Uncomment to test interface
-        let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        /*let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
         let object2 = Node(name: "testnode", image: "sea-node.png", frame: CGRect(x: 500, y: 500, width: 50, height: 50))
         let path = Path(fromObject: object, toObject: object2)
@@ -83,17 +84,21 @@ class MainGameViewController: UIViewController {
             let alert = ControllerUtils.getGenericAlert(titled: "Title", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
             }
+        self.interface.playerTurnStart(player: Player(node: object2), timeLimit: 120) { [weak self] in
+            let alert = ControllerUtils.getGenericAlert(titled: "Time up!", withMsg: "Msg")
+            self?.present(alert, animated: true, completion: nil)
+        }*/
 
         subscribeToInterface()
 
          //Uncomment to test interface
-         DispatchQueue.global(qos: .background).async { [weak self] in
+        /*DispatchQueue.global(qos: .background).async { [weak self] in
             while true {
                 object.frame = object.frame.applying(CGAffineTransform(translationX: 50, y: 50))
                 self?.interface.updatePosition(of: object)
                 self?.interface.broadcastInterfaceChanges(withDuration: 1)
             }
-        }
+        }*/
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -107,14 +112,19 @@ class MainGameViewController: UIViewController {
     @IBAction func rollDiceButtonPressed(_ sender: UIButtonRounded) {
         sender.isEnabled = false
         sender.set(color: .lightGray)
+        for interval in 0...20 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01 * pow(Double(interval), 2)) { [weak self] in
+                self?.diceResultLabel.text = String(Int.random(in: 1...6))
+            }
+        }
         /// TODO: Roll dice logic
     }
 
     @IBAction func onTapGameArea(_ sender: UITapGestureRecognizer) {
         let view = gameArea.hitTest(sender.location(in: gameArea), with: nil)
         guard let gameView = view as? UIGameImageView,
-            let _ = gameView.tapCallback,
-            let _ = gameView.object as? Node else {
+            gameView.tapCallback != nil,
+            gameView.object as? Node != nil else {
             return
         }
 
@@ -346,22 +356,34 @@ class MainGameViewController: UIViewController {
 
     private func playerTurnStart(player: Player, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void,
                                  callback: @escaping () -> Void) {
-        /// TODO: Update with actual player "name"
-        let alert = ControllerUtils.getGenericAlert(titled: "Your turn has started.",
-                                                    withMsg: "", action: { [weak self] in
-                                                        self?.actionPanelView.isHidden = false
-                                                        self?.toggleActionPanelButton.isHidden = false
-                                                        if let timeLimit = timeLimit {
-                                                            self?.countdownLabel.isHidden = false
-                                                            self?.countdownLabel.addTime(time: 100)
-                                                            self?.countdownLabel.animationType = CountdownEffect.Burn
-                                                            self?.countdownLabel.setCountDownTime(minutes: timeLimit / 60.0)
-                                                            self?.countdownLabel.start(completion: timeOutCallback)
-                                                        }
-                                                        callback()
-        })
+        let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
+            withMsg: "")
+        { [weak self] in
+            self?.actionPanelView.isHidden = false
+            self?.toggleActionPanelButton.isHidden = false
+            if let timeLimit = timeLimit {
+                self?.countdownLabel.isHidden = false
+                self?.countdownLabel.animationType = CountdownEffect.Burn
+                self?.countdownLabel.setCountDownTime(
+                    minutes: timeLimit)
+                self?.countdownLabel.then(targetTime: 1) { [weak self] in
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        timeOutCallback()
+                        self?.playerTurnEnd()
+                    }
+                }
+                self?.countdownLabel.start()
+            }
+            callback()
+        }
 
         present(alert, animated: true, completion: nil)
+    }
+
+    private func playerTurnEnd() {
+        actionPanelView.isHidden = true
+        toggleActionPanelButton.isHidden = true
+        countdownLabel.isHidden = true
     }
 
     private func move(object: GameObject, to dest: CGRect, withDuration duration: TimeInterval,
