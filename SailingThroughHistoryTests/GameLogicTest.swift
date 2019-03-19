@@ -16,24 +16,25 @@ class GameLogicTest: XCTestCase {
         var event = BaseGameEvent(eventType: EventType.informative(initiater: ""), timestamp: 1, message: "")
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        event.timestamp = 1 * logic.forecastDuration
         logic.setGameSpeed(using: event)
-        XCTAssertEqual(logic.getGameSpeed(), logic.fastestGameSpeed, "Wrong game speed!")
-        event.timestamp = 1.1
+        XCTAssertTrue(abs(logic.getGameSpeed() - logic.fastestGameSpeed) < 0.001, "Wrong game speed!")
+        event.timestamp = 1.1 * logic.forecastDuration
         logic.setGameSpeed(using: event)
-        XCTAssertEqual(logic.getGameSpeed(), logic.fastestGameSpeed, "Wrong game speed!")
-        event.timestamp = 0
+        XCTAssertTrue(abs(logic.getGameSpeed() - logic.fastestGameSpeed) < 0.001, "Wrong game speed!")
+        event.timestamp = 0 * logic.forecastDuration
         logic.setGameSpeed(using: event)
-        XCTAssertEqual(logic.getGameSpeed(), logic.slowestGameSpeed, "Wrong game speed!")
-        event.timestamp = -0.1
+        XCTAssertTrue(abs(logic.getGameSpeed() - logic.slowestGameSpeed) < 0.001, "Wrong game speed!")
+        event.timestamp = -0.1 * logic.forecastDuration
         logic.setGameSpeed(using: event)
-        XCTAssertEqual(logic.getGameSpeed(),
+        XCTAssertTrue(abs(logic.getGameSpeed() -
                        Double.lerp(0.1 * logic.forecastDuration, logic.slowestGameSpeed,
-                                   logic.fastestGameSpeed), "Wrong game speed!")
-        event.timestamp = 0.6
+                                   logic.fastestGameSpeed)) < 0.001, "Wrong game speed!")
+        event.timestamp = 0.6 * logic.forecastDuration
         logic.setGameSpeed(using: event)
-        XCTAssertEqual(logic.getGameSpeed(),
+        XCTAssertTrue(abs(logic.getGameSpeed() -
                        Double.lerp(0.6 * logic.forecastDuration, logic.fastestGameSpeed,
-                                   logic.slowestGameSpeed), "Wrong game speed!")
+                                   logic.slowestGameSpeed)) < 0.001, "Wrong game speed!")
 
     }
 

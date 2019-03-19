@@ -56,15 +56,16 @@ class GameLogic: TurnBasedGame {
     func setGameSpeed(using event: GameEvent) {
         let eventTimeDifference = event.timestamp - currentGameTime
         var alpha: Double = 0
-        if eventTimeDifference > 0 {
-            alpha = (forecastDuration - eventTimeDifference) / forecastDuration
+        if eventTimeDifference >= 0 {
+            alpha = 1 - ((forecastDuration - eventTimeDifference) / forecastDuration)
         } else {
-            alpha = 1 - ((forecastDuration + eventTimeDifference) / forecastDuration)
+            alpha = ((forecastDuration + eventTimeDifference) / forecastDuration)
         }
         alpha = Double.clamp(alpha, 0, 1)
         gameSpeed = Double.lerp(alpha, fastestGameSpeed, slowestGameSpeed)
     }
 
+    // for testing
     func getGameSpeed() -> Double {
         return gameSpeed
     }
