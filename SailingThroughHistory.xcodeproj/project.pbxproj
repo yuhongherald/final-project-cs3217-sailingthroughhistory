@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7536A82B2240975A00D9D0FE /* TurnBasedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82A2240975A00D9D0FE /* TurnBasedGame.swift */; };
+		7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82C224097AA00D9D0FE /* PlayerTurn.swift */; };
+		7536A82F224098EC00D9D0FE /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82E224098EC00D9D0FE /* Event.swift */; };
+		7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8302240990D00D9D0FE /* GameEvent.swift */; };
+		7536A8332240996300D9D0FE /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8322240996300D9D0FE /* Identifiable.swift */; };
+		7536A83522409B5700D9D0FE /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A83422409B5700D9D0FE /* GameEngine.swift */; };
+		7536A8372240A09200D9D0FE /* AsyncWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8362240A09200D9D0FE /* AsyncWrap.swift */; };
+		7536A8392240A14400D9D0FE /* GameAsyncWrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8382240A14400D9D0FE /* GameAsyncWrap.swift */; };
+		7536A83C2240A1B300D9D0FE /* GameState+TurnBasedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A83B2240A1B300D9D0FE /* GameState+TurnBasedGame.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -71,6 +80,15 @@
 
 /* Begin PBXFileReference section */
 		3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
+		7536A82A2240975A00D9D0FE /* TurnBasedGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnBasedGame.swift; sourceTree = "<group>"; };
+		7536A82C224097AA00D9D0FE /* PlayerTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTurn.swift; sourceTree = "<group>"; };
+		7536A82E224098EC00D9D0FE /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		7536A8302240990D00D9D0FE /* GameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
+		7536A8322240996300D9D0FE /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		7536A83422409B5700D9D0FE /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		7536A8362240A09200D9D0FE /* AsyncWrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncWrap.swift; sourceTree = "<group>"; };
+		7536A8382240A14400D9D0FE /* GameAsyncWrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAsyncWrap.swift; sourceTree = "<group>"; };
+		7536A83B2240A1B300D9D0FE /* GameState+TurnBasedGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameState+TurnBasedGame.swift"; sourceTree = "<group>"; };
 		822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		965E0332223A4B3C005F7D79 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -158,6 +176,30 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7536A8292240971500D9D0FE /* GameEngine */ = {
+			isa = PBXGroup;
+			children = (
+				7536A83A2240A14A00D9D0FE /* protocols */,
+				7536A8302240990D00D9D0FE /* GameEvent.swift */,
+				7536A83422409B5700D9D0FE /* GameEngine.swift */,
+				7536A8382240A14400D9D0FE /* GameAsyncWrap.swift */,
+				7536A83B2240A1B300D9D0FE /* GameState+TurnBasedGame.swift */,
+			);
+			path = GameEngine;
+			sourceTree = "<group>";
+		};
+		7536A83A2240A14A00D9D0FE /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7536A82E224098EC00D9D0FE /* Event.swift */,
+				7536A82C224097AA00D9D0FE /* PlayerTurn.swift */,
+				7536A82A2240975A00D9D0FE /* TurnBasedGame.swift */,
+				7536A8322240996300D9D0FE /* Identifiable.swift */,
+				7536A8362240A09200D9D0FE /* AsyncWrap.swift */,
+			);
+			path = protocols;
+			sourceTree = "<group>";
+		};
 		965E0331223A4B2F005F7D79 /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +263,7 @@
 		9690F5C8223A4874005291EE /* SailingThroughHistory */ = {
 			isa = PBXGroup;
 			children = (
+				7536A8292240971500D9D0FE /* GameEngine */,
 				96737EA2223D319A00D04C33 /* Interface */,
 				965E033A223A7110005F7D79 /* Common */,
 				965E0331223A4B2F005F7D79 /* Parameters */,
@@ -525,12 +568,15 @@
 				965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */,
 				BA485904223F9112009ED2F6 /* Location.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
+				7536A83C2240A1B300D9D0FE /* GameState+TurnBasedGame.swift in Sources */,
 				965E0343223AD976005F7D79 /* Interface.swift in Sources */,
+				7536A8332240996300D9D0FE /* Identifiable.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
 				BA919072223F447F00009F49 /* ItemType.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
+				7536A8372240A09200D9D0FE /* AsyncWrap.swift in Sources */,
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
@@ -541,23 +587,29 @@
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
+				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
 				BA91906B223F429900009F49 /* Level.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
 				BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */,
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
+				7536A82F224098EC00D9D0FE /* Event.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
+				7536A8392240A14400D9D0FE /* GameAsyncWrap.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
 				96877E54223EC7D80020F44C /* Path.swift in Sources */,
 				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
+				7536A83522409B5700D9D0FE /* GameEngine.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
+				7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */,
+				7536A82B2240975A00D9D0FE /* TurnBasedGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
