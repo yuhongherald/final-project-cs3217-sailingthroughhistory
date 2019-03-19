@@ -8,6 +8,8 @@
 
 import Foundation
 
-protocol Consumable: Item {
-    func consume() -> Bool
+class Consumable: Item {
+    func consume() -> Bool {
+        return false
+    }
 }

@@ -43,7 +43,7 @@
 		BA919064223F260A00009F49 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919063223F260A00009F49 /* Ship.swift */; };
 		BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919066223F266E00009F49 /* ObservableVariable.swift */; };
 		BA919069223F271700009F49 /* GameVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919068223F271700009F49 /* GameVariable.swift */; };
-		BA91906B223F429900009F49 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* Level.swift */; };
+		BA91906B223F429900009F49 /* GenericLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* GenericLevel.swift */; };
 		BA919070223F446800009F49 /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906F223F446800009F49 /* Upgrade.swift */; };
 		BA919072223F447F00009F49 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemType.swift */; };
 		BA919074223F44A400009F49 /* GameParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919073223F44A400009F49 /* GameParameter.swift */; };
@@ -114,7 +114,7 @@
 		BA919063223F260A00009F49 /* Ship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
 		BA919066223F266E00009F49 /* ObservableVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableVariable.swift; sourceTree = "<group>"; };
 		BA919068223F271700009F49 /* GameVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariable.swift; sourceTree = "<group>"; };
-		BA91906A223F429900009F49 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		BA91906A223F429900009F49 /* GenericLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericLevel.swift; sourceTree = "<group>"; };
 		BA91906F223F446800009F49 /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
 		BA919071223F447F00009F49 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 		BA919073223F44A400009F49 /* GameParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameter.swift; sourceTree = "<group>"; };
@@ -301,7 +301,7 @@
 		BA91906D223F441900009F49 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				BA91906A223F429900009F49 /* Level.swift */,
+				BA91906A223F429900009F49 /* GenericLevel.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -541,7 +541,7 @@
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
-				BA91906B223F429900009F49 /* Level.swift in Sources */,
+				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
 				BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */,

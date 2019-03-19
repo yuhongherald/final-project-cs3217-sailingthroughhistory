@@ -10,8 +10,8 @@ import Foundation
 
 class Ship {
     private var location: GameVariable<Location>
-    private var items = [ItemType]()
-    private var capacity = 0
+    private var items = [Item]()
+    private var weightCapacity = 0
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?
     
@@ -20,6 +20,8 @@ class Ship {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
         self.location = GameVariable(value: location)
     }
+    
+    // Movement
     
     public func getNodesInRange(roll: Int) -> [Node] {
         let movement = computeMovement(roll: roll)
@@ -41,6 +43,7 @@ class Ship {
     
     public func dock() -> Port? {
         guard canDock() else {
+            // TODO: Show some error
             return nil
         }
         guard let port = location.value.start as? Port else {
@@ -49,6 +52,28 @@ class Ship {
         location.value = Location(from: location.value, isDocked: true)
         return port
     }
+    
+    // Items
+    
+    public func getRemainingCapacity() -> Int {
+        var remainingCapacity = weightCapacity
+        for item in items {
+            remainingCapacity -= item.quantity * item.itemType.weight
+        }
+        return remainingCapacity
+    }
+    
+    public func addItem(item: Item) {
+        if getRemainingCapacity() < item.quantity * item.itemType.weight {
+            
+        }
+    }
+    
+    public func removeItem(item: Item) {
+        
+    }
+    
+    // Helper functions
     
     private func computeMovement(roll: Int) -> Double {
         var multiplier = 1.0

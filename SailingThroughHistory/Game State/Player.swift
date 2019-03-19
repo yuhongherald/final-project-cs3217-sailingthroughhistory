@@ -62,11 +62,9 @@ class Player: GenericPlayer {
     
     public func endTurn() {
     }
-}
-
-// MARK - Equatable
-extension Player: Equatable {
+    
     static func == (lhs: Player, rhs: Player) -> Bool {
         return lhs === rhs
     }
+    
 }

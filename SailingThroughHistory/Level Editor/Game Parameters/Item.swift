@@ -8,9 +8,20 @@
 
 import Foundation
 
-protocol Item {
-    var itemType: ItemType { get }
-    var quantity: Int { get }
+class Item {
+    let itemType: ItemType
+    let quantity: Int
     
-    func getValue(port: Port) -> Int
+    public init(itemType: ItemType, quantity: Int) {
+        self.itemType = itemType
+        self.quantity = quantity
+    }
+    
+    func getBuyValue(at port: Port) -> Int? {
+        return nil
+    }
+    
+    func getSellValue(at port: Port) -> Int? {
+        return nil
+    }
 }

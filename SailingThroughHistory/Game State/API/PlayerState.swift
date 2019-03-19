@@ -1,5 +1,5 @@
 //
-//  PlayerStates.swift
+//  PlayerState.swift
 //  SailingThroughHistory
 //
 //  Created by henry on 18/3/19.

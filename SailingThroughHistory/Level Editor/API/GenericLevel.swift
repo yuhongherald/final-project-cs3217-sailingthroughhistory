@@ -1,5 +1,5 @@
 //
-//  Level.swift
+//  GenericLevel.swift
 //  SailingThroughHistory
 //
 //  Created by henry on 17/3/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Level {
+protocol GenericLevel {
     var itemTypes: ItemType { get set }
     
     func getPlayers() -> [Player]
