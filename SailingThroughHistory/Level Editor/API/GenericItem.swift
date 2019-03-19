@@ -12,7 +12,7 @@ protocol GenericItem {
     var itemType: GenericItemType { get }
     var weight: Int { get }
     var quantity: Int { get set }
-    
+
     init(itemType: GenericItemType, quantity: Int)
     func combine(with item: GenericItem) -> Bool
     func setQuantity(quantity: Int)

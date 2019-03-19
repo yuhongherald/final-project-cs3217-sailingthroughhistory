@@ -10,29 +10,27 @@ import Foundation
 
 class Ship {
     public var name: String {
-        get {
-            return owner?.name ?? "NPC Ship"
-        }
+        return owner?.name ?? "NPC Ship"
     }
-    
+
     private var owner: GenericPlayer?
     private var location: GameVariable<Location>
     private var items = [GenericItem]()
     private var weightCapacity = 0
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?
-    
+
     public init(node: Node) {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
         self.location = GameVariable(value: location)
     }
-    
+
     public func setOwner(owner: GenericPlayer?) {
         self.owner = owner
     }
-    
+
     // Movement
-    
+
     public func getNodesInRange(roll: Int) -> [Node] {
         let movement = computeMovement(roll: roll)
         let nodesFromStart = location.value.start.getNodesInRange(range: movement - location.value.fractionToEnd)
@@ -42,15 +40,15 @@ class Ship {
         let nodesFromEnd = location.value.end.getNodesInRange(range: movement + 1 - location.value.fractionToEnd)
         return Array(Set(nodesFromStart + nodesFromEnd))
     }
-    
+
     public func move(node: Node) {
         location.value = Location(start: node, end: node, fractionToEnd: 0, isDocked: false)
     }
-    
+
     public func canDock() -> Bool {
         return location.value.fractionToEnd == 0 && location.value.start is Port
     }
-    
+
     public func dock() -> Port? {
         guard canDock() else {
             // TODO: Show some error
@@ -62,20 +60,20 @@ class Ship {
         location.value = Location(from: location.value, isDocked: true)
         return port
     }
-    
+
     // Items
-    
+
     public func getPurchasableItemTypes() -> [GenericItemType] {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return []
         }
         return port.itemTypes
     }
-    
+
     public func getItems() -> [GenericItem] {
         return items
     }
-    
+
     public func getMaxPurchaseAmount(itemType: GenericItemType) -> Int {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return 0
@@ -85,7 +83,7 @@ class Ship {
         }
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemType.weight)
     }
-    
+
     // TODO: show errors
     public func buyItem(itemType: GenericItemType, quantity: Int) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
@@ -102,10 +100,9 @@ class Ship {
         if addItem(item: item) {
             // TODO: show purchase success
         } else {
-            
         }
     }
-    
+
     // TODO: Show errors
     public func sellItem(item: GenericItem) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
@@ -120,24 +117,24 @@ class Ship {
         owner?.money.value += profit
         items.remove(at: index)
     }
-    
+
     // Helper functions
-    
+
     private func computeMovement(roll: Int) -> Double {
         var multiplier = 1.0
         multiplier = applyUpgradesModifiers(to: multiplier)
         return Double(roll) * multiplier
     }
-    
+
     private func applyUpgradesModifiers(to multiplier: Double) -> Double {
         return multiplier
     }
-    
+
     private func getWeatherModifier() -> Double {
         var multiplier = 1.0
         return multiplier
     }
-    
+
     private func getRemainingCapacity() -> Int {
         var remainingCapacity = weightCapacity
         for item in items {
@@ -145,7 +142,7 @@ class Ship {
         }
         return remainingCapacity
     }
-    
+
     private func addItem(item: GenericItem) -> Bool {
         if getRemainingCapacity() < item.weight {
             return false
@@ -154,8 +151,8 @@ class Ship {
             items.append(item)
             return true
         }
-        let _ = sameType.combine(with: item)
+        _ = sameType.combine(with: item)
         return true
     }
-    
+
 }

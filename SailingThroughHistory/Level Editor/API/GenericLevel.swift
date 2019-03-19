@@ -10,6 +10,6 @@ import Foundation
 
 protocol GenericLevel {
     var itemTypes: GenericItemType { get set }
-    
+
     func getPlayers() -> [GenericPlayer]
 }

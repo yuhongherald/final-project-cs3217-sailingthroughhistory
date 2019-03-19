@@ -11,18 +11,18 @@ import Foundation
 protocol GenericItemType: GameParameter {
     var displayName: String { get }
     var weight: Int { get }
-    
+
     init(displayName: String, weight: Int, isConsumable: Bool)
-    
+
     // Create a quantized representation
     func createItem(quantity: Int) -> GenericItem
-    
+
     // Global pricing information
     func getBuyValue(at port: Port) -> Int?
     func getSellValue(at port: Port) -> Int?
     func setBuyValue(at port: Port, value: Int)
     func setSellValue(at port: Port, value: Int)
-    
+
     // Availability at ports
     func delete(from pot: Port)
 }

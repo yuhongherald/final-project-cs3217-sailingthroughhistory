@@ -13,14 +13,14 @@ protocol GenericPlayer {
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }
     var interface: Interface? { get set }
-    
+
     init(name: String, node: Node)
-    
+
     // Before moving
     func buyUpgrade(upgrade: Upgrade)
     func getOwnedPorts() -> [Port]
     func setTax(port: Port, amount: Int)
-    
+
     // Moving - Auto progress to End turn if cannot dock
     func move(node: Node)
     func getNodesInRange(roll: Int) -> [Node]
@@ -28,13 +28,13 @@ protocol GenericPlayer {
     // After moving can choose to dock
     func canDock() -> Bool
     func dock()
-    
+
     // Docked - End turn is manual here
     func getPurchasableItemTypes() -> [GenericItemType]
     func getMaxPurchaseAmount(itemType: GenericItemType) -> Int
     func buy(itemType: GenericItemType, quantity: Int)
     func sell(item: GenericItem)
-    
+
     // End turn - supplies are removed here
     func endTurn()
 }

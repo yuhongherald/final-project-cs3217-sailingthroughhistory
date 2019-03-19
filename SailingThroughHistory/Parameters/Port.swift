@@ -10,7 +10,7 @@ class Port: Node {
     public var taxAmount = 0
     public var owner: GenericPlayer?
     public var itemTypes = [GenericItemType]()
-    
+
     public func collectTax(from player: GenericPlayer) {
         // Prevent event listeners from firing unneccessarily
         if player == owner {
@@ -19,5 +19,5 @@ class Port: Node {
         player.money.value -= taxAmount
         owner?.money.value += taxAmount
     }
-    
+
 }
