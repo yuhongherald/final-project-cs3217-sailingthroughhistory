@@ -7,22 +7,26 @@
 //
 
 import Foundation
+import UIKit
 
 class Ship {
     public var name: String {
         return owner?.name ?? "NPC Ship"
     }
 
+    public let location: GameVariable<Location>
+
     private var owner: GenericPlayer?
-    private var location: GameVariable<Location>
     private var items = [GenericItem]()
     private var weightCapacity = 0
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?
+    private var shipUI: ShipUI?
 
     public init(node: Node) {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
         self.location = GameVariable(value: location)
+        shipUI = ShipUI(ship: self)
     }
 
     public func setOwner(owner: GenericPlayer?) {
