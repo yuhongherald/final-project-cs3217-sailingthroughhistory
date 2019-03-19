@@ -261,16 +261,24 @@
 			path = SailingThroughHistoryUITests;
 			sourceTree = "<group>";
 		};
+		BA485909223FEA18009ED2F6 /* Upgrades */ = {
+			isa = PBXGroup;
+			children = (
+				BA919077223F4D0800009F49 /* ShipChassis.swift */,
+				BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */,
+			);
+			path = Upgrades;
+			sourceTree = "<group>";
+		};
 		BA91905C223F259800009F49 /* Game State */ = {
 			isa = PBXGroup;
 			children = (
 				BA919065223F263D00009F49 /* API */,
+				BA485909223FEA18009ED2F6 /* Upgrades */,
 				BA91905D223F25CE00009F49 /* GameState.swift */,
 				BA91905F223F25E400009F49 /* Player.swift */,
 				BA919063223F260A00009F49 /* Ship.swift */,
 				BA485903223F9112009ED2F6 /* Location.swift */,
-				BA919077223F4D0800009F49 /* ShipChassis.swift */,
-				BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */,
 			);
 			path = "Game State";
 			sourceTree = "<group>";
