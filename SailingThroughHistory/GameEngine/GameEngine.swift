@@ -6,20 +6,16 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import Foundation
-
 class GameEngine {
     private var underlyingGameSpeed: Double = 1
-    private var group: DispatchGroup = DispatchGroup()
     private var isRunning: Bool = false
     private var isValid: Bool = true
 
-    private var gameState: GameState
+    // TODO: extract interface into protocol
     // something for me to draw on
-    private var interface: Interface
-    private var wrapper: AsyncWrap
-    // an exit point for the game
-    private var endGame: () -> Void
+    private let interface: Interface
+    private let gameLogic: TurnBasedGame
+    private let wrapper: AsyncWrap
 
     var gameSpeed: Double {
         get {
@@ -32,33 +28,44 @@ class GameEngine {
         }
     }
 
-    init(gameState: GameState, interface: Interface,
-         asyncWrapper: AsyncWrap, endGame: @escaping () -> Void) {
-        self.gameState = gameState
+    init(interface: Interface, gameLogic: TurnBasedGame, asyncWrapper: AsyncWrap) {
+        self.interface = interface
+        self.gameLogic = gameLogic
         self.wrapper = asyncWrapper
-        self.endGame = endGame
     }
     
-    func start() {
+    func start(endGame: @escaping () -> Void) {
         if isRunning || !isValid {
             return
         }
         isRunning = true
-        repeatLoop()
+        wrapper.resetTimer()
+        repeatLoop(endGame)
     }
 
-    private func repeatLoop() {
+    private func repeatLoop(_ endGame: @escaping () -> Void) {
         wrapper.async {
             guard self.isValid else {
+                endGame()
                 return
             }
-            self.loop()
+            self.loop(endGame)
         }
     }
 
-    private func loop() {
-        // TODO: Add game logic here
-        repeatLoop()
+    private func loop(_ endGame: @escaping () -> Void) {
+        updateGameState()
+        updateInterface()
+        repeatLoop(endGame)
     }
 
+    private func updateGameState() {
+        let newTime = wrapper.getTimestamp()
+        let timeDifference = (newTime - gameLogic.currentGameTime) * gameSpeed
+        gameLogic.updateGameState(deltaTime: timeDifference)
+    }
+
+    private func updateInterface() {
+        // TODO: Write protocol for wrapping interface
+    }
 }

@@ -15,5 +15,5 @@ protocol TurnBasedGame {
     var forecastDuration: Double { get set }
     /// updates the game state by taking a timestep, recursively
     /// also returns the closest forecasted event, if any
-    func updateGameState(deltaTime: Double) -> Event?
+    func updateGameState(deltaTime: Double)
 }
