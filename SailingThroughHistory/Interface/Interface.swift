@@ -10,8 +10,8 @@ import RxSwift
 import UIKit
 
 class Interface {
-    let bounds: CGRect = CGRect(origin: CGPoint.zero, size: CGSize(width: 2048, height: 1536))
-    let background: String = "1799-Asia.png"
+    let bounds: CGRect
+    let background: String = "worldmap1815.png"
     let events = InterfacePublishSubject<InterfaceEvents>()
     let disposeBag = DisposeBag()
     let monthSymbols = Calendar.current.monthSymbols
@@ -21,8 +21,9 @@ class Interface {
     var paths = [GameObject: [Path]]()
     var currentTurnOwner: Player?
 
-    init(players: [Player]) {
+    init(players: [Player], bounds: CGRect) {
         self.players = players
+        self.bounds = bounds
     }
 
     /// Add a pending operation to add the given object to the interface. Once commited/broadcasted, rhe frame of the
