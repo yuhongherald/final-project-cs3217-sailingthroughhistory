@@ -12,7 +12,7 @@ import XCTest
 class GameLogicTest: XCTestCase {
 
     func testSetGameSpeed() {
-        let logic = GameLogic(gameState: GameState())
+        let logic = GameLogic(gameState: GameBoard())
         var event = BaseGameEvent(eventType: EventType.informative(initiater: ""), timestamp: 1, message: "")
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
@@ -39,7 +39,7 @@ class GameLogicTest: XCTestCase {
     }
 
     func testUpdateGameState() {
-        let gameState = GameState()
+        let gameState = GameBoard()
         let logic = GameLogic(gameState: gameState)
         logic.updateGameState(deltaTime: 1.0)
         // TODO: Write test to check months and weeks have been updated correctly

@@ -8,7 +8,7 @@
 
 class GameLogic: TurnBasedGame {
     // TODO: Extract gameState into a protocol
-    private let gameState: GenericGameState
+    private let gameState: Board
     var playerTurn: PlayerTurn?
     var currentGameTime: Double = 0
     var largestTimeStep: Double = GameConstants.largestTimeStep
@@ -21,7 +21,7 @@ class GameLogic: TurnBasedGame {
     var slowestGameSpeed: Double = GameConstants.slowestGameSpeed
     private var gameSpeed: Double = 1
 
-    init(gameState: GenericGameState) {
+    init(gameState: Board) {
         self.gameState = gameState
     }
 
@@ -76,6 +76,41 @@ class GameLogic: TurnBasedGame {
         // move ships by interpolation
         // check when a player ship lands into a tile, create event if required
         // (Pirate, starvation, reached port)
+        let updatables = gameState.getUpdatables()
+
+        let pirates = updatables.filter { $0.type == UpdatableType.pirate }
+        let npcs = updatables.filter { $0.type == UpdatableType.npc }
+        let players = updatables.filter { $0.type == UpdatableType.player }
+        let ports = updatables.filter { $0.type == UpdatableType.port }
+        let sea = updatables.filter { $0.type == UpdatableType.weather }
+
+        // TODO: Create a method to push copies of events onto a stack so that they can be evaluated for emotion engine
+        // update sea, mark as dirty if weather changes
+        // update ports, stub to change prices
+        // update npcs, check they moved into a port, update port owner's money
+        // update players, check they moved into a port
+        // update pirates, check they moved into a player
         return nil
     }
+
+    private func updateSea(sea: [Updatable]) {
+        
+    }
+
+    private func updatePorts(ports: [Updatable]) {
+        
+    }
+
+    private func updateNPCs(npcs: [Updatable], ports: [Updatable]) {
+        
+    }
+
+    private func updatePlayers(players: [Updatable], ports: [Updatable]) {
+        
+    }
+
+    private func updatePirates(pirates: [Updatable], players: [Updatable]) {
+        
+    }
+
 }

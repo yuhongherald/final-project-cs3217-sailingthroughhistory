@@ -20,6 +20,10 @@
 		7536A8402240A8B300D9D0FE /* GameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A83F2240A8B300D9D0FE /* GameConstants.swift */; };
 		7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8412240C25F00D9D0FE /* Double+Lerp.swift */; };
 		7536A8442240C98D00D9D0FE /* GameLogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8432240C98D00D9D0FE /* GameLogicTest.swift */; };
+		7536A8462240E0B500D9D0FE /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8452240E0B500D9D0FE /* Board.swift */; };
+		7536A8482240E10500D9D0FE /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8472240E10500D9D0FE /* GameBoard.swift */; };
+		7536A84A2240E20800D9D0FE /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8492240E20800D9D0FE /* Updatable.swift */; };
+		7536A84C2240E37800D9D0FE /* UpdatableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A84B2240E37800D9D0FE /* UpdatableType.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -97,6 +101,10 @@
 		7536A83F2240A8B300D9D0FE /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		7536A8412240C25F00D9D0FE /* Double+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Lerp.swift"; sourceTree = "<group>"; };
 		7536A8432240C98D00D9D0FE /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
+		7536A8452240E0B500D9D0FE /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		7536A8472240E10500D9D0FE /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
+		7536A8492240E20800D9D0FE /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		7536A84B2240E37800D9D0FE /* UpdatableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableType.swift; sourceTree = "<group>"; };
 		822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		965E0332223A4B3C005F7D79 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -193,6 +201,7 @@
 				7536A8382240A14400D9D0FE /* GameAsyncWrap.swift */,
 				7536A83B2240A1B300D9D0FE /* GameLogic.swift */,
 				7536A83F2240A8B300D9D0FE /* GameConstants.swift */,
+				7536A8472240E10500D9D0FE /* GameBoard.swift */,
 			);
 			path = GameEngine;
 			sourceTree = "<group>";
@@ -206,6 +215,9 @@
 				7536A8322240996300D9D0FE /* Identifiable.swift */,
 				7536A8362240A09200D9D0FE /* AsyncWrap.swift */,
 				7536A83D2240A7E600D9D0FE /* EventType.swift */,
+				7536A8452240E0B500D9D0FE /* Board.swift */,
+				7536A8492240E20800D9D0FE /* Updatable.swift */,
+				7536A84B2240E37800D9D0FE /* UpdatableType.swift */,
 			);
 			path = protocols;
 			sourceTree = "<group>";
@@ -579,6 +591,7 @@
 			files = (
 				965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */,
 				BA485904223F9112009ED2F6 /* Location.swift in Sources */,
+				7536A84C2240E37800D9D0FE /* UpdatableType.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
 				7536A83C2240A1B300D9D0FE /* GameLogic.swift in Sources */,
 				965E0343223AD976005F7D79 /* Interface.swift in Sources */,
@@ -597,6 +610,7 @@
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
+				7536A84A2240E20800D9D0FE /* Updatable.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
@@ -609,6 +623,8 @@
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
 				7536A82F224098EC00D9D0FE /* GameEvent.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
+				7536A8482240E10500D9D0FE /* GameBoard.swift in Sources */,
+				7536A8462240E0B500D9D0FE /* Board.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				7536A8402240A8B300D9D0FE /* GameConstants.swift in Sources */,
