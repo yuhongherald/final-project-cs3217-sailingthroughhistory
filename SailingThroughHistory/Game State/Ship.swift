@@ -10,7 +10,7 @@ import Foundation
 
 class Ship {
     private var location: GameVariable<Location>
-    private var items = [Item]()
+    private var items = [GenericItem]()
     private var weightCapacity = 0
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?
@@ -63,13 +63,13 @@ class Ship {
         return remainingCapacity
     }
     
-    public func addItem(item: Item) {
+    public func addItem(item: GenericItem) {
         if getRemainingCapacity() < item.weight {
             
         }
     }
     
-    public func removeItem(item: Item) {
+    public func removeItem(item: GenericItem) {
         
     }
     

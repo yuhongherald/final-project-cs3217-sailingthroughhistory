@@ -15,7 +15,7 @@ protocol GenericItemType: GameParameter {
     init(displayName: String, weight: Int, isConsumable: Bool)
     
     // Create a quantized representation
-    func createItem(quantity: Int) -> Item
+    func createItem(quantity: Int) -> GenericItem
     
     // Global pricing information
     func getBuyValue(at port: Port) -> Int?

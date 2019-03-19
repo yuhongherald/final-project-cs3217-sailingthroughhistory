@@ -22,7 +22,7 @@ class ItemType: GenericItemType {
     
     // Create a quantized representation
     
-    func createItem(quantity: Int) -> Item {
+    func createItem(quantity: Int) -> GenericItem {
         return Item(itemType: self, quantity: quantity)
     }
     
