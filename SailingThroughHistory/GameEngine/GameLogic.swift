@@ -8,7 +8,7 @@
 
 class GameLogic: TurnBasedGame {
     // TODO: Extract gameState into a protocol
-    private let gameState: GameState
+    private let gameState: GenericGameState
     var playerTurn: PlayerTurn?
     var currentGameTime: Double = 0
     var largestTimeStep: Double = GameConstants.largestTimeStep
@@ -21,7 +21,7 @@ class GameLogic: TurnBasedGame {
     var slowestGameSpeed: Double = GameConstants.slowestGameSpeed
     private var gameSpeed: Double = 1
 
-    init(gameState: GameState) {
+    init(gameState: GenericGameState) {
         self.gameState = gameState
     }
 
@@ -41,7 +41,6 @@ class GameLogic: TurnBasedGame {
     private func updateGameSpeed(_ deltaTime: Double) -> GameEvent? {
         currentGameTime += deltaTime
         guard let event = updateGameStateDeltatime(deltaTime) else {
-            gameSpeed = fastestGameSpeed
             return nil
         }
         let eventTimeDifference = event.timestamp - currentGameTime
@@ -56,13 +55,26 @@ class GameLogic: TurnBasedGame {
 
     func setGameSpeed(using event: GameEvent) {
         let eventTimeDifference = event.timestamp - currentGameTime
-        let alpha = (forecastDuration - eventTimeDifference) / forecastDuration
-        gameSpeed = alpha * fastestGameSpeed + (1.0 - alpha) * slowestGameSpeed
+        var alpha: Double = 0
+        if eventTimeDifference > 0 {
+            alpha = (forecastDuration - eventTimeDifference) / forecastDuration
+        } else {
+            alpha = 1 - ((forecastDuration + eventTimeDifference) / forecastDuration)
+        }
+        alpha = Double.clamp(alpha, 0, 1)
+        gameSpeed = Double.lerp(alpha, fastestGameSpeed, slowestGameSpeed)
+    }
+
+    func getGameSpeed() -> Double {
+        return gameSpeed
     }
 
     private func updateGameStateDeltatime(_ deltaTime: Double) -> GameEvent? {
         // TODO: Use the game state to update the game
         //gameState.
+        // move ships by interpolation
+        // check when a player ship lands into a tile, create event if required
+        // (Pirate, starvation, reached port)
         return nil
     }
 }
