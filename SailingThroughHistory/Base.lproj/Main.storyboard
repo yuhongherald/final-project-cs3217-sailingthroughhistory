@@ -30,6 +30,9 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yzi-uC-Odn">
                                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="5DU-mn-IwN" appends="YES" id="UlN-ny-Aee"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -55,23 +58,38 @@
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="January" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nf-n2-xli">
-                                <rect key="frame" x="460.5" y="20" width="103" height="36"/>
+                                <rect key="frame" x="901" y="40" width="103" height="36"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information">
-                                <rect key="frame" x="341.5" y="64" width="341" height="256"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q59-92-ecD" customClass="CountdownLabel" customModule="CountdownLabel">
+                                <rect key="frame" x="933" y="296" width="71" height="36"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information">
+                                <rect key="frame" x="748" y="84" width="256" height="192"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fN-oD-MBu" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="206" width="147" height="30"/>
+                                        <rect key="frame" x="20" y="142" width="147" height="30"/>
                                         <state key="normal" title="Hide Port Information"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="hidePortInformationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kdd-qX-w0s"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,15 +124,25 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Placeholder"/>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pul-tz-1B7">
+                                        <rect key="frame" x="302.5" y="20" width="19" height="36"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pul-tz-1B7" secondAttribute="bottom" id="1dl-Dn-Cfr"/>
                                     <constraint firstItem="gHp-eR-Gh1" firstAttribute="leading" secondItem="5Pn-jO-5xF" secondAttribute="leading" constant="20" symbolic="YES" id="2Z5-tA-xUh"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bxt-Al-xiN" secondAttribute="trailing" id="2ob-FL-X89"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gHp-eR-Gh1" secondAttribute="trailing" constant="20" symbolic="YES" id="8Ii-5c-kh5"/>
                                     <constraint firstItem="iL2-sc-N7v" firstAttribute="top" secondItem="bxt-Al-xiN" secondAttribute="bottom" constant="8" symbolic="YES" id="Ad1-ew-En8"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gHp-eR-Gh1" secondAttribute="bottom" constant="20" symbolic="YES" id="FsB-wY-ytt"/>
+                                    <constraint firstItem="pul-tz-1B7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bxt-Al-xiN" secondAttribute="trailing" constant="8" symbolic="YES" id="Tfl-Wy-IL5"/>
                                     <constraint firstItem="bxt-Al-xiN" firstAttribute="top" secondItem="5Pn-jO-5xF" secondAttribute="top" constant="20" symbolic="YES" id="V1j-Ym-lSx"/>
+                                    <constraint firstItem="pul-tz-1B7" firstAttribute="top" secondItem="5Pn-jO-5xF" secondAttribute="top" constant="20" symbolic="YES" id="YQD-B8-TTm"/>
+                                    <constraint firstAttribute="trailing" secondItem="pul-tz-1B7" secondAttribute="trailing" constant="20" symbolic="YES" id="Zqs-WG-qHg"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="bxt-Al-xiN" secondAttribute="bottom" id="aCM-dL-e2N"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="iL2-sc-N7v" secondAttribute="bottom" constant="20" symbolic="YES" id="gvW-tV-XJi"/>
                                     <constraint firstItem="gHp-eR-Gh1" firstAttribute="top" secondItem="iL2-sc-N7v" secondAttribute="bottom" constant="8" symbolic="YES" id="hiY-zC-fdA"/>
@@ -133,53 +161,118 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Toggle Action Panel"/>
                                 <connections>
-                                    <action selector="toggleActionPanel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RLV-hu-dVC"/>
+                                    <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RLV-hu-dVC"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFT-em-0mO">
+                                <rect key="frame" x="0.0" y="20" width="274" height="256"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edJ-ZT-gPh">
+                                        <rect key="frame" x="20" y="70" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="edJ-ZT-gPh" secondAttribute="bottom" id="0eG-hV-Kmm"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="edJ-ZT-gPh" secondAttribute="trailing" id="Fdk-pY-zkJ"/>
+                                    <constraint firstItem="edJ-ZT-gPh" firstAttribute="top" secondItem="MFT-em-0mO" secondAttribute="top" constant="70" id="ZMe-1n-0ho"/>
+                                    <constraint firstItem="edJ-ZT-gPh" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="leading" constant="20" id="rWf-EU-a06"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ue5-3h-dqr" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="234" height="36"/>
+                                <rect key="frame" x="20" y="40" width="234" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Toggle Player 1 Information"/>
+                                <connections>
+                                    <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HBT-Te-ZcG"/>
+                                </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBa-ds-mdJ">
+                                <rect key="frame" x="274" y="20" width="276" height="256"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKH-yp-eHN">
+                                        <rect key="frame" x="20" y="70" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="PKH-yp-eHN" secondAttribute="bottom" id="14P-zy-tLL"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PKH-yp-eHN" secondAttribute="trailing" id="2fx-gx-oJk"/>
+                                    <constraint firstItem="PKH-yp-eHN" firstAttribute="leading" secondItem="aBa-ds-mdJ" secondAttribute="leading" constant="20" id="5Nq-4y-XUX"/>
+                                    <constraint firstItem="PKH-yp-eHN" firstAttribute="top" secondItem="aBa-ds-mdJ" secondAttribute="top" constant="70" id="Go7-Tx-Wmi"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DYM-A8-9ob" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="768" y="20" width="236" height="36"/>
+                                <rect key="frame" x="294" y="40" width="236" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Toggle Player 2 Information"/>
+                                <connections>
+                                    <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xVI-2D-k4p"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6nf-n2-xli" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="01i-ni-X3f"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="top" secondItem="6nf-n2-xli" secondAttribute="bottom" constant="8" symbolic="YES" id="2yt-xV-pR4"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="93w-mA-raU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="aBa-ds-mdJ" secondAttribute="top" id="An7-Vh-exN"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="BKh-th-Hki"/>
-                            <constraint firstItem="6nf-n2-xli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GYk-OA-eX0"/>
-                            <constraint firstItem="ue5-3h-dqr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Lnl-P6-45G"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aBa-ds-mdJ" secondAttribute="bottom" id="EbP-yz-8c7"/>
+                            <constraint firstItem="q59-92-ecD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GIX-ZC-G64"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="GWu-vH-dFQ"/>
+                            <constraint firstItem="6nf-n2-xli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="GYk-OA-eX0"/>
+                            <constraint firstItem="ue5-3h-dqr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Lnl-P6-45G"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mu4-Ie-cT6"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NQy-MG-Yoo"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ObH-J3-fir"/>
-                            <constraint firstItem="hZq-3R-NvY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Owk-5v-Gea"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qob-fY-pBc"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QxV-sm-yoD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="bottom" id="Ra9-H3-yrl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5Pn-jO-5xF" secondAttribute="bottom" id="SYJ-Zq-Z6f"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="trailing" id="TN5-7n-QWa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hZq-3R-NvY" secondAttribute="trailing" constant="20" id="Vt9-SE-p5s"/>
+                            <constraint firstItem="aBa-ds-mdJ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="WEB-XF-q4I"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8nQ-Ii-rtZ" secondAttribute="bottom" constant="20" id="bKO-yM-4fV"/>
+                            <constraint firstItem="MFT-em-0mO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bi8-FO-wpf"/>
                             <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="c9z-LJ-iXg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yCl-MH-qBd" secondAttribute="trailing" id="dcP-PR-GRl"/>
-                            <constraint firstItem="DYM-A8-9ob" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fUS-bf-sY6"/>
+                            <constraint firstItem="DYM-A8-9ob" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="trailing" constant="20" id="fUS-bf-sY6"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="g3t-Hd-j3k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yCl-MH-qBd" secondAttribute="bottom" id="gCr-h2-CW3"/>
-                            <constraint firstItem="hZq-3R-NvY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="gVl-OD-3BP"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/4" id="gVl-OD-3BP"/>
+                            <constraint firstItem="DYM-A8-9ob" firstAttribute="trailing" secondItem="aBa-ds-mdJ" secondAttribute="trailing" constant="-20" id="h2k-cE-5D2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="bottom" id="hhb-JF-26f"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6nf-n2-xli" secondAttribute="trailing" id="lRl-YQ-kVK"/>
-                            <constraint firstItem="hZq-3R-NvY" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="m8d-iH-P1c"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="q59-92-ecD" secondAttribute="bottom" id="ilI-QG-18O"/>
+                            <constraint firstItem="q59-92-ecD" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="bottom" constant="20" id="jqw-ye-X8s"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6nf-n2-xli" secondAttribute="trailing" constant="20" id="lRl-YQ-kVK"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/4" id="m8d-iH-P1c"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="leading" id="o0F-2V-7Ut"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o3e-AA-P7X"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6nf-n2-xli" secondAttribute="bottom" id="omC-Ki-5LY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="DYM-A8-9ob" secondAttribute="bottom" id="pft-gU-4D2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DYM-A8-9ob" secondAttribute="trailing" constant="20" id="qJB-C2-jX0"/>
+                            <constraint firstItem="MFT-em-0mO" firstAttribute="trailing" secondItem="ue5-3h-dqr" secondAttribute="trailing" constant="20" id="q6n-ny-xUO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DYM-A8-9ob" secondAttribute="trailing" constant="20" id="qJB-C2-jX0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="rDM-QC-Hl5"/>
-                            <constraint firstItem="DYM-A8-9ob" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="uUj-jg-M04"/>
+                            <constraint firstItem="aBa-ds-mdJ" firstAttribute="leading" secondItem="DYM-A8-9ob" secondAttribute="leading" constant="-20" id="t1v-Ar-Hqa"/>
+                            <constraint firstItem="DYM-A8-9ob" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="uUj-jg-M04"/>
+                            <constraint firstItem="MFT-em-0mO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="vdp-tX-Jp2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q59-92-ecD" secondAttribute="trailing" constant="20" id="vhb-x8-09E"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="w0B-KI-dKf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -187,16 +280,31 @@
                     <connections>
                         <outlet property="actionPanelView" destination="5Pn-jO-5xF" id="wyJ-XJ-AES"/>
                         <outlet property="backgroundImageView" destination="9Sq-IX-ntE" id="4ND-FK-iTu"/>
+                        <outlet property="countdownLabel" destination="q59-92-ecD" id="x8m-8y-DjK"/>
+                        <outlet property="diceResultLabel" destination="pul-tz-1B7" id="zgu-jx-z6U"/>
                         <outlet property="gameAndBackgroundWrapper" destination="Ph7-HO-lQ1" id="pc9-ya-kwM"/>
                         <outlet property="gameArea" destination="Yzi-uC-Odn" id="qRV-20-8r7"/>
                         <outlet property="monthLabel" destination="6nf-n2-xli" id="Bas-Lj-mTh"/>
+                        <outlet property="playerOneGoldView" destination="edJ-ZT-gPh" id="ALi-DO-pNR"/>
+                        <outlet property="playerOneInformationView" destination="MFT-em-0mO" id="XKf-HX-JgN"/>
+                        <outlet property="playerTwoGoldView" destination="PKH-yp-eHN" id="YYf-Aw-Vem"/>
+                        <outlet property="playerTwoInformationView" destination="aBa-ds-mdJ" id="Lhf-oP-CN5"/>
+                        <outlet property="portInformationView" destination="hZq-3R-NvY" id="cZb-aG-dOe"/>
                         <outlet property="rollDiceButton" destination="bxt-Al-xiN" id="sr8-uW-nCc"/>
                         <outlet property="scrollView" destination="yCl-MH-qBd" id="sfg-kM-0DH"/>
-                        <outlet property="toggleActionPanelButton" destination="8nQ-Ii-rtZ" id="MKl-F8-wAL"/>
+                        <outlet property="toggleActionPanelButton" destination="8nQ-Ii-rtZ" id="R6d-Il-V9c"/>
+                        <outlet property="togglePlayerOneInfoButton" destination="ue5-3h-dqr" id="KyB-co-3e5"/>
+                        <outlet property="togglePlayerTwoInfoButton" destination="DYM-A8-9ob" id="cFK-bO-jbh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="5DU-mn-IwN">
+                    <connections>
+                        <action selector="onTapGameArea:" destination="BYZ-38-t0r" id="B7G-Rg-ga8"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="49.8046875" y="23.4375"/>
         </scene>
     </scenes>
 </document>
