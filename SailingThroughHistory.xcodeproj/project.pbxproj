@@ -16,6 +16,8 @@
 		965E0340223A9AD1005F7D79 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033F223A9AD1005F7D79 /* Port.swift */; };
 		965E0343223AD976005F7D79 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0342223AD976005F7D79 /* Interface.swift */; };
 		965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */; };
+		966941DA223FD3A900F07A50 /* UIGameImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameImageView.swift */; };
+		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
 		96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */; };
 		96737EA4223D335100D04C33 /* View+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA3223D335100D04C33 /* View+Translate.swift */; };
@@ -31,6 +33,8 @@
 		9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5D2223A4875005291EE /* LaunchScreen.storyboard */; };
 		9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */; };
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
+		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
+		96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* InterfacePublishSubject.swift */; };
 		A36E5A3EF544FF538E847194 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
 		BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485901223F8B6E009ED2F6 /* Consumable.swift */; };
@@ -86,6 +90,8 @@
 		965E033F223A9AD1005F7D79 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
 		965E0342223AD976005F7D79 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvent.swift; sourceTree = "<group>"; };
+		966941D9223FD3A900F07A50 /* UIGameImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameImageView.swift; sourceTree = "<group>"; };
+		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvents.swift; sourceTree = "<group>"; };
 		96737EA3223D335100D04C33 /* View+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Translate.swift"; sourceTree = "<group>"; };
@@ -107,6 +113,8 @@
 		9690F5E5223A4875005291EE /* SailingThroughHistoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailingThroughHistoryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SailingThroughHistoryUITests.swift; sourceTree = "<group>"; };
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96F658472240E13E006CD412 /* View+SpecialEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SpecialEffects.swift"; sourceTree = "<group>"; };
+		96F6584922412126006CD412 /* InterfacePublishSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfacePublishSubject.swift; sourceTree = "<group>"; };
 		BA4858FF223F89F7009ED2F6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BA485901223F8B6E009ED2F6 /* Consumable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
 		BA485903223F9112009ED2F6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -199,6 +207,10 @@
 				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
 				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
 				96877E53223EC7D80020F44C /* Path.swift */,
+				966941D9223FD3A900F07A50 /* UIGameImageView.swift */,
+				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
+				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
+				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -509,7 +521,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -524,7 +536,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -545,8 +557,10 @@
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				BA48590F2240A382009ED2F6 /* GenericItemType.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
+				966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */,
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
+				96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
 				BA919070223F446800009F49 /* Upgrade.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
@@ -556,6 +570,7 @@
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
+				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
 				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
@@ -568,6 +583,7 @@
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
+				966941DA223FD3A900F07A50 /* UIGameImageView.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
 				96877E54223EC7D80020F44C /* Path.swift in Sources */,
 				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
