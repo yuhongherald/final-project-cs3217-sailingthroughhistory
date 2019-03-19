@@ -26,3 +26,7 @@ protocol GenericItemType: GameParameter {
     // Availability at ports
     func delete(from pot: Port)
 }
+
+func == (lhs: GenericItemType, rhs: GenericItemType?) -> Bool {
+    return lhs.displayName == rhs?.displayName
+}

@@ -12,7 +12,9 @@ class ItemType: GenericItemType {
     let displayName: String
     let weight: Int
     private let isConsumable: Bool
-    private var valuesAtPort = [Int : Port]()
+    
+    // Currently buy = sell value
+    private var valuesAtPort = [Port : Int]()
     
     required public init(displayName: String, weight: Int, isConsumable: Bool) {
         self.displayName = displayName
@@ -29,24 +31,31 @@ class ItemType: GenericItemType {
     // Global pricing information
     
     func getBuyValue(at port: Port) -> Int? {
-        return nil
+        return valuesAtPort[port]
     }
     
     func getSellValue(at port: Port) -> Int? {
-        return nil
+        return valuesAtPort[port]
     }
     
     func setBuyValue(at port: Port, value: Int) {
-        
+        if getBuyValue(at: port) == nil {
+            port.itemTypes.append(self)
+        }
+        valuesAtPort[port] = value
     }
     
     func setSellValue(at port: Port, value: Int) {
-        
+        valuesAtPort[port] = value
     }
     
     // Availability at ports
     
-    func delete(from pot: Port) {
-        
+    func delete(from port: Port) {
+        guard let index = port.itemTypes.firstIndex(where: { $0 == self }) else {
+            return
+        }
+        port.itemTypes.remove(at: index)
+        valuesAtPort.removeValue(forKey: port)
     }
 }

@@ -9,16 +9,26 @@
 import Foundation
 
 class Ship {
+    public var name: String {
+        get {
+            return owner?.name ?? "NPC Ship"
+        }
+    }
+    
+    private var owner: GenericPlayer?
     private var location: GameVariable<Location>
     private var items = [GenericItem]()
     private var weightCapacity = 0
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?
     
-    public init(node: Node)
-    {
+    public init(node: Node) {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
         self.location = GameVariable(value: location)
+    }
+    
+    public func setOwner(owner: GenericPlayer?) {
+        self.owner = owner
     }
     
     // Movement
@@ -55,22 +65,60 @@ class Ship {
     
     // Items
     
-    public func getRemainingCapacity() -> Int {
-        var remainingCapacity = weightCapacity
-        for item in items {
-            remainingCapacity -= item.weight
+    public func getPurchasableItemTypes() -> [GenericItemType] {
+        guard let port = location.value.start as? Port, location.value.isDocked else {
+            return []
         }
-        return remainingCapacity
+        return port.itemTypes
     }
     
-    public func addItem(item: GenericItem) {
-        if getRemainingCapacity() < item.weight {
+    public func getItems() -> [GenericItem] {
+        return items
+    }
+    
+    public func getMaxPurchaseAmount(itemType: GenericItemType) -> Int {
+        guard let port = location.value.start as? Port, location.value.isDocked else {
+            return 0
+        }
+        guard let unitValue = itemType.getBuyValue(at: port) else {
+            return 0
+        }
+        return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemType.weight)
+    }
+    
+    // TODO: show errors
+    public func buyItem(itemType: GenericItemType, quantity: Int) {
+        guard let port = location.value.start as? Port, location.value.isDocked else {
+            return
+        }
+        let item = itemType.createItem(quantity: quantity)
+        guard let price = item.getBuyValue(at: port) else {
+            return
+        }
+        if price > owner?.money.value ?? 0 {
+            return
+        }
+        owner?.money.value -= price
+        if addItem(item: item) {
+            // TODO: show purchase success
+        } else {
             
         }
     }
     
-    public func removeItem(item: GenericItem) {
-        
+    // TODO: Show errors
+    public func sellItem(item: GenericItem) {
+        guard let port = location.value.start as? Port, location.value.isDocked else {
+            return
+        }
+        guard let index = items.firstIndex(where: {$0 == item}) else {
+            return
+        }
+        guard let profit = items[index].sell(at: port) else {
+            return
+        }
+        owner?.money.value += profit
+        items.remove(at: index)
     }
     
     // Helper functions
@@ -89,4 +137,25 @@ class Ship {
         var multiplier = 1.0
         return multiplier
     }
+    
+    private func getRemainingCapacity() -> Int {
+        var remainingCapacity = weightCapacity
+        for item in items {
+            remainingCapacity -= item.weight
+        }
+        return remainingCapacity
+    }
+    
+    private func addItem(item: GenericItem) -> Bool {
+        if getRemainingCapacity() < item.weight {
+            return false
+        }
+        guard let sameType = items.first(where: { $0.itemType == item.itemType }) else {
+            items.append(item)
+            return true
+        }
+        let _ = sameType.combine(with: item)
+        return true
+    }
+    
 }

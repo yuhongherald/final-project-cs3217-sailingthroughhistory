@@ -14,6 +14,12 @@ protocol GenericItem {
     var quantity: Int { get set }
     
     init(itemType: GenericItemType, quantity: Int)
+    func combine(with item: GenericItem) -> Bool
+    func setQuantity(quantity: Int)
     func getBuyValue(at port: Port) -> Int?
-    func getSellValue(at port: Port) -> Int?
+    func sell(at port: Port) -> Int?
+}
+
+func == (lhs: GenericItem, rhs: GenericItem?) -> Bool {
+    return lhs.itemType == rhs?.itemType && lhs.quantity == rhs?.quantity
 }

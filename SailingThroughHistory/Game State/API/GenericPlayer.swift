@@ -30,15 +30,14 @@ protocol GenericPlayer {
     func dock()
     
     // Docked - End turn is manual here
+    func getPurchasableItemTypes() -> [GenericItemType]
     func getMaxPurchaseAmount(itemType: GenericItemType) -> Int
-    func getMaxSellAmount(itemType: GenericItemType) -> Int
     func buy(itemType: GenericItemType, quantity: Int)
-    func sell(itemType: GenericItemType, quantity: Int)
+    func sell(item: GenericItem)
     
     // End turn - supplies are removed here
     func endTurn()
 }
-
 
 func == (lhs: GenericPlayer, rhs: GenericPlayer?) -> Bool {
     return lhs.name == rhs?.name
