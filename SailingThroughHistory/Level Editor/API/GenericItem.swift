@@ -9,11 +9,11 @@
 import Foundation
 
 protocol GenericItem {
-    var itemType: GenericItemType { get }
+    var itemType: ItemParameter { get }
     var weight: Int { get }
     var quantity: Int { get set }
 
-    init(itemType: GenericItemType, quantity: Int)
+    init(itemType: ItemParameter, quantity: Int)
     func combine(with item: GenericItem) -> Bool
     func setQuantity(quantity: Int)
     func getBuyValue(at port: Port) -> Int?

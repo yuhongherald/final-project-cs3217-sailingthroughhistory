@@ -9,14 +9,14 @@
 import Foundation
 
 class Item: GenericItem {
-    public let itemType: GenericItemType
+    public let itemType: ItemParameter
     public var weight: Int {
         return quantity * itemType.weight
     }
     // TODO: prevent quantity from going below 0
     public var quantity: Int
 
-    public required init(itemType: GenericItemType, quantity: Int) {
+    public required init(itemType: ItemParameter, quantity: Int) {
         self.itemType = itemType
         self.quantity = quantity
     }
@@ -50,5 +50,9 @@ class Item: GenericItem {
         let value = unitValue * quantity
         setQuantity(quantity: 0)
         return value
+    }
+
+    func getRemainingQuantity(port: Port) -> Int {
+        return quantity
     }
 }

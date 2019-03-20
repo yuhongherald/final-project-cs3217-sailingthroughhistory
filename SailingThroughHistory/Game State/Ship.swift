@@ -85,7 +85,7 @@ class Ship {
 
     // Items
 
-    public func getPurchasableItemTypes() -> [GenericItemType] {
+    public func getPurchasableItemTypes() -> [ItemParameter] {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return []
         }
@@ -96,7 +96,7 @@ class Ship {
         return items
     }
 
-    public func getMaxPurchaseAmount(itemType: GenericItemType) -> Int {
+    public func getMaxPurchaseAmount(itemType: ItemParameter) -> Int {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return 0
         }
@@ -107,7 +107,7 @@ class Ship {
     }
 
     // TODO: show errors
-    public func buyItem(itemType: GenericItemType, quantity: Int) {
+    public func buyItem(itemType: ItemParameter, quantity: Int) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return
         }
@@ -190,7 +190,7 @@ class Ship {
         return true
     }
 
-    private func consumeRequiredItem(itemType: GenericItemType, quantity: Int) -> Int {
+    private func consumeRequiredItem(itemType: ItemParameter, quantity: Int) -> Int {
         guard let index = items.firstIndex(where: { $0.itemType == itemType }) else {
             return quantity
         }
