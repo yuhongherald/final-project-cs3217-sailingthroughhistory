@@ -76,7 +76,7 @@ class MainGameViewController: UIViewController {
         let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
         let object2 = Node(name: "testnode", image: "sea-node.png", frame: CGRect(x: 500, y: 500, width: 50, height: 50))
-        let path = Path(fromObject: object, toObject: object2)
+        let path = Path(from: object, to: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
         self.interface.add(path: path)
