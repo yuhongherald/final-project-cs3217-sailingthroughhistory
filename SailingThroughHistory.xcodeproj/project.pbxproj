@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
+		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
+		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
+		1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */; };
+		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
+		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
+		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
+		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
+		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
+		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
+		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
+		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
+		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
 		7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82C224097AA00D9D0FE /* PlayerTurn.swift */; };
 		7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */; };
 		7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8302240990D00D9D0FE /* GameEvent.swift */; };
@@ -33,19 +46,6 @@
 		7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898D2242420C004037E6 /* GenericGameLogic.swift */; };
 		755989902242435C004037E6 /* GenericTurnBasedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */; };
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
-		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
-		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
-		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
-		1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */; };
-		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
-		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
-		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
-		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
-		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
-		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
-		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
-		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
-		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -55,7 +55,7 @@
 		965E0340223A9AD1005F7D79 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033F223A9AD1005F7D79 /* Port.swift */; };
 		965E0343223AD976005F7D79 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0342223AD976005F7D79 /* Interface.swift */; };
 		965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */; };
-		966941DA223FD3A900F07A50 /* UIGameImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameImageView.swift */; };
+		966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
 		96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */; };
@@ -72,9 +72,12 @@
 		9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5D2223A4875005291EE /* LaunchScreen.storyboard */; };
 		9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */; };
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
+		969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */; };
+		96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF55792242B6A100C1E809 /* PathsViewController.swift */; };
+		96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */; };
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
 		96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* InterfacePublishSubject.swift */; };
-		A36E5A3EF544FF538E847194 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */; };
+		A16E7835A84A5FCA148BD16E /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC15C70B42699AC3779E3 /* Pods_SailingThroughHistory.framework */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
 		BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485901223F8B6E009ED2F6 /* Consumable.swift */; };
 		BA485904223F9112009ED2F6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485903223F9112009ED2F6 /* Location.swift */; };
@@ -116,6 +119,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		037CC15C70B42699AC3779E3 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		11A0FA0E588AA9CBB9660AD7 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		1A49D237223E468300A419F4 /* LevelEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelEditorViewController.swift; sourceTree = "<group>"; };
 		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
 		1A749D642240F6DC00482CE5 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
@@ -129,7 +134,6 @@
 		1A9FF0912240AC9C00005FCB /* EventParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParameter.swift; sourceTree = "<group>"; };
 		1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEditTableViewController.swift; sourceTree = "<group>"; };
 		1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
-		3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		7536A82C224097AA00D9D0FE /* PlayerTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTurn.swift; sourceTree = "<group>"; };
 		7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameEvent.swift; sourceTree = "<group>"; };
 		7536A8302240990D00D9D0FE /* GameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
@@ -156,8 +160,6 @@
 		7559898D2242420C004037E6 /* GenericGameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericGameLogic.swift; sourceTree = "<group>"; };
 		7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTurnBasedGame.swift; sourceTree = "<group>"; };
 		75598991224243CE004037E6 /* EmotionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionEngine.swift; sourceTree = "<group>"; };
-		822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		965E0332223A4B3C005F7D79 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		965E0334223A4B84005F7D79 /* Sea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sea.swift; sourceTree = "<group>"; };
 		965E0336223A4BB3005F7D79 /* VolatileModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileModifier.swift; sourceTree = "<group>"; };
@@ -167,7 +169,7 @@
 		965E033F223A9AD1005F7D79 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
 		965E0342223AD976005F7D79 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvent.swift; sourceTree = "<group>"; };
-		966941D9223FD3A900F07A50 /* UIGameImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameImageView.swift; sourceTree = "<group>"; };
+		966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameObjectImageView.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvents.swift; sourceTree = "<group>"; };
@@ -190,6 +192,9 @@
 		9690F5E5223A4875005291EE /* SailingThroughHistoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailingThroughHistoryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SailingThroughHistoryUITests.swift; sourceTree = "<group>"; };
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlurredBackgroundView.swift; sourceTree = "<group>"; };
+		96DF55792242B6A100C1E809 /* PathsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathsViewController.swift; sourceTree = "<group>"; };
+		96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewController.swift; sourceTree = "<group>"; };
 		96F658472240E13E006CD412 /* View+SpecialEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SpecialEffects.swift"; sourceTree = "<group>"; };
 		96F6584922412126006CD412 /* InterfacePublishSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfacePublishSubject.swift; sourceTree = "<group>"; };
 		BA4858FF223F89F7009ED2F6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -213,6 +218,7 @@
 		BA919077223F4D0800009F49 /* ShipChassis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipChassis.swift; sourceTree = "<group>"; };
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
 		BA91907B223F531A00009F49 /* GenericGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameState.swift; sourceTree = "<group>"; };
+		BB5E5EDE68A5733AE2EC9680 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +226,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A36E5A3EF544FF538E847194 /* Pods_SailingThroughHistory.framework in Frameworks */,
+				A16E7835A84A5FCA148BD16E /* Pods_SailingThroughHistory.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,15 +268,6 @@
 				1A749D642240F6DC00482CE5 /* ItemType.swift */,
 			);
 			path = Predefined;
-			sourceTree = "<group>";
-		};
-		38DFED7D720553198BABBF4C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */,
-				854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		7536A8292240971500D9D0FE /* GameEngine */ = {
@@ -338,6 +335,7 @@
 		965E0331223A4B2F005F7D79 /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
+				96877E53223EC7D80020F44C /* Path.swift */,
 				965E0332223A4B3C005F7D79 /* Node.swift */,
 				965E0334223A4B84005F7D79 /* Sea.swift */,
 				965E0336223A4BB3005F7D79 /* VolatileModifier.swift */,
@@ -363,17 +361,13 @@
 		96737EA2223D319A00D04C33 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				969F48222242CACD00F86D1E /* Controller */,
+				969F48212242CAB200F86D1E /* View */,
 				965E0342223AD976005F7D79 /* Interface.swift */,
 				965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */,
 				96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */,
-				96737EA3223D335100D04C33 /* View+Translate.swift */,
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
-				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
-				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
-				96877E53223EC7D80020F44C /* Path.swift */,
-				966941D9223FD3A900F07A50 /* UIGameImageView.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
-				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
 				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
 			);
 			path = Interface;
@@ -387,8 +381,8 @@
 				9690F5DD223A4875005291EE /* SailingThroughHistoryTests */,
 				9690F5E8223A4875005291EE /* SailingThroughHistoryUITests */,
 				9690F5C7223A4874005291EE /* Products */,
-				38DFED7D720553198BABBF4C /* Pods */,
-				FAE90656E948375308CC41E5 /* Frameworks */,
+				BC13045FD46E9F785FD9DD91 /* Pods */,
+				D321BFF795FA9E3E83D0D9F5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -412,7 +406,6 @@
 				BA91905C223F259800009F49 /* Game State */,
 				BA91906C223F440700009F49 /* Level Editor */,
 				9690F5C9223A4874005291EE /* AppDelegate.swift */,
-				9690F5CB223A4874005291EE /* MainGameViewController.swift */,
 				9690F5CD223A4874005291EE /* Main.storyboard */,
 				9690F5D0223A4875005291EE /* Assets.xcassets */,
 				9690F5D2223A4875005291EE /* LaunchScreen.storyboard */,
@@ -439,6 +432,29 @@
 				9690F5EB223A4875005291EE /* Info.plist */,
 			);
 			path = SailingThroughHistoryUITests;
+			sourceTree = "<group>";
+		};
+		969F48212242CAB200F86D1E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				96737EA3223D335100D04C33 /* View+Translate.swift */,
+				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
+				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
+				966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */,
+				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
+				969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		969F48222242CACD00F86D1E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9690F5CB223A4874005291EE /* MainGameViewController.swift */,
+				96DF55792242B6A100C1E809 /* PathsViewController.swift */,
+				96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		BA485909223FEA18009ED2F6 /* Upgrades */ = {
@@ -512,10 +528,19 @@
 			path = "Game Parameters";
 			sourceTree = "<group>";
 		};
-		FAE90656E948375308CC41E5 /* Frameworks */ = {
+		BC13045FD46E9F785FD9DD91 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */,
+				BB5E5EDE68A5733AE2EC9680 /* Pods-SailingThroughHistory.debug.xcconfig */,
+				11A0FA0E588AA9CBB9660AD7 /* Pods-SailingThroughHistory.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D321BFF795FA9E3E83D0D9F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				037CC15C70B42699AC3779E3 /* Pods_SailingThroughHistory.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -527,12 +552,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9690F5EE223A4875005291EE /* Build configuration list for PBXNativeTarget "SailingThroughHistory" */;
 			buildPhases = (
-				96AF5BCC470BB04DCD582C42 /* [CP] Check Pods Manifest.lock */,
+				0C42C17BA4BE8E968B3F3BB7 /* [CP] Check Pods Manifest.lock */,
 				9690F5C2223A4874005291EE /* Sources */,
 				9690F5C3223A4874005291EE /* Frameworks */,
 				9690F5C4223A4874005291EE /* Resources */,
 				96737EA9223D5C8E00D04C33 /* ShellScript */,
-				C92292068F333239A814FA00 /* [CP] Embed Pods Frameworks */,
+				C15ABC532C2CF69AA3D2B0AE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -654,20 +679,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		96737EA9223D5C8E00D04C33 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		96AF5BCC470BB04DCD582C42 /* [CP] Check Pods Manifest.lock */ = {
+		0C42C17BA4BE8E968B3F3BB7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -685,28 +697,39 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C92292068F333239A814FA00 /* [CP] Embed Pods Frameworks */ = {
+		96737EA9223D5C8E00D04C33 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		C15ABC532C2CF69AA3D2B0AE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountdownLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -725,10 +748,12 @@
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
 				7559897922421C1D004037E6 /* UpdatablePort.swift in Sources */,
 				965E0343223AD976005F7D79 /* Interface.swift in Sources */,
+				969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */,
 				7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
 				BA919072223F447F00009F49 /* ItemParameter.swift in Sources */,
 				BA919072223F447F00009F49 /* ItemParameter.swift in Sources */,
+				96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
@@ -761,7 +786,8 @@
 				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
-				BA91906B223F429900009F49 /* Level.swift in Sources */,
+				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
+				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
 				7559897D22421C42004037E6 /* UpdatableNPC.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
@@ -783,7 +809,7 @@
 				7536A8392240A14400D9D0FE /* GameAsyncWrap.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
-				966941DA223FD3A900F07A50 /* UIGameImageView.swift in Sources */,
+				966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
 				1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */,
 				96877E54223EC7D80020F44C /* Path.swift in Sources */,
@@ -973,7 +999,7 @@
 		};
 		9690F5EF223A4875005291EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */;
+			baseConfigurationReference = BB5E5EDE68A5733AE2EC9680 /* Pods-SailingThroughHistory.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -989,7 +1015,7 @@
 		};
 		9690F5F0223A4875005291EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */;
+			baseConfigurationReference = 11A0FA0E588AA9CBB9660AD7 /* Pods-SailingThroughHistory.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
