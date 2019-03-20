@@ -11,6 +11,8 @@ import RxSwift
 import CountdownLabel
 
 class MainGameViewController: UIViewController {
+    private static let allowAllAspectRatio = false
+
     @IBOutlet private weak var gameAndBackgroundWrapper: UIView!
     @IBOutlet private weak var scrollView: UIScrollView! {
         didSet {
@@ -55,7 +57,7 @@ class MainGameViewController: UIViewController {
     var paths = [GameObject: [Path]]()
     var pathLayers = [Path: CALayer]()
     /// TODO: Reference to Game Engine
-    var interface: Interface = Interface(players: [])
+    lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
     var subscription: Disposable?
     var originalScale: CGFloat = 1
     lazy var togglablePanels: [UIButton: UIView] = [
@@ -71,7 +73,7 @@ class MainGameViewController: UIViewController {
         super.viewDidLoad()
         initBackground()
         //Uncomment to test interface
-        /*let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
         let object2 = Node(name: "testnode", image: "sea-node.png", frame: CGRect(x: 500, y: 500, width: 50, height: 50))
         let path = Path(fromObject: object, toObject: object2)
@@ -87,18 +89,18 @@ class MainGameViewController: UIViewController {
         self.interface.playerTurnStart(player: Player(node: object2), timeLimit: 120) { [weak self] in
             let alert = ControllerUtils.getGenericAlert(titled: "Time up!", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
-        }*/
+        }
 
         subscribeToInterface()
 
          //Uncomment to test interface
-        /*DispatchQueue.global(qos: .background).async { [weak self] in
+        DispatchQueue.global(qos: .background).async { [weak self] in
             while true {
                 object.frame = object.frame.applying(CGAffineTransform(translationX: 50, y: 50))
                 self?.interface.updatePosition(of: object)
                 self?.interface.broadcastInterfaceChanges(withDuration: 1)
             }
-        }*/
+        }
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -151,11 +153,37 @@ class MainGameViewController: UIViewController {
     }
 
     private func initBackground() {
-        guard let image = UIImage(named: interface.background) else {
+        guard let image = UIImage(named: interface.background),
+            let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper,
+            let oldScrollView = self.scrollView else {
             return
         }
 
-        backgroundImageView.contentMode = .scaleToFill
+        if MainGameViewController.allowAllAspectRatio {
+            let scrollView = UIScrollView(frame: self.scrollView.frame)
+            self.scrollView = scrollView
+            scrollView.translatesAutoresizingMaskIntoConstraints = false
+            view.insertSubview(scrollView, aboveSubview: oldScrollView)
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            scrollView.updateConstraints()
+            print(scrollView.frame)
+            print(oldScrollView.frame)
+            gameAndBackgroundWrapper.removeFromSuperview()
+            scrollView.addSubview(gameAndBackgroundWrapper)
+            backgroundImageView.contentMode = .topLeft
+            backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
+            scrollView.contentSize = image.size
+            scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
+            scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
+            gameAndBackgroundWrapper.frame = backgroundImageView.frame
+            gameArea.frame = backgroundImageView.frame
+        } else {
+            backgroundImageView.contentMode = .scaleToFill
+        }
+
         backgroundImageView.image = image
     }
 
