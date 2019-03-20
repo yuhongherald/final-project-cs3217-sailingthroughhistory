@@ -52,14 +52,19 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    var views = [GameObject: UIGameImageView]()
+    
     /// TODO: Reference to Game Engine
     private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
     private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
+    private lazy var objectsController: ObjectsViewController = ObjectsViewController(view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView,
         togglePlayerTwoInfoButton: playerTwoInformationView]
+
+    var interfaceBounds: CGRect {
+        return interface.bounds
+    }
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -71,7 +76,8 @@ class MainGameViewController: UIViewController {
         //Uncomment to test interface
         let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
-        let object2 = Node(name: "testnode", image: "sea-node.png", frame: CGRect(x: 500, y: 500, width: 50, height: 50))
+        let object2 = Node(name: "testnode", image: "sea-node.png",
+                           frame: CGRect(x: 500, y: 500, width: 50, height: 50))
         let path = Path(from: object, to: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
@@ -101,7 +107,7 @@ class MainGameViewController: UIViewController {
     }
 
     func getFrame(for object: GameObject) -> CGRect? {
-        return views[object]?.frame
+        return objectsController.getFrame(for: object)
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -125,21 +131,9 @@ class MainGameViewController: UIViewController {
 
     @IBAction func onTapGameArea(_ sender: UITapGestureRecognizer) {
         let view = gameArea.hitTest(sender.location(in: gameArea), with: nil)
-        guard let gameView = view as? UIGameImageView,
-            gameView.tapCallback != nil,
-            gameView.object as? Node != nil else {
-            return
-        }
 
-        gameView.callTapCallback()
-
-        // Remove glow/callback from nodes.
-        views.values
-            .filter { $0.object as? Node != nil }
-            .forEach {
-                $0.removeGlow()
-                $0.tapCallback = nil
-                $0.isUserInteractionEnabled = false
+        if let objectView = view as? UIGameObjectImageView {
+            objectsController.onTap(objectView: objectView)
         }
     }
 
@@ -160,31 +154,26 @@ class MainGameViewController: UIViewController {
             return
         }
 
-        if MainGameViewController.allowAllAspectRatio {
-            let scrollView = UIScrollView(frame: self.scrollView.frame)
-            self.scrollView = scrollView
-            scrollView.translatesAutoresizingMaskIntoConstraints = false
-            view.insertSubview(scrollView, aboveSubview: oldScrollView)
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-            scrollView.updateConstraints()
-            gameAndBackgroundWrapper.removeFromSuperview()
-            scrollView.addSubview(gameAndBackgroundWrapper)
+        let scrollView = UIScrollView(frame: self.scrollView.frame)
+        self.scrollView = scrollView
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(scrollView, aboveSubview: oldScrollView)
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.updateConstraints()
+        gameAndBackgroundWrapper.removeFromSuperview()
+        scrollView.addSubview(gameAndBackgroundWrapper)
 
-            backgroundImageView.contentMode = .topLeft
-            backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
-            gameAndBackgroundWrapper.frame = backgroundImageView.frame
-            gameArea.frame = backgroundImageView.frame
+        backgroundImageView.contentMode = .topLeft
+        backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
+        gameAndBackgroundWrapper.frame = backgroundImageView.frame
+        gameArea.frame = backgroundImageView.frame
 
-            scrollView.contentSize = image.size
-            scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
-            scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
-        } else {
-            backgroundImageView.contentMode = .scaleToFill
-        }
-
+        scrollView.contentSize = image.size
+        scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
+        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
         backgroundImageView.image = image
     }
 
@@ -207,7 +196,7 @@ class MainGameViewController: UIViewController {
 
     private func syncObjectsAndPaths(with interface: Interface) {
         interface.objectFrames.forEach {
-            add(object: $0.key, at: $0.value, withDuration: 0.25, callback: {})
+            objectsController.add(object: $0.key, at: $0.value, withDuration: 0.25, callback: {})
         }
 
         interface.paths.keys.forEach { [weak self] in
@@ -243,14 +232,8 @@ class MainGameViewController: UIViewController {
     }
 
     private func remove(object: GameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        let view = views[object]
         pathsController.removeAllPathsAssociated(with: object, withDuration: duration)
-        UIView.animate(withDuration: duration, animations: {
-            view?.alpha = 0
-        }, completion: { _ in
-            view?.removeFromSuperview()
-            callback()
-        })
+        objectsController.remove(object: object, withDuration: duration, callback: callback)
     }
 
     private func handle(events: InterfaceEvents) {
@@ -271,11 +254,11 @@ class MainGameViewController: UIViewController {
     private func handle(event: InterfaceEvent, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
         switch event {
         case .move(let object, let dest):
-            move(object: object, to: dest, withDuration: duration, callback: callback)
+            objectsController.move(object: object, to: dest, withDuration: duration, callback: callback)
         case .addPath(let path):
             pathsController.add(path: path, withDuration: duration, callback: callback)
         case .addObject(let object, let frame):
-            add(object: object, at: frame, withDuration: duration, callback: callback)
+            objectsController.add(object: object, at: frame, withDuration: duration, callback: callback)
         case .changeMonth(let newMonth):
             changeMonth(to: newMonth, withDuration: duration, callback: callback)
         case .playerTurnStart(let player, let timeLimit, let timeOutCallback):
@@ -287,31 +270,10 @@ class MainGameViewController: UIViewController {
         case .removeObject(let object):
             remove(object: object, withDuration: duration, callback: callback)
         case .showTravelChoices(let nodes, let selectCallback):
-            makeChoosable(nodes: nodes, withDuration: duration, tapCallback: selectCallback, callback: callback)
+            objectsController.makeChoosable(nodes: nodes, withDuration: duration, tapCallback: selectCallback, callback: callback)
         default:
             print("Unsupported event not handled.")
         }
-    }
-
-    private func makeChoosable(nodes: [Node], withDuration duration: TimeInterval, tapCallback: @escaping (GameObject) -> Void, callback: @escaping () -> Void) {
-        if nodes.isEmpty {
-            callback()
-            return
-        }
-
-        nodes.forEach { [weak self] in
-            self?.views[$0]?.isUserInteractionEnabled = true
-            self?.views[$0]?.tapCallback = tapCallback
-        }
-
-        UIView.animate(withDuration: duration, animations: {
-            nodes.forEach { [weak self] in
-                self?.views[$0]?.addGlow(colored: .purple)
-            }
-        }, completion: { _ in
-            callback()
-        })
-        /// TODO: Add callback to engine
     }
 
     private func pauseAndShowAlert(titled title: String, withMsg msg: String, callback: @escaping () -> Void) {
@@ -350,31 +312,6 @@ class MainGameViewController: UIViewController {
         actionPanelView.isHidden = true
         toggleActionPanelButton.isHidden = true
         countdownLabel.isHidden = true
-    }
-
-    private func move(object: GameObject, to dest: CGRect, withDuration duration: TimeInterval,
-                      callback: @escaping () -> Void) {
-        guard let objectView = views[object] else {
-            return
-        }
-        UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: { [unowned self] in
-            objectView.frame = CGRect.translatingFrom(otherBounds: self.interface.bounds, otherFrame: dest,
-                                                      to: self.gameArea.bounds)
-            }, completion: { _ in callback() })
-    }
-
-    private func add(object: GameObject, at frame: CGRect, withDuration duration: TimeInterval,
-                     callback: @escaping () -> Void) {
-        views[object]?.removeFromSuperview()
-        let image = UIImage(named: object.image)
-        let view = UIGameImageView(image: image, object: object)
-        views[object] = view
-        view.alpha = 0
-        gameArea.addSubview(view)
-        view.frame = CGRect.translatingFrom(otherBounds: interface.bounds, otherFrame: frame, to: gameArea.bounds)
-        UIView.animate(withDuration: duration, animations: {
-            view.alpha = 1
-        }, completion: { _ in callback() })
     }
 
     private func changeMonth(to newMonth: String, withDuration duration: TimeInterval, callback: @escaping () -> Void) {

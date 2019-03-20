@@ -55,7 +55,7 @@
 		965E0340223A9AD1005F7D79 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033F223A9AD1005F7D79 /* Port.swift */; };
 		965E0343223AD976005F7D79 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0342223AD976005F7D79 /* Interface.swift */; };
 		965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */; };
-		966941DA223FD3A900F07A50 /* UIGameImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameImageView.swift */; };
+		966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
 		96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */; };
@@ -168,7 +168,7 @@
 		965E033F223A9AD1005F7D79 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
 		965E0342223AD976005F7D79 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvent.swift; sourceTree = "<group>"; };
-		966941D9223FD3A900F07A50 /* UIGameImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameImageView.swift; sourceTree = "<group>"; };
+		966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameObjectImageView.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvents.swift; sourceTree = "<group>"; };
@@ -366,7 +366,7 @@
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
 				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
 				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
-				966941D9223FD3A900F07A50 /* UIGameImageView.swift */,
+				966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
 				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
@@ -789,7 +789,7 @@
 				7536A8392240A14400D9D0FE /* GameAsyncWrap.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
-				966941DA223FD3A900F07A50 /* UIGameImageView.swift in Sources */,
+				966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
 				1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */,
 				96877E54223EC7D80020F44C /* Path.swift in Sources */,
