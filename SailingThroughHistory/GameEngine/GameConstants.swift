@@ -7,9 +7,12 @@
 //
 
 enum GameConstants {
-    static let largestTimeStep: Double = 1 // arbitrary unit. TODO: Decide unit
-    static let forecastDuration: Double = 1 // same unit as largest time step.
-    static let daysToSeconds: Double = 1
+    static let largestTimeStep: Double = 1
+    static let forecastDuration: Double = 1
+    static let weeksToSeconds: Double = 1
     static let fastestGameSpeed: Double = 1
     static let slowestGameSpeed: Double = 0.5
+
+    static let weeksInMonth = 4
+    static let monthsInYear = 12
 }

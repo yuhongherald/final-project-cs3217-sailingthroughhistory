@@ -13,8 +13,9 @@ class GameEngine {
     // TODO: extract interface into protocol
     // something for me to draw on
     private let interface: Interface
-    private var gameLogic: TurnBasedGame
-    private let wrapper: AsyncWrap
+    private var gameLogic: GenericTurnBasedGame
+    private let wrapper: GenericAsyncWrap
+    private let diceFactory: DiceFactory
 
     var gameSpeed: Double {
         get {
@@ -27,10 +28,12 @@ class GameEngine {
         }
     }
 
-    init(interface: Interface, gameLogic: TurnBasedGame, asyncWrapper: AsyncWrap) {
+    init(interface: Interface, gameLogic: GenericTurnBasedGame,
+         asyncWrapper: GenericAsyncWrap, diceFactory: DiceFactory) {
         self.interface = interface
         self.gameLogic = gameLogic
         self.wrapper = asyncWrapper
+        self.diceFactory = diceFactory
     }
 
     func start(endGame: @escaping () -> Void) {
@@ -40,6 +43,10 @@ class GameEngine {
         isRunning = true
         wrapper.resetTimer()
         repeatLoop(endGame)
+    }
+
+    func roll(lower: Int, upper: Int) -> Int {
+        return diceFactory.createDice(lower: lower, upper: upper).roll()
     }
 
     private func repeatLoop(_ endGame: @escaping () -> Void) {
@@ -61,13 +68,17 @@ class GameEngine {
     private func updateGameState() {
         let newTime = wrapper.getTimestamp()
         let timeDifference = (newTime - gameLogic.currentGameTime)
-        guard let event = gameLogic.updateGameState(deltaTime: timeDifference) else {
-            return
+        wrapper.async {
+            guard let event = self.gameLogic.updateGameState(deltaTime: timeDifference) else {
+                return
+            }
+            // TODO: Add Player turn logic
         }
-        // TODO: Add Player turn logic
     }
 
     private func updateInterface() {
-        // TODO: Write protocol for wrapping interface
+        wrapper.async {
+            // TODO: Write protocol for wrapping interface
+        }
     }
 }
