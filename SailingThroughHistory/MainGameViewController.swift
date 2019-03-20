@@ -72,6 +72,7 @@ class MainGameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        reInitScrollView()
         initBackground()
         //Uncomment to test interface
         let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
@@ -154,6 +155,22 @@ class MainGameViewController: UIViewController {
             return
         }
 
+        backgroundImageView.contentMode = .topLeft
+        backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
+        gameAndBackgroundWrapper.frame = backgroundImageView.frame
+        gameArea.frame = backgroundImageView.frame
+
+        scrollView.contentSize = image.size
+        scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
+        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
+        backgroundImageView.image = image
+    }
+
+    private func reInitScrollView () {
+        guard let oldScrollView = self.scrollView else {
+            preconditionFailure("scrollView is nil.")
+        }
+
         let scrollView = UIScrollView(frame: self.scrollView.frame)
         self.scrollView = scrollView
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -165,16 +182,6 @@ class MainGameViewController: UIViewController {
         scrollView.updateConstraints()
         gameAndBackgroundWrapper.removeFromSuperview()
         scrollView.addSubview(gameAndBackgroundWrapper)
-
-        backgroundImageView.contentMode = .topLeft
-        backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
-        gameAndBackgroundWrapper.frame = backgroundImageView.frame
-        gameArea.frame = backgroundImageView.frame
-
-        scrollView.contentSize = image.size
-        scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
-        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
-        backgroundImageView.image = image
     }
 
     private func subscribeToInterface() {
@@ -284,24 +291,29 @@ class MainGameViewController: UIViewController {
 
     private func playerTurnStart(player: Player, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void,
                                  callback: @escaping () -> Void) {
-        let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
-            withMsg: "")
-        { [weak self] in
-            self?.actionPanelView.isHidden = false
-            self?.toggleActionPanelButton.isHidden = false
+
+        func animatePlayerTurnStart() {
+            actionPanelView.isHidden = false
+            toggleActionPanelButton.isHidden = false
             if let timeLimit = timeLimit {
-                self?.countdownLabel.isHidden = false
-                self?.countdownLabel.animationType = CountdownEffect.Burn
-                self?.countdownLabel.setCountDownTime(
+                countdownLabel.isHidden = false
+                countdownLabel.animationType = CountdownEffect.Burn
+                countdownLabel.setCountDownTime(
                     minutes: timeLimit)
-                self?.countdownLabel.then(targetTime: 1) { [weak self] in
+                countdownLabel.then(targetTime: 1) { [weak self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         timeOutCallback()
                         self?.playerTurnEnd()
                     }
                 }
-                self?.countdownLabel.start()
+                countdownLabel.start()
             }
+        }
+
+        let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
+            withMsg: "")
+        {
+            animatePlayerTurnStart()
             callback()
         }
 
