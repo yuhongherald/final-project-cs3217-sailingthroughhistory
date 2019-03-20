@@ -42,7 +42,7 @@ class ItemParameter {
 
     func setBuyValue(at port: Port, value: Int) {
         if getBuyValue(at: port) == nil {
-            port.itemTypes.append(self)
+            port.itemParametersSold.append(self)
         }
         buyValues[port] = value
     }
@@ -54,10 +54,10 @@ class ItemParameter {
     // Availability at ports
     
     func delete(from port: Port) {
-        guard let index = port.itemTypes.firstIndex(where: { $0 == self }) else {
+        guard let index = port.itemParametersSold.firstIndex(where: { $0 == self }) else {
             return
         }
-        port.itemTypes.remove(at: index)
+        port.itemParametersSold.remove(at: index)
         buyValues.removeValue(forKey: port)
         sellValues.removeValue(forKey: port)
     }

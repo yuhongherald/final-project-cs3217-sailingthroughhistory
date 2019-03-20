@@ -51,16 +51,16 @@ class Player: GenericPlayer {
         port?.collectTax(from: self)
     }
 
-    func getPurchasableItemTypes() -> [ItemParameter] {
-        return ship.getPurchasableItemTypes()
+    func getPurchasableItemParameters() -> [ItemParameter] {
+        return ship.getPurchasableItemParameters()
     }
 
-    func getMaxPurchaseAmount(itemType: ItemParameter) -> Int {
-        return ship.getMaxPurchaseAmount(itemType: itemType)
+    func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
+        return ship.getMaxPurchaseAmount(itemParameter: itemParameter)
     }
 
-    func buy(itemType: ItemParameter, quantity: Int) {
-        ship.buyItem(itemType: itemType, quantity: quantity)
+    func buy(itemParameter: ItemParameter, quantity: Int) {
+        ship.buyItem(itemParameter: itemParameter, quantity: quantity)
     }
 
     func sell(item: GenericItem) {

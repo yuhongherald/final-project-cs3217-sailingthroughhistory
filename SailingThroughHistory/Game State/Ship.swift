@@ -85,33 +85,33 @@ class Ship {
 
     // Items
 
-    public func getPurchasableItemTypes() -> [ItemParameter] {
+    public func getPurchasableItemParameters() -> [ItemParameter] {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return []
         }
-        return port.itemTypes
+        return port.itemParametersSold
     }
 
     public func getItems() -> [GenericItem] {
         return items
     }
 
-    public func getMaxPurchaseAmount(itemType: ItemParameter) -> Int {
+    public func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return 0
         }
-        guard let unitValue = itemType.getBuyValue(at: port) else {
+        guard let unitValue = itemParameter.getBuyValue(at: port) else {
             return 0
         }
-        return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemType.weight)
+        return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.weight)
     }
 
     // TODO: show errors
-    public func buyItem(itemType: ItemParameter, quantity: Int) {
+    public func buyItem(itemParameter: ItemParameter, quantity: Int) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return
         }
-        let item = itemType.createItem(quantity: quantity)
+        let item = itemParameter.createItem(quantity: quantity)
         guard let price = item.getBuyValue(at: port) else {
             return
         }
@@ -146,7 +146,7 @@ class Ship {
         }
 
         for supply in suppliesConsumed {
-            let deficeit = consumeRequiredItem(itemType: supply.itemParameter, quantity: supply.quantity)
+            let deficeit = consumeRequiredItem(itemParameter: supply.itemParameter, quantity: supply.quantity)
             // TODO: Make player pay for deficeit
         }
     }
@@ -190,8 +190,8 @@ class Ship {
         return true
     }
 
-    private func consumeRequiredItem(itemType: ItemParameter, quantity: Int) -> Int {
-        guard let index = items.firstIndex(where: { $0.itemParameter == itemType }) else {
+    private func consumeRequiredItem(itemParameter: ItemParameter, quantity: Int) -> Int {
+        guard let index = items.firstIndex(where: { $0.itemParameter == itemParameter }) else {
             return quantity
         }
         guard let consumable = items[index] as? GenericConsumable else {
@@ -202,7 +202,7 @@ class Ship {
             items.remove(at: index)
         }
         guard deficeit <= 0 else {
-            return consumeRequiredItem(itemType: itemType, quantity: deficeit)
+            return consumeRequiredItem(itemParameter: itemParameter, quantity: deficeit)
         }
         return 0
     }
