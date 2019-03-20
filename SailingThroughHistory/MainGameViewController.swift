@@ -86,10 +86,11 @@ class MainGameViewController: UIViewController {
             let alert = ControllerUtils.getGenericAlert(titled: "Title", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
             }
-        self.interface.playerTurnStart(player: Player(node: object2), timeLimit: 120) { [weak self] in
+        //TODO
+        /*self.interface.playerTurnStart(player: Player(node: object2), timeLimit: 120) { [weak self] in
             let alert = ControllerUtils.getGenericAlert(titled: "Time up!", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
-        }
+        }*/
 
         subscribeToInterface()
 

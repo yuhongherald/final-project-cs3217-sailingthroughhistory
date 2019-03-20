@@ -8,18 +8,16 @@
 
 import Foundation
 
-class GameParameter: Level {
-    var itemTypes: ItemParameter
+class GameParameter: GenericLevel {
+    public var itemParameters = [ItemParameter]()
     
     private var upgrades = [Upgrade]()
-    private var itemParameters = [ItemParameter]()
     private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
     private var map = Map()
 
     init() {
-        itemTypes = ItemParameter(type: ItemType.opium)
         upgrades = []
         itemParameters = []
         storages = [Port: [Item]]()
@@ -28,7 +26,7 @@ class GameParameter: Level {
         fatalError("Not implemented")
     }
 
-    func getPlayers() -> [Player] {
+    func getPlayers() -> [GenericPlayer] {
         return playerParameters.map { $0.getPlayer() }
     }
 

@@ -8,7 +8,15 @@
 
 import Foundation
 
-protocol Consumable {
-//protocol Consumable: Item {
-    func consume() -> Bool
+class Consumable: Item, GenericConsumable {
+    
+    func consume(amount: Int) -> Int {
+        if quantity < amount {
+            let deficeit = amount - quantity
+            quantity = 0
+            return deficeit
+        }
+        quantity -= amount
+        return 0
+    }
 }
