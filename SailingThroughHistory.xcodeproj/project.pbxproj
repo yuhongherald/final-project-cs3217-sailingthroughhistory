@@ -361,20 +361,14 @@
 		96737EA2223D319A00D04C33 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				969F48222242CACD00F86D1E /* Controller */,
+				969F48212242CAB200F86D1E /* View */,
 				965E0342223AD976005F7D79 /* Interface.swift */,
 				965E0344223ADCB9005F7D79 /* InterfaceEvent.swift */,
 				96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */,
-				96737EA3223D335100D04C33 /* View+Translate.swift */,
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
-				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
-				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
-				966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
-				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
 				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
-				96DF55792242B6A100C1E809 /* PathsViewController.swift */,
-				96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */,
-				969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -412,7 +406,6 @@
 				BA91905C223F259800009F49 /* Game State */,
 				BA91906C223F440700009F49 /* Level Editor */,
 				9690F5C9223A4874005291EE /* AppDelegate.swift */,
-				9690F5CB223A4874005291EE /* MainGameViewController.swift */,
 				9690F5CD223A4874005291EE /* Main.storyboard */,
 				9690F5D0223A4875005291EE /* Assets.xcassets */,
 				9690F5D2223A4875005291EE /* LaunchScreen.storyboard */,
@@ -439,6 +432,29 @@
 				9690F5EB223A4875005291EE /* Info.plist */,
 			);
 			path = SailingThroughHistoryUITests;
+			sourceTree = "<group>";
+		};
+		969F48212242CAB200F86D1E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				96737EA3223D335100D04C33 /* View+Translate.swift */,
+				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
+				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
+				966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */,
+				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
+				969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		969F48222242CACD00F86D1E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9690F5CB223A4874005291EE /* MainGameViewController.swift */,
+				96DF55792242B6A100C1E809 /* PathsViewController.swift */,
+				96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		BA485909223FEA18009ED2F6 /* Upgrades */ = {
