@@ -1,5 +1,5 @@
 //
-//  PlayerState.swift
+//  GenericConsumable.swift
 //  SailingThroughHistory
 //
 //  Created by henry on 18/3/19.
@@ -8,8 +8,6 @@
 
 import Foundation
 
-enum PlayerState {
-    case moving
-    case docked
-    case endTurn
+protocol GenericConsumable: GenericItem {
+    func consume(amount: Int) -> Int
 }
