@@ -17,6 +17,15 @@ class GameParameter: GenericLevel {
     private var eventParameters = [EventParameter]()
     private var map = Map()
 
+    init() {
+        upgrades = []
+        itemParameters = []
+        storages = [Port: [Item]]()
+        playerParameters = []
+        eventParameters = []
+        fatalError("Not implemented")
+    }
+
     func getPlayers() -> [GenericPlayer] {
         return playerParameters.map { $0.getPlayer() }
     }

@@ -23,7 +23,7 @@ class ItemParameter {
         self.weight = weight
         self.isConsumable = isConsumable
     }
-    
+
     // Create a quantized representation
     
     func createItem(quantity: Int) -> GenericItem {
