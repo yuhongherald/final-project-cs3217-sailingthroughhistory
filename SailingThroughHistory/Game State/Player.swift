@@ -21,14 +21,14 @@ class Player: GenericPlayer {
 
     public func buyUpgrade(upgrade: Upgrade) {
     }
-    
+
     public func getOwnedPorts() -> [Port] {
         return []
     }
 
     public func setTax(port: Port) {
     }
-    
+
     public func move(node: Node) {
         ship.move(node: node)
     }
@@ -40,7 +40,7 @@ class Player: GenericPlayer {
     public func canDock() -> Bool {
         return false
     }
-    
+
     public func dock() {
     }
     
@@ -57,7 +57,7 @@ class Player: GenericPlayer {
     
     public func sell(itemType: ItemParameter, quantity: Int) {
     }
-    
+
     public func endTurn() {
     }
 }

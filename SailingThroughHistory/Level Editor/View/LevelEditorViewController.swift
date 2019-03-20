@@ -128,7 +128,7 @@ class LevelEditorViewController: UIViewController {
             if editMode == .item, let to = toNode.node as? Port, let from = fromNode.node as? Port {
                 let alert = UIAlert(title: "Input export money to: ", confirm: { money in
                     // TODO: add item value
-                    gameParameter.add
+                    //gameParameter.add
                 }, textPlaceHolder: "100")
                 alert.present(in: self)
                 return

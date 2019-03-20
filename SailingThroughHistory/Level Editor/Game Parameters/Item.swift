@@ -12,7 +12,7 @@ class Item {
     var type: ItemParameter!
     var quantity: Int!
 
-    init(_ type: ItemType, quantity: Int) {
+    init(_ type: ItemParameter, quantity: Int) {
         self.type = type
         self.quantity = quantity
     }

@@ -9,6 +9,8 @@
 import Foundation
 
 protocol Level {
+    var itemTypes: ItemParameter { get set }
+
     func getPlayers() -> [Player]
     func getMap() -> Map
 }

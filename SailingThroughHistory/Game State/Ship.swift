@@ -15,8 +15,7 @@ class Ship {
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?
     
-    public init(node: Node)
-    {
+    public init(node: Node) {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
         self.location = GameVariable(value: location)
     }
@@ -48,11 +47,11 @@ class Ship {
         multiplier = applyUpgradesModifiers(to: multiplier)
         return Double(roll) * multiplier
     }
-    
+
     private func applyUpgradesModifiers(to multiplier: Double) -> Double {
         return multiplier
     }
-    
+
     private func getWeatherModifier() -> Double {
         var multiplier = 1.0
         return multiplier

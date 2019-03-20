@@ -13,7 +13,7 @@ class Location {
     public let end: Node
     public let fractionToEnd: Double
     public let isDocked: Bool
-    
+
     public init(start: Node, end: Node, fractionToEnd: Double, isDocked: Bool) {
         self.start = start
         self.end = end
@@ -21,7 +21,7 @@ class Location {
         self.fractionToEnd = isDocked ? 0 : min(1, max(0, fractionToEnd))
         self.isDocked = isDocked
     }
-    
+
     public init(from location: Location, isDocked: Bool) {
         start = location.start
         end = location.end
