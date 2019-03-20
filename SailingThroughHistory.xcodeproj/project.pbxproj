@@ -169,6 +169,7 @@
 		965E0331223A4B2F005F7D79 /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
+				96877E53223EC7D80020F44C /* Path.swift */,
 				965E0332223A4B3C005F7D79 /* Node.swift */,
 				965E0334223A4B84005F7D79 /* Sea.swift */,
 				965E0336223A4BB3005F7D79 /* VolatileModifier.swift */,
@@ -198,7 +199,6 @@
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
 				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
 				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
-				96877E53223EC7D80020F44C /* Path.swift */,
 				966941D9223FD3A900F07A50 /* UIGameImageView.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,

@@ -11,7 +11,7 @@ import RxSwift
 import CountdownLabel
 
 class MainGameViewController: UIViewController {
-    private static let allowAllAspectRatio = false
+    private static let allowAllAspectRatio = true
 
     @IBOutlet private weak var gameAndBackgroundWrapper: UIView!
     @IBOutlet private weak var scrollView: UIScrollView! {
@@ -169,17 +169,17 @@ class MainGameViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
             scrollView.updateConstraints()
-            print(scrollView.frame)
-            print(oldScrollView.frame)
             gameAndBackgroundWrapper.removeFromSuperview()
             scrollView.addSubview(gameAndBackgroundWrapper)
+
             backgroundImageView.contentMode = .topLeft
             backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
+            gameAndBackgroundWrapper.frame = backgroundImageView.frame
+            gameArea.frame = backgroundImageView.frame
+
             scrollView.contentSize = image.size
             scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
             scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
-            gameAndBackgroundWrapper.frame = backgroundImageView.frame
-            gameArea.frame = backgroundImageView.frame
         } else {
             backgroundImageView.contentMode = .scaleToFill
         }

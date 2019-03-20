@@ -97,11 +97,13 @@ class Interface {
     ///
     /// - Parameter duration: The duration of the animations for the pending operations.
     func broadcastInterfaceChanges(withDuration duration: TimeInterval) {
-        let toBroadcast = InterfaceEvents(events: pendingEvents, duration: duration)
+        var validEvents = [InterfaceEvent]()
         for event in pendingEvents {
             switch event {
             case .addPath(let path):
-                addPathToState(path: path)
+                if !addPathToState(path: path) {
+                    continue
+                }
             case .addObject(let object, let frame):
                 objectFrames[object] = frame
             case .removePath(let path):
@@ -119,7 +121,11 @@ class Interface {
             default:
                 break
             }
+
+            validEvents.append(event)
         }
+
+        let toBroadcast = InterfaceEvents(events: validEvents, duration: duration)
         pendingEvents = []
         events.on(next: toBroadcast)
     }
@@ -145,7 +151,10 @@ class Interface {
         return events.subscribe(callback: callback)
     }
 
-    private func addPathToState(path: Path) {
+    private func addPathToState(path: Path) -> Bool{
+        if objectFrames[path.fromObject] == nil || objectFrames[path.toObject] == nil {
+            return false
+        }
         if paths[path.fromObject] == nil {
             paths[path.fromObject] = []
         }
@@ -156,5 +165,7 @@ class Interface {
 
         paths[path.fromObject]?.append(path)
         paths[path.toObject]?.append(path)
+
+        return true
     }
 }
