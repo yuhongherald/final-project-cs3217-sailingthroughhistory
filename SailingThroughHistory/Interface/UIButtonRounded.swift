@@ -33,6 +33,7 @@ class UIButtonRounded: UIButton {
         contentEdgeInsets = UIButtonRounded.contentEdgeInsets
         titleEdgeInsets = UIButtonRounded.titleEdgeInsets
         backgroundColor = UIButtonRounded.backgroundColor
+        titleLabel?.adjustsFontSizeToFitWidth = true
     }
 
     func set(color: UIColor) {

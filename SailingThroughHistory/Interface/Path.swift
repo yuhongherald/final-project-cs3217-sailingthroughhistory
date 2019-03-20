@@ -11,4 +11,9 @@ import UIKit
 struct Path: Hashable {
     let fromObject: GameObject
     let toObject: GameObject
+
+    init(from: GameObject, to: GameObject) {
+        fromObject = from
+        toObject = to
+    }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 class Ship {
     private var location: GameVariable<Location>
-    private var items = [ItemType]()
+    private var items = [ItemParameter]()
     private var capacity = 0
     private var chassis: Upgrade?
     private var axuxiliaryUpgrade: Upgrade?

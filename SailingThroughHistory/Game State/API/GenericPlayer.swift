@@ -29,10 +29,10 @@ protocol GenericPlayer {
     func dock()
 
     // Docked - End turn is manual here
-    func getMaxPurchaseAmount(itemType: ItemType) -> Int
-    func getMaxSellAmount(itemType: ItemType) -> Int
-    func buy(itemType: ItemType, quantity: Int)
-    func sell(itemType: ItemType, quantity: Int)
+    func getMaxPurchaseAmount(itemType: ItemParameter) -> Int
+    func getMaxSellAmount(itemType: ItemParameter) -> Int
+    func buy(itemType: ItemParameter, quantity: Int)
+    func sell(itemType: ItemParameter, quantity: Int)
 
     // End turn - supplies are removed here
     func endTurn()
