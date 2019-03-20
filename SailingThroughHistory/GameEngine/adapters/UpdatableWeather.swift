@@ -7,9 +7,6 @@
 //
 
 class UpdatableWeather: Updatable {
-    static func == (lhs: UpdatableWeather, rhs: UpdatableWeather) -> Bool {
-        return false
-    }
     
     func checkForEvent() -> GenericGameEvent? {
         return nil

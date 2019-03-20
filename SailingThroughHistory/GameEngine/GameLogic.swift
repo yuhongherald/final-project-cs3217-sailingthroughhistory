@@ -7,5 +7,9 @@
 //
 
 class GameLogic: GenericGameLogic {
+    func getUpdatables() -> [Updatable] {
+        return []
+    }
+    
     
 }

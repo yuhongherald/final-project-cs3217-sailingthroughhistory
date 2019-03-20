@@ -7,9 +7,6 @@
 //
 
 class UpdatablePirate: Updatable {
-    static func == (lhs: UpdatablePirate, rhs: UpdatablePirate) -> Bool {
-        <#code#>
-    }
     
     func checkForEvent() -> GenericGameEvent? {
         return nil
