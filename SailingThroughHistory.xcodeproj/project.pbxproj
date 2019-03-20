@@ -12,6 +12,7 @@
 		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
 		1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */; };
 		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
+		1A749D6C2242AF4000482CE5 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D6B2242AF4000482CE5 /* ItemCollectionViewCell.swift */; };
 		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
 		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
 		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
@@ -92,6 +93,7 @@
 		1A749D642240F6DC00482CE5 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 		1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPickerViewController.swift; sourceTree = "<group>"; };
 		1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LevelEditorViewController + Delegate.swift"; sourceTree = "<group>"; };
+		1A749D6B2242AF4000482CE5 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		1A9FF085223F6DAB00005FCB /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
 		1A9FF0892240142B00005FCB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		1A9FF08B224030E000005FCB /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				1A9FF08D224037AF00005FCB /* NodeView.swift */,
 				1A49D239223F644F00A419F4 /* EditPanelViewController.swift */,
 				1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */,
+				1A749D6B2242AF4000482CE5 /* ItemCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -564,7 +567,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -579,7 +582,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -592,6 +595,7 @@
 				1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */,
 				965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */,
 				1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */,
+				1A749D6C2242AF4000482CE5 /* ItemCollectionViewCell.swift in Sources */,
 				BA485904223F9112009ED2F6 /* Location.swift in Sources */,
 				1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,

@@ -9,15 +9,30 @@
 import UIKit
 
 class LevelEditorViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.delegate = self
+            scrollView.maximumZoomScale = 3
+        }
+    }
     @IBOutlet weak var editPanel: UIView!
+    @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
-    let map = Map()
+    private var upgrades = [Upgrade]()
+    private var itemParameters = Set<ItemParameter>()
+    private var storages = [Port: [Item]]()
+    private var playerParameters = [PlayerParameter]()
+    private var eventParameters = [EventParameter]()
+    private var map = Map()
     let gameParameter = GameParameter()
     var editMode: EditMode?
     var pickedItem: ItemType?
     var lineLayer: CAShapeLayer!
     var destination: NodeView?
-    var cursor = UILabel()
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let castedDest = segue.destination as? EditPanelViewController else {
@@ -35,9 +50,6 @@ class LevelEditorViewController: UIViewController {
         let image = UIImage(named: "worldmap1815")
         mapBackground.image = image
         map.addMap(mapBackground)
-
-        cursor.frame.size = CGSize(width: 50, height: 50)
-        view.addSubview(cursor)
     }
 
     @IBAction func editPressed(_ sender: Any) {
@@ -66,7 +78,7 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
                 return
             }
-            nodeView.addTo(self, map: self.map, with: [removeGesture, drawPathGesture])
+            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: [removeGesture, drawPathGesture])
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }
@@ -78,13 +90,8 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
-        guard editMode == .path || editMode == .item else {
+        guard editMode == .path else {
             return
-        }
-
-        if editMode == .item {
-            cursor.text = pickedItem?.rawValue
-            cursor.center = sender.location(in: mapBackground)
         }
 
         guard let fromNode = sender.view as? NodeView else {
@@ -106,7 +113,7 @@ class LevelEditorViewController: UIViewController {
             lineLayer.lineWidth = 2.0
 
             fromNode.highlighted(true)
-            mapBackground.layer.addSublayer(lineLayer)
+            editingAreaWrapper.layer.addSublayer(lineLayer)
         case .changed:
             bazier.addLine(to: endPoint)
             lineLayer.path = bazier.cgPath
@@ -117,20 +124,8 @@ class LevelEditorViewController: UIViewController {
             destination?.highlighted(false)
             destination = nil
 
-            // TODO: a better way to delocate cursor
-            cursor.text = ""
-
             guard let toNode = endView else {
                 lineLayer.removeFromSuperlayer()
-                return
-            }
-
-            if editMode == .item, let to = toNode.node as? Port, let from = fromNode.node as? Port {
-                let alert = UIAlert(title: "Input export money to: ", confirm: { money in
-                    // TODO: add item value
-                    gameParameter.add
-                }, textPlaceHolder: "100")
-                alert.present(in: self)
                 return
             }
 
@@ -141,5 +136,11 @@ class LevelEditorViewController: UIViewController {
         default:
             return
         }
+    }
+}
+
+extension LevelEditorViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return editingAreaWrapper
     }
 }

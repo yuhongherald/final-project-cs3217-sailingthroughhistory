@@ -23,8 +23,7 @@ extension LevelEditorViewController: ItemPickerDelegateProtocol, EditPanelDelega
         mapBackground.image = image
     }
 
-    func presentPicker(_ controller: ItemPickerViewController) {
-        controller.delegate = self
+    func presentPicker(_ controller: UIViewController) {
         self.addChild(controller)
         view.addSubview(controller.view)
         controller.didMove(toParent: self)

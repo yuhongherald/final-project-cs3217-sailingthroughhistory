@@ -46,8 +46,12 @@ class ItemParameter {
     }
 }
 
-extension ItemParameter: Equatable {
+extension ItemParameter: Hashable {
     static func == (lhs: ItemParameter, rhs: ItemParameter) -> Bool {
         return lhs.type == rhs.type
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.type)
     }
 }

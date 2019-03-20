@@ -10,7 +10,7 @@ import UIKit
 protocol EditPanelDelegateProtocol {
     func clicked(_ select: EditMode)
     func addMap(_ image: UIImage)
-    func presentPicker(_ controller: ItemPickerViewController)
+    func presentPicker(_ controller: UIViewController)
 }
 
 class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -62,9 +62,10 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
     }
 
     @IBAction func editItemPressed(_ sender: Any) {
-        let vc = ItemPickerViewController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
+
         self.delegate?.presentPicker(vc)
-        self.delegate?.clicked(.item)
     }
 
     @IBAction func editEventsPressed(_ sender: Any) {

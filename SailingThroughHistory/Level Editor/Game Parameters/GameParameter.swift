@@ -10,7 +10,7 @@ import Foundation
 
 class GameParameter: Level {
     private var upgrades = [Upgrade]()
-    private var itemParameters = [ItemParameter]()
+    private var itemParameters = Set<ItemParameter>()
     private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
@@ -26,9 +26,5 @@ class GameParameter: Level {
 
     func getItemLocations() -> [Port: [Item]] {
         return storages
-    }
-
-    func setItemValue(for item: ItemParameter, from: Port, to: Port) {
-        //item.setBuyValue(at: <#T##Port#>, to: <#T##Int#>)
     }
 }

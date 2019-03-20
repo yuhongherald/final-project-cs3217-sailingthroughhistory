@@ -9,7 +9,7 @@
 import Foundation
 
 class Item {
-    var type: ItemParameter!
+    var type: ItemType!
     var quantity: Int!
 
     init(_ type: ItemType, quantity: Int) {
