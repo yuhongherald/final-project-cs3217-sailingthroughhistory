@@ -19,7 +19,6 @@ protocol GenericPlayer {
     // Before moving
     func startTurn()
     func buyUpgrade(upgrade: Upgrade)
-    func getOwnedPorts() -> [Port]
     func setTax(port: Port, amount: Int)
 
     // Moving - Auto progress to End turn if cannot dock

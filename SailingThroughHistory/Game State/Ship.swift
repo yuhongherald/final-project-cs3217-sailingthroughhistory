@@ -146,7 +146,7 @@ class Ship {
         }
 
         for supply in suppliesConsumed {
-            let deficeit = consumeRequiredItem(itemType: supply.itemType, quantity: supply.quantity)
+            let deficeit = consumeRequiredItem(itemType: supply.itemParameter, quantity: supply.quantity)
             // TODO: Make player pay for deficeit
         }
     }
@@ -182,7 +182,7 @@ class Ship {
         if getRemainingCapacity() < item.weight {
             return false
         }
-        guard let sameType = items.first(where: { $0.itemType == item.itemType }) else {
+        guard let sameType = items.first(where: { $0.itemParameter == item.itemParameter }) else {
             items.append(item)
             return true
         }
@@ -191,7 +191,7 @@ class Ship {
     }
 
     private func consumeRequiredItem(itemType: ItemParameter, quantity: Int) -> Int {
-        guard let index = items.firstIndex(where: { $0.itemType == itemType }) else {
+        guard let index = items.firstIndex(where: { $0.itemParameter == itemType }) else {
             return quantity
         }
         guard let consumable = items[index] as? GenericConsumable else {

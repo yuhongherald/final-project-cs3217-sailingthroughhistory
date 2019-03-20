@@ -9,7 +9,7 @@
 import Foundation
 
 protocol GenericItem {
-    var itemType: ItemParameter { get }
+    var itemParameter: ItemParameter { get }
     var weight: Int { get }
     var quantity: Int { get set }
 
@@ -21,5 +21,5 @@ protocol GenericItem {
 }
 
 func == (lhs: GenericItem, rhs: GenericItem?) -> Bool {
-    return lhs.itemType == rhs?.itemType && lhs.quantity == rhs?.quantity
+    return lhs.itemParameter == rhs?.itemParameter && lhs.quantity == rhs?.quantity
 }

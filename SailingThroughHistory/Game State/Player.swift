@@ -11,7 +11,7 @@ import Foundation
 class Player: GenericPlayer {
     public let money = GameVariable(value: 0)
     public let state = GameVariable(value: PlayerState.endTurn)
-    public var name = "Test"
+    public var name: String
     public var interface: Interface?
 
     private let ship: Ship
@@ -28,11 +28,6 @@ class Player: GenericPlayer {
 
     func buyUpgrade(upgrade: Upgrade) {
         // TODO: Add upgrades
-    }
-
-    func getOwnedPorts() -> [Port] {
-        // TODO: Get actual ports
-        return []
     }
 
     func setTax(port: Port, amount: Int) {

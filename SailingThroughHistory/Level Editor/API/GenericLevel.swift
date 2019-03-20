@@ -9,8 +9,10 @@
 import Foundation
 
 protocol GenericLevel {
-    var itemTypes: [ItemParameter] { get set }
+    var itemParameters: [ItemParameter] { get set }
 
     func getPlayers() -> [GenericPlayer]
     func getMap() -> Map
+    func getItemLocations() -> [Port: [Item]]
+    func setItemValue(for item: ItemParameter, from: Port, to: Port)
 }

@@ -9,10 +9,9 @@
 import Foundation
 
 class GameParameter: GenericLevel {
-    public var itemTypes = [ItemParameter]()
+    public var itemParameters = [ItemParameter]()
     
     private var upgrades = [Upgrade]()
-    private var itemParameters = [ItemParameter]()
     private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
