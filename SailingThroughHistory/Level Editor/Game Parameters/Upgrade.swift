@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol Upgrade: GameParameter {
+protocol Upgrade {
 
 }

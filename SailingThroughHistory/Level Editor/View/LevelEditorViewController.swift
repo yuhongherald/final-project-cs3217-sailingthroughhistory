@@ -8,13 +8,16 @@
 
 import UIKit
 
-class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UIGestureRecognizerDelegate {
+class LevelEditorViewController: UIViewController {
     @IBOutlet weak var editPanel: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
     let map = Map()
-    var editMode: EditableObject?
+    let gameParameter = GameParameter()
+    var editMode: EditMode?
+    var pickedItem: ItemType?
     var lineLayer: CAShapeLayer!
     var destination: NodeView?
+    var cursor = UILabel()
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let castedDest = segue.destination as? EditPanelViewController else {
@@ -32,6 +35,9 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
         let image = UIImage(named: "worldmap1815")
         mapBackground.image = image
         map.addMap(mapBackground)
+
+        cursor.frame.size = CGSize(width: 50, height: 50)
+        view.addSubview(cursor)
     }
 
     @IBAction func editPressed(_ sender: Any) {
@@ -60,7 +66,7 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
             guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
                 return
             }
-            nodeView.addNodeTo(self, map: self.map, with: [removeGesture, drawPathGesture])
+            nodeView.addTo(self, map: self.map, with: [removeGesture, drawPathGesture])
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }
@@ -72,9 +78,15 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
     }
 
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
-        guard editMode == .path else {
+        guard editMode == .path || editMode == .item else {
             return
         }
+
+        if editMode == .item {
+            cursor.text = pickedItem?.rawValue
+            cursor.center = sender.location(in: mapBackground)
+        }
+
         guard let fromNode = sender.view as? NodeView else {
             return
         }
@@ -105,8 +117,20 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
             destination?.highlighted(false)
             destination = nil
 
+            // TODO: a better way to delocate cursor
+            cursor.text = ""
+
             guard let toNode = endView else {
                 lineLayer.removeFromSuperlayer()
+                return
+            }
+
+            if editMode == .item, let to = toNode.node as? Port, let from = fromNode.node as? Port {
+                let alert = UIAlert(title: "Input export money to: ", confirm: { money in
+                    // TODO: add item value
+                    gameParameter.add
+                }, textPlaceHolder: "100")
+                alert.present(in: self)
                 return
             }
 
@@ -117,14 +141,5 @@ class LevelEditorViewController: UIViewController, EditPanelDelegateProtocol, UI
         default:
             return
         }
-    }
-
-    func clicked(_ select: EditableObject) {
-        editPanel.isHidden = true
-        editMode = select
-    }
-
-    func addMap(_ image: UIImage) {
-        mapBackground.image = image
     }
 }

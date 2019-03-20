@@ -8,11 +8,12 @@
 
 import UIKit
 
-enum EditableObject {
+enum EditMode {
     case sea
     case path
     case port
     case pirate
+    case item
     case erase
 
     func getNodeView(name: String, at center: CGPoint) -> NodeView? {

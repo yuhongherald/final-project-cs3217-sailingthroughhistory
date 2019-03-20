@@ -9,11 +9,17 @@
 /* Begin PBXBuildFile section */
 		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
 		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
-		1A9FF086223F6DAB00005FCB /* EditableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditableObject.swift */; };
-		1A9FF088223F7FE000005FCB /* EditIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF087223F7FE000005FCB /* EditIcon.swift */; };
+		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
+		1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */; };
+		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
+		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
 		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
 		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
 		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
+		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
+		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
+		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
+		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -52,7 +58,7 @@
 		BA919069223F271700009F49 /* GameVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919068223F271700009F49 /* GameVariable.swift */; };
 		BA91906B223F429900009F49 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* Level.swift */; };
 		BA919070223F446800009F49 /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906F223F446800009F49 /* Upgrade.swift */; };
-		BA919072223F447F00009F49 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemType.swift */; };
+		BA919072223F447F00009F49 /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemParameter.swift */; };
 		BA919074223F44A400009F49 /* GameParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919073223F44A400009F49 /* GameParameter.swift */; };
 		BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919077223F4D0800009F49 /* ShipChassis.swift */; };
 		BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */; };
@@ -79,11 +85,17 @@
 /* Begin PBXFileReference section */
 		1A49D237223E468300A419F4 /* LevelEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelEditorViewController.swift; sourceTree = "<group>"; };
 		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
-		1A9FF085223F6DAB00005FCB /* EditableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableObject.swift; sourceTree = "<group>"; };
-		1A9FF087223F7FE000005FCB /* EditIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIcon.swift; sourceTree = "<group>"; };
+		1A749D642240F6DC00482CE5 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
+		1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPickerViewController.swift; sourceTree = "<group>"; };
+		1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LevelEditorViewController + Delegate.swift"; sourceTree = "<group>"; };
+		1A9FF085223F6DAB00005FCB /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
 		1A9FF0892240142B00005FCB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		1A9FF08B224030E000005FCB /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		1A9FF08D224037AF00005FCB /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
+		1A9FF08F2240A52900005FCB /* PlayerParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerParameter.swift; sourceTree = "<group>"; };
+		1A9FF0912240AC9C00005FCB /* EventParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParameter.swift; sourceTree = "<group>"; };
+		1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEditTableViewController.swift; sourceTree = "<group>"; };
+		1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		3D092ACA360EEBEA3E6F36B2 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
@@ -130,7 +142,7 @@
 		BA919068223F271700009F49 /* GameVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariable.swift; sourceTree = "<group>"; };
 		BA91906A223F429900009F49 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		BA91906F223F446800009F49 /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
-		BA919071223F447F00009F49 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
+		BA919071223F447F00009F49 /* ItemParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemParameter.swift; sourceTree = "<group>"; };
 		BA919073223F44A400009F49 /* GameParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameter.swift; sourceTree = "<group>"; };
 		BA919077223F4D0800009F49 /* ShipChassis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipChassis.swift; sourceTree = "<group>"; };
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
@@ -163,16 +175,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A9FF084223F6CE400005FCB /* LevelEditor */ = {
+		1A749D662240FD6B00482CE5 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				1A49D237223E468300A419F4 /* LevelEditorViewController.swift */,
-				1A49D239223F644F00A419F4 /* EditPanelViewController.swift */,
-				1A9FF085223F6DAB00005FCB /* EditableObject.swift */,
-				1A9FF087223F7FE000005FCB /* EditIcon.swift */,
+				1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */,
+				1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */,
+				1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */,
 				1A9FF08D224037AF00005FCB /* NodeView.swift */,
+				1A49D239223F644F00A419F4 /* EditPanelViewController.swift */,
+				1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */,
 			);
-			path = LevelEditor;
+			path = View;
+			sourceTree = "<group>";
+		};
+		1A9FF084223F6CE400005FCB /* Predefined */ = {
+			isa = PBXGroup;
+			children = (
+				1A9FF085223F6DAB00005FCB /* EditMode.swift */,
+				1A749D642240F6DC00482CE5 /* ItemType.swift */,
+			);
+			path = Predefined;
 			sourceTree = "<group>";
 		};
 		38DFED7D720553198BABBF4C /* Pods */ = {
@@ -319,7 +342,8 @@
 		BA91906C223F440700009F49 /* Level Editor */ = {
 			isa = PBXGroup;
 			children = (
-				1A9FF084223F6CE400005FCB /* LevelEditor */,
+				1A749D662240FD6B00482CE5 /* View */,
+				1A9FF084223F6CE400005FCB /* Predefined */,
 				BA91906D223F441900009F49 /* API */,
 				BA91906E223F443600009F49 /* Game Parameters */,
 			);
@@ -339,10 +363,12 @@
 			children = (
 				BA919073223F44A400009F49 /* GameParameter.swift */,
 				BA91906F223F446800009F49 /* Upgrade.swift */,
-				BA919071223F447F00009F49 /* ItemType.swift */,
+				BA919071223F447F00009F49 /* ItemParameter.swift */,
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
 				BA485901223F8B6E009ED2F6 /* Consumable.swift */,
 				1A9FF08B224030E000005FCB /* Map.swift */,
+				1A9FF08F2240A52900005FCB /* PlayerParameter.swift */,
+				1A9FF0912240AC9C00005FCB /* EventParameter.swift */,
 			);
 			path = "Game Parameters";
 			sourceTree = "<group>";
@@ -553,11 +579,13 @@
 			files = (
 				1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */,
 				965E0345223ADCB9005F7D79 /* InterfaceEvent.swift in Sources */,
+				1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */,
 				BA485904223F9112009ED2F6 /* Location.swift in Sources */,
+				1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
 				965E0343223AD976005F7D79 /* Interface.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
-				BA919072223F447F00009F49 /* ItemType.swift in Sources */,
+				BA919072223F447F00009F49 /* ItemParameter.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
@@ -572,25 +600,29 @@
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
+				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
 				BA91906B223F429900009F49 /* Level.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
 				BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */,
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
+				1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */,
 				1A9FF08A2240142B00005FCB /* Alert.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
+				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
+				1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */,
 				96877E54223EC7D80020F44C /* Path.swift in Sources */,
 				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
+				1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */,
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
-				1A9FF088223F7FE000005FCB /* EditIcon.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
-				1A9FF086223F6DAB00005FCB /* EditableObject.swift in Sources */,
+				1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */,
 				1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */,
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,

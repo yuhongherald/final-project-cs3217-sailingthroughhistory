@@ -43,18 +43,18 @@ class Player: GenericPlayer {
     public func dock() {
     }
     
-    public func getMaxPurchaseAmount(itemType: ItemType) -> Int {
+    public func getMaxPurchaseAmount(itemType: ItemParameter) -> Int {
         return 0
     }
     
-    public func getMaxSellAmount(itemType: ItemType) -> Int {
+    public func getMaxSellAmount(itemType: ItemParameter) -> Int {
         return 0
     }
     
-    public func buy(itemType: ItemType, quantity: Int) {
+    public func buy(itemType: ItemParameter, quantity: Int) {
     }
     
-    public func sell(itemType: ItemType, quantity: Int) {
+    public func sell(itemType: ItemParameter, quantity: Int) {
     }
     
     public func endTurn() {

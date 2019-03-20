@@ -261,6 +261,88 @@
             </objects>
             <point key="canvasLocation" x="776.953125" y="87.5"/>
         </scene>
+        <!--Detail Edit Table View Controller-->
+        <scene sceneID="9Di-fF-8lK">
+            <objects>
+                <tableViewController storyboardIdentifier="playerTable" id="Wx3-Dy-x8n" customClass="DetailEditTableViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mhs-tc-Jjg">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="CbQ-E9-zhL">
+                            <rect key="frame" x="0.0" y="128" width="1024" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem title="Back" id="bfp-8a-h83">
+                                    <connections>
+                                        <action selector="backPressed:" destination="Wx3-Dy-x8n" id="aCw-dk-ceQ"/>
+                                    </connections>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerIdentifier" rowHeight="100" id="hCx-Uw-VVK" customClass="PlayerTableViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="1024" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hCx-Uw-VVK" id="8zk-wS-5Ia">
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="99.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ze-D8-pbS">
+                                            <rect key="frame" x="40" y="11" width="48" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Input name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Za-u9-8QA">
+                                            <rect key="frame" x="108" y="8" width="93.5" height="30"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Input money" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P8J-95-XmM">
+                                            <rect key="frame" x="221.5" y="8" width="101.5" height="30"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7xV-D1-OoK">
+                                            <rect key="frame" x="343" y="2" width="143" height="42"/>
+                                            <state key="normal" title="Select Starting Node"/>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="7xV-D1-OoK" firstAttribute="leading" secondItem="P8J-95-XmM" secondAttribute="trailing" constant="20" id="3x7-tD-ZdA"/>
+                                        <constraint firstItem="7xV-D1-OoK" firstAttribute="top" secondItem="8zk-wS-5Ia" secondAttribute="top" constant="2" id="4y4-MW-bAn"/>
+                                        <constraint firstItem="5Za-u9-8QA" firstAttribute="centerY" secondItem="7Ze-D8-pbS" secondAttribute="centerY" id="8HU-Yl-dK4"/>
+                                        <constraint firstItem="7xV-D1-OoK" firstAttribute="centerY" secondItem="7Ze-D8-pbS" secondAttribute="centerY" id="aTM-Uy-jC0"/>
+                                        <constraint firstItem="5Za-u9-8QA" firstAttribute="leading" secondItem="7Ze-D8-pbS" secondAttribute="trailing" constant="20" id="fcM-28-88k"/>
+                                        <constraint firstItem="7Ze-D8-pbS" firstAttribute="leading" secondItem="8zk-wS-5Ia" secondAttribute="leadingMargin" constant="20" id="iUW-ib-KJa"/>
+                                        <constraint firstItem="P8J-95-XmM" firstAttribute="leading" secondItem="5Za-u9-8QA" secondAttribute="trailing" constant="20" id="kUc-f8-3dc"/>
+                                        <constraint firstItem="7Ze-D8-pbS" firstAttribute="top" secondItem="8zk-wS-5Ia" secondAttribute="topMargin" id="nQM-qz-PJ3"/>
+                                        <constraint firstItem="P8J-95-XmM" firstAttribute="centerY" secondItem="7Ze-D8-pbS" secondAttribute="centerY" id="oUn-oI-Odu"/>
+                                        <constraint firstItem="7xV-D1-OoK" firstAttribute="leading" secondItem="P8J-95-XmM" secondAttribute="trailing" constant="20" id="psS-s8-gbA"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="label" destination="7Ze-D8-pbS" id="0dm-8e-Unc"/>
+                                    <outlet property="moneyField" destination="P8J-95-XmM" id="Cfu-zg-Fia"/>
+                                    <outlet property="nameField" destination="5Za-u9-8QA" id="MY9-ZI-ecs"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Wx3-Dy-x8n" id="cEU-4K-jmR"/>
+                            <outlet property="delegate" destination="Wx3-Dy-x8n" id="34w-tl-xcF"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RuF-hk-aiG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1493" y="88"/>
+        </scene>
         <!--Edit Panel View Controller-->
         <scene sceneID="drC-6i-m6q">
             <objects>

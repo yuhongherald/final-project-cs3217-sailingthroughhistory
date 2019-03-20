@@ -8,18 +8,20 @@
 
 import UIKit
 protocol EditPanelDelegateProtocol {
-    func clicked(_ select: EditableObject)
+    func clicked(_ select: EditMode)
     func addMap(_ image: UIImage)
+    func presentPicker(_ controller: ItemPickerViewController)
 }
 
 class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var delegate:EditPanelDelegateProtocol?
+    var delegate: EditPanelDelegateProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+
     @IBAction func addMapPressed(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -48,12 +50,25 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
     }
 
     @IBAction func editParamPressed(_ sender: Any) {
+        // TODO: set player param
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "playerTable")
+            as? DetailEditTableViewController else {
+                fatalError("Controller is not found or cannot be casted into GameMainViewController.")
+        }
+
+        self.show(vc, sender: nil)
+
     }
 
     @IBAction func editItemPressed(_ sender: Any) {
+        let vc = ItemPickerViewController()
+        self.delegate?.presentPicker(vc)
+        self.delegate?.clicked(.item)
     }
 
     @IBAction func editEventsPressed(_ sender: Any) {
+        // TODO: set events condition
     }
 
     @IBAction func removePressed(_ sender: Any) {
