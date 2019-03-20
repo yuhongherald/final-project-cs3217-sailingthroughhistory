@@ -9,55 +9,66 @@
 import Foundation
 
 class Player: GenericPlayer {
-    var name = "Test"
     public let money = GameVariable(value: 0)
     public let state = GameVariable(value: PlayerState.endTurn)
+    public var name: String
+    public var interface: Interface?
 
     private let ship: Ship
+
+    required init(name: String, node: Node) {
+        self.name = name
+        ship = Ship(node: node, suppliesConsumed: [])
+        ship.setOwner(owner: self)
+    }
     
-    required public init(node: Node) {
-        ship = Ship(node: node)
+    func startTurn() {
+        ship.startTurn()
     }
 
-    public func buyUpgrade(upgrade: Upgrade) {
+    func buyUpgrade(upgrade: Upgrade) {
+        // TODO: Add upgrades
     }
 
-    public func getOwnedPorts() -> [Port] {
-        return []
+    func setTax(port: Port, amount: Int) {
+        port.taxAmount = amount
     }
 
-    public func setTax(port: Port) {
-    }
-
-    public func move(node: Node) {
+    func move(node: Node) {
         ship.move(node: node)
     }
-    
-    public func getNodesInRange(roll: Int) -> [Node] {
+
+    func getNodesInRange(roll: Int) -> [Node] {
         return ship.getNodesInRange(roll: roll)
     }
 
-    public func canDock() -> Bool {
-        return false
+    func canDock() -> Bool {
+        return ship.canDock()
     }
 
-    public func dock() {
-    }
-    
-    public func getMaxPurchaseAmount(itemType: ItemParameter) -> Int {
-        return 0
-    }
-    
-    public func getMaxSellAmount(itemType: ItemParameter) -> Int {
-        return 0
-    }
-    
-    public func buy(itemType: ItemParameter, quantity: Int) {
-    }
-    
-    public func sell(itemType: ItemParameter, quantity: Int) {
+    func dock() {
+        let port = ship.dock()
+        port?.collectTax(from: self)
     }
 
-    public func endTurn() {
+    func getPurchasableItemParameters() -> [ItemParameter] {
+        return ship.getPurchasableItemParameters()
     }
+
+    func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
+        return ship.getMaxPurchaseAmount(itemParameter: itemParameter)
+    }
+
+    func buy(itemParameter: ItemParameter, quantity: Int) {
+        ship.buyItem(itemParameter: itemParameter, quantity: quantity)
+    }
+
+    func sell(item: GenericItem) {
+        ship.sellItem(item: item)
+    }
+
+    func endTurn() {
+        ship.endTurn()
+    }
+
 }

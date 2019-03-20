@@ -9,12 +9,12 @@
 protocol GenericGameLogic {
     // TODO
     // update sea, mark as dirty if weather changes
-    
+
     // update ports, stub to change prices
     // update npcs, check they moved into a port, update port owner's money
     // update players, check they moved into a port
     // update pirates, check they moved into a player
 
     func getUpdatables() -> [Updatable]
-    
+
 }
