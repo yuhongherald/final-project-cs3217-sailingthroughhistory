@@ -9,6 +9,7 @@
 import Foundation
 
 protocol GenericPlayer {
+    var name: String { get }
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }
 

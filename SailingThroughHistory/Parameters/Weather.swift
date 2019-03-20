@@ -15,7 +15,11 @@ struct Weather: VolatileModifier {
     var windVelocity = CGPoint.zero
 
     func applyVelocityModifier(to oldVelocity: CGPoint) -> CGPoint {
-        return oldVelocity + windVelocity * Weather.windEffectMultiplier
+        if isActive {
+            return oldVelocity + windVelocity * Weather.windEffectMultiplier
+        } else{
+            return oldVelocity
+        }
     }
 
     mutating func update(currentMonth: Int) {
