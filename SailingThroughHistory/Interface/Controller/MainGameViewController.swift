@@ -125,16 +125,6 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    private func addBlurBackground(to view: UIView) {
-        view.backgroundColor = UIColor.clear
-        let blurEffect = UIBlurEffect(style: .extraLight)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurView.frame = view.bounds
-        blurView.alpha = 0.7
-        view.insertSubview(blurView, at: 0)
-    }
-
     private func initBackground() {
         guard let image = UIImage(named: interface.background),
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
