@@ -52,15 +52,11 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    let scheduler = SerialDispatchQueueScheduler(qos: .default)
     var views = [GameObject: UIGameImageView]()
-    var paths = [GameObject: [Path]]()
-    var pathLayers = [Path: CALayer]()
     /// TODO: Reference to Game Engine
-    lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
-    var subscription: Disposable?
-    var originalScale: CGFloat = 1
-    lazy var togglablePanels: [UIButton: UIView] = [
+    private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
+    private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
+    private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView,
         togglePlayerTwoInfoButton: playerTwoInformationView]
@@ -102,6 +98,10 @@ class MainGameViewController: UIViewController {
                 self?.interface.broadcastInterfaceChanges(withDuration: 1)
             }
         }
+    }
+
+    func getFrame(for object: GameObject) -> CGRect? {
+        return views[object]?.frame
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -212,7 +212,7 @@ class MainGameViewController: UIViewController {
 
         interface.paths.keys.forEach { [weak self] in
             interface.paths[$0]?.forEach { path in
-                self?.add(path: path, fadeInDuration: 0.25, callback: {})
+                self?.pathsController.add(path: path, withDuration: 0.25, callback: {})
             }
         }
     }
@@ -242,72 +242,9 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    private func add(path: Path, fadeInDuration: TimeInterval, callback: @escaping () -> Void) {
-        if paths[path.fromObject] == nil {
-            paths[path.fromObject] = []
-        }
-
-        if paths[path.toObject] == nil {
-            paths[path.toObject] = []
-        }
-
-        if paths[path.toObject]?.contains(path) ?? false && paths[path.fromObject]?.contains(path) ?? false {
-            return
-        }
-
-        self.paths[path.fromObject]?.append(path)
-        self.paths[path.toObject]?.append(path)
-        guard let fromFrame = views[path.fromObject]?.frame,
-            let toFrame = views[path.toObject]?.frame else {
-                return
-        }
-        let startPoint = CGPoint(x: fromFrame.midX, y: fromFrame.midY)
-        let endPoint = CGPoint(x: toFrame.midX, y: toFrame.midY)
-        let bezierPath = UIBezierPath()
-        let layer = CAShapeLayer()
-        bezierPath.move(to: startPoint)
-        bezierPath.addLine(to: endPoint)
-        layer.path = bezierPath.cgPath
-        layer.strokeColor = UIColor.black.cgColor
-        layer.fillColor = UIColor.clear.cgColor
-        layer.lineWidth = 4.0
-        layer.lineDashPattern = [10.0, 2.0]
-        gameArea.layer.addSublayer(layer)
-        pathLayers[path] = layer
-        CATransaction.begin()
-        CATransaction.setCompletionBlock(callback)
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        /* set up animation */
-        animation.fromValue = 0.0
-        animation.toValue = 1.0
-        animation.duration = fadeInDuration
-        layer.add(animation, forKey: "drawLineAnimation")
-        CATransaction.commit()
-    }
-
-    private func remove(path: Path, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        paths[path.fromObject]?.removeAll { $0 == path }
-        paths[path.toObject]?.removeAll { $0 == path }
-        let layer = pathLayers.removeValue(forKey: path)
-        CATransaction.begin()
-        CATransaction.setCompletionBlock {
-            layer?.removeFromSuperlayer()
-            callback()
-        }
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        /* set up animation */
-        animation.fromValue = 1.0
-        animation.toValue = 0.0
-        animation.duration = duration
-        layer?.add(animation, forKey: "drawLineAnimation")
-        CATransaction.commit()
-    }
-
     private func remove(object: GameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
         let view = views[object]
-        paths[object]?.forEach { [weak self] in
-            self?.remove(path: $0, withDuration: duration, callback: {})
-        }
+        pathsController.removeAllPathsAssociated(with: object, withDuration: duration)
         UIView.animate(withDuration: duration, animations: {
             view?.alpha = 0
         }, completion: { _ in
@@ -336,7 +273,7 @@ class MainGameViewController: UIViewController {
         case .move(let object, let dest):
             move(object: object, to: dest, withDuration: duration, callback: callback)
         case .addPath(let path):
-            add(path: path, fadeInDuration: duration, callback: callback)
+            pathsController.add(path: path, withDuration: duration, callback: callback)
         case .addObject(let object, let frame):
             add(object: object, at: frame, withDuration: duration, callback: callback)
         case .changeMonth(let newMonth):
@@ -346,7 +283,7 @@ class MainGameViewController: UIViewController {
         case .pauseAndShowAlert(let title, let msg):
             pauseAndShowAlert(titled: title, withMsg: msg, callback: callback)
         case .removePath(let path):
-            remove(path: path, withDuration: duration, callback: callback)
+            pathsController.remove(path: path, withDuration: duration, callback: callback)
         case .removeObject(let object):
             remove(object: object, withDuration: duration, callback: callback)
         case .showTravelChoices(let nodes, let selectCallback):

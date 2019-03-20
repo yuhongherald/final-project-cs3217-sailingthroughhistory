@@ -13,6 +13,11 @@ struct Path: Hashable {
     let toObject: GameObject
     var modifiers = [VolatileModifier]()
 
+    init(from fromObject: GameObject, to toObject: GameObject) {
+        self.fromObject = fromObject
+        self.toObject = toObject
+    }
+
     static func == (lhs: Path, rhs: Path) -> Bool {
         return (lhs.fromObject, lhs.toObject) == (rhs.fromObject, rhs.toObject)
     }

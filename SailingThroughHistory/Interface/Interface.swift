@@ -151,7 +151,7 @@ class Interface {
         return events.subscribe(callback: callback)
     }
 
-    private func addPathToState(path: Path) -> Bool{
+    private func addPathToState(path: Path) -> Bool {
         if objectFrames[path.fromObject] == nil || objectFrames[path.toObject] == nil {
             return false
         }
