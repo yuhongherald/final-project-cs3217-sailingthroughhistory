@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
+		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
+		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
+		1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */; };
+		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
+		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
+		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
+		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
+		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
+		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
+		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
+		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
+		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
 		7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82C224097AA00D9D0FE /* PlayerTurn.swift */; };
 		7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */; };
 		7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8302240990D00D9D0FE /* GameEvent.swift */; };
@@ -33,19 +46,9 @@
 		7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898D2242420C004037E6 /* GenericGameLogic.swift */; };
 		755989902242435C004037E6 /* GenericTurnBasedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */; };
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
-		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
-		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
-		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
-		1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */; };
-		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
-		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
-		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
-		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
-		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
-		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
-		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
-		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
-		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
+		75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435922428808007855F9 /* UpdatableTime.swift */; };
+		75F8435C22428C96007855F9 /* CompoundGameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435B22428C96007855F9 /* CompoundGameEvent.swift */; };
+		75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435D22428ED9007855F9 /* Timestampable.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -153,6 +156,9 @@
 		7559898D2242420C004037E6 /* GenericGameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericGameLogic.swift; sourceTree = "<group>"; };
 		7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTurnBasedGame.swift; sourceTree = "<group>"; };
 		75598991224243CE004037E6 /* EmotionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionEngine.swift; sourceTree = "<group>"; };
+		75F8435922428808007855F9 /* UpdatableTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTime.swift; sourceTree = "<group>"; };
+		75F8435B22428C96007855F9 /* CompoundGameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundGameEvent.swift; sourceTree = "<group>"; };
+		75F8435D22428ED9007855F9 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		965E0332223A4B3C005F7D79 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -293,6 +299,7 @@
 				7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */,
 				7536A8362240A09200D9D0FE /* GenericAsyncWrap.swift */,
 				7536A83D2240A7E600D9D0FE /* EventType.swift */,
+				75F8435D22428ED9007855F9 /* Timestampable.swift */,
 			);
 			path = protocols;
 			sourceTree = "<group>";
@@ -305,6 +312,7 @@
 				7559897A22421C31004037E6 /* UpdatablePlayer.swift */,
 				7559897C22421C42004037E6 /* UpdatableNPC.swift */,
 				7559897E22421C50004037E6 /* UpdatablePirate.swift */,
+				75F8435922428808007855F9 /* UpdatableTime.swift */,
 			);
 			path = adapters;
 			sourceTree = "<group>";
@@ -325,6 +333,7 @@
 				7536A8382240A14400D9D0FE /* GameAsyncWrap.swift */,
 				7559898B22423DDB004037E6 /* Dice.swift */,
 				7559898222422374004037E6 /* GameTime.swift */,
+				75F8435B22428C96007855F9 /* CompoundGameEvent.swift */,
 			);
 			path = "Small components";
 			sourceTree = "<group>";
@@ -742,6 +751,7 @@
 				7536A83E2240A7E600D9D0FE /* EventType.swift in Sources */,
 				7559898C22423DDB004037E6 /* Dice.swift in Sources */,
 				7559898322422374004037E6 /* GameTime.swift in Sources */,
+				75F8435C22428C96007855F9 /* CompoundGameEvent.swift in Sources */,
 				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
@@ -761,6 +771,7 @@
 				75598981224222FA004037E6 /* GameTimeFactory.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
+				75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				7536A8402240A8B300D9D0FE /* GameConstants.swift in Sources */,
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
@@ -781,6 +792,7 @@
 				7559898A22423D91004037E6 /* Randomable.swift in Sources */,
 				1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */,
 				1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */,
+				75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */,
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
 				7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */,

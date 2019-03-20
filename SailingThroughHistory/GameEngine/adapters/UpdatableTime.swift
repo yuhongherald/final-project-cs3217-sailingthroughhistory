@@ -1,12 +1,12 @@
 //
-//  UpdatablePort.swift
+//  UpdatableTime.swift
 //  SailingThroughHistory
 //
-//  Created by Herald on 19/3/19.
+//  Created by Herald on 20/3/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatablePort: Updatable {
+class UpdatableTime: Updatable {
     func update(time: Double) -> Bool {
         return false
     }
@@ -14,5 +14,4 @@ class UpdatablePort: Updatable {
     func checkForEvent() -> GenericGameEvent? {
         return nil
     }
-
 }

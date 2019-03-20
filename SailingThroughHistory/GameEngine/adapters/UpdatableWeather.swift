@@ -7,20 +7,20 @@
 //
 
 class UpdatableWeather: Updatable {
-    
-    func checkForEvent() -> GenericGameEvent? {
-        return nil
-    }
-
     let location: Node // will be replaced by an edge
     let weather: Weather
+    // weather contain edge or edge contain weather
 
     init(location: Node, weather: Weather) {
         self.location = location
         self.weather = weather
     }
 
-    func update(gameTime: Double) -> Bool {
+    func update(time: Double) -> Bool {
         return false
+    }
+
+    func checkForEvent() -> GenericGameEvent? {
+        return nil
     }
 }

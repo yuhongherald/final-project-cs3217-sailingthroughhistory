@@ -15,6 +15,7 @@ protocol GenericGameLogic {
     // update players, check they moved into a port
     // update pirates, check they moved into a player
 
+    var gameState: GenericGameState? { get set }
     func getUpdatables() -> [Updatable]
     
 }

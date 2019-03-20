@@ -8,6 +8,6 @@
 
 protocol Updatable {
     // returns whether there is a notable change in values
-    func update(gameTime: Double) -> Bool
+    func update(time: Double) -> Bool
     func checkForEvent() -> GenericGameEvent?
 }

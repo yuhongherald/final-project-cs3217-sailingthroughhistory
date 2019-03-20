@@ -7,14 +7,12 @@
 //
 
 class UpdatablePirate: Updatable {
-    
     func checkForEvent() -> GenericGameEvent? {
         return nil
     }
     
-    func update(gameTime: Double) -> Bool {
+    func update(time: Double) -> Bool {
         return false
     }
-    
     
 }

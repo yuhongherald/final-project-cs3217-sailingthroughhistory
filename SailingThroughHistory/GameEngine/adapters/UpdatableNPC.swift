@@ -6,4 +6,13 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import Foundation
+class UpdatableNPC: Updatable {
+    func update(time: Double) -> Bool {
+        return false
+    }
+    
+    func checkForEvent() -> GenericGameEvent? {
+        return nil
+    }
+    
+}

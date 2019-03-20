@@ -7,9 +7,9 @@
 //
 
 class GameLogic: GenericGameLogic {
+    var gameState: GenericGameState?
+
     func getUpdatables() -> [Updatable] {
         return []
     }
-    
-    
 }
