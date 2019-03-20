@@ -137,8 +137,7 @@ class MainGameViewController: UIViewController {
 
     private func initBackground() {
         guard let image = UIImage(named: interface.background),
-            let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper,
-            let oldScrollView = self.scrollView else {
+            let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
             return
         }
 
