@@ -47,8 +47,8 @@ struct ObjectsViewController {
         let view = UIGameObjectImageView(image: image, object: object)
         views[object] = view
         view.alpha = 0
-        view.addSubview(view)
-        view.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds, otherFrame: frame, to: view.bounds)
+        self.view.addSubview(view)
+        view.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds, otherFrame: frame, to: self.view.bounds)
         UIView.animate(withDuration: duration, animations: {
             view.alpha = 1
         }, completion: { _ in callback() })
@@ -84,7 +84,6 @@ struct ObjectsViewController {
         }, completion: { _ in
             callback()
         })
-        /// TODO: Add callback to engine
     }
 
     func move(object: GameObject, to dest: CGRect, withDuration duration: TimeInterval,

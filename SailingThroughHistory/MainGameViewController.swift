@@ -22,21 +22,9 @@ class MainGameViewController: UIViewController {
     }
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
-    @IBOutlet private weak var portInformationView: UIView! {
-        didSet {
-            addBlurBackground(to: portInformationView)
-        }
-    }
-    @IBOutlet private weak var playerOneInformationView: UIView! {
-        didSet {
-            addBlurBackground(to: playerOneInformationView)
-        }
-    }
-    @IBOutlet private weak var playerTwoInformationView: UIView! {
-        didSet {
-            addBlurBackground(to: playerTwoInformationView)
-        }
-    }
+    @IBOutlet private weak var portInformationView: UIView!
+    @IBOutlet private weak var playerOneInformationView: UIView!
+    @IBOutlet private weak var playerTwoInformationView: UIView!
     @IBOutlet private weak var countdownLabel: CountdownLabel!
     @IBOutlet private weak var playerOneGoldView: UILabel!
     @IBOutlet private weak var playerTwoGoldView: UILabel!
@@ -82,21 +70,20 @@ class MainGameViewController: UIViewController {
         let path = Path(from: object, to: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
-        self.interface.add(path: path)
-        self.interface.broadcastInterfaceChanges(withDuration: 1)
-        self.interface.remove(path: path)
         self.interface.showTravelChoices([object2]) { [weak self] (_: GameObject)  in
             let alert = ControllerUtils.getGenericAlert(titled: "Title", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
             }
         //TODO
-        /*self.interface.playerTurnStart(player: Player(node: object2), timeLimit: 120) { [weak self] in
+        self.interface.playerTurnStart(player: Player(name: "test", node: object2), timeLimit: 120) { [weak self] in
             let alert = ControllerUtils.getGenericAlert(titled: "Time up!", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
-        }*/
+        }
 
         subscribeToInterface()
 
+        self.interface.add(path: path)
+        self.interface.broadcastInterfaceChanges(withDuration: 5)
          //Uncomment to test interface
         DispatchQueue.global(qos: .background).async { [weak self] in
             while true {
