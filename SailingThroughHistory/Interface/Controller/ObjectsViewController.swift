@@ -23,12 +23,25 @@ struct ObjectsViewController {
     }
 
     func onTap(objectView: UIGameObjectImageView) {
-        guard objectView.tapCallback != nil,
-            objectView.object as? Node != nil else {
+        if objectView.tapCallback != nil,
+            objectView.object as? Node != nil {
+                onTapChoosableNode(nodeView: objectView)
                 return
         }
 
-        objectView.callTapCallback()
+        if objectView.object as? Port != nil {
+            onTapPort(portView: objectView)
+            return
+        }
+    }
+
+    private func onTapChoosableNode(nodeView: UIGameObjectImageView) {
+        guard nodeView.tapCallback != nil,
+            nodeView.object as? Node != nil else {
+            return
+        }
+
+        nodeView.callTapCallback()
 
         // Remove glow/callback from nodes.
         views.values
@@ -36,8 +49,15 @@ struct ObjectsViewController {
             .forEach {
                 $0.removeGlow()
                 $0.tapCallback = nil
-                $0.isUserInteractionEnabled = false
         }
+    }
+
+    private func onTapPort(portView: UIGameObjectImageView) {
+        guard let port = portView.object as? Port else {
+            return
+        }
+
+        mainController.showInformation(ofPort: port)
     }
 
     mutating func add(object: GameObject, at frame: CGRect, withDuration duration: TimeInterval,

@@ -65,7 +65,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q59-92-ecD" customClass="CountdownLabel" customModule="CountdownLabel">
-                                <rect key="frame" x="933" y="296" width="71" height="36"/>
+                                <rect key="frame" x="20" y="468" width="71" height="36"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -76,9 +76,15 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="748" y="84" width="256" height="192"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnv-LQ-Jez">
+                                        <rect key="frame" x="20" y="20" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fN-oD-MBu" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
                                         <rect key="frame" x="20" y="142" width="147" height="30"/>
                                         <state key="normal" title="Hide Port Information"/>
@@ -96,7 +102,11 @@
                                 <constraints>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="top" id="9oQ-XU-7sa"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="trailing" id="GdP-bE-Whs"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nnv-LQ-Jez" secondAttribute="trailing" constant="20" symbolic="YES" id="ZWB-Cb-InL"/>
+                                    <constraint firstItem="nnv-LQ-Jez" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="top" constant="8" symbolic="YES" id="ZXp-9c-TRO"/>
                                     <constraint firstAttribute="bottom" secondItem="3fN-oD-MBu" secondAttribute="bottom" constant="20" symbolic="YES" id="naO-AH-pd8"/>
+                                    <constraint firstItem="nnv-LQ-Jez" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="top" constant="20" symbolic="YES" id="niK-wH-eGM"/>
+                                    <constraint firstItem="nnv-LQ-Jez" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="qpv-7R-5EZ"/>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="xAx-aP-vby"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -232,11 +242,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="top" secondItem="6nf-n2-xli" secondAttribute="bottom" constant="8" symbolic="YES" id="2yt-xV-pR4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q59-92-ecD" secondAttribute="trailing" id="4Qh-5t-DYv"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="93w-mA-raU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="aBa-ds-mdJ" secondAttribute="top" id="An7-Vh-exN"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="BKh-th-Hki"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aBa-ds-mdJ" secondAttribute="bottom" id="EbP-yz-8c7"/>
-                            <constraint firstItem="q59-92-ecD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GIX-ZC-G64"/>
+                            <constraint firstItem="q59-92-ecD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="GIX-ZC-G64"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="GWu-vH-dFQ"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="GYk-OA-eX0"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Lnl-P6-45G"/>
@@ -248,6 +259,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="bottom" id="Ra9-H3-yrl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5Pn-jO-5xF" secondAttribute="bottom" id="SYJ-Zq-Z6f"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="trailing" id="TN5-7n-QWa"/>
+                            <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" secondItem="q59-92-ecD" secondAttribute="bottom" constant="8" symbolic="YES" id="UM2-e4-dHz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hZq-3R-NvY" secondAttribute="trailing" constant="20" id="Vt9-SE-p5s"/>
                             <constraint firstItem="aBa-ds-mdJ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="WEB-XF-q4I"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8nQ-Ii-rtZ" secondAttribute="bottom" constant="20" id="bKO-yM-4fV"/>
@@ -260,8 +272,9 @@
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/4" id="gVl-OD-3BP"/>
                             <constraint firstItem="DYM-A8-9ob" firstAttribute="trailing" secondItem="aBa-ds-mdJ" secondAttribute="trailing" constant="-20" id="h2k-cE-5D2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="bottom" id="hhb-JF-26f"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="q59-92-ecD" secondAttribute="bottom" id="ilI-QG-18O"/>
-                            <constraint firstItem="q59-92-ecD" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="bottom" constant="20" id="jqw-ye-X8s"/>
+                            <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="jGQ-tS-9AB"/>
+                            <constraint firstItem="q59-92-ecD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="jJB-zK-tTp"/>
+                            <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="top" id="koH-dm-gN5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6nf-n2-xli" secondAttribute="trailing" constant="20" id="lRl-YQ-kVK"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/4" id="m8d-iH-P1c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="leading" id="o0F-2V-7Ut"/>
@@ -274,7 +287,6 @@
                             <constraint firstItem="aBa-ds-mdJ" firstAttribute="leading" secondItem="DYM-A8-9ob" secondAttribute="leading" constant="-20" id="t1v-Ar-Hqa"/>
                             <constraint firstItem="DYM-A8-9ob" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="uUj-jg-M04"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="vdp-tX-Jp2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="q59-92-ecD" secondAttribute="trailing" constant="20" id="vhb-x8-09E"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="w0B-KI-dKf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -292,6 +304,7 @@
                         <outlet property="playerTwoGoldView" destination="PKH-yp-eHN" id="YYf-Aw-Vem"/>
                         <outlet property="playerTwoInformationView" destination="aBa-ds-mdJ" id="Lhf-oP-CN5"/>
                         <outlet property="portInformationView" destination="hZq-3R-NvY" id="cZb-aG-dOe"/>
+                        <outlet property="portNameLabel" destination="nnv-LQ-Jez" id="An5-VV-Pv5"/>
                         <outlet property="rollDiceButton" destination="bxt-Al-xiN" id="sr8-uW-nCc"/>
                         <outlet property="scrollView" destination="yCl-MH-qBd" id="sfg-kM-0DH"/>
                         <outlet property="toggleActionPanelButton" destination="8nQ-Ii-rtZ" id="R6d-Il-V9c"/>

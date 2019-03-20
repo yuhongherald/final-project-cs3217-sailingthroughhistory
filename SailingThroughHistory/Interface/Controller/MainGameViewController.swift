@@ -23,6 +23,7 @@ class MainGameViewController: UIViewController {
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
     @IBOutlet private weak var portInformationView: UIView!
+    @IBOutlet private weak var portNameLabel: UILabel!
     @IBOutlet private weak var playerOneInformationView: UIView!
     @IBOutlet private weak var playerTwoInformationView: UIView!
     @IBOutlet private weak var countdownLabel: CountdownLabel!
@@ -65,8 +66,9 @@ class MainGameViewController: UIViewController {
         //Uncomment to test interface
         let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
-        let object2 = Node(name: "testnode", image: "sea-node.png",
-                           frame: CGRect(x: 500, y: 500, width: 50, height: 50))
+        let nodeDummy = Node(name: "testnode", image: "sea-node.png",
+                             frame: CGRect(x: 500, y: 500, width: 50, height: 50))
+        let object2 = Port(player: Player(name: "test", node: nodeDummy), pos: CGPoint(x: 500, y: 500))
         let path = Path(from: object, to: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
@@ -96,6 +98,11 @@ class MainGameViewController: UIViewController {
 
     func getFrame(for object: GameObject) -> CGRect? {
         return objectsController.getFrame(for: object)
+    }
+
+    func showInformation(ofPort port: Port) {
+        portInformationView.isHidden = false
+        portNameLabel.text = port.name
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
