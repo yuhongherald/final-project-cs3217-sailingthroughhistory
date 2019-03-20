@@ -23,9 +23,9 @@ class GameVariable<T> : ObservableVariable {
     public init(value: T) {
         variable = Variable(value)
     }
-    
+
     func subscribe(with observer: @escaping (Event<T>) -> Void) {
         variable.asObservable().subscribe(observer).disposed(by: disposeBag)
     }
-    
+
 }

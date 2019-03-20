@@ -8,7 +8,9 @@
 
 import Foundation
 
-class GameParameter: Level {
+class GameParameter: GenericLevel {
+    public var itemParameters = [ItemParameter]()
+    
     private var upgrades = [Upgrade]()
     private var itemParameters = Set<ItemParameter>()
     private var storages = [Port: [Item]]()
@@ -16,7 +18,16 @@ class GameParameter: Level {
     private var eventParameters = [EventParameter]()
     private var map = Map()
 
-    func getPlayers() -> [Player] {
+    init() {
+        upgrades = []
+        itemParameters = []
+        storages = [Port: [Item]]()
+        playerParameters = []
+        eventParameters = []
+        fatalError("Not implemented")
+    }
+
+    func getPlayers() -> [GenericPlayer] {
         return playerParameters.map { $0.getPlayer() }
     }
 

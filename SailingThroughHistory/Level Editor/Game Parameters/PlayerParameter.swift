@@ -20,6 +20,6 @@ class PlayerParameter {
     }
 
     func getPlayer() -> Player {
-        return Player(node: node)
+        return Player(name: name, node: node)
     }
 }
