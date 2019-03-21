@@ -12,25 +12,29 @@ class GameLogic: GenericGameLogic {
 
     func getUpdatables(deltaTime: Double) -> AnyIterator<Updatable> {
         // player turn first
+        // weather next
+        // pirate, npc and player
+        // pirate island here probably
+        // port next
         // time last
         return AnyIterator {
             return nil
         }
     }
 
-    func getNewGameObjects() -> AnyIterator<GameObject> {
+    func getNewGameObjects() -> AnyIterator<Drawable> {
         return AnyIterator {
             return nil
         }
     }
 
-    func getUpdatedGameObjects() -> AnyIterator<GameObject> {
+    func getUpdatedGameObjects() -> AnyIterator<Drawable> {
         return AnyIterator {
             return nil
         }
     }
 
-    func getDeletedGameObjects() -> AnyIterator<GameObject> {
+    func getDeletedGameObjects() -> AnyIterator<Drawable> {
         return AnyIterator {
             return nil
         }

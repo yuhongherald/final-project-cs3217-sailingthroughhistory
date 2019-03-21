@@ -8,8 +8,6 @@
 
 protocol GenericGameEvent: Timestampable {
     var timestamp: Double { get set }
-    var message: String { get set }
+    var message: VisualAudioData? { get set }
     var eventType: EventType { get set }
-    // image?
-    // sound
 }

@@ -104,7 +104,7 @@ class GameEngine {
 
     private func updateInterface(newEvent: GenericGameEvent?) {
         for newObj in gameLogic.getNewGameObjects() {
-            interface.add(object: newObj)
+            // interface.add(object: newObj)
         }
         for updatedObj in gameLogic.getUpdatedGameObjects() {
             // currrently updated directly, no further action required

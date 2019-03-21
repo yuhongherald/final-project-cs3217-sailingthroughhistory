@@ -8,6 +8,14 @@
 
 class UpdatablePlayerTurn: EngineObject, Updatable {
 
+    var data: VisualAudioData? {
+        get {
+            return VisualAudioData(
+                contextualData: ContextualData.message(message: "This is the player turn"),
+                sound: GameSound.none)
+        }
+    }
+
     func update() -> Bool {
         return false
     }

@@ -7,9 +7,7 @@
 //
 
 protocol GenericGameLogic {
-    // TODO
     // update sea, mark as dirty if weather changes
-
     // update ports, stub to change prices
     // update npcs, check they moved into a port, update port owner's money
     // update players, check they moved into a port
@@ -17,7 +15,7 @@ protocol GenericGameLogic {
 
     var gameState: GenericGameState? { get set }
     func getUpdatables(deltaTime: Double) -> AnyIterator<Updatable>
-    func getNewGameObjects() -> AnyIterator<GameObject>
-    func getUpdatedGameObjects() -> AnyIterator<GameObject> // might not be relevant anymore
-    func getDeletedGameObjects() -> AnyIterator<GameObject>
+    func getNewGameObjects() -> AnyIterator<Drawable>
+    func getUpdatedGameObjects() -> AnyIterator<Drawable> // might not be relevant anymore
+    func getDeletedGameObjects() -> AnyIterator<Drawable>
 }

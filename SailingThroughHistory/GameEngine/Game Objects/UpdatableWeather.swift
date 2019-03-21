@@ -7,11 +7,15 @@
 //
 
 class UpdatableWeather: EngineObject, Updatable {
-    var data: ContextualData {
+    var data: VisualAudioData? {
         get {
-            return ContextualData.animated(images: weather.images)
+            let data = VisualAudioData(
+                contextualData: ContextualData.animated(images: Resources.Weather.monsoon, startingFrame: 0, loopDuration: Double.infinity),
+                sound: GameSound.none)
+            return data
         }
     }
+
     private let location: Path
     private let weather: Weather
 

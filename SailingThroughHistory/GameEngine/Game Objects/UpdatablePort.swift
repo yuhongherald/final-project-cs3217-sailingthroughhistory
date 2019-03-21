@@ -7,6 +7,15 @@
 //
 
 class UpdatablePort: EngineObject, Updatable {
+    var data: VisualAudioData? {
+        get {
+            let data = VisualAudioData(
+                contextualData: ContextualData.image(image: Resources.Misc.portNode),
+                sound: GameSound.none)
+            return data
+        }
+    }
+
     func update() -> Bool {
         return false
     }

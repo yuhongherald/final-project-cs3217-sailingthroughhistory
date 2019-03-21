@@ -11,5 +11,5 @@ protocol Drawable {
     var position: Vector2F { get }
     var scale: Vector2F { get }
     var rotation: Float { get }
-    var data: ContextualData { get }
+    var data: VisualAudioData? { get }
 }

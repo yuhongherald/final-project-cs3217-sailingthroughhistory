@@ -41,6 +41,9 @@
 		754FED6D2243787300394215 /* UIElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED6C2243787300394215 /* UIElement.swift */; };
 		754FED6F2243795900394215 /* EngineConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED6E2243795800394215 /* EngineConstants.swift */; };
 		754FED7122437B4F00394215 /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED7022437B4F00394215 /* NPC.swift */; };
+		754FED7322437FD200394215 /* GameSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED7222437FD200394215 /* GameSound.swift */; };
+		754FED75224381DF00394215 /* VisualAudioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED74224381DF00394215 /* VisualAudioData.swift */; };
+		754FED772243933F00394215 /* SoundStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED762243933F00394215 /* SoundStatus.swift */; };
 		7559897522421BEC004037E6 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897422421BEC004037E6 /* Updatable.swift */; };
 		7559897722421C0C004037E6 /* UpdatableWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897622421C0C004037E6 /* UpdatableWeather.swift */; };
 		7559897922421C1D004037E6 /* UpdatablePort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897822421C1D004037E6 /* UpdatablePort.swift */; };
@@ -57,7 +60,6 @@
 		755989902242435C004037E6 /* GenericTurnBasedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */; };
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
 		75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435922428808007855F9 /* UpdatableTime.swift */; };
-		75F8435C22428C96007855F9 /* CompoundGameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435B22428C96007855F9 /* CompoundGameEvent.swift */; };
 		75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435D22428ED9007855F9 /* Timestampable.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
@@ -164,6 +166,9 @@
 		754FED6C2243787300394215 /* UIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIElement.swift; sourceTree = "<group>"; };
 		754FED6E2243795800394215 /* EngineConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineConstants.swift; sourceTree = "<group>"; };
 		754FED7022437B4F00394215 /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
+		754FED7222437FD200394215 /* GameSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSound.swift; sourceTree = "<group>"; };
+		754FED74224381DF00394215 /* VisualAudioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualAudioData.swift; sourceTree = "<group>"; };
+		754FED762243933F00394215 /* SoundStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundStatus.swift; sourceTree = "<group>"; };
 		7559897422421BEC004037E6 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		7559897622421C0C004037E6 /* UpdatableWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableWeather.swift; sourceTree = "<group>"; };
 		7559897822421C1D004037E6 /* UpdatablePort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePort.swift; sourceTree = "<group>"; };
@@ -180,7 +185,6 @@
 		7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTurnBasedGame.swift; sourceTree = "<group>"; };
 		75598991224243CE004037E6 /* EmotionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionEngine.swift; sourceTree = "<group>"; };
 		75F8435922428808007855F9 /* UpdatableTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTime.swift; sourceTree = "<group>"; };
-		75F8435B22428C96007855F9 /* CompoundGameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundGameEvent.swift; sourceTree = "<group>"; };
 		75F8435D22428ED9007855F9 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		822713DFE8815B88F6BD7343 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		854F5B1DF525016D0CDDC8B0 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
@@ -338,6 +342,7 @@
 				754FED6E2243795800394215 /* EngineConstants.swift */,
 				7536A83D2240A7E600D9D0FE /* EventType.swift */,
 				754FED6A22436C8500394215 /* ContextualData.swift */,
+				754FED762243933F00394215 /* SoundStatus.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -379,12 +384,13 @@
 		75598993224243E7004037E6 /* Small components */ = {
 			isa = PBXGroup;
 			children = (
+				754FED7222437FD200394215 /* GameSound.swift */,
 				7536A8302240990D00D9D0FE /* GameEvent.swift */,
 				7536A8382240A14400D9D0FE /* GameAsyncWrap.swift */,
 				7559898B22423DDB004037E6 /* Dice.swift */,
 				7559898222422374004037E6 /* GameTime.swift */,
 				754FED5A22433F1700394215 /* Stopwatch.swift */,
-				75F8435B22428C96007855F9 /* CompoundGameEvent.swift */,
+				754FED74224381DF00394215 /* VisualAudioData.swift */,
 			);
 			path = "Small components";
 			sourceTree = "<group>";
@@ -805,6 +811,7 @@
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
 				BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */,
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
+				754FED7322437FD200394215 /* GameSound.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
@@ -819,7 +826,6 @@
 				7536A83E2240A7E600D9D0FE /* EventType.swift in Sources */,
 				7559898C22423DDB004037E6 /* Dice.swift in Sources */,
 				7559898322422374004037E6 /* GameTime.swift in Sources */,
-				75F8435C22428C96007855F9 /* CompoundGameEvent.swift in Sources */,
 				754FED6B22436C8500394215 /* ContextualData.swift in Sources */,
 				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
@@ -830,6 +836,7 @@
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
 				BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */,
 				7559897B22421C31004037E6 /* UpdatablePlayer.swift in Sources */,
+				754FED75224381DF00394215 /* VisualAudioData.swift in Sources */,
 				7559897722421C0C004037E6 /* UpdatableWeather.swift in Sources */,
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
 				7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */,
@@ -864,6 +871,7 @@
 				1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */,
 				754FED6D2243787300394215 /* UIElement.swift in Sources */,
 				1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */,
+				754FED772243933F00394215 /* SoundStatus.swift in Sources */,
 				75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */,
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,

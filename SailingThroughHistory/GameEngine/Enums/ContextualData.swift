@@ -10,6 +10,6 @@ enum ContextualData {
     case message(message: String)
     // can add another category with formatted data fields if needed
     case image(image: String)
-    case animated(images: [String])
+    case animated(images: [String], startingFrame: Int, loopDuration: Double)
     case none
 }

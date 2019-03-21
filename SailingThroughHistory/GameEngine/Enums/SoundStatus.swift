@@ -1,12 +1,13 @@
 //
-//  UIElement.swift
+//  SoundStatus.swift
 //  SailingThroughHistory
 //
 //  Created by Herald on 21/3/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-// TODO: Brief on this API
-protocol UIElement {
-    func update(with drawable: Drawable)
+enum SoundStatus {
+    case start(at: Double)
+    case stop
+    case noChange
 }

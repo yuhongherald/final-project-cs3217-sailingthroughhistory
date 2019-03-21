@@ -7,10 +7,14 @@
 //
 
 class UpdatableNPC: EngineObject, Updatable {
-    
-    var data: ContextualData {
+
+    var data: VisualAudioData? {
         get {
-            return
+            let data = VisualAudioData(
+                contextualData: ContextualData.animated(images: Resources.Ships.npc,
+                    startingFrame: 0, loopDuration: Double.infinity),
+                sound: GameSound.none)
+            return data
         }
     }
     

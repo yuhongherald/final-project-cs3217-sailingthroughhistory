@@ -7,6 +7,17 @@
 //
 
 class UpdatablePlayer: EngineObject, Updatable {
+
+    var data: VisualAudioData? {
+        get {
+            let data = VisualAudioData(
+                contextualData: ContextualData.animated(images: Resources.Ships.british,
+                    startingFrame: 0, loopDuration: Double.infinity),
+                sound: GameSound.none)
+            return data
+        }
+    }
+
     func update() -> Bool {
         return false
     }

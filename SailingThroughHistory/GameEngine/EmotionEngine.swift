@@ -28,7 +28,7 @@ class EmotionEngine: GenericTurnBasedGame {
 
     init(gameLogic: GameLogic) {
         self.nextEvent = GameEvent(eventType: EventType.informative(initiater: ""),
-                                   timestamp: 0, message: "")
+                                   timestamp: 0, message: nil)
         self.gameLogic = gameLogic
     }
 

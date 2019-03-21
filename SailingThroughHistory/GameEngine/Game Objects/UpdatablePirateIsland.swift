@@ -9,6 +9,14 @@
 // for MVP2
 class UpdatablePirateIsland: EngineObject, Updatable {
 
+    var data: VisualAudioData? {
+        get {
+            return VisualAudioData(
+                contextualData: ContextualData.image(image: Resources.Misc.pirateNode),
+                sound: GameSound.none)
+        }
+    }
+
     func update() -> Bool {
         return false
     }
