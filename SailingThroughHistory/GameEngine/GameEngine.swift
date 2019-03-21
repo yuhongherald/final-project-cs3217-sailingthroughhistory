@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+import UIKit
+
 class GameEngine {
     private var isRunning: Bool = false
     private var isValid: Bool = true
@@ -60,7 +62,8 @@ class GameEngine {
         wrapper.async {
             self.stopWatch.start()
             self.isPlayerTurn = false
-            self.interface.currentTurnOwner = nil
+            self.interface.endPlayerTurn()
+            self.interface.broadcastInterfaceChanges(withDuration: 0)
             self.emotionEngine.invalidateCache()
         }
     }
@@ -95,7 +98,10 @@ class GameEngine {
         switch event.eventType {
         case .actionRequired(playerIdentifier: let identifier):
             stopWatch.stop()
-            interface.currentTurnOwner = identifier
+            /// TODO: Set these
+            let timeLimit: TimeInterval? = nil
+            let timeOutCallback: () -> Void = { }
+            interface.playerTurnStart(player: identifier, timeLimit: timeLimit, timeOutCallback: timeOutCallback)
             break
         default: break
         }

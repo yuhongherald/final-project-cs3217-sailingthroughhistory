@@ -25,4 +25,13 @@ extension UIView {
     func removeGlow() {
         layer.shadowOpacity = 0
     }
+
+    func fadeOutAndRemove(withDuration duration: TimeInterval, completion callback: @escaping () -> Void) {
+        UIView.animate(withDuration: duration, animations: { [weak self] in
+            self?.alpha = 0
+        }, completion: { [weak self] _ in
+            self?.removeFromSuperview()
+            callback()
+        })
+    }
 }
