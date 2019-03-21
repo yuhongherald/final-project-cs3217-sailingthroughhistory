@@ -75,13 +75,12 @@ struct ObjectsViewController {
     }
 
     mutating func remove(object: GameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        let view = views[object]
-        UIView.animate(withDuration: duration, animations: {
-            view?.alpha = 0
-        }, completion: { _ in
-            view?.removeFromSuperview()
+        guard let view = views.removeValue(forKey: object) else {
             callback()
-        })
+            return
+        }
+
+        view.fadeOutAndRemove(withDuration: duration, completion: callback)
     }
 
     func makeChoosable(nodes: [Node], withDuration duration: TimeInterval, tapCallback: @escaping (GameObject) -> Void, callback: @escaping () -> Void) {

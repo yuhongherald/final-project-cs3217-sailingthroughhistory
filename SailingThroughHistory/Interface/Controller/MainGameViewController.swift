@@ -145,7 +145,7 @@ class MainGameViewController: UIViewController {
 
         scrollView.contentSize = image.size
         scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
-        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
+        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
         backgroundImageView.image = image
     }
 
