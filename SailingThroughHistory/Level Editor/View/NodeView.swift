@@ -14,7 +14,7 @@ class NodeView: UIImageView {
 
     init(node: Node) {
         self.node = node
-        self.nodeLabel = NodeView.initLabel()
+        self.nodeLabel = NodeView.getBlankLabel()
         super.init(frame: node.frame)
         self.image = UIImage(named: node.image)
         self.node = node
@@ -50,7 +50,7 @@ class NodeView: UIImageView {
         }
     }
 
-    private static func initLabel() -> UILabel {
+    private static func getBlankLabel() -> UILabel {
         let label = UILabel()
         label.frame.origin = CGPoint(x: 0, y: -15)
         label.backgroundColor = .white
