@@ -75,7 +75,7 @@ class Interface {
     ///   - player: The `Player` "owner" of the turn.
     ///   - timeLimit: The time limit (in seconds).
     ///   - timeOutCallback: Called when the time limit is reached.
-    func playerTurnStart(player: Player, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void) {
+    func playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void) {
         pendingEvents.append(.playerTurnStart(player: player, timeLimit: timeLimit, timeOutCallback: timeOutCallback))
     }
 
