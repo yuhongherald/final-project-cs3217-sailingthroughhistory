@@ -16,6 +16,7 @@ protocol VolatileModifier {
 }
 
 extension VolatileModifier {
+
     func applyVelocityModifier(to oldVelocity: CGPoint) -> CGPoint {
         return oldVelocity
     }

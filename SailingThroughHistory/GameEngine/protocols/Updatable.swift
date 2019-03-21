@@ -6,8 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol Updatable {
+protocol Updatable: Drawable {
     // returns whether there is a notable change in values
-    func update(gameTime: Double) -> Bool
+    var identifier: Int { get }
+    func update() -> Bool
     func checkForEvent() -> GenericGameEvent?
 }

@@ -9,5 +9,5 @@
 struct GameEvent: GenericGameEvent {
     var eventType: EventType
     var timestamp: Double
-    var message: String
+    var message: VisualAudioData?
 }

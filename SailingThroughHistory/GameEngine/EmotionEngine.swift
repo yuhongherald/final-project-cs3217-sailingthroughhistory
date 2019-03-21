@@ -7,22 +7,29 @@
 //
 
 class EmotionEngine: GenericTurnBasedGame {
-    // TODO: Extract gameState into a protocol
-    private let gameState: GenericGameLogic
-    var playerTurn: PlayerTurn?
+    private let gameLogic: GameLogic
+
+    var playerTurn: PlayerTurn? // TODO: marked for deletion
     var currentGameTime: Double = 0
-    var largestTimeStep: Double = GameConstants.largestTimeStep
-    var forecastDuration: Double = GameConstants.forecastDuration
-    var daysToSeconds: Double = GameConstants.weeksToSeconds
-    // used for controls
+    var largestTimeStep: Double = EngineConstants.largestTimeStep
+    var forecastDuration: Double = EngineConstants.forecastDuration
+    var daysToSeconds: Double = EngineConstants.weeksToSeconds
+
+    // used for controls, pausing, speeding up
     var externalGameSpeed: Double = 1
     // used for emotion engine
-    var fastestGameSpeed: Double = GameConstants.fastestGameSpeed
-    var slowestGameSpeed: Double = GameConstants.slowestGameSpeed
+    var fastestGameSpeed: Double = EngineConstants.fastestGameSpeed
+    var slowestGameSpeed: Double = EngineConstants.slowestGameSpeed
+
     private var gameSpeed: Double = 1
 
-    init(gameState: GenericGameLogic) {
-        self.gameState = gameState
+    private var updatableCache: AnyIterator<Updatable>?
+    private var nextEvent: GenericGameEvent
+
+    init(gameLogic: GameLogic) {
+        self.nextEvent = GameEvent(eventType: EventType.informative(initiater: ""),
+                                   timestamp: 0, message: nil)
+        self.gameLogic = gameLogic
     }
 
     func updateGameState(deltaTime: Double) -> GenericGameEvent? {
@@ -38,9 +45,21 @@ class EmotionEngine: GenericTurnBasedGame {
         return updateGameSpeed(timeDifference * gameSpeed * externalGameSpeed)
     }
 
+    func finishCachedUpdates() -> GenericGameEvent? {
+        while let updatable = updatableCache?.next() {
+            _ = updatable.update()
+            guard let event = updatable.checkForEvent() else {
+                continue
+            }
+            return event
+        }
+        return nil
+    }
+
     private func updateGameSpeed(_ deltaTime: Double) -> GenericGameEvent? {
         currentGameTime += deltaTime
         guard let event = updateGameStateDeltatime(deltaTime) else {
+            updatableCache = nil
             return nil
         }
         let eventTimeDifference = event.timestamp - currentGameTime
@@ -50,10 +69,11 @@ class EmotionEngine: GenericTurnBasedGame {
         }
         // interpolate the speed based on how close the event is to happening
         setGameSpeed(using: event)
+        updatableCache = nil
         return nil
     }
 
-    func setGameSpeed(using event: GenericGameEvent) {
+    func setGameSpeed(using event: Timestampable) {
         let eventTimeDifference = event.timestamp - currentGameTime
         var alpha: Double = 0
         if eventTimeDifference >= 0 {
@@ -65,25 +85,21 @@ class EmotionEngine: GenericTurnBasedGame {
         gameSpeed = Double.lerp(alpha, fastestGameSpeed, slowestGameSpeed)
     }
 
+    func hasCachedUpdates() -> Bool {
+        return updatableCache != nil
+    }
+    func invalidateCache() {
+        updatableCache = nil
+    }
+
     // for testing
     func getGameSpeed() -> Double {
         return gameSpeed
     }
 
     private func updateGameStateDeltatime(_ deltaTime: Double) -> GenericGameEvent? {
-        // TODO: Use the game state to update the game
-        //gameState.
-        // move ships by interpolation
-        // check when a player ship lands into a tile, create event if required
-        // (Pirate, starvation, reached port)
-
-        // TODO: Create a method to push copies of events onto a stack so that they can be evaluated for emotion engine
-        // update sea, mark as dirty if weather changes
-        // update ports, stub to change prices
-        // update npcs, check they moved into a port, update port owner's money
-        // update players, check they moved into a port
-        // update pirates, check they moved into a player
-        return nil
+        updatableCache = gameLogic.getUpdatables(deltaTime: deltaTime)
+        return finishCachedUpdates()
     }
 
 }

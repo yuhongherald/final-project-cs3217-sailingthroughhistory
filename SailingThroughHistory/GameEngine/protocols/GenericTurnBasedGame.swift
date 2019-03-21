@@ -14,8 +14,13 @@ protocol GenericTurnBasedGame {
     var largestTimeStep: Double { get set }
     /// The amount of time the game looks ahead for an event
     var forecastDuration: Double { get set }
-    func setGameSpeed(using event: GenericGameEvent)
+
+    func setGameSpeed(using event: Timestampable)
     /// updates the game state by taking a timestep, recursively
     /// also returns the closest forecasted event, if any
     func updateGameState(deltaTime: Double) -> GenericGameEvent?
+
+    func finishCachedUpdates() -> GenericGameEvent?
+    func hasCachedUpdates() -> Bool
+    func invalidateCache()
 }
