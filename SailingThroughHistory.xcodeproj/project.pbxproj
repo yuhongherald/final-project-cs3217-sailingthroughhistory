@@ -349,6 +349,7 @@
 		965E033A223A7110005F7D79 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				96737E9E223CF1CB00D04C33 /* GameObject.swift */,
 				965E033B223A7127005F7D79 /* CGPoint+Arithmetic.swift */,
 				96737EA5223D398200D04C33 /* CGRect+Translate.swift */,
 				7536A8412240C25F00D9D0FE /* Double+Lerp.swift */,
@@ -410,7 +411,6 @@
 				9690F5D0223A4875005291EE /* Assets.xcassets */,
 				9690F5D2223A4875005291EE /* LaunchScreen.storyboard */,
 				9690F5D5223A4875005291EE /* Info.plist */,
-				96737E9E223CF1CB00D04C33 /* GameObject.swift */,
 			);
 			path = SailingThroughHistory;
 			sourceTree = "<group>";
