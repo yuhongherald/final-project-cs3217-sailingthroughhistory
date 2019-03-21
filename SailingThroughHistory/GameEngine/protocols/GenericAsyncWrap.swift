@@ -8,7 +8,4 @@
 
 protocol GenericAsyncWrap {
     func async(action: @escaping () -> Void)
-    func resetTimer()
-    func getTimestamp() -> Double
-    // include 1 for UI async if needed
 }

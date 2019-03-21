@@ -7,9 +7,14 @@
 //
 
 class GameLogic: GenericGameLogic {
+
     var gameState: GenericGameState?
 
-    func getUpdatables() -> [Updatable] {
-        return []
+    func getUpdatables(deltaTime: Double) -> AnyIterator<Updatable> {
+        // player turn first
+        // time last
+        return AnyIterator {
+            return nil
+        }
     }
 }

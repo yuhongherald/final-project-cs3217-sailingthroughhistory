@@ -7,16 +7,19 @@
 //
 
 class UpdatableWeather: Updatable {
+    var status: DrawableStatus = DrawableStatus.add
     let location: Node // will be replaced by an edge
     let weather: Weather
     // weather contain edge or edge contain weather
+    var gameObjectBox: GameObjectBox
 
-    init(location: Node, weather: Weather) {
+    init(location: Node, weather: Weather, gameObject: GameObject) {
+        self.gameObjectBox = GameObjectBox(gameObject: gameObject)
         self.location = location
         self.weather = weather
     }
 
-    func update(time: Double) -> Bool {
+    func update() -> Bool {
         return false
     }
 

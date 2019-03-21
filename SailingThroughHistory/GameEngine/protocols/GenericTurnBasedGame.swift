@@ -17,5 +17,6 @@ protocol GenericTurnBasedGame {
     func setGameSpeed(using event: Timestampable)
     /// updates the game state by taking a timestep, recursively
     /// also returns the closest forecasted event, if any
-    func updateGameState(deltaTime: Double) -> CompoundGameEvent?
+    func updateGameState(deltaTime: Double) -> GenericGameEvent?
+    func invalidateCache()
 }

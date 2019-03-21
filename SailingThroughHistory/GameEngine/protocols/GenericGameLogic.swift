@@ -16,6 +16,6 @@ protocol GenericGameLogic {
     // update pirates, check they moved into a player
 
     var gameState: GenericGameState? { get set }
-    func getUpdatables() -> [Updatable]
+    func getUpdatables(deltaTime: Double) -> AnyIterator<Updatable>
 
 }

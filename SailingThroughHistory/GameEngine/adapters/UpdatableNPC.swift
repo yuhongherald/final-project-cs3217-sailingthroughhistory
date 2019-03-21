@@ -7,7 +7,13 @@
 //
 
 class UpdatableNPC: Updatable {
-    func update(time: Double) -> Bool {
+    var gameObjectBox: GameObjectBox
+    init(gameObject: GameObject) {
+        self.gameObjectBox = GameObjectBox(gameObject: gameObject)
+    }
+    
+    var status: DrawableStatus = DrawableStatus.add
+    func update() -> Bool {
         return false
     }
     

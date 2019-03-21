@@ -7,7 +7,12 @@
 //
 
 class UpdatableTime: Updatable {
-    func update(time: Double) -> Bool {
+    var status: DrawableStatus = DrawableStatus.add
+    var gameObjectBox: GameObjectBox
+    init(gameObject: GameObject) {
+        self.gameObjectBox = GameObjectBox(gameObject: gameObject)
+    }
+    func update() -> Bool {
         return false
     }
     

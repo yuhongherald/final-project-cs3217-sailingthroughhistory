@@ -9,29 +9,34 @@
 class GameEngine {
     private var isRunning: Bool = false
     private var isValid: Bool = true
+    private var isPlayerTurn: Bool = false
+    private var gameLogic: GenericGameLogic
 
     // TODO: extract interface into protocol
     // something for me to draw on
     private let interface: Interface
-    private var gameLogic: GenericTurnBasedGame
+    private var emotionEngine: GenericTurnBasedGame
     private let wrapper: GenericAsyncWrap
     private let diceFactory: DiceFactory
+    private let stopWatch: Stopwatch = Stopwatch(smallestInterval:
+        GameConstants.smallestEngineTick)
 
     var gameSpeed: Double {
         get {
-            return gameLogic.externalGameSpeed
+            return emotionEngine.externalGameSpeed
         }
         set {
             wrapper.async {
-                self.gameLogic.externalGameSpeed = newValue
+                self.emotionEngine.externalGameSpeed = newValue
             }
         }
     }
 
-    init(interface: Interface, gameLogic: GenericTurnBasedGame,
+    init(interface: Interface, emotionEngine: GenericTurnBasedGame,
+         
          asyncWrapper: GenericAsyncWrap, diceFactory: DiceFactory) {
         self.interface = interface
-        self.gameLogic = gameLogic
+        self.emotionEngine = emotionEngine
         self.wrapper = asyncWrapper
         self.diceFactory = diceFactory
     }
@@ -41,12 +46,23 @@ class GameEngine {
             return
         }
         isRunning = true
-        wrapper.resetTimer()
+        stopWatch.resetTimer()
+        stopWatch.start()
         repeatLoop(endGame)
     }
 
     func roll(lower: Int, upper: Int) -> Int {
         return diceFactory.createDice(lower: lower, upper: upper).roll()
+    }
+
+    /// invalidates the event cache in the emotion engine
+    func endTurn() {
+        wrapper.async {
+            self.stopWatch.start()
+            self.isPlayerTurn = false
+            self.interface.currentTurnOwner = nil
+            self.emotionEngine.invalidateCache()
+        }
     }
 
     private func repeatLoop(_ endGame: @escaping () -> Void) {
@@ -60,25 +76,34 @@ class GameEngine {
     }
 
     private func loop(_ endGame: @escaping () -> Void) {
-        updateGameState()
-        updateInterface()
-        repeatLoop(endGame)
-    }
-
-    private func updateGameState() {
-        let newTime = wrapper.getTimestamp()
-        let timeDifference = (newTime - gameLogic.currentGameTime)
-        wrapper.async {
-            guard let event = self.gameLogic.updateGameState(deltaTime: timeDifference) else {
-                return
+        while isValid {
+            guard let updatables = updateGameState() else {
+                continue
             }
-            // TODO: Add Player turn logic
+            updateInterface(updatables: updatables)
         }
     }
 
-    private func updateInterface() {
-        wrapper.async {
-            // TODO: Write protocol for wrapping interface
+    private func updateGameState() -> [UpdatableWrapper]? { // change
+        let newTime = stopWatch.getTimestamp()
+        let timeDifference = (newTime - emotionEngine.currentGameTime)
+        guard let event = emotionEngine.updateGameState(deltaTime: timeDifference) else {
+            return nil
+        }
+        switch event.eventType {
+        case .actionRequired(playerIdentifier: let identifier):
+            stopWatch.stop()
+            interface.currentTurnOwner = identifier
+            break
+        default: break
+        }
+        return nil
+    }
+
+    private func updateInterface(updatables: AnyIterator<UpdatableWrapper>) {
+        for updatable in updatables {
+        //interface.add(object: <#T##GameObject#>)
+        //interface.disposeBag.insert(<#T##disposable: Disposable##Disposable#>)
         }
     }
 }

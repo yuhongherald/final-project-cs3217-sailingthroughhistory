@@ -7,49 +7,73 @@
 //
 
 class EmotionEngine: GenericTurnBasedGame {
-    private var gameLogic: GenericGameLogic
     var playerTurn: PlayerTurn? // TODO: marked for deletion
     var currentGameTime: Double = 0
     var largestTimeStep: Double = GameConstants.largestTimeStep
     var forecastDuration: Double = GameConstants.forecastDuration
     var daysToSeconds: Double = GameConstants.weeksToSeconds
-    // used for controls
+
+    // used for controls, pausing, speeding up
     var externalGameSpeed: Double = 1
     // used for emotion engine
     var fastestGameSpeed: Double = GameConstants.fastestGameSpeed
     var slowestGameSpeed: Double = GameConstants.slowestGameSpeed
+
     private var gameSpeed: Double = 1
 
-    init(gameLogic: GenericGameLogic, gameState: GenericGameState) {
-        self.gameLogic = gameLogic
-        self.gameLogic.gameState = gameState
+    private var updatableCache: AnyIterator<Updatable>?
+    private var nextEvent: GenericGameEvent
+
+    init() {
+        self.nextEvent = GameEvent(eventType: EventType.informative(initiater: ""),
+                                   timestamp: 0, message: "")
     }
 
-    func updateGameState(deltaTime: Double) -> CompoundGameEvent? {
+    func updateGameState(deltaTime: Double) -> GenericGameEvent? {
+        let update = finishCacheUpdates()
+        guard update == nil else {
+            return update
+        }
+
         var timeDifference = deltaTime
         while timeDifference * gameSpeed * externalGameSpeed > largestTimeStep {
             // we break it into multiple cycles
             timeDifference -= largestTimeStep / gameSpeed / externalGameSpeed
-            guard let events = updateGameSpeed(largestTimeStep) else {
+            guard let event = updateGameSpeed(largestTimeStep) else {
                 continue
             }
-            return events
+            return event
         }
         return updateGameSpeed(timeDifference * gameSpeed * externalGameSpeed)
     }
 
-    private func updateGameSpeed(_ deltaTime: Double) -> CompoundGameEvent? {
+    private func finishCacheUpdates() -> GenericGameEvent? {
+        while let updatable = updatableCache?.next() {
+            if updatable.update() {
+                // TODO: mark as dirty in update
+            }
+            guard let event = updatable.checkForEvent() else {
+                continue
+            }
+            return event
+        }
+        return nil
+    }
+
+    private func updateGameSpeed(_ deltaTime: Double) -> GenericGameEvent? {
         currentGameTime += deltaTime
-        guard let events = updateGameStateDeltatime(deltaTime) else {
+        guard let event = updateGameStateDeltatime(deltaTime) else {
+            updatableCache = nil
             return nil
         }
-        let eventTimeDifference = events.timestamp - currentGameTime
+        let eventTimeDifference = event.timestamp - currentGameTime
         if eventTimeDifference <= 0 {
             // event has started
-            return events
+            return event
         }
         // interpolate the speed based on how close the event is to happening
-        setGameSpeed(using: events)
+        setGameSpeed(using: event)
+        updatableCache = nil
         return nil
     }
 
@@ -65,20 +89,18 @@ class EmotionEngine: GenericTurnBasedGame {
         gameSpeed = Double.lerp(alpha, fastestGameSpeed, slowestGameSpeed)
     }
 
+    func invalidateCache() {
+        updatableCache = nil
+    }
+
     // for testing
     func getGameSpeed() -> Double {
         return gameSpeed
     }
 
-    private func updateGameStateDeltatime(_ deltaTime: Double) -> CompoundGameEvent? {
-        var result = [GenericGameEvent]()
-        for updatable in gameLogic.getUpdatables() {
-            updatable.update(time: deltaTime)
-        }
-        guard result.count != 0 else {
-            return nil
-        }
-        return CompoundGameEvent(events: result)
+    private func updateGameStateDeltatime(_ deltaTime: Double) -> GenericGameEvent? {
+        updatableCache = nil//gameLogic.getUpdatables(deltaTime: deltaTime)
+        return finishCacheUpdates()
     }
 
 }
