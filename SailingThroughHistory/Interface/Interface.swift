@@ -13,7 +13,6 @@ class Interface {
     let bounds: CGRect
     let background: String = "worldmap1815.png"
     let events = InterfacePublishSubject<InterfaceEvents>()
-    let disposeBag = DisposeBag()
     let monthSymbols = Calendar.current.monthSymbols
     let players: [Player]
     var pendingEvents = [InterfaceEvent]()
