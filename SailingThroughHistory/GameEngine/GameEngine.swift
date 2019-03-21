@@ -60,7 +60,8 @@ class GameEngine {
         wrapper.async {
             self.stopWatch.start()
             self.isPlayerTurn = false
-            self.interface.currentTurnOwner = nil
+            self.interface.endPlayerTurn()
+            self.interface.broadcastInterfaceChanges(withDuration: 0)
             self.emotionEngine.invalidateCache()
         }
     }
