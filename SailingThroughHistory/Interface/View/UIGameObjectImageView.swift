@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UIGameImageView: UIImageView {
+class UIGameObjectImageView: UIImageView {
     let object: GameObject
     var tapCallback: ((GameObject) -> Void)?
 
