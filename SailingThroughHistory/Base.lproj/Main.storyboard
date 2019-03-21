@@ -482,7 +482,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWV-8Y-KwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="itemEditTable" id="08g-fx-fPl" customClass="ItemPickerViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" alpha="0.5" contentMode="scaleToFill" id="Iq1-6O-SmF">
+                    <view key="view" contentMode="scaleToFill" id="Iq1-6O-SmF">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -519,7 +519,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="center" reuseIdentifier="itemInfoCell" id="9wY-mf-a4G" customClass="ItemCollectionViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemInfoCell" id="9wY-mf-a4G" customClass="ItemCollectionViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="824" height="87"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -532,16 +532,19 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j26-du-H3Y">
+                                                <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j26-du-H3Y">
                                                     <rect key="frame" x="300" y="28.5" width="200" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="EMy-AZ-xQL"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="08g-fx-fPl" id="8YI-8S-qdb"/>
+                                                    </connections>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sHq-Bj-CRJ">
+                                                <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sHq-Bj-CRJ">
                                                     <rect key="frame" x="600" y="28.5" width="200" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="1zN-aX-HgK"/>
@@ -549,7 +552,10 @@
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="08g-fx-fPl" id="vql-aq-9rx"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </view>
@@ -571,12 +577,12 @@
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="08g-fx-fPl" id="JXz-Pm-JQl"/>
-                                    <outlet property="delegate" destination="08g-fx-fPl" id="w6o-ud-Oet"/>
+                                    <outlet property="dataSource" destination="08g-fx-fPl" id="8gm-1L-zN6"/>
+                                    <outlet property="delegate" destination="08g-fx-fPl" id="7W8-SB-4Hj"/>
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bHp-4Y-wpN" firstAttribute="leading" secondItem="d8C-ep-uRX" secondAttribute="leading" constant="100" id="3C4-Rs-RTY"/>
                             <constraint firstItem="RYq-DK-tUx" firstAttribute="leading" secondItem="d8C-ep-uRX" secondAttribute="leading" constant="250" id="4Co-V2-zU1"/>
@@ -591,6 +597,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d8C-ep-uRX"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="bHp-4Y-wpN" id="xUZ-4n-fjL"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1492.96875" y="785.9375"/>

@@ -19,7 +19,6 @@ class LevelEditorViewController: UIViewController {
     @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
     private var upgrades = [Upgrade]()
-    private var itemParameters = Set<ItemParameter>()
     private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
@@ -27,7 +26,7 @@ class LevelEditorViewController: UIViewController {
     let gameParameter = GameParameter()
     var editMode: EditMode?
     var pickedItem: ItemType?
-    var lineLayer: CAShapeLayer!
+    var lineLayer = CAShapeLayer()
     var destination: NodeView?
 
     override var prefersStatusBarHidden: Bool {
@@ -66,6 +65,11 @@ class LevelEditorViewController: UIViewController {
 
     /// Add/Rmove icons to the map
     @objc func add(_ sender: UITapGestureRecognizer) {
+        // Disable add for earsing and editing item
+        if editMode == .erase || editMode == .item {
+            return
+        }
+
         if !editPanel.isHidden {
             return
         }
@@ -86,6 +90,26 @@ class LevelEditorViewController: UIViewController {
     @objc func remove(_ sender: UITapGestureRecognizer) {
         if editMode == .erase {
             sender.view!.removeFromSuperview()
+        }
+        if editMode == .item {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable") as? ItemPickerViewController else {
+                fatalError("Controller itemEditTable cannot be casted into ItemPickerViewController")
+            }
+
+            guard let portView = sender.view as? NodeView,
+                let port = portView.node as? Port else {
+                let alert = UIAlertController(title: "Please select a port!", message: nil, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+
+            controller.setPort(port)
+            self.addChild(controller)
+            view.addSubview(controller.view)
+            controller.didMove(toParent: self)
         }
     }
 

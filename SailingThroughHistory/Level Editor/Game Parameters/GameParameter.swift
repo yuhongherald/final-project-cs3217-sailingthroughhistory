@@ -9,10 +9,8 @@
 import Foundation
 
 class GameParameter: GenericLevel {
-    public var itemParameters = [ItemParameter]()
-    
+    public var itemParameters = Set<ItemParameter>()
     private var upgrades = [Upgrade]()
-    private var itemParameters = Set<ItemParameter>()
     private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
@@ -24,7 +22,7 @@ class GameParameter: GenericLevel {
         storages = [Port: [Item]]()
         playerParameters = []
         eventParameters = []
-        fatalError("Not implemented")
+        //fatalError("Not implemented")
     }
 
     func getPlayers() -> [GenericPlayer] {

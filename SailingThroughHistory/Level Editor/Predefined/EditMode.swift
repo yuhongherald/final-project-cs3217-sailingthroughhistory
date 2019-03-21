@@ -13,6 +13,7 @@ enum EditMode {
     case path
     case port
     case pirate
+    case item
     case erase
 
     func getNodeView(name: String, at center: CGPoint) -> NodeView? {
@@ -20,9 +21,7 @@ enum EditMode {
         case .sea:
             return NodeView(node: Sea(name: name, pos: center))
         case .port:
-            // TODO
-            return NodeView(node: Sea(name: name, pos: center))
-            //return NodeView(node: Port(player: Player(name: name, node: node), pos: center))
+            return NodeView(node: Port(player: nil, name: name, pos: center))
         case .pirate:
             return NodeView(node: Pirate(name: name, pos: center))
         default:

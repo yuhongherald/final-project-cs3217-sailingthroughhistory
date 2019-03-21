@@ -9,10 +9,10 @@
 import Foundation
 
 enum ItemType: String {
-    case teaLeaves
-    case silk
-    case perfume
-    case opium
+    case teaLeaves = "tea leaves"
+    case silk = "silk"
+    case perfume = "perfume"
+    case opium = "opium"
 
     static func getAll() -> [ItemType] {
         return [.teaLeaves, .silk, .perfume, .opium]

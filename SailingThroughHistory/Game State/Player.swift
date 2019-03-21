@@ -21,7 +21,7 @@ class Player: GenericPlayer {
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
     }
-    
+
     func startTurn() {
         ship.startTurn()
     }

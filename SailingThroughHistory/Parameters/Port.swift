@@ -20,6 +20,14 @@ class Port: Node {
         super.init(name: player.name, image: Port.portNodeImage, frame: CGRect(origin: pos, size: Port.portNodeSize))
     }
 
+    init(player: GenericPlayer?, name: String, pos: CGPoint) {
+        super.init(name: name, image: Port.portNodeImage, frame: CGRect(origin: pos, size: Port.portNodeSize))
+    }
+
+    public func assignOwner(_ player: GenericPlayer) {
+        owner = player
+    }
+
     public func collectTax(from player: GenericPlayer) {
         // Prevent event listeners from firing unneccessarily
         if player == owner {
