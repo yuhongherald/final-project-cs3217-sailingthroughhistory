@@ -19,6 +19,12 @@ class GameParameter: GenericLevel {
     init() {
         upgrades = []
         itemParameters = []
+
+        // TODO: set default weight
+        ItemType.getAll().forEach {
+            itemParameters.insert(ItemParameter(itemType: $0, displayName: $0.rawValue, weight: -1, isConsumable: true))
+        }
+
         storages = [Port: [Item]]()
         playerParameters = []
         eventParameters = []
@@ -35,5 +41,9 @@ class GameParameter: GenericLevel {
 
     func getItemLocations() -> [Port: [Item]] {
         return storages
+    }
+
+    func getItemParameter() -> Set<ItemParameter> {
+        return itemParameters
     }
 }

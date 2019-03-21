@@ -18,16 +18,19 @@ class LevelEditorViewController: UIViewController {
     @IBOutlet weak var editPanel: UIView!
     @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
+
     private var upgrades = [Upgrade]()
-    private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
     private var map = Map()
-    let gameParameter = GameParameter()
-    var editMode: EditMode?
-    var pickedItem: ItemType?
-    var lineLayer = CAShapeLayer()
-    var destination: NodeView?
+    private let gameParameter = GameParameter()
+
+    private var editMode: EditMode?
+    private var pickedItem: ItemType?
+    private var lineLayer = CAShapeLayer()
+    private var destination: NodeView?
+
+    private let storage = Storage()
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -57,15 +60,14 @@ class LevelEditorViewController: UIViewController {
     }
 
     @IBAction func savePressed(_ sender: Any) {
-        let alert = UIAlert(title: "Save Level with Name: ", confirm: { _ in
-            //TODO: save level with name
+        let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
+            storage.save(gameParameter, with: name)
         }, textPlaceHolder: "Input level name here")
         alert.present(in: self)
     }
 
     /// Add/Rmove icons to the map
     @objc func add(_ sender: UITapGestureRecognizer) {
-        // Disable add for earsing and editing item
         if editMode == .erase || editMode == .item {
             return
         }
@@ -106,7 +108,7 @@ class LevelEditorViewController: UIViewController {
                 return
             }
 
-            controller.setPort(port)
+            controller.set(port: port, itemParameters: gameParameter.getItemParameter())
             self.addChild(controller)
             view.addSubview(controller.view)
             controller.didMove(toParent: self)

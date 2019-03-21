@@ -61,7 +61,6 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
     }
 
     @IBAction func editItemPressed(_ sender: Any) {
-        // TODO: select a port
         self.delegate?.clicked(.item)
     }
 

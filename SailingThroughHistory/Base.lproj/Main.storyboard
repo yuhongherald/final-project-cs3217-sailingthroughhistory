@@ -577,7 +577,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="08g-fx-fPl" id="8gm-1L-zN6"/>
+                                    <outlet property="dataSource" destination="08g-fx-fPl" id="EPy-yQ-cak"/>
                                     <outlet property="delegate" destination="08g-fx-fPl" id="7W8-SB-4Hj"/>
                                 </connections>
                             </collectionView>

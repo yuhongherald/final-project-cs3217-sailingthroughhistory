@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
+		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
+		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
+		1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */; };
+		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
+		1A749D6C2242AF4000482CE5 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D6B2242AF4000482CE5 /* ItemCollectionViewCell.swift */; };
+		1A749D6E2243CFF800482CE5 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D6D2243CFF800482CE5 /* Storage.swift */; };
+		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
+		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
+		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
+		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
+		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
+		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
+		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
+		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
 		7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82C224097AA00D9D0FE /* PlayerTurn.swift */; };
 		7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */; };
 		7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8302240990D00D9D0FE /* GameEvent.swift */; };
@@ -33,20 +48,6 @@
 		7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898D2242420C004037E6 /* GenericGameLogic.swift */; };
 		755989902242435C004037E6 /* GenericTurnBasedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */; };
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
-		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
-		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
-		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
-		1A749D682240FE7900482CE5 /* ItemPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */; };
-		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
-		1A749D6C2242AF4000482CE5 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D6B2242AF4000482CE5 /* ItemCollectionViewCell.swift */; };
-		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
-		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
-		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
-		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
-		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
-		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
-		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
-		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -123,6 +124,7 @@
 		1A749D672240FE7900482CE5 /* ItemPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPickerViewController.swift; sourceTree = "<group>"; };
 		1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LevelEditorViewController + Delegate.swift"; sourceTree = "<group>"; };
 		1A749D6B2242AF4000482CE5 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A749D6D2243CFF800482CE5 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		1A9FF085223F6DAB00005FCB /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
 		1A9FF0892240142B00005FCB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		1A9FF08B224030E000005FCB /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				1A9FF084223F6CE400005FCB /* Predefined */,
 				BA91906D223F441900009F49 /* API */,
 				BA91906E223F443600009F49 /* Game Parameters */,
+				1A749D6D2243CFF800482CE5 /* Storage.swift */,
 			);
 			path = "Level Editor";
 			sourceTree = "<group>";
@@ -765,7 +768,7 @@
 				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
-				BA91906B223F429900009F49 /* Level.swift in Sources */,
+				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
 				7559897D22421C42004037E6 /* UpdatableNPC.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
@@ -775,6 +778,7 @@
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
 				7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */,
 				1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */,
+				1A749D6E2243CFF800482CE5 /* Storage.swift in Sources */,
 				1A9FF08A2240142B00005FCB /* Alert.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
 				7536A8482240E10500D9D0FE /* GameLogic.swift in Sources */,
