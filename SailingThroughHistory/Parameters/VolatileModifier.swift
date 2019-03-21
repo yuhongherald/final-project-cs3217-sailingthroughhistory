@@ -9,6 +9,7 @@
 import UIKit
 
 protocol VolatileModifier {
+    var images: [String] { get }
     var isActive: Bool { get }
 
     func applyVelocityModifier(to oldVelocity: CGPoint) -> CGPoint
@@ -16,6 +17,10 @@ protocol VolatileModifier {
 }
 
 extension VolatileModifier {
+    var images: [String] {
+        return []
+    }
+
     func applyVelocityModifier(to oldVelocity: CGPoint) -> CGPoint {
         return oldVelocity
     }

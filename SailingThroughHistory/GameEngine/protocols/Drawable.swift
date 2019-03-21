@@ -7,5 +7,9 @@
 //
 
 protocol Drawable {
-    var status: DrawableStatus { get set }
+    var identifier: Int { get }
+    var position: Vector2F { get }
+    var scale: Vector2F { get }
+    var rotation: Float { get }
+    var data: ContextualData { get }
 }

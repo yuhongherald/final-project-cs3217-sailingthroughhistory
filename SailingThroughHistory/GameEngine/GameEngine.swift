@@ -12,14 +12,13 @@ class GameEngine {
     private var isPlayerTurn: Bool = false
     private var gameLogic: GenericGameLogic
 
-    // TODO: extract interface into protocol
     // something for me to draw on
     private let interface: Interface
     private var emotionEngine: GenericTurnBasedGame
     private let wrapper: GenericAsyncWrap
     private let diceFactory: DiceFactory
     private let stopWatch: Stopwatch = Stopwatch(smallestInterval:
-        GameConstants.smallestEngineTick)
+        EngineConstants.smallestEngineTick)
 
     var gameSpeed: Double {
         get {
@@ -33,12 +32,13 @@ class GameEngine {
     }
 
     init(interface: Interface, emotionEngine: GenericTurnBasedGame,
-         
+         gameLogic: GenericGameLogic,
          asyncWrapper: GenericAsyncWrap, diceFactory: DiceFactory) {
         self.interface = interface
         self.emotionEngine = emotionEngine
         self.wrapper = asyncWrapper
         self.diceFactory = diceFactory
+        self.gameLogic = gameLogic
     }
 
     func start(endGame: @escaping () -> Void) {
@@ -77,16 +77,18 @@ class GameEngine {
 
     private func loop(_ endGame: @escaping () -> Void) {
         while isValid {
-            guard let updatables = updateGameState() else {
-                continue
-            }
-            updateInterface(updatables: updatables)
+            let newEvent = updateGameState()
+            updateInterface(newEvent: newEvent)
         }
     }
 
-    private func updateGameState() -> [UpdatableWrapper]? { // change
+    private func updateGameState() -> GenericGameEvent? { // change
+        guard !emotionEngine.hasCachedUpdates() else {
+            return emotionEngine.finishCachedUpdates()
+        }
         let newTime = stopWatch.getTimestamp()
         let timeDifference = (newTime - emotionEngine.currentGameTime)
+        let updatables = gameLogic.getUpdatables(deltaTime: timeDifference)
         guard let event = emotionEngine.updateGameState(deltaTime: timeDifference) else {
             return nil
         }
@@ -100,10 +102,20 @@ class GameEngine {
         return nil
     }
 
-    private func updateInterface(updatables: AnyIterator<UpdatableWrapper>) {
-        for updatable in updatables {
-        //interface.add(object: <#T##GameObject#>)
-        //interface.disposeBag.insert(<#T##disposable: Disposable##Disposable#>)
+    private func updateInterface(newEvent: GenericGameEvent?) {
+        for newObj in gameLogic.getNewGameObjects() {
+            interface.add(object: newObj)
         }
+        for updatedObj in gameLogic.getUpdatedGameObjects() {
+            // currrently updated directly, no further action required
+        }
+        for deletedObj in gameLogic.getDeletedGameObjects() {
+            // TODO: Dispose?
+            // interface.disposeBag.insert(deletedObj)
+        }
+        guard let event = newEvent else {
+            return
+        }
+        // TODO: Draw message
     }
 }

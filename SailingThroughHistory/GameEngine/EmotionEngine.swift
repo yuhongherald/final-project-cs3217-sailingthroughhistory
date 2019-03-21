@@ -7,34 +7,32 @@
 //
 
 class EmotionEngine: GenericTurnBasedGame {
+    private let gameLogic: GameLogic
+
     var playerTurn: PlayerTurn? // TODO: marked for deletion
     var currentGameTime: Double = 0
-    var largestTimeStep: Double = GameConstants.largestTimeStep
-    var forecastDuration: Double = GameConstants.forecastDuration
-    var daysToSeconds: Double = GameConstants.weeksToSeconds
+    var largestTimeStep: Double = EngineConstants.largestTimeStep
+    var forecastDuration: Double = EngineConstants.forecastDuration
+    var daysToSeconds: Double = EngineConstants.weeksToSeconds
 
     // used for controls, pausing, speeding up
     var externalGameSpeed: Double = 1
     // used for emotion engine
-    var fastestGameSpeed: Double = GameConstants.fastestGameSpeed
-    var slowestGameSpeed: Double = GameConstants.slowestGameSpeed
+    var fastestGameSpeed: Double = EngineConstants.fastestGameSpeed
+    var slowestGameSpeed: Double = EngineConstants.slowestGameSpeed
 
     private var gameSpeed: Double = 1
 
     private var updatableCache: AnyIterator<Updatable>?
     private var nextEvent: GenericGameEvent
 
-    init() {
+    init(gameLogic: GameLogic) {
         self.nextEvent = GameEvent(eventType: EventType.informative(initiater: ""),
                                    timestamp: 0, message: "")
+        self.gameLogic = gameLogic
     }
 
     func updateGameState(deltaTime: Double) -> GenericGameEvent? {
-        let update = finishCacheUpdates()
-        guard update == nil else {
-            return update
-        }
-
         var timeDifference = deltaTime
         while timeDifference * gameSpeed * externalGameSpeed > largestTimeStep {
             // we break it into multiple cycles
@@ -47,11 +45,9 @@ class EmotionEngine: GenericTurnBasedGame {
         return updateGameSpeed(timeDifference * gameSpeed * externalGameSpeed)
     }
 
-    private func finishCacheUpdates() -> GenericGameEvent? {
+    func finishCachedUpdates() -> GenericGameEvent? {
         while let updatable = updatableCache?.next() {
-            if updatable.update() {
-                // TODO: mark as dirty in update
-            }
+            _ = updatable.update()
             guard let event = updatable.checkForEvent() else {
                 continue
             }
@@ -89,6 +85,9 @@ class EmotionEngine: GenericTurnBasedGame {
         gameSpeed = Double.lerp(alpha, fastestGameSpeed, slowestGameSpeed)
     }
 
+    func hasCachedUpdates() -> Bool {
+        return updatableCache != nil
+    }
     func invalidateCache() {
         updatableCache = nil
     }
@@ -99,8 +98,8 @@ class EmotionEngine: GenericTurnBasedGame {
     }
 
     private func updateGameStateDeltatime(_ deltaTime: Double) -> GenericGameEvent? {
-        updatableCache = nil//gameLogic.getUpdatables(deltaTime: deltaTime)
-        return finishCacheUpdates()
+        updatableCache = gameLogic.getUpdatables(deltaTime: deltaTime)
+        return finishCachedUpdates()
     }
 
 }

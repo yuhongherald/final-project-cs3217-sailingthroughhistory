@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-enum GameConstants {
+enum EngineConstants {
     static let largestTimeStep: Double = 1
     static let forecastDuration: Double = 1
     static let weeksToSeconds: Double = 1
@@ -14,6 +14,9 @@ enum GameConstants {
     static let slowestGameSpeed: Double = 0.5
     static let smallestEngineTick: Double = 0.01
 
+}
+
+enum GameConstants {
     static let weeksInMonth = 4
     static let monthsInYear = 12
 }

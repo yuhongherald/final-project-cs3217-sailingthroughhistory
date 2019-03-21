@@ -17,4 +17,22 @@ class GameLogic: GenericGameLogic {
             return nil
         }
     }
+
+    func getNewGameObjects() -> AnyIterator<GameObject> {
+        return AnyIterator {
+            return nil
+        }
+    }
+
+    func getUpdatedGameObjects() -> AnyIterator<GameObject> {
+        return AnyIterator {
+            return nil
+        }
+    }
+
+    func getDeletedGameObjects() -> AnyIterator<GameObject> {
+        return AnyIterator {
+            return nil
+        }
+    }
 }

@@ -6,12 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatablePlayer: Updatable {
-    var status: DrawableStatus = DrawableStatus.add
-    var gameObjectBox: GameObjectBox
-    init(gameObject: GameObject) {
-        self.gameObjectBox = GameObjectBox(gameObject: gameObject)
-    }
+class UpdatablePlayer: EngineObject, Updatable {
     func update() -> Bool {
         return false
     }

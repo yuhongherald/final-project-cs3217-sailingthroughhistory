@@ -7,16 +7,12 @@
 //
 
 // for MVP2
-class UpdatablePirateIsland: Updatable {
-    var status: DrawableStatus = DrawableStatus.add
-    var gameObjectBox: GameObjectBox
-    init(gameObject: GameObject) {
-        self.gameObjectBox = GameObjectBox(gameObject: gameObject)
-    }
-   func update() -> Bool {
+class UpdatablePirateIsland: EngineObject, Updatable {
+
+    func update() -> Bool {
         return false
     }
-    
+
     func checkForEvent() -> GenericGameEvent? {
         return nil
     }

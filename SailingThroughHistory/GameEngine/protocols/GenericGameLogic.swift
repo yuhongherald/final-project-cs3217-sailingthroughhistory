@@ -17,5 +17,7 @@ protocol GenericGameLogic {
 
     var gameState: GenericGameState? { get set }
     func getUpdatables(deltaTime: Double) -> AnyIterator<Updatable>
-
+    func getNewGameObjects() -> AnyIterator<GameObject>
+    func getUpdatedGameObjects() -> AnyIterator<GameObject> // might not be relevant anymore
+    func getDeletedGameObjects() -> AnyIterator<GameObject>
 }
