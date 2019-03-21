@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fZz-0J-H6I">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -76,7 +76,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="748" y="84" width="256" height="192"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fN-oD-MBu" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -94,6 +94,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="3fN-oD-MBu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="top" id="9oQ-XU-7sa"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="trailing" id="GdP-bE-Whs"/>
                                     <constraint firstAttribute="bottom" secondItem="3fN-oD-MBu" secondAttribute="bottom" constant="20" symbolic="YES" id="naO-AH-pd8"/>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="xAx-aP-vby"/>
                                 </constraints>
@@ -103,7 +105,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Pn-jO-5xF" userLabel="Action Panel">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Pn-jO-5xF" userLabel="Action Panel" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="512" width="341.5" height="256"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxt-Al-xiN" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -164,7 +166,7 @@
                                     <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RLV-hu-dVC"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFT-em-0mO">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFT-em-0mO" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="274" height="256"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edJ-ZT-gPh">
@@ -195,7 +197,7 @@
                                     <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HBT-Te-ZcG"/>
                                 </connections>
                             </button>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBa-ds-mdJ">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBa-ds-mdJ" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="274" y="20" width="276" height="256"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PKH-yp-eHN">
