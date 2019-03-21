@@ -65,10 +65,20 @@ struct ObjectsViewController {
         views[object]?.removeFromSuperview()
         let image = UIImage(named: object.image)
         let view = UIGameObjectImageView(image: image, object: object)
+        if object.isAnimated {
+            let images = object.images
+            view.animationImages = object.images
+                .rotatedLeft(
+                    by: UInt(object.startingFrame))
+                .compactMap { UIImage(named: $0 )}
+            view.animationDuration = object.loopDuration
+            view.startAnimating()
+        }
         views[object] = view
         view.alpha = 0
         self.view.addSubview(view)
-        view.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds, otherFrame: frame, to: self.view.bounds)
+        view.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds,
+                                            otherFrame: frame, to: self.view.bounds)
         UIView.animate(withDuration: duration, animations: {
             view.alpha = 1
         }, completion: { _ in callback() })

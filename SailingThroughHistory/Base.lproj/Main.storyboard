@@ -34,17 +34,28 @@
                                                     <outletCollection property="gestureRecognizers" destination="5DU-mn-IwN" appends="YES" id="UlN-ny-Aee"/>
                                                 </connections>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQB-GM-yKS">
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Yzi-uC-Odn" secondAttribute="trailing" id="9V3-2r-Ntl"/>
                                             <constraint firstItem="9Sq-IX-ntE" firstAttribute="top" secondItem="Ph7-HO-lQ1" secondAttribute="top" id="O56-Cz-KNN"/>
+                                            <constraint firstItem="jQB-GM-yKS" firstAttribute="centerY" secondItem="Ph7-HO-lQ1" secondAttribute="centerY" id="P3U-2H-b4I"/>
+                                            <constraint firstItem="jQB-GM-yKS" firstAttribute="leading" secondItem="Ph7-HO-lQ1" secondAttribute="leading" id="PL7-zL-X3N"/>
                                             <constraint firstAttribute="trailing" secondItem="9Sq-IX-ntE" secondAttribute="trailing" id="Pd9-6c-aUd"/>
                                             <constraint firstItem="Yzi-uC-Odn" firstAttribute="leading" secondItem="Ph7-HO-lQ1" secondAttribute="leading" id="SZS-jE-6na"/>
+                                            <constraint firstItem="jQB-GM-yKS" firstAttribute="height" secondItem="Ph7-HO-lQ1" secondAttribute="height" id="VCr-dK-JEg"/>
+                                            <constraint firstItem="jQB-GM-yKS" firstAttribute="centerX" secondItem="Ph7-HO-lQ1" secondAttribute="centerX" id="cfP-7F-mRo"/>
                                             <constraint firstItem="Yzi-uC-Odn" firstAttribute="top" secondItem="Ph7-HO-lQ1" secondAttribute="top" id="eYx-fL-Fmg"/>
+                                            <constraint firstAttribute="trailing" secondItem="jQB-GM-yKS" secondAttribute="trailing" id="i7i-Jo-wx1"/>
                                             <constraint firstAttribute="bottom" secondItem="9Sq-IX-ntE" secondAttribute="bottom" id="l2c-YI-tmI"/>
+                                            <constraint firstAttribute="bottom" secondItem="jQB-GM-yKS" secondAttribute="bottom" id="o6z-1b-gHz"/>
                                             <constraint firstItem="9Sq-IX-ntE" firstAttribute="leading" secondItem="Ph7-HO-lQ1" secondAttribute="leading" id="ozz-7t-tIj"/>
                                             <constraint firstAttribute="bottom" secondItem="Yzi-uC-Odn" secondAttribute="bottom" id="sxb-ms-KYz"/>
+                                            <constraint firstItem="jQB-GM-yKS" firstAttribute="width" secondItem="Ph7-HO-lQ1" secondAttribute="width" id="tCw-aJ-oCV"/>
+                                            <constraint firstItem="jQB-GM-yKS" firstAttribute="top" secondItem="Ph7-HO-lQ1" secondAttribute="top" id="trg-BC-EZ7"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -296,6 +307,7 @@
                         <outlet property="backgroundImageView" destination="9Sq-IX-ntE" id="4ND-FK-iTu"/>
                         <outlet property="countdownLabel" destination="q59-92-ecD" id="x8m-8y-DjK"/>
                         <outlet property="diceResultLabel" destination="pul-tz-1B7" id="zgu-jx-z6U"/>
+                        <outlet property="environmentView" destination="jQB-GM-yKS" id="4mq-K6-T6V"/>
                         <outlet property="gameAndBackgroundWrapper" destination="Ph7-HO-lQ1" id="pc9-ya-kwM"/>
                         <outlet property="gameArea" destination="Yzi-uC-Odn" id="qRV-20-8r7"/>
                         <outlet property="monthLabel" destination="6nf-n2-xli" id="Bas-Lj-mTh"/>

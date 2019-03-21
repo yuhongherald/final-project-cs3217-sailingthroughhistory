@@ -20,6 +20,7 @@ class MainGameViewController: UIViewController {
             scrollView.maximumZoomScale = 3
         }
     }
+    @IBOutlet private weak var environmentView: UIView!
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
     @IBOutlet private weak var portInformationView: UIView!
@@ -141,7 +142,9 @@ class MainGameViewController: UIViewController {
         backgroundImageView.contentMode = .topLeft
         backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
         gameAndBackgroundWrapper.frame = backgroundImageView.frame
-        gameArea.frame = backgroundImageView.frame
+        gameAndBackgroundWrapper.subviews.forEach {
+            $0.frame = gameAndBackgroundWrapper.frame
+        }
 
         scrollView.contentSize = image.size
         scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)

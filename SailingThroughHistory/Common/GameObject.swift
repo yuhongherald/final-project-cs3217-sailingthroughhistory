@@ -9,13 +9,27 @@
 import UIKit
 
 class GameObject {
-    var image: String
+    var images: [String]
     var frame: CGRect
+    var loopDuration: TimeInterval = 0
+    var startingFrame = 0
+    var image: String {
+        return images.first ?? ""
+    }
+    var isAnimated: Bool {
+        return images.count > 1 && loopDuration > 0
+    }
 
     init(image: String, frame: CGRect) {
-        self.image = image
+        self.images = [image]
         self.frame = frame
-        /// TODO: Remove this.
+    }
+
+    init(images: [String], frame: CGRect, loopDuration: TimeInterval, startingFrame: Int) {
+        self.images = images
+        self.frame = frame
+        self.loopDuration = loopDuration
+        self.startingFrame = startingFrame
     }
 }
 
