@@ -66,7 +66,6 @@ struct ObjectsViewController {
         let image = UIImage(named: object.image)
         let view = UIGameObjectImageView(image: image, object: object)
         if object.isAnimated {
-            let images = object.images
             view.animationImages = object.images
                 .rotatedLeft(
                     by: UInt(object.startingFrame))
