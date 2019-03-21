@@ -14,11 +14,11 @@ class Interface {
     let background: String = "worldmap1815.png"
     let events = InterfacePublishSubject<InterfaceEvents>()
     let monthSymbols = Calendar.current.monthSymbols
-    let players: [Player]
+    let players: [GenericPlayer]
     var pendingEvents = [InterfaceEvent]()
     var objectFrames = [GameObject: CGRect]()
     var paths = [GameObject: [Path]]()
-    var currentTurnOwner: Player?
+    var currentTurnOwner: GenericPlayer?
 
     init(players: [Player], bounds: CGRect) {
         self.players = players

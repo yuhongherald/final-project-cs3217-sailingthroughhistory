@@ -8,5 +8,5 @@
 
 enum EventType {
     case informative(initiater: String)
-    case actionRequired(playerIdentifier: String)
+    case actionRequired(playerIdentifier: GenericPlayer)
 }

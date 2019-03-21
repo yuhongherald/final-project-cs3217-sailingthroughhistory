@@ -196,7 +196,7 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    private func subscribePlayerInformation(players: [Player]) {
+    private func subscribePlayerInformation(players: [GenericPlayer]) {
         /// TODO: Less hackish
         if players.indices.contains(0) {
             players[0].money.subscribe { [weak self] in
@@ -272,7 +272,7 @@ class MainGameViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func playerTurnStart(player: Player, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void,
+    private func playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void,
                                  callback: @escaping () -> Void) {
 
         func animatePlayerTurnStart() {
