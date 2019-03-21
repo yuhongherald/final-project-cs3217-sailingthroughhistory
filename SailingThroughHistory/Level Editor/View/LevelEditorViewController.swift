@@ -25,7 +25,7 @@ class LevelEditorViewController: UIViewController {
     private var map = Map()
     private let gameParameter = GameParameter()
 
-    private var editMode: EditMode?
+    var editMode: EditMode?
     private var pickedItem: ItemType?
     private var lineLayer = CAShapeLayer()
     private var destination: NodeView?
@@ -49,9 +49,9 @@ class LevelEditorViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(add(_:)))
         view.addGestureRecognizer(tapGesture)
 
-        let image = UIImage(named: "worldmap1815")
-        mapBackground.image = image
-        map.addMap(mapBackground)
+        let image = "worldmap1815"
+        mapBackground.image = UIImage(named: image)
+        map.addMap(image)
     }
 
     @IBAction func editPressed(_ sender: Any) {
@@ -61,7 +61,7 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
-            storage.save(gameParameter, with: name)
+            self.storage.save(self.gameParameter, with: name)
         }, textPlaceHolder: "Input level name here")
         alert.present(in: self)
     }

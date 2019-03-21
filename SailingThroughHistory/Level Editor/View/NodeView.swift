@@ -24,12 +24,12 @@ class NodeView: UIImageView {
     init(node: Node) {
         super.init(frame: .zero)
         self.node = node
-        self.frame = node.icon.frame
+        self.frame = node.frame
 
         nodeLabel.text = node.name
-        nodeLabel.frame.size = CGSize(width: node.icon.frame.size.width, height: 15)
+        nodeLabel.frame.size = CGSize(width: node.frame.size.width, height: 15)
         self.addSubview(nodeLabel)
-        self.image = node.icon.image
+        self.image = UIImage(named: node.image)
     }
 
     required init?(coder aDecoder: NSCoder) {

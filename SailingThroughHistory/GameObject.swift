@@ -11,13 +11,10 @@ import UIKit
 class GameObject {
     var image: String
     var frame: CGRect
-    var icon: UIImageView
 
     init(image: String, frame: CGRect) {
         self.image = image
         self.frame = frame
-        self.icon = UIImageView(image: UIImage(named: image))
-        icon.frame = frame
     }
 }
 
