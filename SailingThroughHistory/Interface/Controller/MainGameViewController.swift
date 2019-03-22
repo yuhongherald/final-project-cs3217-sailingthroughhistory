@@ -36,6 +36,12 @@ class MainGameViewController: UIViewController {
     @IBOutlet private weak var playerTwoInformationView: UIView!
     @IBOutlet private weak var playerOneGoldView: UILabel!
     @IBOutlet private weak var playerTwoGoldView: UILabel!
+    @IBOutlet private weak var playerOneCapacityView: UILabel!
+    @IBOutlet private weak var playerTwoCapacityView: UILabel!
+    @IBOutlet private weak var playerOneCargoView: UILabel!
+    @IBOutlet private weak var playerTwoCargoView: UILabel!
+    @IBOutlet weak var playerOneItemsView: UITableView!
+    @IBOutlet weak var playerTwoItemsView: UITableView!
     @IBOutlet private weak var togglePlayerOneInfoButton: UIButtonRounded!
     @IBOutlet private weak var togglePlayerTwoInfoButton: UIButtonRounded!
 
@@ -50,7 +56,7 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    var currentTurnOwner: GenericPlayer?
+    private var currentTurnOwner: GenericPlayer?
     
     /// TODO: Reference to Game Engine
     private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
@@ -62,6 +68,7 @@ class MainGameViewController: UIViewController {
         togglePlayerOneInfoButton: playerOneInformationView,
         togglePlayerTwoInfoButton: playerTwoInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
+    private var playerItemsDataSources = [PlayerItemsTableDataSource]()
 
     var interfaceBounds: CGRect {
         return interface.bounds
@@ -231,6 +238,25 @@ class MainGameViewController: UIViewController {
 
                 self?.playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
             }
+
+            players[0].subscribeToCargoWeight { [weak self] in
+                guard let cargo = $0.element else {
+                    return
+                }
+
+                self?.playerOneCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
+            }
+
+            players[0].subscribeToWeightCapcity { [weak self] in
+                guard let capacity = $0.element else {
+                    return
+                }
+
+                self?.playerOneCargoView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
+            }
+
+            playerItemsDataSources.append(PlayerItemsTableDataSource(player: players[0],
+                                                                     tableView: playerOneItemsView))
         }
 
         if players.indices.contains(1) {
@@ -242,6 +268,25 @@ class MainGameViewController: UIViewController {
 
                 self?.playerTwoGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
             }
+
+            players[1].subscribeToCargoWeight { [weak self] in
+                guard let cargo = $0.element else {
+                    return
+                }
+
+                self?.playerTwoCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
+            }
+
+            players[1].subscribeToWeightCapcity { [weak self] in
+                guard let capacity = $0.element else {
+                    return
+                }
+
+                self?.playerTwoCargoView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
+            }
+
+            playerItemsDataSources.append(PlayerItemsTableDataSource(player: players[1],
+                                                                     tableView: playerTwoItemsView))
         }
     }
 
