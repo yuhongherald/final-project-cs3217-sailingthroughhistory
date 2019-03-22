@@ -40,20 +40,28 @@ class Ship {
     }
 
     func installUpgade(upgrade: Upgrade) {
-        if owner?.money.value ?? 0 < upgrade.cost {
-            // TODO: not enough money
+        guard let owner = owner else {
+            return
+        }
+        if owner.money.value < upgrade.cost {
+            owner.interface?.pauseAndShowAlert(titled: "Insufficient Money!", withMsg: "You do not have sufficient funds to buy \(upgrade.name)!")
         }
         if shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
-            owner?.money.value -= upgrade.cost
+            owner.money.value -= upgrade.cost
             shipChassis = shipUpgrade
-            // TODO: Success prompt
+            owner.interface?.pauseAndShowAlert(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
             return
         }
         if auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
-            owner?.money.value -= upgrade.cost
+            owner.money.value -= upgrade.cost
             auxiliaryUpgrade = auxiliary
-            // TODO: Success prompt
+            owner.interface?.pauseAndShowAlert(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
             return
+        }
+        if upgrade is ShipChassis {
+            owner.interface?.pauseAndShowAlert(titled: "\(owner.name): Upgrade of similar type already purchased!", withMsg: "You already have an upgrade of type \"Ship Upgrade\"!")
+        } else if upgrade is AuxiliaryUpgrade {
+            owner.interface?.pauseAndShowAlert(titled: "\(owner.name): Upgrade of similar type already purchased!", withMsg: "You already have an upgrade of type \"Auxiliary Upgrade\"!")
         }
     }
 
@@ -92,7 +100,7 @@ class Ship {
 
     func dock() -> Port? {
         guard canDock() else {
-            // TODO: Show some error
+            owner?.interface?.pauseAndShowAlert(titled: "Unable to Dock!", withMsg: "Ship is not located at a port for docking.")
             return nil
         }
         guard let port = location.value.start as? Port else {
@@ -127,13 +135,15 @@ class Ship {
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.weight)
     }
 
-    // TODO: show errors
     func buyItem(itemParameter: ItemParameter, quantity: Int) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
+            owner?.interface?.pauseAndShowAlert(titled: "Not docked!", withMsg: "Unable to buy item as ship is not docked.")
             return
         }
         let item = itemParameter.createItem(quantity: quantity)
         guard let price = item.getBuyValue(at: port) else {
+            // TODO
+            owner?.interface?.pauseAndShowAlert(titled: "Not available!", withMsg: "Unable to buy item as you have insufficient funds.")
             return
         }
         if price > owner?.money.value ?? 0 {
@@ -141,8 +151,10 @@ class Ship {
         }
         owner?.money.value -= price
         if addItem(item: item) {
-            // TODO: show purchase success
+            owner?.interface?.pauseAndShowAlert(titled: "Item purchased!", withMsg: "You have purchased \(item.quantity) of \(item.itemParameter.displayName)")
         } else {
+            // TODO
+            owner?.interface?.pauseAndShowAlert(titled: "Failed to buy Item!", withMsg: "")
         }
     }
 
@@ -181,7 +193,6 @@ class Ship {
     }
 
     private func applyMovementModifiers(to multiplier: Double) -> Double {
-        // TODO: Calculate actual multiplier
         var result = multiplier
         result *= shipChassis?.getMovementModifier() ?? 1
         result *= auxiliaryUpgrade?.getMovementModifier() ?? 1

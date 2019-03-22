@@ -53,6 +53,7 @@ class Player: GenericPlayer {
         ship.installUpgade(upgrade: upgrade)
     }
 
+    // TODO: Next milestone
     func setTax(port: Port, amount: Int) {
         port.taxAmount = amount
     }
@@ -94,8 +95,7 @@ class Player: GenericPlayer {
         ship.endTurn()
     }
 
-    private enum CodingKeys: String, CodingKey
-    {
+    private enum CodingKeys: String, CodingKey {
         case name
         case startingNode
     }
