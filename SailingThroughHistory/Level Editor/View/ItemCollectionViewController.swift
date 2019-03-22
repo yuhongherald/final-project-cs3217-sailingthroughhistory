@@ -30,11 +30,11 @@ class ItemCollectionViewController: UIViewController, UICollectionViewDataSource
             let itemParam = itemParameters[indexPath.item]
 
             if let buyPriceText = castedCell.buyField.text, let buyPrice = Int(buyPriceText) {
-                itemParam.setBuyValue(at: port, value: buyPrice)
+                port.setBuyValue(of: itemParam.itemType, value: buyPrice)
             }
 
             if let sellPriceText = castedCell.sellField.text, let sellPrice = Int(sellPriceText) {
-                itemParam.setSellValue(at: port, value: sellPrice)
+                port.setSellValue(of: itemParam.itemType, value: sellPrice)
             }
         }
 
@@ -49,9 +49,9 @@ class ItemCollectionViewController: UIViewController, UICollectionViewDataSource
         self.dismiss(animated: true, completion: nil)
     }
 
-    func set(port: Port, itemParameters: Set<ItemParameter>) {
+    func initWith(port: Port) {
         self.selectedPort = port
-        self.itemParameters = Array(itemParameters)
+        self.itemParameters = port.getAllItemParameters()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -71,12 +71,11 @@ class ItemCollectionViewController: UIViewController, UICollectionViewDataSource
             return cell
         }
 
-        print("sellValue: \(itemParam.getSellValue(at: port)) - ")
-        if let sellPrice = itemParam.getSellValue(at: port) {
+        if let sellPrice = port.getSellValue(of: itemParam.itemType) {
             cell.sellField.text = String(sellPrice)
         }
 
-        if let buyPrice = itemParam.getBuyValue(at: port) {
+        if let buyPrice = port.getBuyValue(of: itemParam.itemType) {
             cell.buyField.text = String(buyPrice)
         }
         return cell

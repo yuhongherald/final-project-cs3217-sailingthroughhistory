@@ -36,7 +36,7 @@ class Item: GenericItem, Codable {
     }
 
     func getBuyValue(at port: Port) -> Int? {
-        guard let unitValue = itemParameter.getSellValue(at: port) else {
+        guard let unitValue = port.getBuyValue(of: type) else {
             // TODO: Error
             return nil
         }
@@ -44,7 +44,7 @@ class Item: GenericItem, Codable {
     }
 
     func sell(at port: Port) -> Int? {
-        guard let unitValue = itemParameter.getSellValue(at: port) else {
+        guard let unitValue = port.getSellValue(of: type) else {
             // TODO: Error
             return nil
         }

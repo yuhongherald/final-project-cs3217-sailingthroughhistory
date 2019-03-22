@@ -151,7 +151,7 @@ class LevelEditorViewController: UIViewController {
                 return
             }
 
-            controller.set(port: port, itemParameters: gameParameter.getItemParameter())
+            controller.initWith(port: port)
             self.addChild(controller)
             view.addSubview(controller.view)
             controller.didMove(toParent: self)
