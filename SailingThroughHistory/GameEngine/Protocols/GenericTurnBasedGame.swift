@@ -18,9 +18,6 @@ protocol GenericTurnBasedGame {
     /// updates the game state by taking a timestep, recursively
     /// also returns the closest forecasted event, if any
     func updateGameState(deltaTime: Double) -> GenericGameEvent?
-    func getDrawables() -> AnyIterator<GameObject>
-
-    func finishCachedUpdates() -> GenericGameEvent?
-    func hasCachedUpdates() -> Bool
-    func invalidateCache()
+    func getDrawableManager() -> DrawableManager
+    func getTimeUpdatable() -> TimeUpdatable
 }

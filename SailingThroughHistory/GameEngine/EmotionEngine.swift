@@ -7,6 +7,10 @@
 //
 
 class EmotionEngine: GenericTurnBasedGame {
+    func getTimeUpdatable() -> TimeUpdatable {
+        <#code#>
+    }
+    
     let gameLogic: GameLogic
 
     var currentGameTime: Double = 0
@@ -22,7 +26,7 @@ class EmotionEngine: GenericTurnBasedGame {
 
     private var gameSpeed: Double = 1
 
-    private var updatableCache: AnyIterator<Updatable>?
+    private var updatableCache: AnyIterator<Updatable>
     private var nextEvent: GenericGameEvent
 
     init(gameLogic: GameLogic) {
@@ -44,25 +48,17 @@ class EmotionEngine: GenericTurnBasedGame {
         return updateGameSpeed(timeDifference * gameSpeed * externalGameSpeed)
     }
 
-    func getDrawables() -> AnyIterator<GameObject> {
-        return gameLogic.getDrawables()
+    func getDrawableManager() -> DrawableManager {
+        return gameLogic
     }
-
-    func finishCachedUpdates() -> GenericGameEvent? {
-        while let updatable = updatableCache?.next() {
-            _ = updatable.update()
-            guard let event = updatable.checkForEvent() else {
-                continue
-            }
-            return event
-        }
-        return nil
+    func getCacheManager() -> TimeUpdatable {
+        return gameLogic
     }
 
     private func updateGameSpeed(_ deltaTime: Double) -> GenericGameEvent? {
         currentGameTime += deltaTime
-        guard let event = updateGameStateDeltatime(deltaTime) else {
-            updatableCache = nil
+        guard let event = gameLogic.updateForTime(deltaTime: deltaTime) else {
+            gameLogic.invalidateCache() // just in case
             return nil
         }
         let eventTimeDifference = event.timestamp - currentGameTime
@@ -72,7 +68,6 @@ class EmotionEngine: GenericTurnBasedGame {
         }
         // interpolate the speed based on how close the event is to happening
         setGameSpeed(using: event)
-        updatableCache = nil
         return nil
     }
 
@@ -88,21 +83,8 @@ class EmotionEngine: GenericTurnBasedGame {
         gameSpeed = Double.lerp(alpha, fastestGameSpeed, slowestGameSpeed)
     }
 
-    func hasCachedUpdates() -> Bool {
-        return updatableCache != nil
-    }
-    func invalidateCache() {
-        updatableCache = nil
-    }
-
     // for testing
     func getGameSpeed() -> Double {
         return gameSpeed
     }
-
-    private func updateGameStateDeltatime(_ deltaTime: Double) -> GenericGameEvent? {
-        updatableCache = gameLogic.getUpdatablesFor(deltaTime: deltaTime)
-        return finishCachedUpdates()
-    }
-
 }

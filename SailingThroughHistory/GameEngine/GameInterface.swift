@@ -14,12 +14,22 @@ class GameInterface {
         self.interface = interface
     }
 
+    func addObjects(gameObjects: [GameObject]) {
+        
+    }
+    func updateObjects(gameObjects: [GameObject]) {
+    }
+    func removeObjects(gameObjects: [GameObject]) {
+    }
+    func finishObjectEdit(deltaTime: Double) {
+        interface.broadcastInterfaceChanges(withDuration: TimeInterval(exactly: deltaTime))
+    }
     func startPlayerTurn(player: GenericPlayer, callback: @escaping () -> Void) {
         let time = TimeInterval(exactly: GameConstants.playerTurnDuration)
         interface.playerTurnStart(player: player, timeLimit: time,
                                   timeOutCallback: callback)
     }
-    
+
     func showNotification(message: VisualAudioData) {
         //interface.displayMessage(data: message)
         let msg = "message"//message.visualData.contextualData.toString()

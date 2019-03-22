@@ -7,6 +7,38 @@
 //
 
 class GameLogic: GenericGameLogic {
+    internal func addToCache(updatables: [Updatable]) {
+        updatableCache = AnyIterator {
+            for updatable in updatables {
+                return updatable
+            }
+        }
+    }
+    
+    private var updatableCache: AnyIterator<Updatable>?
+    func updateForTime(deltaTime: Double) -> GenericGameEvent? {
+        // TODO: Add update logic
+        addToCache(updatables: [])
+    }
+
+    func processCachedUpdates() -> GenericGameEvent? {
+        while let updatable = updatableCache?.next() {
+            _ = updatable.update()
+            guard let event = updatable.checkForEvent() else {
+                continue
+            }
+            return event
+        }
+        return nil
+    }
+
+    func hasCachedUpdates() -> Bool {
+        return updatableCache != nil
+    }
+    func invalidateCache() {
+        updatableCache = nil
+    }
+    
     private let gameState: GenericGameState
     private var weathers: Set<UpdatableWeather> = Set<UpdatableWeather>()
     private var ports: Set<UpdatablePort> = Set<UpdatablePort>()
@@ -21,19 +53,29 @@ class GameLogic: GenericGameLogic {
         self.gameState = gameState
     }
 
-    func getUpdatablesFor(deltaTime: Double) -> AnyIterator<Updatable> {
+    func getUpdatablesFor(deltaTime: Double) -> [Updatable] {
         // player turn first
         // weather next
         // pirate, npc and player
         // pirate island here probably
         // port next
         // time last
-        return AnyIterator {
-            
-        }
+        return []
     }
 
-    func getDrawables() -> AnyIterator<GameObject> {
-        return AnyIterator {}
+    func getAddedDrawables() -> [GameObject] {
+        <#code#>
+    }
+    
+    func getUpdatedDrawables() -> [GameObject] {
+        <#code#>
+    }
+    
+    func getDeletedDrawables() -> [GameObject] {
+        <#code#>
+    }
+    
+    func approvedDeletedDrawables() {
+        <#code#>
     }
 }

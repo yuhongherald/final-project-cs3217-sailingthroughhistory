@@ -6,13 +6,6 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol GenericGameLogic {
-    // update sea, mark as dirty if weather changes
-    // update ports, stub to change prices
-    // update npcs, check they moved into a port, update port owner's money
-    // update players, check they moved into a port
-    // update pirates, check they moved into a player
-
-    func getUpdatablesFor(deltaTime: Double) -> AnyIterator<Updatable>
-    func getDrawables() -> AnyIterator<GameObject>
+protocol GenericGameLogic: TimeUpdatable, DrawableManager {
+    func updateForTime(deltaTime: Double) -> GenericGameEvent?
 }

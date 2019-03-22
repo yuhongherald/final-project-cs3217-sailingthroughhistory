@@ -87,7 +87,7 @@ class GameEngine {
         }
         stopWatch.start()
         if invalidateCache {
-            emotionEngine.invalidateCache()
+            emotionEngine.getTimeUpdatable().invalidateCache()
         }
         isRunning = true
         loop()
@@ -96,7 +96,8 @@ class GameEngine {
     private func loop() {
         while isValid || isRunning {
             let newEvent = updateGameState()
-            let drawables = emotionEngine.getDrawables()
+            updateObjects()
+            interfaceEvent(newEvent: newEvent)
         }
         if !isValid {
             endGame?()
@@ -104,15 +105,20 @@ class GameEngine {
     }
 
     private func updateGameState() -> GenericGameEvent? {
-        guard !emotionEngine.hasCachedUpdates() else {
-            return emotionEngine.finishCachedUpdates()
+        guard !emotionEngine.getTimeUpdatable().hasCachedUpdates() else {
+            return emotionEngine.getTimeUpdatable().processCachedUpdates()
         }
         let newTime = stopWatch.getTimestamp()
         let timeDifference = (newTime - emotionEngine.currentGameTime)
         return emotionEngine.updateGameState(deltaTime: timeDifference)
     }
 
-    private func updateInterface(newEvent: GenericGameEvent?) {
+    private func updateObjects() {
+        let drawableManager = emotionEngine.getDrawableManager()
+        // do stuff here
+    }
+
+    private func interfaceEvent(newEvent: GenericGameEvent?) {
         guard let event = newEvent else {
             return
         }
