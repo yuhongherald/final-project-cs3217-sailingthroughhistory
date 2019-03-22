@@ -59,8 +59,7 @@ struct PathsViewController {
     }
 
     mutating func remove(path: Path, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        paths[path.fromObject]?.removeAll { $0 == path }
-        paths[path.toObject]?.removeAll { $0 == path }
+        paths.remove(path: path)
         let layer = pathLayers.removeValue(forKey: path)
         CATransaction.begin()
         CATransaction.setCompletionBlock {
@@ -77,7 +76,7 @@ struct PathsViewController {
     }
 
     mutating func removeAllPathsAssociated(with object: GameObject, withDuration duration: TimeInterval) {
-        for path in paths[object, default: []] {
+        for path in paths.getPathsFor(object: object) {
             remove(path: path, withDuration: duration, callback: {})
         }
     }

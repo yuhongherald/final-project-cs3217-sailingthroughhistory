@@ -52,7 +52,7 @@ struct ObjectPaths {
         assert(checkRep())
     }
 
-    func contains(path: Path) {
+    func contains(path: Path) -> Bool {
         return allPaths.contains(path)
     }
 
