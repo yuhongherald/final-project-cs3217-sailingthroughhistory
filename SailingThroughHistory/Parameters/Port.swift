@@ -11,6 +11,7 @@ class Port: Node {
     public var taxAmount = 0
     public var owner: GenericPlayer?
     public var itemParametersSold = [ItemParameter]()
+    public var itemParametersBought = [ItemParameter]()
     
     private static let portNodeSize = CGSize(width: 50, height: 50)
     private static let portNodeImage = "port-node.png"

@@ -11,8 +11,6 @@ import RxSwift
 import CountdownLabel
 
 class MainGameViewController: UIViewController {
-    private static let allowAllAspectRatio = true
-
     @IBOutlet private weak var gameAndBackgroundWrapper: UIView!
     @IBOutlet private weak var scrollView: UIScrollView! {
         didSet {
@@ -23,19 +21,29 @@ class MainGameViewController: UIViewController {
     @IBOutlet private weak var environmentView: UIView!
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
+
     @IBOutlet private weak var portInformationView: UIView!
     @IBOutlet private weak var portNameLabel: UILabel!
+    @IBOutlet private weak var portItemsTableView: UITableView! {
+        didSet {
+            portItemsTableView.dataSource = portItemsDataSource
+            portItemsTableView.delegate = portItemsDataSource
+            portItemsTableView.reloadData()
+        }
+    }
+    
     @IBOutlet private weak var playerOneInformationView: UIView!
     @IBOutlet private weak var playerTwoInformationView: UIView!
-    @IBOutlet private weak var countdownLabel: CountdownLabel!
     @IBOutlet private weak var playerOneGoldView: UILabel!
     @IBOutlet private weak var playerTwoGoldView: UILabel!
     @IBOutlet private weak var togglePlayerOneInfoButton: UIButtonRounded!
     @IBOutlet private weak var togglePlayerTwoInfoButton: UIButtonRounded!
+
     @IBOutlet private weak var monthLabel: UILabel!
     @IBOutlet private weak var toggleActionPanelButton: UIButtonRounded!
     @IBOutlet private weak var diceResultLabel: UILabel!
     @IBOutlet private weak var actionPanelView: UIView!
+    @IBOutlet private weak var countdownLabel: CountdownLabel!
     @IBOutlet private weak var rollDiceButton: UIButtonRounded! {
         didSet {
             rollDiceButton.set(color: .red)
@@ -51,6 +59,7 @@ class MainGameViewController: UIViewController {
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView,
         togglePlayerTwoInfoButton: playerTwoInformationView]
+    private var portItemsDataSource = PortItemTableDataSource()
 
     var interfaceBounds: CGRect {
         return interface.bounds
@@ -104,6 +113,8 @@ class MainGameViewController: UIViewController {
     func showInformation(ofPort port: Port) {
         portInformationView.isHidden = false
         portNameLabel.text = port.name
+        portItemsDataSource.didSelect(port: port)
+        portItemsTableView.reloadData()
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
