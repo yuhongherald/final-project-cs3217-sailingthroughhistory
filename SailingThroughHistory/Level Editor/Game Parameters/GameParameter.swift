@@ -8,17 +8,15 @@
 
 import Foundation
 
-class GameParameter: GenericLevel {
+class GameParameter: Codable {
     public var itemParameters = Set<ItemParameter>()
-    private var upgrades = [Upgrade]()
     private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
     private var map = Map()
 
     init() {
-        upgrades = []
-        itemParameters = []
+        //itemParameters = []
 
         // TODO: set default weight
         ItemType.getAll().forEach {
@@ -46,4 +44,5 @@ class GameParameter: GenericLevel {
     func getItemParameter() -> Set<ItemParameter> {
         return itemParameters
     }
+
 }

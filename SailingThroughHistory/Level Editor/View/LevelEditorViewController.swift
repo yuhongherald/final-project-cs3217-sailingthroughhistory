@@ -18,12 +18,15 @@ class LevelEditorViewController: UIViewController {
     @IBOutlet weak var editPanel: UIView!
     @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
+    @IBOutlet weak var panelToggle: UIButton!
+    private var showPanelMsg = "Show Panel"
+    private var hidePanelMsg = "Hide Panel"
 
     private var upgrades = [Upgrade]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
-    private var map = Map()
     private let gameParameter = GameParameter()
+    private lazy var map = gameParameter.getMap()
 
     var editMode: EditMode?
     private var pickedItem: ItemType?
@@ -46,7 +49,7 @@ class LevelEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(add(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnMap(_:)))
         view.addGestureRecognizer(tapGesture)
 
         let image = "worldmap1815"
@@ -55,19 +58,26 @@ class LevelEditorViewController: UIViewController {
     }
 
     @IBAction func editPressed(_ sender: Any) {
-        editPanel.isHidden = false
-        view.bringSubviewToFront(editPanel)
+        if editPanel.isHidden {
+            editPanel.isHidden = false
+            panelToggle.setTitle(hidePanelMsg, for: .normal)
+            view.bringSubviewToFront(editPanel)
+        } else {
+            editPanel.isHidden = true
+            panelToggle.setTitle(showPanelMsg, for: .normal)
+            view.sendSubviewToBack(editPanel)
+        }
     }
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
-            self.storage.save(self.gameParameter, with: name)
+            self.storage.save(self.gameParameter, self.mapBackground.image,
+                              preview: self.editingAreaWrapper.screenShot, with: name)
         }, textPlaceHolder: "Input level name here")
         alert.present(in: self)
     }
 
-    /// Add/Rmove icons to the map
-    @objc func add(_ sender: UITapGestureRecognizer) {
+    @objc func tapOnMap(_ sender: UITapGestureRecognizer) {
         if editMode == .erase || editMode == .item {
             return
         }
@@ -76,7 +86,7 @@ class LevelEditorViewController: UIViewController {
             return
         }
 
-        let removeGesture = UITapGestureRecognizer(target: self, action: #selector(remove(_:)))
+        let tapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnNode(_:)))
         let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
         let location = sender.location(in: self.mapBackground)
 
@@ -84,23 +94,24 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
                 return
             }
-            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: [removeGesture, drawPathGesture])
+            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: [tapOnNodeGesture, drawPathGesture])
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }
 
-    @objc func remove(_ sender: UITapGestureRecognizer) {
+    @objc func tapOnNode(_ sender: UITapGestureRecognizer) {
         if editMode == .erase {
             sender.view!.removeFromSuperview()
         }
         if editMode == .item {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable") as? ItemPickerViewController else {
+            guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
+                as? ItemPickerViewController else {
                 fatalError("Controller itemEditTable cannot be casted into ItemPickerViewController")
             }
 
             guard let portView = sender.view as? NodeView,
-                let port = portView.node as? Port else {
+                let _ = portView.node as? Port else {
                 let alert = UIAlertController(title: "Please select a port!", message: nil, preferredStyle: .alert)
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
                 alert.addAction(cancelAction)
@@ -108,7 +119,7 @@ class LevelEditorViewController: UIViewController {
                 return
             }
 
-            controller.set(port: port, itemParameters: gameParameter.getItemParameter())
+            //controller.set(port: port, itemParameters: gameParameter.getItemParameter())
             self.addChild(controller)
             view.addSubview(controller.view)
             controller.didMove(toParent: self)

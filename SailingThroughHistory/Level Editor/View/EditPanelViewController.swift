@@ -9,11 +9,11 @@
 import UIKit
 protocol EditPanelDelegateProtocol {
     func clicked(_ select: EditMode)
-    func addMap(_ image: UIImage)
+    func addMapBackground(_ image: UIImage)
 }
 
 class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var delegate: EditPanelDelegateProtocol?
+    weak var delegate: EditPanelDelegateProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,12 +51,12 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
     @IBAction func editParamPressed(_ sender: Any) {
         // TODO: set player param
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "playerTable")
+        guard let controller = storyboard.instantiateViewController(withIdentifier: "playerTable")
             as? DetailEditTableViewController else {
-                fatalError("Controller is not found or cannot be casted into GameMainViewController.")
+                fatalError("Controller is not found or cannot be casted into DetailEditTableViewController.")
         }
 
-        self.show(vc, sender: nil)
+        self.show(controller, sender: nil)
 
     }
 
@@ -72,9 +72,10 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
         delegate?.clicked(.erase)
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
-            delegate?.addMap(image)
+            delegate?.addMapBackground(image)
         }
 
         self.dismiss(animated: true, completion: nil)

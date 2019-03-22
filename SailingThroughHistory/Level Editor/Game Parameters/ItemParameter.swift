@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ItemParameter {
+class ItemParameter: Codable {
     let displayName: String
     let weight: Int
     public let itemType: ItemType

@@ -15,7 +15,7 @@ extension LevelEditorViewController: EditPanelDelegateProtocol, UIGestureRecogni
         editMode = select
     }
 
-    func addMap(_ image: UIImage) {
+    func addMapBackground(_ image: UIImage) {
         mapBackground.image = image
     }
 }

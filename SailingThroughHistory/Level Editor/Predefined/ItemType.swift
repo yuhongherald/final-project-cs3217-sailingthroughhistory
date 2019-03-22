@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ItemType: String {
+enum ItemType: String, Codable {
     case teaLeaves = "tea leaves"
     case silk = "silk"
     case perfume = "perfume"

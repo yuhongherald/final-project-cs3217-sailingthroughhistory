@@ -13,13 +13,34 @@ class Player: GenericPlayer {
     public let state = GameVariable(value: PlayerState.endTurn)
     public var name: String
     public var interface: Interface?
+    // TODO: should startingNode: Node without ?
+    public var startingNode: Node?
 
     private let ship: Ship
 
     required init(name: String, node: Node) {
         self.name = name
+        self.startingNode = node
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String.self, forKey: .name)
+        startingNode = try values.decode(Node.self, forKey: .startingNode)
+
+        guard let node = startingNode else {
+            fatalError("Node not initialized, cannot initialzed ship")
+        }
+        ship = Ship(node: node, suppliesConsumed: [])
+        ship.setOwner(owner: self)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(startingNode, forKey: .startingNode)
     }
 
     func startTurn() {
@@ -71,4 +92,9 @@ class Player: GenericPlayer {
         ship.endTurn()
     }
 
+    private enum CodingKeys: String, CodingKey
+    {
+        case name
+        case startingNode
+    }
 }
