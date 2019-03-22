@@ -14,10 +14,8 @@ class ItemParameter: Codable {
     let itemType: ItemType
 
     private let isConsumable: Bool
-    // User sell
-    private var sellValues = [Port: Int]()
-    // User buy
-    private var buyValues = [Port: Int]()
+    private var sellValue: Int?
+    private var buyValue: Int?
 
     required public init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {
         self.itemType = itemType
@@ -32,33 +30,20 @@ class ItemParameter: Codable {
     }
 
     // Global pricing information
-    func getBuyValue(at port: Port) -> Int? {
-        return buyValues[port]
+    func getBuyValue() -> Int? {
+        return buyValue
     }
 
-    func getSellValue(at port: Port) -> Int? {
-        return sellValues[port]
+    func getSellValue() -> Int? {
+        return sellValue
     }
 
-    func setBuyValue(at port: Port, value: Int) {
-        if getBuyValue(at: port) == nil {
-            port.itemParametersSold.append(self)
-        }
-        buyValues[port] = value
+    func setBuyValue(value: Int) {
+        buyValue = value
     }
 
-    func setSellValue(at port: Port, value: Int) {
-        sellValues[port] = value
-    }
-
-    // Availability at ports
-    func delete(from port: Port) {
-        guard let index = port.itemParametersSold.firstIndex(where: { $0 == self }) else {
-            return
-        }
-        port.itemParametersSold.remove(at: index)
-        buyValues.removeValue(forKey: port)
-        sellValues.removeValue(forKey: port)
+    func setSellValue(value: Int) {
+        sellValue = value
     }
 }
 

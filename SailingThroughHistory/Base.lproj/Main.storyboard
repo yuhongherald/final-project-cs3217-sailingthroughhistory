@@ -714,10 +714,10 @@
             </objects>
             <point key="canvasLocation" x="1003" y="764"/>
         </scene>
-        <!--Item Picker View Controller-->
+        <!--Item Collection View Controller-->
         <scene sceneID="VbD-lt-Ks4">
             <objects>
-                <viewController storyboardIdentifier="itemEditTable" id="08g-fx-fPl" customClass="ItemPickerViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="itemEditTable" id="08g-fx-fPl" customClass="ItemCollectionViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Iq1-6O-SmF">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -750,13 +750,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="42B-1A-Sr2">
                                     <size key="itemSize" width="824" height="87"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemInfoCell" id="9wY-mf-a4G" customClass="ItemCollectionViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="824" height="87"/>
+                                        <rect key="frame" x="0.0" y="50" width="824" height="87"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="824" height="87"/>
@@ -812,6 +812,60 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="itemCollectionHeaderView" id="mdu-xU-KYU">
+                                    <rect key="frame" x="0.0" y="0.0" width="824" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fp-dy-xHo">
+                                            <rect key="frame" x="100" y="0.0" width="49.5" height="50"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Item">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="system" size="25"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQo-D0-shr">
+                                            <rect key="frame" x="300" y="0.0" width="197" height="50"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Sell Price">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="25" name=".SFNSText"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="clipping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IuS-Sn-of9">
+                                            <rect key="frame" x="636" y="0.0" width="107.5" height="50"/>
+                                            <attributedString key="attributedText">
+                                                <fragment content="Buy Price">
+                                                    <attributes>
+                                                        <font key="NSFont" size="25" name=".SFNSText"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="7Fp-dy-xHo" firstAttribute="top" secondItem="mdu-xU-KYU" secondAttribute="top" id="5K9-aF-NGL"/>
+                                        <constraint firstAttribute="bottom" secondItem="IuS-Sn-of9" secondAttribute="bottom" id="67p-wz-NDr"/>
+                                        <constraint firstItem="IuS-Sn-of9" firstAttribute="top" secondItem="mdu-xU-KYU" secondAttribute="top" id="6Z1-Od-6o3"/>
+                                        <constraint firstItem="LQo-D0-shr" firstAttribute="top" secondItem="mdu-xU-KYU" secondAttribute="top" id="FZh-4M-BRG"/>
+                                        <constraint firstItem="IuS-Sn-of9" firstAttribute="leading" secondItem="LQo-D0-shr" secondAttribute="trailing" constant="100" id="Smz-62-AIw"/>
+                                        <constraint firstItem="7Fp-dy-xHo" firstAttribute="leading" secondItem="mdu-xU-KYU" secondAttribute="leading" constant="100" id="aae-nC-5Pe"/>
+                                        <constraint firstItem="LQo-D0-shr" firstAttribute="leading" secondItem="7Fp-dy-xHo" secondAttribute="leading" constant="200" id="az3-24-aZX"/>
+                                        <constraint firstAttribute="bottom" secondItem="LQo-D0-shr" secondAttribute="bottom" id="gkc-ov-4DL"/>
+                                        <constraint firstAttribute="bottom" secondItem="7Fp-dy-xHo" secondAttribute="bottom" id="mFd-0Q-E8q"/>
+                                    </constraints>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="08g-fx-fPl" id="EPy-yQ-cak"/>
                                     <outlet property="delegate" destination="08g-fx-fPl" id="7W8-SB-4Hj"/>
@@ -839,7 +893,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWV-8Y-KwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1003" y="1450"/>
+            <point key="canvasLocation" x="1002.5390624999999" y="1450"/>
         </scene>
         <!--Edit Panel View Controller-->
         <scene sceneID="drC-6i-m6q">

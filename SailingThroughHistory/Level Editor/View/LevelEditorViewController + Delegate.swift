@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension LevelEditorViewController: EditPanelDelegateProtocol, UIGestureRecognizerDelegate {
+extension LevelEditorViewController: EditPanelDelegateProtocol {
 
     func clicked(_ select: EditMode) {
         editPanel.isHidden = true
@@ -17,5 +17,17 @@ extension LevelEditorViewController: EditPanelDelegateProtocol, UIGestureRecogni
 
     func addMapBackground(_ image: UIImage) {
         mapBackground.image = image
+    }
+}
+
+extension LevelEditorViewController: GalleryViewDelegateProtocol {
+    func load(_ gameParameter: GameParameter) {
+        self.gameParameter = gameParameter
+    }
+}
+
+extension LevelEditorViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return editingAreaWrapper
     }
 }
