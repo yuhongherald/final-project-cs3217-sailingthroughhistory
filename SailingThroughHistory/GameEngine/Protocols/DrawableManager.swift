@@ -7,8 +7,8 @@
 //
 
 protocol DrawableManager {
-    func getAddedDrawables() -> [GameObject]
-    func getUpdatedDrawables() -> [GameObject]
-    func getDeletedDrawables() -> [GameObject]
-    func approvedDeletedDrawables()
+    var addedObjects: Set<GameObject> { get }
+    var updatedObjects: Set<GameObject> { get }
+    var removedObjects: Set<GameObject> { get }
+    func approveChanges()
 }

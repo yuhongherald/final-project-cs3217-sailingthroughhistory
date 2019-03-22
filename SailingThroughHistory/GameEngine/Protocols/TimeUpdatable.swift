@@ -7,7 +7,6 @@
 //
 
 protocol TimeUpdatable {
-    fileprivate func addToCache(updatables: [Updatable])
     func hasCachedUpdates() -> Bool
     func processCachedUpdates() -> GenericGameEvent?
     func invalidateCache()

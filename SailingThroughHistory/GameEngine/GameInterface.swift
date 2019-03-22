@@ -22,7 +22,8 @@ class GameInterface {
     func removeObjects(gameObjects: [GameObject]) {
     }
     func finishObjectEdit(deltaTime: Double) {
-        interface.broadcastInterfaceChanges(withDuration: TimeInterval(exactly: deltaTime))
+        interface.broadcastInterfaceChanges(
+            withDuration: TimeInterval(deltaTime))
     }
     func startPlayerTurn(player: GenericPlayer, callback: @escaping () -> Void) {
         let time = TimeInterval(exactly: GameConstants.playerTurnDuration)

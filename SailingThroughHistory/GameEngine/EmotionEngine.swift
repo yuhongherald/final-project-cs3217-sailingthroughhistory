@@ -7,10 +7,6 @@
 //
 
 class EmotionEngine: GenericTurnBasedGame {
-    func getTimeUpdatable() -> TimeUpdatable {
-        <#code#>
-    }
-    
     let gameLogic: GameLogic
 
     var currentGameTime: Double = 0
@@ -51,7 +47,7 @@ class EmotionEngine: GenericTurnBasedGame {
     func getDrawableManager() -> DrawableManager {
         return gameLogic
     }
-    func getCacheManager() -> TimeUpdatable {
+    func getTimeUpdatable() -> TimeUpdatable {
         return gameLogic
     }
 
