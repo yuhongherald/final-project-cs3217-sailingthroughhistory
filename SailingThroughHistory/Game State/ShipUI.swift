@@ -14,7 +14,7 @@ class ShipUI: GameObject {
 
     private let shipImagePath = "ship.png"
     private let shipWidth = 50
-    
+
     init(ship: Ship) {
         let frame = CGRect(x: 0, y: 0, width: shipWidth, height: shipWidth)
         super.init(image: shipImagePath, frame: frame)

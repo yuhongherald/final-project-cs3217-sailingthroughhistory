@@ -10,7 +10,7 @@ import Foundation
 
 protocol GenericItem {
     var itemParameter: ItemParameter { get }
-    var weight: Int { get }
+    var unitWeight: Int { get }
     var quantity: Int { get set }
 
     init(itemType: ItemParameter, quantity: Int)

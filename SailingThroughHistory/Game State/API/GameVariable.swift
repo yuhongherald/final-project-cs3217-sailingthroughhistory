@@ -10,9 +10,7 @@ import Foundation
 import RxSwift
 
 class GameVariable<T> : ObservableVariable {
-    private let disposeBag = DisposeBag()
-    private var variable: Variable<T>
-    public var value: T {
+    var value: T {
         get {
             return variable.value
         }
@@ -20,7 +18,10 @@ class GameVariable<T> : ObservableVariable {
             variable.value = value
         }
     }
-    public init(value: T) {
+    private let disposeBag = DisposeBag()
+    private var variable: Variable<T>
+
+    init(value: T) {
         variable = Variable(value)
     }
 
