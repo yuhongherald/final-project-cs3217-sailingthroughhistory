@@ -1,13 +1,9 @@
 //
-//  Upgrades.swift
+//  PortItemButtonAction.swift
 //  SailingThroughHistory
 //
-//  Created by henry on 17/3/19.
+//  Created by Jason Chong on 22/3/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
 import Foundation
-
-protocol Upgrade: Codable {
-
-}

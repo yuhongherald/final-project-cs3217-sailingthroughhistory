@@ -15,4 +15,8 @@ class Pirate: Node, VolatileModifier {
     init(name: String, pos: CGPoint) {
         super.init(name: name, image: Pirate.pirateNodeImage, frame: CGRect(origin: pos, size: Pirate.pirateNodeSize))
     }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
 }

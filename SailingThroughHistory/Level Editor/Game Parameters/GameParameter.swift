@@ -8,22 +8,25 @@
 
 import Foundation
 
-class GameParameter: GenericLevel {
-    public var itemParameters = [ItemParameter]()
-    
-    private var upgrades = [Upgrade]()
+class GameParameter: Codable {
+    public var itemParameters = Set<ItemParameter>()
     private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
     private var map = Map()
 
     init() {
-        upgrades = []
-        itemParameters = []
+        //itemParameters = []
+
+        // TODO: set default weight
+        ItemType.getAll().forEach {
+            itemParameters.insert(ItemParameter(itemType: $0, displayName: $0.rawValue, weight: -1, isConsumable: true))
+        }
+
         storages = [Port: [Item]]()
         playerParameters = []
         eventParameters = []
-        fatalError("Not implemented")
+        //fatalError("Not implemented")
     }
 
     func getPlayers() -> [GenericPlayer] {
@@ -38,7 +41,8 @@ class GameParameter: GenericLevel {
         return storages
     }
 
-    func setItemValue(for item: ItemParameter, from: Port, to: Port) {
-        //item.setBuyValue(at: <#T##Port#>, to: <#T##Int#>)
+    func getItemParameter() -> Set<ItemParameter> {
+        return itemParameters
     }
+
 }

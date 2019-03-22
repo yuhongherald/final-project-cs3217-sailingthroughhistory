@@ -8,25 +8,14 @@
 
 import UIKit
 
-extension LevelEditorViewController: ItemPickerDelegateProtocol, EditPanelDelegateProtocol, UIGestureRecognizerDelegate {
-
-    func pick(_ select: ItemType) {
-        pickedItem = select
-    }
+extension LevelEditorViewController: EditPanelDelegateProtocol, UIGestureRecognizerDelegate {
 
     func clicked(_ select: EditMode) {
         editPanel.isHidden = true
         editMode = select
     }
 
-    func addMap(_ image: UIImage) {
+    func addMapBackground(_ image: UIImage) {
         mapBackground.image = image
-    }
-
-    func presentPicker(_ controller: ItemPickerViewController) {
-        controller.delegate = self
-        self.addChild(controller)
-        view.addSubview(controller.view)
-        controller.didMove(toParent: self)
     }
 }

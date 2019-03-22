@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Item: GenericItem {
+class Item: GenericItem, Codable {
+    var type: ItemType!
     public let itemParameter: ItemParameter
     public var weight: Int {
         return quantity * itemParameter.weight

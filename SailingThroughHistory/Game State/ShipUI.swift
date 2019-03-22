@@ -21,6 +21,10 @@ class ShipUI: GameObject {
         ship.location.subscribe(with: updateShip)
     }
 
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
     private func updateShip(event: Event<Location>) {
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GameObject {
+class GameObject: Codable {
     var images: [String]
     var frame: CGRect
     var loopDuration: TimeInterval = 0

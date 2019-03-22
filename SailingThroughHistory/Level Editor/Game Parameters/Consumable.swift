@@ -9,7 +9,7 @@
 import Foundation
 
 class Consumable: Item, GenericConsumable {
-    
+
     func consume(amount: Int) -> Int {
         if quantity < amount {
             let deficeit = amount - quantity
