@@ -8,7 +8,7 @@
 import UIKit
 
 class Port: Node {
-    // Changed GenericPlayer
+    // TODO: [Note]: Changed GenericPlayer to Player for encode
     public var taxAmount = 0
     public var owner: Player?
     public var itemParametersSold = [ItemParameter]()

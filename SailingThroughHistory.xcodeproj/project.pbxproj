@@ -442,6 +442,7 @@
 				7559898422422493004037E6 /* Int+Lerp.swift */,
 				1A9FF0892240142B00005FCB /* Alert.swift */,
 				9681199D2243CCA30093ABBA /* Array+Rotate.swift */,
+				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -588,7 +589,6 @@
 				1A9FF084223F6CE400005FCB /* Predefined */,
 				BA91906D223F441900009F49 /* API */,
 				BA91906E223F443600009F49 /* Game Parameters */,
-				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
 			);
 			path = "Level Editor";
 			sourceTree = "<group>";
