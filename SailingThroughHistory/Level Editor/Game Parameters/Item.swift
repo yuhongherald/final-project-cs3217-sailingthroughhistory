@@ -11,8 +11,8 @@ import Foundation
 class Item: GenericItem, Codable {
     var type: ItemType!
     let itemParameter: ItemParameter
-    var weight: Int {
-        return quantity * itemParameter.weight
+    var unitWeight: Int {
+        return quantity * itemParameter.unitWeight
     }
     // TODO: prevent quantity from going below 0
     var quantity: Int

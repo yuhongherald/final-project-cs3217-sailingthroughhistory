@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class Player: GenericPlayer {
     let money = GameVariable(value: 0)
@@ -98,5 +99,20 @@ class Player: GenericPlayer {
     private enum CodingKeys: String, CodingKey {
         case name
         case startingNode
+    }
+}
+
+// MARK - subscribes
+extension Player {
+    func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void) {
+        ship.subscribeToItems(with: observer)
+    }
+
+    func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void) {
+        ship.subscribeToCargoWeight(with: observer)
+    }
+    
+    func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void) {
+        ship.subscribeToWeightCapcity(with: observer)
     }
 }
