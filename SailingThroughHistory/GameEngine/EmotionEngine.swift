@@ -38,13 +38,17 @@ class EmotionEngine: GenericTurnBasedGame {
             timeDifference -= largestTimeStep / gameSpeed / externalGameSpeed
             let event = updateGameSpeed(largestTimeStep)
             if event != nil {
-                return (event, )
+                return event
             }
         }
         return updateGameSpeed(timeDifference * gameSpeed * externalGameSpeed)
     }
 
-    func finishCachedUpdates() -> (GenericGameEvent?, AnyIterator<Updatable>) {
+    func getDrawables() -> AnyIterator<GameObject> {
+        return gameLogic.getDrawables()
+    }
+
+    func finishCachedUpdates() -> GenericGameEvent? {
         while let updatable = updatableCache?.next() {
             _ = updatable.update()
             guard let event = updatable.checkForEvent() else {
@@ -55,8 +59,7 @@ class EmotionEngine: GenericTurnBasedGame {
         return nil
     }
 
-    private func updateGameSpeed(_ deltaTime: Double) ->
-        (GenericGameEvent?, AnyIterator<Updatable> {
+    private func updateGameSpeed(_ deltaTime: Double) -> GenericGameEvent? {
         currentGameTime += deltaTime
         guard let event = updateGameStateDeltatime(deltaTime) else {
             updatableCache = nil
@@ -97,9 +100,8 @@ class EmotionEngine: GenericTurnBasedGame {
         return gameSpeed
     }
 
-    private func updateGameStateDeltatime(_ deltaTime: Double) ->
-        (GenericGameEvent?, AnyIterator<Updatable>) {
-        updatableCache = gameLogic.getUpdatables(deltaTime: deltaTime)
+    private func updateGameStateDeltatime(_ deltaTime: Double) -> GenericGameEvent? {
+        updatableCache = gameLogic.getUpdatablesFor(deltaTime: deltaTime)
         return finishCachedUpdates()
     }
 

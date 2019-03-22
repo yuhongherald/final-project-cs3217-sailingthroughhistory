@@ -35,12 +35,12 @@
 		7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8412240C25F00D9D0FE /* Double+Lerp.swift */; };
 		7536A8442240C98D00D9D0FE /* GameLogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8432240C98D00D9D0FE /* GameLogicTest.swift */; };
 		7536A8482240E10500D9D0FE /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8472240E10500D9D0FE /* GameLogic.swift */; };
-		753EEA772244FFF900D56CBA /* Interface+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EEA762244FFF900D56CBA /* Interface+Message.swift */; };
 		753EEA79224507BA00D56CBA /* UpdatableStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EEA78224507BA00D56CBA /* UpdatableStatus.swift */; };
 		753EEA7B2245093700D56CBA /* VisualData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EEA7A2245093700D56CBA /* VisualData.swift */; };
+		753EEA822245169C00D56CBA /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EEA812245169C00D56CBA /* Drawable.swift */; };
+		753EEA8422451C0900D56CBA /* GameInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EEA8322451C0900D56CBA /* GameInterface.swift */; };
 		754FED502243335000394215 /* UpdatablePlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED4F2243334F00394215 /* UpdatablePlayerTurn.swift */; };
 		754FED522243335E00394215 /* UpdatablePirateIsland.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED512243335E00394215 /* UpdatablePirateIsland.swift */; };
-		754FED56224335AC00394215 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED55224335AC00394215 /* Drawable.swift */; };
 		754FED5B22433F1700394215 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED5A22433F1700394215 /* Stopwatch.swift */; };
 		754FED622243616100394215 /* EngineObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED612243616100394215 /* EngineObject.swift */; };
 		754FED652243626900394215 /* Vector2F.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED642243626900394215 /* Vector2F.swift */; };
@@ -173,12 +173,12 @@
 		7536A8412240C25F00D9D0FE /* Double+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Lerp.swift"; sourceTree = "<group>"; };
 		7536A8432240C98D00D9D0FE /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
 		7536A8472240E10500D9D0FE /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
-		753EEA762244FFF900D56CBA /* Interface+Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Interface+Message.swift"; sourceTree = "<group>"; };
 		753EEA78224507BA00D56CBA /* UpdatableStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableStatus.swift; sourceTree = "<group>"; };
 		753EEA7A2245093700D56CBA /* VisualData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualData.swift; sourceTree = "<group>"; };
+		753EEA812245169C00D56CBA /* Drawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
+		753EEA8322451C0900D56CBA /* GameInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInterface.swift; sourceTree = "<group>"; };
 		754FED4F2243334F00394215 /* UpdatablePlayerTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePlayerTurn.swift; sourceTree = "<group>"; };
 		754FED512243335E00394215 /* UpdatablePirateIsland.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePirateIsland.swift; sourceTree = "<group>"; };
-		754FED55224335AC00394215 /* Drawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
 		754FED5A22433F1700394215 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
 		754FED612243616100394215 /* EngineObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineObject.swift; sourceTree = "<group>"; };
 		754FED642243626900394215 /* Vector2F.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2F.swift; sourceTree = "<group>"; };
@@ -332,6 +332,7 @@
 		7536A8292240971500D9D0FE /* GameEngine */ = {
 			isa = PBXGroup;
 			children = (
+				753EEA7E224511A400D56CBA /* RxSwift */,
 				75598993224243E7004037E6 /* Small components */,
 				753EEA7C2245096400D56CBA /* Data */,
 				754FED59224335DE00394215 /* Enums */,
@@ -341,7 +342,7 @@
 				7536A83422409B5700D9D0FE /* GameEngine.swift */,
 				75598991224243CE004037E6 /* EmotionEngine.swift */,
 				7536A8472240E10500D9D0FE /* GameLogic.swift */,
-				753EEA762244FFF900D56CBA /* Interface+Message.swift */,
+				753EEA8322451C0900D56CBA /* GameInterface.swift */,
 			);
 			path = GameEngine;
 			sourceTree = "<group>";
@@ -351,13 +352,13 @@
 			children = (
 				7559898922423D91004037E6 /* Randomable.swift */,
 				7559897422421BEC004037E6 /* Updatable.swift */,
-				754FED55224335AC00394215 /* Drawable.swift */,
 				7559898D2242420C004037E6 /* GenericGameLogic.swift */,
 				7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */,
 				7536A82C224097AA00D9D0FE /* PlayerTurn.swift */,
 				7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */,
 				7536A8362240A09200D9D0FE /* GenericAsyncWrap.swift */,
 				75F8435D22428ED9007855F9 /* Timestampable.swift */,
+				753EEA812245169C00D56CBA /* Drawable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -372,6 +373,13 @@
 				753EEA7A2245093700D56CBA /* VisualData.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		753EEA7E224511A400D56CBA /* RxSwift */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RxSwift;
 			sourceTree = "<group>";
 		};
 		754FED59224335DE00394215 /* Enums */ = {
@@ -854,7 +862,6 @@
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
 				BA919072223F447F00009F49 /* ItemParameter.swift in Sources */,
 				BA919072223F447F00009F49 /* ItemParameter.swift in Sources */,
-				753EEA772244FFF900D56CBA /* Interface+Message.swift in Sources */,
 				96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
@@ -884,7 +891,6 @@
 				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
 				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
 				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
-				754FED56224335AC00394215 /* Drawable.swift in Sources */,
 				7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */,
 				7536A83E2240A7E600D9D0FE /* EventType.swift in Sources */,
 				7559898C22423DDB004037E6 /* Dice.swift in Sources */,
@@ -895,6 +901,7 @@
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
+				753EEA822245169C00D56CBA /* Drawable.swift in Sources */,
 				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
 				7559897D22421C42004037E6 /* UpdatableNPC.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
@@ -910,6 +917,7 @@
 				754FED522243335E00394215 /* UpdatablePirateIsland.swift in Sources */,
 				1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */,
 				753EEA7B2245093700D56CBA /* VisualData.swift in Sources */,
+				753EEA8422451C0900D56CBA /* GameInterface.swift in Sources */,
 				1A749D7422440C3E00482CE5 /* GalleryCollectionViewCell.swift in Sources */,
 				1A749D6E2243CFF800482CE5 /* Storage.swift in Sources */,
 				1A9FF08A2240142B00005FCB /* Alert.swift in Sources */,

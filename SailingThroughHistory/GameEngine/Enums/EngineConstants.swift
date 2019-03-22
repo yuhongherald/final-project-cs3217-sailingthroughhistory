@@ -19,6 +19,7 @@ enum EngineConstants {
 enum GameConstants {
     static let weeksInMonth: Int = 4
     static let monthsInYear: Int = 12
+    static let playerTurnDuration: Double = 30
 }
 
 enum Resources {

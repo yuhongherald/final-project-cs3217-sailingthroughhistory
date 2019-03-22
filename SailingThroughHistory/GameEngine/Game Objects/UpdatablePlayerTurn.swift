@@ -6,15 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatablePlayerTurn: Updatable {
-
-    var data: VisualAudioData? {
-        get {
-            return VisualAudioData(
-                contextualData: ContextualData.message(message: "This is the player turn"),
-                sound: SoundData.none)
-        }
-    }
+class UpdatablePlayerTurn: GameObject, Updatable {
+    var status: UpdatableStatus = .add
 
     func update() -> Bool {
         return false

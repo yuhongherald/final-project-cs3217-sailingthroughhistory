@@ -13,9 +13,6 @@ protocol GenericGameLogic {
     // update players, check they moved into a port
     // update pirates, check they moved into a player
 
-    var gameState: GenericGameState? { get set }
-    func getUpdatables(deltaTime: Double) -> AnyIterator<Updatable>
-    func getNewGameObjects() -> AnyIterator<Drawable>
-    func getUpdatedGameObjects() -> AnyIterator<Drawable> // might not be relevant anymore
-    func getDeletedGameObjects() -> AnyIterator<Drawable>
+    func getUpdatablesFor(deltaTime: Double) -> AnyIterator<Updatable>
+    func getDrawables() -> AnyIterator<GameObject>
 }

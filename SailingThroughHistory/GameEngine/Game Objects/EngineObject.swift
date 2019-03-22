@@ -8,6 +8,7 @@
 
 import Foundation
 
+// alternative to GameObject. Currently not used
 class EngineObject: Hashable {
     enum Status {
         case moving

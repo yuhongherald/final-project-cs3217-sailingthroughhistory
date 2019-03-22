@@ -7,10 +7,21 @@
 //
 
 class GameLogic: GenericGameLogic {
+    private let gameState: GenericGameState
+    private var weathers: Set<UpdatableWeather> = Set<UpdatableWeather>()
+    private var ports: Set<UpdatablePort> = Set<UpdatablePort>()
+    private var players: Set<UpdatablePlayer> = Set<UpdatablePlayer>()
+    private var npcs: Set<UpdatableNPC> = Set<UpdatableNPC>()
+    private var pirates: Set<UpdatablePirate> = Set<UpdatablePirate>()
+    private var time: Set<UpdatableTime> = Set<UpdatableTime>()
+    private var playerTurn: Set<UpdatablePlayerTurn> = Set<UpdatablePlayerTurn>()
+    private var pirateIsland: Set<UpdatablePirateIsland> = Set<UpdatablePirateIsland>()
 
-    var gameState: GenericGameState?
+    init(gameState: GenericGameState) {
+        self.gameState = gameState
+    }
 
-    func getUpdatables(deltaTime: Double) -> AnyIterator<Updatable> {
+    func getUpdatablesFor(deltaTime: Double) -> AnyIterator<Updatable> {
         // player turn first
         // weather next
         // pirate, npc and player
@@ -18,25 +29,11 @@ class GameLogic: GenericGameLogic {
         // port next
         // time last
         return AnyIterator {
-            return nil
+            
         }
     }
 
-    func getNewGameObjects() -> AnyIterator<Drawable> {
-        return AnyIterator {
-            return nil
-        }
-    }
-
-    func getUpdatedGameObjects() -> AnyIterator<Drawable> {
-        return AnyIterator {
-            return nil
-        }
-    }
-
-    func getDeletedGameObjects() -> AnyIterator<Drawable> {
-        return AnyIterator {
-            return nil
-        }
+    func getDrawables() -> AnyIterator<GameObject> {
+        return AnyIterator {}
     }
 }

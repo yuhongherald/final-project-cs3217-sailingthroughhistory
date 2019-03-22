@@ -8,6 +8,6 @@
 
 // essentially a tuple
 struct VisualAudioData {
-    var contextualData: ContextualData
+    var visualData: VisualData
     var sound: SoundData
 }

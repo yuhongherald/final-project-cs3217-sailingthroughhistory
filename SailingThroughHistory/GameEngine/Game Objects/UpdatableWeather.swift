@@ -6,15 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatableWeather: Updatable {
-    var data: VisualAudioData? {
-        get {
-            let data = VisualAudioData(
-                contextualData: ContextualData.animated(images: Resources.Weather.monsoon, startingFrame: 0, loopDuration: Double.infinity),
-                sound: SoundData.none)
-            return data
-        }
-    }
+class UpdatableWeather: GameObject, Updatable {
+    var status: UpdatableStatus = .add
 
     private let location: Path
     private let weather: Weather
@@ -23,7 +16,11 @@ class UpdatableWeather: Updatable {
         self.location = location
         self.weather = weather
     }
-
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+    
     func update() -> Bool {
         return false
     }
