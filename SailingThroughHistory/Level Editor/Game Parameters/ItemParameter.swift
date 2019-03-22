@@ -14,7 +14,9 @@ class ItemParameter: Codable {
     public let itemType: ItemType
 
     private let isConsumable: Bool
+    // User sell
     private var sellValues = [Port: Int]()
+    // User buy
     private var buyValues = [Port: Int]()
 
     required public init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {

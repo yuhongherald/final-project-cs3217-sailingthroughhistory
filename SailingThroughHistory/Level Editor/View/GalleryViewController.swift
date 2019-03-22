@@ -27,7 +27,7 @@ class GalleryViewController: UIViewController {
     }
 }
 
-extension GallaryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return levelNames.count
     }

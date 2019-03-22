@@ -9,5 +9,10 @@
 import Foundation
 
 protocol Upgrade: Codable {
+    var name: String { get }
+    var cost: Int { get }
 
+    func getNewSuppliesConsumed(baseConsumption: [GenericItem]) -> [GenericItem]
+    func getMovementModifier() -> Double
+    func getWeatherModifier() -> Double
 }

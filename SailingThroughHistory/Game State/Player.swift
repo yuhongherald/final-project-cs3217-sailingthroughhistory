@@ -17,6 +17,8 @@ class Player: GenericPlayer {
     public var startingNode: Node?
 
     private let ship: Ship
+    private var shipChassis: ShipChassis?
+    private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
     required init(name: String, node: Node) {
         self.name = name
@@ -48,7 +50,7 @@ class Player: GenericPlayer {
     }
 
     func buyUpgrade(upgrade: Upgrade) {
-        // TODO: Add upgrades
+        ship.installUpgade(upgrade: upgrade)
     }
 
     func setTax(port: Port, amount: Int) {

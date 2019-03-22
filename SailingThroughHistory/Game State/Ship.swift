@@ -17,15 +17,18 @@ class Ship {
     public let location: GameVariable<Location>
 
     private let suppliesConsumed: [GenericItem]
+    private let defaultWeightCapacity = 100
     private var isChasedByPirates = false
     private var turnsToBeingCaught = 0
 
     private var owner: GenericPlayer?
     private var items = [GenericItem]()
-    private var weightCapacity = 0
+    private var weightCapacity: Int {
+        return shipChassis?.getNewCargoCapacity(baseCapacity: defaultWeightCapacity) ?? defaultWeightCapacity
+    }
 
-    private var chassis: Upgrade?
-    private var axuxiliaryUpgrade: Upgrade?
+    private var shipChassis: ShipChassis?
+    private var auxiliaryUpgrade: AuxiliaryUpgrade?
     private var shipUI: ShipUI?
 
     public init(node: Node, suppliesConsumed: [GenericItem]) {
@@ -34,6 +37,24 @@ class Ship {
         self.suppliesConsumed = suppliesConsumed
 
         shipUI = ShipUI(ship: self)
+    }
+    
+    public func installUpgade(upgrade: Upgrade) {
+        if owner?.money.value ?? 0 < upgrade.cost {
+            // TODO: not enough money
+        }
+        if shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
+            owner?.money.value -= upgrade.cost
+            shipChassis = shipUpgrade
+            // TODO: Success prompt
+            return
+        }
+        if auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
+            owner?.money.value -= upgrade.cost
+            auxiliaryUpgrade = auxiliary
+            // TODO: Success prompt
+            return
+        }
     }
 
     public func setOwner(owner: GenericPlayer?) {
@@ -155,18 +176,22 @@ class Ship {
 
     private func computeMovement(roll: Int) -> Double {
         var multiplier = 1.0
-        multiplier = applyUpgradeModifiers(to: multiplier)
+        multiplier = applyMovementModifiers(to: multiplier)
         return Double(roll) * multiplier
     }
 
-    private func applyUpgradeModifiers(to multiplier: Double) -> Double {
+    private func applyMovementModifiers(to multiplier: Double) -> Double {
         // TODO: Calculate actual multiplier
-        return multiplier
+        var result = multiplier
+        result *= shipChassis?.getMovementModifier() ?? 1
+        result *= auxiliaryUpgrade?.getMovementModifier() ?? 1
+        return result
     }
 
     private func getWeatherModifier() -> Double {
-        // TODO: Calulate actual multiplier
         var multiplier = 1.0
+        multiplier *= shipChassis?.getWeatherModifier() ?? 1
+        multiplier *= auxiliaryUpgrade?.getWeatherModifier() ?? 1
         return multiplier
     }
 
