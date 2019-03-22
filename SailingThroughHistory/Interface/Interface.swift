@@ -17,7 +17,7 @@ class Interface {
     let players: [GenericPlayer]
     private(set) var pendingEvents = [InterfaceEvent]()
     private(set) var objectFrames = [GameObject: CGRect]()
-    private(set) var paths = [GameObject: [Path]]()
+    private(set) var paths = ObjectPaths()
     private(set) var currentTurnOwner: GenericPlayer?
 
     init(players: [Player], bounds: CGRect) {
@@ -106,13 +106,10 @@ class Interface {
             case .addObject(let object, let frame):
                 objectFrames[object] = frame
             case .removePath(let path):
-                paths[path.toObject]?.removeAll { $0 == path }
-                paths[path.fromObject]?.removeAll { $0 == path }
+                paths.remove(path: path)
             case .removeObject(let object):
                 objectFrames[object] = nil
-                paths[object]?.forEach { path in
-                    paths[path.toObject]?.removeAll { otherPath in path == otherPath }
-                }
+                paths.removeAllPathsAssociated(with: object)
             case .playerTurnStart(let player, _, _):
                 currentTurnOwner = player
             case .playerTurnEnd:
@@ -159,16 +156,8 @@ class Interface {
         if objectFrames[path.fromObject] == nil || objectFrames[path.toObject] == nil {
             return false
         }
-        if paths[path.fromObject] == nil {
-            paths[path.fromObject] = []
-        }
 
-        if paths[path.toObject] == nil {
-            paths[path.toObject] = []
-        }
-
-        paths[path.fromObject]?.append(path)
-        paths[path.toObject]?.append(path)
+        paths.add(path: path)
 
         return true
     }

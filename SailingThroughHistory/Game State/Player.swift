@@ -13,6 +13,9 @@ class Player: GenericPlayer {
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
+    var node: Node? {
+        return getNodesInRange(roll: 0).first
+    }
     var interface: Interface?
     // TODO: should startingNode: Node without ?
     var startingNode: Node?

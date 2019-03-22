@@ -11,8 +11,6 @@ import RxSwift
 import CountdownLabel
 
 class MainGameViewController: UIViewController {
-    private static let allowAllAspectRatio = true
-
     @IBOutlet private weak var gameAndBackgroundWrapper: UIView!
     @IBOutlet private weak var scrollView: UIScrollView! {
         didSet {
@@ -23,34 +21,47 @@ class MainGameViewController: UIViewController {
     @IBOutlet private weak var environmentView: UIView!
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
+
     @IBOutlet private weak var portInformationView: UIView!
     @IBOutlet private weak var portNameLabel: UILabel!
+    @IBOutlet private weak var portItemsTableView: UITableView! {
+        didSet {
+            portItemsTableView.dataSource = portItemsDataSource
+            portItemsTableView.delegate = portItemsDataSource
+            portItemsTableView.reloadData()
+        }
+    }
+    
     @IBOutlet private weak var playerOneInformationView: UIView!
     @IBOutlet private weak var playerTwoInformationView: UIView!
-    @IBOutlet private weak var countdownLabel: CountdownLabel!
     @IBOutlet private weak var playerOneGoldView: UILabel!
     @IBOutlet private weak var playerTwoGoldView: UILabel!
     @IBOutlet private weak var togglePlayerOneInfoButton: UIButtonRounded!
     @IBOutlet private weak var togglePlayerTwoInfoButton: UIButtonRounded!
+
     @IBOutlet private weak var monthLabel: UILabel!
     @IBOutlet private weak var toggleActionPanelButton: UIButtonRounded!
     @IBOutlet private weak var diceResultLabel: UILabel!
     @IBOutlet private weak var actionPanelView: UIView!
+    @IBOutlet private weak var countdownLabel: CountdownLabel!
     @IBOutlet private weak var rollDiceButton: UIButtonRounded! {
         didSet {
             rollDiceButton.set(color: .red)
         }
     }
 
+    var currentTurnOwner: GenericPlayer?
     
     /// TODO: Reference to Game Engine
     private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
     private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
-    private lazy var objectsController: ObjectsViewController = ObjectsViewController(view: gameArea, mainController: self)
+    private lazy var objectsController: ObjectsViewController = ObjectsViewController(
+        view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView,
         togglePlayerTwoInfoButton: playerTwoInformationView]
+    private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
 
     var interfaceBounds: CGRect {
         return interface.bounds
@@ -70,6 +81,7 @@ class MainGameViewController: UIViewController {
         let nodeDummy = Node(name: "testnode", image: "sea-node.png",
                              frame: CGRect(x: 500, y: 500, width: 50, height: 50))
         let object2 = Port(player: Player(name: "test", node: nodeDummy), pos: CGPoint(x: 500, y: 500))
+        object2.itemParametersSold = [ItemParameter(itemType: ItemType.opium, displayName: "Opium", weight: 1, isConsumable: true)]
         let path = Path(from: object, to: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
@@ -104,6 +116,13 @@ class MainGameViewController: UIViewController {
     func showInformation(ofPort port: Port) {
         portInformationView.isHidden = false
         portNameLabel.text = port.name
+        portItemsDataSource.didSelect(port: port, playerCanInteract:
+            currentTurnOwner?.node === port)
+        portItemsTableView.reloadData()
+    }
+
+    func portItemButtonPressed(action: PortItemButtonAction) {
+
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -189,13 +208,15 @@ class MainGameViewController: UIViewController {
 
     private func syncObjectsAndPaths(with interface: Interface) {
         interface.objectFrames.forEach {
-            objectsController.add(object: $0.key, at: $0.value, withDuration: 0.25, callback: {})
+            objectsController.add(object: $0.key, at: $0.value,
+                                  withDuration: InterfaceConstants.defaultAnimationDuration,
+                                  callback: {})
         }
 
-        interface.paths.keys.forEach { [weak self] in
-            interface.paths[$0]?.forEach { path in
-                self?.pathsController.add(path: path, withDuration: 0.25, callback: {})
-            }
+        interface.paths.allPaths.forEach { [weak self] in
+            self?.pathsController.add(path: $0,
+                                      withDuration: InterfaceConstants.defaultAnimationDuration,
+                                      callback: {})
         }
     }
 
@@ -263,7 +284,8 @@ class MainGameViewController: UIViewController {
         case .removeObject(let object):
             remove(object: object, withDuration: duration, callback: callback)
         case .showTravelChoices(let nodes, let selectCallback):
-            objectsController.makeChoosable(nodes: nodes, withDuration: duration, tapCallback: selectCallback, callback: callback)
+            objectsController.makeChoosable(nodes: nodes, withDuration: duration,
+                                            tapCallback: selectCallback, callback: callback)
         default:
             print("Unsupported event not handled.")
         }
