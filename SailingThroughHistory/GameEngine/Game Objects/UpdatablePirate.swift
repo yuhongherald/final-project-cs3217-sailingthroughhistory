@@ -6,13 +6,13 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatablePirate: EngineObject, Updatable {
+class UpdatablePirate: Updatable {
 
     var data: VisualAudioData? {
         get {
             let data = VisualAudioData(
                 contextualData: ContextualData.animated(images: Resources.Ships.pirate, startingFrame: 0, loopDuration: Double.infinity),
-                sound: GameSound.none)
+                sound: SoundData.none)
             return data
         }
     }

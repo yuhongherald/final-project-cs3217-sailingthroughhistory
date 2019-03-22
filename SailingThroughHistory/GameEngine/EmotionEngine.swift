@@ -7,9 +7,8 @@
 //
 
 class EmotionEngine: GenericTurnBasedGame {
-    private let gameLogic: GameLogic
+    let gameLogic: GameLogic
 
-    var playerTurn: PlayerTurn? // TODO: marked for deletion
     var currentGameTime: Double = 0
     var largestTimeStep: Double = EngineConstants.largestTimeStep
     var forecastDuration: Double = EngineConstants.forecastDuration
@@ -37,15 +36,15 @@ class EmotionEngine: GenericTurnBasedGame {
         while timeDifference * gameSpeed * externalGameSpeed > largestTimeStep {
             // we break it into multiple cycles
             timeDifference -= largestTimeStep / gameSpeed / externalGameSpeed
-            guard let event = updateGameSpeed(largestTimeStep) else {
-                continue
+            let event = updateGameSpeed(largestTimeStep)
+            if event != nil {
+                return (event, )
             }
-            return event
         }
         return updateGameSpeed(timeDifference * gameSpeed * externalGameSpeed)
     }
 
-    func finishCachedUpdates() -> GenericGameEvent? {
+    func finishCachedUpdates() -> (GenericGameEvent?, AnyIterator<Updatable>) {
         while let updatable = updatableCache?.next() {
             _ = updatable.update()
             guard let event = updatable.checkForEvent() else {
@@ -56,7 +55,8 @@ class EmotionEngine: GenericTurnBasedGame {
         return nil
     }
 
-    private func updateGameSpeed(_ deltaTime: Double) -> GenericGameEvent? {
+    private func updateGameSpeed(_ deltaTime: Double) ->
+        (GenericGameEvent?, AnyIterator<Updatable> {
         currentGameTime += deltaTime
         guard let event = updateGameStateDeltatime(deltaTime) else {
             updatableCache = nil
@@ -97,7 +97,8 @@ class EmotionEngine: GenericTurnBasedGame {
         return gameSpeed
     }
 
-    private func updateGameStateDeltatime(_ deltaTime: Double) -> GenericGameEvent? {
+    private func updateGameStateDeltatime(_ deltaTime: Double) ->
+        (GenericGameEvent?, AnyIterator<Updatable>) {
         updatableCache = gameLogic.getUpdatables(deltaTime: deltaTime)
         return finishCachedUpdates()
     }

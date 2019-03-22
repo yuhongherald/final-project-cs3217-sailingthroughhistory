@@ -143,6 +143,10 @@ class Interface {
         pendingEvents.append(.removePath(path))
     }
 
+    func displayMessage(data: VisualAudioData) {
+        
+    }
+
     /// Subscribes to this Interface. The callback will be called when `InterfaceEvents` are broadcasted.
     ///
     /// - Parameter callback: Called when `InterfaceEvents` are broadcasted as the parameter.

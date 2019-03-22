@@ -6,13 +6,13 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatableTime: EngineObject, Updatable {
+class UpdatableTime: Updatable {
 
     var data: VisualAudioData? {
         get {
             return VisualAudioData(
                 contextualData: ContextualData.message(message: "This is the game time"),
-                sound: GameSound.none)
+                sound: SoundData.none)
         }
     }
 

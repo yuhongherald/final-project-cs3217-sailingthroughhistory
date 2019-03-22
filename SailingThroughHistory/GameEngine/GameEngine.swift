@@ -9,14 +9,14 @@
 import UIKit
 
 class GameEngine {
+    private var hasStarted: Bool = false
     private var isRunning: Bool = false
     private var isValid: Bool = true
-    private var isPlayerTurn: Bool = false
-    private var gameLogic: GenericGameLogic
 
-    // something for me to draw on
-    private let interface: Interface
     private var emotionEngine: GenericTurnBasedGame
+    private var endGame: (() -> Void)?
+
+    private let interface: Interface
     private let wrapper: GenericAsyncWrap
     private let diceFactory: DiceFactory
     private let stopWatch: Stopwatch = Stopwatch(smallestInterval:
@@ -34,66 +34,79 @@ class GameEngine {
     }
 
     init(interface: Interface, emotionEngine: GenericTurnBasedGame,
-         gameLogic: GenericGameLogic,
          asyncWrapper: GenericAsyncWrap, diceFactory: DiceFactory) {
         self.interface = interface
         self.emotionEngine = emotionEngine
         self.wrapper = asyncWrapper
         self.diceFactory = diceFactory
-        self.gameLogic = gameLogic
     }
 
-    func start(endGame: @escaping () -> Void) {
-        if isRunning || !isValid {
+    func start(endGame: (() -> Void)?) {
+        if hasStarted || !isValid {
             return
         }
+        hasStarted = true
         isRunning = true
         stopWatch.resetTimer()
         stopWatch.start()
-        repeatLoop(endGame)
+        self.endGame = endGame
+        loop()
     }
 
     func roll(lower: Int, upper: Int) -> Int {
         return diceFactory.createDice(lower: lower, upper: upper).roll()
     }
 
-    /// invalidates the event cache in the emotion engine
-    func endTurn() {
+    func asyncPause() {
         wrapper.async {
-            self.stopWatch.start()
-            self.isPlayerTurn = false
-            self.interface.endPlayerTurn()
-            self.interface.broadcastInterfaceChanges(withDuration: 0)
-            self.emotionEngine.invalidateCache()
+            self.pause()
         }
     }
 
-    private func repeatLoop(_ endGame: @escaping () -> Void) {
+    private func pause() {
+        stopWatch.stop()
+        isRunning = false
+    }
+
+    // invalidate the cache if there is a change that makes predicted outcomes invalid
+    func resume(invalidateCache: Bool) {
+        stopWatch.start()
+        emotionEngine.invalidateCache()
+        loop()
+    }
+
+    private func loop() {
         wrapper.async {
-            guard self.isValid else {
-                endGame()
-                return
+            while self.isValid || self.isRunning {
+                let (newEvent, updatables) = self.updateGameState()
+                self.updateObjects(updatables: updatables)
+                self.updateInterface(newEvent: newEvent)
             }
-            self.loop(endGame)
+            if !self.isValid {
+                self.endGame?()
+            }
         }
     }
 
-    private func loop(_ endGame: @escaping () -> Void) {
-        while isValid {
-            let newEvent = updateGameState()
-            updateInterface(newEvent: newEvent)
-        }
-    }
-
-    private func updateGameState() -> GenericGameEvent? { // change
+    private func updateGameState() -> (GenericGameEvent?, AnyIterator<Updatable>) {
         guard !emotionEngine.hasCachedUpdates() else {
             return emotionEngine.finishCachedUpdates()
         }
         let newTime = stopWatch.getTimestamp()
         let timeDifference = (newTime - emotionEngine.currentGameTime)
-        let updatables = gameLogic.getUpdatables(deltaTime: timeDifference)
-        guard let event = emotionEngine.updateGameState(deltaTime: timeDifference) else {
-            return nil
+        return emotionEngine.updateGameState(deltaTime: timeDifference)
+        
+    }
+
+    private func updateObjects(updatables: AnyIterator<Updatable>) {
+        for updatable in updatables {
+            switch updatable.
+        }
+    }
+
+    private func updateInterface(newEvent: GenericGameEvent?) {
+        guard let event = newEvent else {
+            return
         }
         switch event.eventType {
         case .actionRequired(playerIdentifier: let identifier):
@@ -105,23 +118,14 @@ class GameEngine {
             break
         default: break
         }
-        return nil
-    }
-
-    private func updateInterface(newEvent: GenericGameEvent?) {
-        for newObj in gameLogic.getNewGameObjects() {
-            // interface.add(object: newObj)
-        }
-        for updatedObj in gameLogic.getUpdatedGameObjects() {
-            // currrently updated directly, no further action required
-        }
-        for deletedObj in gameLogic.getDeletedGameObjects() {
-            // TODO: Dispose?
-            // interface.disposeBag.insert(deletedObj)
-        }
         guard let event = newEvent else {
             return
         }
-        // TODO: Draw message
+        switch event.eventType {
+        case .actionRequired(playerIdentifier: let player):
+            interface.startPlayerTurn(player: player)
+        case .informative(initiater: let initiator):
+            interface.showNotification(message: event.message)
+        }
     }
 }

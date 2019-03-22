@@ -6,14 +6,14 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatablePlayer: EngineObject, Updatable {
+class UpdatablePlayer: Updatable {
 
     var data: VisualAudioData? {
         get {
             let data = VisualAudioData(
                 contextualData: ContextualData.animated(images: Resources.Ships.british,
                     startingFrame: 0, loopDuration: Double.infinity),
-                sound: GameSound.none)
+                sound: SoundData.none)
             return data
         }
     }

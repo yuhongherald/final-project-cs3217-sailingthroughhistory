@@ -8,7 +8,6 @@
 
 protocol GenericTurnBasedGame {
     var externalGameSpeed: Double { get set }
-    var playerTurn: PlayerTurn? { get set }
     var currentGameTime: Double { get }
     /// Used to prevent event "tunneling"
     var largestTimeStep: Double { get set }
@@ -18,9 +17,9 @@ protocol GenericTurnBasedGame {
     func setGameSpeed(using event: Timestampable)
     /// updates the game state by taking a timestep, recursively
     /// also returns the closest forecasted event, if any
-    func updateGameState(deltaTime: Double) -> GenericGameEvent?
+    func updateGameState(deltaTime: Double) -> (GenericGameEvent?, AnyIterator<Updatable>)
 
-    func finishCachedUpdates() -> GenericGameEvent?
+    func finishCachedUpdates() -> (GenericGameEvent?, AnyIterator<Updatable>)
     func hasCachedUpdates() -> Bool
     func invalidateCache()
 }

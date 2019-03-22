@@ -7,13 +7,13 @@
 //
 
 // for MVP2
-class UpdatablePirateIsland: EngineObject, Updatable {
+class UpdatablePirateIsland: Updatable {
 
     var data: VisualAudioData? {
         get {
             return VisualAudioData(
                 contextualData: ContextualData.image(image: Resources.Misc.pirateNode),
-                sound: GameSound.none)
+                sound: SoundData.none)
         }
     }
 

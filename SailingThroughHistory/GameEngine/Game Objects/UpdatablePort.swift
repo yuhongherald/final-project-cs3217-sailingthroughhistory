@@ -6,12 +6,12 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatablePort: EngineObject, Updatable {
+class UpdatablePort: Updatable {
     var data: VisualAudioData? {
         get {
             let data = VisualAudioData(
                 contextualData: ContextualData.image(image: Resources.Misc.portNode),
-                sound: GameSound.none)
+                sound: SoundData.none)
             return data
         }
     }
