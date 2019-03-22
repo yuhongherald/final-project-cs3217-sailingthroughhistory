@@ -9,12 +9,12 @@
 import Foundation
 
 class Player: GenericPlayer {
-    public let money = GameVariable(value: 0)
-    public let state = GameVariable(value: PlayerState.endTurn)
-    public var name: String
-    public var interface: Interface?
+    let money = GameVariable(value: 0)
+    let state = GameVariable(value: PlayerState.endTurn)
+    var name: String
+    var interface: Interface?
     // TODO: should startingNode: Node without ?
-    public var startingNode: Node?
+    var startingNode: Node?
 
     private let ship: Ship
     private var shipChassis: ShipChassis?

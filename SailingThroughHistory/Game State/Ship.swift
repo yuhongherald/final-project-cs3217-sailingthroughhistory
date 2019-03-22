@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 class Ship {
-    public var name: String {
+    var name: String {
         return owner?.name ?? "NPC Ship"
     }
 
-    public let location: GameVariable<Location>
+    let location: GameVariable<Location>
 
     private let suppliesConsumed: [GenericItem]
     private let defaultWeightCapacity = 100
@@ -31,15 +31,15 @@ class Ship {
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
     private var shipUI: ShipUI?
 
-    public init(node: Node, suppliesConsumed: [GenericItem]) {
+    init(node: Node, suppliesConsumed: [GenericItem]) {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
         self.location = GameVariable(value: location)
         self.suppliesConsumed = suppliesConsumed
 
         shipUI = ShipUI(ship: self)
     }
-    
-    public func installUpgade(upgrade: Upgrade) {
+
+    func installUpgade(upgrade: Upgrade) {
         if owner?.money.value ?? 0 < upgrade.cost {
             // TODO: not enough money
         }
@@ -57,13 +57,13 @@ class Ship {
         }
     }
 
-    public func setOwner(owner: GenericPlayer?) {
+    func setOwner(owner: GenericPlayer?) {
         self.owner = owner
     }
 
     // Movement
-    
-    public func startTurn() {
+
+    func startTurn() {
         if isChasedByPirates && turnsToBeingCaught <= 0 {
             // TODO: Pirate event
 
@@ -72,7 +72,7 @@ class Ship {
         }
     }
 
-    public func getNodesInRange(roll: Int) -> [Node] {
+    func getNodesInRange(roll: Int) -> [Node] {
         let movement = computeMovement(roll: roll)
         let nodesFromStart = location.value.start.getNodesInRange(range: movement - location.value.fractionToEnd)
         if location.value.fractionToEnd == 0 {
@@ -82,15 +82,15 @@ class Ship {
         return Array(Set(nodesFromStart + nodesFromEnd))
     }
 
-    public func move(node: Node) {
+    func move(node: Node) {
         location.value = Location(start: node, end: node, fractionToEnd: 0, isDocked: false)
     }
 
-    public func canDock() -> Bool {
+    func canDock() -> Bool {
         return location.value.fractionToEnd == 0 && location.value.start is Port
     }
 
-    public func dock() -> Port? {
+    func dock() -> Port? {
         guard canDock() else {
             // TODO: Show some error
             return nil
@@ -106,18 +106,18 @@ class Ship {
 
     // Items
 
-    public func getPurchasableItemParameters() -> [ItemParameter] {
+    func getPurchasableItemParameters() -> [ItemParameter] {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return []
         }
         return port.itemParametersSold
     }
 
-    public func getItems() -> [GenericItem] {
+    func getItems() -> [GenericItem] {
         return items
     }
 
-    public func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
+    func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return 0
         }
@@ -128,7 +128,7 @@ class Ship {
     }
 
     // TODO: show errors
-    public func buyItem(itemParameter: ItemParameter, quantity: Int) {
+    func buyItem(itemParameter: ItemParameter, quantity: Int) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return
         }
@@ -147,7 +147,7 @@ class Ship {
     }
 
     // TODO: Show errors
-    public func sellItem(item: GenericItem) {
+    func sellItem(item: GenericItem) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return
         }
@@ -160,8 +160,8 @@ class Ship {
         owner?.money.value += profit
         items.remove(at: index)
     }
-    
-    public func endTurn() {
+
+    func endTurn() {
         if isChasedByPirates {
             turnsToBeingCaught -= 1
         }

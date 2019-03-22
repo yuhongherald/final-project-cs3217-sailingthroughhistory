@@ -11,7 +11,7 @@ import Foundation
 class ItemParameter: Codable {
     let displayName: String
     let weight: Int
-    public let itemType: ItemType
+    let itemType: ItemType
 
     private let isConsumable: Bool
     // User sell
