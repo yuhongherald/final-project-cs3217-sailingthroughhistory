@@ -35,6 +35,7 @@ class ItemParameter: Codable {
     }
 
     func getSellValue(at port: Port) -> Int? {
+        sellValues.forEach { print("key: \($0.key), value: \($0.value)") }
         return sellValues[port]
     }
 

@@ -13,7 +13,7 @@ protocol EditPanelDelegateProtocol {
 }
 
 class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    weak var delegate: EditPanelDelegateProtocol?
+    var delegate: EditPanelDelegateProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()

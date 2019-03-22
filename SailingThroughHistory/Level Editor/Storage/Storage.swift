@@ -17,6 +17,7 @@ class Storage {
 
         // Store level data
         let jsonEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .prettyPrinted
 
         guard let jsonData = try? jsonEncoder.encode(data),
               (try? background?.pngData()?.write(to: backgroundURL)) != nil,

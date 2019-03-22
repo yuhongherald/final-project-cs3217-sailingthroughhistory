@@ -649,10 +649,10 @@
             </objects>
             <point key="canvasLocation" x="1003" y="764"/>
         </scene>
-        <!--Item Picker View Controller-->
+        <!--Item Collection View Controller-->
         <scene sceneID="VbD-lt-Ks4">
             <objects>
-                <viewController storyboardIdentifier="itemEditTable" id="08g-fx-fPl" customClass="ItemPickerViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="itemEditTable" id="08g-fx-fPl" customClass="ItemCollectionViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Iq1-6O-SmF">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

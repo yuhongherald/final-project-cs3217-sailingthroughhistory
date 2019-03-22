@@ -27,7 +27,7 @@ class Port: Node {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        owner = try values.decode(Player.self, forKey: .owner)
+        owner = try values.decode(Player?.self, forKey: .owner)
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
     }

@@ -25,11 +25,10 @@ class LevelEditorViewController: UIViewController {
     private var upgrades = [Upgrade]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
-    private let gameParameter = GameParameter()
     private lazy var map = gameParameter.getMap()
+    var gameParameter = GameParameter()
 
     var editMode: EditMode?
-    private var pickedItem: ItemType?
     private var lineLayer = CAShapeLayer()
     private var destination: NodeView?
 
@@ -46,12 +45,42 @@ class LevelEditorViewController: UIViewController {
         castedDest.delegate = self
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let map = gameParameter.getMap()
+        // Add nodes to map
+        map.getNodes().forEach {
+            let nodeView = NodeView(node: $0)
+            let tapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnNode(_:)))
+            let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
+            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: [tapOnNodeGesture, drawPathGesture])
+        }
+        // Add paths to map
+        for path in map.getAllPaths() {
+            print("\(map.getAllPaths().count) - from: \(path.fromObject.frame) - to: \(path.toObject.frame)")
+            lineLayer = CAShapeLayer()
+            lineLayer.strokeColor = UIColor.black.cgColor
+            lineLayer.lineWidth = 2.0
+
+            let bazier = UIBezierPath()
+            bazier.move(to: CGPoint(x: path.fromObject.frame.midX,
+                                    y: path.fromObject.frame.midY))
+            bazier.addLine(to: CGPoint(x: path.toObject.frame.midX,
+                                       y: path.toObject.frame.midY))
+
+            lineLayer.path = bazier.cgPath
+            editingAreaWrapper.layer.addSublayer(lineLayer)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnMap(_:)))
         view.addGestureRecognizer(tapGesture)
 
+        // Set up default background
         let image = "worldmap1815"
         mapBackground.image = UIImage(named: image)
         map.addMap(image)
@@ -101,17 +130,20 @@ class LevelEditorViewController: UIViewController {
 
     @objc func tapOnNode(_ sender: UITapGestureRecognizer) {
         if editMode == .erase {
-            sender.view!.removeFromSuperview()
+            guard let nodeView = sender.view as? NodeView else {
+                return
+            }
+            nodeView.removeFrom(map: self.map)
         }
         if editMode == .item {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
-                as? ItemPickerViewController else {
+                as? ItemCollectionViewController else {
                 fatalError("Controller itemEditTable cannot be casted into ItemPickerViewController")
             }
 
             guard let portView = sender.view as? NodeView,
-                let _ = portView.node as? Port else {
+                let port = portView.node as? Port else {
                 let alert = UIAlertController(title: "Please select a port!", message: nil, preferredStyle: .alert)
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
                 alert.addAction(cancelAction)
@@ -119,7 +151,7 @@ class LevelEditorViewController: UIViewController {
                 return
             }
 
-            //controller.set(port: port, itemParameters: gameParameter.getItemParameter())
+            controller.set(port: port, itemParameters: gameParameter.getItemParameter())
             self.addChild(controller)
             view.addSubview(controller.view)
             controller.didMove(toParent: self)
@@ -173,11 +205,5 @@ class LevelEditorViewController: UIViewController {
         default:
             return
         }
-    }
-}
-
-extension LevelEditorViewController: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return editingAreaWrapper
     }
 }

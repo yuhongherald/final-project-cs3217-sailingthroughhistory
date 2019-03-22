@@ -8,10 +8,14 @@
 
 import UIKit
 
-class ItemPickerViewController: UIViewController, UICollectionViewDataSource, UITextFieldDelegate {
+class ItemCollectionViewController: UIViewController, UICollectionViewDataSource, UITextFieldDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     private var itemParameters: [ItemParameter] = []
     private var selectedPort: Port?
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.collectionView.reloadData()
+    }
 
     @IBAction func confirmPressed(_ sender: Any?) {
         guard let port = selectedPort else {
@@ -35,11 +39,13 @@ class ItemPickerViewController: UIViewController, UICollectionViewDataSource, UI
         }
 
         view.removeFromSuperview()
+        self.removeFromParent()
         self.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func cancelPressed(_ sender: Any?) {
         view.removeFromSuperview()
+        self.removeFromParent()
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -65,6 +71,7 @@ class ItemPickerViewController: UIViewController, UICollectionViewDataSource, UI
             return cell
         }
 
+        print("sellValue: \(itemParam.getSellValue(at: port)) - ")
         if let sellPrice = itemParam.getSellValue(at: port) {
             cell.sellField.text = String(sellPrice)
         }
