@@ -37,13 +37,17 @@ struct Path: Hashable, Codable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(fromObject, forKey: .fromObject)
-        try container.encode(toObject, forKey: .toObject)
-        // TODO: encode modifiers if needed
+        try container.encode(GameObject(images: fromObject.images,
+                                        frame: fromObject.frame,
+                                        loopDuration: fromObject.loopDuration,
+                                        startingFrame: fromObject.startingFrame), forKey: .fromObject)
+        try container.encode(GameObject(images: toObject.images,
+                                        frame: toObject.frame,
+                                        loopDuration: toObject.loopDuration,
+                                        startingFrame: toObject.startingFrame), forKey: .toObject)
     }
 
-    enum CodingKeys: String, CodingKey
-    {
+    enum CodingKeys: String, CodingKey {
         case fromObject
         case toObject
     }

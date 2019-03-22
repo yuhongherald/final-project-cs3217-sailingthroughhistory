@@ -119,14 +119,14 @@ class Ship {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return []
         }
-        return port.itemParametersSold
+        return port.getItemParametersSold()
     }
 
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
         guard let port = location.value.start as? Port, location.value.isDocked else {
             return 0
         }
-        guard let unitValue = itemParameter.getBuyValue(at: port) else {
+        guard let unitValue = port.getBuyValue(of: itemParameter.itemType) else {
             return 0
         }
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.unitWeight)

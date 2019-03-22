@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol GalleryViewDelegateProtocol {
+    func load(_ gameParameter: GameParameter)
+}
+
 class GalleryViewController: UIViewController {
     private var storage = Storage()
     private var levelNames: [String] = []
@@ -40,7 +44,7 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         let levelName = levelNames[indexPath.item]
         cell.label.text = levelName
-        cell.previewImage.image = storage.readPreviewImage(levelName)
+        cell.previewImage.image = storage.readImage(levelName)
 
         return cell
     }
@@ -59,6 +63,8 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let castedController = controller as? LevelEditorViewController else {
             fatalError("LevelEditorViewController not found.")
         }
+
+        castedController.load(gameParameter)
         self.present(castedController, animated: true, completion: nil)
     }
 }
