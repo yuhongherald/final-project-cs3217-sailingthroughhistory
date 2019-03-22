@@ -48,7 +48,6 @@ class LevelEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let map = gameParameter.getMap()
         // Add nodes to map
         map.getNodes().forEach {
             let nodeView = NodeView(node: $0)
@@ -77,13 +76,11 @@ class LevelEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let map = gameParameter.getMap()
+        mapBackground.image = storage.readImage(map.map)
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnMap(_:)))
         view.addGestureRecognizer(tapGesture)
-
-        // Set up default background
-        let image = "worldmap1815"
-        mapBackground.image = UIImage(named: image)
-        map.addMap(image)
     }
 
     @IBAction func editPressed(_ sender: Any) {
@@ -100,6 +97,7 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
+            self.map.addMap("\(name)background")
             self.storage.save(self.gameParameter, self.mapBackground.image,
                               preview: self.editingAreaWrapper.screenShot, with: name)
         }, textPlaceHolder: "Input level name here")

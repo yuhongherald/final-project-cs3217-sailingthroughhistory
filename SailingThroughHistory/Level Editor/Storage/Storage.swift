@@ -47,7 +47,7 @@ class Storage {
         return levelData
     }
 
-    func readPreviewImage(_ fileName: String) -> UIImage? {
+    func readImage(_ fileName: String) -> UIImage? {
         let url = getFullURL(from: fileName, ".png")
 
         guard let imageData = try? Data(contentsOf: url) else {

@@ -44,7 +44,7 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         let levelName = levelNames[indexPath.item]
         cell.label.text = levelName
-        cell.previewImage.image = storage.readPreviewImage(levelName)
+        cell.previewImage.image = storage.readImage(levelName)
 
         return cell
     }
