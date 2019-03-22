@@ -6,4 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import Foundation
+enum PortItemButtonAction {
+    case playerBuy(item: ItemParameter)
+    case playerSell(item: ItemParameter)
+}

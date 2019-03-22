@@ -10,32 +10,72 @@ import UIKit
 
 class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     private static let reuseIdentifier: String = "itemsTableCell"
+    private static let defaultPrice: Int = 100
+    private static let buyButtonLabel = "Buy"
+    private static let sellButtonLabel = "Sell"
     private static let boughtSection = 0
     private static let soldSection = 1
-    var itemsSold = [ItemParameter]()
-    var itemsBought = [ItemParameter]()
+    private let mainController: MainGameViewController
+    private var playerCanInteract = false
+    private var selectedPort: Port?
+    private var itemsSold = [ItemParameter]()
+    private var itemsBought = [ItemParameter]()
 
-    func didSelect(port: Port) {
+    init(mainController: MainGameViewController) {
+        self.mainController = mainController
+    }
+
+    func didSelect(port: Port, playerCanInteract: Bool) {
         self.itemsSold = port.itemParametersSold
-        self.itemsBought = port.itemParametersBought
+        self.playerCanInteract = playerCanInteract
+        self.selectedPort = port
+        // TODO: Update when bought array is added.
+        //self.itemsBought = port.itemParametersBought
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default,
-                               reuseIdentifier: PortItemTableDataSource.reuseIdentifier)
-        var array: [ItemParameter]?
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: PortItemTableDataSource.reuseIdentifier, for: indexPath)
+            as? UIPortItemTableCell
+
+        guard let tableCell = cell else {
+            preconditionFailure("Cell does not inherit from UIPortItemTableCell.")
+        }
+
+        guard let port = selectedPort else {
+            return tableCell
+        }
+
+        var array: [ItemParameter]
         switch indexPath.section {
         case PortItemTableDataSource.boughtSection:
             array = itemsBought
+            let item = array[indexPath.row]
+            tableCell.set(price: item.getSellValue(at: port) ??
+                PortItemTableDataSource.defaultPrice)
+            tableCell.set(buttonLabel: PortItemTableDataSource.sellButtonLabel)
+            tableCell.buttonPressedCallback = { [weak self] in
+                self?.mainController.portItemButtonPressed(action: .playerSell(item: item))
+            }
         case PortItemTableDataSource.soldSection:
             array = itemsSold
+            let item = array[indexPath.row]
+            tableCell.set(price: array[indexPath.row].getBuyValue(at: port) ??
+                PortItemTableDataSource.defaultPrice)
+            tableCell.set(buttonLabel: PortItemTableDataSource.buyButtonLabel)
+            tableCell.buttonPressedCallback = { [weak self] in
+                self?.mainController.portItemButtonPressed(action: .playerBuy(item: item))
+            }
         default:
-            break
+            array = []
         }
 
-        cell.textLabel?.text = array?[indexPath.row].displayName
+        tableCell.set(name: array[indexPath.row].displayName)
+        if !playerCanInteract {
+            tableCell.disable()
+        }
 
-        return cell
+        return tableCell
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,7 +93,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         }
     }
 
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case PortItemTableDataSource.boughtSection:
             return "Buying"

@@ -50,16 +50,18 @@ class MainGameViewController: UIViewController {
         }
     }
 
+    var currentTurnOwner: GenericPlayer?
     
     /// TODO: Reference to Game Engine
     private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
     private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
-    private lazy var objectsController: ObjectsViewController = ObjectsViewController(view: gameArea, mainController: self)
+    private lazy var objectsController: ObjectsViewController = ObjectsViewController(
+        view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView,
         togglePlayerTwoInfoButton: playerTwoInformationView]
-    private var portItemsDataSource = PortItemTableDataSource()
+    private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
 
     var interfaceBounds: CGRect {
         return interface.bounds
@@ -79,6 +81,7 @@ class MainGameViewController: UIViewController {
         let nodeDummy = Node(name: "testnode", image: "sea-node.png",
                              frame: CGRect(x: 500, y: 500, width: 50, height: 50))
         let object2 = Port(player: Player(name: "test", node: nodeDummy), pos: CGPoint(x: 500, y: 500))
+        object2.itemParametersSold = [ItemParameter(itemType: ItemType.opium, displayName: "Opium", weight: 1, isConsumable: true)]
         let path = Path(from: object, to: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
@@ -113,8 +116,13 @@ class MainGameViewController: UIViewController {
     func showInformation(ofPort port: Port) {
         portInformationView.isHidden = false
         portNameLabel.text = port.name
-        portItemsDataSource.didSelect(port: port)
+        portItemsDataSource.didSelect(port: port, playerCanInteract:
+            currentTurnOwner?.node === port)
         portItemsTableView.reloadData()
+    }
+
+    func portItemButtonPressed(action: PortItemButtonAction) {
+
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {

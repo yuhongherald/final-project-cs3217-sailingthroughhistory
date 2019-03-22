@@ -13,6 +13,7 @@ protocol GenericPlayer: Codable {
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }
     var interface: Interface? { get set }
+    var node: Node? { get }
 
     init(name: String, node: Node)
 
