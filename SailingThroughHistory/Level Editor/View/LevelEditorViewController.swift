@@ -9,15 +9,35 @@
 import UIKit
 
 class LevelEditorViewController: UIViewController {
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.delegate = self
+            scrollView.maximumZoomScale = 3
+        }
+    }
     @IBOutlet weak var editPanel: UIView!
+    @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
-    let map = Map()
-    let gameParameter = GameParameter()
+    @IBOutlet weak var panelToggle: UIButton!
+    private var showPanelMsg = "Show Panel"
+    private var hidePanelMsg = "Hide Panel"
+
+    private var upgrades = [Upgrade]()
+    private var playerParameters = [PlayerParameter]()
+    private var eventParameters = [EventParameter]()
+    private let gameParameter = GameParameter()
+    private lazy var map = gameParameter.getMap()
+
     var editMode: EditMode?
-    var pickedItem: ItemType?
-    var lineLayer: CAShapeLayer!
-    var destination: NodeView?
-    var cursor = UILabel()
+    private var pickedItem: ItemType?
+    private var lineLayer = CAShapeLayer()
+    private var destination: NodeView?
+
+    private let storage = Storage()
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let castedDest = segue.destination as? EditPanelViewController else {
@@ -29,36 +49,44 @@ class LevelEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(add(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnMap(_:)))
         view.addGestureRecognizer(tapGesture)
 
-        let image = UIImage(named: "worldmap1815")
-        mapBackground.image = image
-        map.addMap(mapBackground)
-
-        cursor.frame.size = CGSize(width: 50, height: 50)
-        view.addSubview(cursor)
+        let image = "worldmap1815"
+        mapBackground.image = UIImage(named: image)
+        map.addMap(image)
     }
 
     @IBAction func editPressed(_ sender: Any) {
-        editPanel.isHidden = false
-        view.bringSubviewToFront(editPanel)
+        if editPanel.isHidden {
+            editPanel.isHidden = false
+            panelToggle.setTitle(hidePanelMsg, for: .normal)
+            view.bringSubviewToFront(editPanel)
+        } else {
+            editPanel.isHidden = true
+            panelToggle.setTitle(showPanelMsg, for: .normal)
+            view.sendSubviewToBack(editPanel)
+        }
     }
 
     @IBAction func savePressed(_ sender: Any) {
-        let alert = UIAlert(title: "Save Level with Name: ", confirm: { _ in
-            //TODO: save level with name
+        let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
+            self.storage.save(self.gameParameter, self.mapBackground.image,
+                              preview: self.editingAreaWrapper.screenShot, with: name)
         }, textPlaceHolder: "Input level name here")
         alert.present(in: self)
     }
 
-    /// Add/Rmove icons to the map
-    @objc func add(_ sender: UITapGestureRecognizer) {
+    @objc func tapOnMap(_ sender: UITapGestureRecognizer) {
+        if editMode == .erase || editMode == .item {
+            return
+        }
+
         if !editPanel.isHidden {
             return
         }
 
-        let removeGesture = UITapGestureRecognizer(target: self, action: #selector(remove(_:)))
+        let tapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnNode(_:)))
         let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
         let location = sender.location(in: self.mapBackground)
 
@@ -66,25 +94,41 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
                 return
             }
-            nodeView.addTo(self, map: self.map, with: [removeGesture, drawPathGesture])
+            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: [tapOnNodeGesture, drawPathGesture])
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }
 
-    @objc func remove(_ sender: UITapGestureRecognizer) {
+    @objc func tapOnNode(_ sender: UITapGestureRecognizer) {
         if editMode == .erase {
             sender.view!.removeFromSuperview()
+        }
+        if editMode == .item {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
+                as? ItemPickerViewController else {
+                fatalError("Controller itemEditTable cannot be casted into ItemPickerViewController")
+            }
+
+            guard let portView = sender.view as? NodeView,
+                let _ = portView.node as? Port else {
+                let alert = UIAlertController(title: "Please select a port!", message: nil, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+
+            //controller.set(port: port, itemParameters: gameParameter.getItemParameter())
+            self.addChild(controller)
+            view.addSubview(controller.view)
+            controller.didMove(toParent: self)
         }
     }
 
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
-        guard editMode == .path || editMode == .item else {
+        guard editMode == .path else {
             return
-        }
-
-        if editMode == .item {
-            cursor.text = pickedItem?.rawValue
-            cursor.center = sender.location(in: mapBackground)
         }
 
         guard let fromNode = sender.view as? NodeView else {
@@ -106,7 +150,7 @@ class LevelEditorViewController: UIViewController {
             lineLayer.lineWidth = 2.0
 
             fromNode.highlighted(true)
-            mapBackground.layer.addSublayer(lineLayer)
+            editingAreaWrapper.layer.addSublayer(lineLayer)
         case .changed:
             bazier.addLine(to: endPoint)
             lineLayer.path = bazier.cgPath
@@ -117,20 +161,8 @@ class LevelEditorViewController: UIViewController {
             destination?.highlighted(false)
             destination = nil
 
-            // TODO: a better way to delocate cursor
-            cursor.text = ""
-
             guard let toNode = endView else {
                 lineLayer.removeFromSuperlayer()
-                return
-            }
-
-            if editMode == .item, let to = toNode.node as? Port, let from = fromNode.node as? Port {
-                let alert = UIAlert(title: "Input export money to: ", confirm: { money in
-                    // TODO: add item value
-                    //gameParameter.add
-                }, textPlaceHolder: "100")
-                alert.present(in: self)
                 return
             }
 
@@ -141,5 +173,11 @@ class LevelEditorViewController: UIViewController {
         default:
             return
         }
+    }
+}
+
+extension LevelEditorViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return editingAreaWrapper
     }
 }

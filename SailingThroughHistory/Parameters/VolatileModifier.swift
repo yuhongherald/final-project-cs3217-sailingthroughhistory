@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol VolatileModifier {
+protocol VolatileModifier: Codable {
     var isActive: Bool { get }
 
     func applyVelocityModifier(to oldVelocity: CGPoint) -> CGPoint

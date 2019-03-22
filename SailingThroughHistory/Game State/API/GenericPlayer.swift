@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol GenericPlayer {
+protocol GenericPlayer: Codable {
     var name: String { get }
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }

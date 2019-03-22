@@ -29,7 +29,7 @@ class NodeView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func addTo(_ vc: UIViewController, map: Map, with gestures: [UIGestureRecognizer]) {
+    func addTo(_ view: UIView, map: Map, with gestures: [UIGestureRecognizer]) {
         map.addNode(node)
 
         self.isUserInteractionEnabled = true
@@ -37,7 +37,7 @@ class NodeView: UIImageView {
         for gesture in gestures {
             self.addGestureRecognizer(gesture)
         }
-        vc.view.addSubview(self)
+        view.addSubview(self)
     }
 
     func highlighted(_ highlighted: Bool) {

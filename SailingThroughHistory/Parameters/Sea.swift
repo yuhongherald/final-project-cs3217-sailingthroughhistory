@@ -15,4 +15,8 @@ class Sea: Node {
     init(name: String, pos: CGPoint) {
         super.init(name: name, image: Sea.seaNodeImage, frame: CGRect(origin: pos, size: Sea.seaNodeSize))
     }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
 }

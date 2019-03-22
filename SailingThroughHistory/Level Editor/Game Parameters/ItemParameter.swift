@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ItemParameter {
+class ItemParameter: Codable {
     let displayName: String
     let weight: Int
     public let itemType: ItemType
@@ -25,17 +25,15 @@ class ItemParameter {
     }
 
     // Create a quantized representation
-    
     func createItem(quantity: Int) -> GenericItem {
         return Item(itemType: self, quantity: quantity)
     }
-    
+
     // Global pricing information
-    
     func getBuyValue(at port: Port) -> Int? {
         return buyValues[port]
     }
-    
+
     func getSellValue(at port: Port) -> Int? {
         return sellValues[port]
     }
@@ -46,13 +44,12 @@ class ItemParameter {
         }
         buyValues[port] = value
     }
-    
+
     func setSellValue(at port: Port, value: Int) {
         sellValues[port] = value
     }
-    
+
     // Availability at ports
-    
     func delete(from port: Port) {
         guard let index = port.itemParametersSold.firstIndex(where: { $0 == self }) else {
             return
@@ -63,8 +60,12 @@ class ItemParameter {
     }
 }
 
-extension ItemParameter: Equatable {
+extension ItemParameter: Hashable {
     static func == (lhs: ItemParameter, rhs: ItemParameter) -> Bool {
         return lhs.itemType == rhs.itemType
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.itemType)
     }
 }

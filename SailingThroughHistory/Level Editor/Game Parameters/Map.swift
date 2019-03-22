@@ -8,12 +8,12 @@
 
 import UIKit
 
-class Map {
-    var map = UIImageView(image: UIImage(named: "worldmap1815"))
+class Map: Codable {
+    var map = "worldmap1815"
     var nodes = [Node]()
     var paths = [GameObject: [Path]]()
 
-    func addMap(_ map: UIImageView) {
+    func addMap(_ map: String) {
         self.map = map
     }
 
