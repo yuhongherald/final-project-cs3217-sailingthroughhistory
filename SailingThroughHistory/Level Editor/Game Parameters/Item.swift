@@ -10,14 +10,14 @@ import Foundation
 
 class Item: GenericItem, Codable {
     var type: ItemType!
-    public let itemParameter: ItemParameter
-    public var weight: Int {
-        return quantity * itemParameter.weight
+    let itemParameter: ItemParameter
+    var unitWeight: Int {
+        return quantity * itemParameter.unitWeight
     }
     // TODO: prevent quantity from going below 0
-    public var quantity: Int
+    var quantity: Int
 
-    public required init(itemType: ItemParameter, quantity: Int) {
+    required init(itemType: ItemParameter, quantity: Int) {
         self.itemParameter = itemType
         self.quantity = quantity
     }
@@ -36,7 +36,7 @@ class Item: GenericItem, Codable {
     }
 
     func getBuyValue(at port: Port) -> Int? {
-        guard let unitValue = itemParameter.getSellValue(at: port) else {
+        guard let unitValue = port.getBuyValue(of: type) else {
             // TODO: Error
             return nil
         }
@@ -44,7 +44,7 @@ class Item: GenericItem, Codable {
     }
 
     func sell(at port: Port) -> Int? {
-        guard let unitValue = itemParameter.getSellValue(at: port) else {
+        guard let unitValue = port.getSellValue(of: type) else {
             // TODO: Error
             return nil
         }

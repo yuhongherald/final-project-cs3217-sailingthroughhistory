@@ -38,8 +38,7 @@ class PlayerParameter: Codable {
         try container.encode(node, forKey: .node)
     }
 
-    enum CodingKeys: String, CodingKey
-    {
+    enum CodingKeys: String, CodingKey {
         case name
         case money
         case node

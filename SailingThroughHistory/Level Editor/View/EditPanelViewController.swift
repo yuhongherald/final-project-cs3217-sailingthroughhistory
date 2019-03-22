@@ -7,13 +7,13 @@
 //
 
 import UIKit
-protocol EditPanelDelegateProtocol {
+protocol EditPanelDelegateProtocol: class {
     func clicked(_ select: EditMode)
     func addMapBackground(_ image: UIImage)
 }
 
 class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    weak var delegate: EditPanelDelegateProtocol?
+    var delegate: EditPanelDelegateProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()

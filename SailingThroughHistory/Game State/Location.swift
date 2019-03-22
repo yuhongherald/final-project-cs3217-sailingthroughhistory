@@ -9,12 +9,12 @@
 import Foundation
 
 class Location {
-    public let start: Node
-    public let end: Node
-    public let fractionToEnd: Double
-    public let isDocked: Bool
+    let start: Node
+    let end: Node
+    let fractionToEnd: Double
+    let isDocked: Bool
 
-    public init(start: Node, end: Node, fractionToEnd: Double, isDocked: Bool) {
+    init(start: Node, end: Node, fractionToEnd: Double, isDocked: Bool) {
         self.start = start
         self.end = end
         // Clamp to 0 and 1
@@ -22,7 +22,7 @@ class Location {
         self.isDocked = isDocked
     }
 
-    public init(from location: Location, isDocked: Bool) {
+    init(from location: Location, isDocked: Bool) {
         start = location.start
         end = location.end
         fractionToEnd = location.fractionToEnd

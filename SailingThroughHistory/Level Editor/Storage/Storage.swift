@@ -17,6 +17,7 @@ class Storage {
 
         // Store level data
         let jsonEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .prettyPrinted
 
         guard let jsonData = try? jsonEncoder.encode(data),
               (try? background?.pngData()?.write(to: backgroundURL)) != nil,
@@ -46,7 +47,7 @@ class Storage {
         return levelData
     }
 
-    func readPreviewImage(_ fileName: String) -> UIImage? {
+    func readImage(_ fileName: String) -> UIImage? {
         let url = getFullURL(from: fileName, ".png")
 
         guard let imageData = try? Data(contentsOf: url) else {

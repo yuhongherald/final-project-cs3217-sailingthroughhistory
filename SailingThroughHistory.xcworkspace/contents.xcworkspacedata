@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:GenericGameInterface.swift">
+      location = "container:SailingThroughHistory.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:SailingThroughHistory.xcodeproj">

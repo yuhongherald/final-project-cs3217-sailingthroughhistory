@@ -8,10 +8,14 @@
 
 import UIKit
 
-class ItemPickerViewController: UIViewController, UICollectionViewDataSource, UITextFieldDelegate {
+class ItemCollectionViewController: UIViewController, UICollectionViewDataSource, UITextFieldDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     private var itemParameters: [ItemParameter] = []
     private var selectedPort: Port?
+
+    override func viewWillAppear(_ animated: Bool) {
+        self.collectionView.reloadData()
+    }
 
     @IBAction func confirmPressed(_ sender: Any?) {
         guard let port = selectedPort else {
@@ -26,26 +30,28 @@ class ItemPickerViewController: UIViewController, UICollectionViewDataSource, UI
             let itemParam = itemParameters[indexPath.item]
 
             if let buyPriceText = castedCell.buyField.text, let buyPrice = Int(buyPriceText) {
-                itemParam.setBuyValue(at: port, value: buyPrice)
+                port.setBuyValue(of: itemParam.itemType, value: buyPrice)
             }
 
             if let sellPriceText = castedCell.sellField.text, let sellPrice = Int(sellPriceText) {
-                itemParam.setSellValue(at: port, value: sellPrice)
+                port.setSellValue(of: itemParam.itemType, value: sellPrice)
             }
         }
 
         view.removeFromSuperview()
+        self.removeFromParent()
         self.dismiss(animated: true, completion: nil)
     }
 
     @IBAction func cancelPressed(_ sender: Any?) {
         view.removeFromSuperview()
+        self.removeFromParent()
         self.dismiss(animated: true, completion: nil)
     }
 
-    func set(port: Port, itemParameters: Set<ItemParameter>) {
+    func initWith(port: Port) {
         self.selectedPort = port
-        self.itemParameters = Array(itemParameters)
+        self.itemParameters = port.getAllItemParameters()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -65,14 +71,27 @@ class ItemPickerViewController: UIViewController, UICollectionViewDataSource, UI
             return cell
         }
 
-        if let sellPrice = itemParam.getSellValue(at: port) {
+        if let sellPrice = port.getSellValue(of: itemParam.itemType) {
             cell.sellField.text = String(sellPrice)
         }
 
-        if let buyPrice = itemParam.getBuyValue(at: port) {
+        if let buyPrice = port.getBuyValue(of: itemParam.itemType) {
             cell.buyField.text = String(buyPrice)
         }
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            return collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind, withReuseIdentifier: "itemCollectionHeaderView",
+                    for: indexPath)
+        default:
+            assert(false, "Invalid element type")
+        }
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,

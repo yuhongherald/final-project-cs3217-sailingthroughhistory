@@ -7,14 +7,21 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol GenericPlayer: Codable {
     var name: String { get }
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }
     var interface: Interface? { get set }
+    var node: Node? { get }
 
     init(name: String, node: Node)
+    
+    // subscribes
+    func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void)
+    func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void)
+    func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void)
 
     // Before moving
     func startTurn()
