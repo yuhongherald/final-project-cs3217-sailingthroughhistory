@@ -23,12 +23,25 @@ struct ObjectsViewController {
     }
 
     func onTap(objectView: UIGameObjectImageView) {
-        guard objectView.tapCallback != nil,
-            objectView.object as? Node != nil else {
+        if objectView.tapCallback != nil,
+            objectView.object as? Node != nil {
+                onTapChoosableNode(nodeView: objectView)
                 return
         }
 
-        objectView.callTapCallback()
+        if objectView.object as? Port != nil {
+            onTapPort(portView: objectView)
+            return
+        }
+    }
+
+    private func onTapChoosableNode(nodeView: UIGameObjectImageView) {
+        guard nodeView.tapCallback != nil,
+            nodeView.object as? Node != nil else {
+            return
+        }
+
+        nodeView.callTapCallback()
 
         // Remove glow/callback from nodes.
         views.values
@@ -36,8 +49,15 @@ struct ObjectsViewController {
             .forEach {
                 $0.removeGlow()
                 $0.tapCallback = nil
-                $0.isUserInteractionEnabled = false
         }
+    }
+
+    private func onTapPort(portView: UIGameObjectImageView) {
+        guard let port = portView.object as? Port else {
+            return
+        }
+
+        mainController.showInformation(ofPort: port)
     }
 
     mutating func add(object: GameObject, at frame: CGRect, withDuration duration: TimeInterval,
@@ -45,23 +65,32 @@ struct ObjectsViewController {
         views[object]?.removeFromSuperview()
         let image = UIImage(named: object.image)
         let view = UIGameObjectImageView(image: image, object: object)
+        if object.isAnimated {
+            let images = object.images
+            view.animationImages = object.images
+                .rotatedLeft(
+                    by: UInt(object.startingFrame))
+                .compactMap { UIImage(named: $0 )}
+            view.animationDuration = object.loopDuration
+            view.startAnimating()
+        }
         views[object] = view
         view.alpha = 0
         self.view.addSubview(view)
-        view.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds, otherFrame: frame, to: self.view.bounds)
+        view.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds,
+                                            otherFrame: frame, to: self.view.bounds)
         UIView.animate(withDuration: duration, animations: {
             view.alpha = 1
         }, completion: { _ in callback() })
     }
 
     mutating func remove(object: GameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        let view = views[object]
-        UIView.animate(withDuration: duration, animations: {
-            view?.alpha = 0
-        }, completion: { _ in
-            view?.removeFromSuperview()
+        guard let view = views.removeValue(forKey: object) else {
             callback()
-        })
+            return
+        }
+
+        view.fadeOutAndRemove(withDuration: duration, completion: callback)
     }
 
     func makeChoosable(nodes: [Node], withDuration duration: TimeInterval, tapCallback: @escaping (GameObject) -> Void, callback: @escaping () -> Void) {

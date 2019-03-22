@@ -15,7 +15,7 @@ enum InterfaceEvent {
     case addObject(_: GameObject, atFrame: CGRect)
     case addPath(_: Path)
     case changeMonth(toMonth: String)
-    case playerTurnStart(player: Player, timeLimit: TimeInterval?, timeOutCallback: () -> Void)
+    case playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: () -> Void)
     case playerTurnEnd
     case removeObject(_: GameObject)
     case removePath(_: Path)

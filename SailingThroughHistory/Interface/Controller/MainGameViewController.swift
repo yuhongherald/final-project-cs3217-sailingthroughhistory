@@ -20,9 +20,11 @@ class MainGameViewController: UIViewController {
             scrollView.maximumZoomScale = 3
         }
     }
+    @IBOutlet private weak var environmentView: UIView!
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
     @IBOutlet private weak var portInformationView: UIView!
+    @IBOutlet private weak var portNameLabel: UILabel!
     @IBOutlet private weak var playerOneInformationView: UIView!
     @IBOutlet private weak var playerTwoInformationView: UIView!
     @IBOutlet private weak var countdownLabel: CountdownLabel!
@@ -65,8 +67,9 @@ class MainGameViewController: UIViewController {
         //Uncomment to test interface
         let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         self.interface.add(object: object)
-        let object2 = Node(name: "testnode", image: "sea-node.png",
-                           frame: CGRect(x: 500, y: 500, width: 50, height: 50))
+        let nodeDummy = Node(name: "testnode", image: "sea-node.png",
+                             frame: CGRect(x: 500, y: 500, width: 50, height: 50))
+        let object2 = Port(player: Player(name: "test", node: nodeDummy), pos: CGPoint(x: 500, y: 500))
         let path = Path(from: object, to: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
@@ -98,6 +101,11 @@ class MainGameViewController: UIViewController {
         return objectsController.getFrame(for: object)
     }
 
+    func showInformation(ofPort port: Port) {
+        portInformationView.isHidden = false
+        portNameLabel.text = port.name
+    }
+
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
         togglablePanels[sender]?.isHidden.toggle()
     }
@@ -125,31 +133,22 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    private func addBlurBackground(to view: UIView) {
-        view.backgroundColor = UIColor.clear
-        let blurEffect = UIBlurEffect(style: .extraLight)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurView.frame = view.bounds
-        blurView.alpha = 0.7
-        view.insertSubview(blurView, at: 0)
-    }
-
     private func initBackground() {
         guard let image = UIImage(named: interface.background),
-            let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper,
-            let oldScrollView = self.scrollView else {
+            let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
             return
         }
 
         backgroundImageView.contentMode = .topLeft
         backgroundImageView.frame = CGRect(origin: CGPoint.zero, size: image.size)
         gameAndBackgroundWrapper.frame = backgroundImageView.frame
-        gameArea.frame = backgroundImageView.frame
+        gameAndBackgroundWrapper.subviews.forEach {
+            $0.frame = gameAndBackgroundWrapper.frame
+        }
 
         scrollView.contentSize = image.size
         scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
-        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
+        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
         backgroundImageView.image = image
     }
 

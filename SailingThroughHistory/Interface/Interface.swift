@@ -13,13 +13,12 @@ class Interface {
     let bounds: CGRect
     let background: String = "worldmap1815.png"
     let events = InterfacePublishSubject<InterfaceEvents>()
-    let disposeBag = DisposeBag()
     let monthSymbols = Calendar.current.monthSymbols
     let players: [GenericPlayer]
-    var pendingEvents = [InterfaceEvent]()
-    var objectFrames = [GameObject: CGRect]()
-    var paths = [GameObject: [Path]]()
-    var currentTurnOwner: GenericPlayer?
+    private(set) var pendingEvents = [InterfaceEvent]()
+    private(set) var objectFrames = [GameObject: CGRect]()
+    private(set) var paths = [GameObject: [Path]]()
+    private(set) var currentTurnOwner: GenericPlayer?
 
     init(players: [Player], bounds: CGRect) {
         self.players = players
@@ -76,7 +75,7 @@ class Interface {
     ///   - player: The `Player` "owner" of the turn.
     ///   - timeLimit: The time limit (in seconds).
     ///   - timeOutCallback: Called when the time limit is reached.
-    func playerTurnStart(player: Player, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void) {
+    func playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void) {
         pendingEvents.append(.playerTurnStart(player: player, timeLimit: timeLimit, timeOutCallback: timeOutCallback))
     }
 
@@ -149,6 +148,11 @@ class Interface {
     /// - Parameter callback: Called when `InterfaceEvents` are broadcasted as the parameter.
     func subscribe(callback: @escaping (Event<InterfaceEvents>) -> Void) {
         return events.subscribe(callback: callback)
+    }
+
+    /// Add a pending operation to end the player turn
+    func endPlayerTurn() {
+        pendingEvents.append(.playerTurnEnd)
     }
 
     private func addPathToState(path: Path) -> Bool {

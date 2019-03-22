@@ -9,27 +9,20 @@
 import UIKit
 
 class NodeView: UIImageView {
-    var node: Node!
-    lazy var nodeLabel: UILabel = {
-        let label = UILabel()
-        label.frame.origin = CGPoint(x: 0, y: -15)
-        label.backgroundColor = .white
-
-        label.textAlignment = .center
-        label.font = label.font.withSize(10)
-
-        return label
-    }()
+    var node: Node
+    var nodeLabel: UILabel
 
     init(node: Node) {
-        super.init(frame: .zero)
+        self.node = node
+        self.nodeLabel = NodeView.getBlankLabel()
+        super.init(frame: node.frame)
+        self.image = UIImage(named: node.image)
         self.node = node
         self.frame = node.frame
 
         nodeLabel.text = node.name
         nodeLabel.frame.size = CGSize(width: node.frame.size.width, height: 15)
         self.addSubview(nodeLabel)
-        self.image = UIImage(named: node.image)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -55,5 +48,16 @@ class NodeView: UIImageView {
             self.layer.borderColor = nil
             self.layer.borderWidth = 0
         }
+    }
+
+    private static func getBlankLabel() -> UILabel {
+        let label = UILabel()
+        label.frame.origin = CGPoint(x: 0, y: -15)
+        label.backgroundColor = .white
+
+        label.textAlignment = .center
+        label.font = label.font.withSize(10)
+
+        return label
     }
 }
