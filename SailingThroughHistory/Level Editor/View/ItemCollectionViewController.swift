@@ -81,6 +81,19 @@ class ItemCollectionViewController: UIViewController, UICollectionViewDataSource
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            return collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind, withReuseIdentifier: "itemCollectionHeaderView",
+                    for: indexPath)
+        default:
+            assert(false, "Invalid element type")
+        }
+    }
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
         let invalidCharacters = CharacterSet(charactersIn: "0123456789").inverted
