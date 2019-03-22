@@ -9,7 +9,7 @@
 import Foundation
 
 class GameParameter: Codable {
-    public var itemParameters = Set<ItemParameter>()
+    var itemParameters = Set<ItemParameter>()
     private var storages = [Port: [Item]]()
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()

@@ -7,22 +7,22 @@
 //
 
 import Foundation
+import RxSwift
 
 class Player: GenericPlayer {
-    public let money = GameVariable(value: 0)
-    public let state = GameVariable(value: PlayerState.endTurn)
-    public var name: String
-    public var node: Node? {
+    let money = GameVariable(value: 0)
+    let state = GameVariable(value: PlayerState.endTurn)
+    var name: String
+    var node: Node? {
         return getNodesInRange(roll: 0).first
     }
-    public var items: [GenericItem] {
-        return ship.getItems()
-    }
-    public var interface: Interface?
+    var interface: Interface?
     // TODO: should startingNode: Node without ?
-    public var startingNode: Node?
+    var startingNode: Node?
 
     private let ship: Ship
+    private var shipChassis: ShipChassis?
+    private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
     required init(name: String, node: Node) {
         self.name = name
@@ -54,9 +54,10 @@ class Player: GenericPlayer {
     }
 
     func buyUpgrade(upgrade: Upgrade) {
-        // TODO: Add upgrades
+        ship.installUpgade(upgrade: upgrade)
     }
 
+    // TODO: Next milestone
     func setTax(port: Port, amount: Int) {
         port.taxAmount = amount
     }
@@ -98,9 +99,23 @@ class Player: GenericPlayer {
         ship.endTurn()
     }
 
-    private enum CodingKeys: String, CodingKey
-    {
+    private enum CodingKeys: String, CodingKey {
         case name
         case startingNode
+    }
+}
+
+// MARK - subscribes
+extension Player {
+    func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void) {
+        ship.subscribeToItems(with: observer)
+    }
+
+    func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void) {
+        ship.subscribeToCargoWeight(with: observer)
+    }
+    
+    func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void) {
+        ship.subscribeToWeightCapcity(with: observer)
     }
 }

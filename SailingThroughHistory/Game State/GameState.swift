@@ -21,20 +21,20 @@ class GameState: GenericGameState {
         self.interface = interface
     }
 
-    public func loadLevel(level: GenericLevel) {
+    func loadLevel(level: GenericLevel) {
         players = level.getPlayers()
         for var player in players {
             player.interface = interface
         }
     }
 
-    public func getNextPlayer() -> GenericPlayer? {
+    func getNextPlayer() -> GenericPlayer? {
         let nextPlayer = playerTurnOrder.removeFirst()
         nextPlayer.state.value = PlayerState.moving
         return nextPlayer
     }
 
-    public func startNextTurn(speedMultiplier: Double) {
+    func startNextTurn(speedMultiplier: Double) {
         self.speedMultiplier = speedMultiplier
         playerTurnOrder.removeAll()
         for player in players {
@@ -42,6 +42,6 @@ class GameState: GenericGameState {
         }
     }
 
-    public func endGame() {
+    func endGame() {
     }
 }
