@@ -189,13 +189,15 @@ class MainGameViewController: UIViewController {
 
     private func syncObjectsAndPaths(with interface: Interface) {
         interface.objectFrames.forEach {
-            objectsController.add(object: $0.key, at: $0.value, withDuration: 0.25, callback: {})
+            objectsController.add(object: $0.key, at: $0.value,
+                                  withDuration: InterfaceConstants.defaultAnimationDuration,
+                                  callback: {})
         }
 
-        interface.paths.keys.forEach { [weak self] in
-            interface.paths[$0]?.forEach { path in
-                self?.pathsController.add(path: path, withDuration: 0.25, callback: {})
-            }
+        interface.paths.allPaths.forEach { [weak self] in
+            self?.pathsController.add(path: $0,
+                                      withDuration: InterfaceConstants.defaultAnimationDuration,
+                                      callback: {})
         }
     }
 
@@ -263,7 +265,8 @@ class MainGameViewController: UIViewController {
         case .removeObject(let object):
             remove(object: object, withDuration: duration, callback: callback)
         case .showTravelChoices(let nodes, let selectCallback):
-            objectsController.makeChoosable(nodes: nodes, withDuration: duration, tapCallback: selectCallback, callback: callback)
+            objectsController.makeChoosable(nodes: nodes, withDuration: duration,
+                                            tapCallback: selectCallback, callback: callback)
         default:
             print("Unsupported event not handled.")
         }
