@@ -15,6 +15,9 @@ class Player: GenericPlayer {
     public var node: Node? {
         return getNodesInRange(roll: 0).first
     }
+    public var items: [GenericItem] {
+        return ship.getItems()
+    }
     public var interface: Interface?
     // TODO: should startingNode: Node without ?
     public var startingNode: Node?

@@ -332,6 +332,7 @@ class MainGameViewController: UIViewController {
         actionPanelView.isHidden = true
         toggleActionPanelButton.isHidden = true
         countdownLabel.isHidden = true
+        portInformationView.isHidden = true
     }
 
     private func changeMonth(to newMonth: String, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
