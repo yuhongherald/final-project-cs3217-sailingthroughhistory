@@ -9,7 +9,7 @@
 import UIKit
 
 struct PathsViewController {
-    private var paths = [GameObject: [Path]]()
+    private var paths = ObjectPaths()
     private var pathLayers = [Path: CALayer]()
     private unowned let mainController: MainGameViewController
     private let view: UIView
@@ -20,15 +20,7 @@ struct PathsViewController {
     }
 
     mutating func add(path: Path, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        if paths[path.fromObject] == nil {
-            paths[path.fromObject] = []
-        }
-
-        if paths[path.toObject] == nil {
-            paths[path.toObject] = []
-        }
-
-        if paths[path.toObject]?.contains(path) ?? false && paths[path.fromObject]?.contains(path) ?? false {
+        if paths.contains(path: path) {
             return
         }
 
@@ -37,8 +29,7 @@ struct PathsViewController {
                 return
         }
 
-        paths[path.fromObject]?.append(path)
-        paths[path.toObject]?.append(path)
+        paths.add(path: path)
 
         addToView(path: path, from: fromFrame, to: toFrame, withDuration: duration, callback: callback)
     }
@@ -68,8 +59,7 @@ struct PathsViewController {
     }
 
     mutating func remove(path: Path, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        paths[path.fromObject]?.removeAll { $0 == path }
-        paths[path.toObject]?.removeAll { $0 == path }
+        paths.remove(path: path)
         let layer = pathLayers.removeValue(forKey: path)
         CATransaction.begin()
         CATransaction.setCompletionBlock {
@@ -86,7 +76,7 @@ struct PathsViewController {
     }
 
     mutating func removeAllPathsAssociated(with object: GameObject, withDuration duration: TimeInterval) {
-        for path in paths[object, default: []] {
+        for path in paths.getPathsFor(object: object) {
             remove(path: path, withDuration: duration, callback: {})
         }
     }

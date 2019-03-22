@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+import UIKit
+
 enum InterfaceConstants {
     static let moneyPrefix = "Gold: "
+    static let defaultAnimationDuration: TimeInterval = 0.25
 }
