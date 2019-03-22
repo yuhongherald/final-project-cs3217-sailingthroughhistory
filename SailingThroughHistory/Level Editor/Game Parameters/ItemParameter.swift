@@ -10,8 +10,8 @@ import Foundation
 
 class ItemParameter: Codable {
     let displayName: String
-    let weight: Int
-    public let itemType: ItemType
+    let unitWeight: Int
+    let itemType: ItemType
 
     private let isConsumable: Bool
     private var sellValue: Int?
@@ -20,7 +20,7 @@ class ItemParameter: Codable {
     required public init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {
         self.itemType = itemType
         self.displayName = displayName
-        self.weight = weight
+        self.unitWeight = weight
         self.isConsumable = isConsumable
     }
 

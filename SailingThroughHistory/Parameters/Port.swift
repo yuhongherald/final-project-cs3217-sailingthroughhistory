@@ -19,7 +19,7 @@ class Port: Node {
         return dictionary
     }()
     // TODO: add item quantity editing in level editor
-    private var itemsSold = [Item]()
+    var itemParametersSold = [ItemParameter]()
 
     private static let portNodeSize = CGSize(width: 50, height: 50)
     private static let portNodeImage = "port-node.png"
@@ -37,7 +37,7 @@ class Port: Node {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         owner = try values.decode(Player?.self, forKey: .owner)
         itemParameters = try values.decode([ItemType: ItemParameter].self, forKey: .itemParameters)
-        itemsSold = try values.decode([Item].self, forKey: .itemsSold)
+        itemParametersSold = try values.decode([ItemParameter].self, forKey: .itemsSold)
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
     }
@@ -46,7 +46,7 @@ class Port: Node {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(owner, forKey: .owner)
         try container.encode(itemParameters, forKey: .itemParameters)
-        try container.encode(itemsSold, forKey: .itemsSold)
+        try container.encode(itemParametersSold, forKey: .itemsSold)
 
         let superencoder = container.superEncoder()
         try super.encode(to: superencoder)
@@ -89,7 +89,7 @@ class Port: Node {
     func getItemParametersSold() -> [ItemParameter] {
         var itemParametersSold = [ItemParameter]()
         for itemParameter in itemParameters.values {
-            if itemsSold.contains(where: { item in item.type == itemParameter.itemType }) {
+            if itemParametersSold.contains(where: { item in item.itemType == itemParameter.itemType }) {
                 itemParametersSold.append(itemParameter)
             }
         }

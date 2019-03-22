@@ -7,7 +7,7 @@
 //
 
 import UIKit
-protocol EditPanelDelegateProtocol {
+protocol EditPanelDelegateProtocol: class {
     func clicked(_ select: EditMode)
     func addMapBackground(_ image: UIImage)
 }
