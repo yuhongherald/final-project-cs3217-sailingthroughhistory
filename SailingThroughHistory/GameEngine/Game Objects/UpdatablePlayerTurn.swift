@@ -19,7 +19,7 @@ class UpdatablePlayerTurn: EngineObject, Updatable {
     func update() -> Bool {
         return false
     }
-    
+
     func checkForEvent() -> GenericGameEvent? {
         return nil
     }

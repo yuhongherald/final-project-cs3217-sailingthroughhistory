@@ -16,7 +16,6 @@ struct GameTime {
             return 0
         }
         set {
-            
         }
     }
     var month: Int {
@@ -24,7 +23,6 @@ struct GameTime {
             return 0
         }
         set {
-            
         }
     }
     var year: Int {

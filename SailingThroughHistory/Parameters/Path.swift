@@ -42,8 +42,7 @@ struct Path: Hashable, Codable {
         // TODO: encode modifiers if needed
     }
 
-    enum CodingKeys: String, CodingKey
-    {
+    enum CodingKeys: String, CodingKey {
         case fromObject
         case toObject
     }

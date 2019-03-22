@@ -239,7 +239,7 @@ class Ship {
 
 }
 
-// MARK - Observable values
+// MARK: - Observable values
 extension Ship {
     func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void) {
         items.subscribe(with: observer)

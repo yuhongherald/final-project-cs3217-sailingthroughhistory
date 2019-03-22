@@ -42,7 +42,7 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    
+
     /// TODO: Reference to Game Engine
     private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
     private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
@@ -297,8 +297,7 @@ class MainGameViewController: UIViewController {
         }
 
         let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
-            withMsg: "")
-        {
+            withMsg: "") {
             animatePlayerTurnStart()
             callback()
         }

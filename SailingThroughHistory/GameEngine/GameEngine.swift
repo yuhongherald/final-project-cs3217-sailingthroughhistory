@@ -102,7 +102,6 @@ class GameEngine {
             let timeLimit: TimeInterval? = nil
             let timeOutCallback: () -> Void = { }
             interface.playerTurnStart(player: identifier, timeLimit: timeLimit, timeOutCallback: timeOutCallback)
-            break
         default: break
         }
         return nil

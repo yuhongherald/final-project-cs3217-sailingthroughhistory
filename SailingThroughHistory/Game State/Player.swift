@@ -102,7 +102,7 @@ class Player: GenericPlayer {
     }
 }
 
-// MARK - subscribes
+// MARK: - subscribes
 extension Player {
     func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void) {
         ship.subscribeToItems(with: observer)
@@ -111,7 +111,7 @@ extension Player {
     func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void) {
         ship.subscribeToCargoWeight(with: observer)
     }
-    
+
     func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void) {
         ship.subscribeToWeightCapcity(with: observer)
     }
