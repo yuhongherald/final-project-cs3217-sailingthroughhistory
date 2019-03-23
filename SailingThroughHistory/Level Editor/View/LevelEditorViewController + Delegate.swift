@@ -12,6 +12,8 @@ extension LevelEditorViewController: EditPanelDelegateProtocol {
 
     func clicked(_ select: EditMode) {
         editPanel.isHidden = true
+        panelToggle.setTitle(showPanelMsg, for: .normal)
+        view.sendSubviewToBack(editPanel)
         editMode = select
     }
 

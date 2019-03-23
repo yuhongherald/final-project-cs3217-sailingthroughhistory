@@ -328,13 +328,13 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		1A9FF084223F6CE400005FCB /* Predefined */ = {
+		1A9FF084223F6CE400005FCB /* Enums */ = {
 			isa = PBXGroup;
 			children = (
 				1A9FF085223F6DAB00005FCB /* EditMode.swift */,
 				1A749D642240F6DC00482CE5 /* ItemType.swift */,
 			);
-			path = Predefined;
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		7536A8292240971500D9D0FE /* GameEngine */ = {
@@ -612,7 +612,7 @@
 			children = (
 				1A749D752244B5C700482CE5 /* Storage */,
 				1A749D662240FD6B00482CE5 /* View */,
-				1A9FF084223F6CE400005FCB /* Predefined */,
+				1A9FF084223F6CE400005FCB /* Enums */,
 				BA91906D223F441900009F49 /* API */,
 				BA91906E223F443600009F49 /* Game Parameters */,
 			);

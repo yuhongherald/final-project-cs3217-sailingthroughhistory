@@ -19,8 +19,8 @@ class LevelEditorViewController: UIViewController {
     @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
     @IBOutlet weak var panelToggle: UIButton!
-    private var showPanelMsg = "Show Panel"
-    private var hidePanelMsg = "Hide Panel"
+    var showPanelMsg = "Show Panel"
+    var hidePanelMsg = "Hide Panel"
 
     private var upgrades = [Upgrade]()
     private var playerParameters = [PlayerParameter]()
@@ -30,6 +30,7 @@ class LevelEditorViewController: UIViewController {
 
     var editMode: EditMode?
     private var lineLayer = CAShapeLayer()
+    private var startingNode: NodeView?
     private var destination: NodeView?
 
     private let storage = Storage()
@@ -76,8 +77,8 @@ class LevelEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let map = gameParameter.getMap()
-        mapBackground.image = storage.readImage(map.map)
+        reInitScrollView()
+        initBackground()
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnMap(_:)))
         view.addGestureRecognizer(tapGesture)
@@ -164,11 +165,16 @@ class LevelEditorViewController: UIViewController {
         guard let fromNode = sender.view as? NodeView else {
             return
         }
+        startingNode = fromNode
 
         let endPoint = sender.location(in: mapBackground)
         let endView = view.hitTest(endPoint, with: nil) as? NodeView
         if endView != nil {
             destination = endView
+            destination?.highlighted(true)
+        } else {
+            destination?.highlighted(false)
+            destination = nil
         }
         let bazier = UIBezierPath()
         bazier.move(to: fromNode.center)
@@ -179,15 +185,13 @@ class LevelEditorViewController: UIViewController {
             lineLayer.strokeColor = UIColor.black.cgColor
             lineLayer.lineWidth = 2.0
 
-            fromNode.highlighted(true)
+            startingNode?.highlighted(true)
             editingAreaWrapper.layer.addSublayer(lineLayer)
         case .changed:
             bazier.addLine(to: endPoint)
             lineLayer.path = bazier.cgPath
-
-            destination?.highlighted(true)
         case .ended:
-            fromNode.highlighted(false)
+            startingNode?.highlighted(false)
             destination?.highlighted(false)
             destination = nil
 
@@ -203,5 +207,42 @@ class LevelEditorViewController: UIViewController {
         default:
             return
         }
+    }
+
+    private func initBackground() {
+        guard let image = UIImage(named: "worldmap1815"),
+            let editingAreaWrapper = self.editingAreaWrapper else {
+                return
+        }
+
+        mapBackground.contentMode = .topLeft
+        mapBackground.frame = CGRect(origin: CGPoint.zero, size: image.size)
+        editingAreaWrapper.frame = mapBackground.frame
+        editingAreaWrapper.subviews.forEach {
+            $0.frame = mapBackground.frame
+        }
+
+        scrollView.contentSize = image.size
+        scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
+        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
+        mapBackground.image = image
+    }
+
+    private func reInitScrollView () {
+        guard let oldScrollView = self.scrollView else {
+            preconditionFailure("scrollView is nil.")
+        }
+
+        let scrollView = UIScrollView(frame: self.scrollView.frame)
+        self.scrollView = scrollView
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(scrollView, aboveSubview: oldScrollView)
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.updateConstraints()
+        editingAreaWrapper.removeFromSuperview()
+        scrollView.addSubview(editingAreaWrapper)
     }
 }
