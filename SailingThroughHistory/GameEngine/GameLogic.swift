@@ -61,7 +61,10 @@ class GameLogic: GenericGameLogic {
     }
     
     func hasCachedUpdates() -> Bool {
-        return updatableCache != nil
+        guard let cache = updatableCache else {
+            return false
+        }
+        return !cache.isEmpty
     }
     func invalidateCache() {
         updatableCache = nil
