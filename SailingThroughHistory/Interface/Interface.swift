@@ -25,18 +25,84 @@ class Interface {
         self.bounds = bounds
     }
 
+    /// TODO: DELETE THESE
     /// Add a pending operation to add the given object to the interface. Once commited/broadcasted, rhe frame of the
     /// object in the interface will be its frame at the time this add function is called.
     ///
     /// - Parameter object: The `GameObject` to add.
+    @available(*, deprecated, message: "Use InterfaceDrawable")
     func add(object: GameObject) {
         pendingEvents.append(.addObject(object, atFrame: object.frame))
+    }
+
+    /// Add a pending operation to add the given object to the interface. Once commited/broadcasted, the path will be
+    /// drawn from and to the two `GameObject`'s current frame (on broadcast).
+    ///
+    /// - Parameter path: The `Path` to be drawn.
+    @available(*, deprecated, message: "Use InterfacePath")
+    func add(path: Path) {
+        pendingEvents.append(.addPath(path))
+    }
+
+    /// Add a pending operation to remove the `GameObject`
+    ///
+    /// - Parameter object: The `GameObject` to remove.
+    @available(*, deprecated, message: "Use InterfaceDrawable")
+    func remove(object: GameObject) {
+        pendingEvents.append(.removeObject(object))
+    }
+
+    /// Add a pending operation to remove a `Path`.
+    ///
+    /// - Parameter path: The `Path` to remove.
+    @available(*, deprecated, message: "Use InterfacePath")
+    func remove(path: Path) {
+        pendingEvents.append(.removePath(path))
+    }
+
+    /// Add a pending operation to add the given drawable to the interface.
+    ///
+    /// - Parameter drawable: The `InterfaceDrawable` to add.
+    func drawable(drawable: InterfaceDrawable) {
+        pendingEvents.append(.addDrawable(drawable))
+    }
+
+    /// Add a pending operation to add the given path to the interface.
+    ///
+    /// - Parameter path: The `InterfacePath` to be drawn.
+    func add(path: InterfacePath) {
+        pendingEvents.append(.addInterfacePath(path))
+    }
+
+    /// Add a pending operation to remove the `GameObject`
+    ///
+    /// - Parameter drawable: The `InterfaceDrawable` to remove.
+    func remove(drawable: InterfaceDrawable) {
+        pendingEvents.append(.removeDrawable(drawable))
+    }
+
+    /// Add a pending operation to remove a `InterfacePath`.
+    ///
+    /// - Parameter path: The `InterfacePath` to remove.
+    func remove(path: InterfacePath) {
+        pendingEvents.append(.removeInterfacePath(path))
+    }
+
+    /// Add a pending operation to update the position of the drawable with the given id to the given frame on the
+    /// interface. Nothing happens if no drawable in the interface matches the id.
+    ///
+    /// - Parameters:
+    ///   - drawableId: The unique id of the drawable to move
+    ///   - frame: The new frame of the drawable
+    func updatePositionOfDrawable(withId drawableId: Int, to frame: Rect) {
+        pendingEvents.append(.moveDrawable(withId: drawableId, toFrame: frame))
     }
 
     /// Add a pending operation to update the position of given object to the interface. Once commited/broadcasted,
     /// the frame of the object in the interface will be its frame at the time this updatePosition function is called.
     ///
     /// - Parameter object: The `GameObject` to add.
+    @available(*, deprecated, message: "Use InterfaceDrawable")
     func updatePosition(of object: GameObject) {
         pendingEvents.append(.move(object, toFrame: object.frame))
     }
@@ -58,14 +124,6 @@ class Interface {
     ///   - msg: The description of the alert.
     func pauseAndShowAlert(titled title: String, withMsg msg: String) {
         pendingEvents.append(.pauseAndShowAlert(titled: title, withMsg: msg))
-    }
-
-    /// Add a pending operation to add the given object to the interface. Once commited/broadcasted, the path will be
-    /// drawn from and to the two `GameObject`'s current frame (on broadcast).
-    ///
-    /// - Parameter path: The `Path` to be drawn.
-    func add(path: Path) {
-        pendingEvents.append(.addPath(path))
     }
 
     /// Add a pending operation to start the input player's turn on the interface. A countdown timer will be shown if
@@ -105,6 +163,12 @@ class Interface {
                 }
             case .addObject(let object, let frame):
                 objectFrames[object] = frame
+            case .move(let object, let frame):
+                if objectFrames[object] == nil {
+                    continue
+                }
+
+                objectFrames[object] = frame
             case .removePath(let path):
                 paths.remove(path: path)
             case .removeObject(let object):
@@ -124,20 +188,6 @@ class Interface {
         let toBroadcast = InterfaceEvents(events: validEvents, duration: duration)
         pendingEvents = []
         events.on(next: toBroadcast)
-    }
-
-    /// Add a pending operation to remove the `GameObject`
-    ///
-    /// - Parameter object: The `GameObject` to remove.
-    func remove(object: GameObject) {
-        pendingEvents.append(.removeObject(object))
-    }
-
-    /// Add a pending operation to remove a `Path`.
-    ///
-    /// - Parameter path: The `Path` to remove.
-    func remove(path: Path) {
-        pendingEvents.append(.removePath(path))
     }
 
     /// Subscribes to this Interface. The callback will be called when `InterfaceEvents` are broadcasted.
