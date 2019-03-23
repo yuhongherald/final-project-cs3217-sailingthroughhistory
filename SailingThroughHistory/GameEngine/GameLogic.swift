@@ -24,14 +24,21 @@ class GameLogic: GenericGameLogic {
  */
     private var objects: Set<AnyHashable> = Set<AnyHashable>()
     private var updatableCache: AnyIterator<Updatable>?
+    private var totalTime: Double = 0
     private var weeks: Double = 0
 
     init(gameState: GenericGameState) {
         self.gameState = gameState
         // add player turns
+        objects.insert(UpdatablePlayerTurn(gameState: gameState))
+        for player in gameState.getPlayers() {
+            objects.insert(UpdatablePlayer(location: player.getLocation()))
+            objects.insert(UpdatableTime(gameState: gameState))
+        }
     }
 
     private func getUpdatablesFor(deltaTime: Double) -> [Updatable] {
+        totalTime += deltaTime
         weeks = deltaTime / EngineConstants.weeksToSeconds
         // player turn first
         // weather next
@@ -74,9 +81,10 @@ class GameLogic: GenericGameLogic {
             default:
                 break
             }
-            guard let event = updatable.checkForEvent() else {
+            guard var event = updatable.checkForEvent() else {
                 continue
             }
+            event.timestamp = totalTime
             return event
         }
         return nil
