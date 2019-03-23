@@ -9,7 +9,7 @@
 class UpdatablePort: GameObject, Updatable {
     var status: UpdatableStatus = .add
 
-    func update() -> Bool {
+    func update(weeks: Double) -> Bool {
         return false
     }
     

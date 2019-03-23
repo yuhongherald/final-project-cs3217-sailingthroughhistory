@@ -19,7 +19,7 @@ class UpdatablePlayer: GameObject, Updatable {
         fatalError("init(from:) has not been implemented")
     }
     
-    func update() -> Bool {
+    func update(weeks: Double) -> Bool {
         return false
     }
     

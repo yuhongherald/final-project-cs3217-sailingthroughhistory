@@ -9,6 +9,6 @@
 protocol Updatable {
     var status: UpdatableStatus { get set }
     // returns whether there is a notable change in values
-    func update() -> Bool
+    func update(weeks: Double) -> Bool
     func checkForEvent() -> GenericGameEvent?
 }

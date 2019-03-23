@@ -22,33 +22,36 @@ class GameLogic: GenericGameLogic {
     private var playerTurn: Set<UpdatablePlayerTurn> = Set<UpdatablePlayerTurn>()
     private var pirateIsland: Set<UpdatablePirateIsland> = Set<UpdatablePirateIsland>()
  */
-
     private var objects: Set<AnyHashable> = Set<AnyHashable>()
+    private var updatableCache: AnyIterator<Updatable>?
+    private var weeks: Double = 0
 
     init(gameState: GenericGameState) {
         self.gameState = gameState
         // add player turns
-        objects.insert(UpdatablePlayer())
     }
 
     private func getUpdatablesFor(deltaTime: Double) -> [Updatable] {
+        weeks = deltaTime / EngineConstants.weeksToSeconds
         // player turn first
         // weather next
         // pirate, npc and player
         // pirate island here probably
         // port next
         // time last
-        return []
+        var result: [Updatable] = []
+        //result.append(objects.filter{ $0.base })
+        return result
     }
 
     func updateForTime(deltaTime: Double) -> GenericGameEvent? {
-        // TODO: Add update logic
         setCache(updatables: getUpdatablesFor(deltaTime: deltaTime))
+        return processCachedUpdates()
     }
     
     func processCachedUpdates() -> GenericGameEvent? {
         while let updatable = updatableCache?.next() {
-            _ = updatable.update()
+            _ = updatable.update(weeks: weeks)
             guard let event = updatable.checkForEvent() else {
                 continue
             }
@@ -75,8 +78,7 @@ class GameLogic: GenericGameLogic {
             for updatable in updatables {
                 return updatable
             }
+            return nil
         }
     }
-    
-    private var updatableCache: AnyIterator<Updatable>?
 }

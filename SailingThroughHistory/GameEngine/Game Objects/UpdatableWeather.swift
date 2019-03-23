@@ -9,19 +9,16 @@
 class UpdatableWeather: GameObject, Updatable {
     var status: UpdatableStatus = .add
 
-    private let location: Path
-    private let weather: Weather
 
-    init(location: Path, weather: Weather) {
-        self.location = location
-        self.weather = weather
+    init(gameState: GenericGameState) {
+        super.init()
     }
     
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
     
-    func update() -> Bool {
+    func update(weeks: Double) -> Bool {
         return false
     }
 

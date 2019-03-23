@@ -14,12 +14,20 @@ class GameInterface {
         self.interface = interface
     }
 
-    func addObjects(gameObjects: [GameObject]) {
-        
+    func addObjects(gameObjects: Set<GameObject>) {
+        for gameObject in gameObjects {
+            interface.add(object: gameObject)
+        }
     }
-    func updateObjects(gameObjects: [GameObject]) {
+    func updateObjects(gameObjects: Set<GameObject>) {
+        for gameObject in gameObjects {
+            interface.updatePosition(of: gameObject)
+        }
     }
-    func removeObjects(gameObjects: [GameObject]) {
+    func removeObjects(gameObjects: Set<GameObject>) {
+        for gameObject in gameObjects {
+            interface.remove(object: gameObject)
+        }
     }
     func finishObjectEdit(deltaTime: Double) {
         interface.broadcastInterfaceChanges(

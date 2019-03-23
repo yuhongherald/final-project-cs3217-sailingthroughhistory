@@ -115,7 +115,9 @@ class GameEngine {
 
     private func updateObjects() {
         let drawableManager = emotionEngine.getDrawableManager()
-        // do stuff here
+        gameInterface.addObjects(gameObjects: drawableManager.addedObjects)
+        gameInterface.updateObjects(gameObjects: drawableManager.updatedObjects)
+        gameInterface.removeObjects(gameObjects: drawableManager.removedObjects)
     }
 
     private func interfaceEvent(newEvent: GenericGameEvent?) {

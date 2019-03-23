@@ -21,8 +21,7 @@ class EmotionEngine: GenericTurnBasedGame {
     var slowestGameSpeed: Double = EngineConstants.slowestGameSpeed
 
     private var gameSpeed: Double = 1
-
-    private var updatableCache: AnyIterator<Updatable>
+    // used to compute the speed of the game
     private var nextEvent: GenericGameEvent
 
     init(gameLogic: GameLogic) {
@@ -36,12 +35,13 @@ class EmotionEngine: GenericTurnBasedGame {
         while timeDifference * gameSpeed * externalGameSpeed > largestTimeStep {
             // we break it into multiple cycles
             timeDifference -= largestTimeStep / gameSpeed / externalGameSpeed
-            let event = updateGameSpeed(largestTimeStep)
+            let event = updateGame(largestTimeStep)
+            setGameSpeed(using: nextEvent)
             if event != nil {
                 return event
             }
         }
-        return updateGameSpeed(timeDifference * gameSpeed * externalGameSpeed)
+        return updateGame(timeDifference * gameSpeed * externalGameSpeed)
     }
 
     func getDrawableManager() -> DrawableManager {
@@ -51,7 +51,7 @@ class EmotionEngine: GenericTurnBasedGame {
         return gameLogic
     }
 
-    private func updateGameSpeed(_ deltaTime: Double) -> GenericGameEvent? {
+    private func updateGame(_ deltaTime: Double) -> GenericGameEvent? {
         currentGameTime += deltaTime
         guard let event = gameLogic.updateForTime(deltaTime: deltaTime) else {
             gameLogic.invalidateCache() // just in case
@@ -62,11 +62,14 @@ class EmotionEngine: GenericTurnBasedGame {
             // event has started
             return event
         }
-        // interpolate the speed based on how close the event is to happening
-        setGameSpeed(using: event)
+        // will be improving efficiency in next ieration
+        if event.timestamp < currentGameTime {
+            nextEvent = event
+        }
         return nil
     }
 
+    // interpolate the speed based on how close the event is to happening
     func setGameSpeed(using event: Timestampable) {
         let eventTimeDifference = event.timestamp - currentGameTime
         var alpha: Double = 0

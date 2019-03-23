@@ -9,12 +9,12 @@
 class UpdatablePirate: GameObject, Updatable {
     var status: UpdatableStatus = .add
 
+    func update(weeks: Double) -> Bool {
+        return false
+    }
+
     func checkForEvent() -> GenericGameEvent? {
         return nil
-    }
-    
-    func update() -> Bool {
-        return false
     }
     
 }
