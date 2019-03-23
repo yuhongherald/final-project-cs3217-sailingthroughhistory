@@ -1,5 +1,5 @@
 //
-//  GameLogicTest.swift
+//  GameEngineTest.swift
 //  SailingThroughHistoryTests
 //
 //  Created by Herald on 22/3/19.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class GameLogicTest: XCTestCase {
+class GameEngineTest: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

@@ -55,8 +55,8 @@ class MainGameViewController: UIViewController {
     /// TODO: Reference to Game Engine
     private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
     private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
-    private lazy var objectsController: ObjectsViewController = ObjectsViewController(
-        view: gameArea, mainController: self)
+    private lazy var objectsController: ObjectsViewController =
+        ObjectsViewController(view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView,

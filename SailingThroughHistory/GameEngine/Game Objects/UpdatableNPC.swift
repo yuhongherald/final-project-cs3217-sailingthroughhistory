@@ -6,19 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatableNPC: EngineObject, Updatable {
-
-    var data: VisualAudioData? {
-        get {
-            let data = VisualAudioData(
-                contextualData: ContextualData.animated(images: Resources.Ships.npc,
-                    startingFrame: 0, loopDuration: Double.infinity),
-                sound: GameSound.none)
-            return data
-        }
-    }
+class UpdatableNPC: GameObject, Updatable {
+    var status: UpdatableStatus = .add
     
-    func update() -> Bool {
+    func update(weeks: Double) -> Bool {
         return false
     }
 

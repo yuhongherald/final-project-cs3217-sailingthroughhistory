@@ -20,6 +20,11 @@ class GameObject: Codable {
         return images.count > 1 && loopDuration > 0
     }
 
+    init() {
+        self.images = []
+        self.frame = CGRect()
+    }
+
     init(image: String, frame: CGRect) {
         self.images = [image]
         self.frame = frame

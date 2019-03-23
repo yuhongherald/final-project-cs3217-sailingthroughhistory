@@ -6,17 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatableTime: EngineObject, Updatable {
+class UpdatableTime: GameObject, Updatable {
+    var status: UpdatableStatus = .add
 
-    var data: VisualAudioData? {
-        get {
-            return VisualAudioData(
-                contextualData: ContextualData.message(message: "This is the game time"),
-                sound: GameSound.none)
-        }
-    }
-
-    func update() -> Bool {
+    func update(weeks: Double) -> Bool {
         return false
     }
     

@@ -29,6 +29,11 @@ class NodeView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// Add NodeView to provided superView: view and add Node model to Map model
+    /// - Parameters:
+    ///   - view: superView where NodeView is added
+    ///   - map: Map model where Node is added
+    ///   - gestures: gesture recognizers added to NodeView
     func addTo(_ view: UIView, map: Map, with gestures: [UIGestureRecognizer]) {
         map.addNode(node)
 
@@ -38,6 +43,14 @@ class NodeView: UIImageView {
             self.addGestureRecognizer(gesture)
         }
         view.addSubview(self)
+    }
+
+    /// Remove NodeView from superView and remove Node model from Map model
+    /// - Parameters:
+    ///   - map: Map model where Node is removed from
+    func removeFrom(map: Map) {
+        map.removeNode(node)
+        self.removeFromSuperview()
     }
 
     func highlighted(_ highlighted: Bool) {
