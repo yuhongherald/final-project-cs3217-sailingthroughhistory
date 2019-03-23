@@ -7,17 +7,10 @@
 //
 
 // for MVP2
-class UpdatablePirateIsland: EngineObject, Updatable {
+class UpdatablePirateIsland: GameObject, Updatable {
+    var status: UpdatableStatus = .add
 
-    var data: VisualAudioData? {
-        get {
-            return VisualAudioData(
-                contextualData: ContextualData.image(image: Resources.Misc.pirateNode),
-                sound: GameSound.none)
-        }
-    }
-
-    func update() -> Bool {
+    func update(weeks: Double) -> Bool {
         return false
     }
 

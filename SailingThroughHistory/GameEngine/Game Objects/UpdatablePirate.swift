@@ -6,23 +6,15 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatablePirate: EngineObject, Updatable {
+class UpdatablePirate: GameObject, Updatable {
+    var status: UpdatableStatus = .add
 
-    var data: VisualAudioData? {
-        get {
-            let data = VisualAudioData(
-                contextualData: ContextualData.animated(images: Resources.Ships.pirate, startingFrame: 0, loopDuration: Double.infinity),
-                sound: GameSound.none)
-            return data
-        }
+    func update(weeks: Double) -> Bool {
+        return false
     }
 
     func checkForEvent() -> GenericGameEvent? {
         return nil
-    }
-    
-    func update() -> Bool {
-        return false
     }
     
 }

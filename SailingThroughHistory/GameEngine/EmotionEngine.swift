@@ -7,9 +7,8 @@
 //
 
 class EmotionEngine: GenericTurnBasedGame {
-    private let gameLogic: GameLogic
+    let gameLogic: GameLogic
 
-    var playerTurn: PlayerTurn? // TODO: marked for deletion
     var currentGameTime: Double = 0
     var largestTimeStep: Double = EngineConstants.largestTimeStep
     var forecastDuration: Double = EngineConstants.forecastDuration
@@ -22,8 +21,7 @@ class EmotionEngine: GenericTurnBasedGame {
     var slowestGameSpeed: Double = EngineConstants.slowestGameSpeed
 
     private var gameSpeed: Double = 1
-
-    private var updatableCache: AnyIterator<Updatable>?
+    // used to compute the speed of the game
     private var nextEvent: GenericGameEvent
 
     init(gameLogic: GameLogic) {
@@ -37,29 +35,26 @@ class EmotionEngine: GenericTurnBasedGame {
         while timeDifference * gameSpeed * externalGameSpeed > largestTimeStep {
             // we break it into multiple cycles
             timeDifference -= largestTimeStep / gameSpeed / externalGameSpeed
-            guard let event = updateGameSpeed(largestTimeStep) else {
-                continue
+            let event = updateGame(largestTimeStep)
+            setGameSpeed(using: nextEvent)
+            if event != nil {
+                return event
             }
-            return event
         }
-        return updateGameSpeed(timeDifference * gameSpeed * externalGameSpeed)
+        return updateGame(timeDifference * gameSpeed * externalGameSpeed)
     }
 
-    func finishCachedUpdates() -> GenericGameEvent? {
-        while let updatable = updatableCache?.next() {
-            _ = updatable.update()
-            guard let event = updatable.checkForEvent() else {
-                continue
-            }
-            return event
-        }
-        return nil
+    func getDrawableManager() -> DrawableManager {
+        return gameLogic
+    }
+    func getTimeUpdatable() -> TimeUpdatable {
+        return gameLogic
     }
 
-    private func updateGameSpeed(_ deltaTime: Double) -> GenericGameEvent? {
+    private func updateGame(_ deltaTime: Double) -> GenericGameEvent? {
         currentGameTime += deltaTime
-        guard let event = updateGameStateDeltatime(deltaTime) else {
-            updatableCache = nil
+        guard let event = gameLogic.updateForTime(deltaTime: deltaTime) else {
+            gameLogic.invalidateCache() // just in case
             return nil
         }
         let eventTimeDifference = event.timestamp - currentGameTime
@@ -67,12 +62,14 @@ class EmotionEngine: GenericTurnBasedGame {
             // event has started
             return event
         }
-        // interpolate the speed based on how close the event is to happening
-        setGameSpeed(using: event)
-        updatableCache = nil
+        // will be improving efficiency in next ieration
+        if event.timestamp < currentGameTime {
+            nextEvent = event
+        }
         return nil
     }
 
+    // interpolate the speed based on how close the event is to happening
     func setGameSpeed(using event: Timestampable) {
         let eventTimeDifference = event.timestamp - currentGameTime
         var alpha: Double = 0
@@ -85,21 +82,8 @@ class EmotionEngine: GenericTurnBasedGame {
         gameSpeed = Double.lerp(alpha, fastestGameSpeed, slowestGameSpeed)
     }
 
-    func hasCachedUpdates() -> Bool {
-        return updatableCache != nil
-    }
-    func invalidateCache() {
-        updatableCache = nil
-    }
-
     // for testing
     func getGameSpeed() -> Double {
         return gameSpeed
     }
-
-    private func updateGameStateDeltatime(_ deltaTime: Double) -> GenericGameEvent? {
-        updatableCache = gameLogic.getUpdatables(deltaTime: deltaTime)
-        return finishCachedUpdates()
-    }
-
 }

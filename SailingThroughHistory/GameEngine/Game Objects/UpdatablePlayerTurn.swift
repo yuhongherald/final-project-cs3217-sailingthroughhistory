@@ -6,20 +6,23 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class UpdatablePlayerTurn: EngineObject, Updatable {
+class UpdatablePlayerTurn: GameObject, Updatable {
+    var status: UpdatableStatus = .add
+    private let gameState: GenericGameState
 
-    var data: VisualAudioData? {
-        get {
-            return VisualAudioData(
-                contextualData: ContextualData.message(message: "This is the player turn"),
-                sound: GameSound.none)
-        }
-    }
-
-    func update() -> Bool {
-        return false
+    init(gameState: GenericGameState) {
+        self.gameState = gameState
+        super.init()
     }
     
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+
+    func update(weeks: Double) -> Bool {
+        return false
+    }
+
     func checkForEvent() -> GenericGameEvent? {
         return nil
     }
