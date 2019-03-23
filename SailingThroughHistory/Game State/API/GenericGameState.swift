@@ -11,6 +11,7 @@ import Foundation
 protocol GenericGameState {
     func subscribe(interface: Interface)
     func loadLevel(level: GenericLevel)
+    func getPlayers() -> [GenericPlayer]
     func startNextTurn(speedMultiplier: Double)
     func getNextPlayer() -> GenericPlayer?
     func endGame()

@@ -28,9 +28,13 @@ class GameState: GenericGameState {
         }
     }
 
+    func getPlayers() -> [GenericPlayer] {
+        return players
+    }
+
     func getNextPlayer() -> GenericPlayer? {
         let nextPlayer = playerTurnOrder.removeFirst()
-        nextPlayer.state.value = PlayerState.moving
+        nextPlayer.startTurn(speedMultiplier: speedMultiplier)
         return nextPlayer
     }
 
