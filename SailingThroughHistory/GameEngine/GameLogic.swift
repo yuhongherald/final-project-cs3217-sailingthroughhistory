@@ -40,7 +40,15 @@ class GameLogic: GenericGameLogic {
         // port next
         // time last
         var result: [Updatable] = []
-        //result.append(objects.filter{ $0.base })
+        let updatables = Array(objects).filter{ $0 is Updatable } as? [Updatable] ?? [Updatable]()
+        result.append(contentsOf: updatables.filter { $0 is UpdatablePlayerTurn })
+        result.append(contentsOf: updatables.filter { $0 is UpdatableWeather })
+        result.append(contentsOf: updatables.filter { $0 is UpdatablePirate })
+        result.append(contentsOf: updatables.filter { $0 is UpdatableNPC })
+        result.append(contentsOf: updatables.filter { $0 is UpdatablePlayer })
+        result.append(contentsOf: updatables.filter { $0 is UpdatablePort })
+        result.append(contentsOf: updatables.filter { $0 is UpdatableTime })
+
         return result
     }
 
@@ -48,10 +56,24 @@ class GameLogic: GenericGameLogic {
         setCache(updatables: getUpdatablesFor(deltaTime: deltaTime))
         return processCachedUpdates()
     }
-    
+
     func processCachedUpdates() -> GenericGameEvent? {
         while let updatable = updatableCache?.next() {
             _ = updatable.update(weeks: weeks)
+            guard let object = updatable as? GameObject else {
+                // should not happen
+                continue
+            }
+            switch updatable.status {
+            case .add:
+                addedObjects.insert(object)
+            case .update:
+                updatedObjects.insert(object)
+            case .delete:
+                removedObjects.insert(object)
+            default:
+                break
+            }
             guard let event = updatable.checkForEvent() else {
                 continue
             }

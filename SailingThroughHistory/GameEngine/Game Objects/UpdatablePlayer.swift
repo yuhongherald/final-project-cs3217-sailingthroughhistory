@@ -14,15 +14,15 @@ class UpdatablePlayer: GameObject, Updatable {
     init(gameState: GenericGameState) {
         super.init(image: Resources.Ships.british[0], frame: CGRect())
     }
-    
+
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
-    
+
     func update(weeks: Double) -> Bool {
         return false
     }
-    
+
     func checkForEvent() -> GenericGameEvent? {
         return nil
     }

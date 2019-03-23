@@ -354,7 +354,6 @@
 		7536A8292240971500D9D0FE /* GameEngine */ = {
 			isa = PBXGroup;
 			children = (
-				753EEA7E224511A400D56CBA /* RxSwift */,
 				75598993224243E7004037E6 /* Small components */,
 				753EEA7C2245096400D56CBA /* Data */,
 				754FED59224335DE00394215 /* Enums */,
@@ -397,13 +396,6 @@
 				753EEA7A2245093700D56CBA /* VisualData.swift */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		753EEA7E224511A400D56CBA /* RxSwift */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RxSwift;
 			sourceTree = "<group>";
 		};
 		754FED59224335DE00394215 /* Enums */ = {
