@@ -68,6 +68,33 @@ class InterfaceTest: XCTestCase {
     }
 
     func testRemove() {
-        
+        interface.add(object: object)
+        interface.broadcastInterfaceChanges(withDuration: 0)
+        interface.remove(object: object2)
+        interface.broadcastInterfaceChanges(withDuration: 0)
+        XCTAssertEqual(interface.objectFrames[object], objectFrame, "Wrong object was affected by remove")
+
+        interface.add(object: object2)
+        interface.broadcastInterfaceChanges(withDuration: 0)
+        interface.remove(object: object2)
+        interface.broadcastInterfaceChanges(withDuration: 0)
+        XCTAssertNil(interface.objectFrames[object2], "Object not removed properly")
+
+        interface.remove(object: object)
+        interface.broadcastInterfaceChanges(withDuration: 0)
+        XCTAssertNil(interface.objectFrames[object], "Object not removed properly")
     }
+
+    func testAddRemove() {
+        interface.add(object: object2)
+        interface.broadcastInterfaceChanges(withDuration: 0)
+        interface.remove(object: object2)
+        interface.broadcastInterfaceChanges(withDuration: 0)
+        interface.add(object: object2)
+        interface.broadcastInterfaceChanges(withDuration: 0)
+        XCTAssertEqual(interface.objectFrames[object2], frame2, "Wrong object was affected by remove")
+
+    }
+
+    /// TODO: Tests for path.
 }

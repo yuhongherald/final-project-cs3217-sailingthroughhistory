@@ -72,6 +72,10 @@
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
 		75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435922428808007855F9 /* UpdatableTime.swift */; };
 		75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435D22428ED9007855F9 /* Timestampable.swift */; };
+		9621CC032246C054008178FF /* InterfaceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC022246C054008178FF /* InterfaceLayer.swift */; };
+		9621CC072246C0BC008178FF /* InterfaceDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC062246C0BC008178FF /* InterfaceDrawable.swift */; };
+		9621CC092246C321008178FF /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC082246C321008178FF /* Rect.swift */; };
+		9621CC0B2246C470008178FF /* InterfacePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC0A2246C470008178FF /* InterfacePath.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -222,6 +226,10 @@
 		75598991224243CE004037E6 /* EmotionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionEngine.swift; sourceTree = "<group>"; };
 		75F8435922428808007855F9 /* UpdatableTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTime.swift; sourceTree = "<group>"; };
 		75F8435D22428ED9007855F9 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
+		9621CC022246C054008178FF /* InterfaceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceLayer.swift; sourceTree = "<group>"; };
+		9621CC062246C0BC008178FF /* InterfaceDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceDrawable.swift; sourceTree = "<group>"; };
+		9621CC082246C321008178FF /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
+		9621CC0A2246C470008178FF /* InterfacePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfacePath.swift; sourceTree = "<group>"; };
 		965E0332223A4B3C005F7D79 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		965E0334223A4B84005F7D79 /* Sea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sea.swift; sourceTree = "<group>"; };
 		965E0336223A4BB3005F7D79 /* VolatileModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileModifier.swift; sourceTree = "<group>"; };
@@ -498,6 +506,9 @@
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
+				9621CC022246C054008178FF /* InterfaceLayer.swift */,
+				9621CC062246C0BC008178FF /* InterfaceDrawable.swift */,
+				9621CC0A2246C470008178FF /* InterfacePath.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -506,6 +517,7 @@
 			isa = PBXGroup;
 			children = (
 				968F13652244008200FE32E0 /* ObjectPaths.swift */,
+				9621CC082246C321008178FF /* Rect.swift */,
 			);
 			path = ADT;
 			sourceTree = "<group>";
@@ -911,6 +923,7 @@
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				968F13662244008200FE32E0 /* ObjectPaths.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
+				9621CC0B2246C470008178FF /* InterfacePath.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				75598992224243CE004037E6 /* EmotionEngine.swift in Sources */,
 				7536A8372240A09200D9D0FE /* GenericAsyncWrap.swift in Sources */,
@@ -923,6 +936,7 @@
 				754FED5B22433F1700394215 /* Stopwatch.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
 				754FED7122437B4F00394215 /* NPC.swift in Sources */,
+				9621CC032246C054008178FF /* InterfaceLayer.swift in Sources */,
 				BA919070223F446800009F49 /* Upgrade.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
 				BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */,
@@ -941,6 +955,7 @@
 				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
 				7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */,
 				7536A83E2240A7E600D9D0FE /* EventType.swift in Sources */,
+				9621CC072246C0BC008178FF /* InterfaceDrawable.swift in Sources */,
 				7559898C22423DDB004037E6 /* Dice.swift in Sources */,
 				753EEA8C22452E5400D56CBA /* DrawableManager.swift in Sources */,
 				7559898322422374004037E6 /* GameTime.swift in Sources */,
@@ -963,6 +978,7 @@
 				9681199C2243C29F0093ABBA /* ContextViewController.swift in Sources */,
 				754FED75224381DF00394215 /* VisualAudioData.swift in Sources */,
 				1A749D772244B6ED00482CE5 /* UIView + ScreenShot.swift in Sources */,
+				9621CC092246C321008178FF /* Rect.swift in Sources */,
 				7559897722421C0C004037E6 /* UpdatableWeather.swift in Sources */,
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
 				7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */,
