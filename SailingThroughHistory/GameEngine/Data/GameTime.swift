@@ -7,52 +7,30 @@
 //
 
 struct GameTime {
-    let secondsToWeeks: Double
     let baseYear: Int
-    private var seconds: Double = 0
     // 1-based index
     var week: Int {
-        get {
-            return 0
-        }
-        set {
-            
-        }
+        return Int(actualWeeks) % 4
     }
     var month: Int {
-        get {
-            return 0
-        }
-        set {
-            
-        }
+        return (Int(actualWeeks) / 4) % 12
     }
     var year: Int {
-        get {
-            return 0
-        }
-        set {
-            
-        }
+        return Int(actualWeeks) / 48
     }
 
-    init(secondsToWeeks: Double, baseYear: Int) {
-        self.secondsToWeeks = secondsToWeeks
+    private var actualWeeks = 0.0
+
+    init(baseYear: Int) {
         self.baseYear = baseYear
     }
 
     mutating func reset() {
-        seconds = 0
+        actualWeeks = 0
     }
 
-    mutating func addSeconds(_ seconds: Double) {
-        self.seconds += seconds
+    mutating func addWeeks(_ weeks: Double) {
+        actualWeeks += weeks
     }
 
-    // no clamping is done
-    mutating func addGameTime(weeks: Int, months: Int, years: Int) {
-        self.seconds += ((Double(years) / Double(GameConstants.monthsInYear) +
-                        Double(months)) / Double(GameConstants.weeksInMonth) +
-                        Double(weeks)) / secondsToWeeks
-    }
 }

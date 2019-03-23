@@ -9,13 +9,18 @@
 import Foundation
 
 class GameState: GenericGameState {
-    private var interface: Interface?
+    var gameTime: GameTime
 
+    private var interface: Interface?
     private var players = [GenericPlayer]()
     private var level: GameVariable<GenericLevel>?
     private var speedMultiplier = 1.0
 
     private var playerTurnOrder = [GenericPlayer]()
+
+    required init(baseYear: Int) {
+        gameTime = GameTime(baseYear: baseYear)
+    }
 
     func subscribe(interface: Interface) {
         self.interface = interface
@@ -28,9 +33,13 @@ class GameState: GenericGameState {
         }
     }
 
+    func getPlayers() -> [GenericPlayer] {
+        return players
+    }
+
     func getNextPlayer() -> GenericPlayer? {
         let nextPlayer = playerTurnOrder.removeFirst()
-        nextPlayer.state.value = PlayerState.moving
+        nextPlayer.startTurn(speedMultiplier: speedMultiplier)
         return nextPlayer
     }
 

@@ -319,8 +319,7 @@ class MainGameViewController: UIViewController {
         }
 
         let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
-            withMsg: "")
-        {
+            withMsg: "") {
             animatePlayerTurnStart()
             callback()
         }

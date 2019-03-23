@@ -17,14 +17,15 @@ protocol GenericPlayer: Codable {
     var node: Node? { get }
 
     init(name: String, node: Node)
-    
+
     // subscribes
+    func getLocation() -> GameVariable<Location>
     func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void)
     func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void)
     func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void)
 
     // Before moving
-    func startTurn()
+    func startTurn(speedMultiplier: Double)
     func buyUpgrade(upgrade: Upgrade)
     func setTax(port: Port, amount: Int)
 

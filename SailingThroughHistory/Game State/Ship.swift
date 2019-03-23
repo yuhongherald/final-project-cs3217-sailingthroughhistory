@@ -81,8 +81,8 @@ class Ship {
         }
     }
 
-    func getNodesInRange(roll: Int) -> [Node] {
-        let movement = computeMovement(roll: roll)
+    func getNodesInRange(roll: Int, speedMultiplier: Double) -> [Node] {
+        let movement = computeMovement(roll: roll, speedMultiplier: speedMultiplier)
         let nodesFromStart = location.value.start.getNodesInRange(range: movement - location.value.fractionToEnd)
         if location.value.fractionToEnd == 0 {
             return nodesFromStart
@@ -170,23 +170,23 @@ class Ship {
         items.value.remove(at: index)
     }
 
-    func endTurn() {
+    func endTurn(speedMultiplier: Double) {
         if isChasedByPirates {
             turnsToBeingCaught -= 1
         }
 
         for supply in suppliesConsumed {
-            let deficeit = consumeRequiredItem(itemParameter: supply.itemParameter, quantity: supply.quantity)
+            let deficeit = consumeRequiredItem(itemParameter: supply.itemParameter, quantity: Int(Double(supply.quantity) * speedMultiplier))
             // TODO: Make player pay for deficeit
         }
     }
 
     // Helper functions
 
-    private func computeMovement(roll: Int) -> Double {
+    private func computeMovement(roll: Int, speedMultiplier: Double) -> Double {
         var multiplier = 1.0
         multiplier = applyMovementModifiers(to: multiplier)
-        return Double(roll) * multiplier
+        return Double(roll) * speedMultiplier * multiplier
     }
 
     private func applyMovementModifiers(to multiplier: Double) -> Double {
@@ -239,7 +239,7 @@ class Ship {
 
 }
 
-// MARK - Observable values
+// MARK: - Observable values
 extension Ship {
     func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void) {
         items.subscribe(with: observer)

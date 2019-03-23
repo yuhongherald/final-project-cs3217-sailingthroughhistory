@@ -21,6 +21,7 @@ class Player: GenericPlayer {
     var startingNode: Node?
 
     private let ship: Ship
+    private var speedMultiplier = 1.0
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
@@ -49,7 +50,9 @@ class Player: GenericPlayer {
         try container.encode(startingNode, forKey: .startingNode)
     }
 
-    func startTurn() {
+    func startTurn(speedMultiplier: Double) {
+        self.speedMultiplier = speedMultiplier
+        state.value = PlayerState.moving
         ship.startTurn()
     }
 
@@ -67,7 +70,7 @@ class Player: GenericPlayer {
     }
 
     func getNodesInRange(roll: Int) -> [Node] {
-        return ship.getNodesInRange(roll: roll)
+        return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier)
     }
 
     func canDock() -> Bool {
@@ -96,7 +99,7 @@ class Player: GenericPlayer {
     }
 
     func endTurn() {
-        ship.endTurn()
+        ship.endTurn(speedMultiplier: speedMultiplier)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -105,8 +108,12 @@ class Player: GenericPlayer {
     }
 }
 
-// MARK - subscribes
+// MARK: - subscribes
 extension Player {
+    func getLocation() -> GameVariable<Location> {
+        return ship.location
+    }
+
     func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void) {
         ship.subscribeToItems(with: observer)
     }
@@ -114,7 +121,7 @@ extension Player {
     func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void) {
         ship.subscribeToCargoWeight(with: observer)
     }
-    
+
     func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void) {
         ship.subscribeToWeightCapcity(with: observer)
     }
