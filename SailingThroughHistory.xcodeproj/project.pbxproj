@@ -84,6 +84,7 @@
 		96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E36224510310014E0C5 /* PortItemTableCellDelegate.swift */; };
 		96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E38224510740014E0C5 /* PortItemButtonAction.swift */; };
 		96619E3B224511A50014E0C5 /* UIPortItemTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E3A224511A50014E0C5 /* UIPortItemTableCell.swift */; };
+		9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */; };
 		966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
@@ -232,6 +233,7 @@
 		96619E36224510310014E0C5 /* PortItemTableCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemTableCellDelegate.swift; sourceTree = "<group>"; };
 		96619E38224510740014E0C5 /* PortItemButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemButtonAction.swift; sourceTree = "<group>"; };
 		96619E3A224511A50014E0C5 /* UIPortItemTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPortItemTableCell.swift; sourceTree = "<group>"; };
+		9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableDataSource.swift; sourceTree = "<group>"; };
 		966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameObjectImageView.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 				96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */,
 				9681199B2243C29F0093ABBA /* ContextViewController.swift */,
 				967FAA7C2244BF1F005054B6 /* PortItemTableDataSource.swift */,
+				9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				9681199E2243CCA30093ABBA /* Array+Rotate.swift in Sources */,
 				754FED6B22436C8500394215 /* ContextualData.swift in Sources */,
 				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
+				9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,

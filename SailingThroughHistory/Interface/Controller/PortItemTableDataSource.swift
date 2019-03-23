@@ -15,6 +15,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     private static let sellButtonLabel = "Sell"
     private static let boughtSection = 0
     private static let soldSection = 1
+    private static let numSections = 2
     private let mainController: MainGameViewController
     private var playerCanInteract = false
     private var selectedPort: Port?
@@ -79,7 +80,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return PortItemTableDataSource.numSections
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
