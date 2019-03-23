@@ -31,6 +31,8 @@
 		7528A95F2245EDD000327211 /* EngineInterfaceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A95E2245EDD000327211 /* EngineInterfaceable.swift */; };
 		7528A9612245EE4800327211 /* TestInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9602245EE4800327211 /* TestInterface.swift */; };
 		7528A9662245EF3400327211 /* TestGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9652245EF3400327211 /* TestGameState.swift */; };
+		7528A9682245F71900327211 /* GameEngineTypicalClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9672245F71900327211 /* GameEngineTypicalClasses.swift */; };
+		7528A96A2245F82100327211 /* UniformRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9692245F82100327211 /* UniformRandom.swift */; };
 		7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82C224097AA00D9D0FE /* PlayerTurn.swift */; };
 		7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */; };
 		7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8302240990D00D9D0FE /* GameEvent.swift */; };
@@ -182,6 +184,8 @@
 		7528A95E2245EDD000327211 /* EngineInterfaceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineInterfaceable.swift; sourceTree = "<group>"; };
 		7528A9602245EE4800327211 /* TestInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInterface.swift; sourceTree = "<group>"; };
 		7528A9652245EF3400327211 /* TestGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGameState.swift; sourceTree = "<group>"; };
+		7528A9672245F71900327211 /* GameEngineTypicalClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTypicalClasses.swift; sourceTree = "<group>"; };
+		7528A9692245F82100327211 /* UniformRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniformRandom.swift; sourceTree = "<group>"; };
 		7536A82C224097AA00D9D0FE /* PlayerTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTurn.swift; sourceTree = "<group>"; };
 		7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameEvent.swift; sourceTree = "<group>"; };
 		7536A8302240990D00D9D0FE /* GameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
@@ -360,6 +364,7 @@
 			children = (
 				7528A9602245EE4800327211 /* TestInterface.swift */,
 				7528A9652245EF3400327211 /* TestGameState.swift */,
+				7528A9672245F71900327211 /* GameEngineTypicalClasses.swift */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -455,6 +460,7 @@
 				7536A8382240A14400D9D0FE /* GameAsyncWrap.swift */,
 				7559898B22423DDB004037E6 /* Dice.swift */,
 				754FED5A22433F1700394215 /* Stopwatch.swift */,
+				7528A9692245F82100327211 /* UniformRandom.swift */,
 			);
 			path = "Small components";
 			sourceTree = "<group>";
@@ -901,6 +907,7 @@
 				BA485904223F9112009ED2F6 /* Location.swift in Sources */,
 				1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
+				7528A96A2245F82100327211 /* UniformRandom.swift in Sources */,
 				754FED502243335000394215 /* UpdatablePlayerTurn.swift in Sources */,
 				754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */,
 				7559897922421C1D004037E6 /* UpdatablePort.swift in Sources */,
@@ -937,6 +944,7 @@
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
+				7528A9682245F71900327211 /* GameEngineTypicalClasses.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
 				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
