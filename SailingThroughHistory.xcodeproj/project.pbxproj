@@ -107,6 +107,7 @@
 		9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */; };
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
 		969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */; };
+		96A261D42246454500BBCC60 /* InterfaceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A261D32246454500BBCC60 /* InterfaceTest.swift */; };
 		96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF55792242B6A100C1E809 /* PathsViewController.swift */; };
 		96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */; };
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
@@ -262,6 +263,7 @@
 		9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SailingThroughHistoryUITests.swift; sourceTree = "<group>"; };
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlurredBackgroundView.swift; sourceTree = "<group>"; };
+		96A261D32246454500BBCC60 /* InterfaceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceTest.swift; sourceTree = "<group>"; };
 		96DF55792242B6A100C1E809 /* PathsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathsViewController.swift; sourceTree = "<group>"; };
 		96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewController.swift; sourceTree = "<group>"; };
 		96F658472240E13E006CD412 /* View+SpecialEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SpecialEffects.swift"; sourceTree = "<group>"; };
@@ -558,6 +560,7 @@
 				7528A9572245CDE300327211 /* GameLogicTest.swift */,
 				7528A9592245CDF500327211 /* UpdatableTest.swift */,
 				7528A95B2245CE0500327211 /* GameEngineTest.swift */,
+				96A261D32246454500BBCC60 /* InterfaceTest.swift */,
 			);
 			path = SailingThroughHistoryTests;
 			sourceTree = "<group>";
@@ -861,7 +864,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -874,7 +877,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1016,6 +1019,7 @@
 				7536A8442240C98D00D9D0FE /* EmotionEngineTest.swift in Sources */,
 				7528A9582245CDE300327211 /* GameLogicTest.swift in Sources */,
 				9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */,
+				96A261D42246454500BBCC60 /* InterfaceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,8 +12,8 @@ import XCTest
 class EmotionEngineTest: XCTestCase {
 
     func testSetGameSpeed() {
-        let logic = EmotionEngine(gameState: GameLogic())
-        var event = GameEvent(eventType: EventType.informative(initiater: ""), timestamp: 1, message: "")
+        let logic = EmotionEngine(gameLogic: GameLogic(gameState: GameState(baseYear: 0)))
+        var event = GameEvent(eventType: EventType.informative(initiater: ""), timestamp: 1, message: nil)
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         event.timestamp = 1 * logic.forecastDuration
@@ -39,8 +39,8 @@ class EmotionEngineTest: XCTestCase {
     }
 
     func testUpdateGameState() {
-        let gameState = GameLogic()
-        let logic = EmotionEngine(gameState: gameState)
+        let gameState = GameLogic(gameState: GameState(baseYear: 0))
+        let logic = EmotionEngine(gameLogic: gameState)
         logic.updateGameState(deltaTime: 1.0)
         // TODO: Write test to check months and weeks have been updated correctly
         // TODO: Write test to check that player movement have been done correctly

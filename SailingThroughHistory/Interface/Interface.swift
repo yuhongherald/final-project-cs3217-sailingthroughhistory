@@ -105,6 +105,12 @@ class Interface {
                 }
             case .addObject(let object, let frame):
                 objectFrames[object] = frame
+            case .move(let object, let frame):
+                if objectFrames[object] == nil {
+                    continue
+                }
+
+                objectFrames[object] = frame
             case .removePath(let path):
                 paths.remove(path: path)
             case .removeObject(let object):
