@@ -17,11 +17,11 @@ class EngineObject: Hashable {
         case destroying
         case destroyed
     }
-    
+
     static func == (lhs: EngineObject, rhs: EngineObject) -> Bool {
         return lhs.identifier == rhs.identifier
     }
-    
+
     private static func getIdentifier() -> Int {
         var identifier: Int = 0 // dummy value
         queue.sync {
@@ -34,12 +34,12 @@ class EngineObject: Hashable {
         }
         return identifier
     }
-    
+
     private static var nextID: Int = 0
     private static var identifiers = Set<Int>()
     private static let queue = DispatchQueue(label: "EngineObjectQueue", attributes: .concurrent)
     let identifier: Int
-    
+
     var position: Vector2F = Vector2F.zero
     // rotation is from 0 tp 2pi radians
     var rotation: Float = 0
@@ -47,7 +47,7 @@ class EngineObject: Hashable {
     var scale: Vector2F = Vector2F.one
     var velocity: Vector2F = Vector2F.zero
     var status: Status = Status.moving
-    
+
     init() {
         self.identifier = EngineObject.getIdentifier()
     }

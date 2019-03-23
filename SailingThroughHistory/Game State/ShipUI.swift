@@ -26,6 +26,15 @@ class ShipUI: GameObject {
     }
 
     private func updateShip(event: Event<Location>) {
+        guard let location = event.element else {
+            return
+        }
+        let start = location.start
+        let end = location.end
+        let fraction = location.fractionToEnd
+        let newX = start.frame.midX * CGFloat(fraction) + end.frame.midX * CGFloat(1 - fraction) - CGFloat(shipWidth) / 2
+        let newY = start.frame.midY * CGFloat(fraction) + end.frame.midY * CGFloat(1 - fraction) - CGFloat(shipWidth) / 2
+        frame = CGRect(x: newX, y: newY, width: CGFloat(shipWidth), height: CGFloat(shipWidth))
     }
 
 }

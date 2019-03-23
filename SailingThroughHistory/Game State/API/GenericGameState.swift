@@ -9,8 +9,12 @@
 import Foundation
 
 protocol GenericGameState {
+    var gameTime: GameTime { get set }
+
+    init(baseYear: Int)
     func subscribe(interface: Interface)
     func loadLevel(level: GenericLevel)
+    func getPlayers() -> [GenericPlayer]
     func startNextTurn(speedMultiplier: Double)
     func getNextPlayer() -> GenericPlayer?
     func endGame()

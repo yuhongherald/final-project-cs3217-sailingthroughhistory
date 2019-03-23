@@ -62,7 +62,6 @@
 		7559897B22421C31004037E6 /* UpdatablePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897A22421C31004037E6 /* UpdatablePlayer.swift */; };
 		7559897D22421C42004037E6 /* UpdatableNPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897C22421C42004037E6 /* UpdatableNPC.swift */; };
 		7559897F22421C50004037E6 /* UpdatablePirate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897E22421C50004037E6 /* UpdatablePirate.swift */; };
-		75598981224222FA004037E6 /* GameTimeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598980224222FA004037E6 /* GameTimeFactory.swift */; };
 		7559898322422374004037E6 /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898222422374004037E6 /* GameTime.swift */; };
 		7559898522422493004037E6 /* Int+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898422422493004037E6 /* Int+Lerp.swift */; };
 		7559898822423AFC004037E6 /* DiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898722423AFC004037E6 /* DiceFactory.swift */; };
@@ -211,7 +210,6 @@
 		7559897A22421C31004037E6 /* UpdatablePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePlayer.swift; sourceTree = "<group>"; };
 		7559897C22421C42004037E6 /* UpdatableNPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableNPC.swift; sourceTree = "<group>"; };
 		7559897E22421C50004037E6 /* UpdatablePirate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePirate.swift; sourceTree = "<group>"; };
-		75598980224222FA004037E6 /* GameTimeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTimeFactory.swift; sourceTree = "<group>"; };
 		7559898222422374004037E6 /* GameTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTime.swift; sourceTree = "<group>"; };
 		7559898422422493004037E6 /* Int+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Lerp.swift"; sourceTree = "<group>"; };
 		7559898722423AFC004037E6 /* DiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceFactory.swift; sourceTree = "<group>"; };
@@ -437,7 +435,6 @@
 		7559898622423AC4004037E6 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
-				75598980224222FA004037E6 /* GameTimeFactory.swift */,
 				7559898722423AFC004037E6 /* DiceFactory.swift */,
 			);
 			path = Factories;
@@ -973,7 +970,6 @@
 				754FED652243626900394215 /* Vector2F.swift in Sources */,
 				7536A8482240E10500D9D0FE /* GameLogic.swift in Sources */,
 				754FED6F2243795900394215 /* EngineConstants.swift in Sources */,
-				75598981224222FA004037E6 /* GameTimeFactory.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
 				75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */,
