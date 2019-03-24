@@ -54,7 +54,6 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
     }
 
     @IBAction func editParamPressed(_ sender: Any) {
-        // TODO: set player param
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyboard.instantiateViewController(withIdentifier: "playerTable")
             as? DetailEditTableViewController else {

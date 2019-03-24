@@ -25,10 +25,6 @@ class LevelEditorViewController: UIViewController {
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"
 
-    private lazy var upgrades = gameParameter
-    private lazy var playerParameters = gameParameter.getPlayerParameters()
-    private lazy var eventParameters = gameParameter
-    private lazy var map = gameParameter.getMap()
     var gameParameter = GameParameter(numOfPlayer: 2)
 
     var editMode: EditMode?
@@ -56,21 +52,30 @@ class LevelEditorViewController: UIViewController {
             }
             menuDest.delegate = self
             self.menuDest = menuDest
+        case "toGallary":
+            guard let gallaryDest = segue.destination as? GalleryViewController else {
+                return
+            }
+            gallaryDest.delegate = self
         default:
-            return
+            guard let gallaryDest = segue.destination as? GalleryViewController else {
+                return
+            }
+            gallaryDest.delegate = self
         }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        menuDest?.data = playerParameters
+        menuDest?.data = gameParameter.getPlayerParameters()
         playerMenu.isUserInteractionEnabled = true
 
+        let map = gameParameter.getMap()
         // Add nodes to map
         map.getNodes().forEach {
             let nodeView = NodeView(node: $0)
-            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: initNodeGestures())
+            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.getMap(), with: initNodeGestures())
         }
         // Add paths to map
         for path in map.getAllPaths() {
@@ -115,7 +120,7 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
-            self.map.addMap("\(name)background")
+            self.gameParameter.getMap().addMap("\(name)background")
             self.storage.save(self.gameParameter, self.mapBackground.image,
                               preview: self.editingAreaWrapper.screenShot, with: name)
         }, textPlaceHolder: "Input level name here")
@@ -137,7 +142,7 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
                 return
             }
-            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: self.initNodeGestures())
+            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.getMap(), with: self.initNodeGestures())
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }
@@ -147,7 +152,7 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = sender.view as? NodeView else {
                 return
             }
-            nodeView.removeFrom(map: self.map)
+            nodeView.removeFrom(map: self.gameParameter.getMap())
         }
         if editMode == .item {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -236,7 +241,7 @@ class LevelEditorViewController: UIViewController {
 
             bazier.addLine(to: toNode.center)
 
-            map.add(path: Path(from: fromNode.node, to: toNode.node))
+            gameParameter.getMap().add(path: Path(from: fromNode.node, to: toNode.node))
             lineLayer.path = bazier.cgPath
         default:
             return

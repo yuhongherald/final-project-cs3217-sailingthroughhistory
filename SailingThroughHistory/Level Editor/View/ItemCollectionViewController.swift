@@ -22,6 +22,13 @@ UICollectionViewDelegate, UITextFieldDelegate {
         self.collectionView.reloadData()
     }
 
+    override func viewDidLoad() {
+        self.collectionView.removeFromSuperview()
+        self.view.addSubview(collectionView)
+        print(collectionView.frame)
+        print(collectionView.visibleCells.count)
+    }
+
     @IBAction func confirmPressed(_ sender: Any?) {
         guard let port = selectedPort else {
             return

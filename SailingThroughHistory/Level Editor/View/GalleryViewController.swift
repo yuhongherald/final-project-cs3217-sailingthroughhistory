@@ -69,7 +69,7 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
             fatalError("LevelEditorViewController not found.")
         }
 
-        //self.delegate?.load(gameParameter)
+        castedController.load(gameParameter)
         self.present(castedController, animated: true, completion: nil)
     }
 }
