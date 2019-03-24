@@ -27,7 +27,7 @@ class MenuViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.isUserInteractionEnabled = true
+        self.tableView.isUserInteractionEnabled = true
     }
 
     // MARK: - Table view data source

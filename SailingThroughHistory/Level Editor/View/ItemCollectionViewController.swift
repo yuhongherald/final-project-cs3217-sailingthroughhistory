@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ItemCollectionViewController: UIViewController, UICollectionViewDataSource, UITextFieldDelegate {
+class ItemCollectionViewController: UIViewController, UICollectionViewDataSource,
+UICollectionViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     private var itemParameters: [ItemParameter] = []
     private var selectedPort: Port?

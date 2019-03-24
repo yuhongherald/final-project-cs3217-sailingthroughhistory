@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ItemParameter: Codable {
+struct ItemParameter: Codable {
     let displayName: String
     let unitWeight: Int
     let itemType: ItemType
@@ -17,7 +17,7 @@ class ItemParameter: Codable {
     private var sellValue: Int?
     private var buyValue: Int?
 
-    required public init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {
+    init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {
         self.itemType = itemType
         self.displayName = displayName
         self.unitWeight = weight
@@ -38,11 +38,11 @@ class ItemParameter: Codable {
         return sellValue
     }
 
-    func setBuyValue(value: Int) {
+    mutating func setBuyValue(value: Int) {
         buyValue = value
     }
 
-    func setSellValue(value: Int) {
+    mutating func setSellValue(value: Int) {
         sellValue = value
     }
 }

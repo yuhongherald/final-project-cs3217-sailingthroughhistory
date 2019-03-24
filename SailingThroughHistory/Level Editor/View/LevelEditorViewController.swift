@@ -153,7 +153,7 @@ class LevelEditorViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
                 as? ItemCollectionViewController else {
-                fatalError("Controller itemEditTable cannot be casted into ItemPickerViewController")
+                fatalError("Controller itemEditTable cannot be casted into ItemCollectionViewController")
             }
 
             guard let portView = sender.view as? NodeView,
