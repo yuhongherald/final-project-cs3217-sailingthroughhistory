@@ -13,8 +13,14 @@ class GameParameter: Codable {
     private var eventParameters = [EventParameter]()
     private var map = Map()
 
-    func getPlayers() -> [GenericPlayer] {
-        return playerParameters.map { $0.getPlayer() }
+    init(numOfPlayer: Int) {
+        for id in 0..<numOfPlayer {
+            playerParameters.append(PlayerParameter(name: "player\(id)"))
+        }
+    }
+
+    func getPlayerParameters() -> [PlayerParameter] {
+        return playerParameters
     }
 
     func getMap() -> Map {

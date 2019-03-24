@@ -8,12 +8,13 @@
 
 import UIKit
 protocol EditPanelDelegateProtocol: class {
+    var gameParameter: GameParameter { get }
     func clicked(_ select: EditMode)
     func addMapBackground(_ image: UIImage)
 }
 
 class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var delegate: EditPanelDelegateProtocol?
+    weak var delegate: EditPanelDelegateProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +57,12 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
                 fatalError("Controller is not found or cannot be casted into DetailEditTableViewController.")
         }
 
-        self.show(controller, sender: nil)
+        guard let unwrappedGame = self.delegate?.gameParameter else {
+            fatalError("EditPanelDelegateProtocol not set.")
+        }
+        controller.initWith(game: unwrappedGame)
 
+        self.show(controller, sender: nil)
     }
 
     @IBAction func editItemPressed(_ sender: Any) {

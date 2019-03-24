@@ -22,11 +22,11 @@ class LevelEditorViewController: UIViewController {
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"
 
-    private var upgrades = [Upgrade]()
-    private var playerParameters = [PlayerParameter]()
-    private var eventParameters = [EventParameter]()
+    private lazy var upgrades = gameParameter
+    private lazy var playerParameters = gameParameter.getPlayerParameters()
+    private lazy var eventParameters = gameParameter
     private lazy var map = gameParameter.getMap()
-    var gameParameter = GameParameter()
+    var gameParameter = GameParameter(numOfPlayer: 2)
 
     var editMode: EditMode?
     private var lineLayer = CAShapeLayer()
