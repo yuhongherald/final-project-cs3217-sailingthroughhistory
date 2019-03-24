@@ -9,14 +9,12 @@
 import UIKit
 
 struct Weather: VolatileModifier {
-    static let windEffectMultiplier: CGFloat = 1
-
     var isActive = false
-    var windVelocity = CGPoint.zero
+    var windVelocity: Float = 0
 
-    func applyVelocityModifier(to oldVelocity: CGPoint) -> CGPoint {
+    func applyVelocityModifier(to oldVelocity: Float) -> Float {
         if isActive {
-            return oldVelocity + windVelocity * Weather.windEffectMultiplier
+            return oldVelocity + windVelocity
         } else {
             return oldVelocity
         }
@@ -24,6 +22,6 @@ struct Weather: VolatileModifier {
 
     mutating func update(currentMonth: Int) {
         /// TODO: Randomize wind.
-        windVelocity = CGPoint.zero
+        windVelocity = 0
     }
 }

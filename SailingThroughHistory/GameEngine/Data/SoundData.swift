@@ -8,8 +8,8 @@
 
 // A struct that holds information for playing a sound
 // owner is the object that returns it
-struct GameSound {
-    static let none = GameSound(identifier: -1, resource: "", start: 0, end: 0, speed: 0)
+struct SoundData {
+    static let none = SoundData(identifier: -1, resource: "", start: 0, end: 0, speed: 0)
     let identifier: Int
     let resource: String
     let start: Double

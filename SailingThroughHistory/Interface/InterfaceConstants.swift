@@ -10,5 +10,8 @@ import UIKit
 
 enum InterfaceConstants {
     static let moneyPrefix = "Gold: "
+    static let cargoPrefix = "Current Cargo Weight: "
+    static let capacityPrefix = "Weight Capacity: "
+    static let itemQuantityPrefix = "x"
     static let defaultAnimationDuration: TimeInterval = 0.25
 }
