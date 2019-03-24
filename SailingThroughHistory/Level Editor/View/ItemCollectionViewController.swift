@@ -13,6 +13,10 @@ class ItemCollectionViewController: UIViewController, UICollectionViewDataSource
     private var itemParameters: [ItemParameter] = []
     private var selectedPort: Port?
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         self.collectionView.reloadData()
     }

@@ -33,3 +33,9 @@ extension LevelEditorViewController: UIScrollViewDelegate {
         return editingAreaWrapper
     }
 }
+
+extension LevelEditorViewController: MenuViewDelegateProtocol {
+    func assign(port: Port, to player: PlayerParameter) {
+        player.assign(port: port)
+    }
+}

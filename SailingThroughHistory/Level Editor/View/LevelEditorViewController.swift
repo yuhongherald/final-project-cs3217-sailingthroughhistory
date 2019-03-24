@@ -16,9 +16,12 @@ class LevelEditorViewController: UIViewController {
         }
     }
     @IBOutlet weak var editPanel: UIView!
+    @IBOutlet weak var playerMenu: UIView!
     @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
     @IBOutlet weak var panelToggle: UIButton!
+    private var panelDest: EditPanelViewController?
+    private var menuDest: MenuViewController?
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"
 
@@ -40,21 +43,34 @@ class LevelEditorViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let castedDest = segue.destination as? EditPanelViewController else {
+        switch segue.identifier {
+        case "toEditPanel":
+            guard let panelDest = segue.destination as? EditPanelViewController else {
+                return
+            }
+            panelDest.delegate = self
+            self.panelDest = panelDest
+        case "toPlayerMenu":
+            guard let menuDest = segue.destination as? MenuViewController else {
+                return
+            }
+            menuDest.delegate = self
+            self.menuDest = menuDest
+        default:
             return
         }
-        castedDest.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        menuDest?.data = playerParameters
+        playerMenu.isUserInteractionEnabled = true
+
         // Add nodes to map
         map.getNodes().forEach {
             let nodeView = NodeView(node: $0)
-            let tapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnNode(_:)))
-            let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
-            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: [tapOnNodeGesture, drawPathGesture])
+            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: initNodeGestures())
         }
         // Add paths to map
         for path in map.getAllPaths() {
@@ -79,6 +95,7 @@ class LevelEditorViewController: UIViewController {
 
         reInitScrollView()
         initBackground()
+        playerMenu.isHidden = true
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnMap(_:)))
         view.addGestureRecognizer(tapGesture)
@@ -114,20 +131,18 @@ class LevelEditorViewController: UIViewController {
             return
         }
 
-        let tapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnNode(_:)))
-        let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
         let location = sender.location(in: self.mapBackground)
 
         let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
             guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
                 return
             }
-            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: [tapOnNodeGesture, drawPathGesture])
+            nodeView.addTo(self.editingAreaWrapper, map: self.map, with: self.initNodeGestures())
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }
 
-    @objc func tapOnNode(_ sender: UITapGestureRecognizer) {
+    @objc func singleTapOnNode(_ sender: UITapGestureRecognizer) {
         if editMode == .erase {
             guard let nodeView = sender.view as? NodeView else {
                 return
@@ -155,6 +170,25 @@ class LevelEditorViewController: UIViewController {
             view.addSubview(controller.view)
             controller.didMove(toParent: self)
         }
+    }
+
+    @objc func doubleTapOnNode(_ sender: UITapGestureRecognizer) {
+        guard let node = sender.view as? NodeView, let port = node.node as? Port else {
+            let alert = UIAlert(errorMsg: "Double click on port to assign ownership.", msg: nil)
+            alert.present(in: self)
+            return
+        }
+        if playerMenu.isHidden {
+            playerMenu.frame.origin = port.frame.origin
+            playerMenu.isHidden = false
+            view.bringSubviewToFront(playerMenu)
+        } else {
+            playerMenu.isHidden = true
+            view.sendSubviewToBack(playerMenu)
+        }
+
+        menuDest?.set(port: port)
+        print("clicked")
     }
 
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
@@ -244,5 +278,20 @@ class LevelEditorViewController: UIViewController {
         scrollView.updateConstraints()
         editingAreaWrapper.removeFromSuperview()
         scrollView.addSubview(editingAreaWrapper)
+    }
+
+    private func initNodeGestures() -> [UIGestureRecognizer] {
+        let singleTapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(singleTapOnNode(_:)))
+        singleTapOnNodeGesture.numberOfTapsRequired = 1
+        let doubleTapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapOnNode(_:)))
+        doubleTapOnNodeGesture.numberOfTapsRequired = 2
+
+        singleTapOnNodeGesture.require(toFail: doubleTapOnNodeGesture)
+        singleTapOnNodeGesture.delaysTouchesBegan = true
+        doubleTapOnNodeGesture.delaysTouchesBegan = true
+
+        let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
+
+        return [singleTapOnNodeGesture, doubleTapOnNodeGesture, drawPathGesture]
     }
 }

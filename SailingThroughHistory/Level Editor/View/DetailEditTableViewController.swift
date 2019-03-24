@@ -12,6 +12,10 @@ class DetailEditTableViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet weak var tableView: UITableView!
     var playerParameters: [PlayerParameter] = []
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     override func viewDidLoad() {
         self.navigationController?.isToolbarHidden = false
     }
