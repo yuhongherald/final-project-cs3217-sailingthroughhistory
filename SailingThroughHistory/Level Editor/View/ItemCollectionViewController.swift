@@ -18,15 +18,11 @@ UICollectionViewDelegate, UITextFieldDelegate {
         return true
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        self.collectionView.reloadData()
-    }
-
     override func viewDidLoad() {
-        self.collectionView.removeFromSuperview()
-        self.view.addSubview(collectionView)
-        print(collectionView.frame)
-        print(collectionView.visibleCells.count)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
     }
 
     @IBAction func confirmPressed(_ sender: Any?) {
@@ -64,6 +60,7 @@ UICollectionViewDelegate, UITextFieldDelegate {
     func initWith(port: Port) {
         self.selectedPort = port
         self.itemParameters = port.getAllItemParameters()
+        collectionView.reloadData()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

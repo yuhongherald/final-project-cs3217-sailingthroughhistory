@@ -170,7 +170,9 @@ class LevelEditorViewController: UIViewController {
                 return
             }
 
+            _ = controller.view
             controller.initWith(port: port)
+
             self.addChild(controller)
             view.addSubview(controller.view)
             controller.didMove(toParent: self)
@@ -298,5 +300,13 @@ class LevelEditorViewController: UIViewController {
         let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
 
         return [singleTapOnNodeGesture, doubleTapOnNodeGesture, drawPathGesture]
+    }
+
+    private func fillWith(_ subview: UIView) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        subview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        subview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        subview.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        subview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }
