@@ -12,7 +12,7 @@ class UpdatablePlayer: GameObject, Updatable {
     var status: UpdatableStatus = .add
 
     init(gameState: GenericGameState) {
-        super.init(image: Resources.Ships.british[0], frame: CGRect())
+        super.init(image: Resources.Ships.british[0], frame: Rect())
     }
     
     required init(from decoder: Decoder) throws {

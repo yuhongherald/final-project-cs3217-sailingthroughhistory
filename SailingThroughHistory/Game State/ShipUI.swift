@@ -6,17 +6,17 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import Foundation
-import UIKit
 import RxSwift
 
 class ShipUI: GameObject {
 
     private let shipImagePath = "ship.png"
-    private let shipWidth = 50
+    private let shipWidth: Double = 50
 
     init(ship: Ship) {
-        let frame = CGRect(x: 0, y: 0, width: shipWidth, height: shipWidth)
+        guard let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) else {
+            fatalError("shipWidth is invalid.")
+        }
         super.init(image: shipImagePath, frame: frame)
         ship.location.subscribe(with: updateShip)
     }
@@ -32,9 +32,13 @@ class ShipUI: GameObject {
         let start = location.start
         let end = location.end
         let fraction = location.fractionToEnd
-        let newX = start.frame.midX * CGFloat(fraction) + end.frame.midX * CGFloat(1 - fraction) - CGFloat(shipWidth) / 2
-        let newY = start.frame.midY * CGFloat(fraction) + end.frame.midY * CGFloat(1 - fraction) - CGFloat(shipWidth) / 2
-        frame = CGRect(x: newX, y: newY, width: CGFloat(shipWidth), height: CGFloat(shipWidth))
+        let newX = start.frame.midX * fraction + end.frame.midX * (1 - fraction) - shipWidth / 2
+        let newY = start.frame.midY * fraction + end.frame.midY * (1 - fraction) - shipWidth / 2
+        guard let frame = Rect(originX: newX, originY: newY, height: shipWidth, width: shipWidth) else {
+            fatalError("New frame is invalid")
+        }
+
+        self.frame = frame
     }
 
 }

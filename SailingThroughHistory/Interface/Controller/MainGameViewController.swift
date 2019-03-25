@@ -31,7 +31,7 @@ class MainGameViewController: UIViewController {
             portItemsTableView.reloadData()
         }
     }
-    
+
     @IBOutlet private weak var playerOneInformationView: UIView!
     @IBOutlet private weak var playerTwoInformationView: UIView!
     @IBOutlet private weak var playerOneGoldView: UILabel!
@@ -59,7 +59,7 @@ class MainGameViewController: UIViewController {
     private var currentTurnOwner: GenericPlayer?
 
     /// TODO: Reference to Game Engine
-    private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView.frame)
+    private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView!.frame.toRect())
     private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
     private lazy var objectsController: ObjectsViewController =
         ObjectsViewController(view: gameArea, mainController: self)
@@ -71,7 +71,7 @@ class MainGameViewController: UIViewController {
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
 
     var interfaceBounds: CGRect {
-        return interface.bounds
+        return CGRect(fromRect: interface.bounds)
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -83,16 +83,17 @@ class MainGameViewController: UIViewController {
         reInitScrollView()
         initBackground()
         //Uncomment to test interface
-        let object = GameObject(image: "ship.png", frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        let object = GameObject(image: "ship.png", frame: Rect(originX: 0, originY: 0, height: 200, width: 200)!)
         self.interface.add(object: object)
         let nodeDummy = Node(name: "testnode", image: "sea-node.png",
-                             frame: CGRect(x: 500, y: 500, width: 50, height: 50))
-        let object2 = Port(player: Player(name: "test", node: nodeDummy), pos: CGPoint(x: 500, y: 500))
-        object2.itemParametersSold = [ItemParameter(itemType: ItemType.opium, displayName: "Opium", weight: 1, isConsumable: true)]
+                             frame: CGRect(x: 500, y: 500, width: 50, height: 50).toRect())
+        let object2 = Port(player: Player(name: "test", node: nodeDummy), originX: 500, originY: 500)
+        object2.itemParametersSold = [ItemParameter(itemType: ItemType.opium,
+                                                    displayName: "Opium", weight: 1, isConsumable: true)]
         let path = Path(from: object, to: object2)
         self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
-        self.interface.showTravelChoices([object2]) { [weak self] (_: GameObject)  in
+        self.interface.showTravelChoices([object2]) { [weak self] (_: ReadOnlyGameObject)  in
             let alert = ControllerUtils.getGenericAlert(titled: "Title", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
             }
@@ -109,7 +110,8 @@ class MainGameViewController: UIViewController {
          //Uncomment to test interface
         DispatchQueue.global(qos: .background).async { [weak self] in
             while true {
-                object.frame = object.frame.applying(CGAffineTransform(translationX: 50, y: 50))
+                object.frame = Rect(originX: object.frame.originX + 50, originY: object.frame.originY + 50,
+                                    height: object.frame.height, width: object.frame.width)!
                 self?.interface.updatePosition(of: object)
                 self?.interface.broadcastInterfaceChanges(withDuration: 1)
             }
@@ -214,8 +216,8 @@ class MainGameViewController: UIViewController {
     }
 
     private func syncObjectsAndPaths(with interface: Interface) {
-        interface.objectFrames.forEach {
-            objectsController.add(object: $0.key, at: $0.value,
+        interface.objectFrames.getAllObjectFrames().forEach {
+            objectsController.add(object: $0.object, at: $0.frame,
                                   withDuration: InterfaceConstants.defaultAnimationDuration,
                                   callback: {})
         }
@@ -290,7 +292,8 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    private func remove(object: GameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
+    private func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback:
+        @escaping () -> Void) {
         pathsController.removeAllPathsAssociated(with: object, withDuration: duration)
         objectsController.remove(object: object, withDuration: duration, callback: callback)
     }
@@ -342,7 +345,7 @@ class MainGameViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void,
+    private func playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: (() -> Void)?,
                                  callback: @escaping () -> Void) {
 
         func animatePlayerTurnStart() {
@@ -355,7 +358,7 @@ class MainGameViewController: UIViewController {
                     minutes: timeLimit)
                 countdownLabel.then(targetTime: 1) { [weak self] in
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        timeOutCallback()
+                        timeOutCallback?()
                         self?.playerTurnEnd()
                     }
                 }

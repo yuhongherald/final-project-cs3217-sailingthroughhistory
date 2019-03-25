@@ -5,7 +5,6 @@
 //  Created by Jason Chong on 14/3/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
-import UIKit
 
 class Port: Node {
     // TODO: [Note]: Changed GenericPlayer to Player for encode
@@ -21,16 +20,26 @@ class Port: Node {
     // TODO: add item quantity editing in level editor
     var itemParametersSold = [ItemParameter]()
 
-    private static let portNodeSize = CGSize(width: 50, height: 50)
+    private static let portNodeWidth: Double = 50
+    private static let portNodeHeight: Double = 50
     private static let portNodeImage = "port-node.png"
 
-    init(player: Player, pos: CGPoint) {
+    init(player: Player, originX: Double, originY: Double) {
+        guard let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
+                               width: Port.portNodeWidth) else {
+                                fatalError("Port dimensions are invalid.")
+        }
         owner = player
-        super.init(name: player.name, image: Port.portNodeImage, frame: CGRect(origin: pos, size: Port.portNodeSize))
+        super.init(name: player.name, image: Port.portNodeImage, frame: frame)
     }
 
-    init(player: Player?, name: String, pos: CGPoint) {
-        super.init(name: name, image: Port.portNodeImage, frame: CGRect(origin: pos, size: Port.portNodeSize))
+    init(player: Player?, name: String, originX: Double, originY: Double) {
+        guard let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
+                               width: Port.portNodeWidth) else {
+                                fatalError("Port dimensions are invalid.")
+        }
+
+        super.init(name: name, image: Port.portNodeImage, frame: frame)
     }
 
     required init(from decoder: Decoder) throws {

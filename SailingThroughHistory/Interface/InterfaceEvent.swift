@@ -6,27 +6,20 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import UIKit
-
 enum InterfaceEvent {
-    case toggleUpgradesMenu(isVisible: Bool)
-    case arriveAt(port: Port)
-    /// TODO :Remove these.
-    case move(_: GameObject, toFrame: CGRect)
-    case addObject(_: GameObject, atFrame: CGRect)
+    case addObject(_: ReadOnlyGameObject, atFrame: Rect)
+    case move(_: ReadOnlyGameObject, toFrame: Rect)
+    case removeObject(_: ReadOnlyGameObject)
     case addPath(_: Path)
-    case removeObject(_: GameObject)
     case removePath(_: Path)
+    case addContext(_: ContextDrawable, frame: Rect)
+    case moveContext(withId: Int, toFrame: Rect)
+    case removeContext(withId: Int)
     case changeMonth(toMonth: String)
-    case playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: () -> Void)
+    case playerTurnStart(player: GenericPlayer, timeLimit: Double?, timeOutCallback: (() -> Void)?)
     case playerTurnEnd
     case pauseAndShowAlert(titled: String, withMsg: String)
+    case showTravelChoices(choices: [Node], selectCallback: (ReadOnlyGameObject) -> Void)
     case pauseGame
     case resumeGame
-    case showTravelChoices(choices: [Node], selectCallback: (GameObject) -> Void)
-    case moveDrawable(withId: Int, toFrame: Rect)
-    case addDrawable(_: InterfaceDrawable)
-    case addInterfacePath(_: InterfacePath)
-    case removeDrawable(_: InterfaceDrawable)
-    case removeInterfacePath(_: InterfacePath)
 }

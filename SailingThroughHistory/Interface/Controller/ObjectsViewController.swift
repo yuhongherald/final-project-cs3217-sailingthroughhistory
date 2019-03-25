@@ -9,7 +9,7 @@
 import UIKit
 
 struct ObjectsViewController {
-    private var views = [GameObject: UIGameObjectImageView]()
+    private var views = [ObjectIdentifier: UIGameObjectImageView]()
     private let mainController: MainGameViewController
     private let view: UIView
 
@@ -18,8 +18,8 @@ struct ObjectsViewController {
         self.mainController = mainController
     }
 
-    func getFrame(for object: GameObject) -> CGRect? {
-        return views[object]?.frame
+    func getFrame(for object: ReadOnlyGameObject) -> CGRect? {
+        return views[ObjectIdentifier(object)]?.frame
     }
 
     func onTap(objectView: UIGameObjectImageView) {
@@ -60,9 +60,10 @@ struct ObjectsViewController {
         mainController.showInformation(ofPort: port)
     }
 
-    mutating func add(object: GameObject, at frame: CGRect, withDuration duration: TimeInterval,
+    mutating func add(object: ReadOnlyGameObject, at frame: Rect, withDuration duration: TimeInterval,
                       callback: @escaping () -> Void) {
-        views[object]?.removeFromSuperview()
+        let objectIdentifier = ObjectIdentifier(object)
+        views[objectIdentifier]?.removeFromSuperview()
         let image = UIImage(named: object.image)
         let view = UIGameObjectImageView(image: image, object: object)
         if object.isAnimated {
@@ -73,18 +74,18 @@ struct ObjectsViewController {
             view.animationDuration = object.loopDuration
             view.startAnimating()
         }
-        views[object] = view
+        views[objectIdentifier] = view
         view.alpha = 0
         self.view.addSubview(view)
         view.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds,
-                                            otherFrame: frame, to: self.view.bounds)
+                                            otherFrame: CGRect(fromRect: frame), to: self.view.bounds)
         UIView.animate(withDuration: duration, animations: {
             view.alpha = 1
         }, completion: { _ in callback() })
     }
 
-    mutating func remove(object: GameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        guard let view = views.removeValue(forKey: object) else {
+    mutating func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
+        guard let view = views.removeValue(forKey: ObjectIdentifier(object)) else {
             callback()
             return
         }
@@ -92,7 +93,7 @@ struct ObjectsViewController {
         view.fadeOutAndRemove(withDuration: duration, completion: callback)
     }
 
-    func makeChoosable(nodes: [Node], withDuration duration: TimeInterval, tapCallback: @escaping (GameObject) -> Void, callback: @escaping () -> Void) {
+    func makeChoosable(nodes: [Node], withDuration duration: TimeInterval, tapCallback: @escaping (ReadOnlyGameObject) -> Void, callback: @escaping () -> Void) {
         if nodes.isEmpty {
             callback()
             return
@@ -101,22 +102,23 @@ struct ObjectsViewController {
         let views = self.views
 
         for node in nodes {
-            views[node]?.isUserInteractionEnabled = true
-            views[node]?.tapCallback = tapCallback
+            let nodeKey = ObjectIdentifier(node)
+            views[nodeKey]?.isUserInteractionEnabled = true
+            views[nodeKey]?.tapCallback = tapCallback
         }
 
         UIView.animate(withDuration: duration, animations: {
             nodes.forEach {
-                views[$0]?.addGlow(colored: .purple)
+                views[ObjectIdentifier($0)]?.addGlow(colored: .purple)
             }
         }, completion: { _ in
             callback()
         })
     }
 
-    func move(object: GameObject, to dest: CGRect, withDuration duration: TimeInterval,
+    func move(object: ReadOnlyGameObject, to dest: Rect, withDuration duration: TimeInterval,
               callback: @escaping () -> Void) {
-        guard let objectView = views[object] else {
+        guard let objectView = views[ObjectIdentifier(object)] else {
             return
         }
 
@@ -124,7 +126,8 @@ struct ObjectsViewController {
         let bounds = view.bounds
 
         UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
-            objectView.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds, otherFrame: dest,
+            objectView.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds,
+                                                      otherFrame: CGRect(fromRect: dest),
                                                       to: bounds)
             }, completion: { _ in callback() })
     }

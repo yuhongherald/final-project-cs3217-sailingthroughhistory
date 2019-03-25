@@ -6,13 +6,11 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-struct InterfaceDrawable {
+struct ContextDrawable {
     let uniqueId: Int
     let images: [String]
-    let frame: Rect
     let loopDuration: Double
     let startingFrame: Int
-    let interfaceLayer: InterfaceLayer
     var image: String {
         return images.first ?? ""
     }
@@ -20,28 +18,24 @@ struct InterfaceDrawable {
         return images.count > 1 && loopDuration > 0
     }
 
-    init(withId uniqueId: Int, image: String, frame: Rect, interfaceLayer: InterfaceLayer) {
+    init(withId uniqueId: Int, image: String) {
         self.uniqueId = uniqueId
         self.images = [image]
-        self.frame = frame
-        self.interfaceLayer = interfaceLayer
         self.startingFrame = 0
         self.loopDuration = 0
     }
 
-    init(withId uniqueId: Int, images: [String], frame: Rect, interfaceLayer: InterfaceLayer, loopDuration: Double,
+    init(withId uniqueId: Int, images: [String], loopDuration: Double,
          startingFrame: Int) {
         self.uniqueId = uniqueId
         self.images = images
-        self.frame = frame
         self.loopDuration = loopDuration
         self.startingFrame = startingFrame
-        self.interfaceLayer = interfaceLayer
     }
 }
 
-extension InterfaceDrawable: Hashable {
-    static func == (lhs: InterfaceDrawable, rhs: InterfaceDrawable) -> Bool {
+extension ContextDrawable: Hashable {
+    static func == (lhs: ContextDrawable, rhs: ContextDrawable) -> Bool {
         return lhs.uniqueId == rhs.uniqueId
     }
 

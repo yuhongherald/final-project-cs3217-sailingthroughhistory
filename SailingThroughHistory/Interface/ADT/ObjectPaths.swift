@@ -7,7 +7,7 @@
 //
 
 struct ObjectPaths {
-    var paths = [GameObject: [Path]]()
+    var paths = [ObjectIdentifier: [Path]]()
     var allPaths: Set<Path> {
         return Set(paths.values
             .flatMap { $0 })
@@ -19,8 +19,8 @@ struct ObjectPaths {
 
     private func checkRep() -> Bool {
         for path in allPaths {
-            if !paths[path.fromObject, default: []].contains(path) ||
-                !paths[path.toObject, default: []].contains(path) {
+            if !paths[ObjectIdentifier(path.fromObject), default: []].contains(path) ||
+                !paths[ObjectIdentifier(path.toObject), default: []].contains(path) {
                 return false
             }
         }
@@ -30,25 +30,25 @@ struct ObjectPaths {
 
     mutating func add(path: Path) {
         assert(checkRep())
-        paths[path.fromObject, default: []].append(path)
-        paths[path.toObject, default: []].append(path)
+        paths[ObjectIdentifier(path.fromObject), default: []].append(path)
+        paths[ObjectIdentifier(path.toObject), default: []].append(path)
         assert(checkRep())
     }
 
     mutating func remove(path: Path) {
         assert(checkRep())
-        paths[path.toObject]?.removeAll { $0 == path }
-        paths[path.fromObject]?.removeAll { $0 == path }
+        paths[ObjectIdentifier(path.toObject)]?.removeAll { $0 == path }
+        paths[ObjectIdentifier(path.fromObject)]?.removeAll { $0 == path }
         assert(checkRep())
     }
 
-    mutating func removeAllPathsAssociated(with object: GameObject) {
+    mutating func removeAllPathsAssociated(with object: ReadOnlyGameObject) {
         assert(checkRep())
-        paths[object]?.forEach { path in
-            paths[path.toObject]?.removeAll { otherPath in path == otherPath }
+        paths[ObjectIdentifier(object)]?.forEach { path in
+            paths[ObjectIdentifier(path.toObject)]?.removeAll { otherPath in path == otherPath }
         }
 
-        paths[object] = nil
+        paths[ObjectIdentifier(object)] = nil
         assert(checkRep())
     }
 
@@ -56,7 +56,7 @@ struct ObjectPaths {
         return allPaths.contains(path)
     }
 
-    func getPathsFor(object: GameObject) -> [Path] {
-        return paths[object, default: []]
+    func getPathsFor(object: ReadOnlyGameObject) -> [Path] {
+        return paths[ObjectIdentifier(object), default: []]
     }
 }

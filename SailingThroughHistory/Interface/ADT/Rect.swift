@@ -6,13 +6,26 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-struct Rect {
-    let originX: Float
-    let originY: Float
-    let height: Float
-    let width: Float
+struct Rect: Codable {
+    let originX: Double
+    let originY: Double
+    let height: Double
+    let width: Double
+    var midX: Double {
+        return originX + width / 2
+    }
+    var midY: Double {
+        return originY + width / 2
+    }
 
-    init?(originX: Float, originY: Float, height: Float, width: Float) {
+    init() {
+        self.originX = 0
+        self.originY = 0
+        self.height = 0
+        self.width = 0
+    }
+
+    init?(originX: Double, originY: Double, height: Double, width: Double) {
         if originX < 0 || originY < 0 || height < 0 || width < 0 {
             return nil
         }
