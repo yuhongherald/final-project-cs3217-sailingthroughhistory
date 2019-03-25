@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
 		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
-		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
 		1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */; };
 		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
 		1A749D6E2243CFF800482CE5 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D6D2243CFF800482CE5 /* Storage.swift */; };
@@ -73,10 +72,9 @@
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
 		75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435922428808007855F9 /* UpdatableTime.swift */; };
 		75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435D22428ED9007855F9 /* Timestampable.swift */; };
-		9621CC032246C054008178FF /* InterfaceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC022246C054008178FF /* InterfaceLayer.swift */; };
-		9621CC072246C0BC008178FF /* InterfaceDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC062246C0BC008178FF /* InterfaceDrawable.swift */; };
+		9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B7702248F28100DA12C8 /* CGRect+Rect.swift */; };
+		9621CC072246C0BC008178FF /* ContextDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC062246C0BC008178FF /* ContextDrawable.swift */; };
 		9621CC092246C321008178FF /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC082246C321008178FF /* Rect.swift */; };
-		9621CC0B2246C470008178FF /* InterfacePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC0A2246C470008178FF /* InterfacePath.swift */; };
 		965E0333223A4B3C005F7D79 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0332223A4B3C005F7D79 /* Node.swift */; };
 		965E0335223A4B84005F7D79 /* Sea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0334223A4B84005F7D79 /* Sea.swift */; };
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
@@ -100,6 +98,8 @@
 		96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EAA223D772900D04C33 /* UIVIew+Border.swift */; };
 		96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */; };
 		967FAA7D2244BF1F005054B6 /* PortItemTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967FAA7C2244BF1F005054B6 /* PortItemTableDataSource.swift */; };
+		967FD6B322494309008559CE /* ReadOnlyGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967FD6B222494309008559CE /* ReadOnlyGameObject.swift */; };
+		967FD6B522494619008559CE /* ObjectFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967FD6B422494619008559CE /* ObjectFrames.swift */; };
 		9681199C2243C29F0093ABBA /* ContextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9681199B2243C29F0093ABBA /* ContextViewController.swift */; };
 		9681199E2243CCA30093ABBA /* Array+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9681199D2243CCA30093ABBA /* Array+Rotate.swift */; };
 		96877E54223EC7D80020F44C /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96877E53223EC7D80020F44C /* Path.swift */; };
@@ -113,11 +113,14 @@
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
 		969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */; };
 		96A261D42246454500BBCC60 /* InterfaceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A261D32246454500BBCC60 /* InterfaceTest.swift */; };
+		96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemParameter.swift */; };
+		96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* GenericLevel.swift */; };
+		96A65ADC22491FE900D7512C /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
 		96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF55792242B6A100C1E809 /* PathsViewController.swift */; };
 		96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */; };
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
 		96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* InterfacePublishSubject.swift */; };
-		A16E7835A84A5FCA148BD16E /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037CC15C70B42699AC3779E3 /* Pods_SailingThroughHistory.framework */; };
+		B1ED82DF2E0DFBF637A42444 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD427A94087A84D2575AEA83 /* Pods_SailingThroughHistory.framework */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
 		BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485901223F8B6E009ED2F6 /* Consumable.swift */; };
 		BA485904223F9112009ED2F6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485903223F9112009ED2F6 /* Location.swift */; };
@@ -132,9 +135,7 @@
 		BA919064223F260A00009F49 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919063223F260A00009F49 /* Ship.swift */; };
 		BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919066223F266E00009F49 /* ObservableVariable.swift */; };
 		BA919069223F271700009F49 /* GameVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919068223F271700009F49 /* GameVariable.swift */; };
-		BA91906B223F429900009F49 /* GenericLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* GenericLevel.swift */; };
 		BA919070223F446800009F49 /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906F223F446800009F49 /* Upgrade.swift */; };
-		BA919072223F447F00009F49 /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemParameter.swift */; };
 		BA919074223F44A400009F49 /* GameParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919073223F44A400009F49 /* GameParameter.swift */; };
 		BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919077223F4D0800009F49 /* ShipChassis.swift */; };
 		BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */; };
@@ -160,8 +161,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		037CC15C70B42699AC3779E3 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		11A0FA0E588AA9CBB9660AD7 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		1A49D237223E468300A419F4 /* LevelEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelEditorViewController.swift; sourceTree = "<group>"; };
 		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
 		1A749D642240F6DC00482CE5 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		1A9FF0912240AC9C00005FCB /* EventParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParameter.swift; sourceTree = "<group>"; };
 		1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEditTableViewController.swift; sourceTree = "<group>"; };
 		1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
+		7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		1AF0182F224752FE008B468B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		7528A9572245CDE300327211 /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
 		7528A9592245CDF500327211 /* UpdatableTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTest.swift; sourceTree = "<group>"; };
@@ -228,10 +228,9 @@
 		75598991224243CE004037E6 /* EmotionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionEngine.swift; sourceTree = "<group>"; };
 		75F8435922428808007855F9 /* UpdatableTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTime.swift; sourceTree = "<group>"; };
 		75F8435D22428ED9007855F9 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
-		9621CC022246C054008178FF /* InterfaceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceLayer.swift; sourceTree = "<group>"; };
-		9621CC062246C0BC008178FF /* InterfaceDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceDrawable.swift; sourceTree = "<group>"; };
+		9615B7702248F28100DA12C8 /* CGRect+Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Rect.swift"; sourceTree = "<group>"; };
+		9621CC062246C0BC008178FF /* ContextDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDrawable.swift; sourceTree = "<group>"; };
 		9621CC082246C321008178FF /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
-		9621CC0A2246C470008178FF /* InterfacePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfacePath.swift; sourceTree = "<group>"; };
 		965E0332223A4B3C005F7D79 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		965E0334223A4B84005F7D79 /* Sea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sea.swift; sourceTree = "<group>"; };
 		965E0336223A4BB3005F7D79 /* VolatileModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileModifier.swift; sourceTree = "<group>"; };
@@ -255,6 +254,8 @@
 		96737EAA223D772900D04C33 /* UIVIew+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Border.swift"; sourceTree = "<group>"; };
 		96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonRounded.swift; sourceTree = "<group>"; };
 		967FAA7C2244BF1F005054B6 /* PortItemTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemTableDataSource.swift; sourceTree = "<group>"; };
+		967FD6B222494309008559CE /* ReadOnlyGameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyGameObject.swift; sourceTree = "<group>"; };
+		967FD6B422494619008559CE /* ObjectFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectFrames.swift; sourceTree = "<group>"; };
 		9681199B2243C29F0093ABBA /* ContextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextViewController.swift; sourceTree = "<group>"; };
 		9681199D2243CCA30093ABBA /* Array+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Rotate.swift"; sourceTree = "<group>"; };
 		96877E53223EC7D80020F44C /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
@@ -300,7 +301,8 @@
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
 		BA91907B223F531A00009F49 /* GenericGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameState.swift; sourceTree = "<group>"; };
 		BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerShipUpgrade.swift; sourceTree = "<group>"; };
-		BB5E5EDE68A5733AE2EC9680 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
+		C6849D17A303D2EBF27662A5 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
+		FD427A94087A84D2575AEA83 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,7 +310,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A16E7835A84A5FCA148BD16E /* Pods_SailingThroughHistory.framework in Frameworks */,
+				B1ED82DF2E0DFBF637A42444 /* Pods_SailingThroughHistory.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +364,14 @@
 				1A749D642240F6DC00482CE5 /* ItemType.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		4F08B99631DF101F42C56A53 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD427A94087A84D2575AEA83 /* Pods_SailingThroughHistory.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7536A8292240971500D9D0FE /* GameEngine */ = {
@@ -465,6 +475,15 @@
 			path = "Small components";
 			sourceTree = "<group>";
 		};
+		8783F251F4FFDE812D7DABCB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */,
+				C6849D17A303D2EBF27662A5 /* Pods-SailingThroughHistory.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		965E0331223A4B2F005F7D79 /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -493,6 +512,7 @@
 				1A9FF0892240142B00005FCB /* UIAlert.swift */,
 				9681199D2243CCA30093ABBA /* Array+Rotate.swift */,
 				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
+				9615B7702248F28100DA12C8 /* CGRect+Rect.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -509,9 +529,8 @@
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
-				9621CC022246C054008178FF /* InterfaceLayer.swift */,
-				9621CC062246C0BC008178FF /* InterfaceDrawable.swift */,
-				9621CC0A2246C470008178FF /* InterfacePath.swift */,
+				9621CC062246C0BC008178FF /* ContextDrawable.swift */,
+				967FD6B222494309008559CE /* ReadOnlyGameObject.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -521,6 +540,7 @@
 			children = (
 				968F13652244008200FE32E0 /* ObjectPaths.swift */,
 				9621CC082246C321008178FF /* Rect.swift */,
+				967FD6B422494619008559CE /* ObjectFrames.swift */,
 			);
 			path = ADT;
 			sourceTree = "<group>";
@@ -533,8 +553,8 @@
 				9690F5DD223A4875005291EE /* SailingThroughHistoryTests */,
 				9690F5E8223A4875005291EE /* SailingThroughHistoryUITests */,
 				9690F5C7223A4874005291EE /* Products */,
-				BC13045FD46E9F785FD9DD91 /* Pods */,
-				D321BFF795FA9E3E83D0D9F5 /* Frameworks */,
+				8783F251F4FFDE812D7DABCB /* Pods */,
+				4F08B99631DF101F42C56A53 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -691,23 +711,6 @@
 			path = "Game Parameters";
 			sourceTree = "<group>";
 		};
-		BC13045FD46E9F785FD9DD91 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				BB5E5EDE68A5733AE2EC9680 /* Pods-SailingThroughHistory.debug.xcconfig */,
-				11A0FA0E588AA9CBB9660AD7 /* Pods-SailingThroughHistory.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		D321BFF795FA9E3E83D0D9F5 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				037CC15C70B42699AC3779E3 /* Pods_SailingThroughHistory.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -715,12 +718,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9690F5EE223A4875005291EE /* Build configuration list for PBXNativeTarget "SailingThroughHistory" */;
 			buildPhases = (
-				0C42C17BA4BE8E968B3F3BB7 /* [CP] Check Pods Manifest.lock */,
+				44A4BE4C8AA19B78531B18E6 /* [CP] Check Pods Manifest.lock */,
 				9690F5C2223A4874005291EE /* Sources */,
 				9690F5C3223A4874005291EE /* Frameworks */,
 				9690F5C4223A4874005291EE /* Resources */,
 				96737EA9223D5C8E00D04C33 /* ShellScript */,
-				C15ABC532C2CF69AA3D2B0AE /* [CP] Embed Pods Frameworks */,
+				F661264040C4BE97F3534A00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -794,7 +797,7 @@
 				};
 			};
 			buildConfigurationList = 9690F5C1223A4874005291EE /* Build configuration list for PBXProject "SailingThroughHistory" */;
-			compatibilityVersion = "Xcode 8.0";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -842,7 +845,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C42C17BA4BE8E968B3F3BB7 /* [CP] Check Pods Manifest.lock */ = {
+		44A4BE4C8AA19B78531B18E6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -873,7 +876,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		C15ABC532C2CF69AA3D2B0AE /* [CP] Embed Pods Frameworks */ = {
+		F661264040C4BE97F3534A00 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -920,13 +923,12 @@
 				969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */,
 				7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
-				BA919072223F447F00009F49 /* ItemParameter.swift in Sources */,
-				BA919072223F447F00009F49 /* ItemParameter.swift in Sources */,
+				967FD6B322494309008559CE /* ReadOnlyGameObject.swift in Sources */,
+				96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */,
 				96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				968F13662244008200FE32E0 /* ObjectPaths.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
-				9621CC0B2246C470008178FF /* InterfacePath.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				75598992224243CE004037E6 /* EmotionEngine.swift in Sources */,
 				7536A8372240A09200D9D0FE /* GenericAsyncWrap.swift in Sources */,
@@ -939,7 +941,6 @@
 				754FED5B22433F1700394215 /* Stopwatch.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
 				754FED7122437B4F00394215 /* NPC.swift in Sources */,
-				9621CC032246C054008178FF /* InterfaceLayer.swift in Sources */,
 				BA919070223F446800009F49 /* Upgrade.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
 				BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */,
@@ -951,14 +952,13 @@
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
-				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
+				96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */,
 				96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */,
 				967FAA7D2244BF1F005054B6 /* PortItemTableDataSource.swift in Sources */,
-				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
-				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
+				96A65ADC22491FE900D7512C /* ItemType.swift in Sources */,
 				7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */,
 				7536A83E2240A7E600D9D0FE /* EventType.swift in Sources */,
-				9621CC072246C0BC008178FF /* InterfaceDrawable.swift in Sources */,
+				9621CC072246C0BC008178FF /* ContextDrawable.swift in Sources */,
 				7559898C22423DDB004037E6 /* Dice.swift in Sources */,
 				753EEA8C22452E5400D56CBA /* DrawableManager.swift in Sources */,
 				7559898322422374004037E6 /* GameTime.swift in Sources */,
@@ -967,10 +967,9 @@
 				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
 				9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
-				1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */,
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
+				967FD6B522494619008559CE /* ObjectFrames.swift in Sources */,
 				753EEA822245169C00D56CBA /* Drawable.swift in Sources */,
-				BA91906B223F429900009F49 /* GenericLevel.swift in Sources */,
 				BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */,
 				7559897D22421C42004037E6 /* UpdatableNPC.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
@@ -1000,6 +999,7 @@
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
 				75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */,
+				9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				7536A8392240A14400D9D0FE /* GameAsyncWrap.swift in Sources */,
@@ -1196,20 +1196,25 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		9690F5EF223A4875005291EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB5E5EDE68A5733AE2EC9680 /* Pods-SailingThroughHistory.debug.xcconfig */;
+			baseConfigurationReference = 7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistory/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.CS3217;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1219,13 +1224,17 @@
 		};
 		9690F5F0223A4875005291EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 11A0FA0E588AA9CBB9660AD7 /* Pods-SailingThroughHistory.release.xcconfig */;
+			baseConfigurationReference = C6849D17A303D2EBF27662A5 /* Pods-SailingThroughHistory.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistory/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.CS3217;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1241,7 +1250,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistoryTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.SailingThroughHistoryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1258,7 +1271,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistoryTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.SailingThroughHistoryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1274,7 +1291,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistoryUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.SailingThroughHistoryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -1290,7 +1311,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistoryUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.SailingThroughHistoryUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
