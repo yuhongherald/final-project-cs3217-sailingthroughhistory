@@ -31,6 +31,7 @@ class Player: GenericPlayer {
         self.startingNode = node
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
+        money.subscribe(with: preventPlayerBankruptcy)
     }
 
     required init(from decoder: Decoder) throws {
@@ -126,5 +127,14 @@ extension Player {
 
     func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void) {
         ship.subscribeToWeightCapcity(with: observer)
+    }
+
+    private func preventPlayerBankruptcy(event: Event<Int>) {
+        guard let value = event.element, value < 0 else {
+            return
+        }
+        interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-value) amount of donations from your company. Try not to go negative again!")
+        interface?.broadcastInterfaceChanges(withDuration: 0.5)
+        money.value = 0
     }
 }
