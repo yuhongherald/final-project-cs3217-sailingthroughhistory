@@ -40,6 +40,10 @@ class PlayerParameter: Codable {
         return money.value
     }
 
+    func getPort() -> Port? {
+        return port
+    }
+
     func set(name: String, money: Int?) {
         if name != "" {
             self.name = name

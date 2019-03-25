@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xnR-2a-N1z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fZz-0J-H6I">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -677,12 +677,14 @@
                                     <constraint firstItem="JqI-UC-Pv3" firstAttribute="top" secondItem="Vlw-8p-cVm" secondAttribute="top" id="ty5-44-bF3"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="37o-lK-feO">
-                                <rect key="frame" x="0.0" y="420" width="200" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="WSY-du-gMT"/>
-                                    <constraint firstAttribute="height" constant="100" id="yfd-dK-yvb"/>
-                                </constraints>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37o-lK-feO">
+                                <rect key="frame" x="405.57243139428465" y="338.85868253830995" width="199.99999999999986" height="99.999999999999886"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="b2K-r1-49X" kind="embed" identifier="toPlayerMenu" id="AcK-at-gTy"/>
                                 </connections>
@@ -703,8 +705,6 @@
                             <constraint firstItem="m5A-Sd-kWE" firstAttribute="trailing" secondItem="IkU-lw-ATW" secondAttribute="trailing" id="8mq-GE-ymp"/>
                             <constraint firstItem="fxy-Vg-SyH" firstAttribute="leading" secondItem="m5A-Sd-kWE" secondAttribute="leading" id="8zP-Qg-VXU"/>
                             <constraint firstItem="IkU-lw-ATW" firstAttribute="bottom" secondItem="m5A-Sd-kWE" secondAttribute="bottom" id="J8S-4x-W2g"/>
-                            <constraint firstItem="37o-lK-feO" firstAttribute="leading" secondItem="m5A-Sd-kWE" secondAttribute="leading" id="Vxm-Q4-Ptn"/>
-                            <constraint firstItem="37o-lK-feO" firstAttribute="top" secondItem="m5A-Sd-kWE" secondAttribute="top" constant="400" id="XcA-7w-8bM"/>
                             <constraint firstItem="IkU-lw-ATW" firstAttribute="leading" secondItem="m5A-Sd-kWE" secondAttribute="leading" id="ZVx-dn-sd1"/>
                             <constraint firstItem="Vlw-8p-cVm" firstAttribute="top" secondItem="m5A-Sd-kWE" secondAttribute="top" id="abu-VQ-eNI"/>
                             <constraint firstItem="Eve-zd-5jg" firstAttribute="leading" secondItem="m5A-Sd-kWE" secondAttribute="leading" id="hhu-1h-OXj"/>
@@ -1137,16 +1137,16 @@
         <scene sceneID="VNB-xc-w81">
             <objects>
                 <tableViewController id="b2K-r1-49X" customClass="MenuViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="p8z-10-ups">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
+                    <tableView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="p8z-10-ups">
+                        <rect key="frame" x="0.0" y="0.0" width="199.99999999999986" height="99.999999999999886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuCell" id="yIN-N7-Zdd">
-                                <rect key="frame" x="0.0" y="28" width="200" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="199.99999999999986" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yIN-N7-Zdd" id="wWm-Ye-87X">
-                                    <rect key="frame" x="0.0" y="0.0" width="200" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="199.99999999999986" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

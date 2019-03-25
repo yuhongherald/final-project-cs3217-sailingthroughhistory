@@ -28,6 +28,7 @@ class MenuViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.isUserInteractionEnabled = true
+        self.tableView.isScrollEnabled = false
     }
 
     // MARK: - Table view data source
@@ -37,7 +38,6 @@ class MenuViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("table \(data.count)")
         return data.count
     }
 
@@ -45,16 +45,19 @@ class MenuViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath)
 
         cell.textLabel?.text = data[indexPath.item].getName()
+        cell.textLabel?.textAlignment = .center
+
+        if data[indexPath.item].getPort() == port && port != nil {
+            cell.backgroundColor = .gray
+        }
 
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected")
         guard let unwrappedPort = port else {
             return
         }
-        print("selected success")
         self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
     }
 

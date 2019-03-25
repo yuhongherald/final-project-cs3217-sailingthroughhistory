@@ -100,10 +100,11 @@ class LevelEditorViewController: UIViewController {
 
         reInitScrollView()
         initBackground()
+        playerMenu.frame.size = CGSize(width: 200, height: 100)
         playerMenu.isHidden = true
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnMap(_:)))
-        view.addGestureRecognizer(tapGesture)
+        editingAreaWrapper.addGestureRecognizer(tapGesture)
     }
 
     @IBAction func editPressed(_ sender: Any) {
@@ -185,17 +186,18 @@ class LevelEditorViewController: UIViewController {
             alert.present(in: self)
             return
         }
+
         if playerMenu.isHidden {
-            playerMenu.frame.origin = port.frame.origin
+            UIView.animate(withDuration: 0, animations: {
+                let point = node.convert(CGPoint(x: node.bounds.maxX, y: node.bounds.maxY), to: self.view)
+                self.playerMenu.frame.origin = point
+            })
             playerMenu.isHidden = false
-            view.bringSubviewToFront(playerMenu)
         } else {
             playerMenu.isHidden = true
-            view.sendSubviewToBack(playerMenu)
         }
 
         menuDest?.set(port: port)
-        print("clicked")
     }
 
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
