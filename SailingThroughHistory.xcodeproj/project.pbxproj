@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -90,6 +90,7 @@
 		9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */; };
 		966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
+		966D852A2249280B003F4587 /* UIImageView+ContextDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966D85292249280B003F4587 /* UIImageView+ContextDrawable.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
 		96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */; };
 		96737EA4223D335100D04C33 /* View+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA3223D335100D04C33 /* View+Translate.swift */; };
@@ -180,8 +181,8 @@
 		1A9FF0912240AC9C00005FCB /* EventParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParameter.swift; sourceTree = "<group>"; };
 		1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEditTableViewController.swift; sourceTree = "<group>"; };
 		1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
-		7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		1AF0182F224752FE008B468B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		7528A9572245CDE300327211 /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
 		7528A9592245CDF500327211 /* UpdatableTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTest.swift; sourceTree = "<group>"; };
 		7528A95B2245CE0500327211 /* GameEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTest.swift; sourceTree = "<group>"; };
@@ -247,6 +248,7 @@
 		9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableDataSource.swift; sourceTree = "<group>"; };
 		966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameObjectImageView.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
+		966D85292249280B003F4587 /* UIImageView+ContextDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ContextDrawable.swift"; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceEvents.swift; sourceTree = "<group>"; };
 		96737EA3223D335100D04C33 /* View+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Translate.swift"; sourceTree = "<group>"; };
@@ -623,6 +625,7 @@
 				96619E36224510310014E0C5 /* PortItemTableCellDelegate.swift */,
 				96619E38224510740014E0C5 /* PortItemButtonAction.swift */,
 				96619E3A224511A50014E0C5 /* UIPortItemTableCell.swift */,
+				966D85292249280B003F4587 /* UIImageView+ContextDrawable.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -725,7 +728,7 @@
 				9690F5C2223A4874005291EE /* Sources */,
 				9690F5C3223A4874005291EE /* Frameworks */,
 				9690F5C4223A4874005291EE /* Resources */,
-				96737EA9223D5C8E00D04C33 /* ShellScript */,
+				96737EA9223D5C8E00D04C33 /* Run Script */,
 				F661264040C4BE97F3534A00 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -800,7 +803,7 @@
 				};
 			};
 			buildConfigurationList = 9690F5C1223A4874005291EE /* Build configuration list for PBXProject "SailingThroughHistory" */;
-			compatibilityVersion = "Xcode 10.0";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -866,13 +869,14 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		96737EA9223D5C8E00D04C33 /* ShellScript */ = {
+		96737EA9223D5C8E00D04C33 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -885,7 +889,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -898,7 +902,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -931,6 +935,7 @@
 				96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				968F13662244008200FE32E0 /* ObjectPaths.swift in Sources */,
+				966D852A2249280B003F4587 /* UIImageView+ContextDrawable.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				75598992224243CE004037E6 /* EmotionEngine.swift in Sources */,

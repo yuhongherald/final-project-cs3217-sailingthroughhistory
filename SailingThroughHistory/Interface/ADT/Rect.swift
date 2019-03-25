@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-struct Rect: Codable {
+struct Rect: Codable, Equatable {
     let originX: Double
     let originY: Double
     let height: Double

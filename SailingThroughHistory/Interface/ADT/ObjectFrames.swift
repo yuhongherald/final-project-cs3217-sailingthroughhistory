@@ -7,8 +7,8 @@
 //
 
 struct ObjectFrames {
-    var objects: [ReadOnlyGameObject]
-    var objectFrames: [ObjectIdentifier: Rect]
+    private var objects: [ReadOnlyGameObject]
+    private var objectFrames: [ObjectIdentifier: Rect]
 
     init() {
         self.objects = []
@@ -16,30 +16,39 @@ struct ObjectFrames {
     }
 
     mutating func add(object: ReadOnlyGameObject, currentFrame: Rect) -> Bool {
+        assert(checkRep())
         if objectFrames[ObjectIdentifier(object)] != nil {
+            assert(checkRep())
             return false
         }
 
         objects.append(object)
         objectFrames[ObjectIdentifier(object)] = currentFrame
+        assert(checkRep())
         return true
     }
 
     mutating func remove(object: ReadOnlyGameObject) -> Bool {
+        assert(checkRep())
         if objectFrames.removeValue(forKey: ObjectIdentifier(object)) == nil {
+            assert(checkRep())
             return false
         }
 
         objects.removeAll { object === $0 }
+        assert(checkRep())
         return true
     }
 
     mutating func move(object: ReadOnlyGameObject, to frame: Rect) -> Bool {
+        assert(checkRep())
         if !objects.contains(where: { object === $0 } ) {
+            assert(checkRep())
             return false
         }
 
         objectFrames[ObjectIdentifier(object)] = frame
+        assert(checkRep())
         return true
     }
 
@@ -54,6 +63,10 @@ struct ObjectFrames {
         }
 
         return allFrames
+    }
+
+    func getFrame(for object: ReadOnlyGameObject) -> Rect? {
+        return objectFrames[ObjectIdentifier(object)]
     }
 
     func contains(object: ReadOnlyGameObject) -> Bool {
