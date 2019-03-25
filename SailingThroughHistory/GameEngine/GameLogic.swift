@@ -10,7 +10,7 @@ class GameLogic: GenericGameLogic {
     var addedObjects: Set<GameObject> = Set<GameObject>()
     var updatedObjects: Set<GameObject> = Set<GameObject>()
     var removedObjects: Set<GameObject> = Set<GameObject>()
-    
+
     private let gameState: GenericGameState
     /*
     private var weathers: Set<UpdatableWeather> = Set<UpdatableWeather>()
@@ -61,7 +61,11 @@ class GameLogic: GenericGameLogic {
     }
     
     func hasCachedUpdates() -> Bool {
-        return updatableCache != nil
+        guard let cache = updatableCache else {
+            return false
+        }
+        //return !cache.isEmpty
+        return false
     }
     func invalidateCache() {
         updatableCache = nil

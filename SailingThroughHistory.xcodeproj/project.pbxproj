@@ -17,13 +17,14 @@
 		1A749D7422440C3E00482CE5 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D7322440C3E00482CE5 /* GalleryCollectionViewCell.swift */; };
 		1A749D772244B6ED00482CE5 /* UIView + ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */; };
 		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
-		1A9FF08A2240142B00005FCB /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* Alert.swift */; };
+		1A9FF08A2240142B00005FCB /* UIAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0892240142B00005FCB /* UIAlert.swift */; };
 		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
 		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
 		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
 		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
 		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
 		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
+		1AF01830224752FF008B468B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF0182F224752FE008B468B /* MenuViewController.swift */; };
 		7528A9582245CDE300327211 /* GameLogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9572245CDE300327211 /* GameLogicTest.swift */; };
 		7528A95A2245CDF500327211 /* UpdatableTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9592245CDF500327211 /* UpdatableTest.swift */; };
 		7528A95C2245CE0500327211 /* GameEngineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A95B2245CE0500327211 /* GameEngineTest.swift */; };
@@ -171,7 +172,7 @@
 		1A749D7322440C3E00482CE5 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + ScreenShot.swift"; sourceTree = "<group>"; };
 		1A9FF085223F6DAB00005FCB /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
-		1A9FF0892240142B00005FCB /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		1A9FF0892240142B00005FCB /* UIAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlert.swift; sourceTree = "<group>"; };
 		1A9FF08B224030E000005FCB /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		1A9FF08D224037AF00005FCB /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
 		1A9FF08F2240A52900005FCB /* PlayerParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerParameter.swift; sourceTree = "<group>"; };
@@ -179,6 +180,7 @@
 		1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEditTableViewController.swift; sourceTree = "<group>"; };
 		1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
+		1AF0182F224752FE008B468B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		7528A9572245CDE300327211 /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
 		7528A9592245CDF500327211 /* UpdatableTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTest.swift; sourceTree = "<group>"; };
 		7528A95B2245CE0500327211 /* GameEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTest.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 				1A749D7122440C0800482CE5 /* ItemCollectionViewCell.swift */,
 				1A749D6F224409E300482CE5 /* GalleryViewController.swift */,
 				1A749D7322440C3E00482CE5 /* GalleryCollectionViewCell.swift */,
+				1AF0182F224752FE008B468B /* MenuViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -354,13 +357,13 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
-		1A9FF084223F6CE400005FCB /* Predefined */ = {
+		1A9FF084223F6CE400005FCB /* Enums */ = {
 			isa = PBXGroup;
 			children = (
 				1A9FF085223F6DAB00005FCB /* EditMode.swift */,
 				1A749D642240F6DC00482CE5 /* ItemType.swift */,
 			);
-			path = Predefined;
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		4F08B99631DF101F42C56A53 /* Frameworks */ = {
@@ -506,7 +509,7 @@
 				96737EA5223D398200D04C33 /* CGRect+Translate.swift */,
 				7536A8412240C25F00D9D0FE /* Double+Lerp.swift */,
 				7559898422422493004037E6 /* Int+Lerp.swift */,
-				1A9FF0892240142B00005FCB /* Alert.swift */,
+				1A9FF0892240142B00005FCB /* UIAlert.swift */,
 				9681199D2243CCA30093ABBA /* Array+Rotate.swift */,
 				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
 				9615B7702248F28100DA12C8 /* CGRect+Rect.swift */,
@@ -676,7 +679,7 @@
 			children = (
 				1A749D752244B5C700482CE5 /* Storage */,
 				1A749D662240FD6B00482CE5 /* View */,
-				1A9FF084223F6CE400005FCB /* Predefined */,
+				1A9FF084223F6CE400005FCB /* Enums */,
 				BA91906D223F441900009F49 /* API */,
 				BA91906E223F443600009F49 /* Game Parameters */,
 			);
@@ -879,7 +882,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -892,7 +895,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -987,11 +990,12 @@
 				753EEA8422451C0900D56CBA /* GameInterface.swift in Sources */,
 				1A749D7422440C3E00482CE5 /* GalleryCollectionViewCell.swift in Sources */,
 				1A749D6E2243CFF800482CE5 /* Storage.swift in Sources */,
-				1A9FF08A2240142B00005FCB /* Alert.swift in Sources */,
+				1A9FF08A2240142B00005FCB /* UIAlert.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
 				754FED652243626900394215 /* Vector2F.swift in Sources */,
 				7536A8482240E10500D9D0FE /* GameLogic.swift in Sources */,
 				754FED6F2243795900394215 /* EngineConstants.swift in Sources */,
+				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
 				75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */,
