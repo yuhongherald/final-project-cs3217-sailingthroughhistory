@@ -18,7 +18,7 @@ class MainGameViewController: UIViewController {
             scrollView.maximumZoomScale = 3
         }
     }
-    @IBOutlet private weak var environmentView: UIView!
+    @IBOutlet private weak var contextView: UIView!
     @IBOutlet private weak var backgroundImageView: UIImageView!
     @IBOutlet private weak var gameArea: UIView!
 
@@ -63,6 +63,8 @@ class MainGameViewController: UIViewController {
     private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
     private lazy var objectsController: ObjectsViewController =
         ObjectsViewController(view: gameArea, mainController: self)
+    private lazy var contextsController: ContextViewController =
+        ContextViewController(view: contextView, interfaceBounds: CGRect(fromRect: interface.bounds))
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView,
@@ -334,6 +336,15 @@ class MainGameViewController: UIViewController {
         case .showTravelChoices(let nodes, let selectCallback):
             objectsController.makeChoosable(nodes: nodes, withDuration: duration,
                                             tapCallback: selectCallback, callback: callback)
+        case .addContext(let context, let frame):
+            contextsController.add(context: context, withFrame: frame, withDuration: duration,
+                                   completion: callback)
+        case .moveContext(let contextId, let frame):
+            contextsController.moveContext(withId: contextId, toFrame: frame, withDuration: duration,
+                                           completion: callback)
+        case .removeContext(let contextId):
+            contextsController.removeContext(withId: contextId, withDuration: duration,
+                                             completion: callback)
         default:
             print("Unsupported event not handled.")
         }
