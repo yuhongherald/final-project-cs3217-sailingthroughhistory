@@ -8,8 +8,12 @@
 
 import UIKit
 
+enum FieldType: Int {
+    case name
+    case money
+}
+
 class PlayerTableViewCell: UITableViewCell {
-    @IBOutlet weak var label: UILabel!
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var moneyField: UITextField!
 }

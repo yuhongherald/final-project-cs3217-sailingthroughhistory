@@ -52,7 +52,7 @@ class Port: Node {
         try super.encode(to: superencoder)
     }
 
-    public func assignOwner(_ player: Player) {
+    public func assignOwner(_ player: Player?) {
         owner = player
     }
 

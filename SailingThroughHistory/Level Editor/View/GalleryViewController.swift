@@ -8,13 +8,18 @@
 
 import UIKit
 
-protocol GalleryViewDelegateProtocol {
+protocol GalleryViewDelegateProtocol: class {
     func load(_ gameParameter: GameParameter)
 }
 
 class GalleryViewController: UIViewController {
     private var storage = Storage()
     private var levelNames: [String] = []
+    weak var delegate: GalleryViewDelegateProtocol?
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
