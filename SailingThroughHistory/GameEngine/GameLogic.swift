@@ -64,8 +64,7 @@ class GameLogic: GenericGameLogic {
         guard let cache = updatableCache else {
             return false
         }
-        //return !cache.isEmpty
-        return false
+        return cache.contains(where: { $0 != nil })
     }
     func invalidateCache() {
         updatableCache = nil

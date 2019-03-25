@@ -17,6 +17,7 @@ class Player: GenericPlayer {
         return getNodesInRange(roll: 0).first
     }
     var interface: Interface?
+    var map: Map?
     // TODO: should startingNode: Node without ?
     var startingNode: Node?
 
@@ -30,6 +31,7 @@ class Player: GenericPlayer {
         self.startingNode = node
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
+        money.subscribe(with: preventPlayerBankruptcy)
     }
 
     required init(from decoder: Decoder) throws {
@@ -50,8 +52,9 @@ class Player: GenericPlayer {
         try container.encode(startingNode, forKey: .startingNode)
     }
 
-    func startTurn(speedMultiplier: Double) {
+    func startTurn(speedMultiplier: Double, map: Map?) {
         self.speedMultiplier = speedMultiplier
+        self.map = map
         state.value = PlayerState.moving
         ship.startTurn()
     }
@@ -70,7 +73,7 @@ class Player: GenericPlayer {
     }
 
     func getNodesInRange(roll: Int) -> [Node] {
-        return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier)
+        return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier, map: map)
     }
 
     func canDock() -> Bool {
@@ -124,5 +127,14 @@ extension Player {
 
     func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void) {
         ship.subscribeToWeightCapcity(with: observer)
+    }
+
+    private func preventPlayerBankruptcy(event: Event<Int>) {
+        guard let value = event.element, value < 0 else {
+            return
+        }
+        interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-value) amount of donations from your company. Try not to go negative again!")
+        interface?.broadcastInterfaceChanges(withDuration: 0.5)
+        money.value = 0
     }
 }

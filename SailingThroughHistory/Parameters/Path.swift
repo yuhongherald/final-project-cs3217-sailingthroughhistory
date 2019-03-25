@@ -47,6 +47,17 @@ struct Path: Hashable, Codable {
                                         startingFrame: toObject.startingFrame), forKey: .toObject)
     }
 
+    func computeCostOfPath(baseCost: Double, with ship: Pirate_WeatherEntity) -> Double {
+        var result = baseCost
+        for modifier in modifiers {
+            guard let weather = modifier as? Weather else {
+                continue
+            }
+            result = Double(weather.applyVelocityModifier(to: Float(result)))
+        }
+        return result
+    }
+
     enum CodingKeys: String, CodingKey {
         case fromObject
         case toObject

@@ -141,6 +141,7 @@
 		BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919077223F4D0800009F49 /* ShipChassis.swift */; };
 		BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */; };
 		BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91907B223F531A00009F49 /* GenericGameState.swift */; };
+		BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */; };
 		BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */; };
 /* End PBXBuildFile section */
 
@@ -302,6 +303,7 @@
 		BA919077223F4D0800009F49 /* ShipChassis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipChassis.swift; sourceTree = "<group>"; };
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
 		BA91907B223F531A00009F49 /* GenericGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameState.swift; sourceTree = "<group>"; };
+		BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pirate_WeatherEntity.swift; sourceTree = "<group>"; };
 		BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerShipUpgrade.swift; sourceTree = "<group>"; };
 		C6849D17A303D2EBF27662A5 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		FD427A94087A84D2575AEA83 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -672,6 +674,7 @@
 				BA919068223F271700009F49 /* GameVariable.swift */,
 				BA91907B223F531A00009F49 /* GenericGameState.swift */,
 				BA485905223F959A009ED2F6 /* GenericPlayer.swift */,
+				BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */,
 				BA485907223FCB4B009ED2F6 /* PlayerState.swift */,
 			);
 			path = API;
@@ -1027,6 +1030,7 @@
 				1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */,
 				754FED772243933F00394215 /* SoundStatus.swift in Sources */,
 				75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */,
+				BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */,
 				1A749D70224409E300482CE5 /* GalleryViewController.swift in Sources */,
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
