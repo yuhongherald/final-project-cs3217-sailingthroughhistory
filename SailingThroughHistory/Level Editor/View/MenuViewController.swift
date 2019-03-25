@@ -21,10 +21,6 @@ class MenuViewController: UITableViewController {
     var port: Port?
     weak var delegate: MenuViewDelegateProtocol?
 
-    override func viewWillAppear(_ animated: Bool) {
-        self.tableView.reloadData()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.isUserInteractionEnabled = true
@@ -49,6 +45,8 @@ class MenuViewController: UITableViewController {
 
         if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
             cell.backgroundColor = .gray
+        } else {
+            cell.backgroundColor = .white
         }
 
         return cell
@@ -59,15 +57,18 @@ class MenuViewController: UITableViewController {
             return
         }
 
-        if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
-            self.delegate?.deassign(port: unwrappedPort, to: nil)
-        } else {
-            self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
-        }
+        // clear all possible owners
+        self.delegate?.assign(port: unwrappedPort, to: nil)
+        self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
     }
 
     func set(port: Port) {
         self.port = port
+        self.tableView.visibleCells.forEach {
+            $0.backgroundColor = .white
+            $0.isSelected = false
+        }
+        self.tableView.reloadData()
     }
 
     /*

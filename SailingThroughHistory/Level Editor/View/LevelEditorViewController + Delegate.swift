@@ -46,7 +46,9 @@ extension LevelEditorViewController: UIScrollViewDelegate {
 extension LevelEditorViewController: MenuViewDelegateProtocol {
     func assign(port: Port, to playerParam: PlayerParameter?) {
         playerMenu.isHidden = true
-        // TODO: save player or 
+        if playerParam?.getPlayer() == nil {
+            playerParam?.assign(port: port)
+        }
         port.assignOwner(playerParam?.getPlayer())
     }
 }

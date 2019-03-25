@@ -35,16 +35,21 @@ class Port: Node {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        owner = try values.decode(Player?.self, forKey: .owner)
+        let ownerName = try values.decode(String?.self, forKey: .owner)
         itemParameters = try values.decode([ItemType: ItemParameter].self, forKey: .itemParameters)
         itemParametersSold = try values.decode([ItemParameter].self, forKey: .itemsSold)
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
+        guard let name = ownerName else {
+            owner = nil
+            return
+        }
+        owner = Player(name: name, node: self)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(owner, forKey: .owner)
+        try container.encode(owner?.name, forKey: .owner)
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(itemParametersSold, forKey: .itemsSold)
 
