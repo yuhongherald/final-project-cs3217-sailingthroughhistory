@@ -16,6 +16,11 @@ class Pirate: Node, VolatileModifier {
         super.init(name: name, image: Pirate.pirateNodeImage, frame: CGRect(origin: pos, size: Pirate.pirateNodeSize))
     }
 
+    override func moveIntoNode(ship: Pirate_WeatherEntity) {
+        // TODO: Remove this rigged pirate encounter. LOL
+        ship.startPirateChase()
+    }
+
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }

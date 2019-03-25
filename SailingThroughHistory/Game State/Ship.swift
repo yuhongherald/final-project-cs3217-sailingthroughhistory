@@ -44,25 +44,25 @@ class Ship {
             return
         }
         if owner.money.value < upgrade.cost {
-            owner.interface?.pauseAndShowAlert(titled: "Insufficient Money!", withMsg: "You do not have sufficient funds to buy \(upgrade.name)!")
+            showMessage(titled: "Insufficient Money!", withMsg: "You do not have sufficient funds to buy \(upgrade.name)!")
         }
         if shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
             owner.money.value -= upgrade.cost
             shipChassis = shipUpgrade
-            owner.interface?.pauseAndShowAlert(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
+            showMessage(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
             weightCapacity.value = shipUpgrade.getNewCargoCapacity(baseCapacity: weightCapacity.value)
             return
         }
         if auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
             owner.money.value -= upgrade.cost
             auxiliaryUpgrade = auxiliary
-            owner.interface?.pauseAndShowAlert(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
+            showMessage(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
             return
         }
         if upgrade is ShipChassis {
-            owner.interface?.pauseAndShowAlert(titled: "\(owner.name): Upgrade of similar type already purchased!", withMsg: "You already have an upgrade of type \"Ship Upgrade\"!")
+            showMessage(titled: "\(owner.name): Upgrade of similar type already purchased!", withMsg: "You already have an upgrade of type \"Ship Upgrade\"!")
         } else if upgrade is AuxiliaryUpgrade {
-            owner.interface?.pauseAndShowAlert(titled: "\(owner.name): Upgrade of similar type already purchased!", withMsg: "You already have an upgrade of type \"Auxiliary Upgrade\"!")
+            showMessage(titled: "\(owner.name): Upgrade of similar type already purchased!", withMsg: "You already have an upgrade of type \"Auxiliary Upgrade\"!")
         }
     }
 
@@ -75,6 +75,7 @@ class Ship {
     func startTurn() {
         if isChasedByPirates && turnsToBeingCaught <= 0 {
             // TODO: Pirate event
+            showMessage(titled: "Pirates!", withMsg: "You have been caught by pirates!. You lost all your cargo")
 
             isChasedByPirates = false
             turnsToBeingCaught = 0
@@ -101,7 +102,7 @@ class Ship {
 
     func dock() -> Port? {
         guard canDock() else {
-            owner?.interface?.pauseAndShowAlert(titled: "Unable to Dock!", withMsg: "Ship is not located at a port for docking.")
+            showMessage(titled: "Unable to Dock!", withMsg: "Ship is not located at a port for docking.")
             return nil
         }
         guard let port = location.value.start as? Port else {
@@ -134,13 +135,12 @@ class Ship {
 
     func buyItem(itemParameter: ItemParameter, quantity: Int) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
-            owner?.interface?.pauseAndShowAlert(titled: "Not docked!", withMsg: "Unable to buy item as ship is not docked.")
+            showMessage(titled: "Not docked!", withMsg: "Unable to buy item as ship is not docked.")
             return
         }
         let item = itemParameter.createItem(quantity: quantity)
         guard let price = item.getBuyValue(at: port) else {
-            // TODO
-            owner?.interface?.pauseAndShowAlert(titled: "Not available!", withMsg: "Unable to buy item as you have insufficient funds.")
+            showMessage(titled: "Not available!", withMsg: "Item is not available for purchase at current port!")
             return
         }
         if price > owner?.money.value ?? 0 {
@@ -148,26 +148,28 @@ class Ship {
         }
         owner?.money.value -= price
         if addItem(item: item) {
-            owner?.interface?.pauseAndShowAlert(titled: "Item purchased!", withMsg: "You have purchased \(item.quantity) of \(item.itemParameter.displayName)")
+            showMessage(titled: "Item purchased!", withMsg: "You have purchased \(item.quantity) of \(item.itemParameter.displayName)")
         } else {
-            // TODO
-            owner?.interface?.pauseAndShowAlert(titled: "Failed to buy Item!", withMsg: "")
+            showMessage(titled: "Failed to buy Item!", withMsg: "An error has occurred in the game!")
         }
     }
 
-    // TODO: Show errors
     func sellItem(item: GenericItem) {
         guard let port = location.value.start as? Port, location.value.isDocked else {
+            showMessage(titled: "Not docked!", withMsg: "Unable to sell item as ship is not docked.")
             return
         }
         guard let index = items.value.firstIndex(where: {$0 == item}) else {
+            showMessage(titled: "Not available!", withMsg: "Item cannot be sold at current port!")
             return
         }
         guard let profit = items.value[index].sell(at: port) else {
+            showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(item.itemParameter.displayName)")
             return
         }
         owner?.money.value += profit
         items.value.remove(at: index)
+        items.value = items.value
     }
 
     func endTurn(speedMultiplier: Double) {
@@ -196,13 +198,6 @@ class Ship {
         return result
     }
 
-    private func getWeatherModifier() -> Double {
-        var multiplier = 1.0
-        multiplier *= shipChassis?.getWeatherModifier() ?? 1
-        multiplier *= auxiliaryUpgrade?.getWeatherModifier() ?? 1
-        return multiplier
-    }
-
     private func getRemainingCapacity() -> Int {
         return weightCapacity.value - currentCargoWeight.value
     }
@@ -213,6 +208,7 @@ class Ship {
         }
         guard let sameType = items.value.first(where: { $0.itemParameter == item.itemParameter }) else {
             items.value.append(item)
+            items.value = items.value
             return true
         }
         _ = sameType.combine(with: item)
@@ -227,9 +223,9 @@ class Ship {
             return 0
         }
         let deficeit = consumable.consume(amount: quantity)
-        // TODO: notify others
         if items.value[index].quantity == 0 {
             items.value.remove(at: index)
+            items.value = items.value;
         }
         guard deficeit <= 0 else {
             return consumeRequiredItem(itemParameter: itemParameter, quantity: deficeit)
@@ -259,5 +255,28 @@ extension Ship {
             result += item.unitWeight
         }
         currentCargoWeight.value = result
+    }
+}
+
+// MARK: - Show messages
+extension Ship {
+    private func showMessage(titled: String, withMsg: String) {
+        owner?.interface?.pauseAndShowAlert(titled: titled, withMsg: withMsg)
+        owner?.interface?.broadcastInterfaceChanges(withDuration: 0.5)
+    }
+}
+
+// MARK: - Affected by Pirates and Weather
+extension Ship: Pirate_WeatherEntity {
+    func startPirateChase() {
+        isChasedByPirates = true
+        turnsToBeingCaught = 2
+        showMessage(titled: "Pirates!", withMsg: "You have ran into pirates! You must dock your ship within \(turnsToBeingCaught) turns or risk losing all your cargo!")
+    }
+    func getWeatherModifier() -> Double {
+        var multiplier = 1.0
+        multiplier *= shipChassis?.getWeatherModifier() ?? 1
+        multiplier *= auxiliaryUpgrade?.getWeatherModifier() ?? 1
+        return multiplier
     }
 }

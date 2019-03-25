@@ -37,7 +37,23 @@ class Node: GameObject {
     }
 
     public func getNodesInRange(range: Double) -> [Node] {
-        return []
+        var result = [Node]()
+        guard range >= 0 else {
+            return result
+        }
+        result.append(self)
+        for neighbor in neighbors {
+            let remainingMovement = range - neighbor.getCostOfNode(from: self)
+            result.append(sequence: getNodesInRange(range: remainingMovement))
+        }
+        return result
+    }
+
+    public func getCostOfNode(from: Node) -> Double {
+        return 1
+    }
+
+    public func moveIntoNode(ship: Pirate_WeatherEntity) {
     }
 
     private enum CodingKeys: String, CodingKey {
