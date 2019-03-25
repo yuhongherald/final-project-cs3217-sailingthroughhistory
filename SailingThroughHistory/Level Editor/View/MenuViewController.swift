@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MenuViewDelegateProtocol: class {
-    func assign(port: Port, to player: PlayerParameter)
+    func assign(port: Port, to player: PlayerParameter?)
 }
 
 class MenuViewController: UITableViewController {
@@ -47,7 +47,7 @@ class MenuViewController: UITableViewController {
         cell.textLabel?.text = data[indexPath.item].getName()
         cell.textLabel?.textAlignment = .center
 
-        if data[indexPath.item].getPort() == port && port != nil {
+        if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
             cell.backgroundColor = .gray
         }
 
@@ -58,7 +58,12 @@ class MenuViewController: UITableViewController {
         guard let unwrappedPort = port else {
             return
         }
-        self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
+
+        if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
+            self.delegate?.deassign(port: unwrappedPort, to: nil)
+        } else {
+            self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
+        }
     }
 
     func set(port: Port) {

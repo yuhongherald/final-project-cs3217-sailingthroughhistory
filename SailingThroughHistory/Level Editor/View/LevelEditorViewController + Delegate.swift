@@ -33,14 +33,20 @@ extension LevelEditorViewController: UIScrollViewDelegate {
         return editingAreaWrapper
     }
 
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        playerMenu.isHidden = true
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        UIView.transition(with: playerMenu, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.playerMenu.alpha = 0
+        }, completion: { _ in
+            self.playerMenu.isHidden = true
+            self.playerMenu.alpha = 1
+        })
     }
 }
 
 extension LevelEditorViewController: MenuViewDelegateProtocol {
-    func assign(port: Port, to player: PlayerParameter) {
-        player.assign(port: port)
+    func assign(port: Port, to playerParam: PlayerParameter?) {
         playerMenu.isHidden = true
+        // TODO: save player or 
+        port.assignOwner(playerParam?.getPlayer())
     }
 }
