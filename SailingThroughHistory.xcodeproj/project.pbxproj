@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
 		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
+		1A69B4D2224934D200176DDD /* DetailEditTableViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */; };
 		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
 		1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */; };
 		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
@@ -164,6 +165,7 @@
 		11A0FA0E588AA9CBB9660AD7 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		1A49D237223E468300A419F4 /* LevelEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelEditorViewController.swift; sourceTree = "<group>"; };
 		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
+		1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailEditTableViewController + Delegate.swift"; sourceTree = "<group>"; };
 		1A749D642240F6DC00482CE5 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 		1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewController.swift; sourceTree = "<group>"; };
 		1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LevelEditorViewController + Delegate.swift"; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 				1A49D237223E468300A419F4 /* LevelEditorViewController.swift */,
 				1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */,
 				1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */,
+				1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */,
 				1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */,
 				1A9FF08D224037AF00005FCB /* NodeView.swift */,
 				1A49D239223F644F00A419F4 /* EditPanelViewController.swift */,
@@ -981,6 +984,7 @@
 				9681199C2243C29F0093ABBA /* ContextViewController.swift in Sources */,
 				754FED75224381DF00394215 /* VisualAudioData.swift in Sources */,
 				1A749D772244B6ED00482CE5 /* UIView + ScreenShot.swift in Sources */,
+				1A69B4D2224934D200176DDD /* DetailEditTableViewController + Delegate.swift in Sources */,
 				9621CC092246C321008178FF /* Rect.swift in Sources */,
 				7559897722421C0C004037E6 /* UpdatableWeather.swift in Sources */,
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,

@@ -64,10 +64,6 @@ class MenuViewController: UITableViewController {
 
     func set(port: Port) {
         self.port = port
-        self.tableView.visibleCells.forEach {
-            $0.backgroundColor = .white
-            $0.isSelected = false
-        }
         self.tableView.reloadData()
     }
 
