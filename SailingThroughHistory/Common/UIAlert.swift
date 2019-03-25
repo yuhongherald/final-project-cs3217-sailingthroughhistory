@@ -36,6 +36,12 @@ class UIAlert {
         controller.addAction(cancelAction)
     }
 
+    init(errorMsg: String, msg: String?) {
+        controller = UIAlertController(title: errorMsg, message: msg, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        controller.addAction(cancelAction)
+    }
+
     func present(in vc: UIViewController) {
         vc.present(controller, animated: true, completion: nil)
     }

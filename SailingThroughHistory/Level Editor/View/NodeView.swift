@@ -15,13 +15,11 @@ class NodeView: UIImageView {
     init(node: Node) {
         self.node = node
         self.nodeLabel = NodeView.getBlankLabel()
-        super.init(frame: node.frame)
+        super.init(frame: CGRect(fromRect: node.frame))
         self.image = UIImage(named: node.image)
-        self.node = node
-        self.frame = node.frame
 
         nodeLabel.text = node.name
-        nodeLabel.frame.size = CGSize(width: node.frame.size.width, height: 15)
+        nodeLabel.frame.size = CGSize(width: node.frame.width, height: 15)
         self.addSubview(nodeLabel)
     }
 

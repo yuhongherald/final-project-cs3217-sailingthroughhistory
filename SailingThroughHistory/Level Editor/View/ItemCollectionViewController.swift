@@ -8,13 +8,21 @@
 
 import UIKit
 
-class ItemCollectionViewController: UIViewController, UICollectionViewDataSource, UITextFieldDelegate {
+class ItemCollectionViewController: UIViewController, UICollectionViewDataSource,
+UICollectionViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     private var itemParameters: [ItemParameter] = []
     private var selectedPort: Port?
 
-    override func viewWillAppear(_ animated: Bool) {
-        self.collectionView.reloadData()
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    override func viewDidLoad() {
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
     }
 
     @IBAction func confirmPressed(_ sender: Any?) {
@@ -52,6 +60,7 @@ class ItemCollectionViewController: UIViewController, UICollectionViewDataSource
     func initWith(port: Port) {
         self.selectedPort = port
         self.itemParameters = port.getAllItemParameters()
+        collectionView.reloadData()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

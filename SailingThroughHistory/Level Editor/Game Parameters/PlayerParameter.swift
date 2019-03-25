@@ -9,33 +9,60 @@
 import Foundation
 
 class PlayerParameter: Codable {
-    private var name: String!
-    private var money: GameVariable<Int>!
-    private var node: Node!
+    private var name: String
+    private var money = GameVariable(value: 0)
+    private var port: Port?
 
-    init(name: String, money: Int, node: Node) {
+    init(name: String) {
         self.name = name
-        self.money = GameVariable(value: money)
-        self.node = node
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
         let moneyValue = try values.decode(Int.self, forKey: .money)
-        let node = try values.decode(Node.self, forKey: .node)
+        port = try values.decode(Port?.self, forKey: .node)
         money = GameVariable(value: moneyValue)
     }
 
-    func getPlayer() -> Player {
-        return Player(name: name, node: node)
+    func getPlayer() -> Player? {
+        guard let unwrappedPort = port else {
+            return nil
+        }
+        return Player(name: name, node: unwrappedPort)
+    }
+
+    func getName() -> String {
+        return name
+    }
+
+    func getMoney() -> Int {
+        return money.value
+    }
+
+    func getPort() -> Port? {
+        return port
+    }
+
+    func set(name: String, money: Int?) {
+        if name != "" {
+            self.name = name
+        }
+
+        if let unwrappedMoney = money {
+            self.money = GameVariable(value: unwrappedMoney)
+        }
+    }
+
+    func assign(port: Port) {
+        self.port = port
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(money.value, forKey: .money)
-        try container.encode(node, forKey: .node)
+        try container.encode(port, forKey: .node)
     }
 
     enum CodingKeys: String, CodingKey {
