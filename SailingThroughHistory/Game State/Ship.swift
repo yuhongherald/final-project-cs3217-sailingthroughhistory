@@ -82,13 +82,17 @@ class Ship {
         }
     }
 
-    func getNodesInRange(roll: Int, speedMultiplier: Double) -> [Node] {
+    func getNodesInRange(roll: Int, speedMultiplier: Double, map: Map?) -> [Node] {
+        guard let map = map else {
+            showMessage(titled: "Unable to move", withMsg: "Game does not have a map registered!")
+            return []
+        }
         let movement = computeMovement(roll: roll, speedMultiplier: speedMultiplier)
-        let nodesFromStart = location.value.start.getNodesInRange(range: movement - location.value.fractionToEnd)
+        let nodesFromStart = location.value.start.getNodesInRange(ship: self, range: movement - location.value.fractionToEnd, map: map)
         if location.value.fractionToEnd == 0 {
             return nodesFromStart
         }
-        let nodesFromEnd = location.value.end.getNodesInRange(range: movement + 1 - location.value.fractionToEnd)
+        let nodesFromEnd = location.value.end.getNodesInRange(ship: self, range: movement + 1 - location.value.fractionToEnd, map: map)
         return Array(Set(nodesFromStart + nodesFromEnd))
     }
 

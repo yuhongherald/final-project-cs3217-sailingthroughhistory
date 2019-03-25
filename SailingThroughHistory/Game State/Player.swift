@@ -17,6 +17,7 @@ class Player: GenericPlayer {
         return getNodesInRange(roll: 0).first
     }
     var interface: Interface?
+    var map: Map?
     // TODO: should startingNode: Node without ?
     var startingNode: Node?
 
@@ -50,8 +51,9 @@ class Player: GenericPlayer {
         try container.encode(startingNode, forKey: .startingNode)
     }
 
-    func startTurn(speedMultiplier: Double) {
+    func startTurn(speedMultiplier: Double, map: Map?) {
         self.speedMultiplier = speedMultiplier
+        self.map = map
         state.value = PlayerState.moving
         ship.startTurn()
     }
@@ -70,7 +72,7 @@ class Player: GenericPlayer {
     }
 
     func getNodesInRange(roll: Int) -> [Node] {
-        return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier)
+        return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier, map: map)
     }
 
     func canDock() -> Bool {

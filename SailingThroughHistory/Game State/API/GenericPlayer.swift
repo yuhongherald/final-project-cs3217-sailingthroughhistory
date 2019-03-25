@@ -25,7 +25,7 @@ protocol GenericPlayer: Codable {
     func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void)
 
     // Before moving
-    func startTurn(speedMultiplier: Double)
+    func startTurn(speedMultiplier: Double, map: Map?)
     func buyUpgrade(upgrade: Upgrade)
     func setTax(port: Port, amount: Int)
 
