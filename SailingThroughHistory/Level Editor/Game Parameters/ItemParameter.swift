@@ -12,10 +12,11 @@ struct ItemParameter: Codable {
     let displayName: String
     let unitWeight: Int
     let itemType: ItemType
+    let isConsumable: Bool
 
-    private let isConsumable: Bool
     private var sellValue: Int?
     private var buyValue: Int?
+    private var halfLife: Int?
 
     init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {
         self.itemType = itemType
@@ -36,6 +37,14 @@ struct ItemParameter: Codable {
 
     func getSellValue() -> Int? {
         return sellValue
+    }
+
+    func getHalfLife() -> Int? {
+        return halfLife
+    }
+
+    mutating func setHalfLife(to value: Int) {
+        halfLife = value
     }
 
     mutating func setBuyValue(value: Int) {

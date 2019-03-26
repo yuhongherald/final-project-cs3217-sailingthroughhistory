@@ -10,7 +10,6 @@ import UIKit
 
 enum GameParameterItemType {
     case player
-    case volatile
     case turn
 }
 
@@ -51,10 +50,12 @@ class TurnParameterItem: GameParameterItem {
 
     var label: String
     var input: Int?
+    var game: GameParameter
 
-    init(label: String, input: Int?) {
+    init(label: String, game: GameParameter, input: Int) {
         self.label = label
         self.input = input
+        self.game = game
     }
 }
 

@@ -11,6 +11,8 @@ import Foundation
 class GameParameter: Codable {
     private var playerParameters = [PlayerParameter]()
     private var eventParameters = [EventParameter]()
+    private var numOfTurn = 20
+    private var timeLimit = 30
     private var map = Map()
 
     init(numOfPlayer: Int) {
@@ -25,5 +27,21 @@ class GameParameter: Codable {
 
     func getMap() -> Map {
         return map
+    }
+
+    func getNumOfTurn() -> Int {
+        return numOfTurn
+    }
+
+    func getTimeLimit() -> Int {
+        return timeLimit
+    }
+
+    func setNumOfTurn(_ num: Int) {
+        self.numOfTurn = num
+    }
+
+    func setTimeLimit(_ num: Int) {
+        self.timeLimit = num
     }
 }

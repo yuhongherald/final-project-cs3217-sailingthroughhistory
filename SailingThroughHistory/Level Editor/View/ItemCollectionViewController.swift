@@ -10,6 +10,7 @@ import UIKit
 
 class ItemCollectionViewController: UIViewController, UICollectionViewDataSource,
 UICollectionViewDelegate, UITextFieldDelegate {
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     private var itemParameters: [ItemParameter] = []
     private var selectedPort: Port?
@@ -25,6 +26,13 @@ UICollectionViewDelegate, UITextFieldDelegate {
         collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
     }
 
+    @IBAction func addPressed(_ sender: Any) {
+        let alert = UIAlert(title: "Input item display name:", msg: nil, confirm: { name in
+            // TODO: add item type, add item parameter
+        }, textPlaceHolder: "Input item name here")
+        alert.present(in: self)
+    }
+
     @IBAction func confirmPressed(_ sender: Any?) {
         guard let port = selectedPort else {
             return
@@ -35,7 +43,11 @@ UICollectionViewDelegate, UITextFieldDelegate {
             let castedCell = cell as? ItemCollectionViewCell else {
                 continue
             }
-            let itemParam = itemParameters[indexPath.item]
+            var itemParam = itemParameters[indexPath.item]
+
+            if itemParam.isConsumable, let lifeText = castedCell.lifeField.text, let life = Int(lifeText) {
+                itemParam.setHalfLife(to: life)
+            }
 
             if let buyPriceText = castedCell.buyField.text, let buyPrice = Int(buyPriceText) {
                 port.setBuyValue(of: itemParam.itemType, value: buyPrice)
@@ -87,6 +99,16 @@ UICollectionViewDelegate, UITextFieldDelegate {
         if let buyPrice = port.getBuyValue(of: itemParam.itemType) {
             cell.buyField.text = String(buyPrice)
         }
+
+        if itemParam.isConsumable, let life = itemParam.getHalfLife() {
+            cell.lifeField.isEnabled = true
+            cell.lifeField.text = String(life)
+        }
+
+        if !itemParam.isConsumable {
+            cell.lifeField.isEnabled = false
+        }
+
         return cell
     }
 

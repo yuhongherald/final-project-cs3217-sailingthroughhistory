@@ -10,12 +10,9 @@ import UIKit
 
 class DetailEditTableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    var data: [[GameParameterItem]] = {
-        var arr = [[GameParameterItem]]()
-        arr.append([TurnParameterItem(label: "Number of Turn: ", input: nil),
-                    TurnParameterItem(label: "Time Limit Per Turn (sec): ", input: nil)])
-        return arr
-    }()
+    var data = [[GameParameterItem]]()
+    var numOfTurnMsg = "Number of Turn: "
+    var timeLimitMsg = "Time Limit Per Turn (sec): "
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -47,13 +44,26 @@ class DetailEditTableViewController: UIViewController {
                 }
             case .turn:
                 guard let castedCell = cell as? TurnTableViewCell,
-                let item = castedCell.item as? TurnParameterItem else {
+                    let item = castedCell.item as? TurnParameterItem else {
                     continue
                 }
 
-                // store
-            default:
-                continue
+                guard let inputText = castedCell.textField.text else {
+                    continue
+                }
+
+                guard let input = Int(inputText) else {
+                    continue
+                }
+
+                switch castedCell.label.text {
+                case numOfTurnMsg:
+                    item.game.setNumOfTurn(input)
+                case timeLimitMsg:
+                    item.game.setTimeLimit(input)
+                default:
+                    continue
+                }
             }
 
         }
@@ -64,5 +74,7 @@ class DetailEditTableViewController: UIViewController {
         self.data.append(game.getPlayerParameters().map {
             PlayerParameterItem(playerParameter: $0)
         })
+        self.data.append([TurnParameterItem(label: numOfTurnMsg, game: game, input: game.getNumOfTurn()),
+                          TurnParameterItem(label: timeLimitMsg, game: game, input: game.getTimeLimit())])
     }
 }
