@@ -10,6 +10,17 @@ import Foundation
 import RxSwift
 
 class Player: GenericPlayer {
+    var hasRolled: Bool = false
+    private var rollResult: Int = 0
+    
+    func roll() -> Int {
+        if hasRolled {
+            return rollResult
+        }
+        // roll something here
+        return rollResult
+    }
+    
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
