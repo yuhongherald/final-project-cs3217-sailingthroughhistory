@@ -12,7 +12,7 @@ class UpdatablePort: GameObject, Updatable {
     func update(weeks: Double) -> Bool {
         return false
     }
-    
+
     func checkForEvent() -> GenericGameEvent? {
         return nil
     }

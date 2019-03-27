@@ -11,6 +11,19 @@ import XCTest
 
 class EmotionEngineTest: XCTestCase {
 
+    func testUpdateGameState() {
+        let gameState = GameEngineTypicalClasses.getTypicalGameState()
+        // TODO: Add stuff into the game state here
+        let emotionEngine = EmotionEngine(gameLogic: GameLogic(gameState: gameState))
+        var timeDiff = 1.0
+        let stopwatch = Stopwatch(smallestInterval: EngineConstants.smallestEngineTick)
+        stopwatch.start()
+        while stopwatch.getTimestamp() < 2.0 && timeDiff > 0 {
+            timeDiff = 1.0 - emotionEngine.currentGameTime
+            emotionEngine.updateGameState(deltaTime: timeDiff)
+            // TODO: Monitor the game state here
+        }
+    }
     func testSetGameSpeed() {
         let logic = EmotionEngine(gameLogic: GameLogic(gameState: GameState(baseYear: 0)))
         var event = GameEvent(eventType: EventType.informative(initiater: ""), timestamp: 1, message: nil)
@@ -45,5 +58,9 @@ class EmotionEngineTest: XCTestCase {
         // TODO: Write test to check months and weeks have been updated correctly
         // TODO: Write test to check that player movement have been done correctly
         // Bonus: Write test to check that game speed is set to tolerable bounds
+        if stopwatch.getTimestamp() >= 2.0 {
+            XCTFail("Too inefficient!")
+        }
+        stopwatch.stop()
     }
 }

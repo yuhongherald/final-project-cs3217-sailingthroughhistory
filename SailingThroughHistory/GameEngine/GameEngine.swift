@@ -20,7 +20,7 @@ class GameEngine {
     private let diceFactory: DiceFactory
     private let stopWatch: Stopwatch = Stopwatch(smallestInterval:
         EngineConstants.smallestEngineTick)
-    private let gameInterface: GameInterface
+    private let gameInterface: EngineInterfaceable
 
     var gameSpeed: Double {
         get {
@@ -33,9 +33,9 @@ class GameEngine {
         }
     }
 
-    init(interface: Interface, emotionEngine: GenericTurnBasedGame,
+    init(interface: EngineInterfaceable, emotionEngine: GenericTurnBasedGame,
          asyncWrapper: GenericAsyncWrap, diceFactory: DiceFactory) {
-        self.gameInterface = GameInterface(interface: interface)
+        self.gameInterface = interface
         self.emotionEngine = emotionEngine
         self.wrapper = asyncWrapper
         self.diceFactory = diceFactory
@@ -56,6 +56,7 @@ class GameEngine {
         }
     }
 
+    // TODO: extract game actions into separate class, probably game interface
     func roll(lower: Int, upper: Int) -> Int {
         return diceFactory.createDice(lower: lower, upper: upper).roll()
     }
