@@ -14,7 +14,7 @@ class UpdatablePlayer: GameObject, Updatable {
 
     init(location: GameVariable<Location>) {
         self.location = location
-        super.init(image: Resources.Ships.british[0], frame: CGRect())
+        super.init(image: Resources.Ships.british[0], frame: Rect())
     }
 
     required init(from decoder: Decoder) throws {

@@ -12,6 +12,8 @@ extension LevelEditorViewController: EditPanelDelegateProtocol {
 
     func clicked(_ select: EditMode) {
         editPanel.isHidden = true
+        panelToggle.setTitle(showPanelMsg, for: .normal)
+        view.sendSubviewToBack(editPanel)
         editMode = select
     }
 
@@ -29,5 +31,22 @@ extension LevelEditorViewController: GalleryViewDelegateProtocol {
 extension LevelEditorViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return editingAreaWrapper
+    }
+
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        UIView.transition(with: playerMenu, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.playerMenu.alpha = 0
+        }, completion: { _ in
+            self.playerMenu.isHidden = true
+            self.playerMenu.alpha = 1
+        })
+    }
+}
+
+extension LevelEditorViewController: MenuViewDelegateProtocol {
+    func assign(port: Port, to playerParam: PlayerParameter?) {
+        playerMenu.isHidden = true
+        // TODO: save player or 
+        port.assignOwner(playerParam?.getPlayer())
     }
 }

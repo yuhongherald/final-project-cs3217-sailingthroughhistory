@@ -6,9 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import UIKit
 
 struct InterfaceEvents {
     let events: [InterfaceEvent]
-    let duration: TimeInterval
+    let duration: Double
 }

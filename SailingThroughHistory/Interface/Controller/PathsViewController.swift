@@ -75,7 +75,7 @@ struct PathsViewController {
         CATransaction.commit()
     }
 
-    mutating func removeAllPathsAssociated(with object: GameObject, withDuration duration: TimeInterval) {
+    mutating func removeAllPathsAssociated(with object: ReadOnlyGameObject, withDuration duration: TimeInterval) {
         for path in paths.getPathsFor(object: object) {
             remove(path: path, withDuration: duration, callback: {})
         }

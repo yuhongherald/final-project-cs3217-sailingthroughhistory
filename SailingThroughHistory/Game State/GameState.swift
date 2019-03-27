@@ -12,8 +12,8 @@ class GameState: GenericGameState {
     var gameTime: GameTime
 
     private var interface: Interface?
+    private var map: Map?
     private var players = [GenericPlayer]()
-    private var level: GameVariable<GenericLevel>?
     private var speedMultiplier = 1.0
 
     private var playerTurnOrder = [GenericPlayer]()
@@ -31,6 +31,7 @@ class GameState: GenericGameState {
         for var player in players {
             player.interface = interface
         }
+        map = level.getMap()
     }
 
     func getPlayers() -> [GenericPlayer] {
@@ -39,7 +40,7 @@ class GameState: GenericGameState {
 
     func getNextPlayer() -> GenericPlayer? {
         let nextPlayer = playerTurnOrder.removeFirst()
-        nextPlayer.startTurn(speedMultiplier: speedMultiplier)
+        nextPlayer.startTurn(speedMultiplier: speedMultiplier, map: map)
         return nextPlayer
     }
 
