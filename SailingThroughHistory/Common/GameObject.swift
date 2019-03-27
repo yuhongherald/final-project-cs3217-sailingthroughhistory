@@ -14,6 +14,9 @@ class GameObject: Codable, ReadOnlyGameObject {
     var image: String {
         return images.first ?? ""
     }
+    var displayName: String {
+        return ""
+    }
     var isAnimated: Bool {
         return images.count > 1 && loopDuration > 0
     }

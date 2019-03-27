@@ -38,7 +38,10 @@
 		751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD1224B9D5D0071C057 /* TurnSystem.swift */; };
 		751F8FD7224B9D5E0071C057 /* PlayerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD2224B9D5D0071C057 /* PlayerAction.swift */; };
 		751F8FD8224B9D5E0071C057 /* ChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD3224B9D5E0071C057 /* ChangeType.swift */; };
-		751F8FD9224B9D5E0071C057 /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD4224B9D5E0071C057 /* GameEvent.swift */; };
+		751F8FD9224B9D5E0071C057 /* TurnSystemEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD4224B9D5E0071C057 /* TurnSystemEvent.swift */; };
+		751F8FDC224BA2A90071C057 /* GenericTurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FDB224BA2A90071C057 /* GenericTurnSystem.swift */; };
+		751F8FE0224BA97A0071C057 /* GenericOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FDF224BA97A0071C057 /* GenericOperator.swift */; };
+		751F8FE2224BAA420071C057 /* SerializableGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FE1224BAA420071C057 /* SerializableGameObject.swift */; };
 		7528A9582245CDE300327211 /* GameLogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9572245CDE300327211 /* GameLogicTest.swift */; };
 		7528A95A2245CDF500327211 /* UpdatableTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9592245CDF500327211 /* UpdatableTest.swift */; };
 		7528A95C2245CE0500327211 /* GameEngineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A95B2245CE0500327211 /* GameEngineTest.swift */; };
@@ -206,7 +209,10 @@
 		751F8FD1224B9D5D0071C057 /* TurnSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnSystem.swift; sourceTree = "<group>"; };
 		751F8FD2224B9D5D0071C057 /* PlayerAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAction.swift; sourceTree = "<group>"; };
 		751F8FD3224B9D5E0071C057 /* ChangeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeType.swift; sourceTree = "<group>"; };
-		751F8FD4224B9D5E0071C057 /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
+		751F8FD4224B9D5E0071C057 /* TurnSystemEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnSystemEvent.swift; sourceTree = "<group>"; };
+		751F8FDB224BA2A90071C057 /* GenericTurnSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTurnSystem.swift; sourceTree = "<group>"; };
+		751F8FDF224BA97A0071C057 /* GenericOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericOperator.swift; sourceTree = "<group>"; };
+		751F8FE1224BAA420071C057 /* SerializableGameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializableGameObject.swift; sourceTree = "<group>"; };
 		7528A9572245CDE300327211 /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
 		7528A9592245CDF500327211 /* UpdatableTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTest.swift; sourceTree = "<group>"; };
 		7528A95B2245CE0500327211 /* GameEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTest.swift; sourceTree = "<group>"; };
@@ -419,10 +425,12 @@
 			isa = PBXGroup;
 			children = (
 				751F8FD3224B9D5E0071C057 /* ChangeType.swift */,
-				751F8FD4224B9D5E0071C057 /* GameEvent.swift */,
+				751F8FD4224B9D5E0071C057 /* TurnSystemEvent.swift */,
 				751F8FD0224B9D5D0071C057 /* Money.swift */,
 				751F8FD2224B9D5D0071C057 /* PlayerAction.swift */,
 				751F8FD1224B9D5D0071C057 /* TurnSystem.swift */,
+				751F8FDB224BA2A90071C057 /* GenericTurnSystem.swift */,
+				751F8FDF224BA97A0071C057 /* GenericOperator.swift */,
 			);
 			name = TurnSystem;
 			path = "New Group";
@@ -574,6 +582,7 @@
 				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
 				9621CC062246C0BC008178FF /* ContextDrawable.swift */,
 				967FD6B222494309008559CE /* ReadOnlyGameObject.swift */,
+				751F8FE1224BAA420071C057 /* SerializableGameObject.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -974,6 +983,7 @@
 				96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				968F13662244008200FE32E0 /* ObjectPaths.swift in Sources */,
+				751F8FDC224BA2A90071C057 /* GenericTurnSystem.swift in Sources */,
 				751F8FD8224B9D5E0071C057 /* ChangeType.swift in Sources */,
 				7528A95F2245EDD000327211 /* EngineInterfaceable.swift in Sources */,
 				966D852A2249280B003F4587 /* UIImageView+ContextDrawable.swift in Sources */,
@@ -1024,6 +1034,7 @@
 				751F8FC7224B9D240071C057 /* UpdatableWeather.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
+				751F8FE0224BA97A0071C057 /* GenericOperator.swift in Sources */,
 				967FD6B522494619008559CE /* ObjectFrames.swift in Sources */,
 				753EEA822245169C00D56CBA /* Drawable.swift in Sources */,
 				BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */,
@@ -1034,7 +1045,7 @@
 				9681199C2243C29F0093ABBA /* ContextViewController.swift in Sources */,
 				751F8FC6224B9D240071C057 /* UpdatablePlayer.swift in Sources */,
 				754FED75224381DF00394215 /* VisualAudioData.swift in Sources */,
-				751F8FD9224B9D5E0071C057 /* GameEvent.swift in Sources */,
+				751F8FD9224B9D5E0071C057 /* TurnSystemEvent.swift in Sources */,
 				1A749D772244B6ED00482CE5 /* UIView + ScreenShot.swift in Sources */,
 				9621CC092246C321008178FF /* Rect.swift in Sources */,
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
@@ -1085,6 +1096,7 @@
 				1A749D70224409E300482CE5 /* GalleryViewController.swift in Sources */,
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
+				751F8FE2224BAA420071C057 /* SerializableGameObject.swift in Sources */,
 				7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
