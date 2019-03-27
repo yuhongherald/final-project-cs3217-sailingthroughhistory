@@ -25,6 +25,20 @@
 		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
 		1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */; };
 		1AF01830224752FF008B468B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF0182F224752FE008B468B /* MenuViewController.swift */; };
+		751F8FC6224B9D240071C057 /* UpdatablePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FBD224B9D230071C057 /* UpdatablePlayer.swift */; };
+		751F8FC7224B9D240071C057 /* UpdatableWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FBE224B9D240071C057 /* UpdatableWeather.swift */; };
+		751F8FC8224B9D240071C057 /* UpdatablePirateIsland.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FBF224B9D240071C057 /* UpdatablePirateIsland.swift */; };
+		751F8FC9224B9D240071C057 /* UpdatablePlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FC0224B9D240071C057 /* UpdatablePlayerTurn.swift */; };
+		751F8FCA224B9D240071C057 /* EngineObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FC1224B9D240071C057 /* EngineObject.swift */; };
+		751F8FCB224B9D240071C057 /* UpdatablePort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FC2224B9D240071C057 /* UpdatablePort.swift */; };
+		751F8FCC224B9D240071C057 /* UpdatablePirate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FC3224B9D240071C057 /* UpdatablePirate.swift */; };
+		751F8FCD224B9D240071C057 /* UpdatableNPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FC4224B9D240071C057 /* UpdatableNPC.swift */; };
+		751F8FCE224B9D240071C057 /* UpdatableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FC5224B9D240071C057 /* UpdatableTime.swift */; };
+		751F8FD5224B9D5E0071C057 /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD0224B9D5D0071C057 /* Money.swift */; };
+		751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD1224B9D5D0071C057 /* TurnSystem.swift */; };
+		751F8FD7224B9D5E0071C057 /* PlayerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD2224B9D5D0071C057 /* PlayerAction.swift */; };
+		751F8FD8224B9D5E0071C057 /* ChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD3224B9D5E0071C057 /* ChangeType.swift */; };
+		751F8FD9224B9D5E0071C057 /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD4224B9D5E0071C057 /* GameEvent.swift */; };
 		7528A9582245CDE300327211 /* GameLogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9572245CDE300327211 /* GameLogicTest.swift */; };
 		7528A95A2245CDF500327211 /* UpdatableTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9592245CDF500327211 /* UpdatableTest.swift */; };
 		7528A95C2245CE0500327211 /* GameEngineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A95B2245CE0500327211 /* GameEngineTest.swift */; };
@@ -49,10 +63,7 @@
 		753EEA8422451C0900D56CBA /* GameInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EEA8322451C0900D56CBA /* GameInterface.swift */; };
 		753EEA8C22452E5400D56CBA /* DrawableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EEA8B22452E5400D56CBA /* DrawableManager.swift */; };
 		753EEA902245348500D56CBA /* TimeUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753EEA8F2245348500D56CBA /* TimeUpdatable.swift */; };
-		754FED502243335000394215 /* UpdatablePlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED4F2243334F00394215 /* UpdatablePlayerTurn.swift */; };
-		754FED522243335E00394215 /* UpdatablePirateIsland.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED512243335E00394215 /* UpdatablePirateIsland.swift */; };
 		754FED5B22433F1700394215 /* Stopwatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED5A22433F1700394215 /* Stopwatch.swift */; };
-		754FED622243616100394215 /* EngineObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED612243616100394215 /* EngineObject.swift */; };
 		754FED652243626900394215 /* Vector2F.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED642243626900394215 /* Vector2F.swift */; };
 		754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED66224363CE00394215 /* Float+Epsilon.swift */; };
 		754FED6B22436C8500394215 /* ContextualData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED6A22436C8500394215 /* ContextualData.swift */; };
@@ -62,11 +73,6 @@
 		754FED75224381DF00394215 /* VisualAudioData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED74224381DF00394215 /* VisualAudioData.swift */; };
 		754FED772243933F00394215 /* SoundStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED762243933F00394215 /* SoundStatus.swift */; };
 		7559897522421BEC004037E6 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897422421BEC004037E6 /* Updatable.swift */; };
-		7559897722421C0C004037E6 /* UpdatableWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897622421C0C004037E6 /* UpdatableWeather.swift */; };
-		7559897922421C1D004037E6 /* UpdatablePort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897822421C1D004037E6 /* UpdatablePort.swift */; };
-		7559897B22421C31004037E6 /* UpdatablePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897A22421C31004037E6 /* UpdatablePlayer.swift */; };
-		7559897D22421C42004037E6 /* UpdatableNPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897C22421C42004037E6 /* UpdatableNPC.swift */; };
-		7559897F22421C50004037E6 /* UpdatablePirate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559897E22421C50004037E6 /* UpdatablePirate.swift */; };
 		7559898322422374004037E6 /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898222422374004037E6 /* GameTime.swift */; };
 		7559898522422493004037E6 /* Int+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898422422493004037E6 /* Int+Lerp.swift */; };
 		7559898822423AFC004037E6 /* DiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898722423AFC004037E6 /* DiceFactory.swift */; };
@@ -75,7 +81,6 @@
 		7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898D2242420C004037E6 /* GenericGameLogic.swift */; };
 		755989902242435C004037E6 /* GenericTurnBasedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */; };
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
-		75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435922428808007855F9 /* UpdatableTime.swift */; };
 		75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435D22428ED9007855F9 /* Timestampable.swift */; };
 		9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B7702248F28100DA12C8 /* CGRect+Rect.swift */; };
 		9621CC072246C0BC008178FF /* ContextDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC062246C0BC008178FF /* ContextDrawable.swift */; };
@@ -188,6 +193,20 @@
 		1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		1AF0182F224752FE008B468B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
+		751F8FBD224B9D230071C057 /* UpdatablePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatablePlayer.swift; sourceTree = "<group>"; };
+		751F8FBE224B9D240071C057 /* UpdatableWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatableWeather.swift; sourceTree = "<group>"; };
+		751F8FBF224B9D240071C057 /* UpdatablePirateIsland.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatablePirateIsland.swift; sourceTree = "<group>"; };
+		751F8FC0224B9D240071C057 /* UpdatablePlayerTurn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatablePlayerTurn.swift; sourceTree = "<group>"; };
+		751F8FC1224B9D240071C057 /* EngineObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineObject.swift; sourceTree = "<group>"; };
+		751F8FC2224B9D240071C057 /* UpdatablePort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatablePort.swift; sourceTree = "<group>"; };
+		751F8FC3224B9D240071C057 /* UpdatablePirate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatablePirate.swift; sourceTree = "<group>"; };
+		751F8FC4224B9D240071C057 /* UpdatableNPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatableNPC.swift; sourceTree = "<group>"; };
+		751F8FC5224B9D240071C057 /* UpdatableTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatableTime.swift; sourceTree = "<group>"; };
+		751F8FD0224B9D5D0071C057 /* Money.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
+		751F8FD1224B9D5D0071C057 /* TurnSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnSystem.swift; sourceTree = "<group>"; };
+		751F8FD2224B9D5D0071C057 /* PlayerAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAction.swift; sourceTree = "<group>"; };
+		751F8FD3224B9D5E0071C057 /* ChangeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeType.swift; sourceTree = "<group>"; };
+		751F8FD4224B9D5E0071C057 /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
 		7528A9572245CDE300327211 /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
 		7528A9592245CDF500327211 /* UpdatableTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTest.swift; sourceTree = "<group>"; };
 		7528A95B2245CE0500327211 /* GameEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTest.swift; sourceTree = "<group>"; };
@@ -212,10 +231,7 @@
 		753EEA8322451C0900D56CBA /* GameInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInterface.swift; sourceTree = "<group>"; };
 		753EEA8B22452E5400D56CBA /* DrawableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawableManager.swift; sourceTree = "<group>"; };
 		753EEA8F2245348500D56CBA /* TimeUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUpdatable.swift; sourceTree = "<group>"; };
-		754FED4F2243334F00394215 /* UpdatablePlayerTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePlayerTurn.swift; sourceTree = "<group>"; };
-		754FED512243335E00394215 /* UpdatablePirateIsland.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePirateIsland.swift; sourceTree = "<group>"; };
 		754FED5A22433F1700394215 /* Stopwatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stopwatch.swift; sourceTree = "<group>"; };
-		754FED612243616100394215 /* EngineObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineObject.swift; sourceTree = "<group>"; };
 		754FED642243626900394215 /* Vector2F.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2F.swift; sourceTree = "<group>"; };
 		754FED66224363CE00394215 /* Float+Epsilon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Epsilon.swift"; sourceTree = "<group>"; };
 		754FED6A22436C8500394215 /* ContextualData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextualData.swift; sourceTree = "<group>"; };
@@ -225,11 +241,6 @@
 		754FED74224381DF00394215 /* VisualAudioData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualAudioData.swift; sourceTree = "<group>"; };
 		754FED762243933F00394215 /* SoundStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundStatus.swift; sourceTree = "<group>"; };
 		7559897422421BEC004037E6 /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
-		7559897622421C0C004037E6 /* UpdatableWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableWeather.swift; sourceTree = "<group>"; };
-		7559897822421C1D004037E6 /* UpdatablePort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePort.swift; sourceTree = "<group>"; };
-		7559897A22421C31004037E6 /* UpdatablePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePlayer.swift; sourceTree = "<group>"; };
-		7559897C22421C42004037E6 /* UpdatableNPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableNPC.swift; sourceTree = "<group>"; };
-		7559897E22421C50004037E6 /* UpdatablePirate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatablePirate.swift; sourceTree = "<group>"; };
 		7559898222422374004037E6 /* GameTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTime.swift; sourceTree = "<group>"; };
 		7559898422422493004037E6 /* Int+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Lerp.swift"; sourceTree = "<group>"; };
 		7559898722423AFC004037E6 /* DiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceFactory.swift; sourceTree = "<group>"; };
@@ -238,7 +249,6 @@
 		7559898D2242420C004037E6 /* GenericGameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericGameLogic.swift; sourceTree = "<group>"; };
 		7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTurnBasedGame.swift; sourceTree = "<group>"; };
 		75598991224243CE004037E6 /* EmotionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionEngine.swift; sourceTree = "<group>"; };
-		75F8435922428808007855F9 /* UpdatableTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTime.swift; sourceTree = "<group>"; };
 		75F8435D22428ED9007855F9 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		9615B7702248F28100DA12C8 /* CGRect+Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Rect.swift"; sourceTree = "<group>"; };
 		9621CC062246C0BC008178FF /* ContextDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDrawable.swift; sourceTree = "<group>"; };
@@ -388,6 +398,36 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		751F8FCF224B9D2A0071C057 /* Engine Objects */ = {
+			isa = PBXGroup;
+			children = (
+				751F8FC1224B9D240071C057 /* EngineObject.swift */,
+				751F8FC4224B9D240071C057 /* UpdatableNPC.swift */,
+				751F8FC3224B9D240071C057 /* UpdatablePirate.swift */,
+				751F8FBF224B9D240071C057 /* UpdatablePirateIsland.swift */,
+				751F8FBD224B9D230071C057 /* UpdatablePlayer.swift */,
+				751F8FC0224B9D240071C057 /* UpdatablePlayerTurn.swift */,
+				751F8FC2224B9D240071C057 /* UpdatablePort.swift */,
+				751F8FC5224B9D240071C057 /* UpdatableTime.swift */,
+				751F8FBE224B9D240071C057 /* UpdatableWeather.swift */,
+			);
+			name = "Engine Objects";
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		751F8FDA224B9D600071C057 /* TurnSystem */ = {
+			isa = PBXGroup;
+			children = (
+				751F8FD3224B9D5E0071C057 /* ChangeType.swift */,
+				751F8FD4224B9D5E0071C057 /* GameEvent.swift */,
+				751F8FD0224B9D5D0071C057 /* Money.swift */,
+				751F8FD2224B9D5D0071C057 /* PlayerAction.swift */,
+				751F8FD1224B9D5D0071C057 /* TurnSystem.swift */,
+			);
+			name = TurnSystem;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		7528A9642245EE6300327211 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,12 +441,12 @@
 		7536A8292240971500D9D0FE /* GameEngine */ = {
 			isa = PBXGroup;
 			children = (
+				751F8FCF224B9D2A0071C057 /* Engine Objects */,
 				7528A9642245EE6300327211 /* Test */,
 				75598993224243E7004037E6 /* Small components */,
 				753EEA7C2245096400D56CBA /* Data */,
 				754FED59224335DE00394215 /* Enums */,
 				7559898622423AC4004037E6 /* Factories */,
-				754FED5E22435FE400394215 /* Game Objects */,
 				7536A83A2240A14A00D9D0FE /* Protocols */,
 				7536A83422409B5700D9D0FE /* GameEngine.swift */,
 				75598991224243CE004037E6 /* EmotionEngine.swift */,
@@ -457,22 +497,6 @@
 				753EEA78224507BA00D56CBA /* UpdatableStatus.swift */,
 			);
 			path = Enums;
-			sourceTree = "<group>";
-		};
-		754FED5E22435FE400394215 /* Game Objects */ = {
-			isa = PBXGroup;
-			children = (
-				754FED612243616100394215 /* EngineObject.swift */,
-				7559897622421C0C004037E6 /* UpdatableWeather.swift */,
-				7559897822421C1D004037E6 /* UpdatablePort.swift */,
-				7559897A22421C31004037E6 /* UpdatablePlayer.swift */,
-				7559897C22421C42004037E6 /* UpdatableNPC.swift */,
-				7559897E22421C50004037E6 /* UpdatablePirate.swift */,
-				75F8435922428808007855F9 /* UpdatableTime.swift */,
-				754FED4F2243334F00394215 /* UpdatablePlayerTurn.swift */,
-				754FED512243335E00394215 /* UpdatablePirateIsland.swift */,
-			);
-			path = "Game Objects";
 			sourceTree = "<group>";
 		};
 		7559898622423AC4004037E6 /* Factories */ = {
@@ -590,6 +614,7 @@
 		9690F5C8223A4874005291EE /* SailingThroughHistory */ = {
 			isa = PBXGroup;
 			children = (
+				751F8FDA224B9D600071C057 /* TurnSystem */,
 				7536A8292240971500D9D0FE /* GameEngine */,
 				96737EA2223D319A00D04C33 /* Interface */,
 				965E033A223A7110005F7D79 /* Common */,
@@ -933,36 +958,38 @@
 				753EEA902245348500D56CBA /* TimeUpdatable.swift in Sources */,
 				BA48591122410CC7009ED2F6 /* ShipUI.swift in Sources */,
 				1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */,
-				754FED622243616100394215 /* EngineObject.swift in Sources */,
 				753EEA79224507BA00D56CBA /* UpdatableStatus.swift in Sources */,
 				BA485904223F9112009ED2F6 /* Location.swift in Sources */,
 				1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
 				7528A96A2245F82100327211 /* UniformRandom.swift in Sources */,
-				754FED502243335000394215 /* UpdatablePlayerTurn.swift in Sources */,
 				754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */,
-				7559897922421C1D004037E6 /* UpdatablePort.swift in Sources */,
 				965E0343223AD976005F7D79 /* Interface.swift in Sources */,
 				969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */,
 				7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
+				751F8FD5224B9D5E0071C057 /* Money.swift in Sources */,
 				967FD6B322494309008559CE /* ReadOnlyGameObject.swift in Sources */,
 				96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */,
 				96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				968F13662244008200FE32E0 /* ObjectPaths.swift in Sources */,
+				751F8FD8224B9D5E0071C057 /* ChangeType.swift in Sources */,
 				7528A95F2245EDD000327211 /* EngineInterfaceable.swift in Sources */,
 				966D852A2249280B003F4587 /* UIImageView+ContextDrawable.swift in Sources */,
+				751F8FD7224B9D5E0071C057 /* PlayerAction.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				75598992224243CE004037E6 /* EmotionEngine.swift in Sources */,
 				7536A8372240A09200D9D0FE /* GenericAsyncWrap.swift in Sources */,
+				751F8FCB224B9D240071C057 /* UpdatablePort.swift in Sources */,
 				1A9FF08C224030E000005FCB /* Map.swift in Sources */,
 				7528A9612245EE4800327211 /* TestInterface.swift in Sources */,
 				966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */,
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
 				755989902242435C004037E6 /* GenericTurnBasedGame.swift in Sources */,
+				751F8FCA224B9D240071C057 /* EngineObject.swift in Sources */,
 				96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */,
 				754FED5B22433F1700394215 /* Stopwatch.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
@@ -973,6 +1000,7 @@
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
 				754FED7322437FD200394215 /* SoundData.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
+				751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
@@ -993,25 +1021,24 @@
 				754FED6B22436C8500394215 /* ContextualData.swift in Sources */,
 				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
 				9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */,
+				751F8FC7224B9D240071C057 /* UpdatableWeather.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
 				967FD6B522494619008559CE /* ObjectFrames.swift in Sources */,
 				753EEA822245169C00D56CBA /* Drawable.swift in Sources */,
 				BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */,
-				7559897D22421C42004037E6 /* UpdatableNPC.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
 				BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */,
 				96619E3B224511A50014E0C5 /* UIPortItemTableCell.swift in Sources */,
-				7559897B22421C31004037E6 /* UpdatablePlayer.swift in Sources */,
 				9681199C2243C29F0093ABBA /* ContextViewController.swift in Sources */,
+				751F8FC6224B9D240071C057 /* UpdatablePlayer.swift in Sources */,
 				754FED75224381DF00394215 /* VisualAudioData.swift in Sources */,
+				751F8FD9224B9D5E0071C057 /* GameEvent.swift in Sources */,
 				1A749D772244B6ED00482CE5 /* UIView + ScreenShot.swift in Sources */,
 				9621CC092246C321008178FF /* Rect.swift in Sources */,
-				7559897722421C0C004037E6 /* UpdatableWeather.swift in Sources */,
 				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
 				7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */,
-				754FED522243335E00394215 /* UpdatablePirateIsland.swift in Sources */,
 				1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */,
 				753EEA7B2245093700D56CBA /* VisualData.swift in Sources */,
 				753EEA8422451C0900D56CBA /* GameInterface.swift in Sources */,
@@ -1020,11 +1047,14 @@
 				1A9FF08A2240142B00005FCB /* UIAlert.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
 				754FED652243626900394215 /* Vector2F.swift in Sources */,
+				751F8FCC224B9D240071C057 /* UpdatablePirate.swift in Sources */,
 				7536A8482240E10500D9D0FE /* GameLogic.swift in Sources */,
+				751F8FCE224B9D240071C057 /* UpdatableTime.swift in Sources */,
 				754FED6F2243795900394215 /* EngineConstants.swift in Sources */,
 				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
+				751F8FCD224B9D240071C057 /* UpdatableNPC.swift in Sources */,
 				75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */,
 				9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
@@ -1036,6 +1066,7 @@
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
 				1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */,
 				96877E54223EC7D80020F44C /* Path.swift in Sources */,
+				751F8FC9224B9D240071C057 /* UpdatablePlayerTurn.swift in Sources */,
 				96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */,
 				7559897522421BEC004037E6 /* Updatable.swift in Sources */,
 				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
@@ -1048,14 +1079,13 @@
 				7559898A22423D91004037E6 /* Randomable.swift in Sources */,
 				1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */,
 				1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */,
+				751F8FC8224B9D240071C057 /* UpdatablePirateIsland.swift in Sources */,
 				754FED772243933F00394215 /* SoundStatus.swift in Sources */,
-				75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */,
 				BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */,
 				1A749D70224409E300482CE5 /* GalleryViewController.swift in Sources */,
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
 				7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */,
-				7559897F22421C50004037E6 /* UpdatablePirate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
