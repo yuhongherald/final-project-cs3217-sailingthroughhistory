@@ -8,13 +8,13 @@
 
 // TODO: Implement, do protocol
 protocol TurnSystemEvent {
-    var objectIdentifier: ReadOnlyGameObject { get }
+    var objectIdentifier: SerializableGameObject { get }
 
     // return value is dependent on objectIdentifier
     var objectField: String { get } // TODO
 
     var changeOperator: GenericOperator { get }
 
-    var otherIdentifier: ReadOnlyGameObject { get }
+    var otherIdentifier: SerializableGameObject { get }
     var otherObjectField: String { get } // TODO
 }

@@ -15,8 +15,12 @@ class TurnSystem: GenericTurnSystem {
     }
     private var state: State = .ready
 
+    init(isMaster: Bool) {
+        
+    }
+
     // TODO: Add to protocol and also do a running gamestate
-    func setState(gameState: GenericGameState) {
+    func startGame() {
         
     }
 

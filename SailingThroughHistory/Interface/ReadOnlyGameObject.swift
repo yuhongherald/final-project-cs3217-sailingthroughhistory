@@ -13,5 +13,5 @@ protocol ReadOnlyGameObject: class {
     var startingFrame: UInt { get }
     var image: String { get }
     var isAnimated: Bool { get }
-    var displayName: String { get }
+    //var displayName: String { get } // moved to serializable game object
 }

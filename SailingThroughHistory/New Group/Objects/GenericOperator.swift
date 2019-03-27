@@ -6,6 +6,6 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol GenericOperator {
-    func compare(first: Any, second: Any) -> Bool
+protocol GenericOperator: Printable {
+    func compare(first: Any?, second: Any?) -> Bool
 }
