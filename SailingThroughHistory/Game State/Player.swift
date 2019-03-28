@@ -19,7 +19,9 @@ class Player: GenericPlayer {
     var interface: Interface?
     var map: Map?
     // TODO: should startingNode: Node without ?
-    var startingNode: Node?
+    var currentNode: Node {
+        return ship.location.value.start
+    }
 
     private let ship: Ship
     private var speedMultiplier = 1.0
@@ -28,7 +30,6 @@ class Player: GenericPlayer {
 
     required init(name: String, node: Node) {
         self.name = name
-        self.startingNode = node
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
         money.subscribe(with: preventPlayerBankruptcy)
@@ -37,19 +38,17 @@ class Player: GenericPlayer {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
-        startingNode = try values.decode(Node.self, forKey: .startingNode)
+        money.value = try values.decode(Int.self, forKey: .money)
+        ship = try values.decode(Ship.self, forKey: .ship)
 
-        guard let node = startingNode else {
-            fatalError("Node not initialized, cannot initialzed ship")
-        }
-        ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
-        try container.encode(startingNode, forKey: .startingNode)
+        try container.encode(money.value, forKey: .money)
+        try container.encode(ship, forKey: .ship)
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
@@ -107,7 +106,8 @@ class Player: GenericPlayer {
 
     private enum CodingKeys: String, CodingKey {
         case name
-        case startingNode
+        case money
+        case ship
     }
 }
 
