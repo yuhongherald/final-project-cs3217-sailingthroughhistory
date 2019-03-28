@@ -6,7 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol SerializableGameObject: Printable {
+protocol SerializableGameObject: Operatable, Printable, Observable {
     var fields: [String] { get }
     func getField(field: String) -> Any?
+    func setField(field: String, object: Any) -> Bool
 }

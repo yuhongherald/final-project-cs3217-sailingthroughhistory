@@ -21,7 +21,7 @@ class TurnSystem: GenericTurnSystem {
 
     // TODO: Add to protocol and also do a running gamestate
     func startGame() {
-        
+        //
     }
 
     /// Returns false if action is invalid
@@ -34,12 +34,12 @@ class TurnSystem: GenericTurnSystem {
         case .changeInventory(changeType: let changeType, money: let money, items: let items):
             // TODO: Discuss player API
             //player.getMaxPurchaseAmount(itemParameter: )
-            break
-        case .roll():
+            return false
+        case .roll:
             if player.hasRolled {
                 return false
             }
-            player.roll()
+            _ = player.roll()
             return true
         case .move(to: let node):
             if !player.hasRolled {
@@ -60,12 +60,20 @@ class TurnSystem: GenericTurnSystem {
         port.taxAmount = taxAmount
         return true
         case .setEvent(changeType: let changeType, events: let events):
-            // TODO: Add event injection logic
-            return false
+            return setEvents(changeType: changeType, events: events)
         }
-        return false
     }
 
+    private func setEvents(changeType: ChangeType, events: [ReadOnlyEventCondition]) -> Bool {
+        switch changeType {
+        case .add:
+            return false
+        case .remove: // TODO: Add support for removing events
+            return false
+        case .set:
+            return false
+        }
+    }
     // TODO: Fix the gamestate sent back
     func watchMasterUpdate(gameState: GenericGameState) {
         if state != .waitForStateUpdate {
