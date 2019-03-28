@@ -24,14 +24,18 @@ struct PathsViewController {
             return
         }
 
+        // TODO
+        /*
         guard let fromFrame = mainController.getFrame(for: path.fromObject),
             let toFrame = mainController.getFrame(for: path.toObject) else {
                 return
         }
+        */
 
         paths.add(path: path)
 
-        addToView(path: path, from: fromFrame, to: toFrame, withDuration: duration, callback: callback)
+        // TODO
+        //addToView(path: path, from: fromFrame, to: toFrame, withDuration: duration, callback: callback)
     }
 
     private mutating func addToView(path: Path, from fromFrame: CGRect, to toFrame: CGRect, withDuration duration: TimeInterval, callback: @escaping () -> Void) {

@@ -93,8 +93,8 @@ class MainGameViewController: UIViewController {
         let object2 = Port(player: Player(name: "test", node: nodeDummy), originX: 500, originY: 500)
         object2.itemParametersSold = [ItemParameter(itemType: ItemType.opium,
                                                     displayName: "Opium", weight: 1, isConsumable: true)]
-        let path = Path(from: object, to: object2)
-        self.interface.add(object: object2)
+        //let path = Path(from: object, to: object2)
+        //self.interface.add(object: object2)
         self.interface.broadcastInterfaceChanges(withDuration: 3)
         self.interface.showTravelChoices([object2]) { [weak self] (_: ReadOnlyGameObject)  in
             let alert = ControllerUtils.getGenericAlert(titled: "Title", withMsg: "Msg")
@@ -110,7 +110,7 @@ class MainGameViewController: UIViewController {
         setupGameEngine()
         subscribeToInterface()
 
-        self.interface.add(path: path)
+        //self.interface.add(path: path)
         self.interface.broadcastInterfaceChanges(withDuration: 5)
          //Uncomment to test interface
         DispatchQueue.global(qos: .background).async { [weak self] in

@@ -7,7 +7,6 @@
 //
 
 class Port: Node {
-    // TODO: [Note]: Changed GenericPlayer to Player for encode
     public var taxAmount = 0
     public var owner: Player?
     private var itemParameters: [ItemType: ItemParameter] = {

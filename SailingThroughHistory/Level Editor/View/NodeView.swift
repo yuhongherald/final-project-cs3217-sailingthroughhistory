@@ -15,7 +15,7 @@ class NodeView: UIImageView {
     init(node: Node) {
         self.node = node
         self.nodeLabel = NodeView.getBlankLabel()
-        super.init(frame: CGRect(fromRect: node.frame))
+        super.init(frame: node.frame)
         self.image = UIImage(named: node.image)
 
         nodeLabel.text = node.name
