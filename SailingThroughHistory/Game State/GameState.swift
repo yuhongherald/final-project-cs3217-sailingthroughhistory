@@ -19,7 +19,34 @@ class GameState: GenericGameState {
     private var playerTurnOrder = [GenericPlayer]()
 
     required init(baseYear: Int) {
-        gameTime = GameTime(baseYear: baseYear)
+        //TODO
+        gameTime = GameTime()
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        try gameTime = values.decode(GameTime.self, forKey: .gameTime)
+        try map = values.decode(Map.self, forKey: .map)
+        try players = values.decode([Player].self, forKey: .players)
+        try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        guard let players = players as? [Player] else {
+            return
+        }
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(gameTime, forKey: .gameTime)
+        try container.encode(map, forKey: .map)
+        try container.encode(players, forKey: .players)
+        try container.encode(speedMultiplier, forKey: .speedMultiplier)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case gameTime
+        case map
+        case players
+        case speedMultiplier
     }
 
     func subscribe(interface: Interface) {

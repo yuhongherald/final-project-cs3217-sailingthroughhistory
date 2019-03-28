@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol GenericGameState {
+protocol GenericGameState: Codable {
     var gameTime: GameTime { get set }
 
     init(baseYear: Int)

@@ -8,12 +8,15 @@
 
 import Foundation
 
-protocol GenericItem {
-    var itemParameter: ItemParameter { get }
-    var unitWeight: Int { get }
+protocol GenericItem: Codable {
+    var itemType: ItemType? { get }
+    var itemParameter: ItemParameter? { get }
+    var weight: Int? { get }
     var quantity: Int { get set }
 
     init(itemType: ItemParameter, quantity: Int)
+
+    func setItemType(_ itemType: ItemParameter)
     func combine(with item: GenericItem) -> Bool
     func setQuantity(quantity: Int)
     func getBuyValue(at port: Port) -> Int?
