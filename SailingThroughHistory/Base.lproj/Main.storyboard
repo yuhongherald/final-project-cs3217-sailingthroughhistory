@@ -460,10 +460,10 @@
             </objects>
             <point key="canvasLocation" x="204" y="-307"/>
         </scene>
-        <!--View Controller-->
+        <!--Main Menu View Controller-->
         <scene sceneID="8Sb-ZB-ecq">
             <objects>
-                <viewController id="xnR-2a-N1z" sceneMemberID="viewController">
+                <viewController id="xnR-2a-N1z" customClass="MainMenuViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l0h-Op-m1z">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
