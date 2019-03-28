@@ -13,10 +13,10 @@ class MainMenuViewController: UIViewController {
     var connection: RoomConnection?
     override func viewDidLoad() {
         super.viewDidLoad()
-        let room = FirestoreRoom(named: "TestRoom", firestore: Firestore.firestore())
+        // Uncomment to test
+        /*let room = FirestoreRoom(named: "TestRoom", firestore: Firestore.firestore())
         room.getConnection(removalCallback: { print("Dead") }) { [weak self] in
-            print($0, $1)
             self?.connection = $0
-        }
+        }*/
     }
 }

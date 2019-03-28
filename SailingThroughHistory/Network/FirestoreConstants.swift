@@ -14,7 +14,8 @@ enum FirestoreConstants {
     static let roomCollectionName = "Rooms"
     static let roomCollection = firestore.collection(roomCollectionName)
     static let modelCollectionName = "Model"
-    static let stateDocumentName = "State"
+    static let initialStateDocumentName = "Initial State"
+    static let currentStateDocumentName = "Current State"
     static let runTimeInfoCollectionName = "Runtime Info"
     static let turnActionsDocumentName = "TurnActions"
     static let errorCategory = "Firebase"
@@ -25,4 +26,5 @@ enum FirestoreConstants {
     static let encodeStateErrorMsg = "Failed to encode state"
     static let pullErrorMsg = "Failed to pull document."
     static let roomMasterKey = "RoomMaster"
+    static let roomStartedKey = "started"
 }

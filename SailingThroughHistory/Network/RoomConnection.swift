@@ -7,4 +7,22 @@
 //
 
 protocol RoomConnection {
+    static func getConnection(for room: FirestoreRoom,
+                              removed removedCallback: @escaping () -> Void,
+                              completion callback: @escaping (RoomConnection?, Error?) -> ())
+
+    func startGame(initialState: GameState, completion callback: @escaping (Error?) -> Void) throws
+
+    func push(currentState: GameState, completion callback: @escaping (Error?) -> Void) throws
+
+    /// TODO: CHANGE TYPE
+    func subscribeToActions(for turn: Int, callback: @escaping ([[Map]], Error?) -> Void)
+
+    func subscribeToPlayerTeams()
+
+    func push(actions: [Map], fromPlayer player: Player,
+              forTurnNumbered turn: Int,
+              completion callback: @escaping (Error?) -> ()) throws
+
+    func checkTurnEnd(actions: [Map], forTurnNumbered turn: Int) throws
 }
