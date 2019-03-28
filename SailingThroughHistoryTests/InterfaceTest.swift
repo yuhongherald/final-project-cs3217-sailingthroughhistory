@@ -67,7 +67,7 @@ class InterfaceTest: XCTestCase {
         object.frame = frame2
         interface.add(object: object)
         interface.broadcastInterfaceChanges(withDuration: 0)
-        XCTAssertEqual(interface.objectFrames.getFrame(for: object), frame2,
+        XCTAssertNotEqual(interface.objectFrames.getFrame(for: object), frame2,
                        "Duplicate object add caused frame to change.")
     }
 

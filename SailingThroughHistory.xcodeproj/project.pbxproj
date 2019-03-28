@@ -79,6 +79,15 @@
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
 		75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435922428808007855F9 /* UpdatableTime.swift */; };
 		75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435D22428ED9007855F9 /* Timestampable.swift */; };
+		9603F774224A8254007D54E0 /* RoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F773224A8254007D54E0 /* RoomConnection.swift */; };
+		9603F77A224A8386007D54E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9603F779224A8386007D54E0 /* GoogleService-Info.plist */; };
+		9603F77B224A8386007D54E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9603F779224A8386007D54E0 /* GoogleService-Info.plist */; };
+		9603F77C224A8386007D54E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9603F779224A8386007D54E0 /* GoogleService-Info.plist */; };
+		9603F77E224A95D2007D54E0 /* FirestoreRoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */; };
+		9603F782224A9748007D54E0 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F781224A9748007D54E0 /* Room.swift */; };
+		9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F785224A990E007D54E0 /* FirestoreRoom.swift */; };
+		9603F78A224AAA06007D54E0 /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F789224AAA06007D54E0 /* FirestoreConstants.swift */; };
+		9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F78B224AB0E3007D54E0 /* NetworkError.swift */; };
 		9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B7702248F28100DA12C8 /* CGRect+Rect.swift */; };
 		9621CC072246C0BC008178FF /* ContextDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC062246C0BC008178FF /* ContextDrawable.swift */; };
 		9621CC092246C321008178FF /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC082246C321008178FF /* Rect.swift */; };
@@ -112,6 +121,7 @@
 		9681199E2243CCA30093ABBA /* Array+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9681199D2243CCA30093ABBA /* Array+Rotate.swift */; };
 		96877E54223EC7D80020F44C /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96877E53223EC7D80020F44C /* Path.swift */; };
 		968F13662244008200FE32E0 /* ObjectPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968F13652244008200FE32E0 /* ObjectPaths.swift */; };
+		969016F6224BD21600296333 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969016F5224BD21600296333 /* MainMenuViewController.swift */; };
 		9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5C9223A4874005291EE /* AppDelegate.swift */; };
 		9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5CB223A4874005291EE /* MainGameViewController.swift */; };
 		9690F5CF223A4874005291EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5CD223A4874005291EE /* Main.storyboard */; };
@@ -128,7 +138,6 @@
 		96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */; };
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
 		96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* InterfacePublishSubject.swift */; };
-		B1ED82DF2E0DFBF637A42444 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD427A94087A84D2575AEA83 /* Pods_SailingThroughHistory.framework */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
 		BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485901223F8B6E009ED2F6 /* Consumable.swift */; };
 		BA485904223F9112009ED2F6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485903223F9112009ED2F6 /* Location.swift */; };
@@ -150,6 +159,7 @@
 		BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91907B223F531A00009F49 /* GenericGameState.swift */; };
 		BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */; };
 		BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */; };
+		C5795F78D7D418873AAF7DEB /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC574FFA4B1C01F9E6BAACF3 /* Pods_SailingThroughHistory.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,7 +200,8 @@
 		1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEditTableViewController.swift; sourceTree = "<group>"; };
 		1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTableViewCell.swift; sourceTree = "<group>"; };
 		1AF0182F224752FE008B468B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
+		1EB28AAEC2189F58A3F281E8 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
+		23A92C0BC74B9CB328BF26DD /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		7528A9572245CDE300327211 /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
 		7528A9592245CDF500327211 /* UpdatableTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTest.swift; sourceTree = "<group>"; };
 		7528A95B2245CE0500327211 /* GameEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTest.swift; sourceTree = "<group>"; };
@@ -243,6 +254,13 @@
 		75598991224243CE004037E6 /* EmotionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionEngine.swift; sourceTree = "<group>"; };
 		75F8435922428808007855F9 /* UpdatableTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTime.swift; sourceTree = "<group>"; };
 		75F8435D22428ED9007855F9 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
+		9603F773224A8254007D54E0 /* RoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomConnection.swift; sourceTree = "<group>"; };
+		9603F779224A8386007D54E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRoomConnection.swift; sourceTree = "<group>"; };
+		9603F781224A9748007D54E0 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		9603F785224A990E007D54E0 /* FirestoreRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRoom.swift; sourceTree = "<group>"; };
+		9603F789224AAA06007D54E0 /* FirestoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConstants.swift; sourceTree = "<group>"; };
+		9603F78B224AB0E3007D54E0 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		9615B7702248F28100DA12C8 /* CGRect+Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Rect.swift"; sourceTree = "<group>"; };
 		9621CC062246C0BC008178FF /* ContextDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDrawable.swift; sourceTree = "<group>"; };
 		9621CC082246C321008178FF /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
@@ -276,6 +294,7 @@
 		9681199D2243CCA30093ABBA /* Array+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Rotate.swift"; sourceTree = "<group>"; };
 		96877E53223EC7D80020F44C /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		968F13652244008200FE32E0 /* ObjectPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPaths.swift; sourceTree = "<group>"; };
+		969016F5224BD21600296333 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		9690F5C6223A4874005291EE /* SailingThroughHistory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SailingThroughHistory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5C9223A4874005291EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9690F5CB223A4874005291EE /* MainGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGameViewController.swift; sourceTree = "<group>"; };
@@ -318,8 +337,7 @@
 		BA91907B223F531A00009F49 /* GenericGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameState.swift; sourceTree = "<group>"; };
 		BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pirate_WeatherEntity.swift; sourceTree = "<group>"; };
 		BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerShipUpgrade.swift; sourceTree = "<group>"; };
-		C6849D17A303D2EBF27662A5 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
-		FD427A94087A84D2575AEA83 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC574FFA4B1C01F9E6BAACF3 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,7 +345,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1ED82DF2E0DFBF637A42444 /* Pods_SailingThroughHistory.framework in Frameworks */,
+				C5795F78D7D418873AAF7DEB /* Pods_SailingThroughHistory.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,13 +516,25 @@
 			path = "Small components";
 			sourceTree = "<group>";
 		};
-		8783F251F4FFDE812D7DABCB /* Pods */ = {
+		7B690D43E6E8A38E23290488 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */,
-				C6849D17A303D2EBF27662A5 /* Pods-SailingThroughHistory.release.xcconfig */,
+				EC574FFA4B1C01F9E6BAACF3 /* Pods_SailingThroughHistory.framework */,
 			);
-			name = Pods;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9603F772224A8005007D54E0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				9603F773224A8254007D54E0 /* RoomConnection.swift */,
+				9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */,
+				9603F781224A9748007D54E0 /* Room.swift */,
+				9603F785224A990E007D54E0 /* FirestoreRoom.swift */,
+				9603F789224AAA06007D54E0 /* FirestoreConstants.swift */,
+				9603F78B224AB0E3007D54E0 /* NetworkError.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		965E0331223A4B2F005F7D79 /* Parameters */ = {
@@ -576,8 +606,8 @@
 				9690F5DD223A4875005291EE /* SailingThroughHistoryTests */,
 				9690F5E8223A4875005291EE /* SailingThroughHistoryUITests */,
 				9690F5C7223A4874005291EE /* Products */,
-				8783F251F4FFDE812D7DABCB /* Pods */,
-				4F08B99631DF101F42C56A53 /* Frameworks */,
+				D9599FD07B809A5E62BAF0F1 /* Pods */,
+				7B690D43E6E8A38E23290488 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -594,6 +624,7 @@
 		9690F5C8223A4874005291EE /* SailingThroughHistory */ = {
 			isa = PBXGroup;
 			children = (
+				9603F772224A8005007D54E0 /* Network */,
 				7536A8292240971500D9D0FE /* GameEngine */,
 				96737EA2223D319A00D04C33 /* Interface */,
 				965E033A223A7110005F7D79 /* Common */,
@@ -603,8 +634,10 @@
 				9690F5C9223A4874005291EE /* AppDelegate.swift */,
 				9690F5CD223A4874005291EE /* Main.storyboard */,
 				9690F5D0223A4875005291EE /* Assets.xcassets */,
+				9603F779224A8386007D54E0 /* GoogleService-Info.plist */,
 				9690F5D2223A4875005291EE /* LaunchScreen.storyboard */,
 				9690F5D5223A4875005291EE /* Info.plist */,
+				969016F5224BD21600296333 /* MainMenuViewController.swift */,
 			);
 			path = SailingThroughHistory;
 			sourceTree = "<group>";
@@ -736,6 +769,15 @@
 			path = "Game Parameters";
 			sourceTree = "<group>";
 		};
+		D9599FD07B809A5E62BAF0F1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1EB28AAEC2189F58A3F281E8 /* Pods-SailingThroughHistory.debug.xcconfig */,
+				23A92C0BC74B9CB328BF26DD /* Pods-SailingThroughHistory.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -743,12 +785,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9690F5EE223A4875005291EE /* Build configuration list for PBXNativeTarget "SailingThroughHistory" */;
 			buildPhases = (
-				44A4BE4C8AA19B78531B18E6 /* [CP] Check Pods Manifest.lock */,
+				9E7F3C50B870B86043793BB8 /* [CP] Check Pods Manifest.lock */,
 				9690F5C2223A4874005291EE /* Sources */,
 				9690F5C3223A4874005291EE /* Frameworks */,
 				9690F5C4223A4874005291EE /* Resources */,
 				96737EA9223D5C8E00D04C33 /* Run Script */,
-				F661264040C4BE97F3534A00 /* [CP] Embed Pods Frameworks */,
+				9DE4A78449C7131AF5B6989B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -848,6 +890,7 @@
 			files = (
 				BA91905B223F256300009F49 /* Images in Resources */,
 				9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */,
+				9603F77A224A8386007D54E0 /* GoogleService-Info.plist in Resources */,
 				9690F5D1223A4875005291EE /* Assets.xcassets in Resources */,
 				9690F5CF223A4874005291EE /* Main.storyboard in Resources */,
 			);
@@ -857,6 +900,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9603F77B224A8386007D54E0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,30 +908,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9603F77C224A8386007D54E0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		44A4BE4C8AA19B78531B18E6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SailingThroughHistory-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		96737EA9223D5C8E00D04C33 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -902,26 +929,73 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		F661264040C4BE97F3534A00 /* [CP] Embed Pods Frameworks */ = {
+		9DE4A78449C7131AF5B6989B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/CodableFirebase/CodableFirebase.framework",
+				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableFirebase.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountdownLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E7F3C50B870B86043793BB8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountdownLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"$(DERIVED_FILE_DIR)/Pods-SailingThroughHistory-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -958,6 +1032,7 @@
 				7528A95F2245EDD000327211 /* EngineInterfaceable.swift in Sources */,
 				966D852A2249280B003F4587 /* UIImageView+ContextDrawable.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
+				9603F782224A9748007D54E0 /* Room.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				75598992224243CE004037E6 /* EmotionEngine.swift in Sources */,
 				7536A8372240A09200D9D0FE /* GenericAsyncWrap.swift in Sources */,
@@ -976,12 +1051,14 @@
 				BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */,
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
 				754FED7322437FD200394215 /* SoundData.swift in Sources */,
+				9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				7528A9682245F71900327211 /* GameEngineTypicalClasses.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
+				9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
 				96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */,
 				96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */,
@@ -989,12 +1066,14 @@
 				96A65ADC22491FE900D7512C /* ItemType.swift in Sources */,
 				7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */,
 				7536A83E2240A7E600D9D0FE /* EventType.swift in Sources */,
+				9603F77E224A95D2007D54E0 /* FirestoreRoomConnection.swift in Sources */,
 				9621CC072246C0BC008178FF /* ContextDrawable.swift in Sources */,
 				7559898C22423DDB004037E6 /* Dice.swift in Sources */,
 				753EEA8C22452E5400D56CBA /* DrawableManager.swift in Sources */,
 				7559898322422374004037E6 /* GameTime.swift in Sources */,
 				9681199E2243CCA30093ABBA /* Array+Rotate.swift in Sources */,
 				754FED6B22436C8500394215 /* ContextualData.swift in Sources */,
+				9603F774224A8254007D54E0 /* RoomConnection.swift in Sources */,
 				7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */,
 				9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
@@ -1005,6 +1084,7 @@
 				7559897D22421C42004037E6 /* UpdatableNPC.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
+				969016F6224BD21600296333 /* MainMenuViewController.swift in Sources */,
 				BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */,
 				96619E3B224511A50014E0C5 /* UIPortItemTableCell.swift in Sources */,
 				7559897B22421C31004037E6 /* UpdatablePlayer.swift in Sources */,
@@ -1053,6 +1133,7 @@
 				7559898A22423D91004037E6 /* Randomable.swift in Sources */,
 				1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */,
 				1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */,
+				9603F78A224AAA06007D54E0 /* FirestoreConstants.swift in Sources */,
 				754FED772243933F00394215 /* SoundStatus.swift in Sources */,
 				75F8435A22428808007855F9 /* UpdatableTime.swift in Sources */,
 				BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */,
@@ -1238,12 +1319,13 @@
 		};
 		9690F5EF223A4875005291EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7330CCD31C59604B0D4D5538 /* Pods-SailingThroughHistory.debug.xcconfig */;
+			baseConfigurationReference = 1EB28AAEC2189F58A3F281E8 /* Pods-SailingThroughHistory.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistory/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1258,12 +1340,13 @@
 		};
 		9690F5F0223A4875005291EE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6849D17A303D2EBF27662A5 /* Pods-SailingThroughHistory.release.xcconfig */;
+			baseConfigurationReference = 23A92C0BC74B9CB328BF26DD /* Pods-SailingThroughHistory.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W76H98A34A;
 				INFOPLIST_FILE = SailingThroughHistory/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
