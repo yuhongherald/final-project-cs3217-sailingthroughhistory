@@ -141,7 +141,7 @@
 		96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF55792242B6A100C1E809 /* PathsViewController.swift */; };
 		96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */; };
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
-		96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* InterfacePublishSubject.swift */; };
+		96F6584A22412126006CD412 /* GenrticPublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* GenrticPublishSubject.swift */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
 		BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485901223F8B6E009ED2F6 /* Consumable.swift */; };
 		BA485904223F9112009ED2F6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485903223F9112009ED2F6 /* Location.swift */; };
@@ -318,7 +318,7 @@
 		96DF55792242B6A100C1E809 /* PathsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathsViewController.swift; sourceTree = "<group>"; };
 		96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewController.swift; sourceTree = "<group>"; };
 		96F658472240E13E006CD412 /* View+SpecialEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SpecialEffects.swift"; sourceTree = "<group>"; };
-		96F6584922412126006CD412 /* InterfacePublishSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfacePublishSubject.swift; sourceTree = "<group>"; };
+		96F6584922412126006CD412 /* GenrticPublishSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenrticPublishSubject.swift; sourceTree = "<group>"; };
 		9940A707D8BECA7B37E95F22 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		9E8EF1ED58F41F667A1319C7 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4858FF223F89F7009ED2F6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -589,7 +589,7 @@
 				96737EA0223CF2D200D04C33 /* InterfaceEvents.swift */,
 				96737EA7223D56CD00D04C33 /* ControllerUtils.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
-				96F6584922412126006CD412 /* InterfacePublishSubject.swift */,
+				96F6584922412126006CD412 /* GenrticPublishSubject.swift */,
 				9621CC062246C0BC008178FF /* ContextDrawable.swift */,
 				967FD6B222494309008559CE /* ReadOnlyGameObject.swift */,
 			);
@@ -1053,7 +1053,7 @@
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
 				755989902242435C004037E6 /* GenericTurnBasedGame.swift in Sources */,
-				96F6584A22412126006CD412 /* InterfacePublishSubject.swift in Sources */,
+				96F6584A22412126006CD412 /* GenrticPublishSubject.swift in Sources */,
 				754FED5B22433F1700394215 /* Stopwatch.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
 				754FED7122437B4F00394215 /* NPC.swift in Sources */,

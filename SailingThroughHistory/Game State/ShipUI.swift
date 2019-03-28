@@ -6,8 +6,6 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import RxSwift
-
 class ShipUI: GameObject {
 
     private let shipImagePath = "ship.png"

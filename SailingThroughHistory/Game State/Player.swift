@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RxSwift
 
 class Player: GenericPlayer {
     let money = GameVariable(value: 0)
