@@ -15,4 +15,6 @@ protocol ReadOnlyEventCondition {
 
     var otherIdentifier: SerializableGameObject? { get }
     var otherObjectField: String? { get }
+
+    func notify(eventUpdate: EventUpdate)
 }

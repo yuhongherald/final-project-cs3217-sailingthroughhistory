@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-struct EventUpdate<T> {
-    var oldValue: T
-    var newValue: T
+struct EventUpdate {
+    var oldValue: Any?
+    var newValue: Any?
 }

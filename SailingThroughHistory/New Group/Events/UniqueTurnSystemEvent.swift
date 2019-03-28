@@ -10,14 +10,6 @@ import Foundation
 
 // The base class for turn system events with auto-generated ids
 class UniqueTurnSystemEvent: UniqueObject, TurnSystemEvent {
-    var isActive: Bool = false
-    
-    var hasActivated: Bool = false
-    
-    func notify() {
-        //
-    }
-    
     var conditions: [ReadOnlyEventCondition] = []
     var actions: [EventAction] = []
 }

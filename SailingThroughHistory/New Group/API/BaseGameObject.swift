@@ -26,10 +26,13 @@ extension BaseGameObject {
         if !fields.contains(field) {
             return false
         }
+        // TODO: Migraate logic onto conditions
+        /*
         for (eventID, event) in events {
             event.notify(objects[field], object)
         }
         objects[field] = object
+ */
         return true
     }
 }

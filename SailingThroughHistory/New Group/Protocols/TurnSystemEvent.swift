@@ -11,19 +11,4 @@ protocol TurnSystemEvent: class {
     // conditions are and styled
     var conditions: [ReadOnlyEventCondition] { get }
     var actions: [EventAction] { get }
-
-    var isActive: Bool { get set }
-    var hasActivated: Bool { get set }
-    func notify(oldValue: Any, newValue: Any)
-}
-
-extension TurnSystemEvent {
-    // TODO: Notify event conditions, move to event conditions
-    func notify(oldValue: Any, newValue: Any) {
-        if hasActivated {
-            return
-        }
-        isActive = true
-        hasActivated = true
-    }
 }
