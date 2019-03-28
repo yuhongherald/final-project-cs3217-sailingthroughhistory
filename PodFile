@@ -7,4 +7,5 @@ target 'SailingThroughHistory' do
     pod 'Firebase/Core'      
     pod 'Firebase/Firestore'
     pod 'CodableFirebase'
+    pod 'FirebaseUI/Firestore', '~> 5.0'
 end

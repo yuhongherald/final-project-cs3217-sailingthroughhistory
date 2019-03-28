@@ -17,6 +17,7 @@ class FirebaseRoomConnection: RoomConnection {
     private let roomMasterId: String
     private let roomName: String
     private var heartbeatTimer: Timer?
+    private var listeners = [ListenerRegistration]()
     private var roomDocumentRef: DocumentReference {
         return FirestoreConstants.roomCollection.document(roomName)
     }
@@ -48,38 +49,43 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     private func subscribeRemoval(removalCallback: @escaping () -> Void) {
-        roomDocumentRef.addSnapshotListener { (document, _) in
+        listeners.append(roomDocumentRef.addSnapshotListener { (document, _) in
             if let document = document {
                 if !document.exists {
                     removalCallback()
                 }
             }
-        }
+        })
 
-        playersCollectionRef.document(deviceId).addSnapshotListener { (document, _) in
+        listeners.append(playersCollectionRef.document(deviceId).addSnapshotListener { (document, _) in
             if let document = document {
                 if !document.exists {
                     removalCallback()
                 }
             }
-        }
+        })
     }
 
     static func getConnection(for room: FirestoreRoom, removed removedCallback: @escaping () -> Void,
-        completion callback: @escaping (RoomConnection?, Error?) -> ()) {
+                              completion callback: @escaping (RoomConnection?, Error?) -> Void) {
         let connection = FirebaseRoomConnection(forRoom: room.name)
 
-        func joinRoom(completion: @escaping (Error?) -> ()) {
-            connection.playersCollectionRef.document(connection.deviceId).setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970]) { (error) in
+        func joinRoom(completion: @escaping (Error?) -> Void) {
+            connection.playersCollectionRef.document(connection.deviceId)
+                .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970]) { (error) in
                 completion(error)
             }
         }
 
-        func createAndJoinRoom(completion: @escaping (Error?) -> ()) {
+        func createAndJoinRoom(completion: @escaping (Error?) -> Void) {
             let batch = Firestore.firestore().batch()
-            batch.setData([FirestoreConstants.roomMasterKey: connection.deviceId], forDocument:  connection.roomDocumentRef)
+            let data: [String: Any] = [FirestoreConstants.roomMasterKey: connection.deviceId,
+                        FirestoreConstants.roomStartedKey: false]
+            batch.setData(data, forDocument: connection.roomDocumentRef)
             connection.roomDocumentRef.setData([FirestoreConstants.roomMasterKey: connection.deviceId])
-            connection.playersCollectionRef.document(connection.deviceId).setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970])
+            connection.playersCollectionRef.document(connection.deviceId)
+                .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970])
+
             batch.commit(completion: completion)
         }
 
@@ -144,15 +150,66 @@ class FirebaseRoomConnection: RoomConnection {
 
     }
 
-    /// TODO: Change to GameState
-    func push(state: Map, completion callback: @escaping (Error?) -> Void) throws {
-        try push(state,
-                 to: modelCollectionRef.document(FirestoreConstants.stateDocumentName),
+    func startGame(initialState: GameState, completion callback: @escaping (Error?) -> Void) throws {
+        let batch = FirestoreConstants.firestore.batch()
+        guard let data = try? FirestoreEncoder.init().encode(initialState) else {
+            throw NetworkError.encodeError(message: FirestoreConstants.encodeStateErrorMsg)
+        }
+
+        batch.setData(data, forDocument: modelCollectionRef.document(FirestoreConstants.initialStateDocumentName))
+        batch.updateData([FirestoreConstants.roomStartedKey: true], forDocument: roomDocumentRef)
+
+        batch.commit(completion: callback)
+    }
+
+    private func push(initialState: GameState, completion callback: @escaping (Error?) -> Void) throws {
+        try push(initialState,
+                 to: modelCollectionRef.document(FirestoreConstants.initialStateDocumentName),
                  encodeErrorMsg: FirestoreConstants.encodeStateErrorMsg,
                  completion: callback)
     }
 
-    private func push<T: Codable>(_ codable: T, to docRef: DocumentReference, encodeErrorMsg: String, completion callback: @escaping (Error?) -> Void) throws {
+    func push(currentState: GameState, completion callback: @escaping (Error?) -> Void) throws {
+        try push(currentState,
+                 to: modelCollectionRef.document(FirestoreConstants.currentStateDocumentName),
+                 encodeErrorMsg: FirestoreConstants.encodeStateErrorMsg,
+                 completion: callback)
+    }
+
+    /// TODO: CHANGE TYPE
+    func subscribeToActions(for turn: Int, callback: @escaping ([[Map]], Error?) -> Void) {
+        listeners.append(turnActionsDocumentRef.collection(String(turn)).addSnapshotListener { (query, queryError) in
+            guard let snapshot = query else {
+                callback([], NetworkError.pullError(message: "Snapshot is nil for turn actions"))
+                return
+            }
+
+            if let queryError = queryError {
+                callback([], NetworkError.pullError(message: queryError.localizedDescription))
+                return
+            }
+
+            do {
+                let actions = try snapshot.documents.map {
+                    /// TODO: CHANGE TYPE
+                    try FirebaseDecoder.init().decode([Map].self, from: $0.data())
+                }
+                callback(actions, nil)
+            } catch {
+                callback([],
+                         NetworkError.pullError(message: "Error when decoding: \(error.localizedDescription)"))
+            }
+        })
+    }
+
+    /// TODO when teams are added.
+    func subscribeToPlayerTeams() {
+
+    }
+
+    private func push<T: Codable>(_ codable: T, to docRef: DocumentReference,
+                                  encodeErrorMsg: String,
+                                  completion callback: @escaping (Error?) -> Void) throws {
         guard let encoded = try? FirebaseEncoder.init().encode(codable),
             let data = encoded as? [String: Any] else {
                 throw NetworkError.encodeError(message: encodeErrorMsg)
@@ -176,5 +233,6 @@ class FirebaseRoomConnection: RoomConnection {
 
     deinit {
         self.heartbeatTimer?.invalidate()
+        self.listeners.forEach { $0.remove() }
     }
 }

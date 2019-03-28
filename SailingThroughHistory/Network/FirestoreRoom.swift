@@ -32,7 +32,41 @@ class FirestoreRoom: Room {
             .map { FirestoreRoom(named: $0.documentID, firestore: Firestore.firestore()) }
     }
 
-    func getConnection(removalCallback: @escaping () -> Void, completion callback: @escaping (RoomConnection?, Error?) -> ()) {
+    func getConnection(removalCallback: @escaping () -> Void,
+                       completion callback: @escaping (RoomConnection?, Error?) -> ()) {
         FirebaseRoomConnection.getConnection(for: self, removed: removalCallback, completion: callback)
+    }
+
+    static func deleteIfNecessary(named name: String) {
+        let playerCollectionReference = FirestoreConstants.roomCollection.document(name).collection(FirestoreConstants.playersCollectionName)
+
+        func deleteIfEmpty(_: Error?) {
+            playerCollectionReference.getDocuments(completion: { (snapshot, error) in
+                guard let snapshot = snapshot else {
+                    print("Unable to load room players: \(String(describing: error?.localizedDescription))")
+                    return
+                }
+
+                if snapshot.documents.count <= 0 {
+                    FirestoreConstants.roomCollection.document(name).delete()
+                }
+            })
+        }
+
+        playerCollectionReference.getDocuments { (snapshot, error) in
+            guard let snapshot = snapshot else {
+                print("Unable to load room players: \(String(describing: error?.localizedDescription))")
+                return
+            }
+
+            for document in snapshot.documents {
+                guard let lastHeartBeat = document.get(FirestoreConstants.lastHeartBeatKey)
+                    as? Double,
+                    Date().timeIntervalSince1970 - lastHeartBeat < 60 else {
+                        document.reference.delete(completion: deleteIfEmpty)
+                        return
+                }
+            }
+        }
     }
 }
