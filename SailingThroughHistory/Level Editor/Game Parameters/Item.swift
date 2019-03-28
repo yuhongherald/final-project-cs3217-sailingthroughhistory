@@ -9,10 +9,15 @@
 import Foundation
 
 class Item: GenericItem, Codable {
-    var type: ItemType!
-    let itemParameter: ItemParameter
-    var unitWeight: Int {
-        return quantity * itemParameter.unitWeight
+    var itemType: ItemType? {
+        return itemParameter?.itemType
+    }
+    var itemParameter: ItemParameter?
+    var weight: Int? {
+        guard let unitWeight = itemParameter?.unitWeight else {
+            return nil
+        }
+        return quantity * unitWeight
     }
     // TODO: prevent quantity from going below 0
     var quantity: Int
@@ -20,6 +25,24 @@ class Item: GenericItem, Codable {
     required init(itemType: ItemParameter, quantity: Int) {
         self.itemParameter = itemType
         self.quantity = quantity
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        try quantity = values.decode(Int.self, forKey: .quantity)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(quantity, forKey: .quantity)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case quantity
+    }
+
+    func setItemType(_ itemType: ItemParameter) {
+        itemParameter = itemType
     }
 
     func combine(with item: GenericItem) -> Bool {
@@ -36,7 +59,10 @@ class Item: GenericItem, Codable {
     }
 
     func getBuyValue(at port: Port) -> Int? {
-        guard let unitValue = port.getBuyValue(of: type) else {
+        guard let itemType = itemType else {
+            return nil
+        }
+        guard let unitValue = port.getBuyValue(of: itemType) else {
             // TODO: Error
             return nil
         }
@@ -44,7 +70,10 @@ class Item: GenericItem, Codable {
     }
 
     func sell(at port: Port) -> Int? {
-        guard let unitValue = port.getSellValue(of: type) else {
+        guard let itemType = itemType else {
+            return nil
+        }
+        guard let unitValue = port.getSellValue(of: itemType) else {
             // TODO: Error
             return nil
         }

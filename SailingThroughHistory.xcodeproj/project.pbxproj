@@ -28,6 +28,11 @@
 		7528A9582245CDE300327211 /* GameLogicTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9572245CDE300327211 /* GameLogicTest.swift */; };
 		7528A95A2245CDF500327211 /* UpdatableTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9592245CDF500327211 /* UpdatableTest.swift */; };
 		7528A95C2245CE0500327211 /* GameEngineTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A95B2245CE0500327211 /* GameEngineTest.swift */; };
+		7528A95F2245EDD000327211 /* EngineInterfaceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A95E2245EDD000327211 /* EngineInterfaceable.swift */; };
+		7528A9612245EE4800327211 /* TestInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9602245EE4800327211 /* TestInterface.swift */; };
+		7528A9662245EF3400327211 /* TestGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9652245EF3400327211 /* TestGameState.swift */; };
+		7528A9682245F71900327211 /* GameEngineTypicalClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9672245F71900327211 /* GameEngineTypicalClasses.swift */; };
+		7528A96A2245F82100327211 /* UniformRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7528A9692245F82100327211 /* UniformRandom.swift */; };
 		7536A82D224097AA00D9D0FE /* PlayerTurn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82C224097AA00D9D0FE /* PlayerTurn.swift */; };
 		7536A82F224098EC00D9D0FE /* GenericGameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */; };
 		7536A8312240990D00D9D0FE /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8302240990D00D9D0FE /* GameEvent.swift */; };
@@ -197,6 +202,11 @@
 		7528A9572245CDE300327211 /* GameLogicTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTest.swift; sourceTree = "<group>"; };
 		7528A9592245CDF500327211 /* UpdatableTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatableTest.swift; sourceTree = "<group>"; };
 		7528A95B2245CE0500327211 /* GameEngineTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTest.swift; sourceTree = "<group>"; };
+		7528A95E2245EDD000327211 /* EngineInterfaceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineInterfaceable.swift; sourceTree = "<group>"; };
+		7528A9602245EE4800327211 /* TestInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInterface.swift; sourceTree = "<group>"; };
+		7528A9652245EF3400327211 /* TestGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGameState.swift; sourceTree = "<group>"; };
+		7528A9672245F71900327211 /* GameEngineTypicalClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngineTypicalClasses.swift; sourceTree = "<group>"; };
+		7528A9692245F82100327211 /* UniformRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniformRandom.swift; sourceTree = "<group>"; };
 		7536A82C224097AA00D9D0FE /* PlayerTurn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTurn.swift; sourceTree = "<group>"; };
 		7536A82E224098EC00D9D0FE /* GenericGameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameEvent.swift; sourceTree = "<group>"; };
 		7536A8302240990D00D9D0FE /* GameEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
@@ -388,10 +398,28 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		4F08B99631DF101F42C56A53 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD427A94087A84D2575AEA83 /* Pods_SailingThroughHistory.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7528A9642245EE6300327211 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				7528A9602245EE4800327211 /* TestInterface.swift */,
+				7528A9652245EF3400327211 /* TestGameState.swift */,
+				7528A9672245F71900327211 /* GameEngineTypicalClasses.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		7536A8292240971500D9D0FE /* GameEngine */ = {
 			isa = PBXGroup;
 			children = (
-				753EEA7E224511A400D56CBA /* RxSwift */,
+				7528A9642245EE6300327211 /* Test */,
 				75598993224243E7004037E6 /* Small components */,
 				753EEA7C2245096400D56CBA /* Data */,
 				754FED59224335DE00394215 /* Enums */,
@@ -420,6 +448,7 @@
 				753EEA812245169C00D56CBA /* Drawable.swift */,
 				753EEA8B22452E5400D56CBA /* DrawableManager.swift */,
 				753EEA8F2245348500D56CBA /* TimeUpdatable.swift */,
+				7528A95E2245EDD000327211 /* EngineInterfaceable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -434,13 +463,6 @@
 				753EEA7A2245093700D56CBA /* VisualData.swift */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		753EEA7E224511A400D56CBA /* RxSwift */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RxSwift;
 			sourceTree = "<group>";
 		};
 		754FED59224335DE00394215 /* Enums */ = {
@@ -485,6 +507,7 @@
 				7536A8382240A14400D9D0FE /* GameAsyncWrap.swift */,
 				7559898B22423DDB004037E6 /* Dice.swift */,
 				754FED5A22433F1700394215 /* Stopwatch.swift */,
+				7528A9692245F82100327211 /* UniformRandom.swift */,
 			);
 			path = "Small components";
 			sourceTree = "<group>";
@@ -957,6 +980,10 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CountdownLabel/CountdownLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SailingThroughHistory-checkManifestLockResult.txt",
@@ -964,6 +991,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -984,6 +1012,7 @@
 				BA485904223F9112009ED2F6 /* Location.swift in Sources */,
 				1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
+				7528A96A2245F82100327211 /* UniformRandom.swift in Sources */,
 				754FED502243335000394215 /* UpdatablePlayerTurn.swift in Sources */,
 				754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */,
 				7559897922421C1D004037E6 /* UpdatablePort.swift in Sources */,
@@ -996,6 +1025,7 @@
 				96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				968F13662244008200FE32E0 /* ObjectPaths.swift in Sources */,
+				7528A95F2245EDD000327211 /* EngineInterfaceable.swift in Sources */,
 				966D852A2249280B003F4587 /* UIImageView+ContextDrawable.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				9603F782224A9748007D54E0 /* Room.swift in Sources */,
@@ -1003,6 +1033,7 @@
 				75598992224243CE004037E6 /* EmotionEngine.swift in Sources */,
 				7536A8372240A09200D9D0FE /* GenericAsyncWrap.swift in Sources */,
 				1A9FF08C224030E000005FCB /* Map.swift in Sources */,
+				7528A9612245EE4800327211 /* TestInterface.swift in Sources */,
 				966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */,
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96737EA8223D56CD00D04C33 /* ControllerUtils.swift in Sources */,
@@ -1021,6 +1052,7 @@
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
+				7528A9682245F71900327211 /* GameEngineTypicalClasses.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
@@ -1088,6 +1120,7 @@
 				7559897522421BEC004037E6 /* Updatable.swift in Sources */,
 				96737EA1223CF2D200D04C33 /* InterfaceEvents.swift in Sources */,
 				1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */,
+				7528A9662245EF3400327211 /* TestGameState.swift in Sources */,
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
 				7559898822423AFC004037E6 /* DiceFactory.swift in Sources */,
 				7536A83522409B5700D9D0FE /* GameEngine.swift in Sources */,

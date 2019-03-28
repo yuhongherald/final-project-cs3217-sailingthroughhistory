@@ -24,14 +24,21 @@ class GameLogic: GenericGameLogic {
  */
     private var objects: Set<AnyHashable> = Set<AnyHashable>()
     private var updatableCache: AnyIterator<Updatable>?
+    private var totalTime: Double = 0
     private var weeks: Double = 0
 
     init(gameState: GenericGameState) {
         self.gameState = gameState
         // add player turns
+        objects.insert(UpdatablePlayerTurn(gameState: gameState))
+        for player in gameState.getPlayers() {
+            objects.insert(UpdatablePlayer(location: player.getLocation()))
+            objects.insert(UpdatableTime(gameState: gameState))
+        }
     }
 
     private func getUpdatablesFor(deltaTime: Double) -> [Updatable] {
+        totalTime += deltaTime
         weeks = deltaTime / EngineConstants.weeksToSeconds
         // player turn first
         // weather next
@@ -40,7 +47,15 @@ class GameLogic: GenericGameLogic {
         // port next
         // time last
         var result: [Updatable] = []
-        //result.append(objects.filter{ $0.base })
+        let updatables = Array(objects).filter{ $0 is Updatable } as? [Updatable] ?? [Updatable]()
+        result.append(contentsOf: updatables.filter { $0 is UpdatablePlayerTurn })
+        result.append(contentsOf: updatables.filter { $0 is UpdatableWeather })
+        result.append(contentsOf: updatables.filter { $0 is UpdatablePirate })
+        result.append(contentsOf: updatables.filter { $0 is UpdatableNPC })
+        result.append(contentsOf: updatables.filter { $0 is UpdatablePlayer })
+        result.append(contentsOf: updatables.filter { $0 is UpdatablePort })
+        result.append(contentsOf: updatables.filter { $0 is UpdatableTime })
+
         return result
     }
 
@@ -48,13 +63,28 @@ class GameLogic: GenericGameLogic {
         setCache(updatables: getUpdatablesFor(deltaTime: deltaTime))
         return processCachedUpdates()
     }
-    
+
     func processCachedUpdates() -> GenericGameEvent? {
         while let updatable = updatableCache?.next() {
             _ = updatable.update(weeks: weeks)
-            guard let event = updatable.checkForEvent() else {
+            guard let object = updatable as? GameObject else {
+                // should not happen
                 continue
             }
+            switch updatable.status {
+            case .add:
+                addedObjects.insert(object)
+            case .update:
+                updatedObjects.insert(object)
+            case .delete:
+                removedObjects.insert(object)
+            default:
+                break
+            }
+            guard var event = updatable.checkForEvent() else {
+                continue
+            }
+            event.timestamp = totalTime
             return event
         }
         return nil

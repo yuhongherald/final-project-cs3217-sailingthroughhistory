@@ -57,6 +57,7 @@ class MainGameViewController: UIViewController {
     }
 
     private var currentTurnOwner: GenericPlayer?
+    private var gameEngine: GameEngine?
 
     /// TODO: Reference to Game Engine
     private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView!.frame.toRect())
@@ -100,11 +101,13 @@ class MainGameViewController: UIViewController {
             self?.present(alert, animated: true, completion: nil)
             }
         //TODO
+        /*
         self.interface.playerTurnStart(player: Player(name: "test", node: object2), timeLimit: 120) { [weak self] in
             let alert = ControllerUtils.getGenericAlert(titled: "Time up!", withMsg: "Msg")
             self?.present(alert, animated: true, completion: nil)
         }
-
+         */
+        setupGameEngine()
         subscribeToInterface()
 
         self.interface.add(path: path)
@@ -117,6 +120,19 @@ class MainGameViewController: UIViewController {
                 self?.interface.updatePosition(of: object)
                 self?.interface.broadcastInterfaceChanges(withDuration: 1)
             }
+        }
+    }
+
+    private func setupGameEngine() {
+        // TODO: Get the real game state
+        if gameEngine != nil {
+            print("Tried to init game engine twice!")
+            return
+        }
+        gameEngine = GameEngineTypicalClasses.getTypicalGameEngine(with:
+            GameEngineTypicalClasses.getTypicalGameState(),                                                                   and: GameInterface(interface: interface))
+        gameEngine?.start {
+            print("Game has ended")
         }
     }
 
