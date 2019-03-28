@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import RxSwift
 
 class Ship: Codable {
     var name: String {

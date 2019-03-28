@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxSwift
 import CountdownLabel
 
 class MainGameViewController: UIViewController {
@@ -225,11 +224,7 @@ class MainGameViewController: UIViewController {
         subscribePlayerInformation(players: interface.players)
 
         interface.subscribe { [weak self] in
-            guard let events = $0.element else {
-                return
-            }
-
-            self?.handle(events: events)
+            self?.handle(events: $0)
         }
     }
 

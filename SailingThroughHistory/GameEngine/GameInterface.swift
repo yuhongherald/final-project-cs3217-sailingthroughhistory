@@ -6,8 +6,6 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import RxSwift
-
 class GameInterface: EngineInterfaceable {
     private let interface: Interface
     init(interface: Interface) {
@@ -31,10 +29,10 @@ class GameInterface: EngineInterfaceable {
     }
     func finishObjectEdit(deltaTime: Double) {
         interface.broadcastInterfaceChanges(
-            withDuration: TimeInterval(deltaTime))
+            withDuration: Double(deltaTime))
     }
     func startPlayerTurn(player: GenericPlayer, callback: @escaping () -> Void) {
-        let time = TimeInterval(exactly: GameConstants.playerTurnDuration)
+        let time = Double(exactly: GameConstants.playerTurnDuration)
         interface.playerTurnStart(player: player, timeLimit: time,
                                   timeOutCallback: callback)
     }
@@ -47,10 +45,7 @@ class GameInterface: EngineInterfaceable {
 
     func registerCallback(for gameEngine: GameEngine) {
         interface.subscribe{
-            guard let events = $0.element else {
-                return
-            }
-            for event in events.events {
+            for event in $0.events {
                 switch event {
                 case .pauseGame:
                     gameEngine.asyncPause()
