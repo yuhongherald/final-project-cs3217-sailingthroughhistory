@@ -8,7 +8,7 @@
 
 import RxSwift
 
-class InterfacePublishSubject<Element> {
+class GenericPublishSubject<Element> {
     let disposeBag = DisposeBag()
     let publishSubject = PublishSubject<Element>()
 
@@ -16,9 +16,9 @@ class InterfacePublishSubject<Element> {
         publishSubject.onNext(next)
     }
 
-    func subscribe(callback: @escaping (Event<Element>) -> Void) {
+    func subscribe(with observer: @escaping (Element) -> Void) {
         return publishSubject.observeOn(SerialDispatchQueueScheduler(qos: .userInteractive))
-            .subscribe(callback)
+            .subscribe(onNext: observer, onError: nil, onCompleted: nil, onDisposed: nil)
             .disposed(by: disposeBag)
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxSwift
 import CountdownLabel
 
 class MainGameViewController: UIViewController {
@@ -225,11 +224,7 @@ class MainGameViewController: UIViewController {
         subscribePlayerInformation(players: interface.players)
 
         interface.subscribe { [weak self] in
-            guard let events = $0.element else {
-                return
-            }
-
-            self?.handle(events: events)
+            self?.handle(events: $0)
         }
     }
 
@@ -249,7 +244,7 @@ class MainGameViewController: UIViewController {
 
     private func subscribePlayerInformation(players: [GenericPlayer]) {
         /// TODO: Less hackish
-        if players.indices.contains(0) {
+        /*if players.indices.contains(0) {
             players[0].money.subscribe { [weak self] in
                 guard let gold = $0.element else {
                     self?.playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)Error"
@@ -307,7 +302,7 @@ class MainGameViewController: UIViewController {
 
             playerItemsDataSources.append(PlayerItemsTableDataSource(player: players[1],
                                                                      tableView: playerTwoItemsView))
-        }
+        }*/
     }
 
     private func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback:

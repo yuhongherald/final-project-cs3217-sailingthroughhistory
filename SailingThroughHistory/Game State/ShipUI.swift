@@ -6,8 +6,6 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import RxSwift
-
 class ShipUI: GameObject {
 
     private let shipImagePath = "ship.png"
@@ -18,17 +16,14 @@ class ShipUI: GameObject {
             fatalError("shipWidth is invalid.")
         }
         super.init(image: shipImagePath, frame: frame)
-        ship.location.subscribe(with: updateShip)
+        ship.location.subscribe(with: moveShip)
     }
 
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
 
-    private func updateShip(event: Event<Location>) {
-        guard let location = event.element else {
-            return
-        }
+    private func moveShip(to location: Location) {
         let start = location.start
         let end = location.end
         let fraction = location.fractionToEnd

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RxSwift
 
 class Player: GenericPlayer {
     let money = GameVariable(value: 0)
@@ -32,7 +31,7 @@ class Player: GenericPlayer {
         self.name = name
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
-        money.subscribe(with: preventPlayerBankruptcy)
+        money.subscribe(onNext: preventPlayerBankruptcy, onError: { _ in }, onDisposed: nil)
     }
 
     required init(from decoder: Decoder) throws {
@@ -117,23 +116,20 @@ extension Player {
         return ship.location
     }
 
-    func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void) {
+    func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void) {
         ship.subscribeToItems(with: observer)
     }
 
-    func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void) {
+    func subscribeToCargoWeight(with observer: @escaping (Int) -> Void) {
         ship.subscribeToCargoWeight(with: observer)
     }
 
-    func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void) {
+    func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void) {
         ship.subscribeToWeightCapcity(with: observer)
     }
 
-    private func preventPlayerBankruptcy(event: Event<Int>) {
-        guard let value = event.element, value < 0 else {
-            return
-        }
-        interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-value) amount of donations from your company. Try not to go negative again!")
+    private func preventPlayerBankruptcy(amount: Int) {
+        interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-amount) amount of donations from your company. Try not to go negative again!")
         interface?.broadcastInterfaceChanges(withDuration: 0.5)
         money.value = 0
     }

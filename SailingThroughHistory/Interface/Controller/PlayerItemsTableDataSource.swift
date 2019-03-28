@@ -23,11 +23,7 @@ class PlayerItemsTableDataSource: NSObject, UITableViewDataSource {
 
     private func subscribeToItems() {
         player.subscribeToItems { [weak self] in
-            guard let items = $0.element else {
-                return
-            }
-
-            self?.items = items
+            self?.items = $0
             self?.tableView?.reloadData()
         }
     }
