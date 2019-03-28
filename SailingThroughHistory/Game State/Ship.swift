@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import RxSwift
 
-class Ship {
+class Ship: Codable {
     var name: String {
         return owner?.name ?? "NPC Ship"
     }
@@ -37,6 +37,38 @@ class Ship {
 
         subscribeToItems(with: updateCargoWeight)
         shipUI = ShipUI(ship: self)
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let node = try values.decode(Node.self, forKey: .location)
+        let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
+        self.location = GameVariable<Location>(value: location)
+        suppliesConsumed = try values.decode([Item].self, forKey: .items)
+        items.value = try values.decode([Item].self, forKey: .items)
+        shipChassis = try values.decode(ShipChassis.self, forKey: .shipChassis)
+        auxiliaryUpgrade = try values.decode(AuxiliaryUpgrade.self, forKey: .auxiliaryUpgrade)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        guard let suppliesConsumed = suppliesConsumed as? [Item],
+            let shipItems = items.value as? [Item] else {
+                return
+        }
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(location.value.start, forKey: .location)
+        try container.encode(suppliesConsumed, forKey: .suppliesConsumed)
+        try container.encode(shipItems, forKey: .items)
+        try container.encode(shipChassis, forKey: .shipChassis)
+        try container.encode(auxiliaryUpgrade, forKey: .auxiliaryUpgrade)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case location
+        case suppliesConsumed
+        case items
+        case shipChassis
+        case auxiliaryUpgrade
     }
 
     func installUpgade(upgrade: Upgrade) {
@@ -143,6 +175,10 @@ class Ship {
             return
         }
         let item = itemParameter.createItem(quantity: quantity)
+        guard let itemParameter = item.itemParameter else {
+            showMessage(titled: "Game Error!", withMsg: "Error getting item type!")
+            return
+        }
         guard let price = item.getBuyValue(at: port) else {
             showMessage(titled: "Not available!", withMsg: "Item is not available for purchase at current port!")
             return
@@ -152,7 +188,7 @@ class Ship {
         }
         owner?.money.value -= price
         if addItem(item: item) {
-            showMessage(titled: "Item purchased!", withMsg: "You have purchased \(item.quantity) of \(item.itemParameter.displayName)")
+            showMessage(titled: "Item purchased!", withMsg: "You have purchased \(item.quantity) of \(itemParameter.displayName)")
         } else {
             showMessage(titled: "Failed to buy Item!", withMsg: "An error has occurred in the game!")
         }
@@ -163,12 +199,16 @@ class Ship {
             showMessage(titled: "Not docked!", withMsg: "Unable to sell item as ship is not docked.")
             return
         }
+        guard let itemType = item.itemParameter else {
+            showMessage(titled: "Game Error", withMsg: "Unable to get item type!")
+            return
+        }
         guard let index = items.value.firstIndex(where: {$0 == item}) else {
             showMessage(titled: "Not available!", withMsg: "Item cannot be sold at current port!")
             return
         }
         guard let profit = items.value[index].sell(at: port) else {
-            showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(item.itemParameter.displayName)")
+            showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
             return
         }
         owner?.money.value += profit
@@ -182,7 +222,10 @@ class Ship {
         }
 
         for supply in suppliesConsumed {
-            let deficeit = consumeRequiredItem(itemParameter: supply.itemParameter, quantity: Int(Double(supply.quantity) * speedMultiplier))
+            guard let type = supply.itemParameter else {
+                continue
+            }
+            let deficeit = consumeRequiredItem(itemParameter: type, quantity: Int(Double(supply.quantity) * speedMultiplier))
             // TODO: Make player pay for deficeit
         }
     }
@@ -207,7 +250,7 @@ class Ship {
     }
 
     private func addItem(item: GenericItem) -> Bool {
-        if getRemainingCapacity() < item.unitWeight {
+        if getRemainingCapacity() < item.weight ?? 0 {
             return false
         }
         guard let sameType = items.value.first(where: { $0.itemParameter == item.itemParameter }) else {
@@ -256,7 +299,7 @@ extension Ship {
     private func updateCargoWeight(event: Event<[GenericItem]>) {
         var result = 0
         for item in items.value {
-            result += item.unitWeight
+            result += item.weight ?? 0
         }
         currentCargoWeight.value = result
     }
