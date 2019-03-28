@@ -249,7 +249,7 @@ class MainGameViewController: UIViewController {
 
     private func subscribePlayerInformation(players: [GenericPlayer]) {
         /// TODO: Less hackish
-        if players.indices.contains(0) {
+        /*if players.indices.contains(0) {
             players[0].money.subscribe { [weak self] in
                 guard let gold = $0.element else {
                     self?.playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)Error"
@@ -307,7 +307,7 @@ class MainGameViewController: UIViewController {
 
             playerItemsDataSources.append(PlayerItemsTableDataSource(player: players[1],
                                                                      tableView: playerTwoItemsView))
-        }
+        }*/
     }
 
     private func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback:

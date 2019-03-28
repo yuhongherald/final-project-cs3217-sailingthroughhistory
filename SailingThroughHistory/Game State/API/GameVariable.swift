@@ -9,8 +9,8 @@
 import Foundation
 import RxSwift
 
-class GameVariable<T> : ObservableVariable {
-    var value: T {
+class GameVariable<Element> : ObservableVariable {
+    var value: Element {
         get {
             return variable.value
         }
@@ -19,14 +19,23 @@ class GameVariable<T> : ObservableVariable {
         }
     }
     private let disposeBag = DisposeBag()
-    private var variable: Variable<T>
+    private var variable: Variable<Element>
 
-    init(value: T) {
+    init(value: Element) {
         variable = Variable(value)
     }
 
-    func subscribe(with observer: @escaping (Event<T>) -> Void) {
-        variable.asObservable().subscribe(observer).disposed(by: disposeBag)
+    func subscribe(onNext: @escaping (Element) -> Void, onError: @escaping (Error?) -> Void,
+                   onDisposed: (() -> Void)?) {
+        variable.asObservable()
+            .subscribe(onNext: onNext, onError: onError, onCompleted: nil, onDisposed: onDisposed)
+            .disposed(by: disposeBag)
+    }
+
+    func subscribe(with observer: @escaping (Element) -> Void) {
+        variable.asObservable()
+            .subscribe(onNext: observer, onError: nil, onCompleted: nil, onDisposed: nil)
+            .disposed(by: disposeBag)
     }
 
 }
