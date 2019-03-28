@@ -9,10 +9,10 @@
 import UIKit
 
 class UIGameObjectImageView: UIImageView {
-    let object: GameObject
-    var tapCallback: ((GameObject) -> Void)?
+    let object: ReadOnlyGameObject
+    var tapCallback: ((ReadOnlyGameObject) -> Void)?
 
-    init(image: UIImage?, object: GameObject) {
+    init(image: UIImage?, object: ReadOnlyGameObject) {
         self.object = object
         super.init(image: image)
     }

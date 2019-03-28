@@ -8,7 +8,7 @@
 
 import RxSwift
 
-class GameInterface {
+class GameInterface: EngineInterfaceable {
     private let interface: Interface
     init(interface: Interface) {
         self.interface = interface
@@ -64,5 +64,4 @@ class GameInterface {
             }
         }
     }
-
 }

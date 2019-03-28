@@ -67,7 +67,8 @@ class Map: Codable {
     }
 
     func findNode(at point: CGPoint) -> Node? {
-        for node in nodes where node.frame.origin == point {
+        for node in nodes where node.frame.originX == Double(point.x) &&
+            node.frame.originY == Double(point.y) {
             return node
         }
         return nil

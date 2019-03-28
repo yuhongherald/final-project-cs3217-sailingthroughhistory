@@ -12,7 +12,7 @@ class Node: GameObject {
     let name: String
     var neighbours = [Node]()
 
-    init(name: String, image: String, frame: CGRect) {
+    init(name: String, image: String, frame: Rect) {
         self.name = name
         super.init(image: image, frame: frame)
     }
@@ -36,8 +36,23 @@ class Node: GameObject {
         try super.encode(to: superencoder)
     }
 
-    public func getNodesInRange(range: Double) -> [Node] {
-        return []
+    func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
+        var result = [Node]()
+        guard range >= 0 else {
+            return result
+        }
+        result.append(self)
+        for path in map.getPaths(of: self) {
+            guard let neighbour = path.toObject as? Node else {
+                continue
+            }
+            let remainingMovement = range - path.computeCostOfPath(baseCost: 1, with: ship)
+            result += neighbour.getNodesInRange(ship: ship, range: remainingMovement, map: map)
+        }
+        return result
+    }
+
+    func moveIntoNode(ship: Pirate_WeatherEntity) {
     }
 
     private enum CodingKeys: String, CodingKey {

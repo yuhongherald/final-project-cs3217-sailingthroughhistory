@@ -9,15 +9,14 @@
 class UpdatableWeather: GameObject, Updatable {
     var status: UpdatableStatus = .add
 
-
     init(gameState: GenericGameState) {
         super.init()
     }
-    
+
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
-    
+
     func update(weeks: Double) -> Bool {
         return false
     }

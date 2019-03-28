@@ -10,20 +10,30 @@ import UIKit
 
 class UpdatablePlayer: GameObject, Updatable {
     var status: UpdatableStatus = .add
+    private let location: GameVariable<Location>
 
-    init(gameState: GenericGameState) {
-        super.init(image: Resources.Ships.british[0], frame: CGRect())
+    init(location: GameVariable<Location>) {
+        self.location = location
+        super.init(image: Resources.Ships.british[0], frame: Rect())
     }
-    
+
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
-    
+
     func update(weeks: Double) -> Bool {
-        return false
+        // TODO: Get movement speed of player, do multi-node movement
+        // TODO: Check if endNode is dock
+        location.value = Location(start: location.value.start,
+                                  end: location.value.end,
+                                  fractionToEnd: location.value.fractionToEnd
+                                    + weeks * Double(GameConstants.weeksInMonth),
+                                  isDocked: location.value.isDocked)
+        return true // always moving
     }
-    
+
     func checkForEvent() -> GenericGameEvent? {
+        // no pirate event currently
         return nil
     }
 

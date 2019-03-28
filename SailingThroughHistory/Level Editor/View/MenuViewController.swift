@@ -57,9 +57,11 @@ class MenuViewController: UITableViewController {
             return
         }
 
-        // clear all possible owners
-        self.delegate?.assign(port: unwrappedPort, to: nil)
-        self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
+        if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
+            self.delegate?.assign(port: unwrappedPort, to: nil)
+        } else {
+            self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
+        }
     }
 
     func set(port: Port) {

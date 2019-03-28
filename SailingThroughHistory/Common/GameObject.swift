@@ -6,13 +6,11 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import UIKit
-
-class GameObject: Codable {
+class GameObject: Codable, ReadOnlyGameObject {
     var images: [String]
-    var frame: CGRect
-    var loopDuration: TimeInterval = 0
-    var startingFrame = 0
+    var frame: Rect
+    var loopDuration: Double = 0
+    var startingFrame: UInt = 0
     var image: String {
         return images.first ?? ""
     }
@@ -22,15 +20,15 @@ class GameObject: Codable {
 
     init() {
         self.images = []
-        self.frame = CGRect()
+        self.frame = Rect()
     }
 
-    init(image: String, frame: CGRect) {
+    init(image: String, frame: Rect) {
         self.images = [image]
         self.frame = frame
     }
 
-    init(images: [String], frame: CGRect, loopDuration: TimeInterval, startingFrame: Int) {
+    init(images: [String], frame: Rect, loopDuration: Double, startingFrame: UInt) {
         self.images = images
         self.frame = frame
         self.loopDuration = loopDuration

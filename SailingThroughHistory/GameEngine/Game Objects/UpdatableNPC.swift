@@ -8,7 +8,7 @@
 
 class UpdatableNPC: GameObject, Updatable {
     var status: UpdatableStatus = .add
-    
+
     func update(weeks: Double) -> Bool {
         return false
     }

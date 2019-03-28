@@ -33,4 +33,7 @@ struct GameTime {
         actualWeeks += weeks
     }
 
+    func before(other: GameTime) -> Bool {
+        return actualWeeks <= other.actualWeeks
+    }
 }
