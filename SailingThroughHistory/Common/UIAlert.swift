@@ -11,7 +11,7 @@ import UIKit
 class UIAlert {
     private var controller: UIAlertController!
 
-    init(title: String, msg: String? = nil, confirm: @escaping (String)->(),
+    init(title: String, msg: String? = nil, confirm: @escaping (String)->Void,
          textPlaceHolder: String) {
         controller = UIAlertController(title: title, message: msg, preferredStyle: .alert)
 
@@ -42,7 +42,7 @@ class UIAlert {
         controller.addAction(cancelAction)
     }
 
-    func present(in vc: UIViewController) {
-        vc.present(controller, animated: true, completion: nil)
+    func present(in controller: UIViewController) {
+        controller.present(controller, animated: true, completion: nil)
     }
 }

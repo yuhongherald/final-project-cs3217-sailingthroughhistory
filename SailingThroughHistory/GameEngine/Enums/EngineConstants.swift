@@ -20,6 +20,7 @@ enum GameConstants {
     static let weeksInMonth: Int = 4
     static let monthsInYear: Int = 12
     static let playerTurnDuration: Double = 30
+    static let numOfTurn: Int = 20
 }
 
 enum Resources {
@@ -49,5 +50,15 @@ enum Resources {
         static let portNode: String = "port-node"
         static let pirateNode: String = "pirate-node"
         // static let edge: String = ""
+    }
+}
+
+enum Default {
+    enum Item {
+        static let buyValue: Int = 100
+        static let sellValue: Int = 100
+    }
+    enum Weather {
+        static let strengths: [Float] = [0, 0, 0, 0]
     }
 }

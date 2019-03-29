@@ -18,7 +18,6 @@ class Player: GenericPlayer {
     }
     var interface: Interface?
     var map: Map?
-    // TODO: should startingNode: Node without ?
     var currentNode: Node {
         return ship.location.value.start
     }

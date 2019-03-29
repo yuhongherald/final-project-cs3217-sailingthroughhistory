@@ -225,7 +225,8 @@ class Ship: Codable {
                 continue
             }
             let deficeit = consumeRequiredItem(itemParameter: type, quantity: Int(Double(supply.quantity) * speedMultiplier))
-            // TODO: Make player pay for deficeit
+            showMessage(titled: "Deficeit!", withMsg: "You have exhausted \(type.displayName) and have a deficeit of \(deficeit). Please pay for it.")
+            owner?.updateMoney(by: -deficeit * type.getBuyValue())
         }
     }
 

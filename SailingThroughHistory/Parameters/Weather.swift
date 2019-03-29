@@ -10,6 +10,7 @@ import UIKit
 
 class Weather: Volatile {
     var windVelocity: Float = 0
+    let strengths: [Float] = Default.Weather.strengths
 
     func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
         if isActive {
@@ -19,8 +20,8 @@ class Weather: Volatile {
         }
     }
 
+    /// Update wind velocity based on current month strength.
     func update(currentMonth: Int) {
-        /// TODO: Randomize wind.
-        windVelocity = 0
+        windVelocity = strengths[currentMonth / 4]
     }
 }

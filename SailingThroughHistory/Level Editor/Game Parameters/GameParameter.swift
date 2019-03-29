@@ -8,31 +8,30 @@
 
 import Foundation
 
-class GameParameter: Codable {
-    private var playerParameters = [PlayerParameter]()
-    private var eventParameters = [EventParameter]()
-    private var teams = [Team]()
-    private var numOfTurn = 20
-    private var timeLimit = 30
-    private var map = Map()
-
-    init(teams: String...) {
-        var numOfTeam = teams.count
-        if numOfTeam < 2 {
-            numOfTeam = 2
-        }
-        for identifier in 0..<numOfTeam {
-            var teamName = "Team \(identifier + 1)"
-            if identifier < numOfTeam {
-                teamName = teams[identifier]
-            }
-            playerParameters.append(PlayerParameter(name: "\(teamName)-player0", teamName: teamName))
-            self.teams.append(Team(name: teamName))
-        }
-    }
+class GameParameter: GenericLevel, Codable {
+    var playerParameters = [PlayerParameter]()
+    var eventParameters = [EventParameter]()
+    var teams = [Team]()
+    var numOfTurn = GameConstants.numOfTurn
+    var timeLimit = Int(GameConstants.playerTurnDuration)
+    var map = Map()
 
     func getPlayerParameters() -> [PlayerParameter] {
         return playerParameters
+    }
+
+    func getPlayers() -> [GenericPlayer] {
+        var players = [GenericPlayer]()
+        playerParameters.forEach {
+            guard let node = $0.getStartingNode() else {
+                NSLog("\($0.getName()) fails to be constructed because of loss of starting node.")
+                return
+            }
+            let team = $0.getTeam()
+            teams.append(team)
+            players.append(Player(name: $0.getName(), team: team, node: node))
+        }
+        return players
     }
 
     func getMap() -> Map {
