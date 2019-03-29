@@ -9,15 +9,13 @@
 import UIKit
 
 class RoomsMenuViewController: UIViewController {
-    private static let reuseIdentifier = "roomCell"
-
     @IBOutlet weak var roomsTableView: UITableView!
 
-    var networkHelper = NetworkUIHelper()
+    private lazy var dataSource = RoomsTableDataSource(withView: roomsTableView)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        networkHelper.bindRooms(to: roomsTableView,
-                                withReuseIdentifier: RoomsMenuViewController.reuseIdentifier)
+        roomsTableView.dataSource = dataSource
+        roomsTableView.reloadData()
     }
 }
