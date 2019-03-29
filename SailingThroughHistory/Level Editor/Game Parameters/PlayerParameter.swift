@@ -12,11 +12,12 @@ class PlayerParameter: Codable {
     private var name: String
     private var teamName: String
     private var money = GameVariable(value: 0)
-    private var port: Port?
+    private var startingNode: Node?
 
-    init(name: String, teamName: String) {
+    init(name: String, teamName: String, node: Node?) {
         self.name = name
         self.teamName = teamName
+        self.startingNode = node
     }
 
     required init(from decoder: Decoder) throws {
@@ -24,27 +25,31 @@ class PlayerParameter: Codable {
         name = try values.decode(String.self, forKey: .name)
         teamName = try values.decode(String.self, forKey: .teamName)
         let moneyValue = try values.decode(Int.self, forKey: .money)
-        port = try values.decode(Port?.self, forKey: .node)
+        startingNode = try values.decode(Node.self, forKey: .node)
         money = GameVariable(value: moneyValue)
     }
 
     func getPlayer() -> Player? {
-        guard let unwrappedPort = port else {
+        guard let unwrappedNode = startingNode else {
             return nil
         }
-        return Player(name: name, team: Team(name: teamName), node: unwrappedPort)
+        return Player(name: name, team: Team(name: teamName), node: unwrappedNode)
     }
 
     func getName() -> String {
         return name
     }
 
+    func getTeam() -> Team {
+        return Team(name: teamName)
+    }
+
     func getMoney() -> Int {
         return money.value
     }
 
-    func getPort() -> Port? {
-        return port
+    func getStartingNode() -> Node? {
+        return startingNode
     }
 
     func set(name: String, money: Int?) {
@@ -58,14 +63,14 @@ class PlayerParameter: Codable {
     }
 
     func assign(port: Port) {
-        self.port = port
+        self.startingNode = port
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(money.value, forKey: .money)
-        try container.encode(port, forKey: .node)
+        try container.encode(startingNode, forKey: .node)
     }
 
     enum CodingKeys: String, CodingKey {

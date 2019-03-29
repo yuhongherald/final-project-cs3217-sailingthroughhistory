@@ -9,9 +9,13 @@
 import Foundation
 
 protocol GenericLevel {
-    var itemParameters: Set<ItemParameter> { get set }
+    var playerParameters: [PlayerParameter] { get set }
+    var eventParameters: [EventParameter] { get set }
+    var teams: [Team] { get set }
+    var numOfTurn: Int { get set }
+    var timeLimit: Int { get set }
+    var map: Map { get }
 
     func getPlayers() -> [GenericPlayer]
     func getMap() -> Map
-    func getItemLocations() -> [Port: [Item]]
 }
