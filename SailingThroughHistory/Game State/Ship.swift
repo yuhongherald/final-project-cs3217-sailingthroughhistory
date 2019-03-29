@@ -79,14 +79,14 @@ class Ship: Codable {
             showMessage(titled: "Insufficient Money!", withMsg: "You do not have sufficient funds to buy \(upgrade.name)!")
         }
         if shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
-            owner.money.value -= upgrade.cost
+            owner.updateMoney(by: -upgrade.cost)
             shipChassis = shipUpgrade
             showMessage(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
             weightCapacity.value = shipUpgrade.getNewCargoCapacity(baseCapacity: weightCapacity.value)
             return
         }
         if auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
-            owner.money.value -= upgrade.cost
+            owner.updateMoney(by: -upgrade.cost)
             auxiliaryUpgrade = auxiliary
             showMessage(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
             return
@@ -211,7 +211,7 @@ class Ship: Codable {
             showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
             return
         }
-        owner?.money.value += profit
+        owner?.updateMoney(by: profit)
         items.value.remove(at: index)
         items.value = items.value
     }

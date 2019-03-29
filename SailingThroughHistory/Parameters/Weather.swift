@@ -8,11 +8,10 @@
 
 import UIKit
 
-struct Weather: VolatileModifier {
-    var isActive = false
+class Weather: Volatile {
     var windVelocity: Float = 0
 
-    func applyVelocityModifier(to oldVelocity: Float) -> Float {
+    func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
         if isActive {
             return oldVelocity + windVelocity
         } else {
@@ -20,7 +19,7 @@ struct Weather: VolatileModifier {
         }
     }
 
-    mutating func update(currentMonth: Int) {
+    func update(currentMonth: Int) {
         /// TODO: Randomize wind.
         windVelocity = 0
     }

@@ -10,16 +10,19 @@ import Foundation
 
 class PlayerParameter: Codable {
     private var name: String
+    private var teamName: String
     private var money = GameVariable(value: 0)
     private var port: Port?
 
-    init(name: String) {
+    init(name: String, teamName: String) {
         self.name = name
+        self.teamName = teamName
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
+        teamName = try values.decode(String.self, forKey: .teamName)
         let moneyValue = try values.decode(Int.self, forKey: .money)
         port = try values.decode(Port?.self, forKey: .node)
         money = GameVariable(value: moneyValue)
@@ -29,7 +32,7 @@ class PlayerParameter: Codable {
         guard let unwrappedPort = port else {
             return nil
         }
-        return Player(name: name, node: unwrappedPort)
+        return Player(name: name, team: Team(name: teamName), node: unwrappedPort)
     }
 
     func getName() -> String {
@@ -67,6 +70,7 @@ class PlayerParameter: Codable {
 
     enum CodingKeys: String, CodingKey {
         case name
+        case teamName
         case money
         case node
     }

@@ -6,8 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class Pirate: Node, VolatileModifier {
-    var isActive = false
+class Pirate: Node {
     private static let pirateNodeHeight: Double = 50
     private static let pirateNodeWidth: Double = 50
     private static let pirateNodeImage = "pirate-node.png"

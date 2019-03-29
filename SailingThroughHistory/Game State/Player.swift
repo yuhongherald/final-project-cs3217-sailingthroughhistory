@@ -13,6 +13,7 @@ class Player: GenericPlayer {
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
+    var team: Team
     var node: Node? {
         return getNodesInRange(roll: 0).first
     }
@@ -28,8 +29,9 @@ class Player: GenericPlayer {
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    required init(name: String, node: Node) {
+    required init(name: String, team: Team, node: Node) {
         self.name = name
+        self.team = team
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
         money.subscribe(with: preventPlayerBankruptcy)
@@ -38,6 +40,7 @@ class Player: GenericPlayer {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
+        team = try values.decode(Team.self, forKey: .team)
         money.value = try values.decode(Int.self, forKey: .money)
         ship = try values.decode(Ship.self, forKey: .ship)
 
@@ -47,6 +50,7 @@ class Player: GenericPlayer {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
+        try container.encode(team, forKey: .team)
         try container.encode(money.value, forKey: .money)
         try container.encode(ship, forKey: .ship)
     }
@@ -100,12 +104,18 @@ class Player: GenericPlayer {
         ship.sellItem(item: item)
     }
 
+    func updateMoney(by amount: Int) {
+        self.money.value += amount
+        self.team.updateMoney(by: amount)
+    }
+
     func endTurn() {
         ship.endTurn(speedMultiplier: speedMultiplier)
     }
 
     private enum CodingKeys: String, CodingKey {
         case name
+        case team
         case money
         case ship
     }
@@ -135,6 +145,7 @@ extension Player {
         }
         interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-value) amount of donations from your company. Try not to go negative again!")
         interface?.broadcastInterfaceChanges(withDuration: 0.5)
+        team.updateMoney(by: -value)
         money.value = 0
     }
 }
