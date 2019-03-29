@@ -11,7 +11,16 @@ import UIKit
 class Map: Codable {
     var map = "worldmap1815"
     private var nodes = GameVariable(value: Set<Node>())
-    private var paths = [Node: [Path]]()
+    private var pathsVariable = GameVariable(value: [Node: [Path]]())
+    private var paths: [Node: [Path]] {
+        set {
+            pathsVariable.value = newValue
+        }
+
+        get {
+            return pathsVariable.value
+        }
+    }
 
     func addMap(_ map: String) {
         self.map = map
@@ -76,6 +85,10 @@ class Map: Codable {
 
     func subscribeToNodes(with callback: @escaping (Set<Node>) -> Void) {
         nodes.subscribe(with: callback)
+    }
+
+    func subscribeToPaths(with callback: @escaping ([Node: [Path]]) -> Void) {
+        pathsVariable.subscribe(with: callback)
     }
 
     init() {}
