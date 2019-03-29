@@ -314,10 +314,12 @@ extension Ship {
 }
 
 // MARK: - Show messages
+// TODO remove interface
 extension Ship {
     private func showMessage(titled: String, withMsg: String) {
+        /*
         owner?.interface?.pauseAndShowAlert(titled: titled, withMsg: withMsg)
-        owner?.interface?.broadcastInterfaceChanges(withDuration: 0.5)
+        owner?.interface?.broadcastInterfaceChanges(withDuration: 0.5)*/
     }
 }
 
