@@ -30,6 +30,7 @@ class GameState: GenericGameState {
         try gameTime = values.decode(GameTime.self, forKey: .gameTime)
         try map = values.decode(Map.self, forKey: .map)
         try itemParameters = values.decode([ItemParameter].self, forKey: .itemParameters)
+        try teams = values.decode([Team].self, forKey: .teams)
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
     }
@@ -42,6 +43,7 @@ class GameState: GenericGameState {
         try container.encode(gameTime, forKey: .gameTime)
         try container.encode(map, forKey: .map)
         try container.encode(itemParameters, forKey: .itemParameters)
+        try container.encode(teams, forKey: .teams)
         try container.encode(players, forKey: .players)
         try container.encode(speedMultiplier, forKey: .speedMultiplier)
     }
@@ -50,6 +52,7 @@ class GameState: GenericGameState {
         case gameTime
         case map
         case itemParameters
+        case teams
         case players
         case speedMultiplier
     }
