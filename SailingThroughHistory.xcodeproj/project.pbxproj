@@ -766,7 +766,6 @@
 			path = "Small components";
 			sourceTree = "<group>";
 		};
-		9603F772224A8005007D54E0 /* Network */ = {
 		755FD982224E93DF00D83D4B /* Factories */ = {
 			isa = PBXGroup;
 			children = (
@@ -784,7 +783,7 @@
 			path = Arithmetic;
 			sourceTree = "<group>";
 		};
-		8783F251F4FFDE812D7DABCB /* Pods */ = {
+        9603F772224A8005007D54E0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				9603F773224A8254007D54E0 /* RoomConnection.swift */,
