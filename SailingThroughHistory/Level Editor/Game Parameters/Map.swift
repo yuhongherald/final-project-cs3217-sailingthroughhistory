@@ -10,7 +10,7 @@ import UIKit
 
 class Map: Codable {
     var map = "worldmap1815"
-    private var nodes = Set<Node>()
+    private var nodes = GameVariable(value: Set<Node>())
     private var paths = [Node: [Path]]()
 
     func addMap(_ map: String) {
@@ -18,11 +18,11 @@ class Map: Codable {
     }
 
     func addNode(_ node: Node) {
-        nodes.insert(node)
+        nodes.value.insert(node)
     }
 
     func removeNode(_ node: Node) {
-        nodes.remove(node)
+        nodes.value.remove(node)
 
         // Remove all paths related with removed node
         for nodePath in paths {
@@ -49,7 +49,7 @@ class Map: Codable {
     }
 
     func getNodes() -> Set<Node> {
-        return nodes
+        return nodes.value
     }
 
     func getPaths(of node: Node) -> [Path] {
@@ -67,11 +67,15 @@ class Map: Codable {
     }
 
     func findNode(at point: CGPoint) -> Node? {
-        for node in nodes where node.frame.origin.x == point.x &&
-            node.frame.origin.y == point.y {
+        for node in nodes.value where CGFloat(node.frame.originX) == point.x &&
+            CGFloat(node.frame.originY) == point.y {
             return node
         }
         return nil
+    }
+
+    func subscribeToNodes(with callback: @escaping (Set<Node>) -> Void) {
+        nodes.subscribe(with: callback)
     }
 
     init() {}
@@ -106,7 +110,7 @@ class Map: Codable {
                 nodeIDPair[identifier] = node
             }
         }
-        self.nodes = nodes
+        self.nodes.value = nodes
 
         self.paths = try container.decode([Node: [Path]].self, forKey: .paths)
     }
@@ -117,7 +121,7 @@ class Map: Codable {
 
         var nodesWithType = [NodeWithType]()
         var nodeIDPair = [Node: Int]()
-        for (identifier, node) in nodes.enumerated() {
+        for (identifier, node) in nodes.value.enumerated() {
             if node is Port {
                 nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.port))
                 nodeIDPair[node] = identifier

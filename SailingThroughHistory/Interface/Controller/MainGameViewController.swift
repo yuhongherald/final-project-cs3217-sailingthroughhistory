@@ -71,6 +71,7 @@ class MainGameViewController: UIViewController {
         togglePlayerTwoInfoButton: playerTwoInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
+    private let model = GameState(baseYear: 1000)
 
     var interfaceBounds: CGRect {
         return CGRect(fromRect: interface.bounds)
@@ -84,42 +85,11 @@ class MainGameViewController: UIViewController {
         super.viewDidLoad()
         reInitScrollView()
         initBackground()
-        //Uncomment to test interface
-        let object = GameObject(image: "ship.png", frame: Rect(originX: 0, originY: 0, height: 200, width: 200)!)
-        self.interface.add(object: object)
-        let nodeDummy = Node(name: "testnode", image: "sea-node.png",
-                             frame: CGRect(x: 500, y: 500, width: 50, height: 50).toRect())
-        let object2 = Port(player: Player(name: "test", team: Team(name: "Dutch"), node: nodeDummy), originX: 500, originY: 500)
-        object2.itemParametersSold = [ItemParameter(itemType: ItemType.opium,
-                                                    displayName: "Opium", weight: 1, isConsumable: true)]
-        //let path = Path(from: object, to: object2)
-        //self.interface.add(object: object2)
-        self.interface.broadcastInterfaceChanges(withDuration: 3)
-        self.interface.showTravelChoices([object2]) { [weak self] (_: ReadOnlyGameObject)  in
-            let alert = ControllerUtils.getGenericAlert(titled: "Title", withMsg: "Msg")
-            self?.present(alert, animated: true, completion: nil)
-            }
-        //TODO
-        /*
-        self.interface.playerTurnStart(player: Player(name: "test", node: object2), timeLimit: 120) { [weak self] in
-            let alert = ControllerUtils.getGenericAlert(titled: "Time up!", withMsg: "Msg")
-            self?.present(alert, animated: true, completion: nil)
+        guard let map = model.map else {
+            return
         }
-         */
-        setupGameEngine()
-        subscribeToInterface()
 
-        //self.interface.add(path: path)
-        self.interface.broadcastInterfaceChanges(withDuration: 5)
-         //Uncomment to test interface
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            while true {
-                object.frame = Rect(originX: object.frame.originX + 50, originY: object.frame.originY + 50,
-                                    height: object.frame.height, width: object.frame.width)!
-                self?.interface.updatePosition(of: object)
-                self?.interface.broadcastInterfaceChanges(withDuration: 1)
-            }
-        }
+        map.getNodes().forEach { node in }
     }
 
     private func setupGameEngine() {

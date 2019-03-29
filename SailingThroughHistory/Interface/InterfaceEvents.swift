@@ -6,7 +6,6 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-
 struct InterfaceEvents {
     let events: [InterfaceEvent]
     let duration: Double

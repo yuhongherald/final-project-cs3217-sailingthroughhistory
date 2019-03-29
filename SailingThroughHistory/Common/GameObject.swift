@@ -6,33 +6,35 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class GameObject: Codable, ReadOnlyGameObject {
+class GameObject: ReadOnlyGameObject {
     var images: [String]
-    var frame: Rect
-    var loopDuration: Double = 0
-    var startingFrame: UInt = 0
+    var frame: GameVariable<Rect>
     var image: String {
         return images.first ?? ""
     }
-    var isAnimated: Bool {
-        return images.count > 1 && loopDuration > 0
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.images = []
+        self.frame = GameVariable(value: try container.decode(Rect.self, forKey: .frame))
     }
 
     init() {
         self.images = []
-        self.frame = Rect()
+        self.frame = GameVariable(value: Rect())
     }
 
     init(image: String, frame: Rect) {
-        self.images = [image]
-        self.frame = frame
+        self.frame = GameVariable(value: Rect())
+        self.images = []
     }
 
-    init(images: [String], frame: Rect, loopDuration: Double, startingFrame: UInt) {
-        self.images = images
-        self.frame = frame
-        self.loopDuration = loopDuration
-        self.startingFrame = startingFrame
+    func subscibeToFrame(with callback: @escaping (Rect) -> Void) {
+        frame.subscribe(with: callback)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case frame
     }
 }
 
@@ -43,5 +45,12 @@ extension GameObject: Hashable {
 
     static func == (lhs: GameObject, rhs: GameObject) -> Bool {
         return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+}
+
+extension GameObject: Codable {
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(frame.value, forKey: .frame)
     }
 }

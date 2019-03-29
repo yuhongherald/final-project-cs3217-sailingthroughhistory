@@ -12,7 +12,7 @@ class GameState: GenericGameState {
     var gameTime: GameTime
 
     private var interface: Interface?
-    private var map: Map?
+    private(set) var map: Map?
     private var players = [GenericPlayer]()
     private var speedMultiplier = 1.0
 

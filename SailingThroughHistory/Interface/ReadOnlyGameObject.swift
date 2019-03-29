@@ -7,10 +7,5 @@
 //
 
 protocol ReadOnlyGameObject: class {
-    var images: [String] { get }
-    var frame: Rect { get }
-    var loopDuration: Double { get }
-    var startingFrame: UInt { get }
-    var image: String { get }
-    var isAnimated: Bool { get }
+    var frame: GameVariable<Rect> { get }
 }
