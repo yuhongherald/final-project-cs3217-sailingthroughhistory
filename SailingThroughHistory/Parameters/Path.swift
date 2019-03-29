@@ -9,45 +9,42 @@
 import UIKit
 
 struct Path: Hashable, Codable {
-    let fromObject: Node
-    let toObject: Node
-    var modifiers = [VolatileModifier]()
+    let fromNode: Node
+    let toNode: Node
+    var modifiers = [Volatile]()
 
     init(from fromObject: Node, to toObject: Node) {
-        self.fromObject = fromObject
-        self.toObject = toObject
+        self.fromNode = fromObject
+        self.toNode = toObject
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        fromObject = try values.decode(Node.self, forKey: .fromObject)
-        toObject = try values.decode(Node.self, forKey: .toObject)
-        // TODO: decode modifiers if needed
-        modifiers = [VolatileModifier]()
+        fromNode = try values.decode(Node.self, forKey: .fromNode)
+        toNode = try values.decode(Node.self, forKey: .toNode)
+        modifiers = try values.decode([Volatile].self, forKey: .modifiers)
     }
 
     static func == (lhs: Path, rhs: Path) -> Bool {
-        return (lhs.fromObject, lhs.toObject) == (rhs.fromObject, rhs.toObject)
+        return (lhs.fromNode, lhs.toNode) == (rhs.fromNode, rhs.toNode)
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(fromObject)
-        hasher.combine(toObject)
+        hasher.combine(fromNode)
+        hasher.combine(toNode)
     }
 
     func computeCostOfPath(baseCost: Double, with ship: Pirate_WeatherEntity) -> Double {
         var result = baseCost
         for modifier in modifiers {
-            guard let weather = modifier as? Weather else {
-                continue
-            }
-            result = Double(weather.applyVelocityModifier(to: Float(result)))
+            result = Double(modifier.applyVelocityModifier(to: Float(baseCost), with: Float(ship.getWeatherModifier())))
         }
         return result
     }
 
     enum CodingKeys: String, CodingKey {
-        case fromObject
-        case toObject
+        case fromNode
+        case toNode
+        case modifiers
     }
 }

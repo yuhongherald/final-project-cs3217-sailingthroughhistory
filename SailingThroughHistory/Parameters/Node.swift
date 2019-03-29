@@ -41,9 +41,7 @@ class Node: Codable {
         }
         result.append(self)
         for path in map.getPaths(of: self) {
-            guard let neighbour = path.toObject as? Node else {
-                continue
-            }
+            let neighbour = path.toNode
             let remainingMovement = range - path.computeCostOfPath(baseCost: 1, with: ship)
             result += neighbour.getNodesInRange(ship: ship, range: remainingMovement, map: map)
         }
@@ -54,7 +52,7 @@ class Node: Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id
+        case identifier
         case name
         case image
         case frame

@@ -28,7 +28,7 @@ class Map: Codable {
         for nodePath in paths {
             var pathArr = nodePath.value
             for (index, path) in pathArr.enumerated() {
-                if path.toObject == node || path.fromObject == node {
+                if path.toNode == node || path.fromNode == node {
                     pathArr.remove(at: index)
                 }
             }
@@ -36,16 +36,16 @@ class Map: Codable {
     }
 
     func add(path: Path) {
-        if paths[path.fromObject] == nil {
-            paths[path.fromObject] = []
+        if paths[path.fromNode] == nil {
+            paths[path.fromNode] = []
         }
 
-        if paths[path.toObject] == nil {
-            paths[path.toObject] = []
+        if paths[path.toNode] == nil {
+            paths[path.toNode] = []
         }
 
-        paths[path.fromObject]?.append(path)
-        paths[path.toObject]?.append(path)
+        paths[path.fromNode]?.append(path)
+        paths[path.toNode]?.append(path)
     }
 
     func getNodes() -> Set<Node> {
@@ -87,23 +87,23 @@ class Map: Codable {
             var nodeIDPair = [Int: Node]()
             let node = try nodesArrayForType.nestedContainer(keyedBy: NodeTypeKey.self)
             let type = try node.decode(NodeTypes.self, forKey: NodeTypeKey.type)
-            let id = try node.decode(Int.self, forKey: .id)
+            let identifier = try node.decode(Int.self, forKey: .identifier)
 
             switch type {
             case .port:
                 let node = try node.decode(Port.self, forKey: NodeTypeKey.node)
                 nodes.insert(node)
-                nodeIDPair[id] = node
+                nodeIDPair[identifier] = node
             case .sea:
                 let node = try node.decode(Sea.self, forKey: NodeTypeKey.node)
                 nodes.insert(node)
                 nodes.insert(node)
-                nodeIDPair[id] = node
+                nodeIDPair[identifier] = node
             case .pirate:
                 let node = try node.decode(Pirate.self, forKey: NodeTypeKey.node)
                 nodes.insert(node)
                 nodes.insert(node)
-                nodeIDPair[id] = node
+                nodeIDPair[identifier] = node
             }
         }
         self.nodes = nodes
@@ -117,26 +117,26 @@ class Map: Codable {
 
         var nodesWithType = [NodeWithType]()
         var nodeIDPair = [Node: Int]()
-        for (id, node) in nodes.enumerated() {
+        for (identifier, node) in nodes.enumerated() {
             if node is Port {
-                nodesWithType.append(NodeWithType(id: id, node: node, type: NodeTypes.port))
-                nodeIDPair[node] = id
+                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.port))
+                nodeIDPair[node] = identifier
             }
             if node is Sea {
-                nodesWithType.append(NodeWithType(id: id, node: node, type: NodeTypes.sea))
-                nodeIDPair[node] = id
+                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.sea))
+                nodeIDPair[node] = identifier
             }
             if node is Pirate {
-                nodesWithType.append(NodeWithType(id: id, node: node, type: NodeTypes.pirate))
-                nodeIDPair[node] = id
+                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.pirate))
+                nodeIDPair[node] = identifier
             }
         }
         try container.encode(nodesWithType, forKey: .nodes)
 
         var simplifiedPaths = [Int: Int]()
         for pair in getAllPaths() {
-            guard let fromID = nodeIDPair[pair.fromObject],
-            let toID = nodeIDPair[pair.toObject] else {
+            guard let fromID = nodeIDPair[pair.fromNode],
+            let toID = nodeIDPair[pair.toNode] else {
                 continue
             }
             simplifiedPaths[fromID] = toID
@@ -153,7 +153,7 @@ class Map: Codable {
     enum NodeTypeKey: String, CodingKey {
         case type
         case node
-        case id
+        case identifier
     }
 
     enum NodeTypes: String, Codable {
@@ -165,10 +165,10 @@ class Map: Codable {
     struct NodeWithType: Codable, Hashable {
         var node: Node
         var type: NodeTypes
-        var id: Int
+        var identifier: Int
 
-        init(id: Int, node: Node, type: NodeTypes) {
-            self.id = id
+        init(identifier: Int, node: Node, type: NodeTypes) {
+            self.identifier = identifier
             self.node = node
             self.type = type
         }

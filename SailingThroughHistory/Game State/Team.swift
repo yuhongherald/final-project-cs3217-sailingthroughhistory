@@ -1,0 +1,39 @@
+//
+//  Team.swift
+//  SailingThroughHistory
+//
+//  Created by ysq on 3/28/19.
+//  Copyright © 2019 Sailing Through History Team. All rights reserved.
+//
+
+import Foundation
+
+class Team: GenericTeam {
+    var name: String
+    var money: GameVariable<Int> = GameVariable(value: 0)
+
+    required init(name: String) {
+        self.name = name
+    }
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String.self, forKey: .name)
+        money.value = try values.decode(Int.self, forKey: .money)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(money.value, forKey: .money)
+    }
+
+    func updateMoney(by amount: Int) {
+        self.money.value += amount
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case money
+    }
+}

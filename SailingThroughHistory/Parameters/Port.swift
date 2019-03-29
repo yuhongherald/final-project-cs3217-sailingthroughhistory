@@ -43,7 +43,8 @@ class Port: Node {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let ownerName = try values.decode(String?.self, forKey: .owner)
+        let ownerName = try values.decode(String?.self, forKey: .ownerName)
+        let ownerTeam = try values.decode(Team.self, forKey: .ownerTeam)
         itemParameters = try values.decode([ItemType: ItemParameter].self, forKey: .itemParameters)
         itemParametersSold = try values.decode([ItemParameter].self, forKey: .itemsSold)
         let superDecoder = try values.superDecoder()
@@ -52,12 +53,13 @@ class Port: Node {
             owner = nil
             return
         }
-        owner = Player(name: name, node: self)
+        owner = Player(name: name, team: ownerTeam, node: self)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(owner?.name, forKey: .owner)
+        try container.encode(owner?.name, forKey: .ownerName)
+        try container.encode(owner?.team, forKey: .ownerTeam)
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(itemParametersSold, forKey: .itemsSold)
 
@@ -71,11 +73,11 @@ class Port: Node {
 
     public func collectTax(from player: Player) {
         // Prevent event listeners from firing unneccessarily
-        if player == owner {
+        if player == owner || player.team == owner?.team {
             return
         }
-        player.money.value -= taxAmount
-        owner?.money.value += taxAmount
+        player.updateMoney(by: -taxAmount)
+        owner?.updateMoney(by: taxAmount)
     }
 
     func getBuyValue(of type: ItemType) -> Int? {
@@ -115,7 +117,8 @@ class Port: Node {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case owner
+        case ownerName
+        case ownerTeam
         case itemParameters
         case itemsSold
     }

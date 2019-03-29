@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
 		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
+		1A53D7C4224CA45100FAE214 /* GenericTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53D7C3224CA45100FAE214 /* GenericTeam.swift */; };
+		1A53D7C6224CA5FE00FAE214 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53D7C5224CA5FE00FAE214 /* Team.swift */; };
 		1A69B4D2224934D200176DDD /* DetailEditTableViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */; };
-		1A749D652240F6DC00482CE5 /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
 		1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */; };
 		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
 		1A749D6E2243CFF800482CE5 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D6D2243CFF800482CE5 /* Storage.swift */; };
@@ -185,6 +186,8 @@
 /* Begin PBXFileReference section */
 		1A49D237223E468300A419F4 /* LevelEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelEditorViewController.swift; sourceTree = "<group>"; };
 		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
+		1A53D7C3224CA45100FAE214 /* GenericTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTeam.swift; sourceTree = "<group>"; };
+		1A53D7C5224CA5FE00FAE214 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailEditTableViewController + Delegate.swift"; sourceTree = "<group>"; };
 		1A749D642240F6DC00482CE5 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 		1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewController.swift; sourceTree = "<group>"; };
@@ -724,6 +727,7 @@
 				BA919063223F260A00009F49 /* Ship.swift */,
 				BA48591022410CC7009ED2F6 /* ShipUI.swift */,
 				BA485903223F9112009ED2F6 /* Location.swift */,
+				1A53D7C5224CA5FE00FAE214 /* Team.swift */,
 			);
 			path = "Game State";
 			sourceTree = "<group>";
@@ -734,6 +738,7 @@
 				BA919066223F266E00009F49 /* ObservableVariable.swift */,
 				BA919068223F271700009F49 /* GameVariable.swift */,
 				BA91907B223F531A00009F49 /* GenericGameState.swift */,
+				1A53D7C3224CA45100FAE214 /* GenericTeam.swift */,
 				BA485905223F959A009ED2F6 /* GenericPlayer.swift */,
 				BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */,
 				BA485907223FCB4B009ED2F6 /* PlayerState.swift */,
@@ -1119,11 +1124,13 @@
 				754FED652243626900394215 /* Vector2F.swift in Sources */,
 				7536A8482240E10500D9D0FE /* GameLogic.swift in Sources */,
 				754FED6F2243795900394215 /* EngineConstants.swift in Sources */,
+				1A53D7C6224CA5FE00FAE214 /* Team.swift in Sources */,
 				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
 				75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */,
 				9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */,
+				1A53D7C4224CA45100FAE214 /* GenericTeam.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				7536A8392240A14400D9D0FE /* GameAsyncWrap.swift in Sources */,
