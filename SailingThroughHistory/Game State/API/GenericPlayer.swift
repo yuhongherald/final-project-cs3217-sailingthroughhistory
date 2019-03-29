@@ -18,6 +18,8 @@ protocol GenericPlayer: Codable {
 
     init(name: String, team: Team, node: Node)
 
+    func getItemParameter(name: String) -> ItemParameter?
+
     // update money
     func updateMoney(by amount: Int)
 

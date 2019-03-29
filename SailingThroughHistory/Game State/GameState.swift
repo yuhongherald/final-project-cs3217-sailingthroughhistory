@@ -10,9 +10,11 @@ import Foundation
 
 class GameState: GenericGameState {
     var gameTime: GameTime
+    var itemParameters = [ItemParameter]()
 
     private var interface: Interface?
     private var map: Map?
+    private var teams = [Team]()
     private var players = [GenericPlayer]()
     private var speedMultiplier = 1.0
 
@@ -27,6 +29,8 @@ class GameState: GenericGameState {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         try gameTime = values.decode(GameTime.self, forKey: .gameTime)
         try map = values.decode(Map.self, forKey: .map)
+        try itemParameters = values.decode([ItemParameter].self, forKey: .itemParameters)
+        try teams = values.decode([Team].self, forKey: .teams)
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
     }
@@ -38,6 +42,8 @@ class GameState: GenericGameState {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(gameTime, forKey: .gameTime)
         try container.encode(map, forKey: .map)
+        try container.encode(itemParameters, forKey: .itemParameters)
+        try container.encode(teams, forKey: .teams)
         try container.encode(players, forKey: .players)
         try container.encode(speedMultiplier, forKey: .speedMultiplier)
     }
@@ -45,6 +51,8 @@ class GameState: GenericGameState {
     private enum CodingKeys: String, CodingKey {
         case gameTime
         case map
+        case itemParameters
+        case teams
         case players
         case speedMultiplier
     }
@@ -54,11 +62,12 @@ class GameState: GenericGameState {
     }
 
     func loadLevel(level: GenericLevel) {
-        players = level.getPlayers()
+        initializePlayersFromParameters(parameters: level.playerParameters)
         for var player in players {
             player.interface = interface
         }
-        map = level.getMap()
+        map = level.map
+        itemParameters = level.itemParameters
     }
 
     func getPlayers() -> [GenericPlayer] {
@@ -80,5 +89,18 @@ class GameState: GenericGameState {
     }
 
     func endGame() {
+    }
+
+    private func initializePlayersFromParameters(parameters: [PlayerParameter]) {
+        players.removeAll()
+        parameters.forEach {
+            guard let node = $0.getStartingNode() else {
+                NSLog("\($0.getName()) fails to be constructed because of loss of starting node.")
+                return
+            }
+            let team = $0.getTeam()
+            teams.append(team)
+            players.append(Player(name: $0.getName(), team: team, node: node))
+        }
     }
 }

@@ -97,8 +97,14 @@ class Ship: Codable {
         }
     }
 
-    func setOwner(owner: GenericPlayer?) {
+    func setOwner(owner: GenericPlayer) {
         self.owner = owner
+        for item in items.value {
+            guard let itemParameter = owner.getItemParameter(name: item.name) else {
+                continue
+            }
+            item.setItemParameter(itemParameter)
+        }
     }
 
     // Movement
@@ -228,6 +234,14 @@ class Ship: Codable {
             showMessage(titled: "Deficeit!", withMsg: "You have exhausted \(type.displayName) and have a deficeit of \(deficeit). Please pay for it.")
             owner?.updateMoney(by: -deficeit * type.getBuyValue())
         }
+
+        // decay remaining items
+        for item in items.value {
+            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
+                continue
+            }
+            showMessage(titled: "Lost Item", withMsg: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!")
+        }
     }
 
     // Helper functions
@@ -306,10 +320,12 @@ extension Ship {
 }
 
 // MARK: - Show messages
+// TODO remove interface
 extension Ship {
     private func showMessage(titled: String, withMsg: String) {
+        /*
         owner?.interface?.pauseAndShowAlert(titled: titled, withMsg: withMsg)
-        owner?.interface?.broadcastInterfaceChanges(withDuration: 0.5)
+        owner?.interface?.broadcastInterfaceChanges(withDuration: 0.5)*/
     }
 }
 

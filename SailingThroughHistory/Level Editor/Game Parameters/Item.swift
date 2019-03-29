@@ -9,6 +9,7 @@
 import Foundation
 
 class Item: GenericItem, Codable {
+    var name: String
     var itemType: ItemType? {
         return itemParameter?.itemType
     }
@@ -20,29 +21,62 @@ class Item: GenericItem, Codable {
         return quantity * unitWeight
     }
     // TODO: prevent quantity from going below 0
-    var quantity: Int
+    var quantity: Int {
+        get {
+            return realQuantity
+        }
+        set(value) {
+            guard value >= 0 else {
+                // TODO error
+                realQuantity = 0
+                return
+            }
+            realQuantity = value
+            decimalQuantity = Double(realQuantity)
+        }
+    }
+
+    private var realQuantity = 0
+    private var decimalQuantity = 0.0
 
     required init(itemType: ItemParameter, quantity: Int) {
+        self.name = itemType.displayName
         self.itemParameter = itemType
         self.quantity = quantity
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        try name = values.decode(String.self, forKey: .name)
         try quantity = values.decode(Int.self, forKey: .quantity)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
         try container.encode(quantity, forKey: .quantity)
     }
 
     private enum CodingKeys: String, CodingKey {
+        case name
         case quantity
     }
 
-    func setItemType(_ itemType: ItemParameter) {
-        itemParameter = itemType
+    func setItemParameter(_ itemParameter: ItemParameter) {
+        self.itemParameter = itemParameter
+    }
+
+    func decayItem(with time: Double) -> Int? {
+        guard let halfLife = itemParameter?.getHalfLife() else {
+            return nil
+        }
+        decimalQuantity /= pow(M_E, M_LN2 / Double(halfLife))
+        let diff = Int(realQuantity - Int(decimalQuantity))
+        guard diff >= 1 else {
+            return nil
+        }
+        realQuantity -= diff
+        return diff
     }
 
     func combine(with item: GenericItem) -> Bool {
@@ -63,7 +97,6 @@ class Item: GenericItem, Codable {
             return nil
         }
         guard let unitValue = port.getBuyValue(of: itemType) else {
-            // TODO: Error
             return nil
         }
         return unitValue * quantity
@@ -74,7 +107,6 @@ class Item: GenericItem, Codable {
             return nil
         }
         guard let unitValue = port.getSellValue(of: itemType) else {
-            // TODO: Error
             return nil
         }
         let value = unitValue * quantity

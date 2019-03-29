@@ -23,6 +23,7 @@ class Player: GenericPlayer {
     }
 
     private let ship: Ship
+    private var gameState: GenericGameState?
     private var speedMultiplier = 1.0
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
@@ -51,6 +52,11 @@ class Player: GenericPlayer {
         try container.encode(team, forKey: .team)
         try container.encode(money.value, forKey: .money)
         try container.encode(ship, forKey: .ship)
+    }
+
+    func getItemParameter(name: String) -> ItemParameter? {
+        let parameters = gameState?.itemParameters ?? []
+        return parameters.first(where: { $0.displayName == name })
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
@@ -140,7 +146,7 @@ extension Player {
     private func preventPlayerBankruptcy(amount: Int) {
         interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-amount) amount of donations from your company. Try not to go negative again!")
         interface?.broadcastInterfaceChanges(withDuration: 0.5)
-        team.updateMoney(by: -value)
+        team.updateMoney(by: -amount)
         money.value = 0
     }
 }
