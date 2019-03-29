@@ -22,7 +22,7 @@ class Item: GenericItem, Codable {
     // TODO: prevent quantity from going below 0
     var quantity: Int {
         get {
-            return realQunaity
+            return realQuantity
         }
         set(value) {
             guard value >= 0 else {
@@ -65,7 +65,7 @@ class Item: GenericItem, Codable {
         guard let halfLife = itemParameter?.getHalfLife() else {
             return nil
         }
-        decimalQuantity /= pow(M_E, M_LN2 / halfLife)
+        decimalQuantity /= pow(M_E, M_LN2 / Double(halfLife))
         let diff = Int(realQuantity - Int(decimalQuantity))
         guard diff >= 1 else {
             return nil

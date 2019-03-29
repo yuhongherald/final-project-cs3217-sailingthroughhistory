@@ -16,6 +16,12 @@ class GameParameter: GenericLevel, Codable {
     var timeLimit = Int(GameConstants.playerTurnDuration)
     var map = Map()
 
+    required init(teams: [String]) {
+        for teamName in teams {
+            self.teams.append(Team(name: teamName))
+        }
+    }
+
     func getPlayerParameters() -> [PlayerParameter] {
         return playerParameters
     }

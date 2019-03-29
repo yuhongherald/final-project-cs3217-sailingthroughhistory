@@ -230,11 +230,11 @@ class Ship: Codable {
         }
 
         // decay remaining items
-        for item in items {
+        for item in items.value {
             guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
                 continue
             }
-            showMessage(titled: "Lost Item", withMsg: "You have lost \(lostQuantity) of \(item.name) from decay and have \(item.quantity) remaining!")
+            showMessage(titled: "Lost Item", withMsg: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!")
         }
     }
 
