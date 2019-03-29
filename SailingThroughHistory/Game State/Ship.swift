@@ -228,6 +228,14 @@ class Ship: Codable {
             showMessage(titled: "Deficeit!", withMsg: "You have exhausted \(type.displayName) and have a deficeit of \(deficeit). Please pay for it.")
             owner?.updateMoney(by: -deficeit * type.getBuyValue())
         }
+
+        // decay remaining items
+        for item in items {
+            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
+                continue
+            }
+            showMessage(titled: "Lost Item", withMsg: "You have lost \(lostQuantity) of \(item.name) from decay and have \(item.quantity) remaining!")
+        }
     }
 
     // Helper functions

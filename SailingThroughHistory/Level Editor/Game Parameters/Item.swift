@@ -20,7 +20,23 @@ class Item: GenericItem, Codable {
         return quantity * unitWeight
     }
     // TODO: prevent quantity from going below 0
-    var quantity: Int
+    var quantity: Int {
+        get {
+            return realQunaity
+        }
+        set(value) {
+            guard value >= 0 else {
+                // TODO error
+                realQuantity = 0
+                return
+            }
+            realQuantity = value
+            decimalQuantity = Double(realQuantity)
+        }
+    }
+
+    private var realQuantity = 0
+    private var decimalQuantity = 0.0
 
     required init(itemType: ItemParameter, quantity: Int) {
         self.itemParameter = itemType
@@ -45,6 +61,19 @@ class Item: GenericItem, Codable {
         itemParameter = itemType
     }
 
+    func decayItem(with time: Double) -> Int? {
+        guard let halfLife = itemParameter?.getHalfLife() else {
+            return nil
+        }
+        decimalQuantity /= pow(M_E, M_LN2 / halfLife)
+        let diff = Int(realQuantity - Int(decimalQuantity))
+        guard diff >= 1 else {
+            return nil
+        }
+        realQuantity -= diff
+        return diff
+    }
+
     func combine(with item: GenericItem) -> Bool {
         guard itemParameter == item.itemParameter else {
             return false
@@ -63,7 +92,6 @@ class Item: GenericItem, Codable {
             return nil
         }
         guard let unitValue = port.getBuyValue(of: itemType) else {
-            // TODO: Error
             return nil
         }
         return unitValue * quantity
@@ -74,7 +102,6 @@ class Item: GenericItem, Codable {
             return nil
         }
         guard let unitValue = port.getSellValue(of: itemType) else {
-            // TODO: Error
             return nil
         }
         let value = unitValue * quantity
