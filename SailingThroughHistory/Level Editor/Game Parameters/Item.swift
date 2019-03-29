@@ -9,6 +9,7 @@
 import Foundation
 
 class Item: GenericItem, Codable {
+    var name: String
     var itemType: ItemType? {
         return itemParameter?.itemType
     }
@@ -39,26 +40,30 @@ class Item: GenericItem, Codable {
     private var decimalQuantity = 0.0
 
     required init(itemType: ItemParameter, quantity: Int) {
+        self.name = itemType.displayName
         self.itemParameter = itemType
         self.quantity = quantity
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        try name = values.decode(String.self, forKey: .name)
         try quantity = values.decode(Int.self, forKey: .quantity)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
         try container.encode(quantity, forKey: .quantity)
     }
 
     private enum CodingKeys: String, CodingKey {
+        case name
         case quantity
     }
 
-    func setItemType(_ itemType: ItemParameter) {
-        itemParameter = itemType
+    func setItemParameter(_ itemParameter: ItemParameter) {
+        self.itemParameter = itemParameter
     }
 
     func decayItem(with time: Double) -> Int? {

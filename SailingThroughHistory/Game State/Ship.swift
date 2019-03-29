@@ -97,8 +97,14 @@ class Ship: Codable {
         }
     }
 
-    func setOwner(owner: GenericPlayer?) {
+    func setOwner(owner: GenericPlayer) {
         self.owner = owner
+        for item in items.value {
+            guard let itemParameter = owner.getItemParameter(name: item.name) else {
+                continue
+            }
+            item.setItemParameter(itemParameter)
+        }
     }
 
     // Movement

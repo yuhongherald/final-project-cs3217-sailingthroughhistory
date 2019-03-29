@@ -10,6 +10,7 @@ import Foundation
 
 protocol GenericLevel {
     var playerParameters: [PlayerParameter] { get set }
+    var itemParameters: [ItemParameter] { get set }
     var eventParameters: [EventParameter] { get set }
     var teams: [Team] { get set }
     var numOfTurn: Int { get set }
@@ -17,6 +18,4 @@ protocol GenericLevel {
     var map: Map { get }
 
     init(teams: [String])
-    func getPlayers() -> [GenericPlayer]
-    func getMap() -> Map
 }

@@ -10,6 +10,7 @@ import Foundation
 
 class GameParameter: GenericLevel, Codable {
     var playerParameters = [PlayerParameter]()
+    var itemParameters = [ItemParameter]()
     var eventParameters = [EventParameter]()
     var teams = [Team]()
     var numOfTurn = GameConstants.numOfTurn
@@ -20,28 +21,6 @@ class GameParameter: GenericLevel, Codable {
         for teamName in teams {
             self.teams.append(Team(name: teamName))
         }
-    }
-
-    func getPlayerParameters() -> [PlayerParameter] {
-        return playerParameters
-    }
-
-    func getPlayers() -> [GenericPlayer] {
-        var players = [GenericPlayer]()
-        playerParameters.forEach {
-            guard let node = $0.getStartingNode() else {
-                NSLog("\($0.getName()) fails to be constructed because of loss of starting node.")
-                return
-            }
-            let team = $0.getTeam()
-            teams.append(team)
-            players.append(Player(name: $0.getName(), team: team, node: node))
-        }
-        return players
-    }
-
-    func getMap() -> Map {
-        return map
     }
 
     func getNumOfTurn() -> Int {
