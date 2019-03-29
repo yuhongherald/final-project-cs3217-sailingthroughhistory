@@ -6,9 +6,35 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol TurnSystemEvent: class {
-    var identifier: Int { get }
+protocol TurnSystemEvent: Unique, Observable {
     // conditions are and styled
     var conditions: [ReadOnlyEventCondition] { get }
-    var actions: [EventAction] { get }
+    var actions: [ReadOnlyEventAction] { get }
+
+    func isAllConditionsReady() -> Bool
+    func resetConditions()
+    func executeActions()
+}
+
+extension TurnSystemEvent {
+    func isAllConditionsReady() -> Bool {
+        for condition in conditions {
+            guard condition.isActive else {
+                return false
+            }
+        }
+        return true
+    }
+
+    func resetConditions() {
+        for condition in conditions {
+            condition.isActive = false
+        }
+    }
+
+    func executeActions() {
+        for action in actions {
+            action.modify()
+        }
+    }
 }

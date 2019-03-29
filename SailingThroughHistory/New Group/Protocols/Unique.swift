@@ -6,6 +6,6 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol Unique: Hashable {
+protocol Unique: class {
     var identifier: Int { get }
 }

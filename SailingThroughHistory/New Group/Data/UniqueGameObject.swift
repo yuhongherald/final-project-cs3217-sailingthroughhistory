@@ -7,5 +7,5 @@
 //
 
 // base class for all game objects in TurnSystem. Marked as abstract
-protocol UniqueGameObject: Unique, SerializableGameObject {
+protocol UniqueGameObject: Hashable, SerializableGameObject {
 }

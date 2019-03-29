@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol Observable {
-    func addObserver(event: TurnSystemEvent)
-    func removeObserver(event: TurnSystemEvent)
+protocol Observable: class {
+    func addObserver(observer: Observer)
+    func removeObserver(observer: Observer)
 }

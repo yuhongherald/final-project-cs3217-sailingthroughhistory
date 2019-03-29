@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UniqueObject: Unique {
+class UniqueObject: Unique, Hashable {
     var identifier: Int {
         return _identifier
     }

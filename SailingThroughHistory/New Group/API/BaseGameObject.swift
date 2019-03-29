@@ -7,32 +7,30 @@
 //
 
 // gameobjects should all inherit from this
-protocol BaseGameObject: class, SerializableGameObject {
-    var events: [Int: TurnSystemEvent] { get set }
+protocol BaseGameObject: SerializableGameObject {
+    var events: [Int: Observer] { get set }
     var objects: [String: AnyObject] { get set }
 }
 
 extension BaseGameObject {
-    func addObserver(event: TurnSystemEvent) {
-        if events[event.identifier] != nil {
+    func addObserver(observer: Observer) {
+        if events[observer.identifier] != nil {
             return
         }
-        events[event.identifier] = event
+        events[observer.identifier] = observer
     }
-    func removeObserver(event: TurnSystemEvent) {
-        events[event.identifier] = nil
+    func removeObserver(observer: Observer) {
+        events[observer.identifier] = nil
     }
-    func setField(field: String, object: Any) -> Bool {
+    func setField(field: String, object: AnyObject) -> Bool {
         if !fields.contains(field) {
             return false
         }
-        // TODO: Migraate logic onto conditions
-        /*
-        for (eventID, event) in events {
-            event.notify(objects[field], object)
+        for observer in events.values {
+            observer.notify(eventUpdate: EventUpdate(oldValue: objects[field], newValue: object))
         }
         objects[field] = object
- */
+
         return true
     }
 }

@@ -22,4 +22,8 @@ extension ConditionComparable {
         ChangeOperator()
         ]
     }
+    var evaluators: [GenericEvaluateOperator] {
+        return [
+        ]
+    }
 }

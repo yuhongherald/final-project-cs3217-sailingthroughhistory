@@ -58,7 +58,7 @@
 		75354456224C877F001B4F62 /* UniqueTurnSystemEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75354455224C877F001B4F62 /* UniqueTurnSystemEvent.swift */; };
 		75354458224CA4AB001B4F62 /* GenericTurnSystemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75354457224CA4AB001B4F62 /* GenericTurnSystemState.swift */; };
 		7535445B224CA5CC001B4F62 /* TurnSystemEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535445A224CA5CC001B4F62 /* TurnSystemEvent.swift */; };
-		7535445D224CA647001B4F62 /* EventAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535445C224CA647001B4F62 /* EventAction.swift */; };
+		7535445D224CA647001B4F62 /* ReadOnlyEventAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535445C224CA647001B4F62 /* ReadOnlyEventAction.swift */; };
 		75354465224CA7BB001B4F62 /* EventCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75354464224CA7BB001B4F62 /* EventCondition.swift */; };
 		75354467224CA7CC001B4F62 /* EqualOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75354466224CA7CC001B4F62 /* EqualOperator.swift */; };
 		75354475224CAB26001B4F62 /* NotEqualOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75354474224CAB26001B4F62 /* NotEqualOperator.swift */; };
@@ -111,6 +111,16 @@
 		7559898E2242420C004037E6 /* GenericGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898D2242420C004037E6 /* GenericGameLogic.swift */; };
 		755989902242435C004037E6 /* GenericTurnBasedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */; };
 		75598992224243CE004037E6 /* EmotionEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75598991224243CE004037E6 /* EmotionEngine.swift */; };
+		755FD971224E82CE00D83D4B /* EventConditionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD970224E82CE00D83D4B /* EventConditionFactory.swift */; };
+		755FD973224E842000D83D4B /* EventAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD972224E842000D83D4B /* EventAction.swift */; };
+		755FD975224E852100D83D4B /* GenericEvaluatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD974224E852100D83D4B /* GenericEvaluatable.swift */; };
+		755FD977224E85A600D83D4B /* GenericEvaluateOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD976224E85A600D83D4B /* GenericEvaluateOperator.swift */; };
+		755FD97B224E8DFB00D83D4B /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD97A224E8DFB00D83D4B /* Observer.swift */; };
+		755FD97D224E922F00D83D4B /* EvaluatablePrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD97C224E922F00D83D4B /* EvaluatablePrimitive.swift */; };
+		755FD97F224E925E00D83D4B /* EvaluatableExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD97E224E925E00D83D4B /* EvaluatableExpression.swift */; };
+		755FD984224E940100D83D4B /* EventActionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD983224E940100D83D4B /* EventActionFactory.swift */; };
+		755FD986224E941F00D83D4B /* EventFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD985224E941E00D83D4B /* EventFactory.swift */; };
+		755FD98B224E954400D83D4B /* OpEvaluatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD98A224E954400D83D4B /* OpEvaluatable.swift */; };
 		75F8435E22428ED9007855F9 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F8435D22428ED9007855F9 /* Timestampable.swift */; };
 		9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B7702248F28100DA12C8 /* CGRect+Rect.swift */; };
 		9621CC072246C0BC008178FF /* ContextDrawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC062246C0BC008178FF /* ContextDrawable.swift */; };
@@ -256,7 +266,7 @@
 		75354455224C877F001B4F62 /* UniqueTurnSystemEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueTurnSystemEvent.swift; sourceTree = "<group>"; };
 		75354457224CA4AB001B4F62 /* GenericTurnSystemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTurnSystemState.swift; sourceTree = "<group>"; };
 		7535445A224CA5CC001B4F62 /* TurnSystemEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemEvent.swift; sourceTree = "<group>"; };
-		7535445C224CA647001B4F62 /* EventAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAction.swift; sourceTree = "<group>"; };
+		7535445C224CA647001B4F62 /* ReadOnlyEventAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyEventAction.swift; sourceTree = "<group>"; };
 		75354464224CA7BB001B4F62 /* EventCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCondition.swift; sourceTree = "<group>"; };
 		75354466224CA7CC001B4F62 /* EqualOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualOperator.swift; sourceTree = "<group>"; };
 		75354474224CAB26001B4F62 /* NotEqualOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotEqualOperator.swift; sourceTree = "<group>"; };
@@ -309,6 +319,16 @@
 		7559898D2242420C004037E6 /* GenericGameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericGameLogic.swift; sourceTree = "<group>"; };
 		7559898F2242435C004037E6 /* GenericTurnBasedGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTurnBasedGame.swift; sourceTree = "<group>"; };
 		75598991224243CE004037E6 /* EmotionEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionEngine.swift; sourceTree = "<group>"; };
+		755FD970224E82CE00D83D4B /* EventConditionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConditionFactory.swift; sourceTree = "<group>"; };
+		755FD972224E842000D83D4B /* EventAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAction.swift; sourceTree = "<group>"; };
+		755FD974224E852100D83D4B /* GenericEvaluatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericEvaluatable.swift; sourceTree = "<group>"; };
+		755FD976224E85A600D83D4B /* GenericEvaluateOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericEvaluateOperator.swift; sourceTree = "<group>"; };
+		755FD97A224E8DFB00D83D4B /* Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
+		755FD97C224E922F00D83D4B /* EvaluatablePrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluatablePrimitive.swift; sourceTree = "<group>"; };
+		755FD97E224E925E00D83D4B /* EvaluatableExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluatableExpression.swift; sourceTree = "<group>"; };
+		755FD983224E940100D83D4B /* EventActionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventActionFactory.swift; sourceTree = "<group>"; };
+		755FD985224E941E00D83D4B /* EventFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventFactory.swift; path = "/Users/herald/SailingThroughHistory/SailingThroughHistory/New Group/Events/Factories/EventFactory.swift"; sourceTree = "<absolute>"; };
+		755FD98A224E954400D83D4B /* OpEvaluatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpEvaluatable.swift; sourceTree = "<group>"; };
 		75F8435D22428ED9007855F9 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		9615B7702248F28100DA12C8 /* CGRect+Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Rect.swift"; sourceTree = "<group>"; };
 		9621CC062246C0BC008178FF /* ContextDrawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDrawable.swift; sourceTree = "<group>"; };
@@ -506,6 +526,7 @@
 		751F8FF0224BB2780071C057 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				7535445C224CA647001B4F62 /* ReadOnlyEventAction.swift */,
 				751F8FE1224BAA420071C057 /* SerializableGameObject.swift */,
 				751F8FD4224B9D5E0071C057 /* ReadOnlyEventCondition.swift */,
 				751F8FDF224BA97A0071C057 /* GenericOperator.swift */,
@@ -514,6 +535,10 @@
 				751F8FED224BB2170071C057 /* Printable.swift */,
 				75354491224CBCDE001B4F62 /* Unique.swift */,
 				7535449F224CCB4B001B4F62 /* Observable.swift */,
+				755FD974224E852100D83D4B /* GenericEvaluatable.swift */,
+				755FD976224E85A600D83D4B /* GenericEvaluateOperator.swift */,
+				755FD97A224E8DFB00D83D4B /* Observer.swift */,
+				755FD98A224E954400D83D4B /* OpEvaluatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -540,11 +565,14 @@
 		75354459224CA552001B4F62 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				755FD982224E93DF00D83D4B /* Factories */,
 				75354461224CA73C001B4F62 /* Operators */,
 				75354464224CA7BB001B4F62 /* EventCondition.swift */,
 				75354455224C877F001B4F62 /* UniqueTurnSystemEvent.swift */,
-				7535445C224CA647001B4F62 /* EventAction.swift */,
 				75354497224CC187001B4F62 /* EventUpdate.swift */,
+				755FD972224E842000D83D4B /* EventAction.swift */,
+				755FD97C224E922F00D83D4B /* EvaluatablePrimitive.swift */,
+				755FD97E224E925E00D83D4B /* EvaluatableExpression.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -552,6 +580,7 @@
 		75354461224CA73C001B4F62 /* Operators */ = {
 			isa = PBXGroup;
 			children = (
+				755FD989224E951000D83D4B /* Arithmetic */,
 				75354473224CAB06001B4F62 /* Equatable */,
 				7535446A224CA883001B4F62 /* Comparable */,
 				75354480224CADD7001B4F62 /* ChangeOperator.swift */,
@@ -694,6 +723,23 @@
 				7528A9692245F82100327211 /* UniformRandom.swift */,
 			);
 			path = "Small components";
+			sourceTree = "<group>";
+		};
+		755FD982224E93DF00D83D4B /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				755FD970224E82CE00D83D4B /* EventConditionFactory.swift */,
+				755FD983224E940100D83D4B /* EventActionFactory.swift */,
+				755FD985224E941E00D83D4B /* EventFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
+		755FD989224E951000D83D4B /* Arithmetic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Arithmetic;
 			sourceTree = "<group>";
 		};
 		8783F251F4FFDE812D7DABCB /* Pods */ = {
@@ -1144,8 +1190,10 @@
 				75354465224CA7BB001B4F62 /* EventCondition.swift in Sources */,
 				7528A96A2245F82100327211 /* UniformRandom.swift in Sources */,
 				754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */,
+				755FD97B224E8DFB00D83D4B /* Observer.swift in Sources */,
 				965E0343223AD976005F7D79 /* Interface.swift in Sources */,
 				969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */,
+				755FD971224E82CE00D83D4B /* EventConditionFactory.swift in Sources */,
 				7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
 				75354467224CA7CC001B4F62 /* EqualOperator.swift in Sources */,
@@ -1167,6 +1215,7 @@
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				75598992224243CE004037E6 /* EmotionEngine.swift in Sources */,
 				75354481224CADD7001B4F62 /* ChangeOperator.swift in Sources */,
+				755FD97D224E922F00D83D4B /* EvaluatablePrimitive.swift in Sources */,
 				7536A8372240A09200D9D0FE /* GenericAsyncWrap.swift in Sources */,
 				751F8FCB224B9D240071C057 /* UpdatablePort.swift in Sources */,
 				1A9FF08C224030E000005FCB /* Map.swift in Sources */,
@@ -1189,6 +1238,7 @@
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
 				7535449A224CC532001B4F62 /* WeakBox.swift in Sources */,
 				754FED7322437FD200394215 /* SoundData.swift in Sources */,
+				755FD984224E940100D83D4B /* EventActionFactory.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
 				751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
@@ -1196,9 +1246,11 @@
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				7528A9682245F71900327211 /* GameEngineTypicalClasses.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
+				755FD973224E842000D83D4B /* EventAction.swift in Sources */,
 				75354492224CBCDE001B4F62 /* Unique.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
 				96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */,
+				755FD97F224E925E00D83D4B /* EvaluatableExpression.swift in Sources */,
 				96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */,
 				967FAA7D2244BF1F005054B6 /* PortItemTableDataSource.swift in Sources */,
 				96A65ADC22491FE900D7512C /* ItemType.swift in Sources */,
@@ -1216,6 +1268,7 @@
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
 				751F8FE0224BA97A0071C057 /* GenericOperator.swift in Sources */,
+				755FD986224E941F00D83D4B /* EventFactory.swift in Sources */,
 				967FD6B522494619008559CE /* ObjectFrames.swift in Sources */,
 				753EEA822245169C00D56CBA /* Drawable.swift in Sources */,
 				BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */,
@@ -1238,9 +1291,11 @@
 				753EEA8422451C0900D56CBA /* GameInterface.swift in Sources */,
 				1A749D7422440C3E00482CE5 /* GalleryCollectionViewCell.swift in Sources */,
 				1A749D6E2243CFF800482CE5 /* Storage.swift in Sources */,
+				755FD98B224E954400D83D4B /* OpEvaluatable.swift in Sources */,
 				1A9FF08A2240142B00005FCB /* UIAlert.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
 				754FED652243626900394215 /* Vector2F.swift in Sources */,
+				755FD975224E852100D83D4B /* GenericEvaluatable.swift in Sources */,
 				751F8FCC224B9D240071C057 /* UpdatablePirate.swift in Sources */,
 				751F8FEE224BB2170071C057 /* Printable.swift in Sources */,
 				7536A8482240E10500D9D0FE /* GameLogic.swift in Sources */,
@@ -1271,7 +1326,7 @@
 				751F8FC9224B9D240071C057 /* UpdatablePlayerTurn.swift in Sources */,
 				96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */,
 				7559897522421BEC004037E6 /* Updatable.swift in Sources */,
-				7535445D224CA647001B4F62 /* EventAction.swift in Sources */,
+				7535445D224CA647001B4F62 /* ReadOnlyEventAction.swift in Sources */,
 				7535447D224CAB78001B4F62 /* GreaterThanOrEqualOperator.swift in Sources */,
 				75354479224CAB56001B4F62 /* GreaterThanOperator.swift in Sources */,
 				751F8FE4224BAE100071C057 /* TurnSystemState.swift in Sources */,
@@ -1283,6 +1338,7 @@
 				7536A83522409B5700D9D0FE /* GameEngine.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
 				7559898A22423D91004037E6 /* Randomable.swift in Sources */,
+				755FD977224E85A600D83D4B /* GenericEvaluateOperator.swift in Sources */,
 				1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */,
 				1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */,
 				751F8FC8224B9D240071C057 /* UpdatablePirateIsland.swift in Sources */,

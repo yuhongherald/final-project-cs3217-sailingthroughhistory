@@ -8,33 +8,34 @@
 
 // A class used to hold the state of the turn based game
 class TurnSystemState: GenericTurnSystemState {
-    private var events: Set<UniqueTurnSystemEvent> = Set<UniqueTurnSystemEvent>()
+    private var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     // TODO: Move this into a GameObject, technically it is a lot of fields
     private var objects: [Int: BaseGameObject] = [Int: BaseGameObject]()
 
-    func addEvents(events: [UniqueTurnSystemEvent]) -> Bool {
+    func addEvents(events: [TurnSystemEvent]) -> Bool {
         var result: Bool = true
         for event in events {
-            if events.contains(event) {
+            if self.events[event.identifier] != nil {
                 result = false
                 continue
             }
-            self.events.insert(event)
+            self.events[event.identifier] = event
         }
         return result
     }
-    func removeEvents(events: [UniqueTurnSystemEvent]) -> Bool {
+    func removeEvents(events: [TurnSystemEvent]) -> Bool {
         var result: Bool = true
         for event in events {
-            guard self.events.remove(event) != nil else {
+            if self.events[event.identifier] == nil {
                 result = false
                 continue
             }
+            self.events[event.identifier] = nil
         }
         return result
     }
-    func setEvents(events: [UniqueTurnSystemEvent]) -> Bool {
-        return removeEvents(events: Array(self.events))
+    func setEvents(events: [TurnSystemEvent]) -> Bool {
+        return removeEvents(events: Array(self.events.values))
             && addEvents(events: events)
     }
 }
