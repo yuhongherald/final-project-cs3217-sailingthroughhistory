@@ -93,16 +93,18 @@ class MainGameViewController: UIViewController {
     }
 
     private func setupGameEngine() {
-        // TODO: Get the real game state
+        // TODO: Get the real game state, use a different entry point
         if gameEngine != nil {
             print("Tried to init game engine twice!")
             return
         }
+        /*
         gameEngine = GameEngineTypicalClasses.getTypicalGameEngine(with:
             GameEngineTypicalClasses.getTypicalGameState(),                                                                   and: GameInterface(interface: interface))
         gameEngine?.start {
             print("Game has ended")
         }
+         */
     }
 
     func getFrame(for object: GameObject) -> CGRect? {

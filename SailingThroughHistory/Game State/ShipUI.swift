@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+import UIKit
+
 class ShipUI: GameObject {
 
     private let shipImagePath = "ship.png"

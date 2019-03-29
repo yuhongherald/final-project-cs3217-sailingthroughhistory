@@ -9,6 +9,17 @@
 import Foundation
 
 class Player: GenericPlayer {
+    var hasRolled: Bool = false
+    private var rollResult: Int = 0
+    
+    func roll() -> Int {
+        if hasRolled {
+            return rollResult
+        }
+        // roll something here
+        return rollResult
+    }
+    
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
@@ -23,6 +34,7 @@ class Player: GenericPlayer {
     }
 
     private let ship: Ship
+    private var gameState: GenericGameState?
     private var speedMultiplier = 1.0
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
@@ -51,6 +63,11 @@ class Player: GenericPlayer {
         try container.encode(team, forKey: .team)
         try container.encode(money.value, forKey: .money)
         try container.encode(ship, forKey: .ship)
+    }
+
+    func getItemParameter(name: String) -> ItemParameter? {
+        let parameters = gameState?.itemParameters ?? []
+        return parameters.first(where: { $0.displayName == name })
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {

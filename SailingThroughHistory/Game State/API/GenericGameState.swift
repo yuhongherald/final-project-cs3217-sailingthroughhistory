@@ -10,6 +10,7 @@ import Foundation
 
 protocol GenericGameState: Codable {
     var gameTime: GameTime { get set }
+    var itemParameters: [ItemParameter] { get set }
 
     init(baseYear: Int)
     func subscribe(interface: Interface)

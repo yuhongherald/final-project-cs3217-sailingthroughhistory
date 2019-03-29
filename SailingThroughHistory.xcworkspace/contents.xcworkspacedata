@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/herald/SailingThroughHistory/SailingThroughHistory/New Group/Events/Factories/EventFactory.swift">
+   </FileRef>
+   <FileRef
       location = "container:SailingThroughHistory.xcodeproj">
    </FileRef>
    <FileRef

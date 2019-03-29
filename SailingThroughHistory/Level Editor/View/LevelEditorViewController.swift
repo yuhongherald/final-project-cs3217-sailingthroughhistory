@@ -68,14 +68,14 @@ class LevelEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        menuDest?.data = gameParameter.getPlayerParameters()
+        menuDest?.data = gameParameter.playerParameters
         playerMenu.isUserInteractionEnabled = true
 
-        let map = gameParameter.getMap()
+        let map = gameParameter.map
         // Add nodes to map
         map.getNodes().forEach {
             let nodeView = NodeView(node: $0)
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.getMap(), with: initNodeGestures())
+            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: initNodeGestures())
         }
         // Add paths to map
         for path in map.getAllPaths() {
@@ -121,7 +121,7 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
-            self.gameParameter.getMap().addMap("\(name)background")
+            self.gameParameter.map.addMap("\(name)background")
             self.storage.save(self.gameParameter, self.mapBackground.image,
                               preview: self.editingAreaWrapper.screenShot, with: name)
         }, textPlaceHolder: "Input level name here")
@@ -143,7 +143,7 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
                 return
             }
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.getMap(), with: self.initNodeGestures())
+            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }
@@ -153,7 +153,7 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = sender.view as? NodeView else {
                 return
             }
-            nodeView.removeFrom(map: self.gameParameter.getMap())
+            nodeView.removeFrom(map: self.gameParameter.map)
         }
         if editMode == .item {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -245,7 +245,7 @@ class LevelEditorViewController: UIViewController {
 
             bazier.addLine(to: toNode.center)
 
-            gameParameter.getMap().add(path: Path(from: fromNode.node, to: toNode.node))
+            gameParameter.map.add(path: Path(from: fromNode.node, to: toNode.node))
             lineLayer.path = bazier.cgPath
         default:
             return
