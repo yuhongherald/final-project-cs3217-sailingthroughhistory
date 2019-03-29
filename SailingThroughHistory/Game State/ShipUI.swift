@@ -26,9 +26,9 @@ class ShipUI: GameObject {
     private func moveShip(to location: Location) {
         let start = location.start
         let end = location.end
-        let fraction = location.fractionToEnd
-        let newX = start.frame.midX * fraction + end.frame.midX * (1 - fraction) - shipWidth / 2
-        let newY = start.frame.midY * fraction + end.frame.midY * (1 - fraction) - shipWidth / 2
+        let fraction = CGFloat(location.fractionToEnd)
+        let newX: Double = Double(start.frame.midX * fraction + end.frame.midX * (1 - fraction)) - shipWidth / 2
+        let newY: Double = Double(start.frame.midY * fraction + end.frame.midY * (1 - fraction)) - shipWidth / 2
         guard let frame = Rect(originX: newX, originY: newY, height: shipWidth, width: shipWidth) else {
             fatalError("New frame is invalid")
         }

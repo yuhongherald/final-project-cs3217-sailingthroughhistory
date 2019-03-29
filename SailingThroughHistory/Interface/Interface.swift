@@ -207,10 +207,13 @@ class Interface {
     }
 
     private func addPathToState(path: Path) -> Bool {
+        // TODO
+        /*
         if !objectFrames.contains(object: path.fromObject) ||
             !objectFrames.contains(object: path.toObject) {
             return false
         }
+        */
 
         paths.add(path: path)
 

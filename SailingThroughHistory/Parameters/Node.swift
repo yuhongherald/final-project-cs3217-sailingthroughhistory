@@ -8,32 +8,30 @@
 
 import UIKit
 
-class Node: GameObject {
+class Node: Codable {
     let name: String
-    var neighbours = [Node]()
+    let image: String
+    let frame: CGRect
 
     init(name: String, image: String, frame: Rect) {
         self.name = name
-        super.init(image: image, frame: frame)
+        self.image = image
+        self.frame = CGRect()
     }
 
     required init(from decoder: Decoder) throws {
-        // TODO: deal with neighbours?
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
-        neighbours = try values.decode([Node].self, forKey: .neighbours)
-
-        let superDecoder = try values.superDecoder()
-        try super.init(from: superDecoder)
+        image = try values.decode(String.self, forKey: .image)
+        frame = try values.decode(CGRect.self, forKey: .frame)
     }
 
-    override func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(name, forKey: .name)
-        try container.encode(neighbours, forKey: .neighbours)
 
-        let superencoder = container.superEncoder()
-        try super.encode(to: superencoder)
+        try container.encode(name, forKey: .name)
+        try container.encode(image, forKey: .image)
+        try container.encode(frame, forKey: .frame)
     }
 
     func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
@@ -43,9 +41,7 @@ class Node: GameObject {
         }
         result.append(self)
         for path in map.getPaths(of: self) {
-            guard let neighbour = path.toObject as? Node else {
-                continue
-            }
+            let neighbour = path.toNode
             let remainingMovement = range - path.computeCostOfPath(baseCost: 1, with: ship)
             result += neighbour.getNodesInRange(ship: ship, range: remainingMovement, map: map)
         }
@@ -56,7 +52,19 @@ class Node: GameObject {
     }
 
     private enum CodingKeys: String, CodingKey {
+        case identifier
         case name
-        case neighbours
+        case image
+        case frame
+    }
+}
+
+extension Node: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+
+    static func == (lhs: Node, rhs: Node) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
 }

@@ -10,12 +10,16 @@ import Foundation
 
 protocol GenericPlayer: Codable {
     var name: String { get }
+    var team:  Team { get }
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }
     var interface: Interface? { get set }
     var node: Node? { get }
 
-    init(name: String, node: Node)
+    init(name: String, team: Team, node: Node)
+
+    // update money
+    func updateMoney(by amount: Int)
 
     // subscribes
     func getLocation() -> GameVariable<Location>

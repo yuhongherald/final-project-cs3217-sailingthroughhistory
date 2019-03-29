@@ -12,8 +12,8 @@ struct Path: Hashable, Codable {
     let fromObject: GameObject
     let toObject: GameObject
 
-    init(from: GameObject, to: GameObject) {
-        fromObject = from
-        toObject = to
+    init(from fromNode: GameObject, to toNode: GameObject) {
+        fromObject = fromNode
+        toObject = toNode
     }
 }

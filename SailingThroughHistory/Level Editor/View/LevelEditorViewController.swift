@@ -25,7 +25,7 @@ class LevelEditorViewController: UIViewController {
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"
 
-    var gameParameter = GameParameter(numOfPlayer: 2)
+    var gameParameter = GameParameter(teams: "Dutch", "British")
 
     var editMode: EditMode?
     private var lineLayer = CAShapeLayer()
@@ -79,16 +79,16 @@ class LevelEditorViewController: UIViewController {
         }
         // Add paths to map
         for path in map.getAllPaths() {
-            print("\(map.getAllPaths().count) - from: \(path.fromObject.frame) - to: \(path.toObject.frame)")
+            print("\(map.getAllPaths().count) - from: \(path.fromNode.frame) - to: \(path.toNode.frame)")
             lineLayer = CAShapeLayer()
             lineLayer.strokeColor = UIColor.black.cgColor
             lineLayer.lineWidth = 2.0
 
             let bazier = UIBezierPath()
-            bazier.move(to: CGPoint(x: path.fromObject.frame.midX,
-                                    y: path.fromObject.frame.midY))
-            bazier.addLine(to: CGPoint(x: path.toObject.frame.midX,
-                                       y: path.toObject.frame.midY))
+            bazier.move(to: CGPoint(x: path.fromNode.frame.midX,
+                                    y: path.fromNode.frame.midY))
+            bazier.addLine(to: CGPoint(x: path.toNode.frame.midX,
+                                       y: path.toNode.frame.midY))
 
             lineLayer.path = bazier.cgPath
             editingAreaWrapper.layer.addSublayer(lineLayer)

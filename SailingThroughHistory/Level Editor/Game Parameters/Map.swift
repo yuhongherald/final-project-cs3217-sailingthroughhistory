@@ -11,7 +11,7 @@ import UIKit
 class Map: Codable {
     var map = "worldmap1815"
     private var nodes = Set<Node>()
-    private var paths = [GameObject: [Path]]()
+    private var paths = [Node: [Path]]()
 
     func addMap(_ map: String) {
         self.map = map
@@ -28,7 +28,7 @@ class Map: Codable {
         for nodePath in paths {
             var pathArr = nodePath.value
             for (index, path) in pathArr.enumerated() {
-                if path.toObject == node || path.fromObject == node {
+                if path.toNode == node || path.fromNode == node {
                     pathArr.remove(at: index)
                 }
             }
@@ -36,16 +36,16 @@ class Map: Codable {
     }
 
     func add(path: Path) {
-        if paths[path.fromObject] == nil {
-            paths[path.fromObject] = []
+        if paths[path.fromNode] == nil {
+            paths[path.fromNode] = []
         }
 
-        if paths[path.toObject] == nil {
-            paths[path.toObject] = []
+        if paths[path.toNode] == nil {
+            paths[path.toNode] = []
         }
 
-        paths[path.fromObject]?.append(path)
-        paths[path.toObject]?.append(path)
+        paths[path.fromNode]?.append(path)
+        paths[path.toNode]?.append(path)
     }
 
     func getNodes() -> Set<Node> {
@@ -67,8 +67,8 @@ class Map: Codable {
     }
 
     func findNode(at point: CGPoint) -> Node? {
-        for node in nodes where node.frame.originX == Double(point.x) &&
-            node.frame.originY == Double(point.y) {
+        for node in nodes where node.frame.origin.x == point.x &&
+            node.frame.origin.y == point.y {
             return node
         }
         return nil
@@ -84,21 +84,31 @@ class Map: Codable {
         var nodesArrayForType = try container.nestedUnkeyedContainer(forKey: CodingKeys.nodes)
         var nodes = Set<Node>()
         while !nodesArrayForType.isAtEnd {
+            var nodeIDPair = [Int: Node]()
             let node = try nodesArrayForType.nestedContainer(keyedBy: NodeTypeKey.self)
             let type = try node.decode(NodeTypes.self, forKey: NodeTypeKey.type)
+            let identifier = try node.decode(Int.self, forKey: .identifier)
 
             switch type {
             case .port:
-                nodes.insert(try node.decode(Port.self, forKey: NodeTypeKey.node))
+                let node = try node.decode(Port.self, forKey: NodeTypeKey.node)
+                nodes.insert(node)
+                nodeIDPair[identifier] = node
             case .sea:
-                nodes.insert(try node.decode(Sea.self, forKey: NodeTypeKey.node))
+                let node = try node.decode(Sea.self, forKey: NodeTypeKey.node)
+                nodes.insert(node)
+                nodes.insert(node)
+                nodeIDPair[identifier] = node
             case .pirate:
-                nodes.insert(try node.decode(Pirate.self, forKey: NodeTypeKey.node))
+                let node = try node.decode(Pirate.self, forKey: NodeTypeKey.node)
+                nodes.insert(node)
+                nodes.insert(node)
+                nodeIDPair[identifier] = node
             }
         }
         self.nodes = nodes
 
-        self.paths = try container.decode([GameObject: [Path]].self, forKey: .paths)
+        self.paths = try container.decode([Node: [Path]].self, forKey: .paths)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -106,23 +116,30 @@ class Map: Codable {
         try container.encode(map, forKey: .map)
 
         var nodesWithType = [NodeWithType]()
-        for node in nodes {
+        var nodeIDPair = [Node: Int]()
+        for (identifier, node) in nodes.enumerated() {
             if node is Port {
-                nodesWithType.append(NodeWithType(node: node, type: NodeTypes.port))
+                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.port))
+                nodeIDPair[node] = identifier
             }
             if node is Sea {
-                nodesWithType.append(NodeWithType(node: node, type: NodeTypes.sea))
+                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.sea))
+                nodeIDPair[node] = identifier
             }
             if node is Pirate {
-                nodesWithType.append(NodeWithType(node: node, type: NodeTypes.pirate))
+                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.pirate))
+                nodeIDPair[node] = identifier
             }
         }
         try container.encode(nodesWithType, forKey: .nodes)
 
-        var simplifiedPaths = [GameObject: [Path]]()
-        for pair in paths {
-            let key = GameObject(image: pair.key.image, frame: pair.key.frame)
-            simplifiedPaths[key] = pair.value
+        var simplifiedPaths = [Int: Int]()
+        for pair in getAllPaths() {
+            guard let fromID = nodeIDPair[pair.fromNode],
+            let toID = nodeIDPair[pair.toNode] else {
+                continue
+            }
+            simplifiedPaths[fromID] = toID
         }
         try container.encode(simplifiedPaths, forKey: .paths)
     }
@@ -136,6 +153,7 @@ class Map: Codable {
     enum NodeTypeKey: String, CodingKey {
         case type
         case node
+        case identifier
     }
 
     enum NodeTypes: String, Codable {
@@ -144,10 +162,13 @@ class Map: Codable {
         case pirate
     }
 
-    struct NodeWithType: Codable {
+    struct NodeWithType: Codable, Hashable {
         var node: Node
         var type: NodeTypes
-        init(node: Node, type: NodeTypes) {
+        var identifier: Int
+
+        init(identifier: Int, node: Node, type: NodeTypes) {
+            self.identifier = identifier
             self.node = node
             self.type = type
         }
