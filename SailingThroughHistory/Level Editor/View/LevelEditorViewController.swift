@@ -25,7 +25,7 @@ class LevelEditorViewController: UIViewController {
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"
 
-    var gameParameter = GameParameter(teams: "Dutch", "British")
+    var gameParameter = GameParameter()
 
     var editMode: EditMode?
     private var lineLayer = CAShapeLayer()
