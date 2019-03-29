@@ -460,10 +460,85 @@
             </objects>
             <point key="canvasLocation" x="204" y="-307"/>
         </scene>
-        <!--View Controller-->
+        <!--Rooms Menu View Controller-->
+        <scene sceneID="m8x-ki-omo">
+            <objects>
+                <viewController id="asu-R7-WnI" customClass="RoomsMenuViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qh6-0c-Amp">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kYS-rv-5Bo">
+                                <rect key="frame" x="0.0" y="20" width="1024" height="672"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="roomCell" id="A6R-I0-ua4" customClass="RoomViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6R-I0-ua4" id="DQK-iJ-Nfl">
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUi-De-8mb">
+                                                    <rect key="frame" x="20" y="7.5" width="57" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oPf-d0-MG4" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                                    <rect key="frame" x="894" y="1.5" width="110" height="41"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <state key="normal" title="Join Room"/>
+                                                    <connections>
+                                                        <action selector="joinButtonPressed:" destination="A6R-I0-ua4" eventType="touchUpInside" id="Bz0-Gy-y1S"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="oPf-d0-MG4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gUi-De-8mb" secondAttribute="trailing" constant="8" symbolic="YES" id="Q2o-8G-gkP"/>
+                                                <constraint firstItem="gUi-De-8mb" firstAttribute="centerY" secondItem="DQK-iJ-Nfl" secondAttribute="centerY" id="UZM-tI-qGh"/>
+                                                <constraint firstItem="gUi-De-8mb" firstAttribute="leading" secondItem="DQK-iJ-Nfl" secondAttribute="leading" constant="20" symbolic="YES" id="gC8-rp-tiB"/>
+                                                <constraint firstItem="oPf-d0-MG4" firstAttribute="centerY" secondItem="DQK-iJ-Nfl" secondAttribute="centerY" id="gJf-db-gUX"/>
+                                                <constraint firstAttribute="trailing" secondItem="oPf-d0-MG4" secondAttribute="trailing" constant="20" symbolic="YES" id="qib-KQ-gtQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="joinButtonPressed" destination="oPf-d0-MG4" id="Zc6-gb-xbq"/>
+                                            <outlet property="roomNameLabel" destination="gUi-De-8mb" id="fdr-Rr-AY3"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Uk-83-Ryb" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="428" y="700" width="168" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Create Room"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kYS-rv-5Bo" firstAttribute="leading" secondItem="gMf-QG-eWL" secondAttribute="leading" id="HAL-w4-p23"/>
+                            <constraint firstItem="1Uk-83-Ryb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Qh6-0c-Amp" secondAttribute="topMargin" constant="20" id="Nfw-Bd-NOF"/>
+                            <constraint firstItem="1Uk-83-Ryb" firstAttribute="top" secondItem="kYS-rv-5Bo" secondAttribute="bottom" constant="8" symbolic="YES" id="SFe-w5-sOK"/>
+                            <constraint firstItem="gMf-QG-eWL" firstAttribute="bottom" secondItem="1Uk-83-Ryb" secondAttribute="bottom" constant="20" id="con-Nf-AaJ"/>
+                            <constraint firstItem="kYS-rv-5Bo" firstAttribute="top" secondItem="gMf-QG-eWL" secondAttribute="top" id="fqy-uP-Gzj"/>
+                            <constraint firstItem="gMf-QG-eWL" firstAttribute="trailing" secondItem="kYS-rv-5Bo" secondAttribute="trailing" id="g3r-gr-x0i"/>
+                            <constraint firstItem="1Uk-83-Ryb" firstAttribute="centerX" secondItem="Qh6-0c-Amp" secondAttribute="centerX" id="myz-Zj-Uwh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gMf-QG-eWL"/>
+                    </view>
+                    <connections>
+                        <outlet property="roomsTableView" destination="kYS-rv-5Bo" id="sso-Sd-uMC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iKc-j8-4as" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-587" y="-716"/>
+        </scene>
+        <!--Main Menu View Controller-->
         <scene sceneID="8Sb-ZB-ecq">
             <objects>
-                <viewController id="xnR-2a-N1z" sceneMemberID="viewController">
+                <viewController id="xnR-2a-N1z" customClass="MainMenuViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l0h-Op-m1z">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -484,6 +559,15 @@
                                 <state key="normal" title="Edit Game"/>
                                 <connections>
                                     <segue destination="fZz-0J-H6I" kind="show" id="lZJ-gH-OM7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7FK-dP-8rD" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="408" y="174" width="211" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="View Rooms"/>
+                                <connections>
+                                    <segue destination="asu-R7-WnI" kind="presentation" id="4EP-2g-W6V"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import RxSwift
 
 class Ship: Codable {
     var name: String {
@@ -285,21 +284,21 @@ class Ship: Codable {
 
 // MARK: - Observable values
 extension Ship {
-    func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void) {
+    func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void) {
         items.subscribe(with: observer)
     }
 
-    func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void) {
+    func subscribeToCargoWeight(with observer: @escaping (Int) -> Void) {
         currentCargoWeight.subscribe(with: observer)
     }
 
-    func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void) {
+    func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void) {
         weightCapacity.subscribe(with: observer)
     }
 
-    private func updateCargoWeight(event: Event<[GenericItem]>) {
+    private func updateCargoWeight(items: [GenericItem]) {
         var result = 0
-        for item in items.value {
+        for item in items {
             result += item.weight ?? 0
         }
         currentCargoWeight.value = result

@@ -6,12 +6,12 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import RxSwift
+import Foundation
 
 class Interface {
     let bounds: Rect
     let background: String = "worldmap1815.png"
-    let events = InterfacePublishSubject<InterfaceEvents>()
+    let events = GenericPublishSubject<InterfaceEvents>()
     let monthSymbols = Calendar.current.monthSymbols
     let players: [GenericPlayer]
     private(set) var pendingEvents = [InterfaceEvent]()
@@ -113,7 +113,7 @@ class Interface {
     ///   - player: The `Player` "owner" of the turn.
     ///   - timeLimit: The time limit (in seconds).
     ///   - timeOutCallback: Called when the time limit is reached.
-    func playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: @escaping () -> Void) {
+    func playerTurnStart(player: GenericPlayer, timeLimit: Double?, timeOutCallback: @escaping () -> Void) {
         pendingEvents.append(.playerTurnStart(player: player, timeLimit: timeLimit, timeOutCallback: timeOutCallback))
     }
 
@@ -197,8 +197,8 @@ class Interface {
     /// Subscribes to this Interface. The callback will be called when `InterfaceEvents` are broadcasted.
     ///
     /// - Parameter callback: Called when `InterfaceEvents` are broadcasted as the parameter.
-    func subscribe(callback: @escaping (Event<InterfaceEvents>) -> Void) {
-        return events.subscribe(callback: callback)
+    func subscribe(callback: @escaping (InterfaceEvents) -> Void) {
+        return events.subscribe(with: callback)
     }
 
     /// Add a pending operation to end the player turn

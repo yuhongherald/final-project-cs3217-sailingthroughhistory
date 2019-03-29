@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RxSwift
 
 protocol GenericPlayer: Codable {
     var name: String { get }
@@ -24,9 +23,9 @@ protocol GenericPlayer: Codable {
 
     // subscribes
     func getLocation() -> GameVariable<Location>
-    func subscribeToItems(with observer: @escaping (Event<[GenericItem]>) -> Void)
-    func subscribeToCargoWeight(with observer: @escaping (Event<Int>) -> Void)
-    func subscribeToWeightCapcity(with observer: @escaping (Event<Int>) -> Void)
+    func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void)
+    func subscribeToCargoWeight(with observer: @escaping (Int) -> Void)
+    func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void)
 
     // Before moving
     func startTurn(speedMultiplier: Double, map: Map?)
