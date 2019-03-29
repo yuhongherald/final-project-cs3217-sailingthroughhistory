@@ -15,6 +15,7 @@ protocol GenericPlayer: Codable {
     var state: GameVariable<PlayerState> { get }
     var interface: Interface? { get set }
     var node: Node? { get }
+    var hasRolled: Bool { get }
 
     init(name: String, team: Team, node: Node)
 
@@ -33,6 +34,7 @@ protocol GenericPlayer: Codable {
     func startTurn(speedMultiplier: Double, map: Map?)
     func buyUpgrade(upgrade: Upgrade)
     func setTax(port: Port, amount: Int)
+    func roll() -> Int
 
     // Moving - Auto progress to End turn if cannot dock
     func move(node: Node)
