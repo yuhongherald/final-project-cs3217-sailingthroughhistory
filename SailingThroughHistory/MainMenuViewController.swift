@@ -10,13 +10,21 @@ import UIKit
 import FirebaseFirestore
 
 class MainMenuViewController: UIViewController {
-    var connection: RoomConnection?
+    var connection = [RoomConnection?]()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment to test
-        /*let room = FirestoreRoom(named: "TestRoom", firestore: Firestore.firestore())
-        room.getConnection(removalCallback: { print("Dead") }) { [weak self] in
-            self?.connection = $0
-        }*/
+        var room = FirestoreRoom(named: "TestRoom")
+        room.getConnection(removalCallback: { print("Dead") }) { [weak self] (con, _) in
+            self?.connection.append(con)
+        }
+        room = FirestoreRoom(named: "TestRoom2")
+        room.getConnection(removalCallback: { print("Dead") }) { [weak self] (con, _) in
+            self?.connection.append(con)
+        }
+        room = FirestoreRoom(named: "TestRoom3")
+        room.getConnection(removalCallback: { print("Dead") }) { [weak self] (con, _) in
+            self?.connection.append(con)
+        }
     }
 }

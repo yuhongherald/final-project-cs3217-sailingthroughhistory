@@ -9,7 +9,6 @@
 import UIKit
 
 class RoomViewCell: UITableViewCell {
-    
     @IBOutlet private weak var joinButtonPressed: UIButton!
     @IBOutlet private weak var roomNameLabel: UILabel!
 

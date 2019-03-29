@@ -12,9 +12,9 @@ class FirestoreRoom: Room {
     let name: String
     private let firestore: Firestore
 
-    init(named name: String, firestore: Firestore) {
+    init(named name: String) {
         self.name = name
-        self.firestore = firestore
+        self.firestore = FirestoreConstants.firestore
     }
 
     static func getAllRooms(completion callback: @escaping ([Room]) -> Void) {
@@ -29,7 +29,7 @@ class FirestoreRoom: Room {
         }
 
         return roomDocuments
-            .map { FirestoreRoom(named: $0.documentID, firestore: Firestore.firestore()) }
+            .map { FirestoreRoom(named: $0.documentID) }
     }
 
     func getConnection(removalCallback: @escaping () -> Void,
@@ -38,7 +38,10 @@ class FirestoreRoom: Room {
     }
 
     static func deleteIfNecessary(named name: String) {
-        let playerCollectionReference = FirestoreConstants.roomCollection.document(name).collection(FirestoreConstants.playersCollectionName)
+        let playerCollectionReference = FirestoreConstants
+            .roomCollection
+            .document(name)
+            .collection(FirestoreConstants.playersCollectionName)
 
         func deleteIfEmpty(_: Error?) {
             playerCollectionReference.getDocuments(completion: { (snapshot, error) in
