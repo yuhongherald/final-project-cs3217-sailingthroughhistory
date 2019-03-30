@@ -50,7 +50,7 @@ class EmotionEngineTest: XCTestCase {
                                    logic.slowestGameSpeed)) < 0.001, "Wrong game speed!")
 
     }
-
+/*
     func testUpdateGameState() {
         let gameState = GameLogic(gameState: GameState(baseYear: 0))
         let logic = EmotionEngine(gameLogic: gameState)
@@ -63,4 +63,5 @@ class EmotionEngineTest: XCTestCase {
         }
         stopwatch.stop()
     }
+ */
 }

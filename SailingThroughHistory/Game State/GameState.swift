@@ -13,6 +13,7 @@ class GameState: GenericGameState {
 
     private var interface: Interface?
     private var map: Map?
+    private var teams = [GenericTeam]()
     private var players = [GenericPlayer]()
     private var speedMultiplier = 1.0
 
@@ -54,6 +55,7 @@ class GameState: GenericGameState {
     }
 
     func loadLevel(level: GenericLevel) {
+        teams = level.teams
         players = level.getPlayers()
         for var player in players {
             player.interface = interface

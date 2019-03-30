@@ -14,7 +14,11 @@ class GameParameter: GenericLevel, Codable {
     var teams = [Team]()
     var numOfTurn = GameConstants.numOfTurn
     var timeLimit = Int(GameConstants.playerTurnDuration)
-    var map = Map()
+    var map: Map
+
+    init(map: Map) {
+        self.map = map
+    }
 
     func getPlayerParameters() -> [PlayerParameter] {
         return playerParameters

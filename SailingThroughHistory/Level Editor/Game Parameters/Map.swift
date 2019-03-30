@@ -9,12 +9,25 @@
 import UIKit
 
 class Map: Codable {
-    var map = "worldmap1815"
+    var map: String
     private var nodes = Set<Node>()
     private var paths = [Node: [Path]]()
+    private var bounds: Rect
 
-    func addMap(_ map: String) {
+    init(map: String, bounds: Rect?) {
+        guard let unwrappedBounds = bounds else {
+            fatalError("Map bounds shouldn't be nil.")
+        }
         self.map = map
+        self.bounds = unwrappedBounds
+    }
+
+    func changeBackground(_ map: String, with bounds: Rect?) {
+        guard let unwrappedBounds = bounds else {
+            fatalError("Map bounds shouldn't be nil.")
+        }
+        self.map = map
+        self.bounds = unwrappedBounds
     }
 
     func addNode(_ node: Node) {
@@ -74,8 +87,6 @@ class Map: Codable {
         return nil
     }
 
-    init() {}
-
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -109,6 +120,7 @@ class Map: Codable {
         self.nodes = nodes
 
         self.paths = try container.decode([Node: [Path]].self, forKey: .paths)
+        self.bounds = try container.decode(Rect.self, forKey: .bounds)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -142,12 +154,14 @@ class Map: Codable {
             simplifiedPaths[fromID] = toID
         }
         try container.encode(simplifiedPaths, forKey: .paths)
+        try container.encode(bounds, forKey: .bounds)
     }
 
     enum CodingKeys: String, CodingKey {
         case map
         case nodes
         case paths
+        case bounds
     }
 
     enum NodeTypeKey: String, CodingKey {

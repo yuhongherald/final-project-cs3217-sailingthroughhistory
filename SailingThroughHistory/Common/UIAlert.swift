@@ -11,7 +11,7 @@ import UIKit
 class UIAlert {
     private var controller: UIAlertController!
 
-    init(title: String, msg: String? = nil, confirm: @escaping (String)->Void,
+    init(title: String, msg: String? = nil, confirm: @escaping (String) -> Void,
          textPlaceHolder: String) {
         controller = UIAlertController(title: title, message: msg, preferredStyle: .alert)
 
@@ -43,6 +43,6 @@ class UIAlert {
     }
 
     func present(in controller: UIViewController) {
-        controller.present(controller, animated: true, completion: nil)
+        controller.present(self.controller, animated: true, completion: nil)
     }
 }

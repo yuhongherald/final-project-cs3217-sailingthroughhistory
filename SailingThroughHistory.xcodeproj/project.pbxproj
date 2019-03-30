@@ -743,6 +743,7 @@
 				BA48591022410CC7009ED2F6 /* ShipUI.swift */,
 				BA485903223F9112009ED2F6 /* Location.swift */,
 				1A53D7C5224CA5FE00FAE214 /* Team.swift */,
+				BA91906F223F446800009F49 /* Upgrade.swift */,
 			);
 			path = "Game State";
 			sourceTree = "<group>";
@@ -787,7 +788,6 @@
 			isa = PBXGroup;
 			children = (
 				BA919073223F44A400009F49 /* GameParameter.swift */,
-				BA91906F223F446800009F49 /* Upgrade.swift */,
 				BA919071223F447F00009F49 /* ItemParameter.swift */,
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
 				BA485901223F8B6E009ED2F6 /* Consumable.swift */,
