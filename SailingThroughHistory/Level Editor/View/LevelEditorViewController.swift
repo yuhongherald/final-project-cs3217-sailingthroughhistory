@@ -25,7 +25,16 @@ class LevelEditorViewController: UIViewController {
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"
 
-    var gameParameter = GameParameter(teams: ["Dutch", "British"])
+    lazy var gameParameter: GameParameter = {
+        let mapName = "world1815"
+        var bounds = Rect(originX: 0, originY: 0,
+                          height: Double(view.bounds.size.height), width: Double(view.bounds.size.width))
+        if let size = UIImage(named: "world1815")?.size {
+            bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
+        }
+        let map = Map(map: mapName, bounds: bounds)
+        return GameParameter(map: map, teams: ["Dutch", "British"])
+    }()
 
     var editMode: EditMode?
     private var lineLayer = CAShapeLayer()
@@ -121,7 +130,13 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
-            self.gameParameter.map.addMap("\(name)background")
+            var bounds = Rect(originX: 0, originY: 0,
+                              height: Double(self.view.bounds.size.height),
+                              width: Double(self.view.bounds.size.width))
+            if let size = self.mapBackground.image?.size {
+                bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
+            }
+            self.gameParameter.map.changeBackground("\(name)background", with: bounds)
             self.storage.save(self.gameParameter, self.mapBackground.image,
                               preview: self.editingAreaWrapper.screenShot, with: name)
         }, textPlaceHolder: "Input level name here")

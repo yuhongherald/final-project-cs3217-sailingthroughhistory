@@ -15,9 +15,10 @@ class GameParameter: GenericLevel, Codable {
     var teams = [Team]()
     var numOfTurn = GameConstants.numOfTurn
     var timeLimit = Int(GameConstants.playerTurnDuration)
-    var map = Map()
+    var map: Map
 
-    required init(teams: [String]) {
+    required init(map: Map, teams: [String]) {
+        self.map = map
         for teamName in teams {
             self.teams.append(Team(name: teamName))
         }

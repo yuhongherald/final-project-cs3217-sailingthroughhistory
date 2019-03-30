@@ -16,5 +16,4 @@ class UpdatablePirate: GameObject, Updatable {
     func checkForEvent() -> GenericGameEvent? {
         return nil
     }
-    
 }

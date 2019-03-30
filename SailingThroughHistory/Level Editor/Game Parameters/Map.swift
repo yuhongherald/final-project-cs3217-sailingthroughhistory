@@ -9,7 +9,7 @@
 import UIKit
 
 class Map: Codable {
-    var map = "worldmap1815"
+    var map: String
     private var nodes = GameVariable(value: Set<Node>())
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
     private var paths: [Node: [Path]] {
@@ -21,9 +21,22 @@ class Map: Codable {
             return pathsVariable.value
         }
     }
+    private var bounds: Rect
 
-    func addMap(_ map: String) {
+    init(map: String, bounds: Rect?) {
+        guard let unwrappedBounds = bounds else {
+            fatalError("Map bounds shouldn't be nil.")
+        }
         self.map = map
+        self.bounds = unwrappedBounds
+    }
+
+    func changeBackground(_ map: String, with bounds: Rect?) {
+        guard let unwrappedBounds = bounds else {
+            fatalError("Map bounds shouldn't be nil.")
+        }
+        self.map = map
+        self.bounds = unwrappedBounds
     }
 
     func addNode(_ node: Node) {
@@ -91,17 +104,16 @@ class Map: Codable {
         pathsVariable.subscribe(with: callback)
     }
 
-    init() {}
-
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.map = try container.decode(String.self, forKey: .map)
+        self.bounds = try container.decode(Rect.self, forKey: .bounds)
 
         var nodesArrayForType = try container.nestedUnkeyedContainer(forKey: CodingKeys.nodes)
         var nodes = Set<Node>()
+        var nodeIDPair = [Int: Node]()
         while !nodesArrayForType.isAtEnd {
-            var nodeIDPair = [Int: Node]()
             let node = try nodesArrayForType.nestedContainer(keyedBy: NodeTypeKey.self)
             let type = try node.decode(NodeTypes.self, forKey: NodeTypeKey.type)
             let identifier = try node.decode(Int.self, forKey: .identifier)
@@ -125,7 +137,26 @@ class Map: Codable {
         }
         self.nodes.value = nodes
 
-        self.paths = try container.decode([Node: [Path]].self, forKey: .paths)
+        let pathDictionary = try container.decode([Int: [Int]].self, forKey: .paths)
+        for pair in pathDictionary {
+            guard let fromNode = nodeIDPair[pair.key] else {
+                continue
+            }
+            if paths[fromNode] == nil {
+                paths[fromNode] = []
+            }
+            for toID in pair.value {
+                guard let toNode = nodeIDPair[toID] else {
+                    continue
+                }
+                paths[fromNode]?.append(Path(from: fromNode, to: toNode))
+                if paths[toNode] == nil {
+                    paths[toNode] = []
+                }
+                paths[toNode]?.append(Path(from: toNode, to: fromNode))
+            }
+        }
+        self.pathsVariable.value = paths
     }
 
     func encode(to encoder: Encoder) throws {
@@ -150,21 +181,26 @@ class Map: Codable {
         }
         try container.encode(nodesWithType, forKey: .nodes)
 
-        var simplifiedPaths = [Int: Int]()
+        var simplifiedPaths = [Int: [Int]]()
         for pair in getAllPaths() {
             guard let fromID = nodeIDPair[pair.fromNode],
-            let toID = nodeIDPair[pair.toNode] else {
-                continue
+                let toID = nodeIDPair[pair.toNode] else {
+                    continue
             }
-            simplifiedPaths[fromID] = toID
+            if simplifiedPaths[fromID] == nil {
+                simplifiedPaths[fromID] = []
+            }
+            simplifiedPaths[fromID]?.append(toID)
         }
         try container.encode(simplifiedPaths, forKey: .paths)
+        try container.encode(bounds, forKey: .bounds)
     }
 
     enum CodingKeys: String, CodingKey {
         case map
         case nodes
         case paths
+        case bounds
     }
 
     enum NodeTypeKey: String, CodingKey {

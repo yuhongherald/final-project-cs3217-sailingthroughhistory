@@ -62,6 +62,7 @@ class GameState: GenericGameState {
     }
 
     func loadLevel(level: GenericLevel) {
+        teams = level.teams
         initializePlayersFromParameters(parameters: level.playerParameters)
         for var player in players {
             player.interface = interface

@@ -17,5 +17,5 @@ protocol GenericLevel {
     var timeLimit: Int { get set }
     var map: Map { get }
 
-    init(teams: [String])
+    init(map: Map, teams: [String])
 }
