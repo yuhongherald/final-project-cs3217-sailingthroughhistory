@@ -17,13 +17,13 @@ class GameObject: ReadOnlyGameObject, BaseGameObject {
 
     var displayName: String {
         didSet {
-            objects[Field.displayName.rawValue] = displayName
+            setObjectField(field: Field.displayName, object: displayName)
         }
     }
 
     var identifier: Int {
         didSet {
-            objects[Field.identifier.rawValue] = identifier
+            setObjectField(field: Field.identifier, object: identifier)
         }
     }
 
@@ -89,12 +89,16 @@ class GameObject: ReadOnlyGameObject, BaseGameObject {
             self.identifier = identifier
         }
 
-        for observer in events.values {
-            observer.notify(eventUpdate: EventUpdate(oldValue: objects[field], newValue: object))
-        }
-        objects[field] = object
+        setObjectField(field: objectField, object: object)
 
         return true
+    }
+
+    private func setObjectField(field: Field, object: Any?) {
+        for observer in events.values {
+            observer.notify(eventUpdate: EventUpdate(oldValue: objects[field.rawValue], newValue: object))
+        }
+        objects[field.rawValue] = object
     }
 
     private func initializeFields() {
@@ -109,7 +113,7 @@ class GameObject: ReadOnlyGameObject, BaseGameObject {
 
     func set(frame: Rect) {
         self.frame.value = frame
-        self.objects[Field.frame.rawValue] = frame
+        setObjectField(field: .frame, object: frame)
     }
 
     private enum CodingKeys: String, CodingKey {
