@@ -9,15 +9,13 @@
 import UIKit
 
 class ShipUI: GameObject {
-
-    private let shipImagePath = "ship.png"
     private let shipWidth: Double = 50
 
     init(ship: Ship) {
         guard let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) else {
             fatalError("shipWidth is invalid.")
         }
-        super.init(image: shipImagePath, frame: frame)
+        super.init(image: "", frame: frame)
         ship.location.subscribe(with: moveShip)
     }
 

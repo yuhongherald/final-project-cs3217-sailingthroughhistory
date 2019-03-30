@@ -9,7 +9,10 @@
 // gameobjects should all inherit from this
 protocol BaseGameObject: SerializableGameObject {
     var events: [Int: Observer] { get set }
-    var objects: [String: AnyObject] { get set }
+    var objects: [String: Any] { get set }
+    func addObserver(observer: Observer)
+    func removeObserver(observer: Observer)
+    func setField(field: String, object: Any?) -> Bool
 }
 
 extension BaseGameObject {
@@ -22,7 +25,7 @@ extension BaseGameObject {
     func removeObserver(observer: Observer) {
         events[observer.identifier] = nil
     }
-    func setField(field: String, object: AnyObject) -> Bool {
+    func setField(field: String, object: Any?) -> Bool {
         if !fields.contains(field) {
             return false
         }
