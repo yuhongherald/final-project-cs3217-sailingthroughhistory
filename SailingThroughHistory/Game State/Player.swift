@@ -140,7 +140,7 @@ extension Player {
     private func preventPlayerBankruptcy(amount: Int) {
         interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-amount) amount of donations from your company. Try not to go negative again!")
         interface?.broadcastInterfaceChanges(withDuration: 0.5)
-        team.updateMoney(by: -value)
+        team.updateMoney(by: -amount)
         money.value = 0
     }
 }
