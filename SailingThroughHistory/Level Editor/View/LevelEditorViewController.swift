@@ -33,7 +33,7 @@ class LevelEditorViewController: UIViewController {
             bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
         }
         let map = Map(map: mapName, bounds: bounds)
-        return GameParameter(map: map)
+        return GameParameter(map: map, teams: ["Dutch", "British"])
     }()
 
     var editMode: EditMode?
@@ -77,14 +77,14 @@ class LevelEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        menuDest?.data = gameParameter.getPlayerParameters()
+        menuDest?.data = gameParameter.playerParameters
         playerMenu.isUserInteractionEnabled = true
 
-        let map = gameParameter.getMap()
+        let map = gameParameter.map
         // Add nodes to map
         map.getNodes().forEach {
             let nodeView = NodeView(node: $0)
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.getMap(), with: initNodeGestures())
+            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: initNodeGestures())
         }
         // Add paths to map
         for path in map.getAllPaths() {
@@ -136,8 +136,7 @@ class LevelEditorViewController: UIViewController {
             if let size = self.mapBackground.image?.size {
                 bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
             }
-            self.gameParameter.getMap().changeBackground("\(name)background", with: bounds)
-            print("size of image: \(self.mapBackground.image?.size)")
+            self.gameParameter.map.changeBackground("\(name)background", with: bounds)
             self.storage.save(self.gameParameter, self.mapBackground.image,
                               preview: self.editingAreaWrapper.screenShot, with: name)
         }, textPlaceHolder: "Input level name here")
@@ -159,7 +158,7 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
                 return
             }
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.getMap(), with: self.initNodeGestures())
+            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }
@@ -169,7 +168,7 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = sender.view as? NodeView else {
                 return
             }
-            nodeView.removeFrom(map: self.gameParameter.getMap())
+            nodeView.removeFrom(map: self.gameParameter.map)
         }
         if editMode == .item {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -261,7 +260,7 @@ class LevelEditorViewController: UIViewController {
 
             bazier.addLine(to: toNode.center)
 
-            gameParameter.getMap().add(path: Path(from: fromNode.node, to: toNode.node))
+            gameParameter.map.add(path: Path(from: fromNode.node, to: toNode.node))
             lineLayer.path = bazier.cgPath
         default:
             return

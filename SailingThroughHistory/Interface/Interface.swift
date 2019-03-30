@@ -30,7 +30,7 @@ class Interface {
     ///
     /// - Parameter object: The `ReadOnlyGameObject` to add.
     func add(object: ReadOnlyGameObject) {
-        pendingEvents.append(.addObject(object, atFrame: object.frame))
+        pendingEvents.append(.addObject(object, atFrame: object.frame.value))
     }
 
     /// Add a pending operation to add the given object to the interface. Once commited/broadcasted, the path will be
@@ -84,7 +84,7 @@ class Interface {
     ///
     /// - Parameter object: The `ReadOnlyGameObject` to add.
     func updatePosition(of object: ReadOnlyGameObject) {
-        pendingEvents.append(.move(object, toFrame: object.frame))
+        pendingEvents.append(.move(object, toFrame: object.frame.value))
     }
 
     /// Add a pending operation to update the month displayed on the interface. Months are indexed from 0-11 (inclusive)

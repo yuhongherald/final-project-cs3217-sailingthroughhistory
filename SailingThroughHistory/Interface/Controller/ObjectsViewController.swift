@@ -8,9 +8,11 @@
 
 import UIKit
 
-struct ObjectsViewController {
+class ObjectsViewController {
     private var views = [ObjectIdentifier: UIGameObjectImageView]()
     private let mainController: MainGameViewController
+    private var nodeViews = [Node: UIImageView]()
+    private var pathViews = [Node: [Path]]()
     private let view: UIView
 
     init(view: UIView, mainController: MainGameViewController) {
@@ -33,6 +35,44 @@ struct ObjectsViewController {
             onTapPort(portView: objectView)
             return
         }
+    }
+
+    func subscribeToNodes(in map: Map) {
+        map.subscribeToNodes { [weak self] nodes in
+            for node in nodes {
+                if self?.nodeViews[node] != nil {
+                    continue
+                }
+
+                let nodeView = UIImageView(frame: CGRect(fromRect: node.frame))
+                nodeView.image = self?.getImageFor(node: node)
+                self?.view.addSubview(nodeView)
+                self?.nodeViews[node] = nodeView
+            }
+        }
+    }
+
+    func subscribeToPaths(in map: Map) {
+        map.subscribeToPaths { [weak self] nodePaths in
+            let paths = Set(nodePaths.values.flatMap { $0 })
+            for path in paths {
+                
+            }
+        }
+    }
+
+    /// TODO
+    func subscribeToObjects(in map: Map) {
+    }
+
+    private func getImageFor(node: Node) -> UIImage? {
+        if node as? Sea != nil {
+            return UIImage(named: "sea-node")
+        } else if node as? Port != nil {
+            return UIImage(named: "port-node")
+        }
+
+        return nil
     }
 
     private func onTapChoosableNode(nodeView: UIGameObjectImageView) {
@@ -60,9 +100,9 @@ struct ObjectsViewController {
         mainController.showInformation(ofPort: port)
     }
 
-    mutating func add(object: ReadOnlyGameObject, at frame: Rect, withDuration duration: TimeInterval,
+    func add(object: ReadOnlyGameObject, at frame: Rect, withDuration duration: TimeInterval,
                       callback: @escaping () -> Void) {
-        let objectIdentifier = ObjectIdentifier(object)
+        /*let objectIdentifier = ObjectIdentifier(object)
         views[objectIdentifier]?.removeFromSuperview()
         let image = UIImage(named: object.image)
         let view = UIGameObjectImageView(image: image, object: object)
@@ -81,10 +121,10 @@ struct ObjectsViewController {
                                             otherFrame: CGRect(fromRect: frame), to: self.view.bounds)
         UIView.animate(withDuration: duration, animations: {
             view.alpha = 1
-        }, completion: { _ in callback() })
+        }, completion: { _ in callback() })*/
     }
 
-    mutating func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
+    func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
         guard let view = views.removeValue(forKey: ObjectIdentifier(object)) else {
             callback()
             return

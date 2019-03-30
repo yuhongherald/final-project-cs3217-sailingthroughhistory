@@ -6,16 +6,16 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class ShipUI: GameObject {
+import UIKit
 
-    private let shipImagePath = "ship.png"
+class ShipUI: GameObject {
     private let shipWidth: Double = 50
 
     init(ship: Ship) {
         guard let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) else {
             fatalError("shipWidth is invalid.")
         }
-        super.init(image: shipImagePath, frame: frame)
+        super.init(image: "", frame: frame)
         ship.location.subscribe(with: moveShip)
     }
 
@@ -37,7 +37,7 @@ class ShipUI: GameObject {
             fatalError("New frame is invalid")
         }
 
-        self.frame = frame
+        self.frame.value = frame
     }
 
 }

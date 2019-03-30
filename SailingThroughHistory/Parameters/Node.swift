@@ -11,19 +11,19 @@ import UIKit
 class Node: Codable {
     let name: String
     let image: String
-    let frame: CGRect
+    let frame: Rect
 
     init(name: String, image: String, frame: Rect) {
         self.name = name
         self.image = image
-        self.frame = CGRect()
+        self.frame = frame
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
         image = try values.decode(String.self, forKey: .image)
-        frame = try values.decode(CGRect.self, forKey: .frame)
+        frame = try values.decode(Rect.self, forKey: .frame)
     }
 
     func encode(to encoder: Encoder) throws {
