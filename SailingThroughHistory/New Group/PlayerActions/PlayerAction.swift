@@ -12,5 +12,5 @@ enum PlayerAction {
     case move(to: Node)
     case forceMove(to: Node)
     case setTax(for: Port, taxAmount: Int)
-    case setEvent(changeType: ChangeType, events: [ReadOnlyEventCondition])
+    case setEvent(changeType: ChangeType, events: [TurnSystemEvent])
 }

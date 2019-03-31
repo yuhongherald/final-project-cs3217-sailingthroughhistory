@@ -7,21 +7,28 @@
 //
 
 class TurnSystem: GenericTurnSystem {
-    private enum State {
+    enum State {
         case ready
         case waitForTurnFinish
         case waitForStateUpdate
         case invalid
     }
     private var state: State = .ready
+    private var isBlocking: Bool = false
+    private var data: GenericTurnSystemState = TurnSystemState() // TODO: Use actual
 
-    init(isMaster: Bool) {
-        
+    init(isMaster: Bool, data: GenericTurnSystemState) {
+        // TODO: Support master node
     }
 
     // TODO: Add to protocol and also do a running gamestate
     func startGame() {
-        //
+        state = .waitForTurnFinish
+    }
+
+    // for testing
+    func getState() -> TurnSystem.State {
+        return state
     }
 
     /// Returns false if action is invalid
@@ -64,43 +71,57 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    private func setEvents(changeType: ChangeType, events: [ReadOnlyEventCondition]) -> Bool {
+    private func setEvents(changeType: ChangeType, events: [TurnSystemEvent]) -> Bool {
         switch changeType {
         case .add:
-            return false
-        case .remove: // TODO: Add support for removing events
-            return false
+            return data.addEvents(events: events)
+        case .remove:
+            return data.removeEvents(events: events)
         case .set:
-            return false
+            return data.setEvents(events: events)
         }
     }
+
     // TODO: Fix the gamestate sent back
     func watchMasterUpdate(gameState: GenericGameState) {
-        if state != .waitForStateUpdate {
+        if state != .waitForStateUpdate || isBlocking {
             return
         }
+        isBlocking = true
+        isBlocking = false
     }
 
-    func watchTurnFinished(playerActions: [PlayerAction]) {
+    func watchTurnFinished(playerActions: [(GenericPlayer, [PlayerAction])]) {
         // make player actions
-        if state != .waitForTurnFinish {
+        if state != .waitForTurnFinish || isBlocking {
             return
         }
-        evaluateState()
-        checkForEvents()
+        isBlocking = true
+        for (player, actions) in playerActions {
+            evaluateState(player: player, actions: actions)
+        }
         updateStateMaster()
+        isBlocking = false
     }
 
-    private func evaluateState() {
-        //
+    private func evaluateState(player: GenericPlayer, actions: [PlayerAction]) {
+        var actions = actions
+        while !actions.isEmpty {
+            checkForEvents()
+            if !makeAction(for: player, action: actions.removeFirst()) {
+                print("Invalid action from server, dropping action")
+            }
+        }
     }
 
     private func checkForEvents() {
-        //
+        for event in data.triggeredEvents {
+            event.executeActions()
+        }
     }
 
     private func updateStateMaster() {
-        //
+        // TODO: Interface with network
     }
 
 }
