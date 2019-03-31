@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+// TODO: Do memory management in deinit
 protocol TurnSystemEvent: Observable, Observer {
     // triggers are or styled
     var triggers: [ReadOnlyEventTrigger] { get }

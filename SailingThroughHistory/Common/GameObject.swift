@@ -7,9 +7,12 @@
 //
 
 class GameObject: ReadOnlyGameObject, BaseGameObject {
+
+    var evaluators: [GenericEvaluateOperator] = []
+
     var events = [Int: Observer]()
 
-    var objects = [String: Any]()
+    var objects = [String: Any?]()
 
     var fields: [String] = Field.allCases.map { $0.rawValue }
 

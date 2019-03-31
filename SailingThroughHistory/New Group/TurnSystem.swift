@@ -15,10 +15,12 @@ class TurnSystem: GenericTurnSystem {
     }
     private var state: State = .ready
     private var isBlocking: Bool = false
-    private var data: GenericTurnSystemState = TurnSystemState() // TODO: Use actual
+    var data: GenericTurnSystemState
+    var isMaster: Bool = true
 
     init(isMaster: Bool, data: GenericTurnSystemState) {
-        // TODO: Support master node
+        self.isMaster = isMaster
+        self.data = data
     }
 
     // TODO: Add to protocol and also do a running gamestate
