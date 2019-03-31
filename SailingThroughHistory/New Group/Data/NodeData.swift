@@ -13,15 +13,17 @@ class NodeData: UniqueObject, BaseGameObject {
     var displayName: String
     var events: [Int : Observer] = [Int: Observer]()
     var objects: [String : Any?] = [String: Any?]()
-    var fields: [String] = []
-    
+    var fields: [String] = [
+        "Neighbors"
+    ]
+
     init(displayName: String) {
         self.displayName = displayName
         super.init()
+        _ = setField(field: fields[0], object: [NodeData]())
     }
-    
+
     func setField(field: String, object: Any?) -> Bool {
         return false
     }
-    
 }

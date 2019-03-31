@@ -9,7 +9,7 @@
 class EdgeData: UniqueObject, BaseGameObject {
     var operators: [GenericOperator] = []
     var evaluators: [GenericEvaluateOperator] = []
-    
+
     var displayName: String
     var events: [Int : Observer] = [Int: Observer]()
     var objects: [String : Any?] = [String: Any?]()
@@ -17,14 +17,15 @@ class EdgeData: UniqueObject, BaseGameObject {
         "From",
         "To"
     ]
-    
+
     init(displayName: String, from: NodeData, to: NodeData) {
         self.displayName = displayName
         super.init()
         _ = setField(field: fields[0], object: from)
         _ = setField(field: fields[1], object: to)
+        from.getField(field: from.fields[0]) as? [NodeData]
     }
-    
+
     func setField(field: String, object: Any?) -> Bool {
         switch field {
         case fields[0]:
@@ -41,5 +42,5 @@ class EdgeData: UniqueObject, BaseGameObject {
         objects[field] = object
         return true
     }
-    
+
 }

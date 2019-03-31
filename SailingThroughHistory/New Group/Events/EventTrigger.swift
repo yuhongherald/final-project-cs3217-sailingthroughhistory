@@ -29,13 +29,13 @@ class EventTrigger: UniqueObject, ReadOnlyEventTrigger {
             observer.notify(eventUpdate: update)
         }
     }
-    
+
     func addObserver(observer: Observer) {
         observers[observer.identifier] = observer
     }
-    
+
     func removeObserver(observer: Observer) {
         observers.removeValue(forKey: observer.identifier)
     }
-    
+
 }

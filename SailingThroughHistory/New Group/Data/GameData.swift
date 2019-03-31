@@ -18,8 +18,10 @@ class GameData: UniqueObject, BaseGameObject {
     "Map"
     ]
 
-    init(displayName: String) {
+    init(displayName: String, players: [Player], map: MapData) {
         self.displayName = displayName
         super.init()
+        setField(field: fields[0], object: players)
+        setField(field: fields[1], object: map)
     }
 }

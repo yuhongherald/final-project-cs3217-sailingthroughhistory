@@ -109,17 +109,22 @@ class TurnSystem: GenericTurnSystem {
     private func evaluateState(player: GenericPlayer, actions: [PlayerAction]) {
         var actions = actions
         while !actions.isEmpty {
-            checkForEvents()
+            while checkForEvents() {
+            }
             if !makeAction(for: player, action: actions.removeFirst()) {
                 print("Invalid action from server, dropping action")
             }
         }
     }
 
-    private func checkForEvents() {
+    private func checkForEvents() -> Bool {
+        if data.triggeredEvents.isEmpty {
+            return false
+        }
         for event in data.triggeredEvents {
             event.executeActions()
         }
+        return true
     }
 
     private func updateStateMaster() {

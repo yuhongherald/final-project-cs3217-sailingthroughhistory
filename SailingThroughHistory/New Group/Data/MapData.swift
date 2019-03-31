@@ -16,11 +16,15 @@ class MapData: UniqueObject, BaseGameObject {
     var fields: [String] = [
         "Nodes",
         "Edges"
-        // TODO: Getting from an array seems to be a big problem, enumerate ints?
+        // TODO: Getting from an array seems to be a big problem, performance hit.
+        // Enumerate ints
     ]
     
     init(displayName: String) {
         self.displayName = displayName
         super.init()
+        _ = setField(field: fields[0], object: [NodeData]())
+        _ = setField(field: fields[1], object: [EdgeData]())
     }
+
 }

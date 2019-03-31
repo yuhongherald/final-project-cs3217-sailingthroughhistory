@@ -17,6 +17,7 @@ class InventoryData: UniqueObject, BaseGameObject {
         "Capacity",
         "Opium"
         // add other item support here
+        // TODO: Current items have no weight. Introduce weights using item table
     ]
     
     init(displayName: String, capacity: Int) {
