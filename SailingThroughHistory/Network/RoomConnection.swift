@@ -16,11 +16,11 @@ protocol RoomConnection {
     func push(currentState: GameState, completion callback: @escaping (Error?) -> Void) throws
 
     /// TODO: CHANGE TYPE
-    func subscribeToActions(for turn: Int, callback: @escaping ([[Map]], Error?) -> Void)
+    func subscribeToActions(for turn: Int, callback: @escaping ([[PlayerAction]], Error?) -> Void)
 
     func subscribeToPlayerTeams()
 
-    func push(actions: [Map], fromPlayer player: Player,
+    func push(actions: [PlayerAction], fromPlayer player: Player,
               forTurnNumbered turn: Int,
               completion callback: @escaping (Error?) -> ()) throws
 

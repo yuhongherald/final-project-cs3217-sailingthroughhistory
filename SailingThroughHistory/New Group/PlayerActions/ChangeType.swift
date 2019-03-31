@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-enum ChangeType {
+enum ChangeType: String, Codable {
     case add
     case remove
     case set
