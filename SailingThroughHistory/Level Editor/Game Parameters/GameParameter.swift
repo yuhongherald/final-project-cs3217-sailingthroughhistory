@@ -21,6 +21,7 @@ class GameParameter: GenericLevel, Codable {
         self.map = map
         for teamName in teams {
             self.teams.append(Team(name: teamName))
+            self.playerParameters.append(PlayerParameter(name: "\(teamName)-player", teamName: teamName, node: nil))
         }
     }
 

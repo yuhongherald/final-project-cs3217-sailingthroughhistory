@@ -226,7 +226,7 @@ class LevelEditorViewController: UIViewController {
         startingNode = fromNode
 
         let endPoint = sender.location(in: mapBackground)
-        let endView = view.hitTest(endPoint, with: nil) as? NodeView
+        let endView = editingAreaWrapper.hitTest(endPoint, with: nil) as? NodeView
         if endView != nil {
             destination = endView
             destination?.highlighted(true)

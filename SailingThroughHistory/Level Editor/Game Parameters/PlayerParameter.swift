@@ -25,7 +25,7 @@ class PlayerParameter: Codable {
         name = try values.decode(String.self, forKey: .name)
         teamName = try values.decode(String.self, forKey: .teamName)
         let moneyValue = try values.decode(Int.self, forKey: .money)
-        startingNode = try values.decode(Node.self, forKey: .node)
+        startingNode = try values.decode(Node?.self, forKey: .node)
         money = GameVariable(value: moneyValue)
     }
 
@@ -69,6 +69,7 @@ class PlayerParameter: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
+        try container.encode(teamName, forKey: .teamName)
         try container.encode(money.value, forKey: .money)
         try container.encode(startingNode, forKey: .node)
     }
