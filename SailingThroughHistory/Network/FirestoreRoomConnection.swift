@@ -177,7 +177,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     /// TODO: CHANGE TYPE
-    func subscribeToActions(for turn: Int, callback: @escaping ([[Map]], Error?) -> Void) {
+    func subscribeToActions(for turn: Int, callback: @escaping ([[PlayerAction]], Error?) -> Void) {
         listeners.append(turnActionsDocumentRef.collection(String(turn)).addSnapshotListener { (query, queryError) in
             guard let snapshot = query else {
                 callback([], NetworkError.pullError(message: "Snapshot is nil for turn actions"))
@@ -191,8 +191,7 @@ class FirebaseRoomConnection: RoomConnection {
 
             do {
                 let actions = try snapshot.documents.map {
-                    /// TODO: CHANGE TYPE
-                    try FirebaseDecoder.init().decode([Map].self, from: $0.data())
+                    try FirebaseDecoder.init().decode([PlayerAction].self, from: $0.data())
                 }
                 callback(actions, nil)
             } catch {
@@ -218,7 +217,7 @@ class FirebaseRoomConnection: RoomConnection {
         docRef.setData(data, completion: callback)
     }
 
-    func push(actions: [Map], fromPlayer player: Player, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> ()) throws {
+    func push(actions: [PlayerAction], fromPlayer player: Player, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> ()) throws {
         /// TODO: Change collection
         /// Room doc -> runtimeinfo(col) -> TurnActions (doc) -> Turn1...Turn999 (col)
         try push(actions,

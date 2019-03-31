@@ -12,7 +12,8 @@ class ObjectsViewController {
     private var views = [ObjectIdentifier: UIGameObjectImageView]()
     private let mainController: MainGameViewController
     private var nodeViews = [Node: UIImageView]()
-    private var pathViews = [Node: [Path]]()
+    private var paths = ObjectPaths()
+    private var pathLayers = [Path: CALayer]()
     private let view: UIView
 
     init(view: UIView, mainController: MainGameViewController) {
@@ -54,11 +55,48 @@ class ObjectsViewController {
 
     func subscribeToPaths(in map: Map) {
         map.subscribeToPaths { [weak self] nodePaths in
-            let paths = Set(nodePaths.values.flatMap { $0 })
-            for path in paths {
-                
+            let mapPaths = Set(nodePaths.values.flatMap { $0 })
+            guard let existingPaths = self?.paths.allPaths else {
+                return
+            }
+
+            for path in mapPaths {
+                if existingPaths.contains(path) {
+                    return
+                }
+
+                guard let fromFrame = self?.nodeViews[path.fromNode]?.frame,
+                    let toFrame = self?.nodeViews[path.toNode]?.frame else {
+                        continue
+                }
+
+                self?.paths.add(path: path)
+                self?.addToView(path: path, from: fromFrame, to: toFrame, withDuration: 1)
             }
         }
+    }
+
+    private func addToView(path: Path, from fromFrame: CGRect, to toFrame: CGRect, withDuration duration: TimeInterval) {
+        let startPoint = CGPoint(x: fromFrame.midX, y: fromFrame.midY)
+        let endPoint = CGPoint(x: toFrame.midX, y: toFrame.midY)
+        let bezierPath = UIBezierPath()
+        let layer = CAShapeLayer()
+        bezierPath.move(to: startPoint)
+        bezierPath.addLine(to: endPoint)
+        layer.path = bezierPath.cgPath
+        layer.strokeColor = UIColor.black.cgColor
+        layer.fillColor = UIColor.clear.cgColor
+        layer.lineWidth = 4.0
+        layer.lineDashPattern = [10.0, 2.0]
+        view.layer.addSublayer(layer)
+        pathLayers[path] = layer
+        CATransaction.begin()
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0.0
+        animation.toValue = 1.0
+        animation.duration = duration
+        layer.add(animation, forKey: "drawLineAnimation")
+        CATransaction.commit()
     }
 
     /// TODO
