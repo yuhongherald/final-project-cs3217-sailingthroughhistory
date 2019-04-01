@@ -10,6 +10,7 @@ import UIKit
 
 class Map: Codable {
     var map: String
+    var bounds: Rect
     private var nodes = GameVariable(value: Set<Node>())
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
     private var paths: [Node: [Path]] {
@@ -21,7 +22,6 @@ class Map: Codable {
             return pathsVariable.value
         }
     }
-    private var bounds: Rect
 
     init(map: String, bounds: Rect?) {
         guard let unwrappedBounds = bounds else {
@@ -54,9 +54,14 @@ class Map: Codable {
             paths[path.toNode]?.removeAll(where: { $0 == path })
             paths[path.fromNode]?.removeAll(where: { $0 == path })
         }
+        assert(checkRep())
     }
 
     func add(path: Path) {
+        guard nodes.value.contains(path.toNode) && nodes.value.contains(path.fromNode) else {
+            NSLog("\(path) is not added to map due to absense of its nodes")
+            return
+        }
         if paths[path.fromNode] == nil {
             paths[path.fromNode] = []
         }
@@ -67,6 +72,12 @@ class Map: Codable {
 
         paths[path.fromNode]?.append(path)
         paths[path.toNode]?.append(path)
+        assert(checkRep())
+    }
+
+    func removePath(_ path: Path) {
+        pathsVariable.value[path.fromNode]?.removeAll(where: { $0 == path })
+        pathsVariable.value[path.toNode]?.removeAll(where: { $0 == path })
     }
 
     func getNodes() -> Set<Node> {
@@ -224,5 +235,14 @@ class Map: Codable {
             self.node = node
             self.type = type
         }
+    }
+
+    private func checkRep() -> Bool {
+        for path in getAllPaths() {
+            guard nodes.value.contains(path.toNode) && nodes.value.contains(path.fromNode) else {
+                return false
+            }
+        }
+        return true
     }
 }

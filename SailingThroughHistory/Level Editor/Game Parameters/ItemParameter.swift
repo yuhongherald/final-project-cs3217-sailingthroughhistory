@@ -21,8 +21,9 @@ struct ItemParameter: Codable {
     init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {
         self.itemType = itemType
         self.displayName = displayName
-        self.unitWeight = weight
+        self.unitWeight = abs(weight)
         self.isConsumable = isConsumable
+        assert(checkRep())
     }
 
     // Create a quantized representation
@@ -44,15 +45,34 @@ struct ItemParameter: Codable {
     }
 
     mutating func setHalfLife(to value: Int) {
+        if value < 0 {
+            return
+        }
         halfLife = value
+        assert(checkRep())
     }
 
     mutating func setBuyValue(value: Int) {
+        if value < 0 {
+            return
+        }
         buyValue = value
+        assert(checkRep())
     }
 
     mutating func setSellValue(value: Int) {
+        if value < 0 {
+            return
+        }
         sellValue = value
+        assert(checkRep())
+    }
+
+    private func checkRep() -> Bool {
+        guard let unwrappedHalfLife = halfLife else {
+            return sellValue >= 0 && buyValue >= 0
+        }
+        return sellValue >= 0 && buyValue >= 0 && unwrappedHalfLife >= 0 && unitWeight >= 0
     }
 }
 

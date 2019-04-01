@@ -44,8 +44,6 @@ class Player: GenericPlayer {
         self.team = team
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
-        // TODO: this may cause infinite loop, e.g. when getPlayer() from PlayerParameter
-        money.subscribe(onNext: preventPlayerBankruptcy, onError: { _ in }, onDisposed: nil)
     }
 
     required init(from decoder: Decoder) throws {
