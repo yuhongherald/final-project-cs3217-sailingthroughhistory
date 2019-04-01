@@ -27,4 +27,6 @@ enum FirestoreConstants {
     static let pullErrorMsg = "Failed to pull document."
     static let roomMasterKey = "RoomMaster"
     static let roomStartedKey = "started"
+    static let playerTeamKey = "Team"
+    static let teamsKey = "Teams"
 }

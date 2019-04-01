@@ -66,6 +66,17 @@ class LevelEditorViewController: UIViewController {
             guard let gallaryDest = segue.destination as? GalleryViewController else {
                 return
             }
+            gallaryDest.selectedCallback = { loadedParameter in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let controller = storyboard.instantiateViewController(withIdentifier: "levelEditorScreen")
+
+                guard let castedController = controller as? LevelEditorViewController else {
+                    fatalError("LevelEditorViewController not found.")
+                }
+
+                castedController.load(loadedParameter)
+                gallaryDest.present(castedController, animated: true, completion: nil)
+            }
             gallaryDest.delegate = self
         default:
             guard let gallaryDest = segue.destination as? GalleryViewController else {

@@ -16,6 +16,7 @@ class GalleryViewController: UIViewController {
     private var storage = Storage()
     private var levelNames: [String] = []
     weak var delegate: GalleryViewDelegateProtocol?
+    var selectedCallback: ((GameParameter) -> Void)?
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -49,7 +50,13 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         let levelName = levelNames[indexPath.item]
         cell.label.text = levelName
-        cell.previewImage.image = storage.readImage(levelName)
+        /// TODO: Solve memory issue and then uncomment
+        /*DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            let image = self?.storage.readImage(levelName)
+            DispatchQueue.main.async {
+                cell.previewImage.image = image
+            }
+        }*/
 
         return cell
     }
@@ -62,14 +69,6 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
             return
         }
 
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "levelEditorScreen")
-
-        guard let castedController = controller as? LevelEditorViewController else {
-            fatalError("LevelEditorViewController not found.")
-        }
-
-        castedController.load(gameParameter)
-        self.present(castedController, animated: true, completion: nil)
+        selectedCallback?(gameParameter)
     }
 }

@@ -21,7 +21,6 @@ class GameState: GenericGameState {
     private var playerTurnOrder = [GenericPlayer]()
 
     required init(baseYear: Int) {
-        //TODO
         gameTime = GameTime()
     }
 

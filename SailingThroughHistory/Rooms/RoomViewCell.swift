@@ -11,9 +11,10 @@ import UIKit
 class RoomViewCell: UITableViewCell {
     @IBOutlet private weak var joinButtonPressed: UIButton!
     @IBOutlet private weak var roomNameLabel: UILabel!
+    var joinButtonPressedCallback: (() -> Void)?
 
     @IBAction private func joinButtonPressed(_ sender: UIButton) {
-
+        joinButtonPressedCallback?()
     }
 
     func set(roomName: String) {

@@ -14,7 +14,7 @@ class MainMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment to test
-        var room = FirestoreRoom(named: "TestRoom")
+       /* var room = FirestoreRoom(named: "TestRoom")
         room.getConnection(removalCallback: { print("Dead") }) { [weak self] (con, _) in
             self?.connection.append(con)
         }
@@ -25,6 +25,6 @@ class MainMenuViewController: UIViewController {
         room = FirestoreRoom(named: "TestRoom3")
         room.getConnection(removalCallback: { print("Dead") }) { [weak self] (con, _) in
             self?.connection.append(con)
-        }
+        }*/
     }
 }
