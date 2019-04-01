@@ -44,7 +44,6 @@ class Player: GenericPlayer {
         self.team = team
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
-        money.subscribe(onNext: preventPlayerBankruptcy, onError: { _ in }, onDisposed: nil)
     }
 
     required init(from decoder: Decoder) throws {
