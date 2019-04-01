@@ -12,6 +12,10 @@ class Team: GenericTeam {
     var name: String
     var money: GameVariable<Int> = GameVariable(value: 0)
 
+    static func == (lhs: Team, rhs: Team) -> Bool {
+        return lhs.name == rhs.name
+    }
+
     required init(name: String) {
         self.name = name
     }
