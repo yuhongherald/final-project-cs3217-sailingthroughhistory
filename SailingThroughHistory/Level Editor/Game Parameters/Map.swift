@@ -47,13 +47,12 @@ class Map: Codable {
         nodes.value.remove(node)
 
         // Remove all paths related with removed node
-        for nodePath in paths {
-            var pathArr = nodePath.value
-            for (index, path) in pathArr.enumerated() {
-                if path.toNode == node || path.fromNode == node {
-                    pathArr.remove(at: index)
-                }
-            }
+        guard let pathsOfNode = paths[node] else {
+            return
+        }
+        for path in pathsOfNode {
+            paths[path.toNode]?.removeAll(where: { $0 == path })
+            paths[path.fromNode]?.removeAll(where: { $0 == path })
         }
     }
 

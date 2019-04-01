@@ -11,6 +11,7 @@
 		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
 		1A53D7C4224CA45100FAE214 /* GenericTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53D7C3224CA45100FAE214 /* GenericTeam.swift */; };
 		1A53D7C6224CA5FE00FAE214 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53D7C5224CA5FE00FAE214 /* Team.swift */; };
+		1A53D7C82251C44A00FAE214 /* PathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53D7C72251C44A00FAE214 /* PathView.swift */; };
 		1A69B4D2224934D200176DDD /* DetailEditTableViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */; };
 		1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */; };
 		1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */; };
@@ -281,6 +282,7 @@
 		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
 		1A53D7C3224CA45100FAE214 /* GenericTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTeam.swift; sourceTree = "<group>"; };
 		1A53D7C5224CA5FE00FAE214 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		1A53D7C72251C44A00FAE214 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailEditTableViewController + Delegate.swift"; sourceTree = "<group>"; };
 		1A749D642240F6DC00482CE5 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 		1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewController.swift; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				1A749D6F224409E300482CE5 /* GalleryViewController.swift */,
 				1A749D7322440C3E00482CE5 /* GalleryCollectionViewCell.swift */,
 				1AF0182F224752FE008B468B /* MenuViewController.swift */,
+				1A53D7C72251C44A00FAE214 /* PathView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1501,7 +1504,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory-frameworks.sh\"\n";
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
@@ -1689,6 +1691,7 @@
 				754FED6F2243795900394215 /* EngineConstants.swift in Sources */,
 				1A53D7C6224CA5FE00FAE214 /* Team.swift in Sources */,
 				962192DA224EA6A400FC6CB5 /* EventAction.swift in Sources */,
+				1A53D7C82251C44A00FAE214 /* PathView.swift in Sources */,
 				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				7535447F224CAC72001B4F62 /* ConditionComparable.swift in Sources */,

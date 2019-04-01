@@ -37,7 +37,8 @@ class LevelEditorViewController: UIViewController {
     }()
 
     var editMode: EditMode?
-    private var lineLayer = CAShapeLayer()
+    private var lineLayerArr = [PathView]()
+    private var lineLayer = PathView()
     private var startingNode: NodeView?
     private var destination: NodeView?
 
@@ -89,7 +90,7 @@ class LevelEditorViewController: UIViewController {
         // Add paths to map
         for path in map.getAllPaths() {
             print("\(map.getAllPaths().count) - from: \(path.fromNode.frame) - to: \(path.toNode.frame)")
-            lineLayer = CAShapeLayer()
+            lineLayer = PathView()
             lineLayer.strokeColor = UIColor.black.cgColor
             lineLayer.lineWidth = 2.0
 
@@ -100,7 +101,9 @@ class LevelEditorViewController: UIViewController {
                                        y: path.toNode.frame.midY))
 
             lineLayer.path = bazier.cgPath
+            lineLayer.set(from: path.fromNode, to: path.toNode)
             editingAreaWrapper.layer.addSublayer(lineLayer)
+            lineLayerArr.append(lineLayer)
         }
     }
 
@@ -169,6 +172,15 @@ class LevelEditorViewController: UIViewController {
                 return
             }
             nodeView.removeFrom(map: self.gameParameter.map)
+            var offset = 0
+            for (index, lineLayer) in lineLayerArr.enumerated() {
+                if lineLayer.fromNodeView == nodeView.node
+                    || lineLayer.toNodeView == nodeView.node {
+                    lineLayerArr.remove(at: index - offset)
+                    lineLayer.removeFromSuperlayer()
+                    offset+=1
+                }
+            }
         }
         if editMode == .item {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -239,10 +251,7 @@ class LevelEditorViewController: UIViewController {
 
         switch sender.state {
         case .began:
-            lineLayer = CAShapeLayer()
-            lineLayer.strokeColor = UIColor.black.cgColor
-            lineLayer.lineWidth = 2.0
-
+            lineLayer = PathView()
             startingNode?.highlighted(true)
             editingAreaWrapper.layer.addSublayer(lineLayer)
         case .changed:
@@ -259,9 +268,11 @@ class LevelEditorViewController: UIViewController {
             }
 
             bazier.addLine(to: toNode.center)
+            lineLayer.set(from: fromNode.node, to: toNode.node)
 
             gameParameter.map.add(path: Path(from: fromNode.node, to: toNode.node))
             lineLayer.path = bazier.cgPath
+            lineLayerArr.append(lineLayer)
         default:
             return
         }
