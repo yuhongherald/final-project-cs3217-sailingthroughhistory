@@ -12,6 +12,7 @@ class Node: Codable {
     let name: String
     let image: String
     let frame: Rect
+    var objects: [GameObject] = []
 
     init(name: String, image: String, frame: Rect) {
         self.name = name
@@ -24,6 +25,7 @@ class Node: Codable {
         name = try values.decode(String.self, forKey: .name)
         image = try values.decode(String.self, forKey: .image)
         frame = try values.decode(Rect.self, forKey: .frame)
+        objects = try values.decode([GameObject].self, forKey: .objects)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -32,6 +34,7 @@ class Node: Codable {
         try container.encode(name, forKey: .name)
         try container.encode(image, forKey: .image)
         try container.encode(frame, forKey: .frame)
+        try container.encode(objects, forKey: .objects)
     }
 
     func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
@@ -56,6 +59,7 @@ class Node: Codable {
         case name
         case image
         case frame
+        case objects
     }
 }
 

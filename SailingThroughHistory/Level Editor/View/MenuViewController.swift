@@ -48,7 +48,6 @@ class MenuViewController: UITableViewController {
         } else {
             cell.backgroundColor = .white
         }
-*/
         return cell
     }
 

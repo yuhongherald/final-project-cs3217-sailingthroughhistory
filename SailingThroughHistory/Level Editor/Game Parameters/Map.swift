@@ -136,12 +136,6 @@ class Map: Codable {
             case .sea:
                 let node = try node.decode(Sea.self, forKey: NodeTypeKey.node)
                 nodes.insert(node)
-                nodes.insert(node)
-                nodeIDPair[identifier] = node
-            case .pirate:
-                let node = try node.decode(Pirate.self, forKey: NodeTypeKey.node)
-                nodes.insert(node)
-                nodes.insert(node)
                 nodeIDPair[identifier] = node
             }
         }
@@ -184,10 +178,6 @@ class Map: Codable {
                 nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.sea))
                 nodeIDPair[node] = identifier
             }
-            if node is Pirate {
-                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.pirate))
-                nodeIDPair[node] = identifier
-            }
         }
         try container.encode(nodesWithType, forKey: .nodes)
 
@@ -222,7 +212,6 @@ class Map: Codable {
     enum NodeTypes: String, Codable {
         case port
         case sea
-        case pirate
     }
 
     struct NodeWithType: Codable, Hashable {
