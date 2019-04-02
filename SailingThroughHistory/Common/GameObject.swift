@@ -6,28 +6,20 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-
 class GameObject: ReadOnlyGameObject {
-    var images: [String]
     let frame: GameVariable<Rect>
-    var image: String {
-        return images.first ?? ""
-    }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.images = []
         self.frame = GameVariable(value: try container.decode(Rect.self, forKey: .frame))
     }
 
     init() {
-        self.images = []
         self.frame = GameVariable(value: Rect())
     }
 
-    init(image: String, frame: Rect) {
+    init(frame: Rect) {
         self.frame = GameVariable(value: Rect())
-        self.images = []
     }
 
     func subscibeToFrame(with callback: @escaping (Rect) -> Void) {

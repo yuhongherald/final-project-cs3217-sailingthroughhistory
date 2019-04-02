@@ -216,6 +216,25 @@ class LevelEditorViewController: UIViewController {
             view.addSubview(controller.view)
             controller.didMove(toParent: self)
         }
+
+        if editMode == .pirate {
+            guard let nodeView = sender.view as? NodeView else {
+                let alert = UIAlertController(title: "Please select a node!", message: nil, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+            if nodeView.node is Port {
+                let alert = UIAlertController(title: "You cannot add pirate to a port!", message: nil, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+
+            nodeView.node.add(object: Pirate(in: nodeView.node))
+        }
     }
 
     @objc func doubleTapOnNode(_ sender: UITapGestureRecognizer) {

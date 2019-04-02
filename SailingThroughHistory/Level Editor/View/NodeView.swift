@@ -16,10 +16,19 @@ class NodeView: UIImageView {
         self.node = node
         self.nodeLabel = NodeView.getBlankLabel()
         super.init(frame: CGRect(fromRect: node.frame))
-        self.image = UIImage(named: node.image)
 
         nodeLabel.text = node.name
         nodeLabel.frame.size = CGSize(width: node.frame.width, height: 15)
+        if let image = Resources.Icon.of(node) {
+            self.image = UIImage(named: image)
+        }
+
+        node.objects.forEach { object in
+            if let image = Resources.Icon.of(object) {
+                self.image = UIImage(named: image)
+            }
+        }
+
         self.addSubview(nodeLabel)
     }
 

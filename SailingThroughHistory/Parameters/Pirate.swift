@@ -9,13 +9,9 @@
 class Pirate: GameObject {
     private static let pirateNodeHeight: Double = 50
     private static let pirateNodeWidth: Double = 50
-    private static let pirateNodeImage = "pirate-node.png"
 
-    init(originX: Double, originY: Double) {
-        guard let rect = Rect(originX: originX, originY: originY, height: Pirate.pirateNodeHeight, width: Pirate.pirateNodeWidth) else {
-            fatalError("Pirate Rect is not initialized properly.")
-        }
-        super.init(image: Pirate.pirateNodeImage, frame: rect)
+    init(in node: Node) {
+        super.init(frame: node.frame)
     }
 
     func moveIntoNode(ship: Pirate_WeatherEntity) {

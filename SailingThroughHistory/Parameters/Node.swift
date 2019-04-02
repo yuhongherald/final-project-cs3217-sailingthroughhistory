@@ -10,20 +10,17 @@ import UIKit
 
 class Node: Codable {
     let name: String
-    let image: String
     let frame: Rect
     var objects: [GameObject] = []
 
-    init(name: String, image: String, frame: Rect) {
+    init(name: String, frame: Rect) {
         self.name = name
-        self.image = image
         self.frame = frame
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
-        image = try values.decode(String.self, forKey: .image)
         frame = try values.decode(Rect.self, forKey: .frame)
         objects = try values.decode([GameObject].self, forKey: .objects)
     }
@@ -32,7 +29,6 @@ class Node: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(name, forKey: .name)
-        try container.encode(image, forKey: .image)
         try container.encode(frame, forKey: .frame)
         try container.encode(objects, forKey: .objects)
     }
@@ -52,6 +48,10 @@ class Node: Codable {
     }
 
     func moveIntoNode(ship: Pirate_WeatherEntity) {
+    }
+
+    func add(object: GameObject) {
+        self.objects.append(object)
     }
 
     private enum CodingKeys: String, CodingKey {

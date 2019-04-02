@@ -21,7 +21,6 @@ class Port: Node {
 
     private static let portNodeWidth: Double = 50
     private static let portNodeHeight: Double = 50
-    private static let portNodeImage = "port-node.png"
 
     init(team: Team, originX: Double, originY: Double) {
         guard let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
@@ -29,7 +28,7 @@ class Port: Node {
                                 fatalError("Port dimensions are invalid.")
         }
         owner = team
-        super.init(name: team.name, image: Port.portNodeImage, frame: frame)
+        super.init(name: team.name, frame: frame)
     }
 
     init(team: Team?, name: String, originX: Double, originY: Double) {
@@ -38,7 +37,7 @@ class Port: Node {
                                 fatalError("Port dimensions are invalid.")
         }
 
-        super.init(name: name, image: Port.portNodeImage, frame: frame)
+        super.init(name: name, frame: frame)
     }
 
     required init(from decoder: Decoder) throws {
