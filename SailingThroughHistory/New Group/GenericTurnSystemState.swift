@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol GenericTurnSystemState {
-    
+protocol GenericTurnSystemState: Observer {
+    var triggeredEvents: [TurnSystemEvent] { get }
+    func addEvents(events: [TurnSystemEvent]) -> Bool
+    func removeEvents(events: [TurnSystemEvent]) -> Bool
+    func setEvents(events: [TurnSystemEvent]) -> Bool
 }

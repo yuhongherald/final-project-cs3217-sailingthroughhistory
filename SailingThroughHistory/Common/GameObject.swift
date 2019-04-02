@@ -6,7 +6,6 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-
 class GameObject: ReadOnlyGameObject {
     var images: [String]
     let frame: GameVariable<Rect>

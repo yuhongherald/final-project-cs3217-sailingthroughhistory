@@ -7,10 +7,10 @@
 //
 
 class EvaluatableExpression<T>: GenericEvaluatable {
-    var first: T?
+    var first: GenericEvaluatable?
     var ops: GenericEvaluateOperator?
-    var second: T?
+    var second: GenericEvaluatable?
     func evaluate() -> Any? {
-        return ops?.evaluate(first: first, second: second)
+        return ops?.evaluate(first: first?.evaluate(), second: second?.evaluate())
     }
 }
