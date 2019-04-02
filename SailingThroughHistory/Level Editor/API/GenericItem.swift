@@ -9,13 +9,13 @@
 import Foundation
 
 protocol GenericItem: Codable {
-    var name: String { get }
-    var itemType: ItemType? { get }
+    var name: String? { get }
+    var itemType: ItemType { get }
     var itemParameter: ItemParameter? { get }
     var weight: Int? { get }
     var quantity: Int { get set }
 
-    init(itemType: ItemParameter, quantity: Int)
+    init(itemParameter: ItemParameter, quantity: Int)
 
     func setItemParameter(_ itemParameter: ItemParameter)
     func decayItem(with time: Double) -> Int?

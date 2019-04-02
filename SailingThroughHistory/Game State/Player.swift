@@ -68,9 +68,9 @@ class Player: GenericPlayer {
         try container.encode(deviceId, forKey: .deviceId)
     }
 
-    func getItemParameter(name: String) -> ItemParameter? {
+    func getItemParameter(itemType: ItemType) -> ItemParameter? {
         let parameters = gameState?.itemParameters ?? []
-        return parameters.first(where: { $0.displayName == name })
+        return parameters.first(where: { $0.itemType == itemType })
     }
 
     func addShipsToMap(map: Map) {

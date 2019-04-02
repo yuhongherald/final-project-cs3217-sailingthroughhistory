@@ -100,7 +100,7 @@ class Ship: Codable {
     func setOwner(owner: GenericPlayer) {
         self.owner = owner
         for item in items.value {
-            guard let itemParameter = owner.getItemParameter(name: item.name) else {
+            guard let itemParameter = owner.getItemParameter(itemType: item.itemType) else {
                 continue
             }
             item.setItemParameter(itemParameter)
