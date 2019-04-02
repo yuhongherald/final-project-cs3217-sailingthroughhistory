@@ -54,11 +54,11 @@ class TurnSystem: GenericTurnSystem {
             player.move(node: node)
             return true
         case .setTax(for: let port, let taxAmount):
-            guard player == port.owner else { // TODO: Fix equality assumption
+            guard player.team == port.owner else { // TODO: Fix equality assumption
                 return false
             }
-        port.taxAmount = taxAmount
-        return true
+            port.taxAmount = taxAmount
+            return true
         case .setEvent(changeType: let changeType, events: let events):
             return setEvents(changeType: changeType, events: events)
         }

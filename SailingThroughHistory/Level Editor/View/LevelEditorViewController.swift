@@ -78,7 +78,7 @@ class LevelEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        menuDest?.data = gameParameter.playerParameters
+        menuDest?.data = gameParameter.teams
         playerMenu.isUserInteractionEnabled = true
 
         let map = gameParameter.map

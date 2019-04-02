@@ -22,7 +22,7 @@ enum EditMode {
             return NodeView(node: Sea(name: name, originX: Double(center.x),
                                       originY: Double(center.y)))
         case .port:
-            return NodeView(node: Port(player: nil, name: name, originX: Double(center.x),
+            return NodeView(node: Port(team: nil, name: name, originX: Double(center.x),
                                        originY: Double(center.y)))
         case .pirate:
             return NodeView(node: Pirate(name: name, originX: Double(center.x),

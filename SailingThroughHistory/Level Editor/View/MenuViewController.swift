@@ -9,11 +9,11 @@
 import UIKit
 
 protocol MenuViewDelegateProtocol: class {
-    func assign(port: Port, to player: PlayerParameter?)
+    func assign(port: Port, to team: Team?)
 }
 
 class MenuViewController: UITableViewController {
-    var data: [PlayerParameter] = [] {
+    var data: [Team] = [] {
         didSet {
             self.tableView.reloadData()
         }
@@ -40,10 +40,10 @@ class MenuViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath)
 
-        cell.textLabel?.text = data[indexPath.item].getName()
+        cell.textLabel?.text = data[indexPath.item].name
         cell.textLabel?.textAlignment = .center
 
-        if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
+        if let portOwner = port?.owner, portOwner == data[indexPath.item] {
             cell.backgroundColor = .gray
         } else {
             cell.backgroundColor = .white
@@ -57,7 +57,7 @@ class MenuViewController: UITableViewController {
             return
         }
 
-        if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
+        if let portOwner = port?.owner, portOwner == data[indexPath.item] {
             self.delegate?.assign(port: unwrappedPort, to: nil)
         } else {
             self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
