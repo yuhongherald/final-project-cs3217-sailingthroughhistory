@@ -67,7 +67,7 @@ class MainGameViewController: UIViewController {
         togglePlayerTwoInfoButton: playerTwoInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
-    private let model = GameState(baseYear: 1000)
+    private var model: GameState?
 
     var interfaceBounds: CGRect {
         /// TODO: Fix
@@ -83,11 +83,8 @@ class MainGameViewController: UIViewController {
         super.viewDidLoad()
         reInitScrollView()
         initBackground()
-        guard let map = model.map else {
-            return
-        }
 
-        map.getNodes().forEach { node in }
+        //model.map?.getNodes().forEach { node in }
     }
 
     func getFrame(for object: GameObject) -> CGRect? {

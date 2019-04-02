@@ -53,7 +53,7 @@ class Port: Node {
             owner = nil
             return
         }
-        owner = Player(name: name, team: team, node: self)
+        owner = Player(name: name, team: team, node: self, deviceId: "")
     }
 
     override func encode(to encoder: Encoder) throws {

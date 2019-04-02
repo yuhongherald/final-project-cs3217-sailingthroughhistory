@@ -12,8 +12,6 @@ protocol GenericGameState: Codable {
     var gameTime: GameTime { get set }
     var itemParameters: [ItemParameter] { get set }
 
-    init(baseYear: Int)
-    func loadLevel(level: GenericLevel)
     func getPlayers() -> [GenericPlayer]
     func startNextTurn(speedMultiplier: Double)
     func getNextPlayer() -> GenericPlayer?

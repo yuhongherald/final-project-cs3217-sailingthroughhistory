@@ -43,12 +43,13 @@ class MenuViewController: UITableViewController {
         cell.textLabel?.text = data[indexPath.item].getName()
         cell.textLabel?.textAlignment = .center
 
-        if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
+        /// TODO:
+        /*if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
             cell.backgroundColor = .gray
         } else {
             cell.backgroundColor = .white
         }
-
+*/
         return cell
     }
 
@@ -56,12 +57,14 @@ class MenuViewController: UITableViewController {
         guard let unwrappedPort = port else {
             return
         }
-
+        /// TODO: 
+/*
         if let portOwner = port?.owner, portOwner == data[indexPath.item].getPlayer() {
             self.delegate?.assign(port: unwrappedPort, to: nil)
         } else {
             self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
         }
+ */
     }
 
     func set(port: Port) {
