@@ -29,6 +29,7 @@ class WaitingRoomViewController: UIViewController {
             return
         }        
         let waitingRoom = WaitingRoom(fromConnection: roomConnection)
+        subscribeToGameStart()
         self.waitingRoom = waitingRoom
         dataSource = PlayersTableDataSource(withView: playersTableView, withRoom: waitingRoom)
         playersTableView.dataSource = dataSource
@@ -126,8 +127,8 @@ class WaitingRoomViewController: UIViewController {
                 return
             }
 
-            //let system = TurnSystem(isMaster: self.getWaitingRoom().isRoomMaster(), network: roomConnection, startingState: state, deviceId: self.getWaitingRoom().identifier)
             self.initialState = state
+            self.performSegue(withIdentifier: "waitingRoomToGame", sender: nil)
         }
     }
 
