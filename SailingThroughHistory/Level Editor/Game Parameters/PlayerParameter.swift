@@ -29,12 +29,12 @@ class PlayerParameter: Codable {
         money = GameVariable(value: moneyValue)
     }
 
-    func getPlayer() -> Player? {
+    /*func getPlayer() -> Player? {
         guard let unwrappedNode = startingNode else {
             return nil
         }
         return Player(name: name, team: Team(name: teamName), node: unwrappedNode)
-    }
+    }*/
 
     func getName() -> String {
         return name

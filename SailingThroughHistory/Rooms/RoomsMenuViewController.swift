@@ -11,11 +11,57 @@ import UIKit
 class RoomsMenuViewController: UIViewController {
     @IBOutlet weak var roomsTableView: UITableView!
 
-    private lazy var dataSource = RoomsTableDataSource(withView: roomsTableView)
+    private lazy var dataSource = RoomsTableDataSource(withView: roomsTableView, mainController: self)
+    private var roomConnection: RoomConnection?
+    private var canJoinRoom = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         roomsTableView.dataSource = dataSource
         roomsTableView.reloadData()
+    }
+
+    @IBAction func createRoomButtonPressed(_ sender: UIButton) {
+        let alert = UIAlert(title: "Input name: ", confirm: { [weak self] roomName in
+            self?.join(room: NetworkFactory.createRoomInstance(named: roomName))
+            }, textPlaceHolder: "Input name here.")
+        alert.present(in: self)
+    }
+
+    func join(room: Room) {
+        if !canJoinRoom {
+            return
+        }
+        canJoinRoom = false
+        room.getConnection(removalCallback: { [weak self] in
+            let alert = ControllerUtils.getGenericAlert(titled: "You have been removed from the room.", withMsg: "") {
+                self?.dismiss(animated: true, completion: nil)
+            }
+            self?.present(alert, animated: true, completion: nil)
+        }) { [weak self] (connection, error) in
+            guard let connection = connection, error == nil else {
+                let alert = ControllerUtils.getGenericAlert(titled: "Error joining room.", withMsg: "") {
+                    self?.dismiss(animated: true, completion: nil)
+                }
+                self?.present(alert, animated: true, completion: nil)
+                self?.canJoinRoom = true
+                return
+            }
+
+            self?.roomConnection = connection
+            self?.performSegue(withIdentifier: "roomsToWaitingRoom", sender: nil)
+            self?.canJoinRoom = true
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard segue.identifier == "roomsToWaitingRoom",
+            let nextController = segue.destination as? WaitingRoomViewController,
+            let roomConnection = self.roomConnection else {
+                return
+        }
+
+        nextController.roomConnection = roomConnection
     }
 }

@@ -14,7 +14,7 @@ import os
 class FirebaseRoomConnection: RoomConnection {
 
     private let deviceId: String
-    private let roomMasterId: String
+    private(set) var roomMasterId: String
     private let roomName: String
     private var heartbeatTimer: Timer?
     private var listeners = [ListenerRegistration]()
@@ -98,6 +98,13 @@ class FirebaseRoomConnection: RoomConnection {
                 connection.sendAndCheckHeartBeat()
             })
             connection.heartbeatTimer?.fire()
+            connection.roomDocumentRef.getDocument { (querySnapshot, error) in
+                guard let document = querySnapshot, error == nil else {
+                    print("Failed to update master Id. Error: \(String(describing: error))")
+                    return
+                }
+                connection.roomMasterId = document.get(FirestoreConstants.roomMasterKey) as? String ?? ""
+            }
             callback(connection, error)
         }
 
@@ -202,8 +209,21 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     /// TODO when teams are added.
-    func subscribeToPlayerTeams() {
+    func subscribeToPlayerTeams(with callback: @escaping ([WaitingRoomPlayer]) -> Void) {
+        let listener = playersCollectionRef.addSnapshotListener { (snapshot, error) in
+            guard let snapshot = snapshot, error == nil else {
+                return
+            }
 
+            let players = snapshot.documents.map { (document) -> WaitingRoomPlayer in
+                let team = document.get(FirestoreConstants.playerTeamKey) as? String
+                let player = document.documentID
+                return WaitingRoomPlayer(playerName: player, teamName: team, deviceId: document.documentID)
+            }
+
+            callback(players)
+        }
+        listeners.append(listener)
     }
 
     private func push<T: Codable>(_ codable: T, to docRef: DocumentReference,
@@ -228,6 +248,25 @@ class FirebaseRoomConnection: RoomConnection {
 
     func checkTurnEnd(actions: [Map], forTurnNumbered turn: Int) throws {
 
+    }
+
+    func set(teams: [Team]) {
+        roomDocumentRef.updateData([FirestoreConstants.teamsKey: teams.map { $0.name }])
+    }
+
+    func subscibeToTeamNames(with callback: @escaping ([String]) -> Void) {
+        self.listeners.append(roomDocumentRef.addSnapshotListener({ (document, error) in
+            guard let document = document, error == nil,
+                let teamNames = document.get(FirestoreConstants.teamsKey) as? [String] else {
+                return
+            }
+
+            callback(teamNames)
+        }))
+    }
+
+    func changeTeamName(for identifier: String, to teamName: String) {
+        playersCollectionRef.document(identifier).updateData([FirestoreConstants.playerTeamKey: teamName])
     }
 
     deinit {

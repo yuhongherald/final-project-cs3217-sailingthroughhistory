@@ -7,6 +7,8 @@
 //
 
 protocol RoomConnection {
+    var roomMasterId: String { get }
+
     static func getConnection(for room: FirestoreRoom,
                               removed removedCallback: @escaping () -> Void,
                               completion callback: @escaping (RoomConnection?, Error?) -> ())
@@ -18,11 +20,17 @@ protocol RoomConnection {
     /// TODO: CHANGE TYPE
     func subscribeToActions(for turn: Int, callback: @escaping ([[PlayerAction]], Error?) -> Void)
 
-    func subscribeToPlayerTeams()
+    func subscribeToPlayerTeams(with callback: @escaping ([WaitingRoomPlayer]) -> Void)
 
     func push(actions: [PlayerAction], fromPlayer player: Player,
               forTurnNumbered turn: Int,
               completion callback: @escaping (Error?) -> ()) throws
 
     func checkTurnEnd(actions: [Map], forTurnNumbered turn: Int) throws
+
+    func set(teams: [Team])
+
+    func subscibeToTeamNames(with callback: @escaping ([String]) -> Void)
+
+    func changeTeamName(for identifier: String, to teamName: String)
 }

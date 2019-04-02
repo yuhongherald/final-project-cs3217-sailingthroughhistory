@@ -48,7 +48,7 @@ class MenuViewController: UITableViewController {
         } else {
             cell.backgroundColor = .white
         }
-
+*/
         return cell
     }
 
@@ -62,6 +62,7 @@ class MenuViewController: UITableViewController {
         } else {
             self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
         }
+
     }
 
     func set(port: Port) {

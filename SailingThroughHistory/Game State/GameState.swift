@@ -12,17 +12,21 @@ class GameState: GenericGameState {
     var gameTime: GameTime
     var itemParameters = [ItemParameter]()
 
-    private var interface: Interface?
-    private(set) var map: Map?
+    private(set) var map: Map
     private var teams = [Team]()
     private var players = [GenericPlayer]()
     private var speedMultiplier = 1.0
 
     private var playerTurnOrder = [GenericPlayer]()
 
-    required init(baseYear: Int) {
+    init(baseYear: Int, level: GenericLevel, players: [WaitingRoomPlayer]) {
         //TODO
         gameTime = GameTime()
+        teams = level.teams
+        //initializePlayersFromParameters(parameters: level.playerParameters)
+        map = level.map
+        itemParameters = level.itemParameters
+        initializePlayers(from: level.playerParameters, for: players)
     }
 
     required init(from decoder: Decoder) throws {
@@ -57,20 +61,6 @@ class GameState: GenericGameState {
         case speedMultiplier
     }
 
-    func subscribe(interface: Interface) {
-        self.interface = interface
-    }
-
-    func loadLevel(level: GenericLevel) {
-        teams = level.teams
-        initializePlayersFromParameters(parameters: level.playerParameters)
-        for var player in players {
-            player.interface = interface
-        }
-        map = level.map
-        itemParameters = level.itemParameters
-    }
-
     func getPlayers() -> [GenericPlayer] {
         return players
     }
@@ -92,16 +82,33 @@ class GameState: GenericGameState {
     func endGame() {
     }
 
-    private func initializePlayersFromParameters(parameters: [PlayerParameter]) {
+    private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [WaitingRoomPlayer]) {
         players.removeAll()
-        parameters.forEach {
-            guard let node = $0.getStartingNode() else {
-                NSLog("\($0.getName()) fails to be constructed because of loss of starting node.")
-                return
+        for roomPlayer in roomPlayers {
+            let parameter = parameters.first {
+                $0.getTeam().name == roomPlayer.teamName
             }
-            let team = $0.getTeam()
-            teams.append(team)
-            players.append(Player(name: $0.getName(), team: team, node: node))
+            guard let unwrappedParam = parameter, roomPlayer.hasTeam else {
+                preconditionFailure("Player has invalid team.")
+            }
+
+            let node: Node
+
+            if let startingNode = unwrappedParam.getStartingNode() {
+                node = startingNode
+            } else {
+                guard let defaultNode = map.getNodes().first else {
+                    fatalError("No nodes to start from")
+                }
+
+                node = defaultNode
+            }
+
+            let team = unwrappedParam.getTeam()
+            if !teams.contains(where: {$0.name == team.name}) {
+                teams.append(team)
+            }
+            players.append(Player(name: roomPlayer.playerName, team: team, node: node, deviceId: roomPlayer.deviceId))
         }
     }
 }

@@ -13,11 +13,8 @@ protocol GenericPlayer: Codable {
     var team:  Team { get }
     var money: GameVariable<Int> { get }
     var state: GameVariable<PlayerState> { get }
-    var interface: Interface? { get set }
     var node: Node? { get }
     var hasRolled: Bool { get }
-
-    init(name: String, team: Team, node: Node)
 
     func getItemParameter(name: String) -> ItemParameter?
 
