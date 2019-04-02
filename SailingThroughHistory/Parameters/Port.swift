@@ -8,7 +8,12 @@
 
 class Port: Node {
     public var taxAmount = 0
-    public var owner: Player?
+    public var owner: Team? {
+        didSet {
+            self.ownerName = self.owner?.name
+        }
+    }
+    public var ownerName: String?
     private var itemParameters: [ItemType: ItemParameter] = {
         var dictionary = [ItemType: ItemParameter]()
         ItemType.getAll().forEach {
@@ -21,45 +26,37 @@ class Port: Node {
 
     private static let portNodeWidth: Double = 50
     private static let portNodeHeight: Double = 50
-    private static let portNodeImage = "port-node.png"
 
-    init(player: Player, originX: Double, originY: Double) {
+    init(team: Team, originX: Double, originY: Double) {
         guard let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
                                width: Port.portNodeWidth) else {
                                 fatalError("Port dimensions are invalid.")
         }
-        owner = player
-        super.init(name: player.name, image: Port.portNodeImage, frame: frame)
+        owner = team
+        super.init(name: team.name, frame: frame)
     }
 
-    init(player: Player?, name: String, originX: Double, originY: Double) {
+    init(team: Team?, name: String, originX: Double, originY: Double) {
         guard let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
                                width: Port.portNodeWidth) else {
                                 fatalError("Port dimensions are invalid.")
         }
 
-        super.init(name: name, image: Port.portNodeImage, frame: frame)
+        super.init(name: name, frame: frame)
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let ownerName = try values.decode(String?.self, forKey: .ownerName)
-        let ownerTeam = try values.decode(Team?.self, forKey: .ownerTeam)
+        ownerName = try values.decode(String?.self, forKey: .ownerName)
         itemParameters = try values.decode([ItemType: ItemParameter].self, forKey: .itemParameters)
         itemParametersSold = try values.decode([ItemParameter].self, forKey: .itemsSold)
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
-        guard let name = ownerName, let team = ownerTeam else {
-            owner = nil
-            return
-        }
-        owner = Player(name: name, team: team, node: self, deviceId: "")
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(owner?.name, forKey: .ownerName)
-        try container.encode(owner?.team, forKey: .ownerTeam)
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(itemParametersSold, forKey: .itemsSold)
 
@@ -67,13 +64,13 @@ class Port: Node {
         try super.encode(to: superencoder)
     }
 
-    public func assignOwner(_ player: Player?) {
-        owner = player
+    public func assignOwner(_ team: Team?) {
+        owner = team
     }
 
     public func collectTax(from player: Player) {
         // Prevent event listeners from firing unneccessarily
-        if player == owner || player.team == owner?.team {
+        if player.team == owner {
             return
         }
         player.updateMoney(by: -taxAmount)
@@ -118,7 +115,6 @@ class Port: Node {
 
     private enum CodingKeys: String, CodingKey {
         case ownerName
-        case ownerTeam
         case itemParameters
         case itemsSold
     }

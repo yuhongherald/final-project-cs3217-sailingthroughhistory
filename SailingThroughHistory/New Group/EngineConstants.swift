@@ -50,6 +50,27 @@ enum Resources {
         static let pirateNode: String = "pirate-node"
         // static let edge: String = ""
     }
+
+    enum Icon {
+        static let port: String = "port-node.png"
+        static let sea: String = "sea-node.png"
+        static let pirate: String = "pirate-node.png"
+
+        static func of(_ object: Any) -> String?{
+            if object is Port {
+                return Resources.Icon.port
+            }
+
+            if object is Sea {
+                return Resources.Icon.sea
+            }
+
+            if object is Pirate {
+                return Resources.Icon.pirate
+            }
+            return nil
+        }
+    }
 }
 
 enum Default {
