@@ -19,11 +19,11 @@ class TurnSystem: GenericTurnSystem {
     private let isMaster: Bool
     var data: GenericTurnSystemState
     private let deviceId: String
-    var gameState: GameState {
+    var gameState: GenericGameState {
         return data.gameState
     }
 
-    init(isMaster: Bool, network: RoomConnection, startingState: GameState, deviceId: String) {
+    init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, deviceId: String) {
         self.deviceId = deviceId
         self.network = network
         self.isMaster = isMaster
@@ -138,7 +138,7 @@ class TurnSystem: GenericTurnSystem {
             return
         }
 
-
+        
     }
 
     func getNextPlayer() -> GenericPlayer? {
@@ -177,5 +177,4 @@ class TurnSystem: GenericTurnSystem {
     private func updateStateMaster() {
         // TODO: Interface with network
     }
-
 }

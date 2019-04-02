@@ -26,7 +26,7 @@ class WaitingRoom {
     }
     private var connection: RoomConnection
     private var teamNames = [String]()
-    private var identifier: String
+    let identifier: String
 
     init(fromConnection connection: RoomConnection) {
         guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
