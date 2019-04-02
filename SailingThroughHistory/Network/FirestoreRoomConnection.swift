@@ -12,7 +12,6 @@ import Foundation
 import os
 
 class FirebaseRoomConnection: RoomConnection {
-
     private let deviceId: String
     private(set) var roomMasterId: String
     private let roomName: String
@@ -184,7 +183,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     /// TODO: CHANGE TYPE
-    func subscribeToActions(for turn: Int, callback: @escaping ([[PlayerAction]], Error?) -> Void) {
+    func subscribeToActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
         listeners.append(turnActionsDocumentRef.collection(String(turn)).addSnapshotListener { (query, queryError) in
             guard let snapshot = query else {
                 callback([], NetworkError.pullError(message: "Snapshot is nil for turn actions"))
@@ -198,7 +197,7 @@ class FirebaseRoomConnection: RoomConnection {
 
             do {
                 let actions = try snapshot.documents.map {
-                    try FirebaseDecoder.init().decode([PlayerAction].self, from: $0.data())
+                    ($0.documentID, try FirebaseDecoder.init().decode([PlayerAction].self, from: $0.data()))
                 }
                 callback(actions, nil)
             } catch {
