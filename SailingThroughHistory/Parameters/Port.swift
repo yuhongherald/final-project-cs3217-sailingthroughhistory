@@ -44,16 +44,16 @@ class Port: Node {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let ownerName = try values.decode(String?.self, forKey: .ownerName)
-        let ownerTeam = try values.decode(Team.self, forKey: .ownerTeam)
+        let ownerTeam = try values.decode(Team?.self, forKey: .ownerTeam)
         itemParameters = try values.decode([ItemType: ItemParameter].self, forKey: .itemParameters)
         itemParametersSold = try values.decode([ItemParameter].self, forKey: .itemsSold)
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
-        guard let name = ownerName else {
+        guard let name = ownerName, let team = ownerTeam else {
             owner = nil
             return
         }
-        owner = Player(name: name, team: ownerTeam, node: self)
+        owner = Player(name: name, team: team, node: self, deviceId: "")
     }
 
     override func encode(to encoder: Encoder) throws {

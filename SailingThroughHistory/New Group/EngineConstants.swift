@@ -5,7 +5,6 @@
 //  Created by Herald on 18/3/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
-
 enum EngineConstants {
     static let largestTimeStep: Double = 1
     static let forecastDuration: Double = 1

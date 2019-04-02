@@ -56,25 +56,23 @@ class MainGameViewController: UIViewController {
     }
 
     private var currentTurnOwner: GenericPlayer?
-    private var gameEngine: GameEngine?
 
     /// TODO: Reference to Game Engine
-    private lazy var interface: Interface = Interface(players: [], bounds: backgroundImageView!.frame.toRect())
     private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
     private lazy var objectsController: ObjectsViewController =
         ObjectsViewController(view: gameArea, mainController: self)
-    private lazy var contextsController: ContextViewController =
-        ContextViewController(view: contextView, interfaceBounds: CGRect(fromRect: interface.bounds))
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView,
         togglePlayerTwoInfoButton: playerTwoInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
-    private let model = GameState(baseYear: 1000)
+    private var model: GameState?
 
     var interfaceBounds: CGRect {
-        return CGRect(fromRect: interface.bounds)
+        /// TODO: Fix
+        return CGRect()
+        //return CGRect(fromRect: interface.bounds)
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -85,26 +83,8 @@ class MainGameViewController: UIViewController {
         super.viewDidLoad()
         reInitScrollView()
         initBackground()
-        guard let map = model.map else {
-            return
-        }
 
-        map.getNodes().forEach { node in }
-    }
-
-    private func setupGameEngine() {
-        // TODO: Get the real game state, use a different entry point
-        if gameEngine != nil {
-            print("Tried to init game engine twice!")
-            return
-        }
-        /*
-        gameEngine = GameEngineTypicalClasses.getTypicalGameEngine(with:
-            GameEngineTypicalClasses.getTypicalGameState(),                                                                   and: GameInterface(interface: interface))
-        gameEngine?.start {
-            print("Game has ended")
-        }
-         */
+        //model.map?.getNodes().forEach { node in }
     }
 
     func getFrame(for object: GameObject) -> CGRect? {
@@ -151,7 +131,8 @@ class MainGameViewController: UIViewController {
     }
 
     private func initBackground() {
-        guard let image = UIImage(named: interface.background),
+        /// TODO: FIx
+        /*guard let image = UIImage(named: interface.background),
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
             return
         }
@@ -166,7 +147,7 @@ class MainGameViewController: UIViewController {
         scrollView.contentSize = image.size
         scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
         scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
-        backgroundImageView.image = image
+        backgroundImageView.image = image*/
     }
 
     private func reInitScrollView () {
@@ -185,33 +166,6 @@ class MainGameViewController: UIViewController {
         scrollView.updateConstraints()
         gameAndBackgroundWrapper.removeFromSuperview()
         scrollView.addSubview(gameAndBackgroundWrapper)
-    }
-
-    private func subscribeToInterface() {
-        if let currentTurnOwner = interface.currentTurnOwner {
-            playerTurnStart(player: currentTurnOwner, timeLimit: nil, timeOutCallback: { }, callback: { })
-        }
-
-        syncObjectsAndPaths(with: interface)
-        subscribePlayerInformation(players: interface.players)
-
-        interface.subscribe { [weak self] in
-            self?.handle(events: $0)
-        }
-    }
-
-    private func syncObjectsAndPaths(with interface: Interface) {
-        interface.objectFrames.getAllObjectFrames().forEach {
-            objectsController.add(object: $0.object, at: $0.frame,
-                                  withDuration: InterfaceConstants.defaultAnimationDuration,
-                                  callback: {})
-        }
-
-        interface.paths.allPaths.forEach { [weak self] in
-            self?.pathsController.add(path: $0,
-                                      withDuration: InterfaceConstants.defaultAnimationDuration,
-                                      callback: {})
-        }
     }
 
     private func subscribePlayerInformation(players: [GenericPlayer]) {
@@ -281,56 +235,6 @@ class MainGameViewController: UIViewController {
         @escaping () -> Void) {
         pathsController.removeAllPathsAssociated(with: object, withDuration: duration)
         objectsController.remove(object: object, withDuration: duration, callback: callback)
-    }
-
-    private func handle(events: InterfaceEvents) {
-        let semaphore = DispatchSemaphore(value: 0)
-
-        for index in events.events.indices {
-            let event = events.events[index]
-            DispatchQueue.main.async { [weak self] in
-                self?.handle(event: event, withDuration: events.duration) { semaphore.signal() }
-            }
-        }
-
-        for _ in events.events {
-            semaphore.wait()
-        }
-    }
-
-    private func handle(event: InterfaceEvent, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        switch event {
-        case .move(let object, let dest):
-            objectsController.move(object: object, to: dest, withDuration: duration, callback: callback)
-        case .addPath(let path):
-            pathsController.add(path: path, withDuration: duration, callback: callback)
-        case .addObject(let object, let frame):
-            objectsController.add(object: object, at: frame, withDuration: duration, callback: callback)
-        case .changeMonth(let newMonth):
-            changeMonth(to: newMonth, withDuration: duration, callback: callback)
-        case .playerTurnStart(let player, let timeLimit, let timeOutCallback):
-            playerTurnStart(player: player, timeLimit: timeLimit, timeOutCallback: timeOutCallback, callback: callback)
-        case .pauseAndShowAlert(let title, let msg):
-            pauseAndShowAlert(titled: title, withMsg: msg, callback: callback)
-        case .removePath(let path):
-            pathsController.remove(path: path, withDuration: duration, callback: callback)
-        case .removeObject(let object):
-            remove(object: object, withDuration: duration, callback: callback)
-        case .showTravelChoices(let nodes, let selectCallback):
-            objectsController.makeChoosable(nodes: nodes, withDuration: duration,
-                                            tapCallback: selectCallback, callback: callback)
-        case .addContext(let context, let frame):
-            contextsController.add(context: context, withFrame: frame, withDuration: duration,
-                                   completion: callback)
-        case .moveContext(let contextId, let frame):
-            contextsController.moveContext(withId: contextId, toFrame: frame, withDuration: duration,
-                                           completion: callback)
-        case .removeContext(let contextId):
-            contextsController.removeContext(withId: contextId, withDuration: duration,
-                                             completion: callback)
-        default:
-            print("Unsupported event not handled.")
-        }
     }
 
     private func pauseAndShowAlert(titled title: String, withMsg msg: String, callback: @escaping () -> Void) {

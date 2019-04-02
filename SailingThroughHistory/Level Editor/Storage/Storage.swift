@@ -32,17 +32,14 @@ class Storage {
         savedJson.write(to: fileURL, atomically: true)
     }
 
-    // Read data from an data file and return it as Array of Bubble,
-    // which is about to be passed in to the main controller.
     func readLevelData<T: Codable>(_ fileName: String) -> T? {
         let url = getFullURL(from: fileName, ".pList")
         guard let data = try? Data(contentsOf: url) else {
-            NSLog("\(url) Data load failed")
-            return nil
+            fatalError("\(url) Data load failed")
         }
 
         guard let levelData = try? JSONDecoder().decode(T.self, from: data) else {
-            return nil
+            fatalError("Decode failed")
         }
         return levelData
     }
@@ -73,7 +70,6 @@ class Storage {
                 return [String]()
         }
 
-        // TODO: ensure data complete - pList and background
         return fileURLs.filter { $0.pathExtension == "pList" }
             .compactMap { $0.lastPathComponent }
             .map { $0.replacingOccurrences(of: ".pList", with: "") }

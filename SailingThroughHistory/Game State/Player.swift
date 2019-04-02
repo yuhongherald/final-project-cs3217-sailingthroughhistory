@@ -9,6 +9,7 @@
 import Foundation
 
 class Player: GenericPlayer {
+    let deviceId: String
     var hasRolled: Bool = false
     private var rollResult: Int = 0
     
@@ -27,7 +28,6 @@ class Player: GenericPlayer {
     var node: Node? {
         return getNodesInRange(roll: 0).first
     }
-    var interface: Interface?
     var map: Map?
     var currentNode: Node {
         return ship.location.value.start
@@ -39,12 +39,12 @@ class Player: GenericPlayer {
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    required init(name: String, team: Team, node: Node) {
+    required init(name: String, team: Team, node: Node, deviceId: String) {
         self.name = name
         self.team = team
+        self.deviceId = deviceId
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
-        money.subscribe(onNext: preventPlayerBankruptcy, onError: { _ in }, onDisposed: nil)
     }
 
     required init(from decoder: Decoder) throws {
@@ -53,6 +53,7 @@ class Player: GenericPlayer {
         team = try values.decode(Team.self, forKey: .team)
         money.value = try values.decode(Int.self, forKey: .money)
         ship = try values.decode(Ship.self, forKey: .ship)
+        deviceId = try values.decode(String.self, forKey: .deviceId)
 
         ship.setOwner(owner: self)
     }
@@ -63,6 +64,7 @@ class Player: GenericPlayer {
         try container.encode(team, forKey: .team)
         try container.encode(money.value, forKey: .money)
         try container.encode(ship, forKey: .ship)
+        try container.encode(deviceId, forKey: .deviceId)
     }
 
     func getItemParameter(name: String) -> ItemParameter? {
@@ -133,6 +135,7 @@ class Player: GenericPlayer {
         case team
         case money
         case ship
+        case deviceId
     }
 }
 
@@ -155,8 +158,8 @@ extension Player {
     }
 
     private func preventPlayerBankruptcy(amount: Int) {
-        interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-amount) amount of donations from your company. Try not to go negative again!")
-        interface?.broadcastInterfaceChanges(withDuration: 0.5)
+        //interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-amount) amount of donations from your company. Try not to go negative again!")
+        //interface?.broadcastInterfaceChanges(withDuration: 0.5)
         team.updateMoney(by: -amount)
         money.value = 0
     }

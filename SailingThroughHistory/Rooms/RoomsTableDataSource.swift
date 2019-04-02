@@ -12,10 +12,12 @@ class RoomsTableDataSource: NSObject, UITableViewDataSource {
     private static let reuseIdentifier = "roomCell"
     private let view: UITableView
     private var rooms: Rooms
+    private let mainController: RoomsMenuViewController
 
-    init(withView view: UITableView) {
+    init(withView view: UITableView, mainController: RoomsMenuViewController) {
         self.view = view
         self.rooms = Rooms()
+        self.mainController = mainController
         super.init()
         self.rooms.subscribe { _ in
             view.reloadData()
@@ -32,8 +34,11 @@ class RoomsTableDataSource: NSObject, UITableViewDataSource {
             as? RoomViewCell else {
                 fatalError("Cells are not instances of RoomViewCell")
         }
-
-        cell.set(roomName: rooms.rooms[indexPath.row].name)
+        let room = rooms.rooms[indexPath.row]
+        cell.joinButtonPressedCallback = { [weak self] in
+            self?.mainController.join(room: room)
+        }
+        cell.set(roomName: room.name)
         return cell
     }
 }
