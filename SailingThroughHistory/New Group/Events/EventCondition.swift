@@ -7,8 +7,6 @@
 //
 
 class EventCondition: UniqueObject, ReadOnlyEventCondition {
-    var isActive: Bool = false
-
     var objectIdentifier: SerializableGameObject?
     var objectField: String?
 
@@ -16,17 +14,4 @@ class EventCondition: UniqueObject, ReadOnlyEventCondition {
     
     var otherIdentifier: SerializableGameObject?
     var otherObjectField: String?
-
-    func notify(eventUpdate: EventUpdate?) {
-        if isActive {
-            return
-        }
-        // evaluate the condition
-        guard let objectField = objectField, let otherObjectField = otherObjectField, let result = changeOperator?.compare(
-            first: objectIdentifier?.getField(field: objectField),
-            second: otherIdentifier?.getField(field: otherObjectField)) else {
-                return
-        }
-        isActive = result
-    }
 }

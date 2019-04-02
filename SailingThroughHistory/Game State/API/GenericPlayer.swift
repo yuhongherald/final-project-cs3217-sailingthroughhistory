@@ -15,6 +15,7 @@ protocol GenericPlayer: Codable {
     var state: GameVariable<PlayerState> { get }
     var node: Node? { get }
     var hasRolled: Bool { get }
+    var deviceId: String { get }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter?
     func addShipsToMap(map: Map)
