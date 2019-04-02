@@ -44,6 +44,8 @@
 		751F8FEA224BAF0E0071C057 /* GenericNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FE9224BAF0E0071C057 /* GenericNetworkSession.swift */; };
 		751F8FEC224BB11B0071C057 /* Operatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FEB224BB11B0071C057 /* Operatable.swift */; };
 		751F8FEE224BB2170071C057 /* Printable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FED224BB2170071C057 /* Printable.swift */; };
+		75328F56225359BB00180B03 /* EngineConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75328F55225359BB00180B03 /* EngineConstants.swift */; };
+		75328F5822535A1500180B03 /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75328F5722535A1500180B03 /* GameTime.swift */; };
 		75354456224C877F001B4F62 /* UniqueTurnSystemEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75354455224C877F001B4F62 /* UniqueTurnSystemEvent.swift */; };
 		75354458224CA4AB001B4F62 /* GenericTurnSystemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75354457224CA4AB001B4F62 /* GenericTurnSystemState.swift */; };
 		7535445B224CA5CC001B4F62 /* TurnSystemEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535445A224CA5CC001B4F62 /* TurnSystemEvent.swift */; };
@@ -237,6 +239,8 @@
 		751F8FE9224BAF0E0071C057 /* GenericNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkSession.swift; sourceTree = "<group>"; };
 		751F8FEB224BB11B0071C057 /* Operatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operatable.swift; sourceTree = "<group>"; };
 		751F8FED224BB2170071C057 /* Printable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printable.swift; sourceTree = "<group>"; };
+		75328F55225359BB00180B03 /* EngineConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EngineConstants.swift; path = "New Group/EngineConstants.swift"; sourceTree = "<group>"; };
+		75328F5722535A1500180B03 /* GameTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameTime.swift; path = "New Group/Data/GameTime.swift"; sourceTree = "<group>"; };
 		75354455224C877F001B4F62 /* UniqueTurnSystemEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueTurnSystemEvent.swift; sourceTree = "<group>"; };
 		75354457224CA4AB001B4F62 /* GenericTurnSystemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTurnSystemState.swift; sourceTree = "<group>"; };
 		7535445A224CA5CC001B4F62 /* TurnSystemEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemEvent.swift; sourceTree = "<group>"; };
@@ -758,6 +762,8 @@
 		9690F5C8223A4874005291EE /* SailingThroughHistory */ = {
 			isa = PBXGroup;
 			children = (
+				75328F5722535A1500180B03 /* GameTime.swift */,
+				75328F55225359BB00180B03 /* EngineConstants.swift */,
 				964EACD3224D139B004BA7C0 /* Rooms */,
 				9603F772224A8005007D54E0 /* Network */,
 				751F8FDA224B9D600071C057 /* TurnSystem */,
@@ -1202,10 +1208,12 @@
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
 				751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
+				75328F56225359BB00180B03 /* EngineConstants.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* Pirate.swift in Sources */,
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
+				75328F5822535A1500180B03 /* GameTime.swift in Sources */,
 				9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */,
 				755FD973224E842000D83D4B /* EventAction.swift in Sources */,
 				75354492224CBCDE001B4F62 /* Unique.swift in Sources */,
