@@ -71,6 +71,9 @@ class MainGameViewController: UIViewController {
 
     var interfaceBounds: CGRect {
         /// TODO: Fix
+        if let map = model?.map {
+            return CGRect(fromRect: map.bounds)
+        }
         return CGRect()
         //return CGRect(fromRect: interface.bounds)
     }

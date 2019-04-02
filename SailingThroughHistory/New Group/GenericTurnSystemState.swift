@@ -7,5 +7,6 @@
 //
 
 protocol GenericTurnSystemState {
-    
+    var gameState: GameState { get }
+    var currentPlayerIndex: Int { get set }
 }

@@ -8,15 +8,30 @@
 
 class TurnSystem: GenericTurnSystem {
     private enum State {
-        case ready
+        case ready(player: GenericPlayer)
         case waitForTurnFinish
         case waitForStateUpdate
         case invalid
     }
-    private var state: State = .ready
+    private var state: State
+    private let network: RoomConnection
+    private let isMaster: Bool
+    private var systemState: GenericTurnSystemState
+    private let deviceId: String
+    var gameState: GameState {
+        return systemState.gameState
+    }
 
-    init(isMaster: Bool) {
-        
+    init(isMaster: Bool, network: RoomConnection, startingState: GameState, deviceId: String) {
+        self.deviceId = deviceId
+        self.network = network
+        self.isMaster = isMaster
+        self.systemState = TurnSystemState(gameState: startingState)
+        self.state = .invalid
+        guard let player = getNextPlayer() else {
+            fatalError("No players belong on this device/")
+        }
+        state = .ready(player: player)
     }
 
     // TODO: Add to protocol and also do a running gamestate
@@ -27,8 +42,11 @@ class TurnSystem: GenericTurnSystem {
     /// Returns false if action is invalid
     func makeAction(for player: GenericPlayer, action: PlayerAction) -> Bool {
         //player.
-        if state != .waitForTurnFinish {
+        switch state {
+        case .waitForTurnFinish:
             return false
+        default:
+            break
         }
         switch action {
         case .changeInventory(changeType: let changeType, money: let money, items: let items):
@@ -76,19 +94,45 @@ class TurnSystem: GenericTurnSystem {
     }
     // TODO: Fix the gamestate sent back
     func watchMasterUpdate(gameState: GenericGameState) {
-        if state != .waitForStateUpdate {
+        switch state {
+        case .waitForTurnFinish:
             return
+        default:
+            break
         }
     }
 
     func watchTurnFinished(playerActions: [PlayerAction]) {
         // make player actions
-        if state != .waitForTurnFinish {
+        switch state {
+        case .waitForTurnFinish:
             return
+        default:
+            break
         }
         evaluateState()
         checkForEvents()
         updateStateMaster()
+    }
+
+    func endTurn() {
+        guard let nextPlayer = getNextPlayer() else {
+            return
+        }
+
+
+    }
+
+    func getNextPlayer() -> GenericPlayer? {
+        let players = gameState.getPlayers()
+            .filter { [weak self] in $0.deviceId == self?.deviceId }
+        systemState.currentPlayerIndex += 1
+        if !players.indices.contains(systemState.currentPlayerIndex) {
+            systemState.currentPlayerIndex = 0
+            return nil
+        }
+
+        return players[systemState.currentPlayerIndex]
     }
 
     private func evaluateState() {

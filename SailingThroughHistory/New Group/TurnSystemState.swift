@@ -11,6 +11,12 @@ class TurnSystemState: GenericTurnSystemState {
     private var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     // TODO: Move this into a GameObject, technically it is a lot of fields
     private var objects: [Int: BaseGameObject] = [Int: BaseGameObject]()
+    let gameState: GameState
+    var currentPlayerIndex = 0
+
+    init(gameState: GameState) {
+        self.gameState = gameState
+    }
 
     func addEvents(events: [TurnSystemEvent]) -> Bool {
         var result: Bool = true
