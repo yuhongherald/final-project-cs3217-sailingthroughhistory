@@ -9,6 +9,7 @@
 struct WaitingRoomPlayer {
     let playerName: String
     let teamName: String?
+    let deviceId: String
     var hasTeam: Bool {
         return teamName != nil
     }

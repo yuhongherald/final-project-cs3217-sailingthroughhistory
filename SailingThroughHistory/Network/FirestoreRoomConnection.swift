@@ -218,7 +218,7 @@ class FirebaseRoomConnection: RoomConnection {
             let players = snapshot.documents.map { (document) -> WaitingRoomPlayer in
                 let team = document.get(FirestoreConstants.playerTeamKey) as? String
                 let player = document.documentID
-                return WaitingRoomPlayer(playerName: player, teamName: team)
+                return WaitingRoomPlayer(playerName: player, teamName: team, deviceId: document.documentID)
             }
 
             callback(players)

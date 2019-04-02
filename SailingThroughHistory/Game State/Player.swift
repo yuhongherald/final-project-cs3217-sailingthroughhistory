@@ -9,6 +9,7 @@
 import Foundation
 
 class Player: GenericPlayer {
+    let deviceId: String
     var hasRolled: Bool = false
     private var rollResult: Int = 0
     
@@ -38,9 +39,10 @@ class Player: GenericPlayer {
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    required init(name: String, team: Team, node: Node) {
+    required init(name: String, team: Team, node: Node, deviceId: String) {
         self.name = name
         self.team = team
+        self.deviceId = deviceId
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
     }
@@ -51,6 +53,7 @@ class Player: GenericPlayer {
         team = try values.decode(Team.self, forKey: .team)
         money.value = try values.decode(Int.self, forKey: .money)
         ship = try values.decode(Ship.self, forKey: .ship)
+        deviceId = try values.decode(String.self, forKey: .deviceId)
 
         ship.setOwner(owner: self)
     }
@@ -61,6 +64,7 @@ class Player: GenericPlayer {
         try container.encode(team, forKey: .team)
         try container.encode(money.value, forKey: .money)
         try container.encode(ship, forKey: .ship)
+        try container.encode(deviceId, forKey: .deviceId)
     }
 
     func getItemParameter(name: String) -> ItemParameter? {
@@ -131,6 +135,7 @@ class Player: GenericPlayer {
         case team
         case money
         case ship
+        case deviceId
     }
 }
 

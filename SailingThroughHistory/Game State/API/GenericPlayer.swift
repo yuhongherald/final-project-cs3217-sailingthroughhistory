@@ -16,8 +16,6 @@ protocol GenericPlayer: Codable {
     var node: Node? { get }
     var hasRolled: Bool { get }
 
-    init(name: String, team: Team, node: Node)
-
     func getItemParameter(name: String) -> ItemParameter?
 
     // update money
