@@ -63,11 +63,11 @@ enum PlayerAction: Codable {
     }
 
     case changeInventory(changeType: ChangeType, money: Int, items: [Item]) // deprecated
-    case buyOrSell(player: GenericPlayer, item: Int)
+    case buyOrSell(player: GenericPlayer, itemParamter: ItemParameter, item: Int)
     case roll
     case move(to: Node)
     case forceMove(to: Node)
-    //case moveSequence()
+    //case moveSequence() // TODO
     case setTax(for: Port, taxAmount: Int)
     case setEvent(changeType: ChangeType, events: [TurnSystemEvent])
 
