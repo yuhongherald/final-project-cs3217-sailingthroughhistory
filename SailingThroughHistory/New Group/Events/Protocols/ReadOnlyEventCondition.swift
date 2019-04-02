@@ -6,9 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol ReadOnlyEventCondition: Observer {
-    var isActive: Bool { get set }
-
+protocol ReadOnlyEventCondition {
     var objectIdentifier: SerializableGameObject? { get }
     // return value is dependent on objectIdentifier
     var objectField: String? { get }

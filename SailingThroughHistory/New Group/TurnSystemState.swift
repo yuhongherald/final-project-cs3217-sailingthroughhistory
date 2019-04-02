@@ -7,7 +7,7 @@
 //
 
 // A class used to hold the state of the turn based game
-class TurnSystemState: GenericTurnSystemState {
+class TurnSystemState: UniqueObject, GenericTurnSystemState {
     private var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     // TODO: Move this into a GameObject, technically it is a lot of fields
     private var objects: [Int: BaseGameObject] = [Int: BaseGameObject]()
@@ -16,6 +16,11 @@ class TurnSystemState: GenericTurnSystemState {
 
     init(gameState: GameState) {
         self.gameState = gameState
+    }
+    
+    private var triggeredEventsDict: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
+    var triggeredEvents: [TurnSystemEvent] {
+        return Array(triggeredEventsDict.values)
     }
 
     func addEvents(events: [TurnSystemEvent]) -> Bool {
@@ -43,5 +48,29 @@ class TurnSystemState: GenericTurnSystemState {
     func setEvents(events: [TurnSystemEvent]) -> Bool {
         return removeEvents(events: Array(self.events.values))
             && addEvents(events: events)
+    }
+
+    func notify(eventUpdate: EventUpdate?) {
+        let oldValue = eventUpdate?.oldValue as? Int
+        let newValue = eventUpdate?.newValue as? Int
+        guard oldValue != newValue else {
+            return
+        }
+        addEvent(identifier: newValue)
+        removeEvent(identifier: oldValue)
+    }
+
+    private func addEvent(identifier: Int?) {
+        guard let identifier = identifier else {
+            return
+        }
+        triggeredEventsDict[identifier] = events[identifier]
+    }
+
+    private func removeEvent(identifier: Int?) {
+        guard let identifier = identifier else {
+            return
+        }
+        triggeredEventsDict.removeValue(forKey: identifier)
     }
 }
