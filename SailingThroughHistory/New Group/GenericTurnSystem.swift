@@ -7,7 +7,10 @@
 //
 
 protocol GenericTurnSystem {
-    func makeAction(for player: GenericPlayer, action: PlayerAction) -> Bool
+    var gameState: GenericGameState { get }
+    func makeAction(for player: GenericPlayer, action: PlayerAction) -> PlayerActionError?
     func watchMasterUpdate(gameState: GenericGameState)
     func watchTurnFinished(playerActions: [(GenericPlayer, [PlayerAction])])
+    func endTurn()
+    func endTurnCallback(action: @escaping () -> Void)
 }

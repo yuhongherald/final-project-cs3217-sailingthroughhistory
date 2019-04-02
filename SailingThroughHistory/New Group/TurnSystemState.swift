@@ -11,11 +11,13 @@ class TurnSystemState: UniqueObject, GenericTurnSystemState {
     private var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     // TODO: Move this into a GameObject, technically it is a lot of fields
     private var objects: [Int: BaseGameObject] = [Int: BaseGameObject]()
-    let gameState: GameState
+    let gameState: GenericGameState
     var currentPlayerIndex = 0
+    var currentTurn: Int
 
-    init(gameState: GameState) {
+    init(gameState: GenericGameState, joinOnTurn: Int) {
         self.gameState = gameState
+        self.currentTurn = joinOnTurn
     }
     
     private var triggeredEventsDict: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()

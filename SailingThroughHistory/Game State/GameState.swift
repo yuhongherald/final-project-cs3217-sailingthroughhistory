@@ -95,6 +95,7 @@ class GameState: GenericGameState {
             let parameter = parameters.first {
                 $0.getTeam().name == roomPlayer.teamName
             }
+            print(parameters.map{ $0.getTeam().name })
             guard let unwrappedParam = parameter, roomPlayer.hasTeam else {
                 preconditionFailure("Player has invalid team.")
             }

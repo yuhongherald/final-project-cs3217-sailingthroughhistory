@@ -268,6 +268,27 @@ class FirebaseRoomConnection: RoomConnection {
         playersCollectionRef.document(identifier).updateData([FirestoreConstants.playerTeamKey: teamName])
     }
 
+    func subscribeToStart(with callback: @escaping (GameState) -> Void) {
+        self.listeners.append(modelCollectionRef.addSnapshotListener { (snapshot, error) in
+            guard let snapshot = snapshot, error == nil else {
+                return
+            }
+
+            guard let document = snapshot.documents
+                .filter({ $0.documentID == FirestoreConstants.initialStateDocumentName})
+                .first else {
+                    return
+            }
+
+            guard let initialState = try? FirestoreDecoder.init().decode(GameState.self, from: document.data()) else {
+                print("Error decoding game state")
+                return
+            }
+
+            callback(initialState)
+        })
+    }
+
     deinit {
         self.heartbeatTimer?.invalidate()
         self.listeners.forEach { $0.remove() }
