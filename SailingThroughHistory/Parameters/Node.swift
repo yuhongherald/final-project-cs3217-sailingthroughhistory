@@ -9,6 +9,8 @@
 import UIKit
 
 class Node: Codable {
+    static var nextID: Int = 0
+    let identifier: Int
     let name: String
     let frame: Rect
     var objects: [GameObject] = []
@@ -16,10 +18,13 @@ class Node: Codable {
     init(name: String, frame: Rect) {
         self.name = name
         self.frame = frame
+        self.identifier = Node.nextID
+        Node.nextID += 1
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        identifier = try values.decode(Int.self, forKey: .identifier)
         name = try values.decode(String.self, forKey: .name)
         frame = try values.decode(Rect.self, forKey: .frame)
         objects = try values.decode([GameObject].self, forKey: .objects)
@@ -27,7 +32,7 @@ class Node: Codable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-
+        try container.encode(identifier, forKey: .identifier)
         try container.encode(name, forKey: .name)
         try container.encode(frame, forKey: .frame)
         try container.encode(objects, forKey: .objects)
@@ -69,6 +74,6 @@ extension Node: Hashable {
     }
 
     static func == (lhs: Node, rhs: Node) -> Bool {
-        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+        return lhs.identifier == rhs.identifier
     }
 }
