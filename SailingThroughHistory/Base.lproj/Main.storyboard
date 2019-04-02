@@ -493,7 +493,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Start Game"/>
                                 <connections>
-                                    <action selector="changeTeamPressed:" destination="hud-2E-hMt" eventType="touchUpInside" id="h6u-3c-u8p"/>
                                     <action selector="startGamePressed:" destination="hud-2E-hMt" eventType="touchUpInside" id="LUS-nZ-xie"/>
                                 </connections>
                             </button>
@@ -524,11 +523,12 @@
                         <outlet property="chooseLevelButton" destination="g0f-gp-77X" id="DS7-c6-FTB"/>
                         <outlet property="playersTableView" destination="I1d-80-XYE" id="TfF-Q8-aTs"/>
                         <segue destination="vOw-dY-OFM" kind="presentation" identifier="waitingRoomToGallery" id="7Jl-WZ-ghm"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="waitingRoomToGame" id="wfZ-Ma-LaA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P9S-YG-YOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-601.171875" y="-1657.03125"/>
+            <point key="canvasLocation" x="202" y="-1438"/>
         </scene>
         <!--Rooms Menu View Controller-->
         <scene sceneID="m8x-ki-omo">
@@ -1419,5 +1419,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="7Jl-WZ-ghm"/>
+        <segue reference="wfZ-Ma-LaA"/>
     </inferredMetricsTieBreakers>
 </document>

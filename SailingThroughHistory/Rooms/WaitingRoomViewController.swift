@@ -16,6 +16,7 @@ class WaitingRoomViewController: UIViewController {
     private var dataSource: PlayersTableDataSource?
     var roomConnection: RoomConnection?
     private var waitingRoom: WaitingRoom?
+    private var initialState: GenericGameState?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class WaitingRoomViewController: UIViewController {
             return
         }        
         let waitingRoom = WaitingRoom(fromConnection: roomConnection)
+        subscribeToGameStart()
         self.waitingRoom = waitingRoom
         dataSource = PlayersTableDataSource(withView: playersTableView, withRoom: waitingRoom)
         playersTableView.dataSource = dataSource
@@ -44,6 +46,20 @@ class WaitingRoomViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        switch segue.identifier {
+        case "waitingRoomToGallery":
+            prepareForSegueToGallery(segue: segue)
+            break
+        case "waitingRoomToGame":
+            prepareForSegueToGame(segue: segue)
+            break
+        default:
+            break
+        }
+
+    }
+
+    private func prepareForSegueToGallery(segue: UIStoryboardSegue) {
         guard segue.identifier == "waitingRoomToGallery",
             let galleryController = segue.destination as? GalleryViewController else {
                 return
@@ -53,6 +69,17 @@ class WaitingRoomViewController: UIViewController {
             self?.waitingRoom?.parameters = gameParameter
             galleryController.dismiss(animated: true, completion: nil)
         }
+    }
+
+    private func prepareForSegueToGame(segue: UIStoryboardSegue) {
+        guard let roomConnection = roomConnection,
+            let initialState = initialState,
+            let gameController = segue.destination as? MainGameViewController else {
+            return
+        }
+
+        let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(), network: roomConnection, startingState: initialState, deviceId: self.getWaitingRoom().identifier)
+        gameController.turnSystem = system
     }
 
     @IBAction func changeTeamPressed(_ sender: Any) {
@@ -72,7 +99,37 @@ class WaitingRoomViewController: UIViewController {
             return
         }
 
+        /// TODO: Remove hardcoded year
+        let state = GameState(baseYear: 1900, level: parameters, players: getWaitingRoom().players)
+        do {
+            try roomConnection?.startGame(initialState: state) { [weak self] error in
+                guard let error = error else {
+                    return
+                }
+                print(error)
+                let alert = ControllerUtils.getGenericAlert(titled: "Failed to start game.",
+                                                            withMsg: "Please try again later.")
+                self?.present(alert, animated: true, completion: nil)
+                }
+        } catch {
+            let alert = ControllerUtils.getGenericAlert(titled: "Failed to start game.",
+                                                        withMsg: "Error in game level.")
+            present(alert, animated: true, completion: nil)
+        }
+    }
 
+    func subscribeToGameStart() {
+        guard let roomConnection = roomConnection else {
+            preconditionFailure("No connection to room.")
+        }
+        roomConnection.subscribeToStart { [weak self] state in
+            guard let self = self else {
+                return
+            }
+
+            self.initialState = state
+            self.performSegue(withIdentifier: "waitingRoomToGame", sender: nil)
+        }
     }
 
     func getWaitingRoom() -> WaitingRoom {

@@ -67,10 +67,16 @@ class MainGameViewController: UIViewController {
         togglePlayerTwoInfoButton: playerTwoInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
-    private var model: GameState?
+    var turnSystem: GenericTurnSystem?
+    private var model: GenericGameState? {
+        return turnSystem?.gameState
+    }
 
     var interfaceBounds: CGRect {
         /// TODO: Fix
+        if let map = model?.map {
+            return CGRect(fromRect: map.bounds)
+        }
         return CGRect()
         //return CGRect(fromRect: interface.bounds)
     }
@@ -81,6 +87,7 @@ class MainGameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         reInitScrollView()
         initBackground()
 

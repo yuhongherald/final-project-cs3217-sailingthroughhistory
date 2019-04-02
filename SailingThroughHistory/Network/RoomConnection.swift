@@ -18,7 +18,7 @@ protocol RoomConnection {
     func push(currentState: GameState, completion callback: @escaping (Error?) -> Void) throws
 
     /// TODO: CHANGE TYPE
-    func subscribeToActions(for turn: Int, callback: @escaping ([[PlayerAction]], Error?) -> Void)
+    func subscribeToActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void)
 
     func subscribeToPlayerTeams(with callback: @escaping ([WaitingRoomPlayer]) -> Void)
 
@@ -31,6 +31,8 @@ protocol RoomConnection {
     func set(teams: [Team])
 
     func subscibeToTeamNames(with callback: @escaping ([String]) -> Void)
+
+    func subscribeToStart(with callback: @escaping (GameState) -> Void)
 
     func changeTeamName(for identifier: String, to teamName: String)
 }
