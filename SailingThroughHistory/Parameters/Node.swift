@@ -27,7 +27,20 @@ class Node: Codable {
         identifier = try values.decode(Int.self, forKey: .identifier)
         name = try values.decode(String.self, forKey: .name)
         frame = try values.decode(Rect.self, forKey: .frame)
-        objects = try values.decode([GameObject].self, forKey: .objects)
+        var objectsArrayForType = try values.nestedUnkeyedContainer(forKey: CodingKeys.objects)
+        while !objectsArrayForType.isAtEnd {
+            let object = try objectsArrayForType.nestedContainer(keyedBy: ObjectTypeKey.self)
+            let type = try object.decode(ObjectTypes.self, forKey: ObjectTypeKey.type)
+
+            switch type {
+            case .pirate:
+                let object = try object.decode(Pirate.self, forKey: ObjectTypeKey.object)
+                objects.append(object)
+            case .shipUI:
+                let object = try object.decode(ShipUI.self, forKey: ObjectTypeKey.object)
+                objects.append(object)
+            }
+        }
     }
 
     func encode(to encoder: Encoder) throws {
@@ -35,7 +48,17 @@ class Node: Codable {
         try container.encode(identifier, forKey: .identifier)
         try container.encode(name, forKey: .name)
         try container.encode(frame, forKey: .frame)
-        try container.encode(objects, forKey: .objects)
+
+        var objectsWithType = [ObjectWithType]()
+        for object in objects {
+            if object is Pirate {
+                objectsWithType.append(ObjectWithType(object: object, type: ObjectTypes.pirate))
+            }
+            if object is ShipUI {
+                objectsWithType.append(ObjectWithType(object: object, type: ObjectTypes.shipUI))
+            }
+        }
+        try container.encode(objectsWithType, forKey: .objects)
     }
 
     func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
@@ -65,6 +88,26 @@ class Node: Codable {
         case image
         case frame
         case objects
+    }
+
+    enum ObjectTypeKey: String, CodingKey {
+        case type
+        case object
+    }
+
+    enum ObjectTypes: String, Codable {
+        case pirate
+        case shipUI
+    }
+
+    struct ObjectWithType: Codable, Hashable {
+        var object: GameObject
+        var type: ObjectTypes
+
+        init(object: GameObject, type: ObjectTypes) {
+            self.object = object
+            self.type = type
+        }
     }
 }
 
