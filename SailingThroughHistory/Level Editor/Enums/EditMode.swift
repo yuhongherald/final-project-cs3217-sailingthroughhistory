@@ -25,8 +25,10 @@ enum EditMode {
             return NodeView(node: Port(player: nil, name: name, originX: Double(center.x),
                                        originY: Double(center.y)))
         case .pirate:
-            return NodeView(node: Pirate(name: name, originX: Double(center.x),
-                                         originY: Double(center.y)))
+            // TODO
+            return nil
+            /*return NodeView(node: Pirate(name: name, originX: Double(center.x),
+                                         originY: Double(center.y)))*/
         default:
             return nil
         }

@@ -11,6 +11,7 @@ import UIKit
 class Map: Codable {
     var map: String
     var bounds: Rect
+    private(set) var gameObjects = [GameObject]()
     private var nodes = GameVariable(value: Set<Node>())
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
     private var paths: [Node: [Path]] {
@@ -140,9 +141,11 @@ class Map: Codable {
                 nodeIDPair[identifier] = node
             case .pirate:
                 let node = try node.decode(Pirate.self, forKey: NodeTypeKey.node)
+                // TODO
+                /*
                 nodes.insert(node)
                 nodes.insert(node)
-                nodeIDPair[identifier] = node
+                nodeIDPair[identifier] = node*/
             }
         }
         self.nodes.value = nodes
@@ -167,6 +170,10 @@ class Map: Codable {
             }
         }
         self.pathsVariable.value = paths
+    }
+
+    func addGameObject(gameObject: GameObject) {
+        gameObjects.append(gameObject)
     }
 
     func encode(to encoder: Encoder) throws {

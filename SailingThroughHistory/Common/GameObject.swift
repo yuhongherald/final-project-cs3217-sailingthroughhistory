@@ -38,6 +38,10 @@ class GameObject: ReadOnlyGameObject {
         self.frame.value = frame
     }
 
+    func addToMap(map: Map) {
+        map.addGameObject(gameObject: self)
+    }
+
     private enum CodingKeys: String, CodingKey {
         case frame
     }

@@ -10,6 +10,9 @@ import Foundation
 
 class GameState: GenericGameState {
     var gameTime: GameTime
+    var gameObjects: [GameObject] {
+        return map.gameObjects
+    }
     var itemParameters = [ItemParameter]()
 
     private(set) var map: Map
@@ -37,6 +40,10 @@ class GameState: GenericGameState {
         try teams = values.decode([Team].self, forKey: .teams)
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
+
+        for player in players {
+            player.addShipsToMap(map: map)
+        }
     }
 
     func encode(to encoder: Encoder) throws {
@@ -108,7 +115,7 @@ class GameState: GenericGameState {
             if !teams.contains(where: {$0.name == team.name}) {
                 teams.append(team)
             }
-            players.append(Player(name: roomPlayer.playerName, team: team, node: node, deviceId: roomPlayer.deviceId))
+            players.append(Player(name: roomPlayer.playerName, team: team, map: map, node: node, deviceId: roomPlayer.deviceId))
         }
     }
 }

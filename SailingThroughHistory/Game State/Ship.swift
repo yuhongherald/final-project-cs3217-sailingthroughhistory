@@ -107,6 +107,13 @@ class Ship: Codable {
         }
     }
 
+    func setMap(map: Map) {
+        guard let shipUI = shipUI else {
+            return
+        }
+        map.addGameObject(gameObject: shipUI)
+    }
+
     // Movement
 
     func startTurn() {

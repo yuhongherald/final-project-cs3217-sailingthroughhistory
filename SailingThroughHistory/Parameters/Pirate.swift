@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class Pirate: Node {
+class Pirate: GameObject {
     private static let pirateNodeHeight: Double = 50
     private static let pirateNodeWidth: Double = 50
     private static let pirateNodeImage = "pirate-node.png"
@@ -16,10 +16,11 @@ class Pirate: Node {
                                width: Pirate.pirateNodeWidth) else {
             fatalError("Pirate node dimensions are invalid.")
         }
-        super.init(name: name, image: Pirate.pirateNodeImage, frame: frame)
+        super.init(image: Pirate.pirateNodeImage, frame: frame)
     }
 
-    override func moveIntoNode(ship: Pirate_WeatherEntity) {
+    // TODO - no longer used
+    func moveIntoNode(ship: Pirate_WeatherEntity) {
         // TODO: Remove this rigged pirate encounter. LOL
         ship.startPirateChase()
     }

@@ -17,6 +17,7 @@ protocol GenericPlayer: Codable {
     var hasRolled: Bool { get }
 
     func getItemParameter(name: String) -> ItemParameter?
+    func addShipsToMap(map: Map)
 
     // update money
     func updateMoney(by amount: Int)

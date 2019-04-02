@@ -39,12 +39,13 @@ class Player: GenericPlayer {
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    required init(name: String, team: Team, node: Node, deviceId: String) {
+    required init(name: String, team: Team, map: Map, node: Node, deviceId: String) {
         self.name = name
         self.team = team
         self.deviceId = deviceId
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
+        ship.setMap(map: map)
     }
 
     required init(from decoder: Decoder) throws {
@@ -70,6 +71,10 @@ class Player: GenericPlayer {
     func getItemParameter(name: String) -> ItemParameter? {
         let parameters = gameState?.itemParameters ?? []
         return parameters.first(where: { $0.displayName == name })
+    }
+
+    func addShipsToMap(map: Map) {
+        ship.setMap(map: map)
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
