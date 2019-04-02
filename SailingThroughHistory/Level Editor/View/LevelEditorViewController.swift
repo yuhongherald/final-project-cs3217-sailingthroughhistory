@@ -158,7 +158,7 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func tapOnMap(_ sender: UITapGestureRecognizer) {
-        if editMode == .erase || editMode == .item {
+        if editMode == .erase || editMode == .item || editMode == .pirate {
             return
         }
 
@@ -202,10 +202,8 @@ class LevelEditorViewController: UIViewController {
 
             guard let portView = sender.view as? NodeView,
                 let port = portView.node as? Port else {
-                let alert = UIAlertController(title: "Please select a port!", message: nil, preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-                alert.addAction(cancelAction)
-                self.present(alert, animated: true, completion: nil)
+                let alert = UIAlert(errorMsg: "Please select a port!", msg: nil)
+                alert.present(in: self)
                 return
             }
 
@@ -219,21 +217,19 @@ class LevelEditorViewController: UIViewController {
 
         if editMode == .pirate {
             guard let nodeView = sender.view as? NodeView else {
-                let alert = UIAlertController(title: "Please select a node!", message: nil, preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-                alert.addAction(cancelAction)
-                self.present(alert, animated: true, completion: nil)
+                let alert = UIAlert(errorMsg: "Please select a node!", msg: nil)
+                alert.present(in: self)
                 return
             }
             if nodeView.node is Port {
-                let alert = UIAlertController(title: "You cannot add pirate to a port!", message: nil, preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-                alert.addAction(cancelAction)
-                self.present(alert, animated: true, completion: nil)
+                let alert = UIAlert(errorMsg: "You cannot add pirate to a port!", msg: nil)
+                alert.present(in: self)
                 return
             }
 
-            nodeView.node.add(object: Pirate(in: nodeView.node))
+            let pirate = Pirate(in: nodeView.node)
+            nodeView.node.add(object: pirate)
+            nodeView.update()
         }
     }
 

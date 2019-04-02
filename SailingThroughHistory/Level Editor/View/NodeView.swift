@@ -36,6 +36,15 @@ class NodeView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // Update image of a node view after new object is added into it.
+    func update() {
+        node.objects.forEach { object in
+            if let image = Resources.Icon.of(object) {
+                self.image = UIImage(named: image)
+            }
+        }
+    }
+
     /// Add NodeView to provided superView: view and add Node model to Map model
     /// - Parameters:
     ///   - view: superView where NodeView is added
