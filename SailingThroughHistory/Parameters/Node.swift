@@ -43,9 +43,26 @@ class Node: Codable {
         for path in map.getPaths(of: self) {
             let neighbour = path.toNode
             let remainingMovement = range - path.computeCostOfPath(baseCost: 1, with: ship)
+            // TODO - add visited check
             result += neighbour.getNodesInRange(ship: ship, range: remainingMovement, map: map)
         }
         return result
+    }
+
+    func getCompletePath(to node: Node, map: Map) -> [Node] {
+        var queue = [(self, [Node]())]
+        var next = self
+        var path = [Node]()
+        while (next != node && !queue.isEmpty) {
+            (next, path) = queue.removeFirst()
+            for neighbor in map.getAllPaths() {
+                queue.append((neighbor.toNode, path + [next]))
+            }
+        }
+        guard next == node else {
+            return [node]
+        }
+        return path
     }
 
     func moveIntoNode(ship: Pirate_WeatherEntity) {

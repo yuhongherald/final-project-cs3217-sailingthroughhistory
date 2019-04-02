@@ -42,6 +42,7 @@ class Player: GenericPlayer {
     required init(name: String, team: Team, map: Map, node: Node, deviceId: String) {
         self.name = name
         self.team = team
+        self.map = map
         self.deviceId = deviceId
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
@@ -93,8 +94,12 @@ class Player: GenericPlayer {
         port.taxAmount = amount
     }
 
-    func move(node: Node) {
+    func move(node: Node) -> [Node] {
         ship.move(node: node)
+        guard let map = map else {
+            return []
+        }
+        return node.getCompletePath(to: node, map: map)
     }
 
     func getNodesInRange(roll: Int) -> [Node] {

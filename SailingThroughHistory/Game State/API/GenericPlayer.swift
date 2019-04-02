@@ -36,7 +36,7 @@ protocol GenericPlayer: Codable {
     func roll() -> Int
 
     // Moving - Auto progress to End turn if cannot dock
-    func move(node: Node)
+    func move(node: Node) -> [Node]
     func getNodesInRange(roll: Int) -> [Node]
 
     // After moving can choose to dock
