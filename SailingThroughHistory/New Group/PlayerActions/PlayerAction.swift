@@ -30,6 +30,8 @@ enum PlayerAction: Codable {
             self = .setTax(for: port, taxAmount: taxAmount)
         case .setEvent:
             self = .roll
+        default:
+            self = .roll // TODO: Make items decodable
         }
     }
 
@@ -55,18 +57,23 @@ enum PlayerAction: Codable {
             try container.encode(taxAmount, forKey: .taxAmount)
         case .setEvent(let changeType, let events):
             break
+        default:
+            break // TODO: Make new events encodable
         }
     }
 
-    case changeInventory(changeType: ChangeType, money: Int, items: [Item])
+    case changeInventory(changeType: ChangeType, money: Int, items: [Item]) // deprecated
+    case buyOrSell(player: GenericPlayer, itemParamter: ItemParameter, item: Int)
     case roll
     case move(to: Node)
     case forceMove(to: Node)
+    //case moveSequence() // TODO
     case setTax(for: Port, taxAmount: Int)
     case setEvent(changeType: ChangeType, events: [TurnSystemEvent])
 
     private enum Identifier: String, Codable {
         case changeInventory
+        case buyOrSell
         case roll
         case move
         case forceMove
