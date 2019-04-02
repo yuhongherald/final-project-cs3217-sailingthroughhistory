@@ -12,7 +12,6 @@ class GameState: GenericGameState {
     var gameTime: GameTime
     var itemParameters = [ItemParameter]()
 
-    private var interface: Interface?
     private(set) var map: Map?
     private var teams = [Team]()
     private var players = [GenericPlayer]()
@@ -23,6 +22,13 @@ class GameState: GenericGameState {
     required init(baseYear: Int) {
         //TODO
         gameTime = GameTime()
+    }
+
+    init?(baseYear: Int, level: GenericLevel, players: WaitingRoomPlayer) {
+        //TODO
+        gameTime = GameTime()
+        loadLevel(level: level)
+
     }
 
     required init(from decoder: Decoder) throws {
@@ -57,16 +63,9 @@ class GameState: GenericGameState {
         case speedMultiplier
     }
 
-    func subscribe(interface: Interface) {
-        self.interface = interface
-    }
-
     func loadLevel(level: GenericLevel) {
         teams = level.teams
         initializePlayersFromParameters(parameters: level.playerParameters)
-        for var player in players {
-            player.interface = interface
-        }
         map = level.map
         itemParameters = level.itemParameters
     }

@@ -1,12 +1,3 @@
-//
-//  GameTime.swift
-//  SailingThroughHistory
-//
-//  Created by Herald on 20/3/19.
-//  Copyright © 2019 Sailing Through History Team. All rights reserved.
-//
-
-// TODO change back to struct
 class GameTime: Codable {
     // TODO
     let baseYear = 1800

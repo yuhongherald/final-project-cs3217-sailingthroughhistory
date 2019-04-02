@@ -27,7 +27,6 @@ class Player: GenericPlayer {
     var node: Node? {
         return getNodesInRange(roll: 0).first
     }
-    var interface: Interface?
     var map: Map?
     var currentNode: Node {
         return ship.location.value.start
@@ -154,8 +153,8 @@ extension Player {
     }
 
     private func preventPlayerBankruptcy(amount: Int) {
-        interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-amount) amount of donations from your company. Try not to go negative again!")
-        interface?.broadcastInterfaceChanges(withDuration: 0.5)
+        //interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-amount) amount of donations from your company. Try not to go negative again!")
+        //interface?.broadcastInterfaceChanges(withDuration: 0.5)
         team.updateMoney(by: -amount)
         money.value = 0
     }
