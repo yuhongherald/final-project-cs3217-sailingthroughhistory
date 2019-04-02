@@ -762,8 +762,6 @@
 		9690F5C8223A4874005291EE /* SailingThroughHistory */ = {
 			isa = PBXGroup;
 			children = (
-				75328F5722535A1500180B03 /* GameTime.swift */,
-				75328F55225359BB00180B03 /* EngineConstants.swift */,
 				964EACD3224D139B004BA7C0 /* Rooms */,
 				9603F772224A8005007D54E0 /* Network */,
 				751F8FDA224B9D600071C057 /* TurnSystem */,
@@ -779,6 +777,8 @@
 				9690F5D2223A4875005291EE /* LaunchScreen.storyboard */,
 				9690F5D5223A4875005291EE /* Info.plist */,
 				969016F5224BD21600296333 /* MainMenuViewController.swift */,
+				75328F5722535A1500180B03 /* GameTime.swift */,
+				75328F55225359BB00180B03 /* EngineConstants.swift */,
 			);
 			path = SailingThroughHistory;
 			sourceTree = "<group>";
