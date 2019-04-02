@@ -30,7 +30,7 @@ class TurnSystem: GenericTurnSystem {
         return _currentPlayer
     }
 
-    init(isMaster: Bool, network: RoomConnection, startingState: GameState, deviceId: String) {
+    init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, deviceId: String) {
         self.deviceId = deviceId
         self.network = network
         self.isMaster = isMaster
@@ -187,5 +187,4 @@ class TurnSystem: GenericTurnSystem {
     private func updateStateMaster() {
         // TODO: Interface with network
     }
-
 }

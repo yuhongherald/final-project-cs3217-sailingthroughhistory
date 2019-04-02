@@ -7,9 +7,9 @@
 //
 
 protocol GenericTurnSystemState {
-    var gameState: GameState { get } // possibly bad practice
-
     var currentTurn: Int { get }
+    var gameState: GenericGameState { get }
+
     var currentPlayerIndex: Int { get set }
 
     var triggeredEvents: [TurnSystemEvent] { get }

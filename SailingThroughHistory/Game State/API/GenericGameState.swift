@@ -10,6 +10,7 @@ import Foundation
 
 protocol GenericGameState: Codable {
     var gameTime: GameTime { get set }
+    var map: Map { get }
     var itemParameters: [ItemParameter] { get set }
 
     func getPlayers() -> [GenericPlayer]
