@@ -8,7 +8,12 @@
 
 class Port: Node {
     public var taxAmount = 0
-    public var owner: Team?
+    public var owner: Team? {
+        didSet {
+            self.ownerName = self.owner?.name
+        }
+    }
+    public var ownerName: String?
     private var itemParameters: [ItemType: ItemParameter] = {
         var dictionary = [ItemType: ItemParameter]()
         ItemType.getAll().forEach {
@@ -42,16 +47,11 @@ class Port: Node {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let ownerName = try values.decode(String?.self, forKey: .ownerName)
+        ownerName = try values.decode(String?.self, forKey: .ownerName)
         itemParameters = try values.decode([ItemType: ItemParameter].self, forKey: .itemParameters)
         itemParametersSold = try values.decode([ItemParameter].self, forKey: .itemsSold)
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
-        guard let name = ownerName else {
-            owner = nil
-            return
-        }
-        owner = Team(name: name)
     }
 
     override func encode(to encoder: Encoder) throws {

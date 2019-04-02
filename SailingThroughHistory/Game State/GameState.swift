@@ -37,6 +37,15 @@ class GameState: GenericGameState {
         try teams = values.decode([Team].self, forKey: .teams)
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
+
+        for node in map.getNodes() {
+            guard let port = node as? Port else {
+                continue
+            }
+            port.assignOwner(teams.first(where: { team in
+                team.name == port.ownerName
+            }))
+        }
     }
 
     func encode(to encoder: Encoder) throws {
