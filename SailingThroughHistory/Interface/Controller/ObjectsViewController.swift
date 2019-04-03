@@ -9,7 +9,7 @@
 import UIKit
 
 class ObjectsViewController {
-    private var views = [ObjectIdentifier: UIGameObjectImageView]()
+    private var objectViews = [GameObject: UIImageView]()
     private let mainController: MainGameViewController
     private var nodeViews = [Node: UIImageView]()
     private var paths = ObjectPaths()
@@ -22,7 +22,8 @@ class ObjectsViewController {
     }
 
     func getFrame(for object: ReadOnlyGameObject) -> CGRect? {
-        return views[ObjectIdentifier(object)]?.frame
+        return nil
+        //return views[ObjectIdentifier(object)]?.frame
     }
 
     func onTap(objectView: UIGameObjectImageView) {
@@ -101,6 +102,27 @@ class ObjectsViewController {
 
     /// TODO
     func subscribeToObjects(in map: Map) {
+        map.subscribeToObjects { [weak self] in
+            for object in $0 {
+                print("HERE")
+                print(object.frame.value)
+                if self?.objectViews[object] != nil {
+                    continue
+                }
+
+                let objectView = UIImageView(frame: CGRect(fromRect: object.frame.value))
+                object.subscibeToFrame { frame in
+                    UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
+                        objectView.frame = CGRect(fromRect: frame)
+                    }, completion: nil)
+                }
+                if object as? ShipUI != nil {
+                    objectView.image = UIImage(named: "ship.png")
+                }
+                self?.objectViews[object] = objectView
+                self?.view.addSubview(objectView)
+            }
+        }
     }
 
     private func getImageFor(node: Node) -> UIImage? {
@@ -114,7 +136,7 @@ class ObjectsViewController {
     }
 
     private func onTapChoosableNode(nodeView: UIGameObjectImageView) {
-        guard nodeView.tapCallback != nil,
+        /*guard nodeView.tapCallback != nil,
             nodeView.object as? Node != nil else {
             return
         }
@@ -127,7 +149,7 @@ class ObjectsViewController {
             .forEach {
                 $0.removeGlow()
                 $0.tapCallback = nil
-        }
+        }*/
     }
 
     private func onTapPort(portView: UIGameObjectImageView) {
@@ -163,15 +185,16 @@ class ObjectsViewController {
     }
 
     func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        guard let view = views.removeValue(forKey: ObjectIdentifier(object)) else {
+        /*guard let view = views.removeValue(forKey: ObjectIdentifier(object)) else {
             callback()
             return
         }
 
-        view.fadeOutAndRemove(withDuration: duration, completion: callback)
+        view.fadeOutAndRemove(withDuration: duration, completion: callback)*/
     }
 
     func makeChoosable(nodes: [Node], withDuration duration: TimeInterval, tapCallback: @escaping (ReadOnlyGameObject) -> Void, callback: @escaping () -> Void) {
+        /*
         if nodes.isEmpty {
             callback()
             return
@@ -191,12 +214,12 @@ class ObjectsViewController {
             }
         }, completion: { _ in
             callback()
-        })
+        })*/
     }
 
     func move(object: ReadOnlyGameObject, to dest: Rect, withDuration duration: TimeInterval,
               callback: @escaping () -> Void) {
-        guard let objectView = views[ObjectIdentifier(object)] else {
+        /*guard let objectView = views[ObjectIdentifier(object)] else {
             return
         }
 
@@ -207,6 +230,6 @@ class ObjectsViewController {
             objectView.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds,
                                                       otherFrame: CGRect(fromRect: dest),
                                                       to: bounds)
-            }, completion: { _ in callback() })
+            }, completion: { _ in callback() })*/
     }
 }

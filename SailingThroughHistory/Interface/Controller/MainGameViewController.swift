@@ -68,16 +68,16 @@ class MainGameViewController: UIViewController {
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     var turnSystem: GenericTurnSystem?
-    private var model: GenericGameState? {
-        return turnSystem?.gameState
+    private var model: GenericGameState {
+        guard let turnSystem = turnSystem else {
+            fatalError("Turn system is nil")
+        }
+        return turnSystem.gameState
     }
 
     var interfaceBounds: CGRect {
         /// TODO: Fix
-        if let map = model?.map {
-            return CGRect(fromRect: map.bounds)
-        }
-        return CGRect()
+        return CGRect(fromRect: model.map.bounds)
         //return CGRect(fromRect: interface.bounds)
     }
 
@@ -90,6 +90,9 @@ class MainGameViewController: UIViewController {
 
         reInitScrollView()
         initBackground()
+        objectsController.subscribeToNodes(in: model.map)
+        objectsController.subscribeToPaths(in: model.map)
+        objectsController.subscribeToObjects(in: model.map)
 
         //model.map?.getNodes().forEach { node in }
     }
@@ -138,8 +141,8 @@ class MainGameViewController: UIViewController {
     }
 
     private func initBackground() {
-        /// TODO: FIx
-        /*guard let image = UIImage(named: interface.background),
+        /// TODO: Change map
+        guard let image = UIImage(named: "worldmap1815.png"),
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
             return
         }
@@ -154,7 +157,7 @@ class MainGameViewController: UIViewController {
         scrollView.contentSize = image.size
         scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
         scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
-        backgroundImageView.image = image*/
+        backgroundImageView.image = image
     }
 
     private func reInitScrollView () {

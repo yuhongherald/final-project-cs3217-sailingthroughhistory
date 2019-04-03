@@ -12,7 +12,7 @@ class Map: Codable {
     var map: String
     var bounds: Rect
     var nodeIDPair: [Int: Node]
-    private(set) var gameObjects = [GameObject]()
+    private(set) var gameObjects = GameVariable(value: [GameObject]())
     private var nodes = GameVariable(value: Set<Node>())
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
     private var paths: [Node: [Path]] {
@@ -119,6 +119,10 @@ class Map: Codable {
         pathsVariable.subscribe(with: callback)
     }
 
+    func subscribeToObjects(with callback: @escaping (([GameObject]) -> Void)) {
+        gameObjects.subscribe(with: callback)
+    }
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -168,7 +172,7 @@ class Map: Codable {
     }
 
     func addGameObject(gameObject: GameObject) {
-        gameObjects.append(gameObject)
+        gameObjects.value.append(gameObject)
     }
 
     func encode(to encoder: Encoder) throws {

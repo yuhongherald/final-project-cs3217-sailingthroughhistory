@@ -11,7 +11,7 @@ import Foundation
 class GameState: GenericGameState {
     var gameTime: GameTime
     var gameObjects: [GameObject] {
-        return map.gameObjects
+        return map.gameObjects.value
     }
     var itemParameters = [ItemParameter]()
 
@@ -30,6 +30,9 @@ class GameState: GenericGameState {
         map = level.map
         itemParameters = level.itemParameters
         initializePlayers(from: level.playerParameters, for: players)
+        self.players.forEach {
+            $0.addShipsToMap(map: map)
+        }
     }
 
     required init(from decoder: Decoder) throws {
