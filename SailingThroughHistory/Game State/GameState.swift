@@ -45,6 +45,7 @@ class GameState: GenericGameState {
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
 
         for player in players {
+            player.map = map
             player.addShipsToMap(map: map)
         }
         for node in map.getNodes() {

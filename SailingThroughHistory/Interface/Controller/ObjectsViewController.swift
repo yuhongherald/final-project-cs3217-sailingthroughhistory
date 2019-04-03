@@ -11,7 +11,7 @@ import UIKit
 class ObjectsViewController {
     private var objectViews = [GameObject: UIImageView]()
     private let mainController: MainGameViewController
-    private var nodeViews = [Node: UIImageView]()
+    private var nodeViews = [Node: NodeView]()
     private var paths = ObjectPaths()
     private var pathLayers = [Path: CALayer]()
     private let view: UIView
@@ -46,7 +46,8 @@ class ObjectsViewController {
                     continue
                 }
 
-                let nodeView = UIImageView(frame: CGRect(fromRect: node.frame))
+                let nodeView = NodeView(node: node)
+                nodeView.frame = CGRect(fromRect: node.frame)
                 nodeView.image = self?.getImageFor(node: node)
                 self?.view.addSubview(nodeView)
                 self?.nodeViews[node] = nodeView
@@ -103,10 +104,12 @@ class ObjectsViewController {
     /// TODO
     func subscribeToObjects(in map: Map) {
         map.subscribeToObjects { [weak self] in
+            guard let self = self else {
+                return
+            }
+            var objects = [GameObject](self.objectViews.keys)
             for object in $0 {
-                print("HERE")
-                print(object.frame.value)
-                if self?.objectViews[object] != nil {
+                if self.objectViews[object] != nil {
                     continue
                 }
 
@@ -119,8 +122,14 @@ class ObjectsViewController {
                 if object as? ShipUI != nil {
                     objectView.image = UIImage(named: "ship.png")
                 }
-                self?.objectViews[object] = objectView
-                self?.view.addSubview(objectView)
+                self.objectViews[object] = objectView
+                self.view.addSubview(objectView)
+                objects.removeAll { $0 == object }
+            }
+            for removedObject in objects {
+                let objectView = self.objectViews[removedObject]
+                objectView?.removeFromSuperview()
+                self.objectViews[removedObject] = nil
             }
         }
     }

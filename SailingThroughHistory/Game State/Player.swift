@@ -28,11 +28,23 @@ class Player: GenericPlayer {
     var node: Node? {
         return getNodesInRange(roll: 0).first
     }
-    var map: Map?
+    var map: Map? {
+        didSet {
+            guard let map = map else {
+                return
+            }
+            ship.setMap(map: map)
+        }
+    }
     var currentNode: Node? {
         return map?.nodeIDPair[ship.nodeId]
     }
-
+    var currentCargoWeight: Int {
+        return ship.currentCargoWeight
+    }
+    var weightCapacity: Int {
+        return ship.weightCapacity
+    }
     private let ship: Ship
     private var gameState: GenericGameState?
     private var speedMultiplier = 1.0
@@ -175,16 +187,28 @@ class Player: GenericPlayer {
 
 // MARK: - subscribes
 extension Player {
-    func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void) {
-        ship.subscribeToItems(with: observer)
+    func subscribeToItems(with observer: @escaping (GenericPlayer, [GenericItem]) -> Void) {
+        ship.subscribeToItems {
+            observer(self, $0)
+        }
     }
 
-    func subscribeToCargoWeight(with observer: @escaping (Int) -> Void) {
-        ship.subscribeToCargoWeight(with: observer)
+    func subscribeToCargoWeight(with observer: @escaping (GenericPlayer, Int) -> Void) {
+        ship.subscribeToCargoWeight {
+            observer(self, $0)
+        }
     }
 
-    func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void) {
-        ship.subscribeToWeightCapcity(with: observer)
+    func subscribeToWeightCapcity(with observer: @escaping (GenericPlayer, Int) -> Void) {
+        ship.subscribeToWeightCapcity {
+            observer(self, $0)
+        }
+    }
+
+    func subscribeToMoney(with observer: @escaping (GenericPlayer, Int) -> Void) {
+        money.subscribe {
+            observer(self, $0)
+        }
     }
 
     private func preventPlayerBankruptcy(amount: Int) {

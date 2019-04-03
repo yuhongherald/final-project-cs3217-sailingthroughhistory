@@ -26,18 +26,28 @@ class Ship: Codable {
             nodeIdVariable.value = newValue
         }
     }
+    var currentCargoWeight: Int {
+        return currentCargoWeightVariable.value
+    }
+    var weightCapacity: Int {
+        return weightCapacityVariable.value
+    }
     private let nodeIdVariable: GameVariable<Int>
     private var owner: GenericPlayer?
     private var items = GameVariable<[GenericItem]>(value: [])
-    private var currentCargoWeight = GameVariable<Int>(value: 0)
-    private var weightCapacity = GameVariable<Int>(value: 100)
+    private var currentCargoWeightVariable = GameVariable<Int>(value: 0)
+    private var weightCapacityVariable = GameVariable<Int>(value: 100)
     private var isDocked = false
 
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
     private var shipUI: ShipUI?
 
-    weak var map: Map?
+    weak var map: Map? {
+        didSet {
+            self.nodeId = self.nodeIdVariable.value
+        }
+    }
 
     init(node: Node, suppliesConsumed: [GenericItem]) {
         self.nodeIdVariable = GameVariable(value: node.identifier)
@@ -97,7 +107,7 @@ class Ship: Codable {
             owner.updateMoney(by: -upgrade.cost)
             shipChassis = shipUpgrade
             showMessage(titled: "Ship upgrade purchased!", withMsg: "You have purchased \(upgrade.name)!")
-            weightCapacity.value = shipUpgrade.getNewCargoCapacity(baseCapacity: weightCapacity.value)
+            weightCapacityVariable.value = shipUpgrade.getNewCargoCapacity(baseCapacity: weightCapacity)
             return
         }
         if auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
@@ -127,6 +137,7 @@ class Ship: Codable {
         guard let shipUI = shipUI else {
             return
         }
+        self.map = map
         map.addGameObject(gameObject: shipUI)
     }
 
@@ -291,7 +302,7 @@ class Ship: Codable {
     }
 
     private func getRemainingCapacity() -> Int {
-        return weightCapacity.value - currentCargoWeight.value
+        return weightCapacity - currentCargoWeight
     }
 
     private func addItem(item: GenericItem) -> Bool {
@@ -341,7 +352,10 @@ extension Ship {
             guard let self = self else {
                 return
             }
-            observer(self.getCurrentNode())
+            guard let map = self.map, let node = map.nodeIDPair[self.nodeId] else {
+                return
+            }
+            observer(node)
         }
     }
 
@@ -350,11 +364,11 @@ extension Ship {
     }
 
     func subscribeToCargoWeight(with observer: @escaping (Int) -> Void) {
-        currentCargoWeight.subscribe(with: observer)
+        currentCargoWeightVariable.subscribe(with: observer)
     }
 
     func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void) {
-        weightCapacity.subscribe(with: observer)
+        weightCapacityVariable.subscribe(with: observer)
     }
 
     private func updateCargoWeight(items: [GenericItem]) {
@@ -362,7 +376,7 @@ extension Ship {
         for item in items {
             result += item.weight ?? 0
         }
-        currentCargoWeight.value = result
+        currentCargoWeightVariable.value = result
     }
 }
 
