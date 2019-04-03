@@ -17,13 +17,14 @@ protocol GenericPlayer: Codable {
     var hasRolled: Bool { get }
     var deviceId: String { get }
 
-    func getItemParameter(name: String) -> ItemParameter?
+    func getItemParameter(itemType: ItemType) -> ItemParameter?
+    func addShipsToMap(map: Map)
 
     // update money
     func updateMoney(by amount: Int)
 
     // subscribes
-    func getLocation() -> GameVariable<Location>
+    func getLocation() -> GameVariable<Location?>
     func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void)
     func subscribeToCargoWeight(with observer: @escaping (Int) -> Void)
     func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void)
@@ -35,7 +36,7 @@ protocol GenericPlayer: Codable {
     func roll() -> Int
 
     // Moving - Auto progress to End turn if cannot dock
-    func move(node: Node)
+    func move(node: Node) -> [Node]
     func getNodesInRange(roll: Int) -> [Node]
 
     // After moving can choose to dock

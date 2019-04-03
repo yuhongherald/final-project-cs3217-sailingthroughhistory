@@ -23,7 +23,10 @@ class ShipUI: GameObject {
         try super.init(from: decoder)
     }
 
-    private func moveShip(to location: Location) {
+    private func moveShip(to location: Location?) {
+        guard let location = location else {
+            return
+        }
         let start = location.start
         let end = location.end
         let fraction = location.fractionToEnd

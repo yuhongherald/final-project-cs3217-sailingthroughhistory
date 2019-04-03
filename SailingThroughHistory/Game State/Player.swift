@@ -29,8 +29,8 @@ class Player: GenericPlayer {
         return getNodesInRange(roll: 0).first
     }
     var map: Map?
-    var currentNode: Node {
-        return ship.location.value.start
+    var currentNode: Node? {
+        return ship.location.value?.start
     }
 
     private let ship: Ship
@@ -39,12 +39,14 @@ class Player: GenericPlayer {
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    required init(name: String, team: Team, node: Node, deviceId: String) {
+    required init(name: String, team: Team, map: Map, node: Node, deviceId: String) {
         self.name = name
         self.team = team
+        self.map = map
         self.deviceId = deviceId
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
+        ship.setMap(map: map)
     }
 
     required init(from decoder: Decoder) throws {
@@ -67,9 +69,14 @@ class Player: GenericPlayer {
         try container.encode(deviceId, forKey: .deviceId)
     }
 
-    func getItemParameter(name: String) -> ItemParameter? {
+    func getItemParameter(itemType: ItemType) -> ItemParameter? {
         let parameters = gameState?.itemParameters ?? []
-        return parameters.first(where: { $0.displayName == name })
+        return parameters.first(where: { $0.itemType == itemType })
+    }
+
+    func addShipsToMap(map: Map) {
+        ship.setMap(map: map)
+        ship.setLocation(map: map)
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
@@ -88,8 +95,12 @@ class Player: GenericPlayer {
         port.taxAmount = amount
     }
 
-    func move(node: Node) {
+    func move(node: Node) -> [Node] {
         ship.move(node: node)
+        guard let map = map else {
+            return []
+        }
+        return node.getCompletePath(to: node, map: map)
     }
 
     func getNodesInRange(roll: Int) -> [Node] {
@@ -141,7 +152,7 @@ class Player: GenericPlayer {
 
 // MARK: - subscribes
 extension Player {
-    func getLocation() -> GameVariable<Location> {
+    func getLocation() -> GameVariable<Location?> {
         return ship.location
     }
 

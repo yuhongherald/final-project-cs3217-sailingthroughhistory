@@ -181,6 +181,7 @@
 		BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */; };
 		BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91907B223F531A00009F49 /* GenericGameState.swift */; };
 		BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */; };
+		BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED4B042253697B00A8D54A /* InGameMessage.swift */; };
 		BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */; };
 /* End PBXBuildFile section */
 
@@ -383,6 +384,7 @@
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
 		BA91907B223F531A00009F49 /* GenericGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameState.swift; sourceTree = "<group>"; };
 		BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pirate_WeatherEntity.swift; sourceTree = "<group>"; };
+		BAED4B042253697B00A8D54A /* InGameMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMessage.swift; sourceTree = "<group>"; };
 		BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerShipUpgrade.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -872,6 +874,7 @@
 				BA485905223F959A009ED2F6 /* GenericPlayer.swift */,
 				BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */,
 				BA485907223FCB4B009ED2F6 /* PlayerState.swift */,
+				BAED4B042253697B00A8D54A /* InGameMessage.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1281,6 +1284,7 @@
 				7535447B224CAB66001B4F62 /* LessThanOrEqualOperator.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
+				BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */,
 				966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
 				1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */,

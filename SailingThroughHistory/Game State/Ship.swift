@@ -14,12 +14,19 @@ class Ship: Codable {
         return owner?.name ?? "NPC Ship"
     }
 
-    let location: GameVariable<Location>
+    let location = GameVariable<Location?>(value: nil)
 
     private let suppliesConsumed: [GenericItem]
     private var isChasedByPirates = false
     private var turnsToBeingCaught = 0
 
+    private let nodeIDSaved: Int?
+    private var nodeID: Int? {
+        guard let node = location.value?.start else {
+            return nodeIDSaved
+        }
+        return node.identifier
+    }
     private var owner: GenericPlayer?
     private var items = GameVariable<[GenericItem]>(value: [])
     private var currentCargoWeight = GameVariable<Int>(value: 0)
@@ -31,8 +38,9 @@ class Ship: Codable {
 
     init(node: Node, suppliesConsumed: [GenericItem]) {
         let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
-        self.location = GameVariable(value: location)
+        self.location.value = location
         self.suppliesConsumed = suppliesConsumed
+        nodeIDSaved = node.identifier
 
         subscribeToItems(with: updateCargoWeight)
         shipUI = ShipUI(ship: self)
@@ -40,9 +48,7 @@ class Ship: Codable {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        let node = try values.decode(Node.self, forKey: .location)
-        let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
-        self.location = GameVariable<Location>(value: location)
+        nodeIDSaved = try values.decode(Int.self, forKey: .nodeID)
         suppliesConsumed = try values.decode([Item].self, forKey: .items)
         items.value = try values.decode([Item].self, forKey: .items)
         shipChassis = try values.decode(ShipChassis.self, forKey: .shipChassis)
@@ -51,11 +57,12 @@ class Ship: Codable {
 
     func encode(to encoder: Encoder) throws {
         guard let suppliesConsumed = suppliesConsumed as? [Item],
-            let shipItems = items.value as? [Item] else {
+            let shipItems = items.value as? [Item],
+            let node = location.value?.start else {
                 return
         }
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(location.value.start, forKey: .location)
+        try container.encode(node.identifier, forKey: .nodeID)
         try container.encode(suppliesConsumed, forKey: .suppliesConsumed)
         try container.encode(shipItems, forKey: .items)
         try container.encode(shipChassis, forKey: .shipChassis)
@@ -63,11 +70,22 @@ class Ship: Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case location
+        case nodeID
         case suppliesConsumed
         case items
         case shipChassis
         case auxiliaryUpgrade
+    }
+
+    func setLocation(map: Map) {
+        guard let nodeID = nodeID else {
+            return
+        }
+        guard let node = map.nodeIDPair[nodeID] else {
+            return
+        }
+        let location = Location(start: node, end: node, fractionToEnd: 0, isDocked: node is Port)
+        self.location.value = location
     }
 
     func installUpgade(upgrade: Upgrade) {
@@ -100,11 +118,18 @@ class Ship: Codable {
     func setOwner(owner: GenericPlayer) {
         self.owner = owner
         for item in items.value {
-            guard let itemParameter = owner.getItemParameter(name: item.name) else {
+            guard let itemParameter = owner.getItemParameter(itemType: item.itemType) else {
                 continue
             }
             item.setItemParameter(itemParameter)
         }
+    }
+
+    func setMap(map: Map) {
+        guard let shipUI = shipUI else {
+            return
+        }
+        map.addGameObject(gameObject: shipUI)
     }
 
     // Movement
@@ -125,11 +150,11 @@ class Ship: Codable {
             return []
         }
         let movement = computeMovement(roll: roll, speedMultiplier: speedMultiplier)
-        let nodesFromStart = location.value.start.getNodesInRange(ship: self, range: movement - location.value.fractionToEnd, map: map)
-        if location.value.fractionToEnd == 0 {
+        let nodesFromStart = location.value?.start.getNodesInRange(ship: self, range: movement - (location.value?.fractionToEnd ?? 0), map: map) ?? []
+        if location.value?.fractionToEnd ?? 0 == 0 {
             return nodesFromStart
         }
-        let nodesFromEnd = location.value.end.getNodesInRange(ship: self, range: movement + 1 - location.value.fractionToEnd, map: map)
+        let nodesFromEnd = location.value?.end.getNodesInRange(ship: self, range: movement + 1 - (location.value?.fractionToEnd ?? 0), map: map) ?? []
         return Array(Set(nodesFromStart + nodesFromEnd))
     }
 
@@ -138,7 +163,10 @@ class Ship: Codable {
     }
 
     func canDock() -> Bool {
-        return location.value.fractionToEnd == 0 && location.value.start is Port
+        guard let location = location.value else {
+            return false
+        }
+        return location.fractionToEnd == 0 && location.start is Port
     }
 
     func dock() -> Port? {
@@ -146,10 +174,13 @@ class Ship: Codable {
             showMessage(titled: "Unable to Dock!", withMsg: "Ship is not located at a port for docking.")
             return nil
         }
-        guard let port = location.value.start as? Port else {
+        guard let port = location.value?.start as? Port else {
             return nil
         }
-        location.value = Location(from: location.value, isDocked: true)
+        guard let locationValue = location.value else {
+            return nil
+        }
+        location.value = Location(from: locationValue, isDocked: true)
         isChasedByPirates = false
         turnsToBeingCaught = 0
         return port
@@ -158,14 +189,14 @@ class Ship: Codable {
     // Items
 
     func getPurchasableItemParameters() -> [ItemParameter] {
-        guard let port = location.value.start as? Port, location.value.isDocked else {
+        guard let port = location.value?.start as? Port, location.value?.isDocked ?? false else {
             return []
         }
         return port.getItemParametersSold()
     }
 
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
-        guard let port = location.value.start as? Port, location.value.isDocked else {
+        guard let port = location.value?.start as? Port, location.value?.isDocked ?? false else {
             return 0
         }
         guard let unitValue = port.getBuyValue(of: itemParameter.itemType) else {
@@ -175,7 +206,7 @@ class Ship: Codable {
     }
 
     func buyItem(itemParameter: ItemParameter, quantity: Int) {
-        guard let port = location.value.start as? Port, location.value.isDocked else {
+        guard let port = location.value?.start as? Port, location.value?.isDocked ?? false else {
             showMessage(titled: "Not docked!", withMsg: "Unable to buy item as ship is not docked.")
             return
         }
@@ -200,7 +231,7 @@ class Ship: Codable {
     }
 
     func sellItem(item: GenericItem) {
-        guard let port = location.value.start as? Port, location.value.isDocked else {
+        guard let port = location.value?.start as? Port, location.value?.isDocked ?? false else {
             showMessage(titled: "Not docked!", withMsg: "Unable to sell item as ship is not docked.")
             return
         }
