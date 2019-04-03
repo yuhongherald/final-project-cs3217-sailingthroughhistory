@@ -259,8 +259,14 @@ class Ship: Codable {
         items.value = items.value
     }
 
-    func sell(item: ItemType, quantity: Int) {
-        
+    func sell(itemType: ItemType, quantity: Int) -> Int {
+        guard let map = map, let port = map.nodeIDPair[nodeId] as? Port,
+            let value = port.getSellValue(of: itemType) else {
+            return quantity
+        }
+        let deficeit = removeItem(by: itemType, with: quantity)
+        owner?.updateMoney(by: (quantity - deficeit) * value)
+        return deficeit
     }
 
     func endTurn(speedMultiplier: Double) {
@@ -269,12 +275,13 @@ class Ship: Codable {
         }
 
         for supply in suppliesConsumed {
-            guard let type = supply.itemParameter else {
+            guard let parameter = supply.itemParameter else {
                 continue
             }
-            let deficeit = consumeRequiredItem(itemParameter: type, quantity: Int(Double(supply.quantity) * speedMultiplier))
-            showMessage(titled: "Deficeit!", withMsg: "You have exhausted \(type.displayName) and have a deficeit of \(deficeit). Please pay for it.")
-            owner?.updateMoney(by: -deficeit * type.getBuyValue())
+            let type = supply.itemType
+            let deficeit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
+            showMessage(titled: "Deficeit!", withMsg: "You have exhausted \(parameter.displayName) and have a deficeit of \(deficeit). Please pay for it.")
+            owner?.updateMoney(by: -deficeit * parameter.getBuyValue())
         }
 
         // decay remaining items
@@ -318,8 +325,8 @@ class Ship: Codable {
         return true
     }
 
-    private func consumeRequiredItem(itemParameter: ItemParameter, quantity: Int) -> Int {
-        guard let index = items.value.firstIndex(where: { $0.itemParameter == itemParameter }) else {
+    private func removeItem(by itemType: ItemType, with quantity: Int) -> Int {
+        guard let index = items.value.firstIndex(where: { $0.itemType == itemType }) else {
             return quantity
         }
         guard let consumable = items.value[index] as? GenericConsumable else {
@@ -331,7 +338,7 @@ class Ship: Codable {
             items.value = items.value;
         }
         guard deficeit <= 0 else {
-            return consumeRequiredItem(itemParameter: itemParameter, quantity: deficeit)
+            return removeItem(by: itemType, with: deficeit)
         }
         return 0
     }

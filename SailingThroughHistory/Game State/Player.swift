@@ -163,8 +163,8 @@ class Player: GenericPlayer {
         ship.sellItem(item: item)
     }
 
-    func sell(item: ItemType, quantity: Int) {
-        ship.sell(item: item, quantity: quantity)
+    func sell(itemType: ItemType, quantity: Int) {
+        assert(ship.sell(itemType: itemType, quantity: quantity) == 0)
     }
 
     func updateMoney(by amount: Int) {

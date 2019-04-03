@@ -52,7 +52,7 @@ protocol GenericPlayer: class, Codable {
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
     func buy(itemParameter: ItemParameter, quantity: Int)
     func sell(item: GenericItem)
-    func sell(item: ItemType, quantity: Int)
+    func sell(itemType: ItemType, quantity: Int)
 
     // End turn - supplies are removed here
     func endTurn()
