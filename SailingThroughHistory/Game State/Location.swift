@@ -9,12 +9,12 @@
 import Foundation
 
 class Location {
-    let start: Node
-    let end: Node
+    let start: Int
+    let end: Int
     let fractionToEnd: Double
     let isDocked: Bool
 
-    init(start: Node, end: Node, fractionToEnd: Double, isDocked: Bool) {
+    init(start: Int, end: Int, fractionToEnd: Double, isDocked: Bool) {
         self.start = start
         self.end = end
         // Clamp to 0 and 1

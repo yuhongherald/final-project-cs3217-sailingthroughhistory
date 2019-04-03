@@ -16,7 +16,7 @@ class Port: Node {
     public var ownerName: String?
     private var itemParameters: [ItemType: ItemParameter] = {
         var dictionary = [ItemType: ItemParameter]()
-        ItemType.getAll().forEach {
+        ItemType.allCases.forEach {
             dictionary[$0] = ItemParameter(itemType: $0, displayName: $0.rawValue, weight: 0, isConsumable: true)
         }
         return dictionary

@@ -11,82 +11,63 @@ enum PlayerAction: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let type = try container.decode(Identifier.self, forKey: .type)
         switch type {
-        case .changeInventory:
-            let changeType = try container.decode(ChangeType.self, forKey: .changeType)
-            let money = try container.decode(Int.self, forKey: .money)
-            let items = try container.decode([Item].self, forKey: .items)
-            self = .changeInventory(changeType: changeType, money: money, items: items)
-        case .roll:
-            self = .roll
         case .move:
-            let node = try container.decode(Node.self, forKey: .node)
-            self = .move(to: node)
+            let node = try container.decode(Int.self, forKey: .nodeId)
+            self = .move(toNodeId: node)
         case .forceMove:
-            let node = try container.decode(Node.self, forKey: .node)
-            self = .forceMove(to: node)
+            let node = try container.decode(Int.self, forKey: .nodeId)
+            self = .forceMove(toNodeId: node)
         case .setTax:
-            let port = try container.decode(Port.self, forKey: .node)
+            let port = try container.decode(Int.self, forKey: .nodeId)
             let taxAmount = try container.decode(Int.self, forKey: .taxAmount)
-            self = .setTax(for: port, taxAmount: taxAmount)
-        case .setEvent:
-            self = .roll
-        default:
-            self = .roll // TODO: Make items decodable
+            self = .setTax(forPortId: port, taxAmount: taxAmount)
+        case .buyOrSell:
+            let itemType = try container.decode(ItemType.self, forKey: .itemType)
+            let quantity = try container.decode(Int.self, forKey: .quantity)
+            self = .buyOrSell(itemType: itemType, quantity: quantity)
         }
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-        case .changeInventory(let changeType, let money, let items):
-            try container.encode(Identifier.changeInventory, forKey: .type)
-            try container.encode(changeType, forKey: .changeType)
-            try container.encode(money, forKey: .money)
-            try container.encode(items, forKey: CodingKeys.type)
-        case .roll:
-            try container.encode(Identifier.roll, forKey: .type)
         case .move(let node):
             try container.encode(Identifier.move, forKey: .type)
-            try container.encode(node, forKey: .node)
+            try container.encode(node, forKey: .nodeId)
         case .forceMove(let node):
             try container.encode(Identifier.forceMove, forKey: .type)
-            try container.encode(node, forKey: .node)
+            try container.encode(node, forKey: .nodeId)
         case .setTax(let port, let taxAmount):
             try container.encode(Identifier.setTax, forKey: .type)
-            try container.encode(port, forKey: .node)
+            try container.encode(port, forKey: .nodeId)
             try container.encode(taxAmount, forKey: .taxAmount)
-        case .setEvent(let changeType, let events):
-            break
-        default:
-            break // TODO: Make new events encodable
+        case .buyOrSell(let itemType, let quantity):
+            try container.encode(Identifier.buyOrSell, forKey: .type)
+            try container.encode(itemType, forKey: .itemType)
+            try container.encode(quantity, forKey: .quantity)
         }
     }
 
-    case changeInventory(changeType: ChangeType, money: Int, items: [Item]) // deprecated
-    case buyOrSell(player: GenericPlayer, itemParamter: ItemParameter, item: Int)
-    case roll
-    case move(to: Node)
-    case forceMove(to: Node)
+    case buyOrSell(itemType: ItemType, quantity: Int)
+    case move(toNodeId: Int)
+    case forceMove(toNodeId: Int)
     //case moveSequence() // TODO
-    case setTax(for: Port, taxAmount: Int)
-    case setEvent(changeType: ChangeType, events: [TurnSystemEvent])
+    case setTax(forPortId: Int, taxAmount: Int)
+    //case setEvent(changeType: ChangeType, events: [TurnSystemEvent])
 
     private enum Identifier: String, Codable {
-        case changeInventory
         case buyOrSell
-        case roll
         case move
         case forceMove
         case setTax
-        case setEvent
+        //case setEvent
     }
 
     enum CodingKeys: String, CodingKey {
         case type
-        case changeType
-        case money
-        case node
-        case items
+        case nodeId
+        case itemType
         case taxAmount
+        case quantity
     }
 }

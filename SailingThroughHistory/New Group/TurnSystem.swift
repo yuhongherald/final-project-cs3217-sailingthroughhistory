@@ -10,24 +10,39 @@ class TurnSystem: GenericTurnSystem {
     
     enum State {
         case ready
+        case playerInput(from: GenericPlayer)
         case waitForTurnFinish
         case waitForStateUpdate
         case invalid
     }
 
     private var callbacks: [() -> Void] = []
-    private var state: State
+    private var state: State {
+        get {
+            return stateVariable.value
+        }
+
+        set {
+            stateVariable.value = newValue
+        }
+    }
+    private var stateVariable: GameVariable<State>
     private let network: RoomConnection
     private var isBlocking = false
     private let isMaster: Bool
     var data: GenericTurnSystemState
     private let deviceId: String
+    private var pendingActions = [PlayerAction]()
     var gameState: GenericGameState {
         return data.gameState
     }
-    private var _currentPlayer: GenericPlayer?
-    var currentPlayer: GenericPlayer? {
-        return _currentPlayer
+    private var currentPlayer: GenericPlayer? {
+        switch state {
+        case .playerInput(let player):
+            return player
+        default:
+            return nil
+        }
     }
 
     init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, deviceId: String) {
@@ -35,14 +50,16 @@ class TurnSystem: GenericTurnSystem {
         self.network = network
         self.isMaster = isMaster
         self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0) // TODO: Turn harcoded
-        self.state = .invalid
-        state = .ready
+        self.stateVariable = GameVariable(value: .ready)
     }
 
     // TODO: Add to protocol and also do a running gamestate
     func startGame() {
-        state = .waitForTurnFinish
-        _currentPlayer = getNextPlayer()
+        guard let player = getNextPlayer() else {
+            state = .waitForTurnFinish
+            return
+        }
+        state = .playerInput(from: player)
     }
 
     // for testing
@@ -50,49 +67,115 @@ class TurnSystem: GenericTurnSystem {
         return state
     }
 
+    func roll(for player: GenericPlayer) throws -> Int {
+        try checkInputAllowed(from: player)
+
+        if player.hasRolled {
+            throw PlayerActionError.invalidAction(message: "Player has already rolled!")
+        }
+        return player.roll()
+    }
+
+    func selectForMovement(nodeId: Int, by player: GenericPlayer) throws {
+        try checkInputAllowed(from: player)
+        if !player.hasRolled {
+            throw PlayerActionError.invalidAction(message: "Player has not rolled!")
+        }
+
+        if !player.getNodesInRange(roll: player.roll()).map({ $0.identifier })
+                .contains(nodeId) {
+            throw PlayerActionError.invalidAction(message: "Node is out of range!")
+        }
+
+        for transitNode in player.getPath(to: nodeId) {
+            pendingActions.append(.move(toNodeId: transitNode))
+        }
+    }
+
+    func setTax(for portId: Int, to amount: Int, by player: GenericPlayer) throws {
+        try checkInputAllowed(from: player)
+        guard let port = gameState.map.nodeIDPair[portId] as? Port else {
+            throw PlayerActionError.invalidAction(message: "Port does not exist")
+        }
+        guard player.team == port.owner else { // TODO: Fix equality assumption
+            throw PlayerActionError.invalidAction(message: "Player does not own port!")
+        }
+
+        pendingActions.append(.setTax(forPortId: portId, taxAmount: amount))
+    }
+
+    func buy(item: ItemType, quantity: Int, by player: GenericPlayer) throws {
+        try checkInputAllowed(from: player)
+        guard let itemParameter = gameState.itemParameters.first(where: {$0.itemType == item}) else {
+            throw PlayerActionError.invalidAction(message: "Item type does not exist")
+        }
+        guard quantity > 0 else {
+            throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
+        }
+        if quantity >= 0 {
+            player.buy(itemParameter: itemParameter, quantity: quantity)
+            pendingActions.append(.buyOrSell(itemType: item, quantity: quantity))
+        }
+    }
+
+    func sell(item: ItemType, quantity: Int, by player: GenericPlayer) throws {
+        try checkInputAllowed(from: player)
+        guard quantity > 0 else {
+            throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
+        }
+        if quantity >= 0 {
+            player.sell(item: item, quantity: quantity)
+            pendingActions.append(.buyOrSell(itemType: item, quantity: -quantity))
+        }
+    }
+
+    private func checkInputAllowed(from player: GenericPlayer) throws {
+        switch state {
+        case .playerInput(let curPlayer):
+            if player != curPlayer {
+                throw PlayerActionError.wrongPhase(message: "Action called on wrong phase")
+            }
+        default:
+            throw PlayerActionError.wrongPhase(message: "Aaction called on wrong phase")
+        }
+    }
+
     /// Returns false if action is invalid
-    func makeAction(for player: GenericPlayer, action: PlayerAction) -> PlayerActionError? {
+    /// For server actions only
+    func process(action: PlayerAction, for player: GenericPlayer) throws {
         switch state {
         case .waitForTurnFinish:
             break
         default:
-            return PlayerActionError.wrongPhase(message: "Make action called on wrong phase")
+            throw PlayerActionError.wrongPhase(message: "Make action called on wrong phase")
         }
         switch action {
-        case .changeInventory(changeType: let changeType, money: let money, items: let items):
-            return PlayerActionError.invalidAction(message: "Deprecated action! Use buyOrSell")
-        case .roll:
-            if player.hasRolled {
-                return PlayerActionError.invalidAction(message: "Player has already rolled!")
-            }
-            _ = player.roll()
-        case .move(to: let node):
-            if !player.hasRolled {
-                return PlayerActionError.invalidAction(message: "Player has not rolled!")
-            }
-            if !player.getNodesInRange(roll: player.roll()).contains(node) {
-                return PlayerActionError.invalidAction(message: "Node is out of range!")
-            }
-            player.move(node: node)
-        case .forceMove(to: let node): // quick hack for updating the player's position remotely
-            player.move(node: node)
+        case .move(let nodeId):
+            player.move(nodeId: nodeId)
+        case .forceMove(let nodeId): // quick hack for updating the player's position remotely
+            player.move(nodeId: nodeId)
         // some stuff with a sequence
         // for node in nodes (Doesn't check adjacency)
         // player.move(node: node)
-        case .setTax(for: let port, let taxAmount):
+        case .setTax(let portId, let taxAmount):
+            guard let port = gameState.map.nodeIDPair[portId] as? Port else {
+                throw PlayerActionError.invalidAction(message: "Port does not exist")
+            }
             guard player.team == port.owner else { // TODO: Fix equality assumption
-                return PlayerActionError.invalidAction(message: "Player does not own port!")
+                throw PlayerActionError.invalidAction(message: "Player does not own port!")
             }
             port.taxAmount = taxAmount
-        case .setEvent(changeType: let changeType, events: let events):
-            guard setEvents(changeType: changeType, events: events) else {
-                return PlayerActionError.invalidAction(message: "Duplicate events detected!")
+        case .buyOrSell(let itemType, let quantity):
+            guard let item = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
+                throw PlayerActionError.invalidAction(message: "Item type does not exist")
             }
-        case .buyOrSell(let player, let itemParameter, let item):
-            player.buy(itemParameter: itemParameter, quantity: item)
+            if quantity >= 0 {
+                player.buy(itemParameter: item, quantity: quantity)
+            } else {
+                player.sell(item: itemType, quantity: -quantity)
+            }
             // TODO: Return the eval from buying
         }
-        return nil
     }
 
     private func setEvents(changeType: ChangeType, events: [TurnSystemEvent]) -> Bool {
@@ -128,9 +211,9 @@ class TurnSystem: GenericTurnSystem {
         }
         switch state {
         case .waitForTurnFinish:
-            return
-        default:
             break
+        default:
+            return
         }
         isBlocking = true
         for (player, actions) in playerActions {
@@ -141,7 +224,18 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func endTurn() {
-        _currentPlayer = getNextPlayer()
+        guard let player = getNextPlayer() else {
+            state = .waitForTurnFinish
+            return
+        }
+        if let currentPlayer = currentPlayer {
+            /// TODO: Add error handling. If it throws, then encoding has failed.
+            try? network.push(actions: pendingActions, fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) {_ in
+                /// TODO: Add error handling
+            }
+            pendingActions = []
+        }
+        state = .playerInput(from: player)
         for callback in callbacks {
             callback()
         }
@@ -154,13 +248,22 @@ class TurnSystem: GenericTurnSystem {
     func getNextPlayer() -> GenericPlayer? {
         let players = gameState.getPlayers()
             .filter { [weak self] in $0.deviceId == self?.deviceId }
-        data.currentPlayerIndex += 1
-        if !players.indices.contains(data.currentPlayerIndex) {
-            data.currentPlayerIndex = 0
+        guard let currentPlayer = currentPlayer,
+            let currentIndex = players.firstIndex(where: { $0 == currentPlayer }) else {
+                return players.first
+        }
+
+        let nextIndex = currentIndex + 1
+
+        if !players.indices.contains(nextIndex) {
             return nil
         }
 
-        return players[data.currentPlayerIndex]
+        return players[nextIndex]
+    }
+
+    func subscribeToState(with callback: @escaping (State) -> Void) {
+        stateVariable.subscribe(with: callback)
     }
 
     private func evaluateState(player: GenericPlayer, actions: [PlayerAction]) {
@@ -168,7 +271,9 @@ class TurnSystem: GenericTurnSystem {
         while !actions.isEmpty {
             while checkForEvents() {
             }
-            if !(makeAction(for: player, action: actions.removeFirst()) != nil) {
+            do {
+                try process(action: actions.removeFirst(), for: player)
+            } catch {
                 print("Invalid action from server, dropping action")
             }
         }

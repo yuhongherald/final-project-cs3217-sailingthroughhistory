@@ -16,26 +16,16 @@ class ShipUI: GameObject {
             fatalError("shipWidth is invalid.")
         }
         super.init(frame: frame)
-        ship.location.subscribe(with: moveShip)
+        ship.subscribeToLocation(with: moveShip)
     }
 
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
 
-    private func moveShip(to location: Location?) {
-        guard let location = location else {
-            return
-        }
-        let start = location.start
-        let end = location.end
-        let fraction = location.fractionToEnd
-        var newX: Double = Double(start.frame.midX) * fraction
-        newX += Double(end.frame.midX) * (1 - fraction)
-        newX -= shipWidth / 2
-        var newY: Double = Double(start.frame.midY) * fraction
-        newY += Double(end.frame.midY) * (1 - fraction)
-        newY -= shipWidth / 2
+    private func moveShip(to node: Node) {
+        let newX = node.frame.originX
+        let newY = node.frame.originY
         guard let frame = Rect(originX: newX, originY: newY, height: shipWidth, width: shipWidth) else {
             fatalError("New frame is invalid")
         }

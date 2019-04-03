@@ -30,7 +30,7 @@ class Player: GenericPlayer {
     }
     var map: Map?
     var currentNode: Node? {
-        return ship.location.value?.start
+        return map?.nodeIDPair[ship.nodeId]
     }
 
     private let ship: Ship
@@ -95,19 +95,38 @@ class Player: GenericPlayer {
         port.taxAmount = amount
     }
 
-    func move(node: Node) -> [Node] {
-        ship.move(node: node)
-        guard let map = map else {
-            return []
+    func move(nodeId: Int) {
+        guard let node = map?.nodeIDPair[nodeId] else {
+            return
         }
-        return node.getCompletePath(to: node, map: map)
+        ship.move(node: node)
+    }
+
+    func getPath(to nodeId: Int) -> [Int] {
+        guard let map = map else {
+            fatalError("Player is not on a map")
+        }
+
+        guard let toNode = map.nodeIDPair[nodeId] else {
+            fatalError("To node does not exist")
+        }
+
+        return ship.getCurrentNode()
+            .getCompletePath(to:toNode, map: map)
+            .map { $0.identifier }
     }
 
     func getNodesInRange(roll: Int) -> [Node] {
+        guard let map = map else {
+            fatalError("Cannot check dock if map does not exist.")
+        }
         return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier, map: map)
     }
 
     func canDock() -> Bool {
+        guard let map = map else {
+            fatalError("Cannot check dock if map does not exist.")
+        }
         return ship.canDock()
     }
 
@@ -132,6 +151,10 @@ class Player: GenericPlayer {
         ship.sellItem(item: item)
     }
 
+    func sell(item: ItemType, quantity: Int) {
+        ship.sell(item: item, quantity: quantity)
+    }
+
     func updateMoney(by amount: Int) {
         self.money.value += amount
         self.team.updateMoney(by: amount)
@@ -152,10 +175,6 @@ class Player: GenericPlayer {
 
 // MARK: - subscribes
 extension Player {
-    func getLocation() -> GameVariable<Location?> {
-        return ship.location
-    }
-
     func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void) {
         ship.subscribeToItems(with: observer)
     }

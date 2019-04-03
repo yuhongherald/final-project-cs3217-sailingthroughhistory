@@ -23,8 +23,7 @@ protocol GenericPlayer: Codable {
     // update money
     func updateMoney(by amount: Int)
 
-    // subscribes
-    func getLocation() -> GameVariable<Location?>
+    // Subscribes
     func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void)
     func subscribeToCargoWeight(with observer: @escaping (Int) -> Void)
     func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void)
@@ -36,7 +35,8 @@ protocol GenericPlayer: Codable {
     func roll() -> Int
 
     // Moving - Auto progress to End turn if cannot dock
-    func move(node: Node) -> [Node]
+    func move(nodeId: Int)
+    func getPath(to nodeId: Int) -> [Int]
     func getNodesInRange(roll: Int) -> [Node]
 
     // After moving can choose to dock
@@ -48,6 +48,7 @@ protocol GenericPlayer: Codable {
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
     func buy(itemParameter: ItemParameter, quantity: Int)
     func sell(item: GenericItem)
+    func sell(item: ItemType, quantity: Int)
 
     // End turn - supplies are removed here
     func endTurn()

@@ -8,13 +8,9 @@
 
 import Foundation
 
-enum ItemType: String, Codable {
+enum ItemType: String, Codable, CaseIterable {
     case teaLeaves = "tea leaves"
     case silk = "silk"
     case perfume = "perfume"
     case opium = "opium"
-
-    static func getAll() -> [ItemType] {
-        return [.teaLeaves, .silk, .perfume, .opium]
-    }
 }

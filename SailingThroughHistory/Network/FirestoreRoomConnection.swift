@@ -236,7 +236,7 @@ class FirebaseRoomConnection: RoomConnection {
         docRef.setData(data, completion: callback)
     }
 
-    func push(actions: [PlayerAction], fromPlayer player: Player, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> ()) throws {
+    func push(actions: [PlayerAction], fromPlayer player: GenericPlayer, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> ()) throws {
         /// TODO: Change collection
         /// Room doc -> runtimeinfo(col) -> TurnActions (doc) -> Turn1...Turn999 (col)
         try push(actions,
