@@ -208,16 +208,16 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     /// TODO when teams are added.
-    func subscribeToPlayerTeams(with callback: @escaping ([WaitingRoomPlayer]) -> Void) {
+    func subscribeToMembers(with callback: @escaping ([RoomMember]) -> Void) {
         let listener = playersCollectionRef.addSnapshotListener { (snapshot, error) in
             guard let snapshot = snapshot, error == nil else {
                 return
             }
 
-            let players = snapshot.documents.map { (document) -> WaitingRoomPlayer in
+            let players = snapshot.documents.map { (document) -> RoomMember in
                 let team = document.get(FirestoreConstants.playerTeamKey) as? String
                 let player = document.documentID
-                return WaitingRoomPlayer(playerName: player, teamName: team, deviceId: document.documentID)
+                return RoomMember(playerName: player, teamName: team, deviceId: document.documentID)
             }
 
             callback(players)

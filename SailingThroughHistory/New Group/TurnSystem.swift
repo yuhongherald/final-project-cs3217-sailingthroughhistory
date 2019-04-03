@@ -6,8 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+import Foundation
+
 class TurnSystem: GenericTurnSystem {
-    
+
     enum State {
         case ready
         case playerInput(from: GenericPlayer)
@@ -29,6 +31,11 @@ class TurnSystem: GenericTurnSystem {
     private var stateVariable: GameVariable<State>
     private let network: RoomConnection
     private var isBlocking = false
+    private var players = [RoomMember]() {
+        didSet {
+
+        }
+    }
     private let isMaster: Bool
     var data: GenericTurnSystemState
     private let deviceId: String
@@ -44,6 +51,7 @@ class TurnSystem: GenericTurnSystem {
             return nil
         }
     }
+    private let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
 
     init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, deviceId: String) {
         self.deviceId = deviceId
@@ -51,6 +59,10 @@ class TurnSystem: GenericTurnSystem {
         self.isMaster = isMaster
         self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0) // TODO: Turn harcoded
         self.stateVariable = GameVariable(value: .ready)
+        network.subscribeToMembers { [weak self] members in
+            self?.players = members
+        }
+
     }
 
     // TODO: Add to protocol and also do a running gamestate
@@ -262,6 +274,12 @@ class TurnSystem: GenericTurnSystem {
         return players[nextIndex]
     }
 
+    private func getFirstPlayer() -> GenericPlayer? {
+        return gameState.getPlayers()
+            .filter { [weak self] in $0.deviceId == self?.deviceId }
+            .first
+    }
+
     func subscribeToState(with callback: @escaping (State) -> Void) {
         stateVariable.subscribe(with: callback)
     }
@@ -291,5 +309,43 @@ class TurnSystem: GenericTurnSystem {
 
     private func updateStateMaster() {
         // TODO: Interface with network
+    }
+
+    private func waitTurnFinish() {
+
+    }
+
+    private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(Player, [PlayerAction])]) {
+        networkActionQueue.sync { [weak self] in
+            guard let self = self else {
+                return
+            }
+            switch self.state {
+            case .waitForTurnFinish:
+                break
+            default:
+                return
+            }
+            if self.data.currentTurn != turnNum {
+                return
+            }
+
+            for player in self.gameState.getPlayers() where playerActionPairs.first(where: { $0.0 == player }) == nil {
+                return
+            }
+
+            for playerActionPair in playerActionPairs {
+                self.evaluateState(player: playerActionPair.0, actions: playerActionPair.1)
+            }
+
+            self.data.turnFinished()
+
+            guard let player = self.getFirstPlayer() else {
+                self.state = .waitForTurnFinish
+                return
+            }
+
+            self.state = .playerInput(from: player)
+        }
     }
 }
