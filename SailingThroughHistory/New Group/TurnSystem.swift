@@ -104,9 +104,9 @@ class TurnSystem: GenericTurnSystem {
         pendingActions.append(.setTax(forPortId: portId, taxAmount: amount))
     }
 
-    func buy(item: ItemType, quantity: Int, by player: GenericPlayer) throws {
+    func buy(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws {
         try checkInputAllowed(from: player)
-        guard let itemParameter = gameState.itemParameters.first(where: {$0.itemType == item}) else {
+        guard let itemParameter = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
             throw PlayerActionError.invalidAction(message: "Item type does not exist")
         }
         guard quantity > 0 else {
@@ -114,18 +114,18 @@ class TurnSystem: GenericTurnSystem {
         }
         if quantity >= 0 {
             player.buy(itemParameter: itemParameter, quantity: quantity)
-            pendingActions.append(.buyOrSell(itemType: item, quantity: quantity))
+            pendingActions.append(.buyOrSell(itemType: itemType, quantity: quantity))
         }
     }
 
-    func sell(item: ItemType, quantity: Int, by player: GenericPlayer) throws {
+    func sell(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws {
         try checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
         }
         if quantity >= 0 {
-            player.sell(item: item, quantity: quantity)
-            pendingActions.append(.buyOrSell(itemType: item, quantity: -quantity))
+            player.sell(itemType: itemType, quantity: quantity)
+            pendingActions.append(.buyOrSell(itemType: itemType, quantity: -quantity))
         }
     }
 
@@ -172,7 +172,7 @@ class TurnSystem: GenericTurnSystem {
             if quantity >= 0 {
                 player.buy(itemParameter: item, quantity: quantity)
             } else {
-                player.sell(item: itemType, quantity: -quantity)
+                player.sell(itemType: itemType, quantity: -quantity)
             }
             // TODO: Return the eval from buying
         }
