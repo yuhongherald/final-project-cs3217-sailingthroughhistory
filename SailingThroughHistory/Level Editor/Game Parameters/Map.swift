@@ -127,25 +127,16 @@ class Map: Codable {
         while !nodesArrayForType.isAtEnd {
             let node = try nodesArrayForType.nestedContainer(keyedBy: NodeTypeKey.self)
             let type = try node.decode(NodeTypes.self, forKey: NodeTypeKey.type)
-            let identifier = try node.decode(Int.self, forKey: .identifier)
 
             switch type {
             case .port:
                 let node = try node.decode(Port.self, forKey: NodeTypeKey.node)
                 nodes.insert(node)
-                nodeIDPair[identifier] = node
+                nodeIDPair[node.identifier] = node
             case .sea:
                 let node = try node.decode(Sea.self, forKey: NodeTypeKey.node)
                 nodes.insert(node)
-                nodes.insert(node)
-                nodeIDPair[identifier] = node
-            case .pirate:
-                let node = try node.decode(Pirate.self, forKey: NodeTypeKey.node)
-                // TODO
-                /*
-                nodes.insert(node)
-                nodes.insert(node)
-                nodeIDPair[identifier] = node*/
+                nodeIDPair[node.identifier] = node
             }
         }
         self.nodes.value = nodes
@@ -181,29 +172,20 @@ class Map: Codable {
         try container.encode(map, forKey: .map)
 
         var nodesWithType = [NodeWithType]()
-        var nodeIDPair = [Node: Int]()
-        for (identifier, node) in nodes.value.enumerated() {
+        for node in nodes.value {
             if node is Port {
-                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.port))
-                nodeIDPair[node] = identifier
+                nodesWithType.append(NodeWithType(node: node, type: NodeTypes.port))
             }
             if node is Sea {
-                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.sea))
-                nodeIDPair[node] = identifier
-            }
-            if node is Pirate {
-                nodesWithType.append(NodeWithType(identifier: identifier, node: node, type: NodeTypes.pirate))
-                nodeIDPair[node] = identifier
+                nodesWithType.append(NodeWithType(node: node, type: NodeTypes.sea))
             }
         }
         try container.encode(nodesWithType, forKey: .nodes)
 
         var simplifiedPaths = [Int: [Int]]()
         for pair in getAllPaths() {
-            guard let fromID = nodeIDPair[pair.fromNode],
-                let toID = nodeIDPair[pair.toNode] else {
-                    continue
-            }
+            let fromID = pair.fromNode.identifier
+            let toID = pair.toNode.identifier
             if simplifiedPaths[fromID] == nil {
                 simplifiedPaths[fromID] = []
             }
@@ -223,22 +205,18 @@ class Map: Codable {
     enum NodeTypeKey: String, CodingKey {
         case type
         case node
-        case identifier
     }
 
     enum NodeTypes: String, Codable {
         case port
         case sea
-        case pirate
     }
 
     struct NodeWithType: Codable, Hashable {
         var node: Node
         var type: NodeTypes
-        var identifier: Int
 
-        init(identifier: Int, node: Node, type: NodeTypes) {
-            self.identifier = identifier
+        init(node: Node, type: NodeTypes) {
             self.node = node
             self.type = type
         }

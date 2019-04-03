@@ -80,10 +80,10 @@ class TurnSystem: GenericTurnSystem {
         // for node in nodes (Doesn't check adjacency)
         // player.move(node: node)
         case .setTax(for: let port, let taxAmount):
-            guard player == port.owner else { // TODO: Fix equality assumption
+            guard player.team == port.owner else { // TODO: Fix equality assumption
                 return PlayerActionError.invalidAction(message: "Player does not own port!")
             }
-        port.taxAmount = taxAmount
+            port.taxAmount = taxAmount
         case .setEvent(changeType: let changeType, events: let events):
             guard setEvents(changeType: changeType, events: events) else {
                 return PlayerActionError.invalidAction(message: "Duplicate events detected!")

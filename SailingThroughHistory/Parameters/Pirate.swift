@@ -9,17 +9,11 @@
 class Pirate: GameObject {
     private static let pirateNodeHeight: Double = 50
     private static let pirateNodeWidth: Double = 50
-    private static let pirateNodeImage = "pirate-node.png"
 
-    init(name: String, originX: Double, originY: Double) {
-        guard let frame = Rect(originX: originX, originY: originY, height: Pirate.pirateNodeHeight,
-                               width: Pirate.pirateNodeWidth) else {
-            fatalError("Pirate node dimensions are invalid.")
-        }
-        super.init(image: Pirate.pirateNodeImage, frame: frame)
+    init(in node: Node) {
+        super.init(frame: node.frame)
     }
 
-    // TODO - no longer used
     func moveIntoNode(ship: Pirate_WeatherEntity) {
         // TODO: Remove this rigged pirate encounter. LOL
         ship.startPirateChase()

@@ -15,7 +15,7 @@ class ShipUI: GameObject {
         guard let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) else {
             fatalError("shipWidth is invalid.")
         }
-        super.init(image: "", frame: frame)
+        super.init(frame: frame)
         ship.location.subscribe(with: moveShip)
     }
 

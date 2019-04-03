@@ -44,6 +44,14 @@ class GameState: GenericGameState {
         for player in players {
             player.addShipsToMap(map: map)
         }
+        for node in map.getNodes() {
+            guard let port = node as? Port else {
+                continue
+            }
+            port.assignOwner(teams.first(where: { team in
+                team.name == port.ownerName
+            }))
+        }
     }
 
     func encode(to encoder: Encoder) throws {
