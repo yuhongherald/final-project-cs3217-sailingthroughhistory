@@ -27,7 +27,7 @@ class Ship: Codable {
         }
     }
     private let nodeIdVariable: GameVariable<Int>
-    private var owner: GenericPlayer?
+    private weak var owner: GenericPlayer?
     private var items = GameVariable<[GenericItem]>(value: [])
     private var currentCargoWeight = GameVariable<Int>(value: 0)
     private var weightCapacity = GameVariable<Int>(value: 100)
