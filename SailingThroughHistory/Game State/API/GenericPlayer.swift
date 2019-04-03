@@ -24,7 +24,7 @@ protocol GenericPlayer: Codable {
     func updateMoney(by amount: Int)
 
     // subscribes
-    func getLocation() -> GameVariable<Location>
+    func getLocation() -> GameVariable<Location?>
     func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void)
     func subscribeToCargoWeight(with observer: @escaping (Int) -> Void)
     func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void)

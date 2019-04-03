@@ -29,8 +29,8 @@ class Player: GenericPlayer {
         return getNodesInRange(roll: 0).first
     }
     var map: Map?
-    var currentNode: Node {
-        return ship.location.value.start
+    var currentNode: Node? {
+        return ship.location.value?.start
     }
 
     private let ship: Ship
@@ -76,6 +76,7 @@ class Player: GenericPlayer {
 
     func addShipsToMap(map: Map) {
         ship.setMap(map: map)
+        ship.setLocation(map: map)
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
@@ -151,7 +152,7 @@ class Player: GenericPlayer {
 
 // MARK: - subscribes
 extension Player {
-    func getLocation() -> GameVariable<Location> {
+    func getLocation() -> GameVariable<Location?> {
         return ship.location
     }
 

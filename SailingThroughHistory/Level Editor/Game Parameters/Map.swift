@@ -11,6 +11,7 @@ import UIKit
 class Map: Codable {
     var map: String
     var bounds: Rect
+    var nodeIDPair: [Int: Node]
     private(set) var gameObjects = [GameObject]()
     private var nodes = GameVariable(value: Set<Node>())
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
@@ -30,6 +31,7 @@ class Map: Codable {
         }
         self.map = map
         self.bounds = unwrappedBounds
+        nodeIDPair = [Int: Node]()
     }
 
     func changeBackground(_ map: String, with bounds: Rect?) {
@@ -42,10 +44,12 @@ class Map: Codable {
 
     func addNode(_ node: Node) {
         nodes.value.insert(node)
+        nodeIDPair[node.identifier] = node
     }
 
     func removeNode(_ node: Node) {
         nodes.value.remove(node)
+        nodeIDPair.removeValue(forKey: node.identifier)
 
         // Remove all paths related with removed node
         guard let pathsOfNode = paths[node] else {
@@ -123,7 +127,7 @@ class Map: Codable {
 
         var nodesArrayForType = try container.nestedUnkeyedContainer(forKey: CodingKeys.nodes)
         var nodes = Set<Node>()
-        var nodeIDPair = [Int: Node]()
+        nodeIDPair = [Int: Node]()
         while !nodesArrayForType.isAtEnd {
             let node = try nodesArrayForType.nestedContainer(keyedBy: NodeTypeKey.self)
             let type = try node.decode(NodeTypes.self, forKey: NodeTypeKey.type)
