@@ -318,10 +318,10 @@ class Ship: Codable {
         guard let index = items.value.firstIndex(where: { $0.itemType == itemType }) else {
             return quantity
         }
-        guard let consumable = items.value[index] as? GenericConsumable else {
+        guard let item = items.value[index] as? GenericItem else {
             return 0
         }
-        let deficeit = consumable.consume(amount: quantity)
+        let deficeit = item.remove(amount: quantity)
         if items.value[index].quantity == 0 {
             items.value.remove(at: index)
             items.value = items.value;
