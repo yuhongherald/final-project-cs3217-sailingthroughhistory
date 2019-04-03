@@ -57,8 +57,7 @@ class MainGameViewController: UIViewController {
         ObjectsViewController(view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
-        togglePlayerOneInfoButton: playerOneInformationView,
-        togglePlayerTwoInfoButton: playerTwoInformationView]
+        togglePlayerOneInfoButton: playerOneInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     var turnSystem: GenericTurnSystem?
