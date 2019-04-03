@@ -53,6 +53,7 @@ class Ship: Codable {
         items.value = try values.decode([Item].self, forKey: .items)
         shipChassis = try values.decode(ShipChassis.self, forKey: .shipChassis)
         auxiliaryUpgrade = try values.decode(AuxiliaryUpgrade.self, forKey: .auxiliaryUpgrade)
+        shipUI = ShipUI(ship: self)
     }
 
     func encode(to encoder: Encoder) throws {
