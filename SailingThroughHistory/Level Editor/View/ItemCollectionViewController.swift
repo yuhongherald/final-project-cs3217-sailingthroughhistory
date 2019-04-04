@@ -72,7 +72,7 @@ UICollectionViewDelegate, UITextFieldDelegate {
     func initWith(port: Port) {
         self.selectedPort = port
         var parameters = port.getAllItemType().map( { itemTypeToParameter(itemType: $0) })
-        guard let filteredParameter = parameters.removeAll(where: { $0 == nil }) as? [ItemParameter] else {
+        guard let filteredParameters = parameters.removeAll(where: { $0 == nil }) as? [ItemParameter] else {
             return
         }
         self.itemParameters = filteredParameters

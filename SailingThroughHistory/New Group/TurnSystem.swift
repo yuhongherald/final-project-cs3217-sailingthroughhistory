@@ -128,19 +128,19 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
         }
         if quantity >= 0 {
-            try player.buy(itemParameter: itemParameter, quantity: quantity)
+            try player.buy(itemType: itemType, quantity: quantity)
             pendingActions.append(.buyOrSell(itemType: itemType, quantity: quantity))
         }
     }
 
-    func sell(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws {
+    func sell(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws {
         try checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
         }
         if quantity >= 0 {
             do {
-                try player.sell(itemParameter: itemParameter, quantity: quantity)
+                try player.sell(itemType: itemType, quantity: quantity)
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
@@ -193,9 +193,9 @@ class TurnSystem: GenericTurnSystem {
             }
             do {
                 if quantity >= 0 {
-                    try player.buy(itemParameter: itemParameter, quantity: quantity)
+                    try player.buy(itemType: itemType, quantity: quantity)
                 } else {
-                    try player.sell(itemParameter: itemParameter, quantity: -quantity)
+                    try player.sell(itemType: itemType, quantity: -quantity)
                 }
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())

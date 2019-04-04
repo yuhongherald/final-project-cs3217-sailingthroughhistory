@@ -47,7 +47,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             return tableCell
         }
 
-        var array: [ItemParameter]
+        var array: [ItemType]
         switch indexPath.section {
         case PortItemTableDataSource.boughtSection:
             array = itemTypesBoughtByPort
@@ -71,7 +71,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
             array = []
         }
 
-        tableCell.set(name: array[indexPath.row].displayName)
+        tableCell.set(name: array[indexPath.row].rawValue)
         if !playerCanInteract {
             tableCell.disable()
         }

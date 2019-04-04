@@ -200,7 +200,7 @@ class Ship: Codable {
 
     // Items
 
-    func getPurchasableItemParameters() -> [ItemType] {
+    func getPurchasableItemTypes() -> [ItemType] {
         guard let port = getCurrentNode() as? Port, isDocked else {
             return []
         }
@@ -218,7 +218,7 @@ class Ship: Codable {
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.unitWeight)
     }
 
-    func buyItem(itemParameter: ItemParameter, quantity: Int) throws {
+    func buyItem(itemType: ItemType, quantity: Int) throws {
         // TODO: auto-dock
         guard let port = getCurrentNode() as? Port, isDocked else {
             showMessage(titled: "Not docked!", withMsg: "Unable to buy item as ship is not docked.")
@@ -271,14 +271,14 @@ class Ship: Codable {
         items.value = items.value
     }
 
-    func sell(itemParameter: ItemParameter, quantity: Int) throws {
+    func sell(itemType: ItemType, quantity: Int) throws {
         guard let map = map, let port = map.nodeIDPair[nodeId] as? Port else {
             throw BuyItemError.notDocked
         }
-        guard let value = port.getSellValue(of: itemParameter) else {
+        guard let value = port.getSellValue(of: itemType) else {
             throw BuyItemError.itemNotAvailable
         }
-        let deficeit = removeItem(by: itemParameter.itemType, with: quantity)
+        let deficeit = removeItem(by: itemType, with: quantity)
         owner?.updateMoney(by: (quantity - deficeit) * value)
         throw BuyItemError.insufficientItems(shortOf: deficeit)
     }

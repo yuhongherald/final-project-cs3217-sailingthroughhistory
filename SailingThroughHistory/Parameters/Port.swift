@@ -71,11 +71,19 @@ class Port: Node {
     }
 
     func getBuyValue(of type: ItemParameter) -> Int? {
-        return itemBuyValue[type.itemType]
+        return getBuyValue(of: type.itemType)
+    }
+
+    func getBuyValue(of type: ItemType) -> Int? {
+        return itemBuyValue[type]
     }
 
     func getSellValue(of type: ItemParameter) -> Int? {
-        return itemSellValue[type.itemType]
+        return getSellValue(of: type.itemType)
+    }
+
+    func getSellValue(of type: ItemType) -> Int? {
+        return itemSellValue[type]
     }
 
     func setBuyValue(of type: ItemParameter, value: Int) {
