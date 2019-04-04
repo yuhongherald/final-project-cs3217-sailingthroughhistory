@@ -200,11 +200,11 @@ class Ship: Codable {
 
     // Items
 
-    func getPurchasableItemParameters() -> [ItemParameter] {
+    func getPurchasableItemTypes() -> [ItemType] {
         guard let port = getCurrentNode() as? Port, isDocked else {
             return []
         }
-        return port.getItemParametersSold()
+        return port.itemParametersSoldByPort
     }
 
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
@@ -212,23 +212,23 @@ class Ship: Codable {
             fatalError("Ship does not reside on any map.")
         }
         guard let port = map.nodeIDPair[nodeId] as? Port, isDocked,
-            let unitValue = port.getBuyValue(of: itemParameter.itemType) else {
+            let unitValue = port.getBuyValue(of: itemParameter) else {
             return 0
         }
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.unitWeight)
     }
 
-    func buyItem(itemParameter: ItemParameter, quantity: Int) throws {
+    func buyItem(itemType: ItemType, quantity: Int) throws {
         // TODO: auto-dock
         guard let port = getCurrentNode() as? Port, isDocked else {
             showMessage(titled: "Not docked!", withMsg: "Unable to buy item as ship is not docked.")
             throw BuyItemError.notDocked
         }
-        let item = itemParameter.createItem(quantity: quantity)
-        guard let itemParameter = item.itemParameter else {
+        guard let itemParameter = owner?.getItemParameter(itemType: itemType) else {
             showMessage(titled: "Game Error!", withMsg: "Error getting item type!")
             throw BuyItemError.unknownItem
         }
+        let item = itemParameter.createItem(quantity: quantity)
         guard let price = item.getBuyValue(at: port) else {
             showMessage(titled: "Not available!", withMsg: "Item is not available for purchase at current port!")
             throw BuyItemError.itemNotAvailable

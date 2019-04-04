@@ -128,7 +128,7 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
         }
         if quantity >= 0 {
-            try player.buy(itemParameter: itemParameter, quantity: quantity)
+            try player.buy(itemType: itemType, quantity: quantity)
             pendingActions.append(.buyOrSell(itemType: itemType, quantity: quantity))
         }
     }
@@ -188,12 +188,12 @@ class TurnSystem: GenericTurnSystem {
             }
             port.taxAmount = taxAmount
         case .buyOrSell(let itemType, let quantity):
-            guard let item = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
+            guard let itemParameter = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
                 throw PlayerActionError.invalidAction(message: "Item type does not exist")
             }
             do {
                 if quantity >= 0 {
-                    try player.buy(itemParameter: item, quantity: quantity)
+                    try player.buy(itemType: itemType, quantity: quantity)
                 } else {
                     try player.sell(itemType: itemType, quantity: -quantity)
                 }
