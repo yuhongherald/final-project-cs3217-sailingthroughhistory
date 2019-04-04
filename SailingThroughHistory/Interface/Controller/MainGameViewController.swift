@@ -51,8 +51,6 @@ class MainGameViewController: UIViewController {
 
     private var currentTurnOwner: GenericPlayer?
 
-    /// TODO: Reference to Game Engine
-    private lazy var pathsController: PathsViewController = PathsViewController(view: gameArea, mainController: self)
     private lazy var objectsController: ObjectsViewController =
         ObjectsViewController(view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
@@ -60,6 +58,7 @@ class MainGameViewController: UIViewController {
         togglePlayerOneInfoButton: playerOneInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
+    private let storage = Storage()
     var turnSystem: GenericTurnSystem?
     private var model: GenericGameState {
         guard let turnSystem = turnSystem else {
@@ -68,9 +67,9 @@ class MainGameViewController: UIViewController {
         return turnSystem.gameState
     }
 
-    var interfaceBounds: CGRect {
+    var interfaceBounds: Rect {
         /// TODO: Fix
-        return CGRect(fromRect: model.map.bounds)
+        return model.map.bounds
         //return CGRect(fromRect: interface.bounds)
     }
 
@@ -98,9 +97,9 @@ class MainGameViewController: UIViewController {
         playerTurnEnd()
         currentTurnOwner = nil
         switch state {
-        case .playerInput(let player):
+        case .playerInput(let player, let endTime):
             currentTurnOwner = player
-            playerTurnStart(player: player)
+            playerTurnStart(player: player, endTime: endTime)
             break
         case .ready:
             break
@@ -110,7 +109,7 @@ class MainGameViewController: UIViewController {
             break
         case .invalid:
             break
-        case .evaluateMoves(let player):
+        case .evaluateMoves(_):
             break
         }
     }
@@ -195,7 +194,7 @@ class MainGameViewController: UIViewController {
 
     private func initBackground() {
         /// TODO: Change map
-        guard let image = UIImage(named: "worldmap1815.png"),
+        guard let image = storage.readImage(model.map.map) ?? UIImage(named: model.map.map),
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
             return
         }
@@ -277,38 +276,17 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    private func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback:
-        @escaping () -> Void) {
-        pathsController.removeAllPathsAssociated(with: object, withDuration: duration)
-        objectsController.remove(object: object, withDuration: duration, callback: callback)
-    }
-
-    private func pauseAndShowAlert(titled title: String, withMsg msg: String, callback: @escaping () -> Void) {
-        let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg, action: callback)
-
-        present(alert, animated: true, completion: nil)
-    }
-
-    private func playerTurnStart(player: GenericPlayer) {
+    private func playerTurnStart(player: GenericPlayer, endTime: TimeInterval) {
 
         func animatePlayerTurnStart() {
             actionPanelView.isHidden = false
             toggleActionPanelButton.isHidden = false
             rollDiceButton.isEnabled = true
             rollDiceButton.set(color: .red)
-            /*if let timeLimit = timeLimit {
-                countdownLabel.isHidden = false
-                countdownLabel.animationType = CountdownEffect.Burn
-                countdownLabel.setCountDownTime(
-                    minutes: timeLimit)
-                countdownLabel.then(targetTime: 1) { [weak self] in
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        timeOutCallback?()
-                        self?.playerTurnEnd()
-                    }
-                }
-                countdownLabel.start()
-            }*/
+            countdownLabel.isHidden = false
+            countdownLabel.animationType = CountdownEffect.Burn
+            countdownLabel.setCountDownTime(minutes: endTime - NSTimeIntervalSince1970)
+            countdownLabel.start()
         }
 
         let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
@@ -325,6 +303,7 @@ class MainGameViewController: UIViewController {
         toggleActionPanelButton.isHidden = true
         countdownLabel.isHidden = true
         portInformationView.isHidden = true
+        countdownLabel.isHidden = true
         objectsController.resetChoosableNodes()
     }
 

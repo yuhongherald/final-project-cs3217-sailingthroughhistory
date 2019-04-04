@@ -9,10 +9,11 @@
 import Foundation
 
 class TurnSystem: GenericTurnSystem {
+    private static let turnDuration = 120
 
     enum State {
         case ready
-        case playerInput(from: GenericPlayer)
+        case playerInput(from: GenericPlayer, endTime: TimeInterval)
         case waitForTurnFinish
         case evaluateMoves(for: GenericPlayer)
         case waitForStateUpdate
@@ -46,7 +47,7 @@ class TurnSystem: GenericTurnSystem {
     }
     private var currentPlayer: GenericPlayer? {
         switch state {
-        case .playerInput(let player):
+        case .playerInput(let player, _):
             return player
         default:
             return nil
@@ -72,7 +73,7 @@ class TurnSystem: GenericTurnSystem {
             state = .waitForTurnFinish
             return
         }
-        state = .playerInput(from: player)
+        startPlayerInput(from: player)
     }
 
     // for testing
@@ -150,7 +151,7 @@ class TurnSystem: GenericTurnSystem {
 
     private func checkInputAllowed(from player: GenericPlayer) throws {
         switch state {
-        case .playerInput(let curPlayer):
+        case .playerInput(let curPlayer, _):
             if player != curPlayer {
                 throw PlayerActionError.wrongPhase(message: "Please wait for your turn")
             }
@@ -272,7 +273,7 @@ class TurnSystem: GenericTurnSystem {
             return
         }
 
-        state = .playerInput(from: player)
+        startPlayerInput(from: player)
 
     }
 
@@ -381,8 +382,16 @@ class TurnSystem: GenericTurnSystem {
                 self.state = .waitForTurnFinish
                 return
             }
-
-            self.state = .playerInput(from: player)
+            startPlayerInput(from: player)
         }
+    }
+
+    private func startPlayerInput(from player: GenericPlayer) {
+        let endTime = NSTimeIntervalSince1970 + 120
+        _ = Timer(fire: Date(timeIntervalSince1970: NSTimeIntervalSince1970 + 120), interval: 0, repeats: false) { [weak self] _ in
+            self?.endTurn()
+        }
+
+        self.state = .playerInput(from: player, endTime: endTime)
     }
 }

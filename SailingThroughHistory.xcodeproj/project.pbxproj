@@ -155,7 +155,6 @@
 		96CEB955224DF8EC00B027BA /* NetworkRooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CEB954224DF8EC00B027BA /* NetworkRooms.swift */; };
 		96CEB957224DFA0E00B027BA /* NetworkFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CEB956224DFA0E00B027BA /* NetworkFactory.swift */; };
 		96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CEB958224DFAE200B027BA /* RoomsTableDataSource.swift */; };
-		96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF55792242B6A100C1E809 /* PathsViewController.swift */; };
 		96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */; };
 		96E0745922524FA10068406B /* WaitingRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745822524FA10068406B /* WaitingRoomViewController.swift */; };
 		96E0745B225250610068406B /* MembersTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745A225250610068406B /* MembersTableDataSource.swift */; };
@@ -355,7 +354,6 @@
 		96CEB954224DF8EC00B027BA /* NetworkRooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRooms.swift; sourceTree = "<group>"; };
 		96CEB956224DFA0E00B027BA /* NetworkFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFactory.swift; sourceTree = "<group>"; };
 		96CEB958224DFAE200B027BA /* RoomsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsTableDataSource.swift; sourceTree = "<group>"; };
-		96DF55792242B6A100C1E809 /* PathsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathsViewController.swift; sourceTree = "<group>"; };
 		96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewController.swift; sourceTree = "<group>"; };
 		96E0745822524FA10068406B /* WaitingRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRoomViewController.swift; sourceTree = "<group>"; };
 		96E0745A225250610068406B /* MembersTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersTableDataSource.swift; sourceTree = "<group>"; };
@@ -841,7 +839,6 @@
 			isa = PBXGroup;
 			children = (
 				9690F5CB223A4874005291EE /* MainGameViewController.swift */,
-				96DF55792242B6A100C1E809 /* PathsViewController.swift */,
 				96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */,
 				967FAA7C2244BF1F005054B6 /* PortItemTableDataSource.swift */,
 				9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */,
@@ -1183,7 +1180,6 @@
 				967FD6B322494309008559CE /* ReadOnlyGameObject.swift in Sources */,
 				96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */,
 				964EACD5224D13BD004BA7C0 /* RoomViewCell.swift in Sources */,
-				96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				968F13662244008200FE32E0 /* NodePaths.swift in Sources */,
 				751F8FDC224BA2A90071C057 /* GenericTurnSystem.swift in Sources */,
@@ -1248,7 +1244,6 @@
 				9603F774224A8254007D54E0 /* RoomConnection.swift in Sources */,
 				9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */,
 				9688D7762255F9BB000AD368 /* PlayerActionBatch.swift in Sources */,
-				759A5EE32250771500724BEB /* GenericEvaluatable.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
 				751F8FE0224BA97A0071C057 /* GenericComparator.swift in Sources */,

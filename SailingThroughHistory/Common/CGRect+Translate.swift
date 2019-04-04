@@ -15,20 +15,22 @@ extension CGRect {
     ///   - otherBounds: The bounds that contain the other frame.
     ///   - otherFrame: The frame to match.
     ///   - bounds: The current bounds.
-    static func translatingFrom(otherBounds: CGRect, otherFrame: CGRect, to bounds: CGRect) -> CGRect {
-        let ratio = min(bounds.width / otherBounds.width, bounds.height / otherBounds.height)
+    static func translatingFrom(otherBounds: Rect, otherFrame: Rect, to bounds: CGRect) -> CGRect {
+        let otherBoundsCg = CGRect(fromRect: otherBounds)
+        let otherFrameCg = CGRect(fromRect: otherFrame)
+        let ratio = min(bounds.width / otherBoundsCg.width, bounds.height / otherBoundsCg.height)
 
         /// Transforms the size of the rect to match.
-        var newRect =  otherFrame.applying(
-            CGAffineTransform(scaleX: 1 / otherFrame.width, y: 1 / otherFrame.height))
+        var newRect =  otherFrameCg.applying(
+            CGAffineTransform(scaleX: 1 / otherFrameCg.width, y: 1 / otherFrameCg.height))
         newRect = newRect.applying(
-            CGAffineTransform(scaleX: ratio * otherFrame.width, y: ratio * otherFrame.height))
+            CGAffineTransform(scaleX: ratio * otherFrameCg.width, y: ratio * otherFrameCg.height))
 
         /// Changes the position of the rect to match.
         newRect = newRect.applying(
             CGAffineTransform(translationX: -newRect.origin.x, y: -newRect.origin.y))
         newRect = newRect.applying(
-            CGAffineTransform(translationX: ratio * otherFrame.origin.x, y: ratio * otherFrame.origin.y))
+            CGAffineTransform(translationX: ratio * otherFrameCg.origin.x, y: ratio * otherFrameCg.origin.y))
 
         return newRect
     }

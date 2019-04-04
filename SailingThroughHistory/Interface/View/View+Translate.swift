@@ -16,23 +16,25 @@ extension UIView {
     /// - Parameters:
     ///   - otherBounds: The bounds that contain the other frame.
     ///   - otherFrame: The frame to match.
-    func translateFromDifferentScale(otherBounds: CGRect, otherFrame: CGRect) {
+    func translateFromDifferentScale(otherBounds: Rect, otherFrame: Rect) {
         guard let bounds = superview?.bounds else {
             return
         }
 
-        let ratio = min(bounds.width / otherBounds.width, bounds.height / otherBounds.height)
+        let otherBoundsCg = CGRect(fromRect: otherBounds)
+        let otherFrameCg = CGRect(fromRect: otherFrame)
+        let ratio = min(bounds.width / otherBoundsCg.width, bounds.height / otherBoundsCg.height)
 
         /// Transforms the size of the view to match.
         transform =  transform.concatenating(
             CGAffineTransform(scaleX: 1 / frame.width, y: 1 / frame.height))
         transform = transform.concatenating(
-            CGAffineTransform(scaleX: ratio * otherFrame.width, y: ratio * otherFrame.height))
+            CGAffineTransform(scaleX: ratio * otherFrameCg.width, y: ratio * otherFrameCg.height))
 
         /// Changes the position of the view to match.
         transform = transform.concatenating(
             CGAffineTransform(translationX: -frame.origin.x, y: -frame.origin.y))
         transform = transform.concatenating(
-            CGAffineTransform(translationX: ratio * otherFrame.origin.x, y: ratio * otherFrame.origin.y))
+            CGAffineTransform(translationX: ratio * otherFrameCg.origin.x, y: ratio * otherFrameCg.origin.y))
     }
 }

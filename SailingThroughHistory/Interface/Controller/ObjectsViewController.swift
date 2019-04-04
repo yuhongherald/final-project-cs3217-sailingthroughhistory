@@ -15,6 +15,9 @@ class ObjectsViewController {
     private var paths = ObjectPaths()
     private var pathLayers = [Path: CALayer]()
     private let view: UIView
+    private var modelBounds: Rect {
+        return mainController.interfaceBounds
+    }
 
     init(view: UIView, mainController: MainGameViewController) {
         self.view = view
@@ -36,17 +39,21 @@ class ObjectsViewController {
 
     func subscribeToNodes(in map: Map) {
         map.subscribeToNodes { [weak self] nodes in
+            guard let self = self else {
+                return
+            }
             for node in nodes {
-                if self?.nodeViews[node.identifier] != nil {
+                if self.nodeViews[node.identifier] != nil {
                     continue
                 }
 
                 let nodeView = NodeView(node: node)
                 nodeView.isUserInteractionEnabled = true
-                nodeView.frame = CGRect(fromRect: node.frame)
-                nodeView.image = self?.getImageFor(node: node)
-                self?.view.addSubview(nodeView)
-                self?.nodeViews[node.identifier] = nodeView
+                nodeView.frame = CGRect.translatingFrom(otherBounds: self.modelBounds, otherFrame: node.frame,
+                                                        to: self.view.bounds)
+                nodeView.image = self.getImageFor(node: node)
+                self.view.addSubview(nodeView)
+                self.nodeViews[node.identifier] = nodeView
             }
         }
     }
@@ -123,11 +130,16 @@ class ObjectsViewController {
                 if self.objectViews[object] != nil {
                     continue
                 }
-
-                let objectView = UIImageView(frame: CGRect(fromRect: object.frame.value))
+                let objectFrame = CGRect.translatingFrom(otherBounds: self.modelBounds,
+                                                         otherFrame: object.frame.value, to: self.view.bounds)
+                let objectView = UIImageView(frame: objectFrame)
+                print(object.frame.value)
+                print(objectView.frame)
                 object.subscibeToFrame { frame in
                     UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
-                        objectView.frame = CGRect(fromRect: frame)
+                        let newFrame = CGRect.translatingFrom(otherBounds: self.modelBounds,
+                                                              otherFrame: frame, to: self.view.bounds)
+                        objectView.frame = newFrame
                     }, completion: nil)
                 }
                 if object as? ShipUI != nil {
@@ -142,6 +154,12 @@ class ObjectsViewController {
                 objectView?.removeFromSuperview()
                 self.objectViews[removedObject] = nil
             }
+        }
+    }
+
+    func updatePathWeather() {
+        for path in paths.allPaths {
+            /// TODO: Weather display
         }
     }
 
@@ -161,79 +179,6 @@ class ObjectsViewController {
         }
 
         mainController.showInformation(ofPort: port)
-    }
-
-    func add(object: ReadOnlyGameObject, at frame: Rect, withDuration duration: TimeInterval,
-                      callback: @escaping () -> Void) {
-        /*let objectIdentifier = ObjectIdentifier(object)
-        views[objectIdentifier]?.removeFromSuperview()
-        let image = UIImage(named: object.image)
-        let view = UIGameObjectImageView(image: image, object: object)
-        if object.isAnimated {
-            view.animationImages = object.images
-                .rotatedLeft(
-                    by: UInt(object.startingFrame))
-                .compactMap { UIImage(named: $0 )}
-            view.animationDuration = object.loopDuration
-            view.startAnimating()
-        }
-        views[objectIdentifier] = view
-        view.alpha = 0
-        self.view.addSubview(view)
-        view.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds,
-                                            otherFrame: CGRect(fromRect: frame), to: self.view.bounds)
-        UIView.animate(withDuration: duration, animations: {
-            view.alpha = 1
-        }, completion: { _ in callback() })*/
-    }
-
-    func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        /*guard let view = views.removeValue(forKey: ObjectIdentifier(object)) else {
-            callback()
-            return
-        }
-
-        view.fadeOutAndRemove(withDuration: duration, completion: callback)*/
-    }
-
-    func makeChoosable(nodes: [Node], withDuration duration: TimeInterval, tapCallback: @escaping (ReadOnlyGameObject) -> Void, callback: @escaping () -> Void) {
-        /*
-        if nodes.isEmpty {
-            callback()
-            return
-        }
-
-        let views = self.views
-
-        for node in nodes {
-            let nodeKey = ObjectIdentifier(node)
-            views[nodeKey]?.isUserInteractionEnabled = true
-            views[nodeKey]?.tapCallback = tapCallback
-        }
-
-        UIView.animate(withDuration: duration, animations: {
-            nodes.forEach {
-                views[ObjectIdentifier($0)]?.addGlow(colored: .purple)
-            }
-        }, completion: { _ in
-            callback()
-        })*/
-    }
-
-    func move(object: ReadOnlyGameObject, to dest: Rect, withDuration duration: TimeInterval,
-              callback: @escaping () -> Void) {
-        /*guard let objectView = views[ObjectIdentifier(object)] else {
-            return
-        }
-
-        let mainController = self.mainController
-        let bounds = view.bounds
-
-        UIView.animate(withDuration: duration, delay: 0, options: .curveLinear, animations: {
-            objectView.frame = CGRect.translatingFrom(otherBounds: mainController.interfaceBounds,
-                                                      otherFrame: CGRect(fromRect: dest),
-                                                      to: bounds)
-            }, completion: { _ in callback() })*/
     }
 
     private enum State {
