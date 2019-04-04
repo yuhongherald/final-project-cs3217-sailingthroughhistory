@@ -110,7 +110,7 @@ class TurnSystem: GenericTurnSystem {
         guard let port = gameState.map.nodeIDPair[portId] as? Port else {
             throw PlayerActionError.invalidAction(message: "Port does not exist")
         }
-        guard player.team == port.owner else { // TODO: Fix equality assumption
+        guard player.team == port.owner else {
             throw PlayerActionError.invalidAction(message: "Player does not own port!")
         }
 
@@ -150,19 +150,21 @@ class TurnSystem: GenericTurnSystem {
         switch state {
         case .playerInput(let curPlayer):
             if player != curPlayer {
-                throw PlayerActionError.wrongPhase(message: "Action called on wrong phase")
+                throw PlayerActionError.wrongPhase(message: "Please wait for your turn")
             }
         default:
             throw PlayerActionError.wrongPhase(message: "Aaction called on wrong phase")
         }
     }
 
-    /// Returns false if action is invalid
+    /// Throws if action is invalid
     /// For server actions only
     func process(action: PlayerAction, for player: GenericPlayer) throws {
         switch state {
-        case .waitForTurnFinish:
-            break
+        case .evaluateMoves(for: let currentPlayer):
+            if player != currentPlayer {
+                throw PlayerActionError.wrongPhase(message: "Evaluate move on wrong player!")
+            }
         default:
             throw PlayerActionError.wrongPhase(message: "Make action called on wrong phase")
         }
@@ -212,18 +214,13 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func watchMasterUpdate(gameState: GenericGameState) {
-        if isBlocking {
-            return
-        }
         switch state {
         case .waitForStateUpdate:
             break
         default:
             return
         }
-        isBlocking = true
-        // update here? Not updating though
-        isBlocking = false
+        startGame()
     }
 
     func watchTurnFinished(playerActions: [(GenericPlayer, [PlayerAction])]) {
@@ -296,6 +293,7 @@ class TurnSystem: GenericTurnSystem {
 
     private func evaluateState(player: GenericPlayer, actions: [PlayerAction]) {
         var actions = actions
+        state = .evaluateMoves(for: player)
         while !actions.isEmpty {
             while checkForEvents() {
             }
@@ -318,7 +316,24 @@ class TurnSystem: GenericTurnSystem {
     }
 
     private func updateStateMaster() {
-        // TODO: Interface with network
+        state = .waitForStateUpdate
+        if isMaster {
+            // TODO: Change the typecast
+            // TODO: Hook up watch master update with network
+            guard let gameState = gameState as? GameState else {
+                return
+            }
+            do {
+                try network.push(currentState: gameState) {
+                    guard let error = $0 else {
+                        return
+                    }
+                    print(error.localizedDescription)
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     private func waitTurnFinish() {
