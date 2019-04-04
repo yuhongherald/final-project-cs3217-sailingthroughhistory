@@ -7,7 +7,7 @@
 //
 
 // equivalent to a change operator, since conditions check on value change
-class ChangeOperator: GenericOperator {
+class ChangeOperator: GenericComparator {
     func compare(first: Any?, second: Any?) -> Bool {
         return true
     }

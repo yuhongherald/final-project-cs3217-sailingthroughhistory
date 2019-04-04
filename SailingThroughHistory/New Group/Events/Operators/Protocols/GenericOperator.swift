@@ -1,17 +1,12 @@
 //
-//  GenericOperator.swift
+//  GenericEvaluateOperator.swift
 //  SailingThroughHistory
 //
-//  Created by Herald on 27/3/19.
+//  Created by Herald on 29/3/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol GenericOperator: GenericEvaluateOperator {
-    func compare(first: Any?, second: Any?) -> Bool
-}
-
-extension GenericOperator {
-    func evaluate(first: Any?, second: Any?) -> Any? {
-        return compare(first: first, second: second)
-    }
+// The operator works in the notion of a BAE
+protocol GenericOperator: Printable {
+    func evaluate(first: Any?, second: Any?) -> Any?
 }

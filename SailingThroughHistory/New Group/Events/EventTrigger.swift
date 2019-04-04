@@ -6,36 +6,29 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class EventTrigger: UniqueObject, ReadOnlyEventTrigger {
+class EventTrigger<T> {
+    private let variable: GameVariable<T>
+    private let comparator: GenericComparator
+    private var triggered: Bool = false
+    private var oldValue: T
 
-    // values for reference only, currently subscribing manually outside
-    var objectIdentifier: SerializableGameObject?
-    var objectField: String?
-
-    var changeOperator: GenericOperator?
-
-    private var observers: [Int: Observer] = [Int: Observer]()
-
-    func notify(eventUpdate: EventUpdate?) {
-        guard let result = changeOperator?.compare(first: eventUpdate?.oldValue,
-                                      second: eventUpdate?.newValue), result else {
-            return
-        }
-        var update = EventUpdate()
-        update.oldValue = nil
-        update.newValue = identifier
-
-        for (identifier, observer) in observers {
-            observer.notify(eventUpdate: update)
+    init(variable: GameVariable<T>, comparator: GenericComparator) {
+        self.variable = variable
+        self.comparator = comparator
+        self.oldValue = variable.value
+        variable.subscribe { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            self.triggered = self.triggered || self.comparator.compare(first: self.oldValue, second: self.variable.value)
         }
     }
 
-    func addObserver(observer: Observer) {
-        observers[observer.identifier] = observer
+    func hasTriggered() -> Bool {
+        return triggered
     }
 
-    func removeObserver(observer: Observer) {
-        observers.removeValue(forKey: observer.identifier)
+    func resetTrigger() {
+        triggered = false
     }
-
 }

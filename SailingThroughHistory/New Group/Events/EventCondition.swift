@@ -6,12 +6,19 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class EventCondition: UniqueObject, ReadOnlyEventCondition {
-    var objectIdentifier: SerializableGameObject?
-    var objectField: String?
+class EventCondition<T> {
+    private let firstEvaluatable: Evaluatable<T>
+    private let secondEvaluatable: Evaluatable<T>
+    private let changeOperator: GenericComparator
 
-    var changeOperator: GenericOperator?
-    
-    var otherIdentifier: SerializableGameObject?
-    var otherObjectField: String?
+    init(first: Evaluatable<T>, second: Evaluatable<T>, change: GenericComparator) {
+        self.firstEvaluatable = first
+        self.secondEvaluatable = second
+        self.changeOperator = change
+    }
+
+    func evaluate() -> Bool {
+        return changeOperator.compare(first: firstEvaluatable,
+                                      second: secondEvaluatable)
+    }
 }
