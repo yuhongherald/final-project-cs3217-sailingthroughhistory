@@ -9,6 +9,6 @@
 import UIKit
 
 class GalleryCollectionViewCell: UICollectionViewCell {
-    @IBOutlet var label: UILabel!
-    @IBOutlet var previewImage: UIImageView!
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var previewImage: UIImageView!
 }

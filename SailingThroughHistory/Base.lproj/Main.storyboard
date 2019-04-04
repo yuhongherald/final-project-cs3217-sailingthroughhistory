@@ -640,19 +640,11 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zba-GY-W6o">
-                                <rect key="frame" x="250" y="688" width="120" height="60"/>
+                                <rect key="frame" x="452" y="688" width="120" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelPressed:" destination="vOw-dY-OFM" eventType="touchUpInside" id="gx2-rI-FU2"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqV-QU-ttJ">
-                                <rect key="frame" x="636" y="688" width="138" height="60"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <state key="normal" title="Confirm"/>
-                                <connections>
-                                    <action selector="confirmPressed:" destination="vOw-dY-OFM" eventType="touchUpInside" id="qZ7-I7-e6i"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -661,15 +653,15 @@
                             <constraint firstItem="pwq-rd-xjU" firstAttribute="bottom" secondItem="Zba-GY-W6o" secondAttribute="bottom" constant="20" id="3hO-5c-JBL"/>
                             <constraint firstItem="yOs-6O-CFE" firstAttribute="leading" secondItem="pwq-rd-xjU" secondAttribute="leading" constant="100" id="8FC-aF-nrV"/>
                             <constraint firstItem="pwq-rd-xjU" firstAttribute="trailing" secondItem="yOs-6O-CFE" secondAttribute="trailing" constant="100" id="Bxz-hG-Jhs"/>
+                            <constraint firstItem="Zba-GY-W6o" firstAttribute="centerX" secondItem="Pyo-tI-73g" secondAttribute="centerX" id="Cty-Xn-7Xd"/>
                             <constraint firstItem="yOs-6O-CFE" firstAttribute="top" secondItem="pwq-rd-xjU" secondAttribute="top" constant="100" id="EmT-6f-AVM"/>
-                            <constraint firstItem="pwq-rd-xjU" firstAttribute="trailing" secondItem="fqV-QU-ttJ" secondAttribute="trailing" constant="250" id="PWm-6K-y0j"/>
-                            <constraint firstItem="pwq-rd-xjU" firstAttribute="bottom" secondItem="fqV-QU-ttJ" secondAttribute="bottom" constant="20" id="Qjz-Gi-jvh"/>
-                            <constraint firstItem="fqV-QU-ttJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zba-GY-W6o" secondAttribute="trailing" constant="8" symbolic="YES" id="fbj-BP-y9P"/>
                             <constraint firstItem="pwq-rd-xjU" firstAttribute="bottom" secondItem="yOs-6O-CFE" secondAttribute="bottom" constant="100" id="fdR-l4-dYT"/>
-                            <constraint firstItem="Zba-GY-W6o" firstAttribute="leading" secondItem="pwq-rd-xjU" secondAttribute="leading" constant="250" id="mSW-OY-X5J"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pwq-rd-xjU"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="yOs-6O-CFE" id="drg-Hb-whn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fkh-Dy-Omj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1344,7 +1336,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7Jl-WZ-ghm"/>
+        <segue reference="gYr-xT-g3t"/>
         <segue reference="wfZ-Ma-LaA"/>
     </inferredMetricsTieBreakers>
 </document>

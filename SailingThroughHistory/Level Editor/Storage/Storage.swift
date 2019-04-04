@@ -10,7 +10,7 @@ import UIKit
 
 class Storage {
     func save<T: Encodable>(_ data: T, _ background: UIImage?, preview screenShot: UIImage?, with name: String) {
-        let backgroundName = name + "background"
+        let backgroundName = name + Default.Suffix.background
         let fileURL = getFullURL(from: name, ".pList")
         let backgroundURL = getFullURL(from: backgroundName, ".png")
         let previewURL = getFullURL(from: name, ".png")
@@ -22,10 +22,7 @@ class Storage {
         guard let jsonData = try? jsonEncoder.encode(data),
               (try? background?.pngData()?.write(to: backgroundURL)) != nil,
             (try? screenShot?.pngData()?.write(to: previewURL)) != nil else {
-            try? FileManager.default.removeItem(at: fileURL)
-            try? FileManager.default.removeItem(at: backgroundURL)
-            try? FileManager.default.removeItem(at: previewURL)
-
+            deleteLevel(name)
             fatalError("Couldn't encode data to JSON format.")
         }
         let savedJson = NSMutableData(data: jsonData)
@@ -35,11 +32,13 @@ class Storage {
     func readLevelData<T: Codable>(_ fileName: String) -> T? {
         let url = getFullURL(from: fileName, ".pList")
         guard let data = try? Data(contentsOf: url) else {
-            fatalError("\(url) Data load failed")
+            deleteLevel(fileName)
+            return nil
         }
 
         guard let levelData = try? JSONDecoder().decode(T.self, from: data) else {
-            fatalError("Decode failed")
+            deleteLevel(fileName)
+            return nil
         }
         return levelData
     }
@@ -48,12 +47,25 @@ class Storage {
         let url = getFullURL(from: fileName, ".png")
 
         guard let imageData = try? Data(contentsOf: url) else {
+            deleteLevel(fileName)
             return nil
         }
         guard let image = UIImage(data: imageData) else {
+            deleteLevel(fileName)
             return nil
         }
         return image
+    }
+
+    func deleteLevel(_ name: String) {
+        let backgroundName = name + Default.Suffix.background
+        let fileURL = getFullURL(from: name, ".pList")
+        let backgroundURL = getFullURL(from: backgroundName, ".png")
+        let previewURL = getFullURL(from: name, ".png")
+
+        try? FileManager.default.removeItem(at: fileURL)
+        try? FileManager.default.removeItem(at: backgroundURL)
+        try? FileManager.default.removeItem(at: previewURL)
     }
 
     /// Return all level names in the document directory without any extension.

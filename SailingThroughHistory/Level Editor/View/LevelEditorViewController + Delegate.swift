@@ -25,6 +25,7 @@ extension LevelEditorViewController: EditPanelDelegateProtocol {
 extension LevelEditorViewController: GalleryViewDelegateProtocol {
     func load(_ gameParameter: GameParameter) {
         self.gameParameter = gameParameter
+        reInit()
     }
 }
 

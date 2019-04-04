@@ -17,6 +17,7 @@ class GalleryViewController: UIViewController {
     private var levelNames: [String] = []
     weak var delegate: GalleryViewDelegateProtocol?
     var selectedCallback: ((GameParameter) -> Void)?
+    @IBOutlet weak var collectionView: UICollectionView!
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -29,11 +30,9 @@ class GalleryViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func cancelPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    @IBAction func confirmPressed(_ sender: Any) {
-        //TODO: move load here
+        self.dismiss(animated: true, completion: {
+            self.collectionView.removeFromSuperview()
+        })
     }
 }
 
@@ -50,13 +49,13 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         let levelName = levelNames[indexPath.item]
         cell.label.text = levelName
-        /// TODO: Solve memory issue and then uncomment to show images
-        /*DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             let image = self?.storage.readImage(levelName)
             DispatchQueue.main.async {
                 cell.previewImage.image = image
             }
-        }*/
+        }
 
         return cell
     }
@@ -64,11 +63,10 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let levelName = levelNames[indexPath.item]
         guard let gameParameter: GameParameter = storage.readLevelData(levelName) else {
-            // TODO: raise alert and delete the data
-            //fatalError("level data broken")
+            let alert = UIAlert(errorMsg: "Level broken. Level data is deleted.", msg: nil)
+            alert.present(in: self)
             return
         }
-
         selectedCallback?(gameParameter)
     }
 }
