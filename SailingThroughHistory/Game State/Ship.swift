@@ -224,11 +224,11 @@ class Ship: Codable {
             showMessage(titled: "Not docked!", withMsg: "Unable to buy item as ship is not docked.")
             throw BuyItemError.notDocked
         }
-        let item = itemParameter.createItem(quantity: quantity)
-        guard let itemParameter = item.itemParameter else {
+        guard let itemParameter = owner?.getItemParameter(itemType: itemType) else {
             showMessage(titled: "Game Error!", withMsg: "Error getting item type!")
             throw BuyItemError.unknownItem
         }
+        let item = itemParameter.createItem(quantity: quantity)
         guard let price = item.getBuyValue(at: port) else {
             showMessage(titled: "Not available!", withMsg: "Item is not available for purchase at current port!")
             throw BuyItemError.itemNotAvailable
