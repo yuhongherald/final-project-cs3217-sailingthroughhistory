@@ -50,11 +50,11 @@ UICollectionViewDelegate, UITextFieldDelegate {
             }
 
             if let buyPriceText = castedCell.buyField.text, let buyPrice = Int(buyPriceText) {
-                port.setBuyValue(of: itemParam.itemType, value: buyPrice)
+                port.setBuyValue(of: itemParam, value: buyPrice)
             }
 
             if let sellPriceText = castedCell.sellField.text, let sellPrice = Int(sellPriceText) {
-                port.setSellValue(of: itemParam.itemType, value: sellPrice)
+                port.setSellValue(of: itemParam, value: sellPrice)
             }
         }
 
@@ -71,8 +71,16 @@ UICollectionViewDelegate, UITextFieldDelegate {
 
     func initWith(port: Port) {
         self.selectedPort = port
-        self.itemParameters = port.getAllItemParameters()
+        var parameters = port.getAllItemType().map( { itemTypeToParameter(itemType: $0) })
+        guard let filteredParameters = parameters.removeAll(where: { $0 == nil }) as? [ItemParameter] else {
+            return
+        }
+        self.itemParameters = filteredParameters
         collectionView.reloadData()
+    }
+
+    func itemTypeToParameter(itemType: ItemType) -> ItemParameter? {
+        return itemParameters.first(where: { $0.itemType == itemType })
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -92,11 +100,11 @@ UICollectionViewDelegate, UITextFieldDelegate {
             return cell
         }
 
-        if let sellPrice = port.getSellValue(of: itemParam.itemType) {
+        if let sellPrice = port.getSellValue(of: itemParam) {
             cell.sellField.text = String(sellPrice)
         }
 
-        if let buyPrice = port.getBuyValue(of: itemParam.itemType) {
+        if let buyPrice = port.getBuyValue(of: itemParam) {
             cell.buyField.text = String(buyPrice)
         }
 
