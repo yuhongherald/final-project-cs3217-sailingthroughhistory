@@ -200,7 +200,7 @@ class Ship: Codable {
 
     // Items
 
-    func getPurchasableItemParameters() -> [ItemParameter] {
+    func getPurchasableItemParameters() -> [ItemType] {
         guard let port = getCurrentNode() as? Port, isDocked else {
             return []
         }
@@ -278,7 +278,7 @@ class Ship: Codable {
         guard let value = port.getSellValue(of: itemParameter) else {
             throw BuyItemError.itemNotAvailable
         }
-        let deficeit = removeItem(by: itemParameter, with: quantity)
+        let deficeit = removeItem(by: itemParameter.itemType, with: quantity)
         owner?.updateMoney(by: (quantity - deficeit) * value)
         throw BuyItemError.insufficientItems(shortOf: deficeit)
     }

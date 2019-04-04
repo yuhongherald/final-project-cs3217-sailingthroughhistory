@@ -160,7 +160,7 @@ class Player: GenericPlayer {
     }
 
     func sell(itemParameter: ItemParameter, quantity: Int) throws {
-        try ship.sell(itemParameter: ItemParameter, quantity: quantity)
+        try ship.sell(itemParameter: itemParameter, quantity: quantity)
         //assert(deficit == 0)
     }
 

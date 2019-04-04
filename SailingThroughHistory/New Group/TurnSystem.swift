@@ -133,14 +133,14 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    func sell(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws {
+    func sell(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws {
         try checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
         }
         if quantity >= 0 {
             do {
-                try player.sell(itemType: itemType, quantity: quantity)
+                try player.sell(itemParameter: itemParameter, quantity: quantity)
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
@@ -188,14 +188,14 @@ class TurnSystem: GenericTurnSystem {
             }
             port.taxAmount = taxAmount
         case .buyOrSell(let itemType, let quantity):
-            guard let item = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
+            guard let itemParameter = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
                 throw PlayerActionError.invalidAction(message: "Item type does not exist")
             }
             do {
                 if quantity >= 0 {
-                    try player.buy(itemParameter: item, quantity: quantity)
+                    try player.buy(itemParameter: itemParameter, quantity: quantity)
                 } else {
-                    try player.sell(itemType: itemType, quantity: -quantity)
+                    try player.sell(itemParameter: itemParameter, quantity: -quantity)
                 }
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())

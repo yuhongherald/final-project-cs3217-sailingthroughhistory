@@ -15,10 +15,10 @@ class Port: Node {
     }
     public var ownerName: String?
     // TODO: add item quantity editing in level editor
-    var itemParametersSoldByPort = [ItemParameter]()
-    var itemParametersBoughtByPort = [ItemParameter]()
-    var itemSellValue = [ItemParameter: Int]()
-    var itemBuyValue = [ItemParameter: Int]()
+    var itemParametersSoldByPort = [ItemType]()
+    var itemParametersBoughtByPort = [ItemType]()
+    var itemSellValue = [ItemType: Int]()
+    var itemBuyValue = [ItemType: Int]()
 
     private static let portNodeWidth: Double = 50
     private static let portNodeHeight: Double = 50
@@ -40,7 +40,10 @@ class Port: Node {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         ownerName = try values.decode(String?.self, forKey: .ownerName)
-        itemParametersSoldByPort = try values.decode([ItemParameter].self, forKey: .itemsSold)
+        itemBuyValue = try values.decode([ItemType: Int].self, forKey: .itemBuyValue)
+        itemSellValue = try values.decode([ItemType: Int].self, forKey: .itemSellValue)
+        itemParametersSoldByPort = itemBuyValue.keys.map( { $0 })
+        itemParametersSoldByPort = itemSellValue.keys.map( { $0 })
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
     }
@@ -48,8 +51,8 @@ class Port: Node {
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(owner?.name, forKey: .ownerName)
-        try container.encode(itemParametersSoldByPort, forKey: .itemsSold)
-
+        try container.encode(itemBuyValue, forKey: .itemBuyValue)
+        try container.encode(itemSellValue, forKey: .itemSellValue)
         let superencoder = container.superEncoder()
         try super.encode(to: superencoder)
     }
@@ -68,40 +71,40 @@ class Port: Node {
     }
 
     func getBuyValue(of type: ItemParameter) -> Int? {
-        return itemBuyValue[type]
+        return itemBuyValue[type.itemType]
     }
 
     func getSellValue(of type: ItemParameter) -> Int? {
-        return itemSellValue[type]
+        return itemSellValue[type.itemType]
     }
 
     func setBuyValue(of type: ItemParameter, value: Int) {
-        if itemBuyValue[type] == nil {
-            itemParametersSoldByPort.append(type)
+        if itemBuyValue[type.itemType] == nil {
+            itemParametersSoldByPort.append(type.itemType)
         }
-        itemBuyValue[type] = value
+        itemBuyValue[type.itemType] = value
     }
 
     func setSellValue(of type: ItemParameter, value: Int) {
-        if itemSellValue[type] == nil {
-            itemParametersSoldByPort.append(type)
+        if itemSellValue[type.itemType] == nil {
+            itemParametersSoldByPort.append(type.itemType)
         }
-        itemSellValue[type] = value
+        itemSellValue[type.itemType] = value
     }
 
     // Availability at ports
     func delete(_ type: ItemParameter) {
         if getBuyValue(of: type) != nil {
-            itemParametersSoldByPort.removeAll(where: { $0 == type })
-            itemBuyValue.removeValue(forKey: type)
+            itemParametersSoldByPort.removeAll(where: { $0 == type.itemType })
+            itemBuyValue.removeValue(forKey: type.itemType)
         }
         if getSellValue(of: type) != nil {
-            itemParametersBoughtByPort.removeAll(where: { $0 == type })
-            itemSellValue.removeValue(forKey: type)
+            itemParametersBoughtByPort.removeAll(where: { $0 == type.itemType })
+            itemSellValue.removeValue(forKey: type.itemType)
         }
     }
 
-    func getAllItemParameters() -> [ItemParameter] {
+    func getAllItemType() -> [ItemType] {
         // default/placeholder for all items
         return Array(Set(itemParametersSoldByPort + itemParametersBoughtByPort))
     }
@@ -109,6 +112,7 @@ class Port: Node {
     private enum CodingKeys: String, CodingKey {
         case ownerName
         case itemParameters
-        case itemsSold
+        case itemBuyValue
+        case itemSellValue
     }
 }
