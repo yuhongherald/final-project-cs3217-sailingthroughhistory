@@ -157,9 +157,9 @@
 		96DF557A2242B6A100C1E809 /* PathsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF55792242B6A100C1E809 /* PathsViewController.swift */; };
 		96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */; };
 		96E0745922524FA10068406B /* WaitingRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745822524FA10068406B /* WaitingRoomViewController.swift */; };
-		96E0745B225250610068406B /* PlayersTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745A225250610068406B /* PlayersTableDataSource.swift */; };
+		96E0745B225250610068406B /* MembersTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745A225250610068406B /* MembersTableDataSource.swift */; };
 		96E0745D225250E20068406B /* WaitingRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745C225250E20068406B /* WaitingRoom.swift */; };
-		96E0745F2252510C0068406B /* WaitingRoomPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745E2252510C0068406B /* WaitingRoomPlayer.swift */; };
+		96E0745F2252510C0068406B /* RoomMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745E2252510C0068406B /* RoomMember.swift */; };
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
 		96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* GenericPublishSubject.swift */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
@@ -357,9 +357,9 @@
 		96DF55792242B6A100C1E809 /* PathsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathsViewController.swift; sourceTree = "<group>"; };
 		96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewController.swift; sourceTree = "<group>"; };
 		96E0745822524FA10068406B /* WaitingRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRoomViewController.swift; sourceTree = "<group>"; };
-		96E0745A225250610068406B /* PlayersTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersTableDataSource.swift; sourceTree = "<group>"; };
+		96E0745A225250610068406B /* MembersTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersTableDataSource.swift; sourceTree = "<group>"; };
 		96E0745C225250E20068406B /* WaitingRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRoom.swift; sourceTree = "<group>"; };
-		96E0745E2252510C0068406B /* WaitingRoomPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingRoomPlayer.swift; sourceTree = "<group>"; };
+		96E0745E2252510C0068406B /* RoomMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomMember.swift; sourceTree = "<group>"; };
 		96F658472240E13E006CD412 /* View+SpecialEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SpecialEffects.swift"; sourceTree = "<group>"; };
 		96F6584922412126006CD412 /* GenericPublishSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPublishSubject.swift; sourceTree = "<group>"; };
 		9940A707D8BECA7B37E95F22 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
@@ -678,9 +678,9 @@
 				96CEB952224DF88B00B027BA /* Rooms.swift */,
 				96CEB958224DFAE200B027BA /* RoomsTableDataSource.swift */,
 				96E0745822524FA10068406B /* WaitingRoomViewController.swift */,
-				96E0745A225250610068406B /* PlayersTableDataSource.swift */,
+				96E0745A225250610068406B /* MembersTableDataSource.swift */,
 				96E0745C225250E20068406B /* WaitingRoom.swift */,
-				96E0745E2252510C0068406B /* WaitingRoomPlayer.swift */,
+				96E0745E2252510C0068406B /* RoomMember.swift */,
 			);
 			path = Rooms;
 			sourceTree = "<group>";
@@ -1161,7 +1161,7 @@
 				96CEB955224DF8EC00B027BA /* NetworkRooms.swift in Sources */,
 				BA485904223F9112009ED2F6 /* Location.swift in Sources */,
 				1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */,
-				96E0745B225250610068406B /* PlayersTableDataSource.swift in Sources */,
+				96E0745B225250610068406B /* MembersTableDataSource.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
 				75354465224CA7BB001B4F62 /* EventCondition.swift in Sources */,
 				754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */,
@@ -1317,7 +1317,7 @@
 				96CEB951224DF14400B027BA /* FirestoreRooms.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
 				751F8FE2224BAA420071C057 /* SerializableGameObject.swift in Sources */,
-				96E0745F2252510C0068406B /* WaitingRoomPlayer.swift in Sources */,
+				96E0745F2252510C0068406B /* RoomMember.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

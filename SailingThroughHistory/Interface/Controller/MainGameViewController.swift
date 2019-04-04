@@ -32,17 +32,11 @@ class MainGameViewController: UIViewController {
     }
 
     @IBOutlet private weak var playerOneInformationView: UIView!
-    @IBOutlet private weak var playerTwoInformationView: UIView!
     @IBOutlet private weak var playerOneGoldView: UILabel!
-    @IBOutlet private weak var playerTwoGoldView: UILabel!
     @IBOutlet private weak var playerOneCapacityView: UILabel!
-    @IBOutlet private weak var playerTwoCapacityView: UILabel!
     @IBOutlet private weak var playerOneCargoView: UILabel!
-    @IBOutlet private weak var playerTwoCargoView: UILabel!
     @IBOutlet weak var playerOneItemsView: UITableView!
-    @IBOutlet weak var playerTwoItemsView: UITableView!
     @IBOutlet private weak var togglePlayerOneInfoButton: UIButtonRounded!
-    @IBOutlet private weak var togglePlayerTwoInfoButton: UIButtonRounded!
 
     @IBOutlet private weak var monthLabel: UILabel!
     @IBOutlet private weak var toggleActionPanelButton: UIButtonRounded!
@@ -63,8 +57,7 @@ class MainGameViewController: UIViewController {
         ObjectsViewController(view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
-        togglePlayerOneInfoButton: playerOneInformationView,
-        togglePlayerTwoInfoButton: playerTwoInformationView]
+        togglePlayerOneInfoButton: playerOneInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     var turnSystem: GenericTurnSystem?
@@ -93,8 +86,33 @@ class MainGameViewController: UIViewController {
         objectsController.subscribeToNodes(in: model.map)
         objectsController.subscribeToPaths(in: model.map)
         objectsController.subscribeToObjects(in: model.map)
+        turnSystem?.subscribeToState(with: updateForState)
+        subscribePlayerInformation(for: model.getPlayers())
+    }
 
-        //model.map?.getNodes().forEach { node in }
+    override func viewDidAppear(_ animated: Bool) {
+        turnSystem?.startGame()
+    }
+
+    private func updateForState(_ state: TurnSystem.State) {
+        playerTurnEnd()
+        currentTurnOwner = nil
+        switch state {
+        case .playerInput(let player):
+            currentTurnOwner = player
+            playerTurnStart(player: player)
+            break
+        case .ready:
+            break
+        case .waitForTurnFinish:
+            break
+        case .waitForStateUpdate:
+            break
+        case .invalid:
+            break
+        case .evaluateMoves(for: let player):
+            break
+        }
     }
 
     func getFrame(for object: GameObject) -> CGRect? {
@@ -178,67 +196,50 @@ class MainGameViewController: UIViewController {
         scrollView.addSubview(gameAndBackgroundWrapper)
     }
 
-    private func subscribePlayerInformation(players: [GenericPlayer]) {
-        /// TODO: Less hackish
-        /*if players.indices.contains(0) {
-            players[0].money.subscribe { [weak self] in
-                guard let gold = $0.element else {
-                    self?.playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)Error"
+    private func updatePlayerInformation(for player: GenericPlayer) {
+        let gold = player.money.value
+        let cargo = player.currentCargoWeight
+        let capacity = player.weightCapacity
+        playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
+        playerOneCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
+        playerOneCapacityView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
+        playerItemsDataSources.removeAll()
+        playerItemsDataSources.append(PlayerItemsTableDataSource(player: player,
+                                                                 tableView: playerOneItemsView))
+    }
+
+    private func subscribePlayerInformation(for players: [GenericPlayer]) {
+        for player in players {
+            player.subscribeToMoney { [weak self] player, gold in
+                guard let currentTurnOwner = self?.currentTurnOwner else {
                     return
                 }
-
+                if currentTurnOwner != player {
+                    return
+                }
                 self?.playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
             }
 
-            players[0].subscribeToCargoWeight { [weak self] in
-                guard let cargo = $0.element else {
+            player.subscribeToCargoWeight { [weak self] player, cargo in
+                guard let currentTurnOwner = self?.currentTurnOwner else {
                     return
                 }
-
+                if currentTurnOwner != player {
+                    return
+                }
                 self?.playerOneCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
             }
 
-            players[0].subscribeToWeightCapcity { [weak self] in
-                guard let capacity = $0.element else {
+            player.subscribeToWeightCapcity { [weak self] player, capacity in
+                guard let currentTurnOwner = self?.currentTurnOwner else {
                     return
                 }
-
-                self?.playerOneCargoView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
+                if currentTurnOwner != player {
+                    return
+                }
+                self?.playerOneCapacityView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
             }
-
-            playerItemsDataSources.append(PlayerItemsTableDataSource(player: players[0],
-                                                                     tableView: playerOneItemsView))
         }
-
-        if players.indices.contains(1) {
-            players[1].money.subscribe { [weak self] in
-                guard let gold = $0.element else {
-                    self?.playerTwoGoldView.text = "\(InterfaceConstants.moneyPrefix)Error"
-                    return
-                }
-
-                self?.playerTwoGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
-            }
-
-            players[1].subscribeToCargoWeight { [weak self] in
-                guard let cargo = $0.element else {
-                    return
-                }
-
-                self?.playerTwoCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
-            }
-
-            players[1].subscribeToWeightCapcity { [weak self] in
-                guard let capacity = $0.element else {
-                    return
-                }
-
-                self?.playerTwoCargoView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
-            }
-
-            playerItemsDataSources.append(PlayerItemsTableDataSource(player: players[1],
-                                                                     tableView: playerTwoItemsView))
-        }*/
     }
 
     private func remove(object: ReadOnlyGameObject, withDuration duration: TimeInterval, callback:
@@ -253,13 +254,12 @@ class MainGameViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    private func playerTurnStart(player: GenericPlayer, timeLimit: TimeInterval?, timeOutCallback: (() -> Void)?,
-                                 callback: @escaping () -> Void) {
+    private func playerTurnStart(player: GenericPlayer) {
 
         func animatePlayerTurnStart() {
             actionPanelView.isHidden = false
             toggleActionPanelButton.isHidden = false
-            if let timeLimit = timeLimit {
+            /*if let timeLimit = timeLimit {
                 countdownLabel.isHidden = false
                 countdownLabel.animationType = CountdownEffect.Burn
                 countdownLabel.setCountDownTime(
@@ -271,13 +271,13 @@ class MainGameViewController: UIViewController {
                     }
                 }
                 countdownLabel.start()
-            }
+            }*/
         }
 
         let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
-            withMsg: "") {
-            animatePlayerTurnStart()
-            callback()
+            withMsg: "") { [weak self] in
+                animatePlayerTurnStart()
+                self?.updatePlayerInformation(for: player)
         }
 
         present(alert, animated: true, completion: nil)

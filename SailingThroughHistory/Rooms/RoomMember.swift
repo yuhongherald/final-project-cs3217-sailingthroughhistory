@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-struct WaitingRoomPlayer {
+struct RoomMember {
     let playerName: String
     let teamName: String?
     let deviceId: String

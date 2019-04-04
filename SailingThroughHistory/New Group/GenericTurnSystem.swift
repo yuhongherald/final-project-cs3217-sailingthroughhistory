@@ -18,4 +18,6 @@ protocol GenericTurnSystem {
     func watchTurnFinished(playerActions: [(GenericPlayer, [PlayerAction])])
     func endTurn()
     func endTurnCallback(action: @escaping () -> Void)
+    func subscribeToState(with callback: @escaping (TurnSystem.State) -> Void)
+    func startGame()
 }

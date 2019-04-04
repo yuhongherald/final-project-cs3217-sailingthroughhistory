@@ -13,7 +13,7 @@ class WaitingRoomViewController: UIViewController {
     @IBOutlet private weak var changeTeamButton: UIButtonRounded!
     @IBOutlet private weak var chooseLevelButton: UIButtonRounded!
     @IBOutlet private weak var playersTableView: UITableView!
-    private var dataSource: PlayersTableDataSource?
+    private var dataSource: MembersTableDataSource?
     var roomConnection: RoomConnection?
     private var waitingRoom: WaitingRoom?
     private var initialState: GenericGameState?
@@ -31,7 +31,7 @@ class WaitingRoomViewController: UIViewController {
         let waitingRoom = WaitingRoom(fromConnection: roomConnection)
         subscribeToGameStart()
         self.waitingRoom = waitingRoom
-        dataSource = PlayersTableDataSource(withView: playersTableView, withRoom: waitingRoom)
+        dataSource = MembersTableDataSource(withView: playersTableView, withRoom: waitingRoom)
         playersTableView.dataSource = dataSource
     }
 

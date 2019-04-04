@@ -22,7 +22,7 @@ class GameState: GenericGameState {
 
     private var playerTurnOrder = [GenericPlayer]()
 
-    init(baseYear: Int, level: GenericLevel, players: [WaitingRoomPlayer]) {
+    init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
         //TODO
         gameTime = GameTime()
         teams = level.teams
@@ -45,6 +45,7 @@ class GameState: GenericGameState {
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
 
         for player in players {
+            player.map = map
             player.addShipsToMap(map: map)
         }
         for node in map.getNodes() {
@@ -100,7 +101,7 @@ class GameState: GenericGameState {
     func endGame() {
     }
 
-    private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [WaitingRoomPlayer]) {
+    private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {
             let parameter = parameters.first {

@@ -50,7 +50,7 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
         let levelName = levelNames[indexPath.item]
         cell.label.text = levelName
-        /// TODO: Solve memory issue and then uncomment
+        /// TODO: Solve memory issue and then uncomment to show images
         /*DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             let image = self?.storage.readImage(levelName)
             DispatchQueue.main.async {

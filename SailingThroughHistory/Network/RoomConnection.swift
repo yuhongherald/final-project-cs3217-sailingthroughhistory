@@ -20,7 +20,7 @@ protocol RoomConnection {
     /// TODO: CHANGE TYPE
     func subscribeToActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void)
 
-    func subscribeToPlayerTeams(with callback: @escaping ([WaitingRoomPlayer]) -> Void)
+    func subscribeToMembers(with callback: @escaping ([RoomMember]) -> Void)
 
     func push(actions: [PlayerAction], fromPlayer player: GenericPlayer,
               forTurnNumbered turn: Int,

@@ -9,8 +9,8 @@
 import UIKit
 
 class WaitingRoom {
-    private var observers = [(callback: ([WaitingRoomPlayer]) -> Void, observer: AnyObject?)]()
-    private(set) var players: [WaitingRoomPlayer] {
+    private var observers = [(callback: ([RoomMember]) -> Void, observer: AnyObject?)]()
+    private(set) var players: [RoomMember] {
         didSet {
             observers = observers.filter { $0.observer != nil }
             observers.forEach {
@@ -35,7 +35,7 @@ class WaitingRoom {
         self.identifier = deviceId
         self.players = []
         self.connection = connection
-        connection.subscribeToPlayerTeams {
+        connection.subscribeToMembers {
             self.players = $0
         }
 
@@ -44,7 +44,7 @@ class WaitingRoom {
         }
     }
 
-    func subscribeToPlayers(with callback: @escaping ([WaitingRoomPlayer]) -> Void, observer: AnyObject?) {
+    func subscribeToMembers(with callback: @escaping ([RoomMember]) -> Void, observer: AnyObject?) {
         observers.append((callback: callback, observer: observer))
         callback(players)
     }
