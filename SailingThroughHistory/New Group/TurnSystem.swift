@@ -9,10 +9,11 @@
 import Foundation
 
 class TurnSystem: GenericTurnSystem {
-    private static let turnDuration = 120
+    private static let turnDuration: TimeInterval = 120
 
     enum State {
         case ready
+        case waitPlayerInput(from: GenericPlayer)
         case playerInput(from: GenericPlayer, endTime: TimeInterval)
         case waitForTurnFinish
         case evaluateMoves(for: GenericPlayer)
@@ -49,6 +50,8 @@ class TurnSystem: GenericTurnSystem {
         switch state {
         case .playerInput(let player, _):
             return player
+        case .waitPlayerInput(let player):
+            return player
         default:
             return nil
         }
@@ -73,7 +76,7 @@ class TurnSystem: GenericTurnSystem {
             state = .waitForTurnFinish
             return
         }
-        startPlayerInput(from: player)
+        state = .waitPlayerInput(from: player)
     }
 
     // for testing
@@ -122,9 +125,6 @@ class TurnSystem: GenericTurnSystem {
 
     func buy(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws {
         try checkInputAllowed(from: player)
-        guard let itemParameter = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
-            throw PlayerActionError.invalidAction(message: "Item type does not exist")
-        }
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
         }
@@ -201,7 +201,6 @@ class TurnSystem: GenericTurnSystem {
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
-            // TODO: Return the eval from buying
         }
     }
 
@@ -268,12 +267,12 @@ class TurnSystem: GenericTurnSystem {
                     /// TODO: Error handling
                     return
                 }
-                self?.processTurnActions(forTurnNumber:currentTurn, playerActionPairs: actionPair)
+                self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
             }
             return
         }
 
-        startPlayerInput(from: player)
+        state = .waitPlayerInput(from: player)
 
     }
 
@@ -306,6 +305,13 @@ class TurnSystem: GenericTurnSystem {
 
     func subscribeToState(with callback: @escaping (State) -> Void) {
         stateVariable.subscribe(with: callback)
+    }
+
+    func acknoledgeTurnStart() {
+        guard let player = currentPlayer else {
+            return
+        }
+        startPlayerInput(from: player)
     }
 
     private func evaluateState(player: GenericPlayer, actions: [PlayerAction]) {
@@ -382,14 +388,17 @@ class TurnSystem: GenericTurnSystem {
                 self.state = .waitForTurnFinish
                 return
             }
-            startPlayerInput(from: player)
+            state = .waitPlayerInput(from: player)
         }
     }
 
     private func startPlayerInput(from player: GenericPlayer) {
-        let endTime = NSTimeIntervalSince1970 + 120
-        _ = Timer(fire: Date(timeIntervalSince1970: NSTimeIntervalSince1970 + 120), interval: 0, repeats: false) { [weak self] _ in
-            self?.endTurn()
+        let endTime = Date().timeIntervalSince1970 + TurnSystem.turnDuration
+        let turnNum = data.currentTurn
+        DispatchQueue.global().asyncAfter(deadline: .now() + TurnSystem.turnDuration) { [weak self] in
+            if player == self?.currentPlayer && self?.data.currentTurn == turnNum {
+                self?.endTurn()
+            }
         }
 
         self.state = .playerInput(from: player, endTime: endTime)

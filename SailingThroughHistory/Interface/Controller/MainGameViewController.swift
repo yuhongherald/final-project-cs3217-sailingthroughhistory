@@ -94,23 +94,33 @@ class MainGameViewController: UIViewController {
     }
 
     private func updateForState(_ state: TurnSystem.State) {
-        playerTurnEnd()
-        currentTurnOwner = nil
-        switch state {
-        case .playerInput(let player, let endTime):
-            currentTurnOwner = player
-            playerTurnStart(player: player, endTime: endTime)
-            break
-        case .ready:
-            break
-        case .waitForTurnFinish:
-            break
-        case .waitForStateUpdate:
-            break
-        case .invalid:
-            break
-        case .evaluateMoves(_):
-            break
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.playerTurnEnd()
+            self.currentTurnOwner = nil
+            switch state {
+            case .waitPlayerInput(let player):
+                let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
+                withMsg: "") { [weak self] in
+                    self?.turnSystem?.acknoledgeTurnStart()
+                }
+                self.present(alert, animated: true, completion: nil)
+            case .playerInput(let player, let endTime):
+                self.currentTurnOwner = player
+                self.playerTurnStart(player: player, endTime: endTime)
+            case .ready:
+                break
+            case .waitForTurnFinish:
+                break
+            case .waitForStateUpdate:
+                break
+            case .invalid:
+                break
+            case .evaluateMoves(_):
+                break
+            }
         }
     }
 
@@ -285,17 +295,13 @@ class MainGameViewController: UIViewController {
             rollDiceButton.set(color: .red)
             countdownLabel.isHidden = false
             countdownLabel.animationType = CountdownEffect.Burn
-            countdownLabel.setCountDownTime(minutes: endTime - NSTimeIntervalSince1970)
+            countdownLabel.setCountDownTime(minutes: endTime - Date().timeIntervalSince1970)
             countdownLabel.start()
         }
 
-        let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
-            withMsg: "") { [weak self] in
-                animatePlayerTurnStart()
-                self?.updatePlayerInformation(for: player)
-        }
 
-        present(alert, animated: true, completion: nil)
+        animatePlayerTurnStart()
+        updatePlayerInformation(for: player)
     }
 
     private func playerTurnEnd() {
