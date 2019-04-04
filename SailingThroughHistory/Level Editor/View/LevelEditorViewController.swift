@@ -67,16 +67,10 @@ class LevelEditorViewController: UIViewController {
                 return
             }
             gallaryDest.selectedCallback = { loadedParameter in
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "levelEditorScreen")
-
-                guard let castedController = controller as? LevelEditorViewController else {
-                    fatalError("LevelEditorViewController not found.")
-                }
-
-                castedController.load(loadedParameter)
-                gallaryDest.dismiss(animated: true, completion: nil)
-                self.present(castedController, animated: true, completion: nil)
+                self.load(loadedParameter)
+                gallaryDest.dismiss(animated: false, completion: {
+                    gallaryDest.collectionView.removeFromSuperview()
+                })
             }
             gallaryDest.delegate = self
         default:
@@ -87,14 +81,19 @@ class LevelEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        reInitScrollView()
+        initBackground()
+
         menuDest?.data = gameParameter.teams
         playerMenu.isUserInteractionEnabled = true
 
         let map = gameParameter.map
+        // remove All nodes / paths
+        self.mapBackground.subviews.forEach { $0.removeFromSuperview() }
         // Add nodes to map
         map.getNodes().forEach {
             let nodeView = NodeView(node: $0)
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: initNodeGestures())
+            nodeView.addTo(self.mapBackground, map: self.gameParameter.map, with: initNodeGestures())
         }
         // Add paths to map
         for path in map.getAllPaths() {
@@ -118,8 +117,6 @@ class LevelEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        reInitScrollView()
-        initBackground()
         playerMenu.frame.size = CGSize(width: 200, height: 100)
         playerMenu.isHidden = true
 

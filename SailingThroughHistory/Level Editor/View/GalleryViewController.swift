@@ -18,7 +18,7 @@ class GalleryViewController: UIViewController {
     weak var delegate: GalleryViewDelegateProtocol?
     var selectedCallback: ((GameParameter) -> Void)?
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -30,12 +30,9 @@ class GalleryViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func cancelPressed(_ sender: Any) {
-        self.collectionView.removeFromSuperview()
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    @IBAction func confirmPressed(_ sender: Any) {
-        //TODO: move load here
+        self.dismiss(animated: true, completion: {
+            self.collectionView.removeFromSuperview()
+        })
     }
 }
 
