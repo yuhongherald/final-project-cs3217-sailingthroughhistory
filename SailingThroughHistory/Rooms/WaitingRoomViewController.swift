@@ -67,7 +67,6 @@ class WaitingRoomViewController: UIViewController {
 
         galleryController.selectedCallback = { [weak self] gameParameter in
             self?.waitingRoom?.parameters = gameParameter
-            galleryController.dismiss(animated: true, completion: nil)
         }
     }
 

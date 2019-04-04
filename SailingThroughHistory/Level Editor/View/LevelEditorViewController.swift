@@ -68,9 +68,6 @@ class LevelEditorViewController: UIViewController {
             }
             gallaryDest.selectedCallback = { loadedParameter in
                 self.load(loadedParameter)
-                gallaryDest.dismiss(animated: false, completion: {
-                    gallaryDest.collectionView.removeFromSuperview()
-                })
             }
             gallaryDest.delegate = self
         default:

@@ -67,6 +67,9 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
             alert.present(in: self)
             return
         }
+        self.dismiss(animated: true, completion: {
+            self.collectionView.removeFromSuperview()
+        })
         selectedCallback?(gameParameter)
     }
 }
