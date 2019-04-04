@@ -19,15 +19,15 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     private let mainController: MainGameViewController
     private var playerCanInteract = false
     private var selectedPort: Port?
-    private var itemParametersSoldByPort = [ItemParameter]()
-    private var itemsBought = [ItemParameter]()
+    private var itemTypesSoldByPort = [ItemType]()
+    private var itemTypesBoughtByPort = [ItemType]()
 
     init(mainController: MainGameViewController) {
         self.mainController = mainController
     }
 
     func didSelect(port: Port, playerCanInteract: Bool) {
-        self.itemParametersSoldByPort = port.itemParametersSoldByPort
+        self.itemTypesSoldByPort = port.itemParametersSoldByPort
         self.playerCanInteract = playerCanInteract
         self.selectedPort = port
         // TODO: Update when bought array is added.
@@ -50,7 +50,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         var array: [ItemParameter]
         switch indexPath.section {
         case PortItemTableDataSource.boughtSection:
-            array = itemsBought
+            array = itemTypesBoughtByPort
             let item = array[indexPath.row]
             tableCell.set(price: port.getSellValue(of: item) ??
                 PortItemTableDataSource.defaultPrice)
@@ -59,7 +59,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 self?.mainController.portItemButtonPressed(action: .playerSell(item: item))
             }
         case PortItemTableDataSource.soldSection:
-            array = itemParametersSoldByPort
+            array = itemTypesSoldByPort
             let item = array[indexPath.row]
             tableCell.set(price: port.getBuyValue(of: array[indexPath.row]) ??
                 PortItemTableDataSource.defaultPrice)
@@ -86,9 +86,9 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case PortItemTableDataSource.boughtSection:
-            return itemsBought.count
+            return itemTypesBoughtByPort.count
         case PortItemTableDataSource.soldSection:
-            return itemParametersSoldByPort.count
+            return itemTypesSoldByPort.count
         default:
             return 0
         }
