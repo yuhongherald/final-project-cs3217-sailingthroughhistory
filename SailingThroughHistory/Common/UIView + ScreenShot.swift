@@ -10,9 +10,9 @@ import UIKit
 
 extension UIView {
     var screenShot: UIImage? {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
 
-        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        drawHierarchy(in: self.frame, afterScreenUpdates: true)
 
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

@@ -81,4 +81,12 @@ enum Default {
     enum Weather {
         static let strengths: [Float] = [0, 0, 0, 0]
     }
+
+    enum Suffix {
+        static let background: String = "background"
+    }
+
+    enum Background {
+        static let image: String = "worldmap1815"
+    }
 }

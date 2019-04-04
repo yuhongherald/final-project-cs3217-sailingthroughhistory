@@ -25,14 +25,14 @@ class LevelEditorViewController: UIViewController {
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"
 
-    lazy var gameParameter: GameParameter = {
-        let mapName = "world1815"
-        var bounds = Rect(originX: 0, originY: 0,
-                          height: Double(view.bounds.size.height), width: Double(view.bounds.size.width))
-        if let size = UIImage(named: "world1815")?.size {
-            bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
+    var gameParameter: GameParameter = {
+        let imageName = Default.Background.image
+        var bounds: Rect?
+        if let image = UIImage(named: imageName) {
+            bounds = Rect(originX: 0, originY: 0, height: Double(image.size.height), width: Double(image.size.width))
         }
-        let map = Map(map: mapName, bounds: bounds)
+
+        let map = Map(map: imageName, bounds: bounds)
         return GameParameter(map: map, teams: ["Dutch", "British"])
     }()
 
@@ -75,14 +75,12 @@ class LevelEditorViewController: UIViewController {
                 }
 
                 castedController.load(loadedParameter)
-                gallaryDest.present(castedController, animated: true, completion: nil)
+                gallaryDest.dismiss(animated: true, completion: nil)
+                self.present(castedController, animated: true, completion: nil)
             }
             gallaryDest.delegate = self
         default:
-            guard let gallaryDest = segue.destination as? GalleryViewController else {
-                return
-            }
-            gallaryDest.delegate = self
+            return
         }
     }
 
@@ -100,7 +98,6 @@ class LevelEditorViewController: UIViewController {
         }
         // Add paths to map
         for path in map.getAllPaths() {
-            print("\(map.getAllPaths().count) - from: \(path.fromNode.frame) - to: \(path.toNode.frame)")
             lineLayer = PathView()
             lineLayer.strokeColor = UIColor.black.cgColor
             lineLayer.lineWidth = 2.0
@@ -152,7 +149,7 @@ class LevelEditorViewController: UIViewController {
             }
             self.gameParameter.map.changeBackground("\(name)background", with: bounds)
             self.storage.save(self.gameParameter, self.mapBackground.image,
-                              preview: self.editingAreaWrapper.screenShot, with: name)
+                              preview: self.scrollView.screenShot, with: name)
         }, textPlaceHolder: "Input level name here")
         alert.present(in: self)
     }
@@ -305,7 +302,7 @@ class LevelEditorViewController: UIViewController {
     }
 
     private func initBackground() {
-        guard let image = UIImage(named: "worldmap1815"),
+        guard let image = storage.readImage(gameParameter.map.map) ?? UIImage(named: gameParameter.map.map),
             let editingAreaWrapper = self.editingAreaWrapper else {
                 return
         }
