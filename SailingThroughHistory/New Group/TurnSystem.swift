@@ -7,11 +7,12 @@
 //
 
 class TurnSystem: GenericTurnSystem {
-    
+
     enum State {
         case ready
         case playerInput(from: GenericPlayer)
         case waitForTurnFinish
+        case evaluateMoves(for: GenericPlayer)
         case waitForStateUpdate
         case invalid
     }
@@ -49,11 +50,11 @@ class TurnSystem: GenericTurnSystem {
         self.deviceId = deviceId
         self.network = network
         self.isMaster = isMaster
-        self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0) // TODO: Turn harcoded
+        self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0)
+        // TODO: Turn harcoded
         self.stateVariable = GameVariable(value: .ready)
     }
 
-    // TODO: Add to protocol and also do a running gamestate
     func startGame() {
         guard let player = getNextPlayer() else {
             state = .waitForTurnFinish
@@ -67,6 +68,7 @@ class TurnSystem: GenericTurnSystem {
         return state
     }
 
+    // MARK : - Player actions
     func roll(for player: GenericPlayer) throws -> Int {
         try checkInputAllowed(from: player)
 
@@ -113,7 +115,7 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
         }
         if quantity >= 0 {
-            player.buy(itemParameter: itemParameter, quantity: quantity)
+            try player.buy(itemParameter: itemParameter, quantity: quantity)
             pendingActions.append(.buyOrSell(itemType: itemType, quantity: quantity))
         }
     }
@@ -124,7 +126,11 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
         }
         if quantity >= 0 {
-            player.sell(itemType: itemType, quantity: quantity)
+            do {
+                try player.sell(itemType: itemType, quantity: quantity)
+            } catch let error as BuyItemError {
+                throw PlayerActionError.invalidAction(message: error.getMessage())
+            }
             pendingActions.append(.buyOrSell(itemType: itemType, quantity: -quantity))
         }
     }
@@ -169,10 +175,14 @@ class TurnSystem: GenericTurnSystem {
             guard let item = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
                 throw PlayerActionError.invalidAction(message: "Item type does not exist")
             }
-            if quantity >= 0 {
-                player.buy(itemParameter: item, quantity: quantity)
-            } else {
-                player.sell(itemType: itemType, quantity: -quantity)
+            do {
+                if quantity >= 0 {
+                    try player.buy(itemParameter: item, quantity: quantity)
+                } else {
+                    try player.sell(itemType: itemType, quantity: -quantity)
+                }
+            } catch let error as BuyItemError {
+                throw PlayerActionError.invalidAction(message: error.getMessage())
             }
             // TODO: Return the eval from buying
         }

@@ -46,9 +46,9 @@ protocol GenericPlayer: Codable {
     // Docked - End turn is manual here
     func getPurchasableItemParameters() -> [ItemParameter]
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
-    func buy(itemParameter: ItemParameter, quantity: Int)
-    func sell(item: GenericItem)
-    func sell(itemType: ItemType, quantity: Int)
+    func buy(itemParameter: ItemParameter, quantity: Int) throws
+    func sell(item: GenericItem) throws
+    func sell(itemType: ItemType, quantity: Int) throws
 
     // End turn - supplies are removed here
     func endTurn()

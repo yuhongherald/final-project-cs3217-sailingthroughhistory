@@ -201,43 +201,49 @@ class Ship: Codable {
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.unitWeight)
     }
 
-    func buyItem(itemParameter: ItemParameter, quantity: Int) {
+    func buyItem(itemParameter: ItemParameter, quantity: Int) throws {
+        // TODO: auto-dock
         guard let port = getCurrentNode() as? Port, isDocked else {
             showMessage(titled: "Not docked!", withMsg: "Unable to buy item as ship is not docked.")
-            return
+            throw BuyItemError.notDocked
         }
         let item = itemParameter.createItem(quantity: quantity)
         guard let itemParameter = item.itemParameter else {
             showMessage(titled: "Game Error!", withMsg: "Error getting item type!")
-            return
+            throw BuyItemError.unknownItem
         }
         guard let price = item.getBuyValue(at: port) else {
             showMessage(titled: "Not available!", withMsg: "Item is not available for purchase at current port!")
-            return
+            throw BuyItemError.itemNotAvailable
         }
-        if price > owner?.money.value ?? 0 {
-            return
+        let difference = price - (owner?.money.value ?? 0)
+        guard difference >= 0 else {
+            throw BuyItemError.insufficientFunds(shortOf: difference)
         }
         owner?.money.value -= price
+        try addItem(item: item)
+        /*
         if addItem(item: item) {
             showMessage(titled: "Item purchased!", withMsg: "You have purchased \(item.quantity) of \(itemParameter.displayName)")
         } else {
             showMessage(titled: "Failed to buy Item!", withMsg: "An error has occurred in the game!")
+            throw BuyItemError.insufficientFunds(shortOf: 0)
         }
+        */
     }
 
-    func sellItem(item: GenericItem) {
+    func sellItem(item: GenericItem) throws {
         guard let port = getCurrentNode() as? Port, isDocked else {
             showMessage(titled: "Not docked!", withMsg: "Unable to sell item as ship is not docked.")
-            return
+            throw BuyItemError.notDocked
         }
         guard let itemType = item.itemParameter else {
             showMessage(titled: "Game Error", withMsg: "Unable to get item type!")
-            return
+            throw BuyItemError.unknownItem
         }
         guard let index = items.value.firstIndex(where: {$0 == item}) else {
             showMessage(titled: "Not available!", withMsg: "Item cannot be sold at current port!")
-            return
+            throw BuyItemError.itemNotAvailable
         }
         guard let profit = items.value[index].sell(at: port) else {
             showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
@@ -248,14 +254,16 @@ class Ship: Codable {
         items.value = items.value
     }
 
-    func sell(itemType: ItemType, quantity: Int) -> Int {
-        guard let map = map, let port = map.nodeIDPair[nodeId] as? Port,
-            let value = port.getSellValue(of: itemType) else {
-            return quantity
+    func sell(itemType: ItemType, quantity: Int) throws {
+        guard let map = map, let port = map.nodeIDPair[nodeId] as? Port else {
+            throw BuyItemError.notDocked
+        }
+        guard let value = port.getSellValue(of: itemType) else {
+            throw BuyItemError.itemNotAvailable
         }
         let deficeit = removeItem(by: itemType, with: quantity)
         owner?.updateMoney(by: (quantity - deficeit) * value)
-        return deficeit
+        throw BuyItemError.insufficientItems(shortOf: deficeit)
     }
 
     func endTurn(speedMultiplier: Double) {
@@ -301,17 +309,18 @@ class Ship: Codable {
         return weightCapacity.value - currentCargoWeight.value
     }
 
-    private func addItem(item: GenericItem) -> Bool {
-        if getRemainingCapacity() < item.weight ?? 0 {
-            return false
+    private func addItem(item: GenericItem) throws {
+        let difference = getRemainingCapacity() - (item.weight ?? 0)
+        guard difference >= 0 else {
+            throw BuyItemError.insufficientFunds(shortOf: difference)
         }
         guard let sameType = items.value.first(where: { $0.itemParameter == item.itemParameter }) else {
             items.value.append(item)
             items.value = items.value
-            return true
+            return
         }
         _ = sameType.combine(with: item)
-        return true
+        return
     }
 
     private func removeItem(by itemType: ItemType, with quantity: Int) -> Int {
@@ -321,13 +330,13 @@ class Ship: Codable {
         guard let consumable = items.value[index] as? GenericConsumable else {
             return 0
         }
-        let deficeit = consumable.consume(amount: quantity)
+        let deficit = consumable.consume(amount: quantity)
         if items.value[index].quantity == 0 {
             items.value.remove(at: index)
-            items.value = items.value;
+            items.value = items.value
         }
-        guard deficeit <= 0 else {
-            return removeItem(by: itemType, with: deficeit)
+        guard deficit <= 0 else {
+            return removeItem(by: itemType, with: deficit)
         }
         return 0
     }
