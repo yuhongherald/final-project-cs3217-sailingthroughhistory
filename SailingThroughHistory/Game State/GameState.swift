@@ -128,7 +128,10 @@ class GameState: GenericGameState {
             if !teams.contains(where: {$0.name == team.name}) {
                 teams.append(team)
             }
-            players.append(Player(name: roomPlayer.playerName, team: team, map: map, node: node, deviceId: roomPlayer.deviceId))
+            let player = Player(name: roomPlayer.playerName, team: team, map: map,
+                                node: node, deviceId: roomPlayer.deviceId)
+            player.money.value = unwrappedParam.getMoney()
+            players.append(player)
         }
     }
 }

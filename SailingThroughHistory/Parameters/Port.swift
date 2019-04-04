@@ -15,8 +15,12 @@ class Port: Node {
     }
     public var ownerName: String?
     // TODO: add item quantity editing in level editor
-    var itemParametersSoldByPort = [ItemType]()
-    var itemParametersBoughtByPort = [ItemType]()
+    var itemParametersSoldByPort: [ItemType] {
+        return [ItemType](itemBuyValue.keys)
+    }
+    var itemParametersBoughtByPort: [ItemType] {
+        return [ItemType](itemSellValue.keys)
+    }
     var itemSellValue = [ItemType: Int]()
     var itemBuyValue = [ItemType: Int]()
 
@@ -28,6 +32,7 @@ class Port: Node {
                                width: Port.portNodeWidth)
         owner = team
         super.init(name: team.name, frame: frame)
+        initDefaultPrices()
     }
 
     init(team: Team?, name: String, originX: Double, originY: Double) {
@@ -35,6 +40,7 @@ class Port: Node {
                                width: Port.portNodeWidth)
 
         super.init(name: name, frame: frame)
+        initDefaultPrices()
     }
 
     required init(from decoder: Decoder) throws {
@@ -42,8 +48,6 @@ class Port: Node {
         ownerName = try values.decode(String?.self, forKey: .ownerName)
         itemBuyValue = try values.decode([ItemType: Int].self, forKey: .itemBuyValue)
         itemSellValue = try values.decode([ItemType: Int].self, forKey: .itemSellValue)
-        itemParametersSoldByPort = itemBuyValue.keys.map( { $0 })
-        itemParametersSoldByPort = itemSellValue.keys.map( { $0 })
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
     }
@@ -86,28 +90,20 @@ class Port: Node {
         return itemSellValue[type]
     }
 
-    func setBuyValue(of type: ItemParameter, value: Int) {
-        if itemBuyValue[type.itemType] == nil {
-            itemParametersSoldByPort.append(type.itemType)
-        }
-        itemBuyValue[type.itemType] = value
+    func setBuyValue(of type: ItemType, value: Int) {
+        itemBuyValue[type] = value
     }
 
-    func setSellValue(of type: ItemParameter, value: Int) {
-        if itemSellValue[type.itemType] == nil {
-            itemParametersSoldByPort.append(type.itemType)
-        }
-        itemSellValue[type.itemType] = value
+    func setSellValue(of type: ItemType, value: Int) {
+        itemSellValue[type] = value
     }
 
     // Availability at ports
     func delete(_ type: ItemParameter) {
         if getBuyValue(of: type) != nil {
-            itemParametersSoldByPort.removeAll(where: { $0 == type.itemType })
             itemBuyValue.removeValue(forKey: type.itemType)
         }
         if getSellValue(of: type) != nil {
-            itemParametersBoughtByPort.removeAll(where: { $0 == type.itemType })
             itemSellValue.removeValue(forKey: type.itemType)
         }
     }
@@ -115,6 +111,13 @@ class Port: Node {
     func getAllItemType() -> [ItemType] {
         // default/placeholder for all items
         return Array(Set(itemParametersSoldByPort + itemParametersBoughtByPort))
+    }
+
+    private func initDefaultPrices() {
+        ItemType.allCases.forEach { [weak self] itemType in
+            self?.itemSellValue[itemType] = ItemParameter.defaultPrice
+            self?.itemBuyValue[itemType] = ItemParameter.defaultPrice
+        }
     }
 
     private enum CodingKeys: String, CodingKey {

@@ -68,9 +68,7 @@ class MainGameViewController: UIViewController {
     }
 
     var interfaceBounds: Rect {
-        /// TODO: Fix
         return model.map.bounds
-        //return CGRect(fromRect: interface.bounds)
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -132,12 +130,32 @@ class MainGameViewController: UIViewController {
         portInformationView.isHidden = false
         portNameLabel.text = port.name
         portItemsDataSource.didSelect(port: port, playerCanInteract:
-            currentTurnOwner?.node === port)
+            currentTurnOwner?.canTradeAt(port: port) ?? false)
         portItemsTableView.reloadData()
     }
 
     func portItemButtonPressed(action: PortItemButtonAction) {
+        guard let currentTurnOwner = currentTurnOwner else {
+            return
+        }
+        var errorMsg: String?
+        do {
+            switch action {
+            case .playerBuy(let itemType):
+                try turnSystem?.buy(itemType: itemType, quantity: 1, by: currentTurnOwner)
+            case .playerSell(let itemType):
+                try turnSystem?.sell(itemType: itemType, quantity: 1, by: currentTurnOwner)
+            }
+        } catch PlayerActionError.invalidAction(let msg) {
+            errorMsg = msg
+        } catch {
+            errorMsg = error.localizedDescription
+        }
 
+        if let errorMsg = errorMsg {
+            let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
+            present(alert, animated: true, completion: nil)
+        }
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {

@@ -12,7 +12,7 @@ class ItemCollectionViewController: UIViewController, UICollectionViewDataSource
 UICollectionViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
-    private var itemParameters: [ItemParameter] = []
+    private var itemTypes: [ItemType] = []
     private var selectedPort: Port?
 
     override var prefersStatusBarHidden: Bool {
@@ -43,18 +43,18 @@ UICollectionViewDelegate, UITextFieldDelegate {
             let castedCell = cell as? ItemCollectionViewCell else {
                 continue
             }
-            var itemParam = itemParameters[indexPath.item]
+            let itemType = itemTypes[indexPath.item]
 
-            if itemParam.isConsumable, let lifeText = castedCell.lifeField.text, let life = Int(lifeText) {
+           /* if itemParam.isConsumable, let lifeText = castedCell.lifeField.text, let life = Int(lifeText) {
                 itemParam.setHalfLife(to: life)
             }
-
+            */
             if let buyPriceText = castedCell.buyField.text, let buyPrice = Int(buyPriceText) {
-                port.setBuyValue(of: itemParam, value: buyPrice)
+                port.setBuyValue(of: itemType, value: buyPrice)
             }
 
             if let sellPriceText = castedCell.sellField.text, let sellPrice = Int(sellPriceText) {
-                port.setSellValue(of: itemParam, value: sellPrice)
+                port.setSellValue(of: itemType, value: sellPrice)
             }
         }
 
@@ -71,20 +71,11 @@ UICollectionViewDelegate, UITextFieldDelegate {
 
     func initWith(port: Port) {
         self.selectedPort = port
-        var parameters = port.getAllItemType().map( { itemTypeToParameter(itemType: $0) })
-        guard let filteredParameters = parameters.removeAll(where: { $0 == nil }) as? [ItemParameter] else {
-            return
-        }
-        self.itemParameters = filteredParameters
+        self.itemTypes = port.getAllItemType()
         collectionView.reloadData()
     }
-
-    func itemTypeToParameter(itemType: ItemType) -> ItemParameter? {
-        return itemParameters.first(where: { $0.itemType == itemType })
-    }
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return itemParameters.count
+        return itemTypes.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -93,29 +84,30 @@ UICollectionViewDelegate, UITextFieldDelegate {
             .dequeueReusableCell(withReuseIdentifier: "itemInfoCell", for: indexPath) as? ItemCollectionViewCell else {
                 fatalError("Cell cannot be casted into ItemCollectionViewCell")
         }
-        let itemParam = itemParameters[indexPath.item]
-        cell.label.text = itemParam.displayName
+        let itemType = itemTypes[indexPath.item]
+        cell.label.text = itemType.rawValue
 
         guard let port = selectedPort else {
             return cell
         }
 
-        if let sellPrice = port.getSellValue(of: itemParam) {
+        if let sellPrice = port.getSellValue(of: itemType) {
             cell.sellField.text = String(sellPrice)
         }
 
-        if let buyPrice = port.getBuyValue(of: itemParam) {
+        if let buyPrice = port.getBuyValue(of: itemType) {
             cell.buyField.text = String(buyPrice)
         }
 
-        if itemParam.isConsumable, let life = itemParam.getHalfLife() {
+        /// TODO: Refactor and move this
+        /*if itemParam.isConsumable, let life = itemParam.getHalfLife() {
             cell.lifeField.isEnabled = true
             cell.lifeField.text = String(life)
         }
 
         if !itemParam.isConsumable {
             cell.lifeField.isEnabled = false
-        }
+        }*/
 
         return cell
     }

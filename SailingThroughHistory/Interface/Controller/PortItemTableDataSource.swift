@@ -72,7 +72,9 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         }
 
         tableCell.set(name: array[indexPath.row].rawValue)
-        if !playerCanInteract {
+        if playerCanInteract {
+            tableCell.enable()
+        } else {
             tableCell.disable()
         }
 

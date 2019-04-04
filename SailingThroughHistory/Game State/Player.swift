@@ -26,6 +26,9 @@ class Player: GenericPlayer {
                 return
             }
             ship.setMap(map: map)
+            if canDock() {
+                dock()
+            }
         }
     }
     var currentNode: Node? {
@@ -132,7 +135,7 @@ class Player: GenericPlayer {
     }
 
     func canDock() -> Bool {
-        guard let map = map else {
+        guard map != nil else {
             fatalError("Cannot check dock if map does not exist.")
         }
         return ship.canDock()
@@ -177,6 +180,10 @@ class Player: GenericPlayer {
     func endTurn() {
         hasRolled = false
         ship.endTurn(speedMultiplier: speedMultiplier)
+    }
+
+    func canTradeAt(port: Port) -> Bool {
+        return ship.isDocked && ship.nodeId == port.identifier
     }
 
     private enum CodingKeys: String, CodingKey {

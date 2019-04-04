@@ -9,8 +9,8 @@
 import Foundation
 
 enum ItemType: String, Codable, CaseIterable {
-    case teaLeaves = "tea leaves"
-    case silk = "silk"
-    case perfume = "perfume"
-    case opium = "opium"
+    case teaLeaves = "Tea Leaves"
+    case silk = "Silk"
+    case perfume = "Perfume"
+    case opium = "Opium"
 }

@@ -32,6 +32,11 @@ class UIPortItemTableCell: UITableViewCell {
         actionButton.setTitle(buttonLabel, for: .normal)
     }
 
+    func enable() {
+        actionButton.isEnabled = true
+        actionButton.set(color: UIColor.blue)
+    }
+
     func disable() {
         actionButton.isEnabled = false
         actionButton.set(color: UIColor.lightGray)

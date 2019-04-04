@@ -189,8 +189,8 @@ class TurnSystem: GenericTurnSystem {
             }
             port.taxAmount = taxAmount
         case .buyOrSell(let itemType, let quantity):
-            guard let itemParameter = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
-                throw PlayerActionError.invalidAction(message: "Item type does not exist")
+            if player.deviceId == deviceId {
+                return
             }
             do {
                 if quantity >= 0 {
