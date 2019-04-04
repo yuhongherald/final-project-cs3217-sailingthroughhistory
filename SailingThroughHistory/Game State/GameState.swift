@@ -10,6 +10,9 @@ import Foundation
 
 class GameState: GenericGameState {
     var gameTime: GameTime
+    var gameObjects: [GameObject] {
+        return map.gameObjects.value
+    }
     var itemParameters = [ItemParameter]()
 
     private(set) var map: Map
@@ -19,7 +22,7 @@ class GameState: GenericGameState {
 
     private var playerTurnOrder = [GenericPlayer]()
 
-    init(baseYear: Int, level: GenericLevel, players: [WaitingRoomPlayer]) {
+    init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
         //TODO
         gameTime = GameTime()
         teams = level.teams
@@ -27,6 +30,9 @@ class GameState: GenericGameState {
         map = level.map
         itemParameters = level.itemParameters
         initializePlayers(from: level.playerParameters, for: players)
+        self.players.forEach {
+            $0.addShipsToMap(map: map)
+        }
     }
 
     required init(from decoder: Decoder) throws {
@@ -38,6 +44,10 @@ class GameState: GenericGameState {
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
 
+        for player in players {
+            player.map = map
+            player.addShipsToMap(map: map)
+        }
         for node in map.getNodes() {
             guard let port = node as? Port else {
                 continue
@@ -91,13 +101,13 @@ class GameState: GenericGameState {
     func endGame() {
     }
 
-    private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [WaitingRoomPlayer]) {
+    private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {
             let parameter = parameters.first {
                 $0.getTeam().name == roomPlayer.teamName
             }
-            print(parameters.map{ $0.getTeam().name })
+            print(parameters.map { $0.getTeam().name })
             guard let unwrappedParam = parameter, roomPlayer.hasTeam else {
                 preconditionFailure("Player has invalid team.")
             }
@@ -118,7 +128,7 @@ class GameState: GenericGameState {
             if !teams.contains(where: {$0.name == team.name}) {
                 teams.append(team)
             }
-            players.append(Player(name: roomPlayer.playerName, team: team, node: node, deviceId: roomPlayer.deviceId))
+            players.append(Player(name: roomPlayer.playerName, team: team, map: map, node: node, deviceId: roomPlayer.deviceId))
         }
     }
 }

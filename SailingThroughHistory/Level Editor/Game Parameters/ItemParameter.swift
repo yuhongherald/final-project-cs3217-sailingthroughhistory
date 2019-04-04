@@ -28,7 +28,7 @@ struct ItemParameter: Codable {
 
     // Create a quantized representation
     func createItem(quantity: Int) -> GenericItem {
-        return Item(itemType: self, quantity: quantity)
+        return Item(itemParameter: self, quantity: quantity)
     }
 
     // Global pricing information

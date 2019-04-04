@@ -9,10 +9,10 @@
 import Foundation
 
 class Item: GenericItem, Codable {
-    var name: String
-    var itemType: ItemType? {
-        return itemParameter?.itemType
+    var name: String? {
+        return itemParameter?.displayName
     }
+    var itemType: ItemType
     var itemParameter: ItemParameter?
     var weight: Int? {
         guard let unitWeight = itemParameter?.unitWeight else {
@@ -39,26 +39,26 @@ class Item: GenericItem, Codable {
     private var realQuantity = 0
     private var decimalQuantity = 0.0
 
-    required init(itemType: ItemParameter, quantity: Int) {
-        self.name = itemType.displayName
-        self.itemParameter = itemType
+    required init(itemParameter: ItemParameter, quantity: Int) {
+        self.itemType = itemParameter.itemType
+        self.itemParameter = itemParameter
         self.quantity = quantity
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        try name = values.decode(String.self, forKey: .name)
+        try itemType = values.decode(ItemType.self, forKey: .itemType)
         try quantity = values.decode(Int.self, forKey: .quantity)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(name, forKey: .name)
+        try container.encode(itemType, forKey: .itemType)
         try container.encode(quantity, forKey: .quantity)
     }
 
     private enum CodingKeys: String, CodingKey {
-        case name
+        case itemType
         case quantity
     }
 
@@ -88,14 +88,26 @@ class Item: GenericItem, Codable {
         return true
     }
 
+    /// If Item quantity is enough, decrease quantity by amount. Return 0.
+    /// If Item quantity is not enough, decrease quantity to 0. Return deficeit.
+    /// - Returns:
+    ///   If Item quantity is enough, return 0.
+    ///   If Item quantity is not enough, return deficeit as positive integer.
+    func remove(amount: Int) -> Int {
+        if quantity < amount {
+            let deficeit = amount - quantity
+            quantity = 0
+            return deficeit
+        }
+        quantity -= amount
+        return 0
+    }
+
     func setQuantity(quantity: Int) {
         self.quantity = quantity
     }
 
     func getBuyValue(at port: Port) -> Int? {
-        guard let itemType = itemType else {
-            return nil
-        }
         guard let unitValue = port.getBuyValue(of: itemType) else {
             return nil
         }
@@ -103,9 +115,6 @@ class Item: GenericItem, Codable {
     }
 
     func sell(at port: Port) -> Int? {
-        guard let itemType = itemType else {
-            return nil
-        }
         guard let unitValue = port.getSellValue(of: itemType) else {
             return nil
         }

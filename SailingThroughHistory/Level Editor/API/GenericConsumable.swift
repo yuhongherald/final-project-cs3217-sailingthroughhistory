@@ -9,5 +9,4 @@
 import Foundation
 
 protocol GenericConsumable: GenericItem {
-    func consume(amount: Int) -> Int
 }

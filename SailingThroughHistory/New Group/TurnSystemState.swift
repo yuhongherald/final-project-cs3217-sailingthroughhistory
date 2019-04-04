@@ -11,6 +11,7 @@ class TurnSystemState: UniqueObject, GenericTurnSystemState {
     private var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     // TODO: Move this into a GameObject, technically it is a lot of fields
     private var objects: [Int: BaseGameObject] = [Int: BaseGameObject]()
+    private var actionHistory = [(player: GenericPlayer, action: PlayerAction)]()
     let gameState: GenericGameState
     var currentPlayerIndex = 0
     var currentTurn: Int
@@ -60,6 +61,14 @@ class TurnSystemState: UniqueObject, GenericTurnSystemState {
         }
         addEvent(identifier: newValue)
         removeEvent(identifier: oldValue)
+    }
+
+    func turnFinished() {
+        currentTurn += 1
+    }
+
+    func processed(action: PlayerAction, from player: GenericPlayer) {
+        actionHistory.append((player: player, action: action))
     }
 
     private func addEvent(identifier: Int?) {

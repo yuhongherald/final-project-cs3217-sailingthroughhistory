@@ -6,5 +6,15 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class NPC: Volatile {
+class NPC: GameObject {
+    private static let NPCNodeHeight: Double = 50
+    private static let NPCNodeWidth: Double = 50
+
+    init(in node: Node) {
+        super.init(frame: node.frame)
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
 }

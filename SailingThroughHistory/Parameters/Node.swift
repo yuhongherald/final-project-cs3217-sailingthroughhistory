@@ -61,20 +61,6 @@ class Node: Codable {
         try container.encode(objectsWithType, forKey: .objects)
     }
 
-    func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
-        var result = [Node]()
-        guard range >= 0 else {
-            return result
-        }
-        result.append(self)
-        for path in map.getPaths(of: self) {
-            let neighbour = path.toNode
-            let remainingMovement = range - path.computeCostOfPath(baseCost: 1, with: ship)
-            result += neighbour.getNodesInRange(ship: ship, range: remainingMovement, map: map)
-        }
-        return result
-    }
-
     func moveIntoNode(ship: Pirate_WeatherEntity) {
     }
 
@@ -118,5 +104,53 @@ extension Node: Hashable {
 
     static func == (lhs: Node, rhs: Node) -> Bool {
         return lhs.identifier == rhs.identifier
+    }
+}
+
+// Mark : - Information
+extension Node {
+
+    func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
+        var visited = Set<Int>()
+        return getNodesInRange(ship: ship, visited: &visited, range: range, map: map)
+    }
+
+    func getCompletePath(to node: Node, map: Map) -> [Node] {
+        var queue = [(self, [Node]())]
+        var visited = Set<Int>()
+        var next = self
+        var path = [Node]()
+        while (next != node && !queue.isEmpty) {
+            (next, path) = queue.removeFirst()
+            if visited.contains(next.identifier) {
+                continue
+            }
+            visited.insert(next.identifier)
+            for neighbor in map.getAllPaths() {
+                queue.append((neighbor.toNode, path + [next]))
+            }
+        }
+        guard next == node else {
+            return [node]
+        }
+        return path
+    }
+
+    private func getNodesInRange(ship: Pirate_WeatherEntity, visited: inout Set<Int>, range: Double, map: Map) -> [Node] {
+        var result = [Node]()
+        guard range >= 0 else {
+            return result
+        }
+        result.append(self)
+        for path in map.getPaths(of: self) {
+            let neighbour = path.toNode
+            if visited.contains(neighbour.identifier) {
+                continue
+            }
+            visited.insert(neighbour.identifier)
+            let remainingMovement = range - path.computeCostOfPath(baseCost: 1, with: ship)
+            result += neighbour.getNodesInRange(ship: ship, range: remainingMovement, map: map)
+        }
+        return result
     }
 }

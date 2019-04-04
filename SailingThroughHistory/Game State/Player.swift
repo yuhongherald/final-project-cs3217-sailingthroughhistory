@@ -13,14 +13,6 @@ class Player: GenericPlayer {
     var hasRolled: Bool = false
     private var rollResult: Int = 0
 
-    func roll() -> Int {
-        if hasRolled {
-            return rollResult
-        }
-        // roll something here
-        return rollResult
-    }
-
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
@@ -28,23 +20,37 @@ class Player: GenericPlayer {
     var node: Node? {
         return getNodesInRange(roll: 0).first
     }
-    var map: Map?
-    var currentNode: Node {
-        return ship.location.value.start
+    var map: Map? {
+        didSet {
+            guard let map = map else {
+                return
+            }
+            ship.setMap(map: map)
+        }
     }
-
+    var currentNode: Node? {
+        return map?.nodeIDPair[ship.nodeId]
+    }
+    var currentCargoWeight: Int {
+        return ship.currentCargoWeight
+    }
+    var weightCapacity: Int {
+        return ship.weightCapacity
+    }
     private let ship: Ship
     private var gameState: GenericGameState?
     private var speedMultiplier = 1.0
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    required init(name: String, team: Team, node: Node, deviceId: String) {
+    required init(name: String, team: Team, map: Map, node: Node, deviceId: String) {
         self.name = name
         self.team = team
+        self.map = map
         self.deviceId = deviceId
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
+        ship.setMap(map: map)
     }
 
     required init(from decoder: Decoder) throws {
@@ -67,14 +73,20 @@ class Player: GenericPlayer {
         try container.encode(deviceId, forKey: .deviceId)
     }
 
-    func getItemParameter(name: String) -> ItemParameter? {
+    func getItemParameter(itemType: ItemType) -> ItemParameter? {
         let parameters = gameState?.itemParameters ?? []
-        return parameters.first(where: { $0.displayName == name })
+        return parameters.first(where: { $0.itemType == itemType })
+    }
+
+    func addShipsToMap(map: Map) {
+        ship.setMap(map: map)
+        ship.setLocation(map: map)
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
         self.speedMultiplier = speedMultiplier
         self.map = map
+        hasRolled = false
         state.value = PlayerState.moving
         ship.startTurn()
     }
@@ -83,20 +95,46 @@ class Player: GenericPlayer {
         ship.installUpgade(upgrade: upgrade)
     }
 
-    // TODO: Next milestone
-    func setTax(port: Port, amount: Int) {
-        port.taxAmount = amount
+    func roll() -> (Int, [Int]) {
+        if !hasRolled {
+            rollResult = Int.random(in: 1...6)
+            hasRolled = true
+        }
+        return (rollResult, getNodesInRange(roll: rollResult).map( { $0.identifier } ))
     }
 
-    func move(node: Node) {
+    func move(nodeId: Int) {
+        guard let node = map?.nodeIDPair[nodeId] else {
+            return
+        }
         ship.move(node: node)
     }
 
+    func getPath(to nodeId: Int) -> [Int] {
+        guard let map = map else {
+            fatalError("Player is not on a map")
+        }
+
+        guard let toNode = map.nodeIDPair[nodeId] else {
+            fatalError("To node does not exist")
+        }
+
+        return ship.getCurrentNode()
+            .getCompletePath(to:toNode, map: map)
+            .map { $0.identifier }
+    }
+
     func getNodesInRange(roll: Int) -> [Node] {
+        guard let map = map else {
+            fatalError("Cannot check dock if map does not exist.")
+        }
         return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier, map: map)
     }
 
     func canDock() -> Bool {
+        guard let map = map else {
+            fatalError("Cannot check dock if map does not exist.")
+        }
         return ship.canDock()
     }
 
@@ -113,12 +151,22 @@ class Player: GenericPlayer {
         return ship.getMaxPurchaseAmount(itemParameter: itemParameter)
     }
 
-    func buy(itemParameter: ItemParameter, quantity: Int) {
-        ship.buyItem(itemParameter: itemParameter, quantity: quantity)
+    func buy(itemParameter: ItemParameter, quantity: Int) throws {
+        try ship.buyItem(itemParameter: itemParameter, quantity: quantity)
     }
 
-    func sell(item: GenericItem) {
-        ship.sellItem(item: item)
+    func sell(item: GenericItem) throws {
+        try ship.sellItem(item: item)
+    }
+
+    func sell(itemType: ItemType, quantity: Int) throws {
+        try ship.sell(itemType: itemType, quantity: quantity)
+        //assert(deficit == 0)
+    }
+
+    // TODO: Next milestone
+    func setTax(port: Port, amount: Int) {
+        port.taxAmount = amount
     }
 
     func updateMoney(by amount: Int) {
@@ -141,20 +189,28 @@ class Player: GenericPlayer {
 
 // MARK: - subscribes
 extension Player {
-    func getLocation() -> GameVariable<Location> {
-        return ship.location
+    func subscribeToItems(with observer: @escaping (GenericPlayer, [GenericItem]) -> Void) {
+        ship.subscribeToItems {
+            observer(self, $0)
+        }
     }
 
-    func subscribeToItems(with observer: @escaping ([GenericItem]) -> Void) {
-        ship.subscribeToItems(with: observer)
+    func subscribeToCargoWeight(with observer: @escaping (GenericPlayer, Int) -> Void) {
+        ship.subscribeToCargoWeight {
+            observer(self, $0)
+        }
     }
 
-    func subscribeToCargoWeight(with observer: @escaping (Int) -> Void) {
-        ship.subscribeToCargoWeight(with: observer)
+    func subscribeToWeightCapcity(with observer: @escaping (GenericPlayer, Int) -> Void) {
+        ship.subscribeToWeightCapcity {
+            observer(self, $0)
+        }
     }
 
-    func subscribeToWeightCapcity(with observer: @escaping (Int) -> Void) {
-        ship.subscribeToWeightCapcity(with: observer)
+    func subscribeToMoney(with observer: @escaping (GenericPlayer, Int) -> Void) {
+        money.subscribe {
+            observer(self, $0)
+        }
     }
 
     private func preventPlayerBankruptcy(amount: Int) {

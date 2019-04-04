@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayersTableDataSource: NSObject, UITableViewDataSource {
+class MembersTableDataSource: NSObject, UITableViewDataSource {
     private let view: UITableView
     private var waitingRoom: WaitingRoom
 
@@ -16,7 +16,7 @@ class PlayersTableDataSource: NSObject, UITableViewDataSource {
         self.view = view
         self.waitingRoom = waitingRoom
         super.init()
-        self.waitingRoom.subscribeToPlayers(with: { _ in
+        self.waitingRoom.subscribeToMembers(with: { _ in
             view.reloadData()
         }, observer: self)
     }
