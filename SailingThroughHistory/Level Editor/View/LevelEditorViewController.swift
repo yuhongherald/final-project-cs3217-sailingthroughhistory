@@ -76,6 +76,7 @@ class LevelEditorViewController: UIViewController {
     }
 
     func reInit() {
+        reInitScrollView()
         initBackground()
 
         menuDest?.data = gameParameter.teams
