@@ -84,11 +84,14 @@ class LevelEditorViewController: UIViewController {
 
         let map = gameParameter.map
         // remove All nodes / paths
-        self.mapBackground.subviews.forEach { $0.removeFromSuperview() }
+        self.editingAreaWrapper.subviews.filter { $0 is NodeView }
+            .forEach { $0.removeFromSuperview() }
+        self.editingAreaWrapper.layer.sublayers?.filter { $0 is PathView }
+            .forEach { $0.removeFromSuperlayer() }
         // Add nodes to map
         map.getNodes().forEach {
             let nodeView = NodeView(node: $0)
-            nodeView.addTo(self.mapBackground, map: self.gameParameter.map, with: initNodeGestures())
+            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: initNodeGestures())
         }
         // Add paths to map
         for path in map.getAllPaths() {
