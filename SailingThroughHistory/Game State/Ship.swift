@@ -204,7 +204,7 @@ class Ship: Codable {
         guard let port = getCurrentNode() as? Port, isDocked else {
             return []
         }
-        return port.getItemParametersSold()
+        return port.getItemParametersSoldByPort()
     }
 
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {

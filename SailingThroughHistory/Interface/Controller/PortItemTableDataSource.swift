@@ -19,7 +19,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     private let mainController: MainGameViewController
     private var playerCanInteract = false
     private var selectedPort: Port?
-    private var itemsSold = [ItemParameter]()
+    private var itemParametersSoldByPort = [ItemParameter]()
     private var itemsBought = [ItemParameter]()
 
     init(mainController: MainGameViewController) {
@@ -27,7 +27,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     }
 
     func didSelect(port: Port, playerCanInteract: Bool) {
-        self.itemsSold = port.itemParametersSold
+        self.itemParametersSoldByPort = port.itemParametersSoldByPort
         self.playerCanInteract = playerCanInteract
         self.selectedPort = port
         // TODO: Update when bought array is added.
@@ -59,7 +59,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 self?.mainController.portItemButtonPressed(action: .playerSell(item: item))
             }
         case PortItemTableDataSource.soldSection:
-            array = itemsSold
+            array = itemParametersSoldByPort
             let item = array[indexPath.row]
             tableCell.set(price: port.getBuyValue(of: array[indexPath.row].itemType) ??
                 PortItemTableDataSource.defaultPrice)
@@ -88,7 +88,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         case PortItemTableDataSource.boughtSection:
             return itemsBought.count
         case PortItemTableDataSource.soldSection:
-            return itemsSold.count
+            return itemParametersSoldByPort.count
         default:
             return 0
         }
