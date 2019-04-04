@@ -8,9 +8,7 @@
 
 // A class used to hold the state of the turn based game
 class TurnSystemState: UniqueObject, GenericTurnSystemState {
-    private var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
-    // TODO: Move this into a GameObject, technically it is a lot of fields
-    private var objects: [Int: BaseGameObject] = [Int: BaseGameObject]()
+    private var events: Set<TurnSystemEvent> = Set<TurnSystemEvent>()
     private var actionHistory = [(player: GenericPlayer, action: PlayerAction)]()
     let gameState: GenericGameState
     var currentPlayerIndex = 0
@@ -29,59 +27,44 @@ class TurnSystemState: UniqueObject, GenericTurnSystemState {
     func addEvents(events: [TurnSystemEvent]) -> Bool {
         var result: Bool = true
         for event in events {
-            if self.events[event.identifier] != nil {
+            if self.events.contains(event) {
                 result = false
                 continue
             }
-            self.events[event.identifier] = event
+            self.events.insert(event)
         }
         return result
     }
     func removeEvents(events: [TurnSystemEvent]) -> Bool {
         var result: Bool = true
         for event in events {
-            if self.events[event.identifier] == nil {
+            if !self.events.contains(event) {
                 result = false
                 continue
             }
-            self.events[event.identifier] = nil
+            self.events.remove(event)
         }
         return result
     }
     func setEvents(events: [TurnSystemEvent]) -> Bool {
-        return removeEvents(events: Array(self.events.values))
+        return removeEvents(events: Array(self.events))
             && addEvents(events: events)
     }
 
-    func notify(eventUpdate: EventUpdate?) {
-        let oldValue = eventUpdate?.oldValue as? Int
-        let newValue = eventUpdate?.newValue as? Int
-        guard oldValue != newValue else {
-            return
+    func checkForEvents() -> Bool {
+        var result = false
+        for event in events {
+            result = result || event.evaluateEvent()
         }
-        addEvent(identifier: newValue)
-        removeEvent(identifier: oldValue)
+        return result
     }
 
+    // TODO: Call these 2 methods
     func turnFinished() {
         currentTurn += 1
     }
 
     func processed(action: PlayerAction, from player: GenericPlayer) {
         actionHistory.append((player: player, action: action))
-    }
-
-    private func addEvent(identifier: Int?) {
-        guard let identifier = identifier else {
-            return
-        }
-        triggeredEventsDict[identifier] = events[identifier]
-    }
-
-    private func removeEvent(identifier: Int?) {
-        guard let identifier = identifier else {
-            return
-        }
-        triggeredEventsDict.removeValue(forKey: identifier)
     }
 }

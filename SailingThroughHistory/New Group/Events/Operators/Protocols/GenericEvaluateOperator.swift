@@ -7,6 +7,7 @@
 //
 
 // The operator works in the notion of a BAE
-protocol GenericEvaluateOperator: Printable {
-    func evaluate(first: Any?, second: Any?) -> Any?
+protocol GenericOperator: Printable {
+    associatedtype T
+    func evaluate(first: T?, second: T?) -> T?
 }

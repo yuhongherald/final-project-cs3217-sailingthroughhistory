@@ -295,7 +295,7 @@ class TurnSystem: GenericTurnSystem {
         var actions = actions
         state = .evaluateMoves(for: player)
         while !actions.isEmpty {
-            while checkForEvents() {
+            while data.checkForEvents() {
             }
             do {
                 try process(action: actions.removeFirst(), for: player)
@@ -303,16 +303,6 @@ class TurnSystem: GenericTurnSystem {
                 print("Invalid action from server, dropping action")
             }
         }
-    }
-
-    private func checkForEvents() -> Bool {
-        if data.triggeredEvents.isEmpty {
-            return false
-        }
-        for event in data.triggeredEvents {
-            event.executeActions()
-        }
-        return true
     }
 
     private func updateStateMaster() {

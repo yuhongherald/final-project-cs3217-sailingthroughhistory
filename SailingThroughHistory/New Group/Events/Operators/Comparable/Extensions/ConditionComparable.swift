@@ -6,12 +6,12 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol ConditionComparable: Operatable {
+protocol ConditionComparable: ComparableOp {
     associatedtype T where T: Comparable
 }
 
 extension ConditionComparable {
-    var operators: [GenericOperator] {
+    var operators: [GenericComparator] {
         return [
         EqualOperator<T>(),
         NotEqualOperator<T>(),
@@ -22,7 +22,7 @@ extension ConditionComparable {
         ChangeOperator()
         ]
     }
-    var evaluators: [GenericEvaluateOperator] {
+    var evaluators: [GenericOperator] {
         return [
         ]
     }

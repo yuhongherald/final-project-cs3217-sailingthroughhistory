@@ -6,17 +6,16 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class EventAction: ReadOnlyEventAction {
-    var objectIdentifier: SerializableGameObject?
-    var objectField: String?
-    var evaluatable: GenericEvaluatable?
+class EventAction<T> {
+    private let variable: GameVariable<T>
+    private let value: Evaluatable<T>
+
+    init(variable: GameVariable<T>, value: Evaluatable<T>) {
+        self.variable = variable
+        self.value = value
+    }
 
     func modify() {
-        // evaluate the condition
-        guard let objectField = objectField, let evaluatable = evaluatable else {            return
-        }
-        // TODO: Come up with a better type safe idea, maybe in setfield
-        let result = evaluatable.evaluate()
-        _ = objectIdentifier?.setField(field: objectField, object: result)
+        variable.value = value.value
     }
 }
