@@ -78,9 +78,7 @@ class LevelEditorViewController: UIViewController {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
+    func reInit() {
         reInitScrollView()
         initBackground()
 
@@ -116,6 +114,9 @@ class LevelEditorViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        reInitScrollView()
+        initBackground()
 
         playerMenu.frame.size = CGSize(width: 200, height: 100)
         playerMenu.isHidden = true
