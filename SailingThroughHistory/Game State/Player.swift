@@ -151,16 +151,17 @@ class Player: GenericPlayer {
         return ship.getMaxPurchaseAmount(itemParameter: itemParameter)
     }
 
-    func buy(itemParameter: ItemParameter, quantity: Int) {
-        ship.buyItem(itemParameter: itemParameter, quantity: quantity)
+    func buy(itemParameter: ItemParameter, quantity: Int) throws {
+        try ship.buyItem(itemParameter: itemParameter, quantity: quantity)
     }
 
-    func sell(item: GenericItem) {
-        ship.sellItem(item: item)
+    func sell(item: GenericItem) throws {
+        try ship.sellItem(item: item)
     }
 
-    func sell(itemType: ItemType, quantity: Int) {
-        assert(ship.sell(itemType: itemType, quantity: quantity) == 0)
+    func sell(itemType: ItemType, quantity: Int) throws {
+        try ship.sell(itemType: itemType, quantity: quantity)
+        //assert(deficit == 0)
     }
 
     // TODO: Next milestone

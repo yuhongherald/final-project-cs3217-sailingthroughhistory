@@ -14,6 +14,7 @@ class TurnSystem: GenericTurnSystem {
         case ready
         case playerInput(from: GenericPlayer)
         case waitForTurnFinish
+        case evaluateMoves(for: GenericPlayer)
         case waitForStateUpdate
         case invalid
     }
@@ -57,7 +58,8 @@ class TurnSystem: GenericTurnSystem {
         self.deviceId = deviceId
         self.network = network
         self.isMaster = isMaster
-        self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0) // TODO: Turn harcoded
+        self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0)
+        // TODO: Turn harcoded
         self.stateVariable = GameVariable(value: .ready)
         network.subscribeToMembers { [weak self] members in
             self?.players = members
@@ -65,7 +67,6 @@ class TurnSystem: GenericTurnSystem {
 
     }
 
-    // TODO: Add to protocol and also do a running gamestate
     func startGame() {
         guard let player = getNextPlayer() else {
             state = .waitForTurnFinish
@@ -79,6 +80,7 @@ class TurnSystem: GenericTurnSystem {
         return state
     }
 
+    // MARK : - Player actions
     func roll(for player: GenericPlayer) throws -> Int {
         try checkInputAllowed(from: player)
 
@@ -108,7 +110,7 @@ class TurnSystem: GenericTurnSystem {
         guard let port = gameState.map.nodeIDPair[portId] as? Port else {
             throw PlayerActionError.invalidAction(message: "Port does not exist")
         }
-        guard player.team == port.owner else { // TODO: Fix equality assumption
+        guard player.team == port.owner else {
             throw PlayerActionError.invalidAction(message: "Player does not own port!")
         }
 
@@ -124,7 +126,7 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
         }
         if quantity >= 0 {
-            player.buy(itemParameter: itemParameter, quantity: quantity)
+            try player.buy(itemParameter: itemParameter, quantity: quantity)
             pendingActions.append(.buyOrSell(itemType: itemType, quantity: quantity))
         }
     }
@@ -135,7 +137,11 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
         }
         if quantity >= 0 {
-            player.sell(itemType: itemType, quantity: quantity)
+            do {
+                try player.sell(itemType: itemType, quantity: quantity)
+            } catch let error as BuyItemError {
+                throw PlayerActionError.invalidAction(message: error.getMessage())
+            }
             pendingActions.append(.buyOrSell(itemType: itemType, quantity: -quantity))
         }
     }
@@ -144,19 +150,21 @@ class TurnSystem: GenericTurnSystem {
         switch state {
         case .playerInput(let curPlayer):
             if player != curPlayer {
-                throw PlayerActionError.wrongPhase(message: "Action called on wrong phase")
+                throw PlayerActionError.wrongPhase(message: "Please wait for your turn")
             }
         default:
             throw PlayerActionError.wrongPhase(message: "Aaction called on wrong phase")
         }
     }
 
-    /// Returns false if action is invalid
+    /// Throws if action is invalid
     /// For server actions only
     func process(action: PlayerAction, for player: GenericPlayer) throws {
         switch state {
-        case .waitForTurnFinish:
-            break
+        case .evaluateMoves(for: let currentPlayer):
+            if player != currentPlayer {
+                throw PlayerActionError.wrongPhase(message: "Evaluate move on wrong player!")
+            }
         default:
             throw PlayerActionError.wrongPhase(message: "Make action called on wrong phase")
         }
@@ -181,10 +189,14 @@ class TurnSystem: GenericTurnSystem {
             guard let item = gameState.itemParameters.first(where: {$0.itemType == itemType}) else {
                 throw PlayerActionError.invalidAction(message: "Item type does not exist")
             }
-            if quantity >= 0 {
-                player.buy(itemParameter: item, quantity: quantity)
-            } else {
-                player.sell(itemType: itemType, quantity: -quantity)
+            do {
+                if quantity >= 0 {
+                    try player.buy(itemParameter: item, quantity: quantity)
+                } else {
+                    try player.sell(itemType: itemType, quantity: -quantity)
+                }
+            } catch let error as BuyItemError {
+                throw PlayerActionError.invalidAction(message: error.getMessage())
             }
             // TODO: Return the eval from buying
         }
@@ -202,18 +214,13 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func watchMasterUpdate(gameState: GenericGameState) {
-        if isBlocking {
-            return
-        }
         switch state {
         case .waitForStateUpdate:
             break
         default:
             return
         }
-        isBlocking = true
-        // update here? Not updating though
-        isBlocking = false
+        startGame()
     }
 
     func watchTurnFinished(playerActions: [(GenericPlayer, [PlayerAction])]) {
@@ -286,6 +293,7 @@ class TurnSystem: GenericTurnSystem {
 
     private func evaluateState(player: GenericPlayer, actions: [PlayerAction]) {
         var actions = actions
+        state = .evaluateMoves(for: player)
         while !actions.isEmpty {
             while checkForEvents() {
             }
@@ -308,7 +316,24 @@ class TurnSystem: GenericTurnSystem {
     }
 
     private func updateStateMaster() {
-        // TODO: Interface with network
+        state = .waitForStateUpdate
+        if isMaster {
+            // TODO: Change the typecast
+            // TODO: Hook up watch master update with network
+            guard let gameState = gameState as? GameState else {
+                return
+            }
+            do {
+                try network.push(currentState: gameState) {
+                    guard let error = $0 else {
+                        return
+                    }
+                    print(error.localizedDescription)
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     private func waitTurnFinish() {

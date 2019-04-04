@@ -109,7 +109,8 @@ class MainGameViewController: UIViewController {
         case .waitForStateUpdate:
             break
         case .invalid:
-            
+            break
+        case .evaluateMoves(for: let player):
             break
         }
     }
