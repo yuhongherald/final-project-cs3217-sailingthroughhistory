@@ -85,7 +85,7 @@ class TurnSystem: GenericTurnSystem {
         if player.hasRolled {
             throw PlayerActionError.invalidAction(message: "Player has already rolled!")
         }
-        return player.roll()
+        return player.roll().0
     }
 
     func selectForMovement(nodeId: Int, by player: GenericPlayer) throws {
@@ -94,8 +94,7 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Player has not rolled!")
         }
 
-        if !player.getNodesInRange(roll: player.roll()).map({ $0.identifier })
-                .contains(nodeId) {
+        if !player.roll().1.contains(nodeId) {
             throw PlayerActionError.invalidAction(message: "Node is out of range!")
         }
 

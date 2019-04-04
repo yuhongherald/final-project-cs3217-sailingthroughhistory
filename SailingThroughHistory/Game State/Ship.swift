@@ -33,7 +33,7 @@ class Ship: Codable {
         return weightCapacityVariable.value
     }
     private let nodeIdVariable: GameVariable<Int>
-    private var owner: GenericPlayer?
+    private weak var owner: GenericPlayer?
     private var items = GameVariable<[GenericItem]>(value: [])
     private var currentCargoWeightVariable = GameVariable<Int>(value: 0)
     private var weightCapacityVariable = GameVariable<Int>(value: 100)
@@ -329,10 +329,10 @@ class Ship: Codable {
         guard let index = items.value.firstIndex(where: { $0.itemType == itemType }) else {
             return quantity
         }
-        guard let consumable = items.value[index] as? GenericConsumable else {
+        guard let item = items.value[index] as? GenericItem else {
             return 0
         }
-        let deficeit = consumable.consume(amount: quantity)
+        let deficeit = item.remove(amount: quantity)
         if items.value[index].quantity == 0 {
             items.value.remove(at: index)
             items.value = items.value;

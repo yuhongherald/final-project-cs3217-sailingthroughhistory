@@ -13,14 +13,6 @@ class Player: GenericPlayer {
     var hasRolled: Bool = false
     private var rollResult: Int = 0
 
-    func roll() -> Int {
-        if hasRolled {
-            return rollResult
-        }
-        // roll something here
-        return rollResult
-    }
-
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
@@ -94,6 +86,7 @@ class Player: GenericPlayer {
     func startTurn(speedMultiplier: Double, map: Map?) {
         self.speedMultiplier = speedMultiplier
         self.map = map
+        hasRolled = false
         state.value = PlayerState.moving
         ship.startTurn()
     }
@@ -102,9 +95,12 @@ class Player: GenericPlayer {
         ship.installUpgade(upgrade: upgrade)
     }
 
-    // TODO: Next milestone
-    func setTax(port: Port, amount: Int) {
-        port.taxAmount = amount
+    func roll() -> (Int, [Int]) {
+        if !hasRolled {
+            rollResult = Int.random(in: 1...6)
+            hasRolled = true
+        }
+        return (rollResult, getNodesInRange(roll: rollResult).map( { $0.identifier } ))
     }
 
     func move(nodeId: Int) {
@@ -165,6 +161,11 @@ class Player: GenericPlayer {
 
     func sell(itemType: ItemType, quantity: Int) {
         assert(ship.sell(itemType: itemType, quantity: quantity) == 0)
+    }
+
+    // TODO: Next milestone
+    func setTax(port: Port, amount: Int) {
+        port.taxAmount = amount
     }
 
     func updateMoney(by amount: Int) {

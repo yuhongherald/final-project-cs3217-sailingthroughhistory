@@ -35,8 +35,7 @@ protocol GenericPlayer: class, Codable {
     // Before moving
     func startTurn(speedMultiplier: Double, map: Map?)
     func buyUpgrade(upgrade: Upgrade)
-    func setTax(port: Port, amount: Int)
-    func roll() -> Int
+    func roll() -> (Int, [Int])
 
     // Moving - Auto progress to End turn if cannot dock
     func move(nodeId: Int)
@@ -53,6 +52,7 @@ protocol GenericPlayer: class, Codable {
     func buy(itemParameter: ItemParameter, quantity: Int)
     func sell(item: GenericItem)
     func sell(itemType: ItemType, quantity: Int)
+    func setTax(port: Port, amount: Int)
 
     // End turn - supplies are removed here
     func endTurn()
