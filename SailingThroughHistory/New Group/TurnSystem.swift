@@ -81,13 +81,13 @@ class TurnSystem: GenericTurnSystem {
     }
 
     // MARK : - Player actions
-    func roll(for player: GenericPlayer) throws -> Int {
+    func roll(for player: GenericPlayer) throws -> (Int, [Int]) {
         try checkInputAllowed(from: player)
 
         if player.hasRolled {
             throw PlayerActionError.invalidAction(message: "Player has already rolled!")
         }
-        return player.roll().0
+        return player.roll()
     }
 
     func selectForMovement(nodeId: Int, by player: GenericPlayer) throws {
@@ -99,10 +99,12 @@ class TurnSystem: GenericTurnSystem {
         if !player.roll().1.contains(nodeId) {
             throw PlayerActionError.invalidAction(message: "Node is out of range!")
         }
-
-        for transitNode in player.getPath(to: nodeId) {
+        var path = player.getPath(to: nodeId)
+        path.removeFirst()
+        for transitNode in path {
             pendingActions.append(.move(toNodeId: transitNode))
         }
+        pendingActions.append(.move(toNodeId: nodeId))
     }
 
     func setTax(for portId: Int, to amount: Int, by player: GenericPlayer) throws {
@@ -243,21 +245,35 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func endTurn() {
-        guard let player = getNextPlayer() else {
-            state = .waitForTurnFinish
-            return
-        }
         if let currentPlayer = currentPlayer {
             /// TODO: Add error handling. If it throws, then encoding has failed.
-            try? network.push(actions: pendingActions, fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) {_ in
-                /// TODO: Add error handling
+            do {
+                try network.push(actions: pendingActions, fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) { _ in
+                    /// TODO: Add error handling
+                }
+            } catch {
+                print(error)
             }
             pendingActions = []
         }
-        state = .playerInput(from: player)
         for callback in callbacks {
             callback()
         }
+        guard let player = getNextPlayer() else {
+            state = .waitForTurnFinish
+            let currentTurn = data.currentTurn
+            network.subscribeToActions(for: currentTurn) { [weak self] actionPair, error in
+                if let error = error {
+                    /// TODO: Error handling
+                    return
+                }
+                self?.processTurnActions(forTurnNumber:currentTurn, playerActionPairs: actionPair)
+            }
+            return
+        }
+
+        state = .playerInput(from: player)
+
     }
 
     func endTurnCallback(action: @escaping () -> Void) {
@@ -340,7 +356,7 @@ class TurnSystem: GenericTurnSystem {
 
     }
 
-    private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(Player, [PlayerAction])]) {
+    private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
         networkActionQueue.sync { [weak self] in
             guard let self = self else {
                 return
@@ -355,12 +371,18 @@ class TurnSystem: GenericTurnSystem {
                 return
             }
 
-            for player in self.gameState.getPlayers() where playerActionPairs.first(where: { $0.0 == player }) == nil {
-                return
+            for player in self.gameState.getPlayers() where
+                playerActionPairs.first(where: { $0.0 == player.name }) == nil {
+                    return
             }
 
             for playerActionPair in playerActionPairs {
-                self.evaluateState(player: playerActionPair.0, actions: playerActionPair.1)
+                guard let chosenPlayer =
+                    self.gameState.getPlayers().first(where: { $0.name == playerActionPair.0 }) else {
+                        continue
+                }
+                self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
+                chosenPlayer.endTurn()
             }
 
             self.data.turnFinished()

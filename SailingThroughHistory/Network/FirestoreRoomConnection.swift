@@ -197,8 +197,8 @@ class FirebaseRoomConnection: RoomConnection {
 
             do {
                 let actions = try snapshot.documents.map {
-                    ($0.documentID, try FirebaseDecoder.init().decode([PlayerAction].self, from: $0.data()))
-                }
+                    ($0.documentID, try FirebaseDecoder.init().decode(PlayerActionBatch.self, from: $0.data()).actions)
+                    }
                 callback(actions, nil)
             } catch {
                 callback([],
@@ -228,18 +228,17 @@ class FirebaseRoomConnection: RoomConnection {
     private func push<T: Codable>(_ codable: T, to docRef: DocumentReference,
                                   encodeErrorMsg: String,
                                   completion callback: @escaping (Error?) -> Void) throws {
-        guard let encoded = try? FirebaseEncoder.init().encode(codable),
-            let data = encoded as? [String: Any] else {
-                throw NetworkError.encodeError(message: encodeErrorMsg)
+        guard let encoded = try? FirestoreEncoder().encode(codable) else {
+            throw NetworkError.encodeError(message: encodeErrorMsg)
         }
 
-        docRef.setData(data, completion: callback)
+        docRef.setData(encoded, completion: callback)
     }
 
     func push(actions: [PlayerAction], fromPlayer player: GenericPlayer, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> ()) throws {
         /// TODO: Change collection
         /// Room doc -> runtimeinfo(col) -> TurnActions (doc) -> Turn1...Turn999 (col)
-        try push(actions,
+        try push(PlayerActionBatch(playerName: player.name, actions: actions),
                  to: turnActionsDocumentRef.collection(String(turn)).document(player.name),
                  encodeErrorMsg: FirestoreConstants.encodeStateErrorMsg,
                  completion: callback)

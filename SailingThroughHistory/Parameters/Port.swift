@@ -28,19 +28,15 @@ class Port: Node {
     private static let portNodeHeight: Double = 50
 
     init(team: Team, originX: Double, originY: Double) {
-        guard let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
-                               width: Port.portNodeWidth) else {
-                                fatalError("Port dimensions are invalid.")
-        }
+        let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
+                               width: Port.portNodeWidth)
         owner = team
         super.init(name: team.name, frame: frame)
     }
 
     init(team: Team?, name: String, originX: Double, originY: Double) {
-        guard let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
-                               width: Port.portNodeWidth) else {
-                                fatalError("Port dimensions are invalid.")
-        }
+        let frame = Rect(originX: originX, originY: originY, height: Port.portNodeHeight,
+                               width: Port.portNodeWidth)
 
         super.init(name: name, frame: frame)
     }

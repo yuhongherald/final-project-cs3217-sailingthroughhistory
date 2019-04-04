@@ -9,7 +9,7 @@
 protocol GenericTurnSystem {
     var gameState: GenericGameState { get }
     func process(action: PlayerAction, for player: GenericPlayer) throws
-    func roll(for player: GenericPlayer) throws -> Int
+    func roll(for player: GenericPlayer) throws -> (Int, [Int])
     func selectForMovement(nodeId: Int, by player: GenericPlayer) throws
     func setTax(for portId: Int, to amount: Int, by player: GenericPlayer) throws
     func buy(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws

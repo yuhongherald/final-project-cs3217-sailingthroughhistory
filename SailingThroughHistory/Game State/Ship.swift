@@ -165,6 +165,12 @@ class Ship: Codable {
 
     func move(node: Node) {
         self.nodeId = node.identifier
+        let nodeFrame = getCurrentNode().frame
+        guard let currentFrame = shipUI?.frame.value else {
+            return
+        }
+        shipUI?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
+                                                   originY: nodeFrame.originY)
     }
 
     func canDock() -> Bool {

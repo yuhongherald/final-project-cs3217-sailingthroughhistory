@@ -11,7 +11,7 @@ import UIKit
 class ObjectsViewController {
     private var objectViews = [GameObject: UIImageView]()
     private let mainController: MainGameViewController
-    private var nodeViews = [Node: NodeView]()
+    private var nodeViews = [Int: NodeView]()
     private var paths = ObjectPaths()
     private var pathLayers = [Path: CALayer]()
     private let view: UIView
@@ -26,31 +26,27 @@ class ObjectsViewController {
         //return views[ObjectIdentifier(object)]?.frame
     }
 
-    func onTap(objectView: UIGameObjectImageView) {
-        if objectView.tapCallback != nil,
-            objectView.object as? Node != nil {
-                onTapChoosableNode(nodeView: objectView)
-                return
+    func onTap(nodeView: NodeView) -> Int {
+        if nodeView.node as? Port != nil {
+            onTapPort(portView: nodeView)
         }
 
-        if objectView.object as? Port != nil {
-            onTapPort(portView: objectView)
-            return
-        }
+        return nodeView.node.identifier
     }
 
     func subscribeToNodes(in map: Map) {
         map.subscribeToNodes { [weak self] nodes in
             for node in nodes {
-                if self?.nodeViews[node] != nil {
+                if self?.nodeViews[node.identifier] != nil {
                     continue
                 }
 
                 let nodeView = NodeView(node: node)
+                nodeView.isUserInteractionEnabled = true
                 nodeView.frame = CGRect(fromRect: node.frame)
                 nodeView.image = self?.getImageFor(node: node)
                 self?.view.addSubview(nodeView)
-                self?.nodeViews[node] = nodeView
+                self?.nodeViews[node.identifier] = nodeView
             }
         }
     }
@@ -67,14 +63,31 @@ class ObjectsViewController {
                     return
                 }
 
-                guard let fromFrame = self?.nodeViews[path.fromNode]?.frame,
-                    let toFrame = self?.nodeViews[path.toNode]?.frame else {
+                guard let fromFrame = self?.nodeViews[path.fromNode.identifier]?.frame,
+                    let toFrame = self?.nodeViews[path.toNode.identifier]?.frame else {
                         continue
                 }
 
                 self?.paths.add(path: path)
                 self?.addToView(path: path, from: fromFrame, to: toFrame, withDuration: 1)
             }
+        }
+    }
+
+    func make(choosableNodes: [Int]) {
+        for nodeId in choosableNodes {
+            guard let view = nodeViews[nodeId] else {
+                return
+            }
+
+            view.addGlow(colored: .yellow)
+        }
+    }
+
+    func resetChoosableNodes() {
+        nodeViews.values
+            .forEach {
+                $0.removeGlow()
         }
     }
 
@@ -92,13 +105,11 @@ class ObjectsViewController {
         layer.lineDashPattern = [10.0, 2.0]
         view.layer.addSublayer(layer)
         pathLayers[path] = layer
-        CATransaction.begin()
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.fromValue = 0.0
         animation.toValue = 1.0
         animation.duration = duration
         layer.add(animation, forKey: "drawLineAnimation")
-        CATransaction.commit()
     }
 
     /// TODO
@@ -144,25 +155,8 @@ class ObjectsViewController {
         return nil
     }
 
-    private func onTapChoosableNode(nodeView: UIGameObjectImageView) {
-        /*guard nodeView.tapCallback != nil,
-            nodeView.object as? Node != nil else {
-            return
-        }
-
-        nodeView.callTapCallback()
-
-        // Remove glow/callback from nodes.
-        views.values
-            .filter { $0.object as? Node != nil }
-            .forEach {
-                $0.removeGlow()
-                $0.tapCallback = nil
-        }*/
-    }
-
-    private func onTapPort(portView: UIGameObjectImageView) {
-        guard let port = portView.object as? Port else {
+    private func onTapPort(portView: NodeView) {
+        guard let port = portView.node as? Port else {
             return
         }
 
@@ -240,5 +234,10 @@ class ObjectsViewController {
                                                       otherFrame: CGRect(fromRect: dest),
                                                       to: bounds)
             }, completion: { _ in callback() })*/
+    }
+
+    private enum State {
+        case chooseDestination
+        case normal
     }
 }

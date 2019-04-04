@@ -11,10 +11,8 @@ class Sea: Node {
     private static let seaNodeHeight: Double = 50
 
     init(name: String, originX: Double, originY: Double) {
-        guard let frame = Rect(originX: originX, originY: originY, height: Sea.seaNodeHeight,
-                               width: Sea.seaNodeWidth) else {
-                                fatalError("Sea node dimensions are invalid.")
-        }
+        let frame = Rect(originX: originX, originY: originY, height: Sea.seaNodeHeight,
+                               width: Sea.seaNodeWidth)
         super.init(name: name, frame: frame)
     }
 

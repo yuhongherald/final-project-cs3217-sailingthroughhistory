@@ -126,7 +126,7 @@ extension Node {
                 continue
             }
             visited.insert(next.identifier)
-            for neighbor in map.getAllPaths() {
+            for neighbor in map.getPaths(of: next) {
                 queue.append((neighbor.toNode, path + [next]))
             }
         }

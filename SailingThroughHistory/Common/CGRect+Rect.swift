@@ -14,10 +14,8 @@ extension CGRect {
     }
 
     func toRect() -> Rect {
-        guard let rect = Rect(originX: Double(origin.x), originY: Double(origin.y),
-                              height: Double(height), width: Double(width)) else {
-            fatalError("CGRect should never be an invalid Rect.")
-        }
+        let rect = Rect(originX: Double(origin.x), originY: Double(origin.y),
+                              height: Double(height), width: Double(width))
 
         return rect
     }

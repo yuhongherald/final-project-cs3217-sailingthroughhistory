@@ -110,7 +110,7 @@ class MainGameViewController: UIViewController {
             break
         case .invalid:
             break
-        case .evaluateMoves(for: let player):
+        case .evaluateMoves(let player):
             break
         }
     }
@@ -140,22 +140,57 @@ class MainGameViewController: UIViewController {
     }
 
     @IBAction func rollDiceButtonPressed(_ sender: UIButtonRounded) {
+        let randomLength = 20
         sender.isEnabled = false
         sender.set(color: .lightGray)
-        for interval in 0...20 {
+        for interval in 0...randomLength {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01 * pow(Double(interval), 2)) { [weak self] in
+                if interval == randomLength {
+                    guard let currentTurnOwner = self?.currentTurnOwner, let turnSystem = self?.turnSystem else {
+                        return
+                    }
+                    do {
+                        let (result, nodes) = try turnSystem.roll(for: currentTurnOwner)
+                        self?.diceResultLabel.text = String(Int(result))
+                        self?.objectsController.make(choosableNodes: nodes)
+                    } catch {
+                        let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: error.localizedDescription)
+                        self?.rollDiceButton.isEnabled = true
+                        self?.present(alert, animated: true, completion: nil)
+                    }
+                    return
+                }
                 self?.diceResultLabel.text = String(Int.random(in: 1...6))
             }
         }
-        /// TODO: Roll dice logic
     }
 
     @IBAction func onTapGameArea(_ sender: UITapGestureRecognizer) {
         let view = gameArea.hitTest(sender.location(in: gameArea), with: nil)
-
-        if let objectView = view as? UIGameObjectImageView {
-            objectsController.onTap(objectView: objectView)
+        guard let nodeView = view as? NodeView else {
+            return
         }
+        let nodeId = objectsController.onTap(nodeView: nodeView)
+        guard let currentTurnOwner = currentTurnOwner else {
+            return
+        }
+        if !currentTurnOwner.hasRolled {
+            return
+        }
+        let name = nodeView.node.name
+        let alert = ControllerUtils.getConfirmationAlert(title: "Travel Confirmation",
+                                                         desc: "Are you sure you would like to travel to \(name)?",
+            okAction: { [weak self] in
+                do {
+                    try self?.turnSystem?.selectForMovement(nodeId: nodeId, by: currentTurnOwner)
+                } catch {
+                    let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: "Please try again.")
+                    self?.present(alert, animated: true, completion: nil)
+                }
+                self?.turnSystem?.endTurn()
+            }, cancelAction: nil)
+
+        present(alert, animated: true, completion: nil)
     }
 
     private func initBackground() {
@@ -259,6 +294,8 @@ class MainGameViewController: UIViewController {
         func animatePlayerTurnStart() {
             actionPanelView.isHidden = false
             toggleActionPanelButton.isHidden = false
+            rollDiceButton.isEnabled = true
+            rollDiceButton.set(color: .red)
             /*if let timeLimit = timeLimit {
                 countdownLabel.isHidden = false
                 countdownLabel.animationType = CountdownEffect.Burn
@@ -288,6 +325,7 @@ class MainGameViewController: UIViewController {
         toggleActionPanelButton.isHidden = true
         countdownLabel.isHidden = true
         portInformationView.isHidden = true
+        objectsController.resetChoosableNodes()
     }
 
     private func changeMonth(to newMonth: String, withDuration duration: TimeInterval, callback: @escaping () -> Void) {

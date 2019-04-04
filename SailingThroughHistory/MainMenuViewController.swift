@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
 
 class MainMenuViewController: UIViewController {
     var connection = [RoomConnection?]()

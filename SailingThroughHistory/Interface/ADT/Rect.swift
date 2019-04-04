@@ -25,20 +25,14 @@ struct Rect: Codable, Equatable {
         self.width = 0
     }
 
-    init?(originX: Double, originY: Double, height: Double, width: Double) {
-        if originX < 0 || originY < 0 || height < 0 || width < 0 {
-            return nil
-        }
-
+    init(originX: Double, originY: Double, height: Double, width: Double) {
         self.originX = originX
         self.originY = originY
         self.height = height
         self.width = width
-
-        assert(checkRep())
     }
 
-    private func checkRep() -> Bool {
-        return originX >= 0 && originY >= 0 && height >= 0 && width >= 0
+    func movedTo(originX: Double, originY: Double) -> Rect {
+        return Rect(originX: originX, originY: originY, height: height, width: width)
     }
 }

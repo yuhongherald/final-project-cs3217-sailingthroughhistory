@@ -175,6 +175,7 @@ class Player: GenericPlayer {
     }
 
     func endTurn() {
+        hasRolled = false
         ship.endTurn(speedMultiplier: speedMultiplier)
     }
 

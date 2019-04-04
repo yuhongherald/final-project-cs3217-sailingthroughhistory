@@ -12,9 +12,7 @@ class ShipUI: GameObject {
     private let shipWidth: Double = 50
 
     init(ship: Ship) {
-        guard let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) else {
-            fatalError("shipWidth is invalid.")
-        }
+        let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) 
         super.init(frame: frame)
         ship.subscribeToLocation(with: moveShip)
     }
@@ -26,9 +24,7 @@ class ShipUI: GameObject {
     private func moveShip(to node: Node) {
         let newX = node.frame.originX
         let newY = node.frame.originY
-        guard let frame = Rect(originX: newX, originY: newY, height: shipWidth, width: shipWidth) else {
-            fatalError("New frame is invalid")
-        }
+        let frame = Rect(originX: newX, originY: newY, height: shipWidth, width: shipWidth)
 
         self.frame.value = frame
     }
