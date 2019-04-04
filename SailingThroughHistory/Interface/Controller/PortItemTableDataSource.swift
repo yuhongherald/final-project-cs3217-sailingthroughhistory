@@ -52,7 +52,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         case PortItemTableDataSource.boughtSection:
             array = itemsBought
             let item = array[indexPath.row]
-            tableCell.set(price: port.getSellValue(of: item.itemType) ??
+            tableCell.set(price: port.getSellValue(of: item) ??
                 PortItemTableDataSource.defaultPrice)
             tableCell.set(buttonLabel: PortItemTableDataSource.sellButtonLabel)
             tableCell.buttonPressedCallback = { [weak self] in
@@ -61,7 +61,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
         case PortItemTableDataSource.soldSection:
             array = itemParametersSoldByPort
             let item = array[indexPath.row]
-            tableCell.set(price: port.getBuyValue(of: array[indexPath.row].itemType) ??
+            tableCell.set(price: port.getBuyValue(of: array[indexPath.row]) ??
                 PortItemTableDataSource.defaultPrice)
             tableCell.set(buttonLabel: PortItemTableDataSource.buyButtonLabel)
             tableCell.buttonPressedCallback = { [weak self] in

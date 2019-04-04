@@ -204,7 +204,7 @@ class Ship: Codable {
         guard let port = getCurrentNode() as? Port, isDocked else {
             return []
         }
-        return port.getItemParametersSoldByPort()
+        return port.itemParametersSoldByPort
     }
 
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
@@ -212,7 +212,7 @@ class Ship: Codable {
             fatalError("Ship does not reside on any map.")
         }
         guard let port = map.nodeIDPair[nodeId] as? Port, isDocked,
-            let unitValue = port.getBuyValue(of: itemParameter.itemType) else {
+            let unitValue = port.getBuyValue(of: itemParameter) else {
             return 0
         }
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.unitWeight)
@@ -271,14 +271,14 @@ class Ship: Codable {
         items.value = items.value
     }
 
-    func sell(itemType: ItemType, quantity: Int) throws {
+    func sell(itemParameter: ItemParameter, quantity: Int) throws {
         guard let map = map, let port = map.nodeIDPair[nodeId] as? Port else {
             throw BuyItemError.notDocked
         }
-        guard let value = port.getSellValue(of: itemType) else {
+        guard let value = port.getSellValue(of: itemParameter) else {
             throw BuyItemError.itemNotAvailable
         }
-        let deficeit = removeItem(by: itemType, with: quantity)
+        let deficeit = removeItem(by: itemParameter, with: quantity)
         owner?.updateMoney(by: (quantity - deficeit) * value)
         throw BuyItemError.insufficientItems(shortOf: deficeit)
     }

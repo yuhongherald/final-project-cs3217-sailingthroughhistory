@@ -50,11 +50,11 @@ UICollectionViewDelegate, UITextFieldDelegate {
             }
 
             if let buyPriceText = castedCell.buyField.text, let buyPrice = Int(buyPriceText) {
-                port.setBuyValue(of: itemParam.itemType, value: buyPrice)
+                port.setBuyValue(of: itemParam, value: buyPrice)
             }
 
             if let sellPriceText = castedCell.sellField.text, let sellPrice = Int(sellPriceText) {
-                port.setSellValue(of: itemParam.itemType, value: sellPrice)
+                port.setSellValue(of: itemParam, value: sellPrice)
             }
         }
 
@@ -92,11 +92,11 @@ UICollectionViewDelegate, UITextFieldDelegate {
             return cell
         }
 
-        if let sellPrice = port.getSellValue(of: itemParam.itemType) {
+        if let sellPrice = port.getSellValue(of: itemParam) {
             cell.sellField.text = String(sellPrice)
         }
 
-        if let buyPrice = port.getBuyValue(of: itemParam.itemType) {
+        if let buyPrice = port.getBuyValue(of: itemParam) {
             cell.buyField.text = String(buyPrice)
         }
 
