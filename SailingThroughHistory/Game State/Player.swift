@@ -54,7 +54,7 @@ class Player: GenericPlayer {
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
         ship.setMap(map: map)
-        money.subscribe(with: preventPlayerBankruptcy)
+        //money.subscribe(with: preventPlayerBankruptcy)
     }
 
     required init(from decoder: Decoder) throws {
