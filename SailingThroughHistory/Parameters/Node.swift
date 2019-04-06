@@ -120,7 +120,7 @@ extension Node {
         var visited = Set<Int>()
         var next = self
         var path = [Node]()
-        while (next != node && !queue.isEmpty) {
+        while next != node && !queue.isEmpty {
             (next, path) = queue.removeFirst()
             if visited.contains(next.identifier) {
                 continue
@@ -130,9 +130,7 @@ extension Node {
                 queue.append((neighbor.toNode, path + [next]))
             }
         }
-        guard next == node else {
-            return [node]
-        }
+        path.append(node)
         return path
     }
 
