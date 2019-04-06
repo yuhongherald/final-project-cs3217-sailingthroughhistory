@@ -25,11 +25,6 @@ class ObjectsViewController {
         self.mainController = mainController
     }
 
-    func getFrame(for object: ReadOnlyGameObject) -> CGRect? {
-        return nil
-        //return views[ObjectIdentifier(object)]?.frame
-    }
-
     func onTap(nodeView: NodeView) -> Int {
         if nodeView.node as? Port != nil {
             onTapPort(portView: nodeView)
@@ -99,7 +94,8 @@ class ObjectsViewController {
         }
     }
 
-    private func addToView(path: Path, from fromFrame: CGRect, to toFrame: CGRect, withDuration duration: TimeInterval) {
+    private func addToView(path: Path, from fromFrame: CGRect,
+                           to toFrame: CGRect, withDuration duration: TimeInterval) {
         let startPoint = CGPoint(x: fromFrame.midX, y: fromFrame.midY)
         let endPoint = CGPoint(x: toFrame.midX, y: toFrame.midY)
         let bezierPath = UIBezierPath()
@@ -120,7 +116,6 @@ class ObjectsViewController {
         layer.add(animation, forKey: "drawLineAnimation")
     }
 
-    /// TODO
     func subscribeToObjects(in map: Map) {
         map.subscribeToObjects { [weak self] in
             guard let self = self else {
@@ -128,39 +123,7 @@ class ObjectsViewController {
             }
             var objects = [GameObject](self.objectViews.keys)
             for object in $0 {
-                if self.objectViews[object] != nil {
-                    continue
-                }
-                let objectFrame = CGRect.translatingFrom(otherBounds: self.modelBounds,
-                                                         otherFrame: object.frame.value, to: self.view.bounds)
-                let objectView = UIImageView(frame: objectFrame)
-                print(object.frame.value)
-                print(objectView.frame)
-                object.subscibeToFrame { [weak self] frame in
-                    guard let self = self else {
-                        return
-                    }
-                    if self.objectQueues[object] == nil {
-                        let identifier = String(UInt(bitPattern: ObjectIdentifier(object)))
-                        self.objectQueues[object] = DispatchQueue(label: identifier)
-                    }
-                    self.objectQueues[object]?.async {
-                        let semaphore = DispatchSemaphore.init(value: 0)
-                        DispatchQueue.main.async {
-                            UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
-                                let newFrame = CGRect.translatingFrom(otherBounds: self.modelBounds,
-                                                                      otherFrame: frame, to: self.view.bounds)
-                                objectView.frame = newFrame
-                            }, completion: { _ in semaphore.signal() })
-                        }
-                        semaphore.wait()
-                    }
-                }
-                if object as? ShipUI != nil {
-                    objectView.image = UIImage(named: "ship.png")
-                }
-                self.objectViews[object] = objectView
-                self.view.addSubview(objectView)
+                self.register(object: object)
                 objects.removeAll { $0 == object }
             }
             for removedObject in objects {
@@ -175,6 +138,47 @@ class ObjectsViewController {
         for path in paths.allPaths {
             /// TODO: Weather display
         }
+    }
+
+    private func update(frame: Rect, for object: GameObject) {
+        guard let objectView = objectViews[object] else {
+            return
+        }
+        if objectQueues[object] == nil {
+            let identifier = String(UInt(bitPattern: ObjectIdentifier(object)))
+            objectQueues[object] = DispatchQueue(label: identifier)
+        }
+        self.objectQueues[object]?.async {
+            let semaphore = DispatchSemaphore.init(value: 0)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
+                    let newFrame = CGRect.translatingFrom(otherBounds: self.modelBounds,
+                                                          otherFrame: frame, to: self.view.bounds)
+                    objectView.frame = newFrame
+                }, completion: { _ in semaphore.signal() })
+            }
+            semaphore.wait()
+        }
+    }
+
+    private func register(object: GameObject) {
+        if self.objectViews[object] != nil {
+            return
+        }
+        let objectFrame = CGRect.translatingFrom(otherBounds: self.modelBounds,
+                                                 otherFrame: object.frame.value, to: self.view.bounds)
+        let objectView = UIImageView(frame: objectFrame)
+        object.subscibeToFrame { [weak self] frame in
+            self?.update(frame: frame, for: object)
+        }
+        if object as? ShipUI != nil {
+            objectView.image = UIImage(named: "ship.png")
+        }
+        self.objectViews[object] = objectView
+        self.view.addSubview(objectView)
     }
 
     private func getImageFor(node: Node) -> UIImage? {

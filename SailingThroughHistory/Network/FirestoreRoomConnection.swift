@@ -194,7 +194,6 @@ class FirebaseRoomConnection: RoomConnection {
                  completion: callback)
     }
 
-    /// TODO: CHANGE TYPE
     func subscribeToActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
         listeners.append(turnActionsDocumentRef.collection(String(turn)).addSnapshotListener { (query, queryError) in
             guard let snapshot = query else {
@@ -219,7 +218,6 @@ class FirebaseRoomConnection: RoomConnection {
         })
     }
 
-    /// TODO when teams are added.
     func subscribeToMembers(with callback: @escaping ([RoomMember]) -> Void) {
         let listener = playersCollectionRef.addSnapshotListener { (snapshot, error) in
             guard let snapshot = snapshot, error == nil else {

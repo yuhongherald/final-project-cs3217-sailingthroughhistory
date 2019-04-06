@@ -123,10 +123,6 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    func getFrame(for object: GameObject) -> CGRect? {
-        return objectsController.getFrame(for: object)
-    }
-
     func showInformation(ofPort port: Port) {
         portInformationView.isHidden = false
         portNameLabel.text = port.name
@@ -160,15 +156,15 @@ class MainGameViewController: UIViewController {
         playerOneItemsView.reloadData()
     }
 
-    @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
+    @IBAction private func togglePanelVisibility(_ sender: UIButtonRounded) {
         togglablePanels[sender]?.isHidden.toggle()
     }
 
-    @IBAction func hidePortInformationPressed(_ sender: Any) {
+    @IBAction private func hidePortInformationPressed(_ sender: Any) {
         portInformationView.isHidden = true
     }
 
-    @IBAction func rollDiceButtonPressed(_ sender: UIButtonRounded) {
+    @IBAction private func rollDiceButtonPressed(_ sender: UIButtonRounded) {
         let randomLength = 20
         sender.isEnabled = false
         sender.set(color: .lightGray)
@@ -194,7 +190,7 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    @IBAction func onTapGameArea(_ sender: UITapGestureRecognizer) {
+    @IBAction private func onTapGameArea(_ sender: UITapGestureRecognizer) {
         let view = gameArea.hitTest(sender.location(in: gameArea), with: nil)
         guard let nodeView = view as? NodeView else {
             return
@@ -324,7 +320,6 @@ class MainGameViewController: UIViewController {
             countdownLabel.start()
         }
 
-
         animatePlayerTurnStart()
         updatePlayerInformation(for: player)
     }
@@ -336,18 +331,6 @@ class MainGameViewController: UIViewController {
         portInformationView.isHidden = true
         countdownLabel.isHidden = true
         objectsController.resetChoosableNodes()
-    }
-
-    private func changeMonth(to newMonth: String, withDuration duration: TimeInterval, callback: @escaping () -> Void) {
-        UIView.animate(withDuration: duration / 2, animations: { [unowned self] in
-            self.monthLabel.alpha = 0
-            }, completion: { _ in
-                UIView.animate(withDuration: duration / 2, animations: {
-                    self.monthLabel.alpha = 1
-                    self.monthLabel.text = newMonth
-                }, completion: { _ in
-                    callback() })
-        })
     }
 }
 
