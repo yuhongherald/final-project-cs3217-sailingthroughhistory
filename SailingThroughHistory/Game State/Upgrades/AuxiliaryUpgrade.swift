@@ -15,7 +15,7 @@ class AuxiliaryUpgrade: Upgrade {
     var cost: Int {
         return 0
     }
-    
+
     func getNewSuppliesConsumed(baseConsumption: [GenericItem]) -> [GenericItem] {
         return baseConsumption
     }
