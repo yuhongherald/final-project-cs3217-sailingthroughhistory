@@ -233,7 +233,7 @@ class Ship: Codable {
             showMessage(titled: "Not available!", withMsg: "Item is not available for purchase at current port!")
             throw BuyItemError.itemNotAvailable
         }
-        let difference = price - (owner?.money.value ?? 0)
+        let difference = (owner?.money.value ?? 0) - price
         guard difference >= 0 else {
             throw BuyItemError.insufficientFunds(shortOf: difference)
         }
