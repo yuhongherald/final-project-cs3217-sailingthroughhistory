@@ -66,7 +66,6 @@ class Player: GenericPlayer {
         deviceId = try values.decode(String.self, forKey: .deviceId)
 
         ship.setOwner(owner: self)
-        ship.setMap(map: map)
         money.subscribe(with: preventPlayerBankruptcy)
     }
 
