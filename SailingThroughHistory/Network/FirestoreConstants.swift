@@ -9,7 +9,7 @@
 import FirebaseFirestore
 
 enum FirestoreConstants {
-    static let maxImageSize: Int64 = 100*2^20 // 100MB
+    static let maxImageSize: Int64 = 104857600 // 100MB
     static let firestore = Firestore.firestore()
     static let rooms = firestore.collection("Rooms")
     static let roomCollectionName = "Rooms"
