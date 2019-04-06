@@ -66,7 +66,7 @@ class Player: GenericPlayer {
         deviceId = try values.decode(String.self, forKey: .deviceId)
 
         ship.setOwner(owner: self)
-        money.subscribe(with: preventPlayerBankruptcy)
+        //money.subscribe(with: preventPlayerBankruptcy)
     }
 
     func encode(to encoder: Encoder) throws {
