@@ -28,10 +28,9 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
 
     func didSelect(port: Port, playerCanInteract: Bool) {
         self.itemTypesSoldByPort = port.itemParametersSoldByPort
+        self.itemTypesBoughtByPort = port.itemParametersBoughtByPort
         self.playerCanInteract = playerCanInteract
         self.selectedPort = port
-        // TODO: Update when bought array is added.
-        //self.itemsBought = port.itemParametersBought
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
