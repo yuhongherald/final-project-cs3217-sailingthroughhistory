@@ -239,14 +239,6 @@ class Ship: Codable {
         }
         owner?.money.value -= price
         try addItem(item: item)
-        /*
-        if addItem(item: item) {
-            showMessage(titled: "Item purchased!", withMsg: "You have purchased \(item.quantity) of \(itemParameter.displayName)")
-        } else {
-            showMessage(titled: "Failed to buy Item!", withMsg: "An error has occurred in the game!")
-            throw BuyItemError.insufficientFunds(shortOf: 0)
-        }
-        */
     }
 
     func sellItem(item: GenericItem) throws {
