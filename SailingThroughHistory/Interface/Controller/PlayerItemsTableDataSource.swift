@@ -17,7 +17,9 @@ class PlayerItemsTableDataSource: NSObject, UITableViewDataSource {
 
     init(player: GenericPlayer, tableView: UITableView) {
         self.player = player
+        self.tableView = tableView
         super.init()
+        tableView.dataSource = self
         self.subscribeToItems()
     }
 

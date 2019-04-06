@@ -40,8 +40,8 @@ class Player: GenericPlayer {
     var weightCapacity: Int {
         return ship.weightCapacity
     }
+    var gameState: GenericGameState?
     private let ship: Ship
-    private var gameState: GenericGameState?
     private var speedMultiplier = 1.0
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?

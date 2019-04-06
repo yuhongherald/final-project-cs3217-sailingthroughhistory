@@ -6,6 +6,7 @@ target 'SailingThroughHistory' do
     pod 'CountdownLabel',    '~> 4.0.1'
     pod 'Firebase/Core'      
     pod 'Firebase/Firestore'
+    pod 'Firebase/Storage'
     pod 'CodableFirebase'
     pod 'FirebaseUI/Firestore', '~> 5.0'
 end

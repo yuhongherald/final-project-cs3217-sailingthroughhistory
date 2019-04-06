@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Storage {
+class LocalStorage {
     func save<T: Encodable>(_ data: T, _ background: UIImage?, preview screenShot: UIImage?, with name: String) {
         let backgroundName = name + Default.Suffix.background
         let fileURL = getFullURL(from: name, ".pList")
@@ -44,9 +44,7 @@ class Storage {
     }
 
     func readImage(_ fileName: String) -> UIImage? {
-        let url = getFullURL(from: fileName, ".png")
-
-        guard let imageData = try? Data(contentsOf: url) else {
+        guard let imageData = readImageData(fileName) else {
             deleteLevel(fileName)
             return nil
         }
@@ -55,6 +53,17 @@ class Storage {
             return nil
         }
         return image
+    }
+
+    func readImageData(_ fileName: String) -> Data? {
+        let url = getFullURL(from: fileName, ".png")
+
+        guard let imageData = try? Data(contentsOf: url) else {
+            deleteLevel(fileName)
+            return nil
+        }
+
+        return imageData
     }
 
     func deleteLevel(_ name: String) {

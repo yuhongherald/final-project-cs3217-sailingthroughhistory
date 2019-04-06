@@ -14,6 +14,7 @@ class ObjectsViewController {
     private var nodeViews = [Int: NodeView]()
     private var paths = ObjectPaths()
     private var pathLayers = [Path: CALayer]()
+    private var objectQueues = [GameObject: DispatchQueue]()
     private let view: UIView
     private var modelBounds: Rect {
         return mainController.interfaceBounds
@@ -135,12 +136,25 @@ class ObjectsViewController {
                 let objectView = UIImageView(frame: objectFrame)
                 print(object.frame.value)
                 print(objectView.frame)
-                object.subscibeToFrame { frame in
-                    UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
-                        let newFrame = CGRect.translatingFrom(otherBounds: self.modelBounds,
-                                                              otherFrame: frame, to: self.view.bounds)
-                        objectView.frame = newFrame
-                    }, completion: nil)
+                object.subscibeToFrame { [weak self] frame in
+                    guard let self = self else {
+                        return
+                    }
+                    if self.objectQueues[object] == nil {
+                        let identifier = String(UInt(bitPattern: ObjectIdentifier(object)))
+                        self.objectQueues[object] = DispatchQueue(label: identifier)
+                    }
+                    self.objectQueues[object]?.async {
+                        let semaphore = DispatchSemaphore.init(value: 0)
+                        DispatchQueue.main.async {
+                            UIView.animate(withDuration: 1, delay: 0, options: .curveLinear, animations: {
+                                let newFrame = CGRect.translatingFrom(otherBounds: self.modelBounds,
+                                                                      otherFrame: frame, to: self.view.bounds)
+                                objectView.frame = newFrame
+                            }, completion: { _ in semaphore.signal() })
+                        }
+                        semaphore.wait()
+                    }
                 }
                 if object as? ShipUI != nil {
                     objectView.image = UIImage(named: "ship.png")

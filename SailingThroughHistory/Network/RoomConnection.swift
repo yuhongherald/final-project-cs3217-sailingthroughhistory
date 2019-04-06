@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+import Foundation
+
 protocol RoomConnection {
     var roomMasterId: String { get }
 
@@ -13,7 +15,7 @@ protocol RoomConnection {
                               removed removedCallback: @escaping () -> Void,
                               completion callback: @escaping (RoomConnection?, Error?) -> ())
 
-    func startGame(initialState: GameState, completion callback: @escaping (Error?) -> Void) throws
+    func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws
 
     func push(currentState: GameState, completion callback: @escaping (Error?) -> Void) throws
 
@@ -32,7 +34,7 @@ protocol RoomConnection {
 
     func subscibeToTeamNames(with callback: @escaping ([String]) -> Void)
 
-    func subscribeToStart(with callback: @escaping (GameState) -> Void)
+    func subscribeToStart(with callback: @escaping (GameState, Data) -> Void)
 
     func changeTeamName(for identifier: String, to teamName: String)
 }

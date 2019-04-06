@@ -20,7 +20,10 @@ class GameParameter: GenericLevel, Codable {
     required init(map: Map, teams: [String]) {
         self.map = map
         ItemType.allCases.forEach {
-            self.itemParameters.append(ItemParameter(itemType: $0, displayName: $0.rawValue, weight: 0, isConsumable: true))
+            self.itemParameters.append(ItemParameter(itemType: $0,
+                                                     displayName: $0.rawValue,
+                                                     weight: 0,
+                                                     isConsumable: true))
         }
         for teamName in teams {
             self.teams.append(Team(name: teamName))

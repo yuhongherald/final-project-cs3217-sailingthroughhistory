@@ -8,6 +8,7 @@
 
 import FirebaseFirestore
 import CodableFirebase
+import FirebaseStorage
 import Foundation
 import os
 
@@ -156,16 +157,27 @@ class FirebaseRoomConnection: RoomConnection {
 
     }
 
-    func startGame(initialState: GameState, completion callback: @escaping (Error?) -> Void) throws {
-        let batch = FirestoreConstants.firestore.batch()
-        guard let data = try? FirestoreEncoder.init().encode(initialState) else {
-            throw NetworkError.encodeError(message: FirestoreConstants.encodeStateErrorMsg)
+    func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws {
+        let reference = Storage.storage().reference().child(deviceId).child("background.png")
+        let path = reference.fullPath
+        Storage.storage().reference().child(deviceId).child("background.png")
+            .putData(background, metadata: StorageMetadata()) { [weak self] (metadata, error) in
+            guard error == nil, let self = self else {
+                print(error)
+                return
+            }
+            let batch = FirestoreConstants.firestore.batch()
+            guard let data = try? FirestoreEncoder.init().encode(initialState) else {
+                return
+            }
+
+            batch.setData(data, forDocument: self.modelCollectionRef.document(FirestoreConstants.initialStateDocumentName))
+            batch.updateData([FirestoreConstants.roomStartedKey: true,
+                              FirestoreConstants.backgroundUrlKey: path], forDocument: self.roomDocumentRef)
+
+            batch.commit(completion: callback)
         }
 
-        batch.setData(data, forDocument: modelCollectionRef.document(FirestoreConstants.initialStateDocumentName))
-        batch.updateData([FirestoreConstants.roomStartedKey: true], forDocument: roomDocumentRef)
-
-        batch.commit(completion: callback)
     }
 
     private func push(initialState: GameState, completion callback: @escaping (Error?) -> Void) throws {
@@ -267,8 +279,8 @@ class FirebaseRoomConnection: RoomConnection {
         playersCollectionRef.document(identifier).updateData([FirestoreConstants.playerTeamKey: teamName])
     }
 
-    func subscribeToStart(with callback: @escaping (GameState) -> Void) {
-        self.listeners.append(modelCollectionRef.addSnapshotListener { (snapshot, error) in
+    func subscribeToStart(with callback: @escaping (GameState, Data) -> Void) {
+        self.listeners.append(modelCollectionRef.addSnapshotListener { [weak self] (snapshot, error) in
             guard let snapshot = snapshot, error == nil else {
                 return
             }
@@ -283,8 +295,21 @@ class FirebaseRoomConnection: RoomConnection {
                 print("Error decoding game state")
                 return
             }
-
-            callback(initialState)
+            self?.roomDocumentRef.getDocument { (snapshot, error) in
+                guard let snapshot = snapshot, error == nil else {
+                    return
+                }
+                guard let url = snapshot.get(FirestoreConstants.backgroundUrlKey) as? String else {
+                    return
+                }
+                Storage.storage().reference(withPath: url)
+                    .getData(maxSize: FirestoreConstants.maxImageSize) { (data, error) in
+                        guard let data = data, error == nil else {
+                            return
+                        }
+                        callback(initialState, data)
+                    }
+            }
         })
     }
 

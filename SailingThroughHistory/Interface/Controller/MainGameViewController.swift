@@ -58,8 +58,9 @@ class MainGameViewController: UIViewController {
         togglePlayerOneInfoButton: playerOneInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
-    private let storage = Storage()
+    private let storage = LocalStorage()
     var turnSystem: GenericTurnSystem?
+    var backgroundData: Data?
     private var model: GenericGameState {
         guard let turnSystem = turnSystem else {
             fatalError("Turn system is nil")
@@ -156,6 +157,7 @@ class MainGameViewController: UIViewController {
             let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
             present(alert, animated: true, completion: nil)
         }
+        playerOneItemsView.reloadData()
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -222,8 +224,12 @@ class MainGameViewController: UIViewController {
 
     private func initBackground() {
         /// TODO: Change map
-        guard let image = storage.readImage(model.map.map) ?? UIImage(named: model.map.map),
+        guard let backgroundData = backgroundData,
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
+            return
+        }
+
+        guard let image = UIImage(data: backgroundData) else {
             return
         }
 
@@ -266,8 +272,9 @@ class MainGameViewController: UIViewController {
         playerOneCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
         playerOneCapacityView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
         playerItemsDataSources.removeAll()
-        playerItemsDataSources.append(PlayerItemsTableDataSource(player: player,
-                                                                 tableView: playerOneItemsView))
+        let dataSource = PlayerItemsTableDataSource(player: player,
+                                                    tableView: playerOneItemsView)
+        playerItemsDataSources.append(dataSource)
     }
 
     private func subscribePlayerInformation(for players: [GenericPlayer]) {
