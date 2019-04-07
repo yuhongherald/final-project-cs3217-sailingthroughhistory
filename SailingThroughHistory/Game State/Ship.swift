@@ -237,7 +237,7 @@ class Ship: Codable {
         guard difference >= 0 else {
             throw BuyItemError.insufficientFunds(shortOf: difference)
         }
-        owner?.money.value -= price
+        owner?.updateMoney(by: -price)
         try addItem(item: item)
     }
 
