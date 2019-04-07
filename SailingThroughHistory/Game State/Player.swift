@@ -95,7 +95,7 @@ class Player: GenericPlayer {
     }
 
     func buyUpgrade(upgrade: Upgrade) {
-        ship.installUpgade(upgrade: upgrade)
+        ship.installUpgrade(upgrade: upgrade)
     }
 
     func roll() -> (Int, [Int]) {
