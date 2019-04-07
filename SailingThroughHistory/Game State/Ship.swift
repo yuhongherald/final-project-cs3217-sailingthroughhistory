@@ -96,7 +96,7 @@ class Ship: Codable {
         self.location.value = location*/
     }
 
-    func installUpgade(upgrade: Upgrade) {
+    func installUpgrade(upgrade: Upgrade) {
         guard let owner = owner else {
             return
         }

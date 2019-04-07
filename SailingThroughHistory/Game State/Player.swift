@@ -184,6 +184,10 @@ class Player: GenericPlayer {
         updateMoney(by: amount - money.value)
     }
 
+    func canPlayerBuyUpgrades() -> Bool {
+        return ship.isDocked
+    }
+
     func endTurn() {
         hasRolled = false
         ship.endTurn(speedMultiplier: speedMultiplier)

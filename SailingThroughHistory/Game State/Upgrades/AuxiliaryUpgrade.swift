@@ -28,4 +28,6 @@ class AuxiliaryUpgrade: Upgrade {
         return 1.0
     }
 
+    func handleEvent() {
+    }
 }
