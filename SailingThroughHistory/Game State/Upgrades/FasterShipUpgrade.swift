@@ -17,7 +17,7 @@ class FasterShipUpgrade: ShipChassis {
     }
 
     override func getNewCargoCapacity(baseCapacity: Int) -> Int {
-        return baseCapacity * 0.7
+        return Int(Double(baseCapacity) * 0.7)
     }
 
     override func getMovementModifier() -> Double {

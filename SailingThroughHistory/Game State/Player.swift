@@ -184,7 +184,7 @@ class Player: GenericPlayer {
         updateMoney(by: amount - money.value)
     }
 
-    func canPlayerBuyUpgrades() -> Bool {
+    func canBuyUpgrade() -> Bool {
         return ship.isDocked
     }
 

@@ -27,7 +27,7 @@ protocol GenericPlayer: class, Codable {
     // update money
     func updateMoney(to amount: Int)
     func updateMoney(by amount: Int)
-    func canPlayerBuyUpgrade() -> Bool
+    func canBuyUpgrade() -> Bool
 
     // Subscribes
     func subscribeToItems(with observer: @escaping (GenericPlayer, [GenericItem]) -> Void)
