@@ -251,13 +251,14 @@ class Ship: Codable {
             throw BuyItemError.unknownItem
         }
         guard let index = items.value.firstIndex(where: {$0 == item}) else {
-            showMessage(titled: "Not available!", withMsg: "Item cannot be sold at current port!")
+            showMessage(titled: "Not available!", withMsg: "You do not possess the item!")
             throw BuyItemError.itemNotAvailable
         }
         guard let profit = items.value[index].sell(at: port) else {
-            showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
-            return
+            showMessage(titled: "Not available!", withMsg: "Item cannot be sold at current port!")
+            throw BuyItemError.itemNotAvailable
         }
+        showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
         owner?.updateMoney(by: profit)
         items.value.remove(at: index)
         items.value = items.value
@@ -272,7 +273,9 @@ class Ship: Codable {
         }
         let deficeit = removeItem(by: itemType, with: quantity)
         owner?.updateMoney(by: (quantity - deficeit) * value)
-        throw BuyItemError.insufficientItems(shortOf: deficeit)
+        if deficeit > 0 {
+            throw BuyItemError.insufficientItems(shortOf: deficeit)
+        }
     }
 
     func endTurn(speedMultiplier: Double) {

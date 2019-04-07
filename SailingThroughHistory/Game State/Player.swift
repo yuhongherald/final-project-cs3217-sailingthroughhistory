@@ -177,6 +177,7 @@ class Player: GenericPlayer {
         team.updateMoney(by: amount)
         guard money.value >= 0 else {
             preventPlayerBankruptcy(amount: money.value)
+            return
         }
     }
 
