@@ -54,7 +54,6 @@ class Player: GenericPlayer {
         ship = Ship(node: node, suppliesConsumed: [])
         ship.setOwner(owner: self)
         ship.setMap(map: map)
-        //money.subscribe(with: preventPlayerBankruptcy)
     }
 
     required init(from decoder: Decoder) throws {
@@ -66,7 +65,6 @@ class Player: GenericPlayer {
         deviceId = try values.decode(String.self, forKey: .deviceId)
 
         ship.setOwner(owner: self)
-        //money.subscribe(with: preventPlayerBankruptcy)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -97,7 +95,7 @@ class Player: GenericPlayer {
     }
 
     func buyUpgrade(upgrade: Upgrade) {
-        ship.installUpgade(upgrade: upgrade)
+        ship.installUpgrade(upgrade: upgrade)
     }
 
     func roll() -> (Int, [Int]) {
@@ -175,8 +173,20 @@ class Player: GenericPlayer {
     }
 
     func updateMoney(by amount: Int) {
-        self.money.value += amount
-        self.team.updateMoney(by: amount)
+        money.value += amount
+        team.updateMoney(by: amount)
+        guard money.value >= 0 else {
+            preventPlayerBankruptcy(amount: money.value)
+            return
+        }
+    }
+
+    func updateMoney(to amount: Int) {
+        updateMoney(by: amount - money.value)
+    }
+
+    func canBuyUpgrade() -> Bool {
+        return ship.isDocked
     }
 
     func endTurn() {

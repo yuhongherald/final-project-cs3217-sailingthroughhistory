@@ -96,7 +96,7 @@ class Ship: Codable {
         self.location.value = location*/
     }
 
-    func installUpgade(upgrade: Upgrade) {
+    func installUpgrade(upgrade: Upgrade) {
         guard let owner = owner else {
             return
         }
@@ -237,16 +237,8 @@ class Ship: Codable {
         guard difference >= 0 else {
             throw BuyItemError.insufficientFunds(shortOf: difference)
         }
-        owner?.money.value -= price
+        owner?.updateMoney(by: -price)
         try addItem(item: item)
-        /*
-        if addItem(item: item) {
-            showMessage(titled: "Item purchased!", withMsg: "You have purchased \(item.quantity) of \(itemParameter.displayName)")
-        } else {
-            showMessage(titled: "Failed to buy Item!", withMsg: "An error has occurred in the game!")
-            throw BuyItemError.insufficientFunds(shortOf: 0)
-        }
-        */
     }
 
     func sellItem(item: GenericItem) throws {
@@ -259,13 +251,14 @@ class Ship: Codable {
             throw BuyItemError.unknownItem
         }
         guard let index = items.value.firstIndex(where: {$0 == item}) else {
-            showMessage(titled: "Not available!", withMsg: "Item cannot be sold at current port!")
+            showMessage(titled: "Not available!", withMsg: "You do not possess the item!")
             throw BuyItemError.itemNotAvailable
         }
         guard let profit = items.value[index].sell(at: port) else {
-            showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
-            return
+            showMessage(titled: "Not available!", withMsg: "Item cannot be sold at current port!")
+            throw BuyItemError.itemNotAvailable
         }
+        showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
         owner?.updateMoney(by: profit)
         items.value.remove(at: index)
         items.value = items.value
@@ -280,7 +273,9 @@ class Ship: Codable {
         }
         let deficeit = removeItem(by: itemType, with: quantity)
         owner?.updateMoney(by: (quantity - deficeit) * value)
-        throw BuyItemError.insufficientItems(shortOf: deficeit)
+        if deficeit > 0 {
+            throw BuyItemError.insufficientItems(shortOf: deficeit)
+        }
     }
 
     func endTurn(speedMultiplier: Double) {
