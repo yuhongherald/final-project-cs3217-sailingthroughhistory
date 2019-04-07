@@ -9,7 +9,7 @@
 import Foundation
 
 class GameParameter: GenericLevel, Codable {
-    let upgrades = [BiggerShipUpgrade(), FasterShipUpgrade(), BiggerSailsUpgrade(), MercernaryUpgrade()]
+    let upgrades: [Upgrade] = [BiggerShipUpgrade(), FasterShipUpgrade(), BiggerSailsUpgrade(), MercernaryUpgrade()]
 
     var playerParameters = [PlayerParameter]()
     var itemParameters = [ItemParameter]()
