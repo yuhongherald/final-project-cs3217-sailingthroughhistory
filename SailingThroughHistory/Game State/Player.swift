@@ -181,7 +181,7 @@ class Player: GenericPlayer {
     }
 
     func updateMoney(to amount: Int) {
-        updateMoney(by amount - money.value)
+        updateMoney(by: amount - money.value)
     }
 
     func endTurn() {
