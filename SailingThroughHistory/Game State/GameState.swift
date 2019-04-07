@@ -23,8 +23,7 @@ class GameState: GenericGameState {
     private var playerTurnOrder = [GenericPlayer]()
 
     init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
-        //TODO
-        gameTime = GameTime()
+        gameTime = GameTime(baseYear: baseYear)
         teams = level.teams
         //initializePlayersFromParameters(parameters: level.playerParameters)
         map = level.map

@@ -101,7 +101,8 @@ class Ship: Codable {
             return
         }
         if owner.money.value < upgrade.cost {
-            showMessage(titled: "Insufficient Money!", withMsg: "You do not have sufficient funds to buy \(upgrade.name)!")
+            showMessage(titled: "Insufficient Money!",
+                        withMsg: "You do not have sufficient funds to buy \(upgrade.name)!")
         }
         if shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
             owner.updateMoney(by: -upgrade.cost)
@@ -117,9 +118,11 @@ class Ship: Codable {
             return
         }
         if upgrade is ShipChassis {
-            showMessage(titled: "\(owner.name): Upgrade of similar type already purchased!", withMsg: "You already have an upgrade of type \"Ship Upgrade\"!")
+            showMessage(titled: "\(owner.name): Upgrade of similar type already purchased!",
+                withMsg: "You already have an upgrade of type \"Ship Upgrade\"!")
         } else if upgrade is AuxiliaryUpgrade {
-            showMessage(titled: "\(owner.name): Upgrade of similar type already purchased!", withMsg: "You already have an upgrade of type \"Auxiliary Upgrade\"!")
+            showMessage(titled: "\(owner.name): Upgrade of similar type already purchased!",
+                withMsg: "You already have an upgrade of type \"Auxiliary Upgrade\"!")
         }
     }
 
@@ -159,7 +162,7 @@ class Ship: Codable {
         }
 
         let movement = computeMovement(roll: roll, speedMultiplier: speedMultiplier)
-        let nodesFromStart = startNode.getNodesInRange(ship: self, range: movement, map: map) 
+        let nodesFromStart = startNode.getNodesInRange(ship: self, range: movement, map: map)
         return nodesFromStart
     }
 
@@ -198,8 +201,56 @@ class Ship: Codable {
         return port
     }
 
-    // Items
+    func endTurn(speedMultiplier: Double) {
+        if isChasedByPirates {
+            turnsToBeingCaught -= 1
+        }
 
+        for supply in suppliesConsumed {
+            guard let parameter = supply.itemParameter else {
+                continue
+            }
+            let type = supply.itemType
+            let deficeit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
+            showMessage(titled: "Deficeit!",
+                        withMsg: "You have exhausted \(parameter.displayName) and have a deficeit of \(deficeit) and paid for it.")
+            owner?.updateMoney(by: -deficeit * parameter.getBuyValue())
+        }
+
+        // decay remaining items
+        for item in items.value {
+            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
+                continue
+            }
+            showMessage(titled: "Lost Item",
+                        withMsg: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!")
+        }
+    }
+
+    private func computeMovement(roll: Int, speedMultiplier: Double) -> Double {
+        var multiplier = 1.0
+        multiplier = applyMovementModifiers(to: multiplier)
+        return Double(roll) * speedMultiplier * multiplier
+    }
+
+    private func applyMovementModifiers(to multiplier: Double) -> Double {
+        var result = multiplier
+        result *= shipChassis?.getMovementModifier() ?? 1
+        result *= auxiliaryUpgrade?.getMovementModifier() ?? 1
+        return result
+    }
+
+    func getCurrentNode() -> Node {
+        guard let map = map, let node = map.nodeIDPair[nodeId] else {
+            fatalError("Ship does not reside on any map or nodeId is invalid.")
+        }
+        return node
+    }
+
+}
+
+// Mark : - Item Manipulation
+extension Ship {
     func getPurchasableItemTypes() -> [ItemType] {
         guard let port = getCurrentNode() as? Port, isDocked else {
             return []
@@ -213,7 +264,7 @@ class Ship: Codable {
         }
         guard let port = map.nodeIDPair[nodeId] as? Port, isDocked,
             let unitValue = port.getBuyValue(of: itemParameter) else {
-            return 0
+                return 0
         }
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.unitWeight)
     }
@@ -278,45 +329,6 @@ class Ship: Codable {
         }
     }
 
-    func endTurn(speedMultiplier: Double) {
-        if isChasedByPirates {
-            turnsToBeingCaught -= 1
-        }
-
-        for supply in suppliesConsumed {
-            guard let parameter = supply.itemParameter else {
-                continue
-            }
-            let type = supply.itemType
-            let deficeit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
-            showMessage(titled: "Deficeit!", withMsg: "You have exhausted \(parameter.displayName) and have a deficeit of \(deficeit). Please pay for it.")
-            owner?.updateMoney(by: -deficeit * parameter.getBuyValue())
-        }
-
-        // decay remaining items
-        for item in items.value {
-            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
-                continue
-            }
-            showMessage(titled: "Lost Item", withMsg: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!")
-        }
-    }
-
-    // Helper functions
-
-    private func computeMovement(roll: Int, speedMultiplier: Double) -> Double {
-        var multiplier = 1.0
-        multiplier = applyMovementModifiers(to: multiplier)
-        return Double(roll) * speedMultiplier * multiplier
-    }
-
-    private func applyMovementModifiers(to multiplier: Double) -> Double {
-        var result = multiplier
-        result *= shipChassis?.getMovementModifier() ?? 1
-        result *= auxiliaryUpgrade?.getMovementModifier() ?? 1
-        return result
-    }
-
     private func getRemainingCapacity() -> Int {
         return weightCapacity - currentCargoWeight
     }
@@ -339,10 +351,7 @@ class Ship: Codable {
         guard let index = items.value.firstIndex(where: { $0.itemType == itemType }) else {
             return quantity
         }
-        guard let item = items.value[index] as? GenericItem else {
-            return 0
-        }
-        let deficit = item.remove(amount: quantity)
+        let deficit = items.value[index].remove(amount: quantity)
         if items.value[index].quantity == 0 {
             items.value.remove(at: index)
             items.value = items.value
@@ -351,13 +360,6 @@ class Ship: Codable {
             return removeItem(by: itemType, with: deficit)
         }
         return 0
-    }
-
-    func getCurrentNode() -> Node {
-        guard let map = map, let node = map.nodeIDPair[nodeId] else {
-            fatalError("Ship does not reside on any map or nodeId is invalid.")
-        }
-        return node
     }
 
 }
@@ -398,12 +400,8 @@ extension Ship {
 }
 
 // MARK: - Show messages
-// TODO remove interface
 extension Ship {
     private func showMessage(titled: String, withMsg: String) {
-        /*
-        owner?.interface?.pauseAndShowAlert(titled: titled, withMsg: withMsg)
-        owner?.interface?.broadcastInterfaceChanges(withDuration: 0.5)*/
     }
 }
 
@@ -412,7 +410,8 @@ extension Ship: Pirate_WeatherEntity {
     func startPirateChase() {
         isChasedByPirates = true
         turnsToBeingCaught = 2
-        showMessage(titled: "Pirates!", withMsg: "You have ran into pirates! You must dock your ship within \(turnsToBeingCaught) turns or risk losing all your cargo!")
+        showMessage(titled: "Pirates!",
+                    withMsg: "You have ran into pirates! You must dock your ship within \(turnsToBeingCaught) turns or risk losing all your cargo!")
     }
     func getWeatherModifier() -> Double {
         var multiplier = 1.0

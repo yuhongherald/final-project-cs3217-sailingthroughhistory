@@ -103,7 +103,7 @@ class Player: GenericPlayer {
             rollResult = Int.random(in: 1...6)
             hasRolled = true
         }
-        return (rollResult, getNodesInRange(roll: rollResult).map( { $0.identifier } ))
+        return (rollResult, getNodesInRange(roll: rollResult).map({ $0.identifier }))
     }
 
     func move(nodeId: Int) {
@@ -123,7 +123,7 @@ class Player: GenericPlayer {
         }
 
         return ship.getCurrentNode()
-            .getCompletePath(to:toNode, map: map)
+            .getCompletePath(to: toNode, map: map)
             .map { $0.identifier }
     }
 
@@ -164,11 +164,12 @@ class Player: GenericPlayer {
 
     func sell(itemType: ItemType, quantity: Int) throws {
         try ship.sell(itemType: itemType, quantity: quantity)
-        //assert(deficit == 0)
     }
 
-    // TODO: Next milestone
     func setTax(port: Port, amount: Int) {
+        guard team == port.owner else {
+            return
+        }
         port.taxAmount = amount
     }
 
@@ -234,8 +235,7 @@ extension Player {
     }
 
     private func preventPlayerBankruptcy(amount: Int) {
-        //interface?.pauseAndShowAlert(titled: "Donations!", withMsg: "You have received \(-amount) amount of donations from your company. Try not to go negative again!")
-        //interface?.broadcastInterfaceChanges(withDuration: 0.5)
+        // TODO: Show some message?
         team.updateMoney(by: -amount)
         money.value = 0
     }

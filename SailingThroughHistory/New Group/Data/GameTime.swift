@@ -1,6 +1,6 @@
 class GameTime: Codable {
     // TODO
-    let baseYear = 1800
+    let baseYear: Int
     // 1-based index
     var week: Int {
         return Int(actualWeeks) % GameConstants.weeksInMonth
@@ -9,12 +9,13 @@ class GameTime: Codable {
         return (Int(actualWeeks) / 4) % GameConstants.monthsInYear
     }
     var year: Int {
-        return Int(actualWeeks) / GameConstants.monthsInYear * GameConstants.weeksInMonth
+        return baseYear = Int(actualWeeks) / GameConstants.monthsInYear * GameConstants.weeksInMonth
     }
 
     private var actualWeeks = 0.0
 
-    init() {
+    init(baseYear: Int) {
+        self.baseYear = baseYear
     }
 
     required init(from decoder: Decoder) throws {
