@@ -139,6 +139,13 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
+            do {
+                try self.storage.verify(name: name)
+            } catch {
+                let error = error as? StorageError
+                let alert = UIAlert(errorMsg: error?.getMessage() ?? "Unknown Error.", msg: nil)
+                alert.present(in: self)
+            }
             var bounds = Rect(originX: 0, originY: 0,
                               height: Double(self.view.bounds.size.height),
                               width: Double(self.view.bounds.size.width))

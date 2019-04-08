@@ -64,22 +64,6 @@ class GameParameter: GenericLevel, Codable {
         try container.encode(map, forKey: .map)
     }
 
-    func getNumOfTurn() -> Int {
-        return numOfTurn
-    }
-
-    func getTimeLimit() -> Int {
-        return timeLimit
-    }
-
-    func setNumOfTurn(_ num: Int) {
-        self.numOfTurn = num
-    }
-
-    func setTimeLimit(_ num: Int) {
-        self.timeLimit = num
-    }
-
     private enum CodingKeys: String, CodingKey {
         case playerParameters
         case itemParameters
