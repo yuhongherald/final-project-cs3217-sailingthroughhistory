@@ -6,4 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import Foundation
+class HeavyMonsoonEvent: TurnSystemEvent {
+    init() {
+        super.init(triggers: [], conditions: [], actions: <#T##[EventAction<Any>]#>, displayName: <#T##String#>)
+    }
+}

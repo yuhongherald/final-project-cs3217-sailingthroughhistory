@@ -9,16 +9,22 @@
 import Foundation
 
 // The base class for turn system events with auto-generated ids
-class TurnSystemEvent: UniqueObject {
+class TurnSystemEvent: UniqueObject, Printable {
+    private let _displayName: String
+    var displayName: String {
+        return _displayName
+    }
+    
     private let triggers: [EventTrigger<Any>]
     private let conditions: [EventCondition<Any>]
     private let actions: [EventAction<Any>]
 
     init(triggers: [EventTrigger<Any>], conditions: [EventCondition<Any>],
-         actions: [EventAction<Any>]) {
+         actions: [EventAction<Any>], displayName: String) {
         self.triggers = triggers
         self.conditions = conditions
         self.actions = actions
+        self._displayName = displayName
     }
 
     func evaluateEvent() -> Bool {

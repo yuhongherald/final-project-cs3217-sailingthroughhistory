@@ -72,11 +72,12 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func startGame() {
-        guard let player = getNextPlayer() else {
+        guard let player = getFirstPlayer() else {
             state = .waitForTurnFinish
             return
         }
         state = .waitPlayerInput(from: player)
+        data.turnFinished()
     }
 
     // for testing
@@ -270,12 +271,12 @@ class TurnSystem: GenericTurnSystem {
                 self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
             }
             return
+            state = .waitForTurnFinish
         }
-
         state = .waitPlayerInput(from: player)
-
     }
 
+    // Unused
     func endTurnCallback(action: @escaping () -> Void) {
         callbacks.append(action)
     }
@@ -318,8 +319,6 @@ class TurnSystem: GenericTurnSystem {
         var actions = actions
         state = .evaluateMoves(for: player)
         while !actions.isEmpty {
-            while data.checkForEvents() {
-            }
             do {
                 try process(action: actions.removeFirst(), for: player)
             } catch {
@@ -382,13 +381,17 @@ class TurnSystem: GenericTurnSystem {
                 chosenPlayer.endTurn()
             }
 
-            self.data.turnFinished()
-
+            data.checkForEvents() // events will run here, non-recursive
+            state = .waitForStateUpdate
+            // OI
+            startGame() // TODO: Remove this
+            /*
             guard let player = self.getFirstPlayer() else {
                 self.state = .waitForTurnFinish
                 return
             }
             state = .waitPlayerInput(from: player)
+            */
         }
     }
 

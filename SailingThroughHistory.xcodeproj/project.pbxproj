@@ -85,6 +85,7 @@
 		7559898522422493004037E6 /* Int+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898422422493004037E6 /* Int+Lerp.swift */; };
 		755FD973224E842000D83D4B /* EventAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD972224E842000D83D4B /* EventAction.swift */; };
 		755FD977224E85A600D83D4B /* GenericOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD976224E85A600D83D4B /* GenericOperator.swift */; };
+		7581AECC225AF94A001A8CC3 /* TurnRangeTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AECB225AF94A001A8CC3 /* TurnRangeTrigger.swift */; };
 		759A5EDD225066B800724BEB /* EventTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EDC225066B800724BEB /* EventTrigger.swift */; };
 		759A5EE522507E1100724BEB /* TurnSystemTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EE422507E1100724BEB /* TurnSystemTest.swift */; };
 		759A5EE7225080CE00724BEB /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EE6225080CE00724BEB /* GameData.swift */; };
@@ -283,6 +284,7 @@
 		7559898422422493004037E6 /* Int+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Lerp.swift"; sourceTree = "<group>"; };
 		755FD972224E842000D83D4B /* EventAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAction.swift; sourceTree = "<group>"; };
 		755FD976224E85A600D83D4B /* GenericOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericOperator.swift; sourceTree = "<group>"; };
+		7581AECB225AF94A001A8CC3 /* TurnRangeTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnRangeTrigger.swift; sourceTree = "<group>"; };
 		759A5EDC225066B800724BEB /* EventTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTrigger.swift; sourceTree = "<group>"; };
 		759A5EE422507E1100724BEB /* TurnSystemTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemTest.swift; sourceTree = "<group>"; };
 		759A5EE6225080CE00724BEB /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
@@ -465,10 +467,10 @@
 			children = (
 				7535448B224CB4D6001B4F62 /* API */,
 				7535448E224CBB49001B4F62 /* Data */,
-				7535448F224CBCBE001B4F62 /* UniqueObject.swift */,
 				75354459224CA552001B4F62 /* Events */,
 				751F8FF1224BB29D0071C057 /* PlayerActions */,
 				751F8FEF224BB2590071C057 /* Network */,
+				7535448F224CBCBE001B4F62 /* UniqueObject.swift */,
 				751F8FD1224B9D5D0071C057 /* TurnSystem.swift */,
 				751F8FE3224BAE100071C057 /* TurnSystemState.swift */,
 				751F8FDB224BA2A90071C057 /* GenericTurnSystem.swift */,
@@ -620,6 +622,7 @@
 		7538CAFE2255ECCC00EB9B1F /* Presets */ = {
 			isa = PBXGroup;
 			children = (
+				7581AECA225AF915001A8CC3 /* Triggers */,
 				7538CAFC2255ECC600EB9B1F /* HeavyMonsoonEvent.swift */,
 				7538CAFF2255ECDF00EB9B1F /* RegularMonsoonEvent.swift */,
 				7538CB012255ED2C00EB9B1F /* NoTaxesEvent.swift */,
@@ -640,6 +643,14 @@
 				759A5EEA2250823100724BEB /* SubtractOperator.swift */,
 			);
 			path = Arithmetic;
+			sourceTree = "<group>";
+		};
+		7581AECA225AF915001A8CC3 /* Triggers */ = {
+			isa = PBXGroup;
+			children = (
+				7581AECB225AF94A001A8CC3 /* TurnRangeTrigger.swift */,
+			);
+			path = Triggers;
 			sourceTree = "<group>";
 		};
 		759A5EDE225066C700724BEB /* Protocols */ = {
@@ -1217,6 +1228,7 @@
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
 				7538CAF72255B8B300EB9B1F /* VariableEvaluatable.swift in Sources */,
 				7535449A224CC532001B4F62 /* WeakBox.swift in Sources */,
+				7581AECC225AF94A001A8CC3 /* TurnRangeTrigger.swift in Sources */,
 				9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */,
 				7538CB022255ED2C00EB9B1F /* NoTaxesEvent.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
