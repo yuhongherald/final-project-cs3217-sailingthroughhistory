@@ -9,6 +9,7 @@
 import Foundation
 
 struct ItemParameter: Codable {
+    static let defaultPrice = 100
     let displayName: String
     let unitWeight: Int
     let itemType: ItemType

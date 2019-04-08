@@ -58,8 +58,9 @@ class MainGameViewController: UIViewController {
         togglePlayerOneInfoButton: playerOneInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
-    private let storage = Storage()
+    private let storage = LocalStorage()
     var turnSystem: GenericTurnSystem?
+    var backgroundData: Data?
     private var model: GenericGameState {
         guard let turnSystem = turnSystem else {
             fatalError("Turn system is nil")
@@ -68,9 +69,7 @@ class MainGameViewController: UIViewController {
     }
 
     var interfaceBounds: Rect {
-        /// TODO: Fix
         return model.map.bounds
-        //return CGRect(fromRect: interface.bounds)
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -94,23 +93,33 @@ class MainGameViewController: UIViewController {
     }
 
     private func updateForState(_ state: TurnSystem.State) {
-        playerTurnEnd()
-        currentTurnOwner = nil
-        switch state {
-        case .playerInput(let player, let endTime):
-            currentTurnOwner = player
-            playerTurnStart(player: player, endTime: endTime)
-            break
-        case .ready:
-            break
-        case .waitForTurnFinish:
-            break
-        case .waitForStateUpdate:
-            break
-        case .invalid:
-            break
-        case .evaluateMoves(_):
-            break
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.playerTurnEnd()
+            self.currentTurnOwner = nil
+            switch state {
+            case .waitPlayerInput(let player):
+                let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
+                withMsg: "") { [weak self] in
+                    self?.turnSystem?.acknoledgeTurnStart()
+                }
+                self.present(alert, animated: true, completion: nil)
+            case .playerInput(let player, let endTime):
+                self.currentTurnOwner = player
+                self.playerTurnStart(player: player, endTime: endTime)
+            case .ready:
+                break
+            case .waitForTurnFinish:
+                break
+            case .waitForStateUpdate:
+                break
+            case .invalid:
+                break
+            case .evaluateMoves(_):
+                break
+            }
         }
     }
 
@@ -122,12 +131,33 @@ class MainGameViewController: UIViewController {
         portInformationView.isHidden = false
         portNameLabel.text = port.name
         portItemsDataSource.didSelect(port: port, playerCanInteract:
-            currentTurnOwner?.node === port)
+            currentTurnOwner?.canTradeAt(port: port) ?? false)
         portItemsTableView.reloadData()
     }
 
     func portItemButtonPressed(action: PortItemButtonAction) {
+        guard let currentTurnOwner = currentTurnOwner else {
+            return
+        }
+        var errorMsg: String?
+        do {
+            switch action {
+            case .playerBuy(let itemType):
+                try turnSystem?.buy(itemType: itemType, quantity: 1, by: currentTurnOwner)
+            case .playerSell(let itemType):
+                try turnSystem?.sell(itemType: itemType, quantity: 1, by: currentTurnOwner)
+            }
+        } catch PlayerActionError.invalidAction(let msg) {
+            errorMsg = msg
+        } catch {
+            errorMsg = error.localizedDescription
+        }
 
+        if let errorMsg = errorMsg {
+            let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
+            present(alert, animated: true, completion: nil)
+        }
+        playerOneItemsView.reloadData()
     }
 
     @IBAction func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -194,8 +224,12 @@ class MainGameViewController: UIViewController {
 
     private func initBackground() {
         /// TODO: Change map
-        guard let image = storage.readImage(model.map.map) ?? UIImage(named: model.map.map),
+        guard let backgroundData = backgroundData,
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
+            return
+        }
+
+        guard let image = UIImage(data: backgroundData) else {
             return
         }
 
@@ -238,8 +272,9 @@ class MainGameViewController: UIViewController {
         playerOneCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
         playerOneCapacityView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
         playerItemsDataSources.removeAll()
-        playerItemsDataSources.append(PlayerItemsTableDataSource(player: player,
-                                                                 tableView: playerOneItemsView))
+        let dataSource = PlayerItemsTableDataSource(player: player,
+                                                    tableView: playerOneItemsView)
+        playerItemsDataSources.append(dataSource)
     }
 
     private func subscribePlayerInformation(for players: [GenericPlayer]) {
@@ -285,17 +320,13 @@ class MainGameViewController: UIViewController {
             rollDiceButton.set(color: .red)
             countdownLabel.isHidden = false
             countdownLabel.animationType = CountdownEffect.Burn
-            countdownLabel.setCountDownTime(minutes: endTime - NSTimeIntervalSince1970)
+            countdownLabel.setCountDownTime(minutes: endTime - Date().timeIntervalSince1970)
             countdownLabel.start()
         }
 
-        let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
-            withMsg: "") { [weak self] in
-                animatePlayerTurnStart()
-                self?.updatePlayerInformation(for: player)
-        }
 
-        present(alert, animated: true, completion: nil)
+        animatePlayerTurnStart()
+        updatePlayerInformation(for: player)
     }
 
     private func playerTurnEnd() {

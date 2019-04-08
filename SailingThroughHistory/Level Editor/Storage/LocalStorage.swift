@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Storage {
+class LocalStorage {
     func verify(name: String) throws {
         guard name != "" else {
             throw StorageError.invalidName(message: "Empty level name.")
@@ -66,9 +66,7 @@ class Storage {
     }
 
     func readImage(_ fileName: String) -> UIImage? {
-        let url = getFullURL(from: fileName, ".png")
-
-        guard let imageData = try? Data(contentsOf: url) else {
+        guard let imageData = readImageData(fileName) else {
             deleteLevel(fileName)
             NSLog("Reading image \(fileName) not exist.")
             return nil
@@ -79,6 +77,17 @@ class Storage {
             return nil
         }
         return image
+    }
+
+    func readImageData(_ fileName: String) -> Data? {
+        let url = getFullURL(from: fileName, ".png")
+
+        guard let imageData = try? Data(contentsOf: url) else {
+            deleteLevel(fileName)
+            return nil
+        }
+
+        return imageData
     }
 
     func deleteLevel(_ name: String) {

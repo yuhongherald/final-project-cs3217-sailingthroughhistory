@@ -17,6 +17,7 @@ class WaitingRoomViewController: UIViewController {
     var roomConnection: RoomConnection?
     private var waitingRoom: WaitingRoom?
     private var initialState: GenericGameState?
+    private var imageData: Data?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,12 +74,14 @@ class WaitingRoomViewController: UIViewController {
     private func prepareForSegueToGame(segue: UIStoryboardSegue) {
         guard let roomConnection = roomConnection,
             let initialState = initialState,
+            let imageData = imageData,
             let gameController = segue.destination as? MainGameViewController else {
             return
         }
 
         let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(), network: roomConnection, startingState: initialState, deviceId: self.getWaitingRoom().identifier)
         gameController.turnSystem = system
+        gameController.backgroundData = imageData
     }
 
     @IBAction func changeTeamPressed(_ sender: Any) {
@@ -97,11 +100,16 @@ class WaitingRoomViewController: UIViewController {
             present(alert, animated: true, completion: nil)
             return
         }
-
+        guard let imageData = LocalStorage().readImageData(parameters.map.map) else {
+            let alert = ControllerUtils.getGenericAlert(titled: "Missing Image.",
+                                                        withMsg: "Please choose a valid level first.")
+            present(alert, animated: true, completion: nil)
+            return
+        }
         /// TODO: Remove hardcoded year
         let state = GameState(baseYear: 1900, level: parameters, players: getWaitingRoom().players)
         do {
-            try roomConnection?.startGame(initialState: state) { [weak self] error in
+            try roomConnection?.startGame(initialState: state, background: imageData) { [weak self] error in
                 guard let error = error else {
                     return
                 }
@@ -121,11 +129,11 @@ class WaitingRoomViewController: UIViewController {
         guard let roomConnection = roomConnection else {
             preconditionFailure("No connection to room.")
         }
-        roomConnection.subscribeToStart { [weak self] state in
+        roomConnection.subscribeToStart { [weak self] (state, imageData) in
             guard let self = self else {
                 return
             }
-
+            self.imageData = imageData
             self.initialState = state
             self.performSegue(withIdentifier: "waitingRoomToGame", sender: nil)
         }

@@ -20,4 +20,5 @@ protocol GenericTurnSystem {
     func endTurnCallback(action: @escaping () -> Void)
     func subscribeToState(with callback: @escaping (TurnSystem.State) -> Void)
     func startGame()
+    func acknoledgeTurnStart()
 }

@@ -37,7 +37,7 @@ class Ship: Codable {
     private var items = GameVariable<[GenericItem]>(value: [])
     private var currentCargoWeightVariable = GameVariable<Int>(value: 0)
     private var weightCapacityVariable = GameVariable<Int>(value: 100)
-    private var isDocked = false
+    private(set) var isDocked = false
 
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
@@ -159,7 +159,7 @@ class Ship: Codable {
         }
 
         let movement = computeMovement(roll: roll, speedMultiplier: speedMultiplier)
-        let nodesFromStart = startNode.getNodesInRange(ship: self, range: movement, map: map) ?? []
+        let nodesFromStart = startNode.getNodesInRange(ship: self, range: movement, map: map) 
         return nodesFromStart
     }
 

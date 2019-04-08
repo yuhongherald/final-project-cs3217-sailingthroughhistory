@@ -47,6 +47,7 @@ class GameState: GenericGameState {
         for player in players {
             player.map = map
             player.addShipsToMap(map: map)
+            player.gameState = self
         }
         for node in map.getNodes() {
             guard let port = node as? Port else {
@@ -128,7 +129,11 @@ class GameState: GenericGameState {
             if !teams.contains(where: {$0.name == team.name}) {
                 teams.append(team)
             }
-            players.append(Player(name: roomPlayer.playerName, team: team, map: map, node: node, deviceId: roomPlayer.deviceId))
+            let player = Player(name: roomPlayer.playerName, team: team, map: map,
+                                node: node, deviceId: roomPlayer.deviceId)
+            player.money.value = unwrappedParam.getMoney()
+            player.gameState = self
+            players.append(player)
         }
     }
 }

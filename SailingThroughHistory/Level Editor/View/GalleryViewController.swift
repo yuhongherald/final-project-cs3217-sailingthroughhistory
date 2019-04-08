@@ -13,7 +13,7 @@ protocol GalleryViewDelegateProtocol: class {
 }
 
 class GalleryViewController: UIViewController {
-    private var storage = Storage()
+    private var storage = LocalStorage()
     private var levelNames: [String] = []
     weak var delegate: GalleryViewDelegateProtocol?
     var selectedCallback: ((GameParameter) -> Void)?

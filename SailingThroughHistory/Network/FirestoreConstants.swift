@@ -9,6 +9,7 @@
 import FirebaseFirestore
 
 enum FirestoreConstants {
+    static let maxImageSize: Int64 = 100000000
     static let firestore = Firestore.firestore()
     static let rooms = firestore.collection("Rooms")
     static let roomCollectionName = "Rooms"
@@ -29,4 +30,5 @@ enum FirestoreConstants {
     static let roomStartedKey = "started"
     static let playerTeamKey = "Team"
     static let teamsKey = "Teams"
+    static let backgroundUrlKey = "backgroundUrl"
 }
