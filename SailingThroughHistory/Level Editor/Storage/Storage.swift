@@ -52,11 +52,13 @@ class Storage {
     func readLevelData<T: Codable>(_ fileName: String) -> T? {
         let url = getFullURL(from: fileName, ".pList")
         guard let data = try? Data(contentsOf: url) else {
+            deleteLevel(fileName)
             NSLog("Reading level \(fileName) not exist.")
             return nil
         }
 
         guard let levelData = try? JSONDecoder().decode(T.self, from: data) else {
+            deleteLevel(fileName)
             NSLog("Decoding level failed. ")
             return nil
         }
@@ -67,10 +69,12 @@ class Storage {
         let url = getFullURL(from: fileName, ".png")
 
         guard let imageData = try? Data(contentsOf: url) else {
+            deleteLevel(fileName)
             NSLog("Reading image \(fileName) not exist.")
             return nil
         }
         guard let image = UIImage(data: imageData) else {
+            deleteLevel(fileName)
             NSLog("Initializing image from data failed. ")
             return nil
         }
