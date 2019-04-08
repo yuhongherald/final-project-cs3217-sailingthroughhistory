@@ -22,7 +22,7 @@ class Storage {
             throw StorageError.invalidName(message: "Level name contains invalid symbol.")
         }
 
-        guard isLevelExist(name) else {
+        guard !isLevelExist(name) else {
             throw StorageError.fileExisted(message: "Level already exists.")
         }
     }
