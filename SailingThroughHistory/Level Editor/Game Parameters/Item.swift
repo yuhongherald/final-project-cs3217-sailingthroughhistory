@@ -57,11 +57,6 @@ class Item: GenericItem, Codable {
         try container.encode(quantity, forKey: .quantity)
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case itemType
-        case quantity
-    }
-
     func setItemParameter(_ itemParameter: ItemParameter) {
         self.itemParameter = itemParameter
     }
@@ -88,8 +83,7 @@ class Item: GenericItem, Codable {
         return true
     }
 
-    /// If Item quantity is enough, decrease quantity by amount. Return 0.
-    /// If Item quantity is not enough, decrease quantity to 0. Return deficeit.
+    /// Remove Item quantity by input amount.
     /// - Returns:
     ///   If Item quantity is enough, return 0.
     ///   If Item quantity is not enough, return deficeit as positive integer.
@@ -127,5 +121,10 @@ class Item: GenericItem, Codable {
 
     func getRemainingQuantity(port: Port) -> Int {
         return quantity
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case itemType
+        case quantity
     }
 }

@@ -9,7 +9,25 @@
 import UIKit
 
 class Storage {
-    func save<T: Encodable>(_ data: T, _ background: UIImage?, preview screenShot: UIImage?, with name: String) {
+    func verify(name: String) throws {
+        guard name != "" else {
+            throw StorageError.invalidName(message: "Empty level name.")
+        }
+
+        guard name.count < 255 else {
+            throw StorageError.invalidName(message: "Level name is too long.")
+        }
+
+        guard !name.contains("/") else {
+            throw StorageError.invalidName(message: "Level name contains invalid symbol.")
+        }
+
+        guard isLevelExist(name) else {
+            throw StorageError.fileExisted(message: "Level already exists.")
+        }
+    }
+
+    func save<T: Encodable>(_ data: T, _ background: UIImage?, preview screenShot: UIImage?, with name: String) -> Bool {
         let backgroundName = name + Default.Suffix.background
         let fileURL = getFullURL(from: name, ".pList")
         let backgroundURL = getFullURL(from: backgroundName, ".png")
@@ -23,21 +41,23 @@ class Storage {
               (try? background?.pngData()?.write(to: backgroundURL)) != nil,
             (try? screenShot?.pngData()?.write(to: previewURL)) != nil else {
             deleteLevel(name)
-            fatalError("Couldn't encode data to JSON format.")
+            NSLog("Couldn't encode data to JSON format.")
+            return false
         }
         let savedJson = NSMutableData(data: jsonData)
         savedJson.write(to: fileURL, atomically: true)
+        return true
     }
 
     func readLevelData<T: Codable>(_ fileName: String) -> T? {
         let url = getFullURL(from: fileName, ".pList")
         guard let data = try? Data(contentsOf: url) else {
-            deleteLevel(fileName)
+            NSLog("Reading level \(fileName) not exist.")
             return nil
         }
 
         guard let levelData = try? JSONDecoder().decode(T.self, from: data) else {
-            deleteLevel(fileName)
+            NSLog("Decoding level failed. ")
             return nil
         }
         return levelData
@@ -47,11 +67,11 @@ class Storage {
         let url = getFullURL(from: fileName, ".png")
 
         guard let imageData = try? Data(contentsOf: url) else {
-            deleteLevel(fileName)
+            NSLog("Reading image \(fileName) not exist.")
             return nil
         }
         guard let image = UIImage(data: imageData) else {
-            deleteLevel(fileName)
+            NSLog("Initializing image from data failed. ")
             return nil
         }
         return image
@@ -85,6 +105,7 @@ class Storage {
         return fileURLs.filter { $0.pathExtension == "pList" }
             .compactMap { $0.lastPathComponent }
             .map { $0.replacingOccurrences(of: ".pList", with: "") }
+            .filter { self.isLevelExist($0) }
     }
 
     private func getFullURL(from fileName: String, _ extensionStr: String) -> URL {
@@ -99,5 +120,30 @@ class Storage {
         let url = documentDirectory.appendingPathComponent(fileName + extensionStr)
 
         return url
+    }
+
+    func isLevelExist(_ name: String) -> Bool {
+        let fileURL = getFullURL(from: name, ".pList")
+        let backgroundURL = getFullURL(from: name + Default.Suffix.background, ".png")
+        let previewURL = getFullURL(from: name, ".png")
+        let fileManager = FileManager.default
+
+        return fileManager.fileExists(atPath: fileURL.path)
+            && fileManager.fileExists(atPath: backgroundURL.path)
+            && fileManager.fileExists(atPath: previewURL.path)
+    }
+}
+
+enum StorageError: Error {
+    case invalidName(message: String)
+    case fileExisted(message: String)
+
+    func getMessage() -> String {
+        switch self {
+        case .invalidName(message: let message):
+            return message
+        case .fileExisted(message: let message):
+            return message
+        }
     }
 }
