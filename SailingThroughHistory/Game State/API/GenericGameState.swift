@@ -12,6 +12,7 @@ protocol GenericGameState: Codable {
     var gameTime: GameVariable<GameTime> { get set }
     var gameObjects: [GameObject] { get }
     var map: Map { get }
+    var availableUpgrades: [Upgrade] { get }
     var itemParameters: [GameVariable<ItemParameter>] { get set }
 
     func getPlayers() -> [GenericPlayer]

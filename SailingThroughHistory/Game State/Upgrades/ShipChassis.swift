@@ -15,6 +15,9 @@ class ShipChassis: Upgrade {
     var cost: Int {
         return 0
     }
+    var type: UpgradeType {
+        return .baseShip
+    }
 
     func getNewCargoCapacity(baseCapacity: Int) -> Int {
         return baseCapacity

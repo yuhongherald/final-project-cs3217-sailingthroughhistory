@@ -16,7 +16,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     private static let boughtSection = 0
     private static let soldSection = 1
     private static let numSections = 2
-    private let mainController: MainGameViewController
+    private weak var mainController: MainGameViewController?
     private var playerCanInteract = false
     private var selectedPort: Port?
     private var itemTypesSoldByPort = [ItemType]()
@@ -36,10 +36,10 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: PortItemTableDataSource.reuseIdentifier, for: indexPath)
-            as? UIPortItemTableCell
+            as? UITradeTableCell
 
         guard let tableCell = cell else {
-            preconditionFailure("Cell does not inherit from UIPortItemTableCell.")
+            preconditionFailure("Cell does not inherit from UITradeTableCell.")
         }
 
         guard let port = selectedPort else {
@@ -55,7 +55,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 PortItemTableDataSource.defaultPrice)
             tableCell.set(buttonLabel: PortItemTableDataSource.sellButtonLabel)
             tableCell.buttonPressedCallback = { [weak self] in
-                self?.mainController.portItemButtonPressed(action: .playerSell(item: item))
+                self?.mainController?.portItemButtonPressed(action: .playerSell(item: item))
             }
         case PortItemTableDataSource.soldSection:
             array = itemTypesSoldByPort
@@ -64,7 +64,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
                 PortItemTableDataSource.defaultPrice)
             tableCell.set(buttonLabel: PortItemTableDataSource.buyButtonLabel)
             tableCell.buttonPressedCallback = { [weak self] in
-                self?.mainController.portItemButtonPressed(action: .playerBuy(item: item))
+                self?.mainController?.portItemButtonPressed(action: .playerBuy(item: item))
             }
         default:
             array = []
