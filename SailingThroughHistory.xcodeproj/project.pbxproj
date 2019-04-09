@@ -73,7 +73,7 @@
 		7538CAFD2255ECC600EB9B1F /* HeavyMonsoonEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CAFC2255ECC600EB9B1F /* HeavyMonsoonEvent.swift */; };
 		7538CB002255ECDF00EB9B1F /* RegularMonsoonEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CAFF2255ECDF00EB9B1F /* RegularMonsoonEvent.swift */; };
 		7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB012255ED2C00EB9B1F /* TaxChangeEvent.swift */; };
-		7538CB062255ED6C00EB9B1F /* FreeTeaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB052255ED6C00EB9B1F /* FreeTeaEvent.swift */; };
+		7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB052255ED6C00EB9B1F /* ItemPriceEvent.swift */; };
 		7538CB0A2255EDE800EB9B1F /* NegativeMoneyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */; };
 		754FED652243626900394215 /* Vector2F.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED642243626900394215 /* Vector2F.swift */; };
 		754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED66224363CE00394215 /* Float+Epsilon.swift */; };
@@ -287,7 +287,7 @@
 		7538CAFC2255ECC600EB9B1F /* HeavyMonsoonEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeavyMonsoonEvent.swift; sourceTree = "<group>"; };
 		7538CAFF2255ECDF00EB9B1F /* RegularMonsoonEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularMonsoonEvent.swift; sourceTree = "<group>"; };
 		7538CB012255ED2C00EB9B1F /* TaxChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxChangeEvent.swift; sourceTree = "<group>"; };
-		7538CB052255ED6C00EB9B1F /* FreeTeaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTeaEvent.swift; sourceTree = "<group>"; };
+		7538CB052255ED6C00EB9B1F /* ItemPriceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPriceEvent.swift; sourceTree = "<group>"; };
 		7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeMoneyEvent.swift; sourceTree = "<group>"; };
 		754FED642243626900394215 /* Vector2F.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2F.swift; sourceTree = "<group>"; };
 		754FED66224363CE00394215 /* Float+Epsilon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Epsilon.swift"; sourceTree = "<group>"; };
@@ -648,7 +648,7 @@
 				7581AEED225C645D001A8CC3 /* Taxes */,
 				7581AEEC225C644D001A8CC3 /* Monsoon */,
 				7581AECD225B0182001A8CC3 /* GameTime */,
-				7538CB052255ED6C00EB9B1F /* FreeTeaEvent.swift */,
+				7538CB052255ED6C00EB9B1F /* ItemPriceEvent.swift */,
 				7581AEF8225CB698001A8CC3 /* EventPresets.swift */,
 				75A72CB7225CBF16003640D4 /* PresetConstants.swift */,
 				75A72CB9225CC3AA003640D4 /* EventTable.swift */,
@@ -1365,7 +1365,7 @@
 				7581AEE3225C5B84001A8CC3 /* TurnSystemController.swift in Sources */,
 				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
-				7538CB062255ED6C00EB9B1F /* FreeTeaEvent.swift in Sources */,
+				7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */,
 				7535447F224CAC72001B4F62 /* ConditionComparable.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
 				9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */,

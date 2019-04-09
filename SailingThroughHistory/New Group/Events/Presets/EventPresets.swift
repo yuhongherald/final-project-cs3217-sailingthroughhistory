@@ -30,7 +30,9 @@ class EventPresets {
         var itemPriceEvents: [String: [String: TurnSystemEvent]] = [String: [String: TurnSystemEvent]]()
         var playerDeathEvents: [String: TurnSystemEvent] = [String: TurnSystemEvent]()
 
-        monsoonEvents[true] = nil // call push on table for each construct
+        /*
+        monsoonEvents[true] = HeavyMonsoonEvent(gameState: gameState, start: , end: <#T##Int#>, speed: <#T##Int#>) // call push on table for each construct
+ */
         monsoonEvents[false] = nil
 
         var evaluators = 0.evaluators
