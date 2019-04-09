@@ -15,7 +15,7 @@ class UIAlert {
          textPlaceHolder: String) {
         controller = UIAlertController(title: title, message: msg, preferredStyle: .alert)
 
-        let saveAction = UIAlertAction(title: "Confirm",
+        let confirmAction = UIAlertAction(title: "Confirm",
                                        style: .default,
                                        handler: { _ in
                                         guard let name = self.controller.textFields?.first?.text else {
@@ -32,13 +32,23 @@ class UIAlert {
             textFiled.placeholder = textPlaceHolder
             textFiled.clearButtonMode = .whileEditing
         }
-        controller.addAction(saveAction)
+        controller.addAction(confirmAction)
         controller.addAction(cancelAction)
     }
 
     init(errorMsg: String, msg: String?) {
         controller = UIAlertController(title: errorMsg, message: msg, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        controller.addAction(cancelAction)
+    }
+
+    init(errorMsg: String, msg: String?, confirm: @escaping (UIAlertAction) -> Void) {
+        controller = UIAlertController(title: errorMsg, message: msg, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Confirm",
+                                       style: .default,
+                                       handler: confirm)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        controller.addAction(confirmAction)
         controller.addAction(cancelAction)
     }
 
