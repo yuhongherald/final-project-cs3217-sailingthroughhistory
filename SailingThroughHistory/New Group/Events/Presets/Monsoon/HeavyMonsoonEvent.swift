@@ -1,12 +1,12 @@
 //
-//  RegularMonsoonEvent.swift
+//  HeavyMonsoonEvent.swift
 //  SailingThroughHistory
 //
 //  Created by Herald on 4/4/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class RegularMonsoonEvent: TurnSystemEvent {
+class HeavyMonsoonEvent: TurnSystemEvent {
     init(gameState: GenericGameState, start: Int, end: Int, speed: Int) {
         var actions: [EventAction<Bool>] = []
         for path in gameState.map.getAllPaths() {
@@ -14,13 +14,13 @@ class RegularMonsoonEvent: TurnSystemEvent {
                 guard let monsoon = monsoon as? VolatileMonsoon else {
                     continue
                 }
-                actions.append(EventAction(variable: monsoon.isActiveVariable, value: Evaluatable(false)))
+                actions.append(EventAction(variable: monsoon.isActiveVariable, value: Evaluatable(true)))
             }
         }
-        super.init(triggers: [MonthChangeTrigger(gameTime: gameState.gameTime,
+        super.init(triggers: [MonthWithinTrigger(gameTime: gameState.gameTime,
                                                  start: start, end: end)],
                    conditions: [],
                    actions: actions,
-                   displayName: "No monsoon!")
+                   displayName: "Heavy monsoon!")
     }
 }
