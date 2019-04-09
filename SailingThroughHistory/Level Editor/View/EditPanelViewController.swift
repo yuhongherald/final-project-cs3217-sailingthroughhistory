@@ -41,6 +41,10 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
         delegate?.clicked(.pirate)
     }
 
+    @IBAction func addWeatherPressed(_ sender: Any) {
+        delegate?.clicked(.weather)
+    }
+
     @IBAction func addPortPressed(_ sender: Any) {
         delegate?.clicked(.port)
     }

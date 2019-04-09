@@ -55,6 +55,7 @@ enum Resources {
         static let port: String = "port-node.png"
         static let sea: String = "sea-node.png"
         static let pirate: String = "pirate-node.png"
+        static let weather: String = "weather-icon.png"
 
         static func of(_ object: Any) -> String?{
             if object is Port {

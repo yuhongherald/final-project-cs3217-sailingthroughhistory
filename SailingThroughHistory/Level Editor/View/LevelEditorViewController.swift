@@ -95,18 +95,7 @@ class LevelEditorViewController: UIViewController {
         }
         // Add paths to map
         for path in map.getAllPaths() {
-            lineLayer = PathView()
-            lineLayer.strokeColor = UIColor.black.cgColor
-            lineLayer.lineWidth = 2.0
-
-            let bazier = UIBezierPath()
-            bazier.move(to: CGPoint(x: path.fromNode.frame.midX,
-                                    y: path.fromNode.frame.midY))
-            bazier.addLine(to: CGPoint(x: path.toNode.frame.midX,
-                                       y: path.toNode.frame.midY))
-
-            lineLayer.path = bazier.cgPath
-            lineLayer.set(from: path.fromNode, to: path.toNode)
+            lineLayer = PathView(path: path)
             editingAreaWrapper.layer.addSublayer(lineLayer)
             lineLayerArr.append(lineLayer)
         }
@@ -141,26 +130,23 @@ class LevelEditorViewController: UIViewController {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
             do {
                 try self.storage.verify(name: name)
+            } catch StorageError.fileExisted {
+                let alert = UIAlert(errorMsg: "File Existed. Are you sure to replace?", msg: "", confirm: { _ in
+                    self.store(with: name)
+                })
+                alert.present(in: self)
             } catch {
                 let error = error as? StorageError
                 let alert = UIAlert(errorMsg: error?.getMessage() ?? "Unknown Error.", msg: nil)
                 alert.present(in: self)
             }
-            var bounds = Rect(originX: 0, originY: 0,
-                              height: Double(self.view.bounds.size.height),
-                              width: Double(self.view.bounds.size.width))
-            if let size = self.mapBackground.image?.size {
-                bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
-            }
-            self.gameParameter.map.changeBackground("\(name)background", with: bounds)
-            self.storage.save(self.gameParameter, self.mapBackground.image,
-                              preview: self.scrollView.screenShot, with: name)
+            self.store(with: name)
         }, textPlaceHolder: "Input level name here")
         alert.present(in: self)
     }
 
     @objc func tapOnMap(_ sender: UITapGestureRecognizer) {
-        if editMode == .erase || editMode == .item || editMode == .pirate {
+        guard editMode != nil else {
             return
         }
 
@@ -170,16 +156,66 @@ class LevelEditorViewController: UIViewController {
 
         let location = sender.location(in: self.mapBackground)
 
-        let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
-            guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
-                return
+        if editMode == .erase {
+            var removed = 0
+            for (index, path) in self.lineLayerArr.enumerated() {
+                if self.isPoint(point: location, withinDistance: 20, ofPath: path.path) {
+                    self.lineLayerArr.remove(at: index - removed)
+                    removed += 1
+                    path.removeFromSuperlayer()
+
+                    guard let path = path.shipPath else {
+                        return
+                    }
+                    self.gameParameter.map.removePath(path)
+                }
             }
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
-        }, textPlaceHolder: "Input name here.")
-        alert.present(in: self)
+            return
+        }
+
+        if editMode == .weather {
+            self.lineLayerArr.forEach { path in
+                if self.isPoint(point: location, withinDistance: 20, ofPath: path.path) {
+                    path.add(Weather())
+                }
+            }
+            return
+        }
+
+        if editMode == .sea || editMode == .port {
+            let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
+                guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
+                    return
+                }
+                nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
+            }, textPlaceHolder: "Input name here.")
+            alert.present(in: self)
+        }
+    }
+
+    final func isPoint(point: CGPoint, withinDistance distance: CGFloat, ofPath path: CGPath?) -> Bool {
+        guard let castedPath = path else {
+            return false
+        }
+
+        if let hitPath = CGPath( __byStroking: castedPath,
+                                 transform: nil,
+                                 lineWidth: distance,
+                                 lineCap: CGLineCap.round,
+                                 lineJoin: CGLineJoin.miter,
+                                 miterLimit: 0) {
+
+            let isWithinDistance = hitPath.contains(point)
+            return isWithinDistance
+        }
+        return false
     }
 
     @objc func singleTapOnNode(_ sender: UITapGestureRecognizer) {
+        guard editMode != nil else {
+            return
+        }
+
         if editMode == .erase {
             guard let nodeView = sender.view as? NodeView else {
                 return
@@ -187,8 +223,8 @@ class LevelEditorViewController: UIViewController {
             nodeView.removeFrom(map: self.gameParameter.map)
             var offset = 0
             for (index, lineLayer) in lineLayerArr.enumerated() {
-                if lineLayer.fromNodeView == nodeView.node
-                    || lineLayer.toNodeView == nodeView.node {
+                if lineLayer.shipPath?.fromNode == nodeView.node
+                    || lineLayer.shipPath?.toNode == nodeView.node {
                     lineLayerArr.remove(at: index - offset)
                     lineLayer.removeFromSuperlayer()
                     offset+=1
@@ -296,14 +332,27 @@ class LevelEditorViewController: UIViewController {
             }
 
             bazier.addLine(to: toNode.center)
-            lineLayer.set(from: fromNode.node, to: toNode.node)
 
-            gameParameter.map.add(path: Path(from: fromNode.node, to: toNode.node))
+            let path = Path(from: fromNode.node, to: toNode.node)
+            lineLayer.set(path: path)
+            gameParameter.map.add(path: path)
             lineLayer.path = bazier.cgPath
             lineLayerArr.append(lineLayer)
         default:
             return
         }
+    }
+
+    private func store(with name: String) {
+        var bounds = Rect(originX: 0, originY: 0,
+                          height: Double(self.view.bounds.size.height),
+                          width: Double(self.view.bounds.size.width))
+        if let size = self.mapBackground.image?.size {
+            bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
+        }
+        self.gameParameter.map.changeBackground("\(name)background", with: bounds)
+        self.storage.save(self.gameParameter, self.mapBackground.image,
+                          preview: self.scrollView.screenShot, with: name)
     }
 
     private func initBackground() {
