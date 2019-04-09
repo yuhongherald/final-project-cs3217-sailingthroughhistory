@@ -146,7 +146,7 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func tapOnMap(_ sender: UITapGestureRecognizer) {
-        if editMode == .erase || editMode == .item || editMode == .pirate {
+        guard editMode != nil else {
             return
         }
 
@@ -156,22 +156,41 @@ class LevelEditorViewController: UIViewController {
 
         let location = sender.location(in: self.mapBackground)
 
+        if editMode == .erase {
+            var removed = 0
+            for (index, path) in self.lineLayerArr.enumerated() {
+                if self.isPoint(point: location, withinDistance: 20, ofPath: path.path) {
+                    self.lineLayerArr.remove(at: index - removed)
+                    removed += 1
+                    path.removeFromSuperlayer()
+
+                    guard let path = path.shipPath else {
+                        return
+                    }
+                    self.gameParameter.map.removePath(path)
+                }
+            }
+            return
+        }
+
         if editMode == .weather {
             self.lineLayerArr.forEach { path in
-                if self.isPoint(point: location, withinDistance: 200, ofPath: path.path) {
+                if self.isPoint(point: location, withinDistance: 20, ofPath: path.path) {
                     path.add(Weather())
                 }
             }
             return
         }
 
-        let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
-            guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
-                return
-            }
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
-        }, textPlaceHolder: "Input name here.")
-        alert.present(in: self)
+        if editMode == .sea || editMode == .port {
+            let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
+                guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
+                    return
+                }
+                nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
+            }, textPlaceHolder: "Input name here.")
+            alert.present(in: self)
+        }
     }
 
     final func isPoint(point: CGPoint, withinDistance distance: CGFloat, ofPath path: CGPath?) -> Bool {
@@ -193,6 +212,10 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func singleTapOnNode(_ sender: UITapGestureRecognizer) {
+        guard editMode != nil else {
+            return
+        }
+
         if editMode == .erase {
             guard let nodeView = sender.view as? NodeView else {
                 return
