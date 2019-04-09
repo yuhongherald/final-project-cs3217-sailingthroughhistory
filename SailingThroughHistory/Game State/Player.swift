@@ -90,7 +90,7 @@ class Player: GenericPlayer {
 
     func getItemParameter(itemType: ItemType) -> ItemParameter? {
         let parameters = gameState?.itemParameters ?? []
-        return parameters.first(where: { $0.itemType == itemType })
+        return parameters.first(where: { $0.value.itemType == itemType })?.value
     }
 
     func addShipsToMap(map: Map) {

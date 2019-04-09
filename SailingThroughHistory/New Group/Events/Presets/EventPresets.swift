@@ -30,23 +30,31 @@ class EventPresets {
         var itemPriceEvents: [String: [String: TurnSystemEvent]] = [String: [String: TurnSystemEvent]]()
         var playerDeathEvents: [String: TurnSystemEvent] = [String: TurnSystemEvent]()
 
-        /*
-        monsoonEvents[true] = HeavyMonsoonEvent(gameState: gameState, start: , end: <#T##Int#>, speed: <#T##Int#>) // call push on table for each construct
- */
-        monsoonEvents[false] = nil
+        monsoonEvents[true] = eventTable.pushEvent(
+            event: HeavyMonsoonEvent(gameState: gameState,
+                                     start: PresetConstants.monsoonStart,
+                                     end: PresetConstants.monsoonEnd)) // call push on table for each construct
 
         var evaluators = 0.evaluators
         for index in 0..<evaluators.count {
             let key = evaluators[index].displayName
-            neutralTaxEvents[key] = nil
+            neutralTaxEvents[key] = eventTable.pushEvent(
+                event: TaxChangeEvent(gameState: gameState,
+                                      genericOperator: evaluators[index],
+                                      modifier: PresetConstants.taxModifiers[index]))
             itemPriceEvents[key] = [String: TurnSystemEvent]()
             for item in ItemType.allCases {
-                itemPriceEvents[key]?[item.rawValue] = nil
+                itemPriceEvents[key]?[item.rawValue] = eventTable.pushEvent(
+                    event: ItemPriceEvent(gameState: gameState,
+                                          itemType: item,
+                                          genericOperator: evaluators[index],
+                                          modifier: PresetConstants.priceModifers[index]))
             }
         }
 
         for player in gameState.getPlayers() {
-            playerDeathEvents[player.deviceId] = nil
+            playerDeathEvents[player.deviceId] = eventTable.pushEvent(
+                event: NegativeMoneyEvent(player: player))
         }
 
         self.monsoonEvents = monsoonEvents

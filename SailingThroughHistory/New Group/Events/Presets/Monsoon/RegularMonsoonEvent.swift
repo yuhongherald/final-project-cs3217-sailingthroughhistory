@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/*
 class RegularMonsoonEvent: TurnSystemEvent {
     init(gameState: GenericGameState, start: Int, end: Int, speed: Int) {
         var actions: [EventAction<Bool>] = []
@@ -24,3 +25,4 @@ class RegularMonsoonEvent: TurnSystemEvent {
                    displayName: "No monsoon!")
     }
 }
+*/

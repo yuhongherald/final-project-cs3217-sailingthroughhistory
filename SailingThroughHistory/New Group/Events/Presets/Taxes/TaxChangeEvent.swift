@@ -7,7 +7,7 @@
 //
 
 class TaxChangeEvent: TurnSystemEvent {
-    init(gameState: GenericGameState, genericOperator: GenericOperator, modifier: Int, countdownTo: GameTime) {
+    init(gameState: GenericGameState, genericOperator: GenericOperator, modifier: Int) {
         let modifier = max(1, modifier)
         var actions: [EventAction<Int>] = []
         for port in gameState.map.getNodes() {
@@ -21,8 +21,8 @@ class TaxChangeEvent: TurnSystemEvent {
                                                 evaluator: genericOperator,
                                                 defaultValue: 0)))
         }
-        super.init(triggers: [],
-                   conditions: [CountdownCondition(gameTime: gameState.gameTime, to: countdownTo)],
+        super.init(triggers: [FlipFlopTrigger()],
+                   conditions: [],
                    actions: actions,
                    displayName: "Set neutral port taxes by \(genericOperator.displayName) \(modifier)")
     }

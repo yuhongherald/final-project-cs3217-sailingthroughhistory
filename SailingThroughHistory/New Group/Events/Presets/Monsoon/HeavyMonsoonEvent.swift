@@ -7,18 +7,26 @@
 //
 
 class HeavyMonsoonEvent: TurnSystemEvent {
-    init(gameState: GenericGameState, start: Int, end: Int, speed: Int) {
+    init(gameState: GenericGameState, start: Int, end: Int) {
         var actions: [EventAction<Bool>] = []
         for path in gameState.map.getAllPaths() {
             for monsoon in path.modifiers {
                 guard let monsoon = monsoon as? VolatileMonsoon else {
                     continue
                 }
-                actions.append(EventAction(variable: monsoon.isActiveVariable, value: Evaluatable(true)))
+                actions.append(EventAction<Bool>(
+                    variable: monsoon.isActiveVariable,
+                    value: ConditionEvaluatable<Bool>(
+                        trueValue: Evaluatable<Bool>(true),
+                        falseValue: Evaluatable<Bool>(false),
+                        conditions: [MonthWithinCondition(gameTime: gameState.gameTime,
+                            start: start, end: end)])))
             }
         }
-        super.init(triggers: [MonthWithinTrigger(gameTime: gameState.gameTime,
-                                                 start: start, end: end)],
+        // [MonthWithinTrigger(gameTime: gameState.gameTime,
+        // start: start, end: end)]
+        super.init(triggers: [EventTrigger<GameTime>(variable: gameState.gameTime,
+                                                     comparator: NotEqualOperator<Int>())],
                    conditions: [],
                    actions: actions,
                    displayName: "Heavy monsoon!")
