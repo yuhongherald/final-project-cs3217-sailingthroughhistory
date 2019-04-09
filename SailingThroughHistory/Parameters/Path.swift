@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Path: Hashable, Codable {
+class Path: Hashable, Codable {
     let fromNode: Node
     let toNode: Node
     var modifiers = [Volatile]()
@@ -18,7 +18,7 @@ struct Path: Hashable, Codable {
         self.toNode = toObject
     }
 
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         fromNode = try values.decode(Node.self, forKey: .fromNode)
         toNode = try values.decode(Node.self, forKey: .toNode)

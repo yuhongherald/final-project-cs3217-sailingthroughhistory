@@ -9,12 +9,12 @@
 import Foundation
 
 class GameState: GenericGameState {
-    var gameTime: GameTime
+    var gameTime: GameVariable<GameTime>
     var gameObjects: [GameObject] {
         return map.gameObjects.value
     }
-    var itemParameters = [ItemParameter]()
     let availableUpgrades: [Upgrade]
+    var itemParameters: [GameVariable<ItemParameter>]
 
     private(set) var map: Map
     private var teams = [Team]()
@@ -25,12 +25,15 @@ class GameState: GenericGameState {
 
     init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
         //TODO
-        gameTime = GameTime()
+        gameTime = GameVariable(value: GameTime())
         teams = level.teams
         //initializePlayersFromParameters(parameters: level.playerParameters)
         map = level.map
-        itemParameters = level.itemParameters
         availableUpgrades = level.upgrades
+        itemParameters = [GameVariable<ItemParameter>]()
+        for itemParameter in level.itemParameters {
+            itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
+        }
         initializePlayers(from: level.playerParameters, for: players)
         self.players.forEach {
             $0.addShipsToMap(map: map)
@@ -39,9 +42,14 @@ class GameState: GenericGameState {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        try gameTime = values.decode(GameTime.self, forKey: .gameTime)
+        try gameTime = GameVariable(value: values.decode(GameTime.self, forKey: .gameTime))
         try map = values.decode(Map.self, forKey: .map)
-        try itemParameters = values.decode([ItemParameter].self, forKey: .itemParameters)
+        let itemParameters = try values.decode([ItemParameter].self, forKey: .itemParameters)
+        self.itemParameters = [GameVariable<ItemParameter>]()
+        for itemParameter in itemParameters {
+            self.itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
+        }
+
         try teams = values.decode([Team].self, forKey: .teams)
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
@@ -69,8 +77,11 @@ class GameState: GenericGameState {
             return
         }
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(gameTime, forKey: .gameTime)
+        try container.encode(gameTime.value, forKey: .gameTime)
         try container.encode(map, forKey: .map)
+        let itemParameters = self.itemParameters.map {
+            return $0.value
+        }
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(teams, forKey: .teams)
         try container.encode(players, forKey: .players)
