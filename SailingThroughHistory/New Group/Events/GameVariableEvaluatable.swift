@@ -1,13 +1,13 @@
 //
-//  VariableEvaluatable.swift
+//  GameVariableEvaluatable.swift
 //  SailingThroughHistory
 //
-//  Created by Herald on 3/4/19.
+//  Created by Herald on 9/4/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class VariableEvaluatable<T>: Evaluatable<T> {
-    private var variable: GameVariable<T>
+class GameVariableEvaluatable<T>: Evaluatable<T> {
+    private let variable: GameVariable<T>
     override var value: T {
         get {
             return variable.value
@@ -16,8 +16,8 @@ class VariableEvaluatable<T>: Evaluatable<T> {
             variable.value = newValue
         }
     }
-    init(_ variable: GameVariable<T>) {
+    init(variable: GameVariable<T>) {
         self.variable = variable
-        super.init(variable.value) // dummy value
+        super.init(variable.value)
     }
 }

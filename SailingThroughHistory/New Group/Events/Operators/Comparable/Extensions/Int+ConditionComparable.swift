@@ -9,3 +9,6 @@
 extension Int: ConditionComparable {
     typealias T = Int
 }
+
+extension Int: Arithmetic {
+}
