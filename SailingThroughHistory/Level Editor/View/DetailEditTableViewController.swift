@@ -58,9 +58,9 @@ class DetailEditTableViewController: UIViewController {
 
                 switch castedCell.label.text {
                 case numOfTurnMsg:
-                    item.game.setNumOfTurn(input)
+                    item.game.numOfTurn = input
                 case timeLimitMsg:
-                    item.game.setTimeLimit(input)
+                    item.game.timeLimit = input
                 default:
                     continue
                 }
@@ -74,7 +74,7 @@ class DetailEditTableViewController: UIViewController {
         self.data.append(game.playerParameters.map {
             PlayerParameterItem(playerParameter: $0)
         })
-        self.data.append([TurnParameterItem(label: numOfTurnMsg, game: game, input: game.getNumOfTurn()),
-                          TurnParameterItem(label: timeLimitMsg, game: game, input: game.getTimeLimit())])
+        self.data.append([TurnParameterItem(label: numOfTurnMsg, game: game, input: game.numOfTurn),
+                          TurnParameterItem(label: timeLimitMsg, game: game, input: game.timeLimit)])
     }
 }

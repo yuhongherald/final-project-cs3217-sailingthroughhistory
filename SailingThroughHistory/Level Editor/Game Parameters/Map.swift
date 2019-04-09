@@ -63,7 +63,8 @@ class Map: Codable {
     }
 
     func add(path: Path) {
-        guard nodes.value.contains(path.toNode) && nodes.value.contains(path.fromNode) else {
+        guard nodes.value.contains(path.toNode) && nodes.value.contains(path.fromNode)
+            && path.toNode != path.fromNode else {
             NSLog("\(path) is not added to map due to absense of its nodes")
             return
         }
@@ -109,6 +110,10 @@ class Map: Codable {
             return node
         }
         return nil
+    }
+
+    func addGameObject(gameObject: GameObject) {
+        gameObjects.value.append(gameObject)
     }
 
     func subscribeToNodes(with callback: @escaping (Set<Node>) -> Void) {
@@ -171,10 +176,6 @@ class Map: Codable {
         self.pathsVariable.value = paths
     }
 
-    func addGameObject(gameObject: GameObject) {
-        gameObjects.value.append(gameObject)
-    }
-
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(map, forKey: .map)
@@ -233,6 +234,9 @@ class Map: Codable {
     private func checkRep() -> Bool {
         for path in getAllPaths() {
             guard nodes.value.contains(path.toNode) && nodes.value.contains(path.fromNode) else {
+                return false
+            }
+            guard path.toNode != path.fromNode else {
                 return false
             }
         }

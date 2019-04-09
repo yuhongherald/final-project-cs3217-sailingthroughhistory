@@ -15,7 +15,7 @@ class AuxiliaryUpgrade: Upgrade {
     var cost: Int {
         return 0
     }
-    
+
     func getNewSuppliesConsumed(baseConsumption: [GenericItem]) -> [GenericItem] {
         return baseConsumption
     }
@@ -28,4 +28,6 @@ class AuxiliaryUpgrade: Upgrade {
         return 1.0
     }
 
+    func handleEvent() {
+    }
 }

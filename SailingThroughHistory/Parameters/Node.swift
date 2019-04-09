@@ -10,6 +10,7 @@ import UIKit
 
 class Node: Codable {
     static var nextID: Int = 0
+    static var reuseID: [Int] = []
     let identifier: Int
     let name: String
     let frame: Rect
@@ -18,8 +19,16 @@ class Node: Codable {
     init(name: String, frame: Rect) {
         self.name = name
         self.frame = frame
-        self.identifier = Node.nextID
-        Node.nextID += 1
+        if (!Node.reuseID.isEmpty) {
+            self.identifier = Node.reuseID.removeLast()
+        } else {
+            self.identifier = Node.nextID
+            Node.nextID += 1
+        }
+    }
+
+    deinit {
+        Node.reuseID.append(self.identifier)
     }
 
     required init(from decoder: Decoder) throws {

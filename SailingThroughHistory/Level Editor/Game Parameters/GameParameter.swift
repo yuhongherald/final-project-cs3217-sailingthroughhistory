@@ -9,6 +9,8 @@
 import Foundation
 
 class GameParameter: GenericLevel, Codable {
+    let upgrades: [Upgrade] = [BiggerShipUpgrade(), FasterShipUpgrade(), BiggerSailsUpgrade(), MercernaryUpgrade()]
+
     var playerParameters = [PlayerParameter]()
     var itemParameters = [ItemParameter]()
     var eventParameters = [EventParameter]()
@@ -60,22 +62,6 @@ class GameParameter: GenericLevel, Codable {
         try container.encode(numOfTurn, forKey: .numOfTurn)
         try container.encode(timeLimit, forKey: .timeLimit)
         try container.encode(map, forKey: .map)
-    }
-
-    func getNumOfTurn() -> Int {
-        return numOfTurn
-    }
-
-    func getTimeLimit() -> Int {
-        return timeLimit
-    }
-
-    func setNumOfTurn(_ num: Int) {
-        self.numOfTurn = num
-    }
-
-    func setTimeLimit(_ num: Int) {
-        self.timeLimit = num
     }
 
     private enum CodingKeys: String, CodingKey {

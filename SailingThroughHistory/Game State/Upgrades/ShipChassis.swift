@@ -19,7 +19,7 @@ class ShipChassis: Upgrade {
     func getNewCargoCapacity(baseCapacity: Int) -> Int {
         return baseCapacity
     }
-    
+
     func getNewSuppliesConsumed(baseConsumption: [GenericItem]) -> [GenericItem] {
         return baseConsumption
     }
