@@ -88,7 +88,7 @@ class TurnSystem: GenericTurnSystem {
         return state
     }
 
-    // MARK : - Player actions
+    // MARK: - Player actions
     func roll(for player: GenericPlayer) throws -> (Int, [Int]) {
         try checkInputAllowed(from: player)
 
@@ -159,6 +159,7 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Not allowed to buy upgrades now.")
         }
         player.buyUpgrade(upgrade: upgrade)
+        pendingActions.append(.purchaseUpgrade(type: upgrade.type))
     }
 
     private func checkInputAllowed(from player: GenericPlayer) throws {
@@ -213,6 +214,11 @@ class TurnSystem: GenericTurnSystem {
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
+        case .purchaseUpgrade(let upgradeType):
+            if player.deviceId == deviceId {
+                return
+            }
+            player.buyUpgrade(upgrade: upgradeType.toUpgrade())
         }
     }
 
@@ -275,14 +281,14 @@ class TurnSystem: GenericTurnSystem {
             state = .waitForTurnFinish
             let currentTurn = data.currentTurn
             network.subscribeToActions(for: currentTurn) { [weak self] actionPair, error in
-                if let error = error {
+                if let _ = error {
                     /// TODO: Error handling
                     return
                 }
                 self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
             }
-            return
             state = .waitForTurnFinish
+            return
         }
         state = .waitPlayerInput(from: player)
     }
