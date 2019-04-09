@@ -9,6 +9,9 @@
 import Foundation
 
 class BiggerSailsUpgrade: AuxiliaryUpgrade {
+    override var type: UpgradeType {
+        return .biggerSails
+    }
     override var name: String {
         return "Cargo extension"
     }

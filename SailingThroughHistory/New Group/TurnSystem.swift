@@ -149,6 +149,14 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
+    func purchase(upgrade: Upgrade, by player: GenericPlayer) throws {
+        try checkInputAllowed(from: player)
+        if !player.canBuyUpgrade() {
+            throw PlayerActionError.invalidAction(message: "Not allowed to buy upgrades now.")
+        }
+        player.buyUpgrade(upgrade: upgrade)
+    }
+
     private func checkInputAllowed(from player: GenericPlayer) throws {
         switch state {
         case .playerInput(let curPlayer, _):

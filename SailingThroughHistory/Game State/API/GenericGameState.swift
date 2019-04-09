@@ -13,6 +13,7 @@ protocol GenericGameState: Codable {
     var gameObjects: [GameObject] { get }
     var map: Map { get }
     var itemParameters: [ItemParameter] { get set }
+    var availableUpgrades: [Upgrade] { get }
 
     func getPlayers() -> [GenericPlayer]
     func startNextTurn(speedMultiplier: Double)

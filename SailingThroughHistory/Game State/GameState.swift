@@ -14,6 +14,7 @@ class GameState: GenericGameState {
         return map.gameObjects.value
     }
     var itemParameters = [ItemParameter]()
+    let availableUpgrades: [Upgrade]
 
     private(set) var map: Map
     private var teams = [Team]()
@@ -29,6 +30,7 @@ class GameState: GenericGameState {
         //initializePlayersFromParameters(parameters: level.playerParameters)
         map = level.map
         itemParameters = level.itemParameters
+        availableUpgrades = level.upgrades
         initializePlayers(from: level.playerParameters, for: players)
         self.players.forEach {
             $0.addShipsToMap(map: map)
@@ -43,6 +45,9 @@ class GameState: GenericGameState {
         try teams = values.decode([Team].self, forKey: .teams)
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
+
+        let upgradeTypes = try values.decode([UpgradeType].self, forKey: .availableUpgrades)
+        availableUpgrades = upgradeTypes.map { $0.toUpgrade() }
 
         for player in players {
             player.map = map
@@ -70,6 +75,8 @@ class GameState: GenericGameState {
         try container.encode(teams, forKey: .teams)
         try container.encode(players, forKey: .players)
         try container.encode(speedMultiplier, forKey: .speedMultiplier)
+        let upgradeTypes = availableUpgrades.map { $0.type }
+        try container.encode(upgradeTypes, forKey: .availableUpgrades)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -79,6 +86,7 @@ class GameState: GenericGameState {
         case teams
         case players
         case speedMultiplier
+        case availableUpgrades
     }
 
     func getPlayers() -> [GenericPlayer] {
@@ -129,7 +137,7 @@ class GameState: GenericGameState {
             if !teams.contains(where: {$0.name == team.name}) {
                 teams.append(team)
             }
-            let player = Player(name: roomPlayer.playerName, team: team, map: map,
+            let player = Player(name: String(roomPlayer.playerName.suffix(5)), team: team, map: map,
                                 node: node, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self
