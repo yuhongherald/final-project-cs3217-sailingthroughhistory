@@ -21,16 +21,6 @@ class MonthWithin: GenericComparator {
             let secondTime = second as? GameTime else {
             return false
         }
-        /*
-        if (firstTime.month - 1 + 12) % 12 == start && secondTime.month == start {
-            // started
-            return true
-        }
-        if firstTime.month == end && (secondTime.month - 1 + 12) % 12 == end {
-            // ended
-            return true
-        }
-        */
         if start > end &&
             secondTime.month >= start || secondTime.month <= end {
             // wrapped

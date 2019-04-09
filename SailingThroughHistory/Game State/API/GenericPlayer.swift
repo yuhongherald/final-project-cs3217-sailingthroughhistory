@@ -20,6 +20,9 @@ protocol GenericPlayer: class, Codable {
     var deviceId: String { get }
     var map: Map? { get set }
     var gameState: GenericGameState? { get set }
+    // for events
+    var playerShip: Ship { get }
+    var homeNode: Node { get }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter?
     func addShipsToMap(map: Map)
@@ -61,9 +64,6 @@ protocol GenericPlayer: class, Codable {
     func endTurn()
 
     func canTradeAt(port: Port) -> Bool 
-
-    // Player death
-    func clearInventory()
 }
 
 func == (lhs: GenericPlayer, rhs: GenericPlayer?) -> Bool {

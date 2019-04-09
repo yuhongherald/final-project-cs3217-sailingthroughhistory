@@ -74,7 +74,6 @@
 		7538CB002255ECDF00EB9B1F /* RegularMonsoonEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CAFF2255ECDF00EB9B1F /* RegularMonsoonEvent.swift */; };
 		7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB012255ED2C00EB9B1F /* TaxChangeEvent.swift */; };
 		7538CB062255ED6C00EB9B1F /* FreeTeaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB052255ED6C00EB9B1F /* FreeTeaEvent.swift */; };
-		7538CB082255ED7900EB9B1F /* RegularTeaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB072255ED7900EB9B1F /* RegularTeaEvent.swift */; };
 		7538CB0A2255EDE800EB9B1F /* NegativeMoneyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */; };
 		754FED652243626900394215 /* Vector2F.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED642243626900394215 /* Vector2F.swift */; };
 		754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED66224363CE00394215 /* Float+Epsilon.swift */; };
@@ -96,6 +95,7 @@
 		7581AEF1225C8562001A8CC3 /* CountdownCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEF0225C8562001A8CC3 /* CountdownCondition.swift */; };
 		7581AEF3225C8606001A8CC3 /* MonthWithinTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEF2225C8606001A8CC3 /* MonthWithinTrigger.swift */; };
 		7581AEF7225C879A001A8CC3 /* GameVariableEvaluatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEF6225C879A001A8CC3 /* GameVariableEvaluatable.swift */; };
+		7581AEF9225CB698001A8CC3 /* EventPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEF8225CB698001A8CC3 /* EventPresets.swift */; };
 		759A5EDD225066B800724BEB /* EventTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EDC225066B800724BEB /* EventTrigger.swift */; };
 		759A5EE522507E1100724BEB /* TurnSystemTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EE422507E1100724BEB /* TurnSystemTest.swift */; };
 		759A5EE7225080CE00724BEB /* GameData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EE6225080CE00724BEB /* GameData.swift */; };
@@ -109,6 +109,8 @@
 		759A5EF72250A54300724BEB /* DiceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EF62250A54300724BEB /* DiceData.swift */; };
 		759A5EF92250A81300724BEB /* ShipData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EF82250A81300724BEB /* ShipData.swift */; };
 		759A5EFB2250A86500724BEB /* InventoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A5EFA2250A86500724BEB /* InventoryData.swift */; };
+		75A72CB8225CBF16003640D4 /* PresetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A72CB7225CBF16003640D4 /* PresetConstants.swift */; };
+		75A72CBA225CC3AA003640D4 /* EventTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A72CB9225CC3AA003640D4 /* EventTable.swift */; };
 		9603F774224A8254007D54E0 /* RoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F773224A8254007D54E0 /* RoomConnection.swift */; };
 		9603F77A224A8386007D54E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9603F779224A8386007D54E0 /* GoogleService-Info.plist */; };
 		9603F77B224A8386007D54E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9603F779224A8386007D54E0 /* GoogleService-Info.plist */; };
@@ -286,7 +288,6 @@
 		7538CAFF2255ECDF00EB9B1F /* RegularMonsoonEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularMonsoonEvent.swift; sourceTree = "<group>"; };
 		7538CB012255ED2C00EB9B1F /* TaxChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxChangeEvent.swift; sourceTree = "<group>"; };
 		7538CB052255ED6C00EB9B1F /* FreeTeaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeTeaEvent.swift; sourceTree = "<group>"; };
-		7538CB072255ED7900EB9B1F /* RegularTeaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegularTeaEvent.swift; sourceTree = "<group>"; };
 		7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeMoneyEvent.swift; sourceTree = "<group>"; };
 		754FED642243626900394215 /* Vector2F.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2F.swift; sourceTree = "<group>"; };
 		754FED66224363CE00394215 /* Float+Epsilon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Epsilon.swift"; sourceTree = "<group>"; };
@@ -308,6 +309,7 @@
 		7581AEF0225C8562001A8CC3 /* CountdownCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownCondition.swift; sourceTree = "<group>"; };
 		7581AEF2225C8606001A8CC3 /* MonthWithinTrigger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthWithinTrigger.swift; sourceTree = "<group>"; };
 		7581AEF6225C879A001A8CC3 /* GameVariableEvaluatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariableEvaluatable.swift; sourceTree = "<group>"; };
+		7581AEF8225CB698001A8CC3 /* EventPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPresets.swift; sourceTree = "<group>"; };
 		759A5EDC225066B800724BEB /* EventTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTrigger.swift; sourceTree = "<group>"; };
 		759A5EE422507E1100724BEB /* TurnSystemTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemTest.swift; sourceTree = "<group>"; };
 		759A5EE6225080CE00724BEB /* GameData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameData.swift; sourceTree = "<group>"; };
@@ -321,6 +323,8 @@
 		759A5EF62250A54300724BEB /* DiceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceData.swift; sourceTree = "<group>"; };
 		759A5EF82250A81300724BEB /* ShipData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipData.swift; sourceTree = "<group>"; };
 		759A5EFA2250A86500724BEB /* InventoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryData.swift; sourceTree = "<group>"; };
+		75A72CB7225CBF16003640D4 /* PresetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetConstants.swift; sourceTree = "<group>"; };
+		75A72CB9225CC3AA003640D4 /* EventTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTable.swift; sourceTree = "<group>"; };
 		9603F773224A8254007D54E0 /* RoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomConnection.swift; sourceTree = "<group>"; };
 		9603F779224A8386007D54E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRoomConnection.swift; sourceTree = "<group>"; };
@@ -491,7 +495,9 @@
 		751F8FDA224B9D600071C057 /* TurnSystem */ = {
 			isa = PBXGroup;
 			children = (
-				7535448B224CB4D6001B4F62 /* API */,
+				75354485224CAF2A001B4F62 /* TurnSystem.md */,
+				7581AECA225AF915001A8CC3 /* Supporting Classes */,
+				7538CAF12255AD5F00EB9B1F /* Old */,
 				7535448E224CBB49001B4F62 /* Data */,
 				75354459224CA552001B4F62 /* Events */,
 				751F8FF1224BB29D0071C057 /* PlayerActions */,
@@ -608,21 +614,10 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		7535448B224CB4D6001B4F62 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				75354485224CAF2A001B4F62 /* TurnSystem.md */,
-				7535449D224CCB34001B4F62 /* BaseGameObject.swift */,
-			);
-			path = API;
-			sourceTree = "<group>";
-		};
 		7535448E224CBB49001B4F62 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				7538CAF12255AD5F00EB9B1F /* Old */,
 				751F8FF0224BB2780071C057 /* Protocols */,
-				7538CAF22255ADA200EB9B1F /* ItemBuySellCache.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -630,6 +625,8 @@
 		7538CAF12255AD5F00EB9B1F /* Old */ = {
 			isa = PBXGroup;
 			children = (
+				7535449D224CCB34001B4F62 /* BaseGameObject.swift */,
+				7538CAF22255ADA200EB9B1F /* ItemBuySellCache.swift */,
 				75354499224CC532001B4F62 /* WeakBox.swift */,
 				759A5EE6225080CE00724BEB /* GameData.swift */,
 				759A5EEE2250863A00724BEB /* PlayerData.swift */,
@@ -651,10 +648,10 @@
 				7581AEED225C645D001A8CC3 /* Taxes */,
 				7581AEEC225C644D001A8CC3 /* Monsoon */,
 				7581AECD225B0182001A8CC3 /* GameTime */,
-				7581AECA225AF915001A8CC3 /* Supporting Classes */,
 				7538CB052255ED6C00EB9B1F /* FreeTeaEvent.swift */,
-				7538CB072255ED7900EB9B1F /* RegularTeaEvent.swift */,
-				7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */,
+				7581AEF8225CB698001A8CC3 /* EventPresets.swift */,
+				75A72CB7225CBF16003640D4 /* PresetConstants.swift */,
+				75A72CB9225CC3AA003640D4 /* EventTable.swift */,
 			);
 			path = Presets;
 			sourceTree = "<group>";
@@ -716,6 +713,7 @@
 		7581AEEF225C6484001A8CC3 /* PlayerDeath */ = {
 			isa = PBXGroup;
 			children = (
+				7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */,
 			);
 			path = PlayerDeath;
 			sourceTree = "<group>";
@@ -1245,6 +1243,7 @@
 				1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */,
 				96E0745B225250610068406B /* MembersTableDataSource.swift in Sources */,
 				965E0333223A4B3C005F7D79 /* Node.swift in Sources */,
+				7581AEF9225CB698001A8CC3 /* EventPresets.swift in Sources */,
 				75354465224CA7BB001B4F62 /* EventCondition.swift in Sources */,
 				754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */,
 				969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */,
@@ -1284,7 +1283,9 @@
 				759A5EF92250A81300724BEB /* ShipData.swift in Sources */,
 				965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */,
 				754FED7122437B4F00394215 /* NPC.swift in Sources */,
+				75A72CBA225CC3AA003640D4 /* EventTable.swift in Sources */,
 				7538CB002255ECDF00EB9B1F /* RegularMonsoonEvent.swift in Sources */,
+				75A72CB8225CBF16003640D4 /* PresetConstants.swift in Sources */,
 				BA919070223F446800009F49 /* Upgrade.swift in Sources */,
 				759A5EED2250833E00724BEB /* Arithmetic.swift in Sources */,
 				7581AEF1225C8562001A8CC3 /* CountdownCondition.swift in Sources */,
@@ -1372,7 +1373,6 @@
 				751F8FEC224BB11B0071C057 /* ComparableOp.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				75354484224CAE1D001B4F62 /* Int+ConditionComparable.swift in Sources */,
-				7538CB082255ED7900EB9B1F /* RegularTeaEvent.swift in Sources */,
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				7535447B224CAB66001B4F62 /* LessThanOrEqualOperator.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,

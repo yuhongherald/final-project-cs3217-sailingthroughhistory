@@ -8,8 +8,10 @@
 
 import Foundation
 
-// The base class for turn system events with auto-generated ids
-class TurnSystemEvent: UniqueObject, Printable {
+// The base class for turn system events with manual-generated ids
+class TurnSystemEvent: Unique, Printable {
+    var identifier: Int = -1
+
     private let _displayName: String
     var displayName: String {
         return _displayName

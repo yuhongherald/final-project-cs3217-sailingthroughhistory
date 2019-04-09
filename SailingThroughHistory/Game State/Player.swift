@@ -40,6 +40,16 @@ class Player: GenericPlayer {
     var weightCapacity: Int {
         return ship.weightCapacity
     }
+
+    // for events
+    var playerShip: Ship {
+        return ship
+    }
+    var homeNode: Node {
+        return _homeNode
+    }
+    private let _homeNode: Node
+
     var gameState: GenericGameState?
     private let ship: Ship
     private var speedMultiplier = 1.0
@@ -52,6 +62,7 @@ class Player: GenericPlayer {
         self.map = map
         self.deviceId = deviceId
         ship = Ship(node: node, suppliesConsumed: [])
+        _homeNode = ship.getCurrentNode()
         ship.setOwner(owner: self)
         ship.setMap(map: map)
     }
@@ -64,6 +75,7 @@ class Player: GenericPlayer {
         ship = try values.decode(Ship.self, forKey: .ship)
         deviceId = try values.decode(String.self, forKey: .deviceId)
 
+        _homeNode = ship.getCurrentNode()
         ship.setOwner(owner: self)
     }
 
@@ -84,10 +96,6 @@ class Player: GenericPlayer {
     func addShipsToMap(map: Map) {
         ship.setMap(map: map)
         ship.setLocation(map: map)
-    }
-
-    func clearInventory() {
-        ship.clearInventory()
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {

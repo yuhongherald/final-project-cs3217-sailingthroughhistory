@@ -7,5 +7,10 @@
 //
 
 class FreeTeaEvent: TurnSystemEvent {
-    
+    /*
+    init(gameState: GenericGameState) {
+        
+        super.init(triggers: <#T##[Trigger]#>, conditions: <#T##[Evaluate]#>, actions: <#T##[Modify]#>, displayName: <#T##String#>)
+    }
+ */
 }
