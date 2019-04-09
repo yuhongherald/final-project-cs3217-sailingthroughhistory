@@ -211,10 +211,10 @@ class Ship: Codable {
                 continue
             }
             let type = supply.itemType
-            let deficeit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
-            owner?.updateMoney(by: -deficeit * parameter.getBuyValue())
-            messages.append(InfoMessage(title: "Deficeit!",
-                               message: "You have exhausted \(parameter.displayName) and have a deficeit of \(deficeit) and paid for it."))
+            let deficit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
+            owner?.updateMoney(by: -deficit * parameter.getBuyValue())
+            messages.append(InfoMessage(title: "deficit!",
+                               message: "You have exhausted \(parameter.displayName) and have a deficit of \(deficit) and paid for it."))
         }
 
         // decay remaining items
@@ -317,10 +317,10 @@ extension Ship {
         guard let value = port.getSellValue(of: itemType) else {
             throw BuyItemError.itemNotAvailable
         }
-        let deficeit = removeItem(by: itemType, with: quantity)
-        owner?.updateMoney(by: (quantity - deficeit) * value)
-        if deficeit > 0 {
-            throw BuyItemError.insufficientItems(shortOf: deficeit)
+        let deficit = removeItem(by: itemType, with: quantity)
+        owner?.updateMoney(by: (quantity - deficit) * value)
+        if deficit > 0 {
+            throw BuyItemError.insufficientItems(shortOf: deficit)
         }
     }
 

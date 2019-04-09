@@ -86,12 +86,12 @@ class Item: GenericItem, Codable {
     /// Remove Item quantity by input amount.
     /// - Returns:
     ///   If Item quantity is enough, return 0.
-    ///   If Item quantity is not enough, return deficeit as positive integer.
+    ///   If Item quantity is not enough, return deficit as positive integer.
     func remove(amount: Int) -> Int {
         if quantity < amount {
-            let deficeit = amount - quantity
+            let deficit = amount - quantity
             quantity = 0
-            return deficeit
+            return deficit
         }
         quantity -= amount
         return 0
