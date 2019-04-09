@@ -9,7 +9,7 @@
 import Foundation
 
 protocol GenericGameState: Codable {
-    var gameTime: GameTime { get set }
+    var gameTime: GameVariable<GameTime> { get set }
     var gameObjects: [GameObject] { get }
     var map: Map { get }
     var itemParameters: [ItemParameter] { get set }

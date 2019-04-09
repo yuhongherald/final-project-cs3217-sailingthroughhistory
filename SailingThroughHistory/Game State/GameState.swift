@@ -9,7 +9,7 @@
 import Foundation
 
 class GameState: GenericGameState {
-    var gameTime: GameTime
+    var gameTime: GameVariable<GameTime>
     var gameObjects: [GameObject] {
         return map.gameObjects.value
     }
@@ -24,7 +24,7 @@ class GameState: GenericGameState {
 
     init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
         //TODO
-        gameTime = GameTime()
+        gameTime = GameVariable(value: GameTime())
         teams = level.teams
         //initializePlayersFromParameters(parameters: level.playerParameters)
         map = level.map
@@ -37,7 +37,7 @@ class GameState: GenericGameState {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        try gameTime = values.decode(GameTime.self, forKey: .gameTime)
+        try gameTime = GameVariable(value: values.decode(GameTime.self, forKey: .gameTime))
         try map = values.decode(Map.self, forKey: .map)
         try itemParameters = values.decode([ItemParameter].self, forKey: .itemParameters)
         try teams = values.decode([Team].self, forKey: .teams)
@@ -64,7 +64,7 @@ class GameState: GenericGameState {
             return
         }
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(gameTime, forKey: .gameTime)
+        try container.encode(gameTime.value, forKey: .gameTime)
         try container.encode(map, forKey: .map)
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(teams, forKey: .teams)

@@ -62,6 +62,7 @@ class TurnSystemState: UniqueObject, GenericTurnSystemState {
     // TODO: Call these 2 methods
     func turnFinished() {
         currentTurn += 1
+        gameState.gameTime.value.addWeeks(4)
     }
 
     func processed(action: PlayerAction, from player: GenericPlayer) {

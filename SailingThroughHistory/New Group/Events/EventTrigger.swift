@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class EventTrigger<T> {
+class EventTrigger<T>: Printable, Trigger {
+    var displayName: String = "trigger"
+    
     private let variable: GameVariable<T>
     private let comparator: GenericComparator
     private var triggered: Bool = false
