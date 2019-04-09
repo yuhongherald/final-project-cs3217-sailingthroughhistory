@@ -173,6 +173,9 @@
 		BA6FBBD3225A103200B366DB /* FasterShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD2225A103200B366DB /* FasterShipUpgrade.swift */; };
 		BA6FBBD5225A108900B366DB /* BiggerSailsUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD4225A108900B366DB /* BiggerSailsUpgrade.swift */; };
 		BA6FBBD7225A10D600B366DB /* MercernaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD6225A10D600B366DB /* MercernaryUpgrade.swift */; };
+		BA6FBBD9225A22FE00B366DB /* InfoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */; };
+		BA6FBBDB225A237900B366DB /* Ship_Pirate_Weather_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */; };
+		BA6FBBDD225C82A700B366DB /* MovementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDC225C82A700B366DB /* MovementError.swift */; };
 		BA91905B223F256300009F49 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = BA91905A223F256200009F49 /* Images */; };
 		BA91905E223F25CE00009F49 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905D223F25CE00009F49 /* GameState.swift */; };
 		BA919060223F25E400009F49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905F223F25E400009F49 /* Player.swift */; };
@@ -377,6 +380,9 @@
 		BA6FBBD2225A103200B366DB /* FasterShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FasterShipUpgrade.swift; sourceTree = "<group>"; };
 		BA6FBBD4225A108900B366DB /* BiggerSailsUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerSailsUpgrade.swift; sourceTree = "<group>"; };
 		BA6FBBD6225A10D600B366DB /* MercernaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercernaryUpgrade.swift; sourceTree = "<group>"; };
+		BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMessage.swift; sourceTree = "<group>"; };
+		BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship_Pirate_Weather_Extension.swift; sourceTree = "<group>"; };
+		BA6FBBDC225C82A700B366DB /* MovementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementError.swift; sourceTree = "<group>"; };
 		BA91905A223F256200009F49 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		BA91905D223F25CE00009F49 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BA91905F223F25E400009F49 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -873,11 +879,14 @@
 				BA91905D223F25CE00009F49 /* GameState.swift */,
 				BA91905F223F25E400009F49 /* Player.swift */,
 				BA919063223F260A00009F49 /* Ship.swift */,
+				BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */,
 				BA48591022410CC7009ED2F6 /* ShipUI.swift */,
 				BA485903223F9112009ED2F6 /* Location.swift */,
 				1A53D7C5224CA5FE00FAE214 /* Team.swift */,
 				BA91906F223F446800009F49 /* Upgrade.swift */,
 				7538CAEF2255137600EB9B1F /* BuyItemError.swift */,
+				BA6FBBDC225C82A700B366DB /* MovementError.swift */,
+				BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */,
 			);
 			path = "Game State";
 			sourceTree = "<group>";
@@ -1197,8 +1206,10 @@
 				751F8FD8224B9D5E0071C057 /* ChangeType.swift in Sources */,
 				751F8FD7224B9D5E0071C057 /* PlayerAction.swift in Sources */,
 				96E0745D225250E20068406B /* WaitingRoom.swift in Sources */,
+				BA6FBBD9225A22FE00B366DB /* InfoMessage.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				96CEB957224DFA0E00B027BA /* NetworkFactory.swift in Sources */,
+				BA6FBBDB225A237900B366DB /* Ship_Pirate_Weather_Extension.swift in Sources */,
 				9603F782224A9748007D54E0 /* Room.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				759A5EF32250A38700724BEB /* NodeData.swift in Sources */,
@@ -1206,6 +1217,7 @@
 				7538CB0A2255EDE800EB9B1F /* RandomLoseMoneyEvent.swift in Sources */,
 				7538CAFD2255ECC600EB9B1F /* HeavyMonsoonEvent.swift in Sources */,
 				75354481224CADD7001B4F62 /* ChangeOperator.swift in Sources */,
+				BA6FBBDD225C82A700B366DB /* MovementError.swift in Sources */,
 				1A9FF08C224030E000005FCB /* Map.swift in Sources */,
 				751F8FE8224BAEBD0071C057 /* GenericNetworkAdapter.swift in Sources */,
 				966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */,

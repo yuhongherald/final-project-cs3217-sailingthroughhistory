@@ -27,7 +27,11 @@ class Player: GenericPlayer {
             }
             ship.setMap(map: map)
             if canDock() {
-                dock()
+                do {
+                    try dock()
+                } catch {
+                    fatalError("Unable to dock")
+                }
             }
         }
     }
@@ -141,9 +145,9 @@ class Player: GenericPlayer {
         return ship.canDock()
     }
 
-    func dock() {
-        let port = ship.dock()
-        port?.collectTax(from: self)
+    func dock() throws {
+        let port = try ship.dock()
+        try port.collectTax(from: self)
     }
 
     func getPurchasableItemTypes() -> [ItemType] {
