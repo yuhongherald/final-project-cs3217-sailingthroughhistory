@@ -15,12 +15,12 @@ class TurnSystemEvent: UniqueObject, Printable {
         return _displayName
     }
     
-    private let triggers: [EventTrigger<Any>]
-    private let conditions: [EventCondition<Any>]
-    private let actions: [EventAction<Any>]
+    private let triggers: [Trigger]
+    private let conditions: [Evaluate]
+    private let actions: [Modify]
 
-    init(triggers: [EventTrigger<Any>], conditions: [EventCondition<Any>],
-         actions: [EventAction<Any>], displayName: String) {
+    init(triggers: [Trigger], conditions: [Evaluate],
+         actions: [Modify], displayName: String) {
         self.triggers = triggers
         self.conditions = conditions
         self.actions = actions

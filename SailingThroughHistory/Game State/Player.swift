@@ -169,7 +169,7 @@ class Player: GenericPlayer {
 
     // TODO: Next milestone
     func setTax(port: Port, amount: Int) {
-        port.taxAmount = amount
+        port.taxAmount.value = amount
     }
 
     func updateMoney(by amount: Int) {

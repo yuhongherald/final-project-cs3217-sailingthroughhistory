@@ -6,4 +6,21 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import Foundation
+class RegularMonsoonEvent: TurnSystemEvent {
+    init(gameState: GenericGameState, start: Int, end: Int, speed: Int) {
+        var actions: [EventAction<Bool>] = []
+        for path in gameState.map.getAllPaths() {
+            for monsoon in path.modifiers {
+                guard let monsoon = monsoon as? VolatileMonsoon else {
+                    continue
+                }
+                actions.append(EventAction(variable: monsoon.isActiveVariable, value: Evaluatable(false)))
+            }
+        }
+        super.init(triggers: [MonthChangeTrigger(gameTime: gameState.gameTime,
+                                                 start: start, end: end)],
+                   conditions: [],
+                   actions: actions,
+                   displayName: "No monsoon!")
+    }
+}

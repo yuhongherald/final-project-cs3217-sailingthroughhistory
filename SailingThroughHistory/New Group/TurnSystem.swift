@@ -9,7 +9,6 @@
 import Foundation
 
 class TurnSystem: GenericTurnSystem {
-    private static let turnDuration: TimeInterval = 120
 
     enum State {
         case ready
@@ -20,8 +19,6 @@ class TurnSystem: GenericTurnSystem {
         case waitForStateUpdate
         case invalid
     }
-
-    private var callbacks: [() -> Void] = []
     private var state: State {
         get {
             return stateVariable.value
@@ -31,21 +28,28 @@ class TurnSystem: GenericTurnSystem {
             stateVariable.value = newValue
         }
     }
+
+    // TODO: Move this into new class
+    private var callbacks: [() -> Void] = []
     private var stateVariable: GameVariable<State>
-    private let network: RoomConnection
     private var isBlocking = false
+    private let isMaster: Bool
+    private let deviceId: String
+    private var pendingActions = [PlayerAction]()
+    private let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
+
+    private let network: RoomConnection
     private var players = [RoomMember]() {
         didSet {
 
         }
     }
-    private let isMaster: Bool
+
     var data: GenericTurnSystemState
-    private let deviceId: String
-    private var pendingActions = [PlayerAction]()
     var gameState: GenericGameState {
         return data.gameState
     }
+
     private var currentPlayer: GenericPlayer? {
         switch state {
         case .playerInput(let player, _):
@@ -56,7 +60,6 @@ class TurnSystem: GenericTurnSystem {
             return nil
         }
     }
-    private let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
 
     init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, deviceId: String) {
         self.deviceId = deviceId
@@ -188,7 +191,7 @@ class TurnSystem: GenericTurnSystem {
             guard player.team == port.owner else { // TODO: Fix equality assumption
                 throw PlayerActionError.invalidAction(message: "Player does not own port!")
             }
-            port.taxAmount = taxAmount
+            port.taxAmount.value = taxAmount
         case .buyOrSell(let itemType, let quantity):
             if player.deviceId == deviceId {
                 return
@@ -353,6 +356,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
+        _ = data.checkForEvents() // events will run here, non-recursive
         networkActionQueue.sync { [weak self] in
             guard let self = self else {
                 return
@@ -380,8 +384,6 @@ class TurnSystem: GenericTurnSystem {
                 self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
                 chosenPlayer.endTurn()
             }
-
-            data.checkForEvents() // events will run here, non-recursive
             state = .waitForStateUpdate
             // OI
             startGame() // TODO: Remove this
@@ -396,9 +398,9 @@ class TurnSystem: GenericTurnSystem {
     }
 
     private func startPlayerInput(from player: GenericPlayer) {
-        let endTime = Date().timeIntervalSince1970 + TurnSystem.turnDuration
+        let endTime = Date().timeIntervalSince1970 + GameConstants.playerTurnDuration
         let turnNum = data.currentTurn
-        DispatchQueue.global().asyncAfter(deadline: .now() + TurnSystem.turnDuration) { [weak self] in
+        DispatchQueue.global().asyncAfter(deadline: .now() + GameConstants.playerTurnDuration) { [weak self] in
             if player == self?.currentPlayer && self?.data.currentTurn == turnNum {
                 self?.endTurn()
             }

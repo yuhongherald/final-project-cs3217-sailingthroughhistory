@@ -7,7 +7,20 @@
 //
 
 class HeavyMonsoonEvent: TurnSystemEvent {
-    init() {
-        super.init(triggers: [], conditions: [], actions: <#T##[EventAction<Any>]#>, displayName: <#T##String#>)
+    init(gameState: GenericGameState, start: Int, end: Int, speed: Int) {
+        var actions: [EventAction<Bool>] = []
+        for path in gameState.map.getAllPaths() {
+            for monsoon in path.modifiers {
+                guard let monsoon = monsoon as? VolatileMonsoon else {
+                    continue
+                }
+                actions.append(EventAction(variable: monsoon.isActiveVariable, value: Evaluatable(true)))
+            }
+        }
+        super.init(triggers: [MonthChangeTrigger(gameTime: gameState.gameTime,
+                                                 start: start, end: end)],
+                   conditions: [],
+                   actions: actions,
+                   displayName: "Heavy monsoon!")
     }
 }
