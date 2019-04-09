@@ -6,8 +6,20 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol Arithmetic {
+protocol Arithmetic: Operatable {
     static func +(lhs: Self, rhs: Self) -> Self
     static func -(lhs: Self, rhs: Self) -> Self
-    // lets not add * or / first
+    static func *(lhs: Self, rhs: Self) -> Self
+    static func /(lhs: Self, rhs: Self) -> Self
+}
+
+extension Arithmetic {
+    var evaluators: [GenericOperator] {
+        return [
+            AddOperator<Self>(),
+            SubtractOperator<Self>(),
+            MultiplyOperator<Self>(),
+            DivideOperator<Self>()
+        ]
+    }
 }

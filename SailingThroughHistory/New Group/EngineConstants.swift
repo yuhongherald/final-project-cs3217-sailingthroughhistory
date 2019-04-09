@@ -18,7 +18,7 @@ enum EngineConstants {
 enum GameConstants {
     static let weeksInMonth: Int = 4
     static let monthsInYear: Int = 12
-    static let playerTurnDuration: Double = 30
+    static let playerTurnDuration: Double = 120
     static let numOfTurn: Int = 20
 }
 
@@ -55,6 +55,7 @@ enum Resources {
         static let port: String = "port-node.png"
         static let sea: String = "sea-node.png"
         static let pirate: String = "pirate-node.png"
+        static let weather: String = "weather-icon.png"
 
         static func of(_ object: Any) -> String?{
             if object is Port {

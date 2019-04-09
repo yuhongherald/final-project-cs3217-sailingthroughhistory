@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class EventAction<T> {
+class EventAction<T>: Printable, Modify {
+    var displayName: String = "action"
+    
     private let variable: GameVariable<T>
     private let value: Evaluatable<T>
 

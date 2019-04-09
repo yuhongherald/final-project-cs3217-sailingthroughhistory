@@ -32,9 +32,9 @@ class Ship: Codable {
     var weightCapacity: Int {
         return weightCapacityVariable.value
     }
-    private let nodeIdVariable: GameVariable<Int>
+    let nodeIdVariable: GameVariable<Int> // public for events
     private weak var owner: GenericPlayer?
-    private var items = GameVariable<[GenericItem]>(value: [])
+    var items = GameVariable<[GenericItem]>(value: []) // public for events
     private var currentCargoWeightVariable = GameVariable<Int>(value: 0)
     private var weightCapacityVariable = GameVariable<Int>(value: 100)
     private(set) var isDocked = false

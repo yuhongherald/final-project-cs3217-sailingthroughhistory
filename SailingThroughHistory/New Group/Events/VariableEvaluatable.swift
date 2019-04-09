@@ -7,7 +7,7 @@
 //
 
 class VariableEvaluatable<T>: Evaluatable<T> {
-    var variable: GameVariable<T>
+    private var variable: GameVariable<T>
     override var value: T {
         get {
             return variable.value

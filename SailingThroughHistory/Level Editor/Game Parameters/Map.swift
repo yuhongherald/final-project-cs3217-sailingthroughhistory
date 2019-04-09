@@ -13,7 +13,7 @@ class Map: Codable {
     var bounds: Rect
     var nodeIDPair: [Int: Node]
     private(set) var gameObjects = GameVariable(value: [GameObject]())
-    private var nodes = GameVariable(value: Set<Node>())
+    var nodes = GameVariable(value: Set<Node>()) // need acces to nodes and paths
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
     private var paths: [Node: [Path]] {
         set {
@@ -154,23 +154,29 @@ class Map: Codable {
         }
         self.nodes.value = nodes
 
-        let pathDictionary = try container.decode([Int: [Int]].self, forKey: .paths)
+        let pathDictionary = try container.decode([Int: [Int: [Volatile]]].self, forKey: .paths)
         for pair in pathDictionary {
             guard let fromNode = nodeIDPair[pair.key] else {
                 continue
             }
-            if paths[fromNode] == nil {
-                paths[fromNode] = []
-            }
-            for toID in pair.value {
-                guard let toNode = nodeIDPair[toID] else {
+            for subPair in pair.value {
+                guard let toNode = nodeIDPair[subPair.key] else {
                     continue
                 }
-                paths[fromNode]?.append(Path(from: fromNode, to: toNode))
+
+                // add path to from node neighbour
+                if paths[fromNode] == nil {
+                    paths[fromNode] = []
+                }
+                let path = Path(from: fromNode, to: toNode)
+                path.modifiers = subPair.value
+                paths[fromNode]?.append(path)
+
+                // add path to to node neighbour
                 if paths[toNode] == nil {
                     paths[toNode] = []
                 }
-                paths[toNode]?.append(Path(from: toNode, to: fromNode))
+                paths[toNode]?.append(path)
             }
         }
         self.pathsVariable.value = paths
@@ -191,15 +197,18 @@ class Map: Codable {
         }
         try container.encode(nodesWithType, forKey: .nodes)
 
-        var simplifiedPaths = [Int: [Int]]()
+        var simplifiedPaths = [Int: [Int: [Volatile]]]()
+
         for pair in getAllPaths() {
             let fromID = pair.fromNode.identifier
             let toID = pair.toNode.identifier
             if simplifiedPaths[fromID] == nil {
-                simplifiedPaths[fromID] = []
+                simplifiedPaths[fromID] = [:]
             }
-            simplifiedPaths[fromID]?.append(toID)
+            simplifiedPaths[fromID]?[toID] = []
+            pair.modifiers.forEach { simplifiedPaths[fromID]?[toID]?.append($0)}
         }
+
         try container.encode(simplifiedPaths, forKey: .paths)
         try container.encode(bounds, forKey: .bounds)
     }
