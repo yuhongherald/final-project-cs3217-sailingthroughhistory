@@ -86,6 +86,10 @@ class Player: GenericPlayer {
         ship.setLocation(map: map)
     }
 
+    func clearInventory() {
+        ship.clearInventory()
+    }
+
     func startTurn(speedMultiplier: Double, map: Map?) {
         self.speedMultiplier = speedMultiplier
         self.map = map

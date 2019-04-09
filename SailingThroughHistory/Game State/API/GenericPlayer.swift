@@ -59,6 +59,9 @@ protocol GenericPlayer: class, Codable {
     func endTurn()
 
     func canTradeAt(port: Port) -> Bool 
+
+    // Player death
+    func clearInventory()
 }
 
 func == (lhs: GenericPlayer, rhs: GenericPlayer?) -> Bool {

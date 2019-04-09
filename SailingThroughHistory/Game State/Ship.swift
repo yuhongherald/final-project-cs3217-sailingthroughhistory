@@ -88,6 +88,10 @@ class Ship: Codable {
         case auxiliaryUpgrade
     }
 
+    func clearInventory() {
+        items.value = []
+    }
+
     func setLocation(map: Map) {
         /*guard let node = map.nodeIDPair[nodeId] else {
             return
