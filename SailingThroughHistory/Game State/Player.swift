@@ -99,7 +99,7 @@ class Player: GenericPlayer {
     }
 
     func buyUpgrade(upgrade: Upgrade) {
-        ship.installUpgade(upgrade: upgrade)
+        ship.installUpgrade(upgrade: upgrade)
     }
 
     func roll() -> (Int, [Int]) {
@@ -177,8 +177,20 @@ class Player: GenericPlayer {
     }
 
     func updateMoney(by amount: Int) {
-        self.money.value += amount
-        self.team.updateMoney(by: amount)
+        money.value += amount
+        team.updateMoney(by: amount)
+        guard money.value >= 0 else {
+            preventPlayerBankruptcy(amount: money.value)
+            return
+        }
+    }
+
+    func updateMoney(to amount: Int) {
+        updateMoney(by: amount - money.value)
+    }
+
+    func canBuyUpgrade() -> Bool {
+        return ship.isDocked
     }
 
     func endTurn() {

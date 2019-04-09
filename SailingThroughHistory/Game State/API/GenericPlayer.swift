@@ -10,7 +10,7 @@ import Foundation
 
 protocol GenericPlayer: class, Codable {
     var name: String { get }
-    var team:  Team { get }
+    var team: Team { get }
     var money: GameVariable<Int> { get }
     var currentCargoWeight: Int { get }
     var weightCapacity: Int { get }
@@ -25,7 +25,9 @@ protocol GenericPlayer: class, Codable {
     func addShipsToMap(map: Map)
 
     // update money
+    func updateMoney(to amount: Int)
     func updateMoney(by amount: Int)
+    func canBuyUpgrade() -> Bool
 
     // Subscribes
     func subscribeToItems(with observer: @escaping (GenericPlayer, [GenericItem]) -> Void)

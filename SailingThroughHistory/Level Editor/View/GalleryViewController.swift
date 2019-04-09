@@ -65,6 +65,8 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let gameParameter: GameParameter = storage.readLevelData(levelName) else {
             let alert = UIAlert(errorMsg: "Level broken. Level data is deleted.", msg: nil)
             alert.present(in: self)
+            levelNames = storage.getAllRecords()
+            self.collectionView.reloadData()
             return
         }
         self.dismiss(animated: true, completion: {

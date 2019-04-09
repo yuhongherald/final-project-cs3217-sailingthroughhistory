@@ -131,7 +131,7 @@ class GameState: GenericGameState {
             }
             let player = Player(name: roomPlayer.playerName, team: team, map: map,
                                 node: node, deviceId: roomPlayer.deviceId)
-            player.money.value = unwrappedParam.getMoney()
+            player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self
             players.append(player)
         }
