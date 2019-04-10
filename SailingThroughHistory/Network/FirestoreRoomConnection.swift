@@ -70,22 +70,25 @@ class FirebaseRoomConnection: RoomConnection {
                               completion callback: @escaping (RoomConnection?, Error?) -> Void) {
         let connection = FirebaseRoomConnection(forRoom: room.name)
 
-        func joinRoom(completion: @escaping (Error?) -> Void) {
-            connection.playersCollectionRef.document(connection.deviceId)
-                .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970]) { (error) in
-                completion(error)
+        func joinRoom(completion: @escaping (Error?) -> Void, numOfPlayers: Int) {
+            for index in 0..<numOfPlayers {
+                connection.playersCollectionRef.document("No. \(index) " + connection.deviceId)
+                    .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970]) { (error) in
+                    completion(error)
+                }
             }
         }
 
-        func createAndJoinRoom(completion: @escaping (Error?) -> Void) {
+        func createAndJoinRoom(completion: @escaping (Error?) -> Void, numOfPlayers: Int) {
             let batch = Firestore.firestore().batch()
             let data: [String: Any] = [FirestoreConstants.roomMasterKey: connection.deviceId,
                         FirestoreConstants.roomStartedKey: false]
             batch.setData(data, forDocument: connection.roomDocumentRef)
             connection.roomDocumentRef.setData([FirestoreConstants.roomMasterKey: connection.deviceId])
-            connection.playersCollectionRef.document(connection.deviceId)
-                .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970])
-
+            for index in 0..<numOfPlayers {
+                connection.playersCollectionRef.document("No. \(index) " + connection.deviceId)
+                    .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970])
+            }
             batch.commit(completion: completion)
         }
 
@@ -114,10 +117,11 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
+            // TODO: remove hardcode
             if let document = snapshot, document.exists {
-                joinRoom(completion: postJoinActions)
+                joinRoom(completion: postJoinActions, numOfPlayers: 2)
             } else {
-                createAndJoinRoom(completion: postJoinActions)
+                createAndJoinRoom(completion: postJoinActions, numOfPlayers: 2)
             }
         }
     }
@@ -227,11 +231,12 @@ class FirebaseRoomConnection: RoomConnection {
             let players = snapshot.documents.map { (document) -> RoomMember in
                 let team = document.get(FirestoreConstants.playerTeamKey) as? String
                 let player = document.documentID
-                return RoomMember(playerName: player, teamName: team, deviceId: document.documentID)
+                return RoomMember(playerName: player, teamName: team, deviceId: self.deviceId)
             }
 
             callback(players)
         }
+
         listeners.append(listener)
     }
 

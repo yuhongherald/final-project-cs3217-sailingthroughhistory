@@ -55,7 +55,7 @@ class WaitingRoom {
 
     func changeTeam() {
         guard teamNames.count > 0,
-            let playerIndex = players.firstIndex(where: { $0.playerName == identifier }) else {
+            let playerIndex = players.firstIndex(where: { $0.deviceId == identifier }) else {
             return
         }
 
