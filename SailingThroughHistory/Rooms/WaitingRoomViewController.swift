@@ -32,7 +32,7 @@ class WaitingRoomViewController: UIViewController {
         let waitingRoom = WaitingRoom(fromConnection: roomConnection)
         subscribeToGameStart()
         self.waitingRoom = waitingRoom
-        dataSource = MembersTableDataSource(withView: playersTableView, withRoom: waitingRoom)
+        dataSource = MembersTableDataSource(withView: playersTableView, withRoom: waitingRoom, mainController: self)
         playersTableView.dataSource = dataSource
     }
 

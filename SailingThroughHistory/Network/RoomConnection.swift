@@ -38,4 +38,6 @@ protocol RoomConnection {
     func subscribeToStart(with callback: @escaping (GameState, Data) -> Void)
 
     func changeTeamName(for identifier: String, to teamName: String)
+
+    func remove(player: String, with callback: @escaping (String) -> Void)
 }

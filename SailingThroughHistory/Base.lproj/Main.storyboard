@@ -405,33 +405,53 @@
                                             <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8T-uM-dzM">
-                                                    <rect key="frame" x="56" y="11" width="57" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8T-uM-dzM">
+                                                    <rect key="frame" x="10" y="7.5" width="300" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="drm-Ed-aGr"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6Z-14-FDQ" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                                    <rect key="frame" x="813" y="6" width="94" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6Z-14-FDQ" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                                    <rect key="frame" x="871" y="1.5" width="143" height="41"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <state key="normal" title="Change Team"/>
                                                     <connections>
                                                         <action selector="changeButtonPressed:" destination="VTi-qS-msc" eventType="touchUpInside" id="wbq-2G-BKa"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33S-f6-CcL">
-                                                    <rect key="frame" x="241" y="7" width="84" height="29"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9v-WT-7Gd" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                                    <rect key="frame" x="777" y="1.5" width="84" height="41"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                    <state key="normal" title="Remove"/>
+                                                    <connections>
+                                                        <action selector="removeButtonPressed:" destination="VTi-qS-msc" eventType="touchUpInside" id="idA-sg-jsF"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33S-f6-CcL">
+                                                    <rect key="frame" x="320" y="7.5" width="57" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="m6Z-14-FDQ" firstAttribute="leading" secondItem="m9v-WT-7Gd" secondAttribute="trailing" constant="10" id="Kfa-f5-Nao"/>
+                                                <constraint firstAttribute="trailing" secondItem="m6Z-14-FDQ" secondAttribute="trailing" constant="10" id="L63-45-lXH"/>
+                                                <constraint firstItem="33S-f6-CcL" firstAttribute="centerY" secondItem="D8T-uM-dzM" secondAttribute="centerY" id="OMh-0J-tnG"/>
+                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="ct5-eU-W0O"/>
+                                                <constraint firstItem="m9v-WT-7Gd" firstAttribute="centerY" secondItem="D8T-uM-dzM" secondAttribute="centerY" id="eyZ-tm-Ybh"/>
+                                                <constraint firstItem="33S-f6-CcL" firstAttribute="leading" secondItem="D8T-uM-dzM" secondAttribute="trailing" constant="10" id="m9o-Y1-ui3"/>
+                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="leading" secondItem="k2O-DD-H3u" secondAttribute="leading" constant="10" id="nGE-7S-th2"/>
+                                                <constraint firstItem="m6Z-14-FDQ" firstAttribute="centerY" secondItem="D8T-uM-dzM" secondAttribute="centerY" id="rxU-28-Rrc"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="changeButtonPressed" destination="m6Z-14-FDQ" id="z7O-qJ-Gow"/>
+                                            <outlet property="changeButton" destination="m6Z-14-FDQ" id="z7O-qJ-Gow"/>
                                             <outlet property="playerNameLabel" destination="D8T-uM-dzM" id="pML-VR-pfY"/>
+                                            <outlet property="removeButton" destination="m9v-WT-7Gd" id="Lwe-KK-iFM"/>
                                             <outlet property="teamNameLabel" destination="33S-f6-CcL" id="vcb-D3-ru3"/>
                                         </connections>
                                     </tableViewCell>

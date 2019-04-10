@@ -30,6 +30,7 @@ enum FirestoreConstants {
     static let roomMasterKey = "RoomMaster"
     static let roomStartedKey = "started"
     static let playerTeamKey = "Team"
+    static let playerDeviceKey = "Device"
     static let teamsKey = "Teams"
     static let backgroundUrlKey = "backgroundUrl"
 }

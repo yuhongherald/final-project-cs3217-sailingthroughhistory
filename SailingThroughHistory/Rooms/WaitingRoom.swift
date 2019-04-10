@@ -65,6 +65,10 @@ class WaitingRoom {
         connection.changeTeamName(for: player.playerName, to: newTeamName)
     }
 
+    func remove(player playerName: String, with errorCallback: @escaping (String) -> Void) {
+        connection.remove(player: playerName, with: errorCallback)
+    }
+
     private func updateTeamList() {
         guard isRoomMaster(),
             let parameters = parameters else {
