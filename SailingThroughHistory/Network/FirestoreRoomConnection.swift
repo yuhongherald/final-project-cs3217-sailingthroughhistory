@@ -15,6 +15,7 @@ import os
 class FirebaseRoomConnection: RoomConnection {
     private let deviceId: String
     private(set) var roomMasterId: String
+    private var numOfPlayers: Int
     private let roomName: String
     private var heartbeatTimer: Timer?
     private var listeners = [ListenerRegistration]()
@@ -38,6 +39,10 @@ class FirebaseRoomConnection: RoomConnection {
         return roomDocumentRef.collection(FirestoreConstants.playersCollectionName)
     }
 
+    private var devicesCollectionRef: CollectionReference {
+        return roomDocumentRef.collection(FirestoreConstants.devicesCollectionName)
+    }
+
     init(forRoom roomName: String) {
         self.roomName = roomName
         guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
@@ -46,9 +51,10 @@ class FirebaseRoomConnection: RoomConnection {
 
         self.deviceId = deviceId
         self.roomMasterId = ""
+        self.numOfPlayers = 1
     }
 
-    private func subscribeRemoval(removalCallback: @escaping () -> Void) {
+    private func subscribeRemoval(removalCallback: @escaping () -> Void, player playerId: String) {
         listeners.append(roomDocumentRef.addSnapshotListener { (document, _) in
             if let document = document {
                 if !document.exists {
@@ -57,7 +63,7 @@ class FirebaseRoomConnection: RoomConnection {
             }
         })
 
-        listeners.append(playersCollectionRef.document(deviceId).addSnapshotListener { (document, _) in
+        listeners.append(playersCollectionRef.document(playerId).addSnapshotListener { (document, _) in
             if let document = document {
                 if !document.exists {
                     removalCallback()
@@ -70,60 +76,88 @@ class FirebaseRoomConnection: RoomConnection {
                               completion callback: @escaping (RoomConnection?, Error?) -> Void) {
         let connection = FirebaseRoomConnection(forRoom: room.name)
 
-        func joinRoom(completion: @escaping (Error?) -> Void, numOfPlayers: Int) {
-            for index in 0..<numOfPlayers {
-                connection.playersCollectionRef.document("No. \(index) " + connection.deviceId)
-                    .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970]) { (error) in
-                    completion(error)
-                }
-            }
-        }
-
-        func createAndJoinRoom(completion: @escaping (Error?) -> Void, numOfPlayers: Int) {
-            let batch = Firestore.firestore().batch()
-            let data: [String: Any] = [FirestoreConstants.roomMasterKey: connection.deviceId,
-                        FirestoreConstants.roomStartedKey: false]
-            batch.setData(data, forDocument: connection.roomDocumentRef)
-            connection.roomDocumentRef.setData([FirestoreConstants.roomMasterKey: connection.deviceId])
-            for index in 0..<numOfPlayers {
-                connection.playersCollectionRef.document("No. \(index) " + connection.deviceId)
-                    .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970])
-            }
-            batch.commit(completion: completion)
-        }
-
-        func postJoinActions(error: Error?) {
-            if let error = error {
-                callback(nil, error)
-            }
-            connection.subscribeRemoval(removalCallback: removedCallback)
-            connection.heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
-                connection.sendAndCheckHeartBeat()
-            })
-            connection.heartbeatTimer?.fire()
-            connection.roomDocumentRef.getDocument { (querySnapshot, error) in
-                guard let document = querySnapshot, error == nil else {
-                    print("Failed to update master Id. Error: \(String(describing: error))")
-                    return
-                }
-                connection.roomMasterId = document.get(FirestoreConstants.roomMasterKey) as? String ?? ""
-            }
-            callback(connection, error)
-        }
-
         connection.roomDocumentRef.getDocument { (snapshot, error) in
             if let error = error {
                 callback(nil, error)
                 return
             }
 
-            // TODO: remove hardcode
             if let document = snapshot, document.exists {
-                joinRoom(completion: postJoinActions, numOfPlayers: 2)
+                connection.joinRoom(completion: connection.postJoinActions(removed: removedCallback, completion: callback))
             } else {
-                createAndJoinRoom(completion: postJoinActions, numOfPlayers: 2)
+                connection.createAndJoinRoom(completion: connection.postJoinActions(removed: removedCallback, completion: callback))
             }
         }
+    }
+
+    func join(removed removedCallback: @escaping () -> Void,
+              completion callback: @escaping (RoomConnection?, Error?) -> Void) {
+        joinRoom(completion: self.postJoinActions(removed: removedCallback, completion: callback))
+    }
+
+    func getNewPlayerIndex() -> Int {
+        self.devicesCollectionRef.document(self.deviceId).getDocument { (snapshot, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+
+            if let document = snapshot, document.exists, let num = document.get(FirestoreConstants.numPlayersKey) as? Int {
+                print(self.numOfPlayers)
+            } else {
+                self.devicesCollectionRef.document(self.deviceId).setData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
+            }
+        }
+        return self.numOfPlayers
+    }
+
+    func joinRoom(completion: @escaping (String) -> ((Error?) -> Void)) {
+        let playerId = "No. \(getNewPlayerIndex()) " + self.deviceId
+        self.playersCollectionRef.document(playerId)
+            .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970]) { (error) in
+                completion(playerId)(error)
+        }
+    }
+
+    func createAndJoinRoom(completion: @escaping (String) -> ((Error?) -> Void)) {
+        let batch = Firestore.firestore().batch()
+        let data: [String: Any] = [FirestoreConstants.roomMasterKey: self.deviceId,
+                                   FirestoreConstants.roomStartedKey: false]
+        batch.setData(data, forDocument: self.roomDocumentRef)
+        self.roomDocumentRef.setData([FirestoreConstants.roomMasterKey: self.deviceId])
+        let playerId = "No. \(getNewPlayerIndex()) " + self.deviceId
+        self.playersCollectionRef.document(playerId)
+            .setData([FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970])
+        batch.commit(completion: completion(playerId))
+    }
+
+    func postJoinActions(removed removedCallback: @escaping () -> Void,
+                         completion callback: @escaping (RoomConnection?, Error?) -> Void)
+        -> (String) -> ((Error?) -> Void) {
+        
+        let function: (String) -> ((Error?) ->Void) = { playerId in
+            let completion: (Error?) -> Void = { error in
+                if let error = error {
+                    callback(nil, error)
+                }
+                self.subscribeRemoval(removalCallback: removedCallback, player: playerId)
+                self.heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
+                    self.sendAndCheckHeartBeat()
+                })
+                self.heartbeatTimer?.fire()
+                self.numOfPlayers += 1
+                self.devicesCollectionRef.document(self.deviceId).updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
+                self.roomDocumentRef.getDocument { (querySnapshot, error) in
+                    guard let document = querySnapshot, error == nil else {
+                        print("Failed to update master Id. Error: \(String(describing: error))")
+                        return
+                    }
+                    self.roomMasterId = document.get(FirestoreConstants.roomMasterKey) as? String ?? ""
+                }
+                callback(self, error)
+            }
+            return completion
+        }
+        return function
     }
 
     private func sendAndCheckHeartBeat() {

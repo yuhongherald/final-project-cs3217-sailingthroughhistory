@@ -10,7 +10,7 @@ import UIKit
 
 class WaitingRoomViewController: UIViewController {
 
-    @IBOutlet private weak var changeTeamButton: UIButtonRounded!
+    @IBOutlet weak var joinPlayerButton: UIButtonRounded!
     @IBOutlet private weak var chooseLevelButton: UIButtonRounded!
     @IBOutlet private weak var playersTableView: UITableView!
     private var dataSource: MembersTableDataSource?
@@ -43,6 +43,23 @@ class WaitingRoomViewController: UIViewController {
         }
 
         performSegue(withIdentifier: "waitingRoomToGallery", sender: nil)
+    }
+
+    @IBAction func joinPlayerPressed(_ sender: Any) {
+        roomConnection?.join(removed: { [weak self] in
+            let alert = ControllerUtils.getGenericAlert(titled: "You have been removed from the room.", withMsg: "") {
+                self?.dismiss(animated: true, completion: nil)
+            }
+            self?.present(alert, animated: true, completion: nil)
+        }, completion: { [weak self] (connection, error) in
+            guard error == nil else {
+                let alert = ControllerUtils.getGenericAlert(titled: "Error joining room.", withMsg: "") {
+                    self?.dismiss(animated: true, completion: nil)
+                }
+                self?.present(alert, animated: true, completion: nil)
+                return
+            }
+        })
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -82,10 +99,6 @@ class WaitingRoomViewController: UIViewController {
         let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(), network: roomConnection, startingState: initialState, deviceId: self.getWaitingRoom().identifier)
         gameController.turnSystem = system
         gameController.backgroundData = imageData
-    }
-
-    @IBAction func changeTeamPressed(_ sender: Any) {
-        waitingRoom?.changeTeam()
     }
 
     @IBAction func startGamePressed(_ sender: Any) {

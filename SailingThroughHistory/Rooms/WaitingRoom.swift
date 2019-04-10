@@ -53,9 +53,9 @@ class WaitingRoom {
         return identifier == connection.roomMasterId
     }
 
-    func changeTeam() {
+    func changeTeam(of identifier: String) {
         guard teamNames.count > 0,
-            let playerIndex = players.firstIndex(where: { $0.deviceId == identifier }) else {
+            let playerIndex = players.firstIndex(where: { $0.playerName == identifier }) else {
             return
         }
 

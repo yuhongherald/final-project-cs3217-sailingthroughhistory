@@ -9,6 +9,7 @@
 import UIKit
 
 class MembersTableDataSource: NSObject, UITableViewDataSource {
+    private static let reuseIdentifier = "waitingRoomCell"
     private let view: UITableView
     private var waitingRoom: WaitingRoom
 
@@ -26,11 +27,17 @@ class MembersTableDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value2, reuseIdentifier: nil)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MembersTableDataSource.reuseIdentifier,
+                                                       for: indexPath)
+            as? WaitingRoomViewCell else {
+                fatalError("Cells are not instances of RoomViewCell")
+        }
         let player = waitingRoom.players[indexPath.row]
-
-        cell.textLabel?.text = player.playerName
-        cell.detailTextLabel?.text = player.teamName ?? "No team"
+        cell.changeButtonPressedCallback = { [weak self] in
+            self?.waitingRoom.changeTeam(of: player.playerName)
+        }
+        cell.set(playerName: player.playerName)
+        cell.set(teamName: player.teamName ?? "No team")
         return cell
     }
 }

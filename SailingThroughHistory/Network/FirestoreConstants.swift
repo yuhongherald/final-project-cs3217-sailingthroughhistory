@@ -22,6 +22,7 @@ enum FirestoreConstants {
     static let errorCategory = "Firebase"
     static let numPlayersKey = "NumPlayers"
     static let playersCollectionName = "Players"
+    static let devicesCollectionName = "Devices"
     static let lastHeartBeatKey = "LastHeartBeat"
     static let pushStateErrorMsg: StaticString = "Failed to push state"
     static let encodeStateErrorMsg = "Failed to encode state"
