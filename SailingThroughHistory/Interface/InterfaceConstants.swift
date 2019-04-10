@@ -13,5 +13,6 @@ enum InterfaceConstants {
     static let cargoPrefix = "Current Cargo Weight: "
     static let capacityPrefix = "Weight Capacity: "
     static let itemQuantityPrefix = "x"
+    static let waitingForOthersMsg = "Waiting for other players to finish."
     static let defaultAnimationDuration: TimeInterval = 0.25
 }

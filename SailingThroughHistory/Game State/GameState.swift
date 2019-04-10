@@ -9,11 +9,12 @@
 import Foundation
 
 class GameState: GenericGameState {
-    var gameTime: GameTime
+    var gameTime: GameVariable<GameTime>
     var gameObjects: [GameObject] {
         return map.gameObjects.value
     }
-    var itemParameters = [ItemParameter]()
+    let availableUpgrades: [Upgrade]
+    var itemParameters: [GameVariable<ItemParameter>]
 
     private(set) var map: Map
     private var teams = [Team]()
@@ -23,11 +24,15 @@ class GameState: GenericGameState {
     private var playerTurnOrder = [GenericPlayer]()
 
     init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
-        gameTime = GameTime(baseYear: baseYear)
+        gameTime = GameVariable(value: GameTime(baseYear: baseYear))
         teams = level.teams
         //initializePlayersFromParameters(parameters: level.playerParameters)
         map = level.map
-        itemParameters = level.itemParameters
+        availableUpgrades = level.upgrades
+        itemParameters = [GameVariable<ItemParameter>]()
+        for itemParameter in level.itemParameters {
+            itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
+        }
         initializePlayers(from: level.playerParameters, for: players)
         self.players.forEach {
             $0.addShipsToMap(map: map)
@@ -36,12 +41,20 @@ class GameState: GenericGameState {
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        try gameTime = values.decode(GameTime.self, forKey: .gameTime)
+        try gameTime = GameVariable(value: values.decode(GameTime.self, forKey: .gameTime))
         try map = values.decode(Map.self, forKey: .map)
-        try itemParameters = values.decode([ItemParameter].self, forKey: .itemParameters)
+        let itemParameters = try values.decode([ItemParameter].self, forKey: .itemParameters)
+        self.itemParameters = [GameVariable<ItemParameter>]()
+        for itemParameter in itemParameters {
+            self.itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
+        }
+
         try teams = values.decode([Team].self, forKey: .teams)
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
+
+        let upgradeTypes = try values.decode([UpgradeType].self, forKey: .availableUpgrades)
+        availableUpgrades = upgradeTypes.map { $0.toUpgrade() }
 
         for player in players {
             player.map = map
@@ -63,12 +76,17 @@ class GameState: GenericGameState {
             return
         }
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(gameTime, forKey: .gameTime)
+        try container.encode(gameTime.value, forKey: .gameTime)
         try container.encode(map, forKey: .map)
+        let itemParameters = self.itemParameters.map {
+            return $0.value
+        }
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(teams, forKey: .teams)
         try container.encode(players, forKey: .players)
         try container.encode(speedMultiplier, forKey: .speedMultiplier)
+        let upgradeTypes = availableUpgrades.map { $0.type }
+        try container.encode(upgradeTypes, forKey: .availableUpgrades)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -78,6 +96,7 @@ class GameState: GenericGameState {
         case teams
         case players
         case speedMultiplier
+        case availableUpgrades
     }
 
     func getPlayers() -> [GenericPlayer] {
@@ -128,7 +147,7 @@ class GameState: GenericGameState {
             if !teams.contains(where: {$0.name == team.name}) {
                 teams.append(team)
             }
-            let player = Player(name: roomPlayer.playerName, team: team, map: map,
+            let player = Player(name: String(roomPlayer.playerName.suffix(5)), team: team, map: map,
                                 node: node, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self

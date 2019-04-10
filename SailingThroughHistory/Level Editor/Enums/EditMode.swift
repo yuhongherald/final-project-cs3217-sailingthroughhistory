@@ -13,6 +13,7 @@ enum EditMode {
     case path
     case port
     case pirate
+    case weather
     case item
     case erase
 

@@ -9,6 +9,9 @@
 import Foundation
 
 class MercernaryUpgrade: AuxiliaryUpgrade {
+    override var type: UpgradeType {
+         return .mercernary
+    }
     override var name: String {
         return "Mercernary"
     }

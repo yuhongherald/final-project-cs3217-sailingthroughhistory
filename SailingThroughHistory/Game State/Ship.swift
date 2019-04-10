@@ -35,9 +35,9 @@ class Ship: Codable {
     var weightCapacity: Int {
         return weightCapacityVariable.value
     }
-    private let nodeIdVariable: GameVariable<Int>
+    let nodeIdVariable: GameVariable<Int> // public for events
     private weak var owner: GenericPlayer?
-    private var items = GameVariable<[GenericItem]>(value: [])
+    var items = GameVariable<[GenericItem]>(value: []) // public for events
     private var currentCargoWeightVariable = GameVariable<Int>(value: 0)
     private var weightCapacityVariable = GameVariable<Int>(value: 100)
     private(set) var isDocked = false
@@ -63,8 +63,17 @@ class Ship: Codable {
         nodeIdVariable = GameVariable(value: try values.decode(Int.self, forKey: .nodeID))
         suppliesConsumed = try values.decode([Item].self, forKey: .items)
         items.value = try values.decode([Item].self, forKey: .items)
-        shipChassis = try values.decode(ShipChassis.self, forKey: .shipChassis)
-        auxiliaryUpgrade = try values.decode(AuxiliaryUpgrade.self, forKey: .auxiliaryUpgrade)
+
+        if values.contains(.auxiliaryUpgrade) {
+            let auxiliaryType = try values.decode(UpgradeType.self, forKey: .auxiliaryUpgrade)
+            auxiliaryUpgrade = auxiliaryType.toUpgrade() as? AuxiliaryUpgrade
+        }
+
+        if values.contains(.shipChassis) {
+            let shipChassisType = try values.decode(UpgradeType.self, forKey: .shipChassis)
+            shipChassis = shipChassisType.toUpgrade() as? ShipChassis
+        }
+
         shipUI = ShipUI(ship: self)
     }
 
@@ -77,8 +86,12 @@ class Ship: Codable {
         try container.encode(nodeId, forKey: .nodeID)
         try container.encode(suppliesConsumed, forKey: .suppliesConsumed)
         try container.encode(shipItems, forKey: .items)
-        try container.encode(shipChassis, forKey: .shipChassis)
-        try container.encode(auxiliaryUpgrade, forKey: .auxiliaryUpgrade)
+        if let shipChassis = shipChassis {
+            try container.encode(shipChassis.type, forKey: .shipChassis)
+        }
+        if let auxiliaryUpgrade = auxiliaryUpgrade {
+            try container.encode(auxiliaryUpgrade.type, forKey: .auxiliaryUpgrade)
+        }
     }
 
     private enum CodingKeys: String, CodingKey {

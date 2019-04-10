@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UIPortItemTableCell: UITableViewCell {
+class UITradeTableCell: UITableViewCell {
 
     @IBOutlet private weak var itemNameLabel: UILabel!
     @IBOutlet private weak var itemPriceLabel: UILabel!
