@@ -13,7 +13,7 @@ class Map: Codable {
     var bounds: Rect
     var nodeIDPair: [Int: Node]
     private(set) var gameObjects = GameVariable(value: [GameObject]())
-    private var nodes = GameVariable(value: Set<Node>())
+    var nodes = GameVariable(value: Set<Node>()) // need acces to nodes and paths
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
     private var paths: [Node: [Path]] {
         set {

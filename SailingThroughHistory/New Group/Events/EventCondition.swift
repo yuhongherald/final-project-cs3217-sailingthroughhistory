@@ -6,7 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class EventCondition<T> {
+class EventCondition<T>: Printable, Evaluate {
+    var displayName: String = "condition"
+    
+    
     private let firstEvaluatable: Evaluatable<T>
     private let secondEvaluatable: Evaluatable<T>
     private let changeOperator: GenericComparator

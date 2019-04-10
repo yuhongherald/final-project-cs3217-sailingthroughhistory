@@ -20,6 +20,9 @@ protocol GenericPlayer: class, Codable {
     var deviceId: String { get }
     var map: Map? { get set }
     var gameState: GenericGameState? { get set }
+    // for events
+    var playerShip: Ship { get }
+    var homeNode: Node { get }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter?
     func addShipsToMap(map: Map)
@@ -36,7 +39,7 @@ protocol GenericPlayer: class, Codable {
     func subscribeToMoney(with observer: @escaping (GenericPlayer, Int) -> Void)
 
     // Before moving
-    func startTurn(speedMultiplier: Double, map: Map?)
+    func startTurn(speedMultiplier: Double, map: Map?) -> InfoMessage?
     func buyUpgrade(upgrade: Upgrade)
     func roll() -> (Int, [Int])
 
@@ -47,7 +50,7 @@ protocol GenericPlayer: class, Codable {
 
     // After moving can choose to dock
     func canDock() -> Bool
-    func dock()
+    func dock() throws
 
     // Docked - End turn is manual here
     func getPurchasableItemTypes() -> [ItemType]
