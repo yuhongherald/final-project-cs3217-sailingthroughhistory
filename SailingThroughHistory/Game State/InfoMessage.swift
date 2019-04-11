@@ -8,7 +8,7 @@
 
 import Foundation
 
-class InfoMessage {
+struct InfoMessage {
     let title: String
     let message: String
 

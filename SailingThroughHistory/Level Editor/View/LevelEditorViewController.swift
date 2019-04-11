@@ -334,8 +334,14 @@ class LevelEditorViewController: UIViewController {
             bazier.addLine(to: toNode.center)
 
             let path = Path(from: fromNode.node, to: toNode.node)
+            let pathReversed = Path(from: toNode.node, to: fromNode.node)
+            if gameParameter.map.getAllPaths().contains(path) {
+                lineLayer.removeFromSuperlayer()
+                return
+            }
             lineLayer.set(path: path)
             gameParameter.map.add(path: path)
+            gameParameter.map.add(path: pathReversed)
             lineLayer.path = bazier.cgPath
             lineLayerArr.append(lineLayer)
         default:

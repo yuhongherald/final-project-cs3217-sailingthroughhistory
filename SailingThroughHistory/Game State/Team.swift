@@ -41,3 +41,9 @@ class Team: GenericTeam {
         case money
     }
 }
+
+extension Team: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+}

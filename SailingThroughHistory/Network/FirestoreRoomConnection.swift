@@ -160,10 +160,10 @@ class FirebaseRoomConnection: RoomConnection {
     func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws {
         let reference = Storage.storage().reference().child(deviceId).child("background.png")
         let path = reference.fullPath
-        Storage.storage().reference().child(deviceId).child("background.png")
+        reference
             .putData(background, metadata: StorageMetadata()) { [weak self] (metadata, error) in
             guard error == nil, let self = self else {
-                print(error)
+                print(error ?? "Error starting game")
                 return
             }
             let batch = FirestoreConstants.firestore.batch()
@@ -171,7 +171,8 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
-            batch.setData(data, forDocument: self.modelCollectionRef.document(FirestoreConstants.initialStateDocumentName))
+            batch.setData(data,
+                          forDocument: self.modelCollectionRef.document(FirestoreConstants.initialStateDocumentName))
             batch.updateData([FirestoreConstants.roomStartedKey: true,
                               FirestoreConstants.backgroundUrlKey: path], forDocument: self.roomDocumentRef)
 

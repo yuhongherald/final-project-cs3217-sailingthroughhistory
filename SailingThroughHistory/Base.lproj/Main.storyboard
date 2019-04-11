@@ -119,7 +119,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="301.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iA3-Hc-Ypi" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iA3-Hc-Ypi" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
                                                             <rect key="frame" x="235.5" y="7" width="46" height="30"/>
                                                             <state key="normal" title="Button"/>
                                                             <userDefinedRuntimeAttributes>
@@ -131,13 +131,13 @@
                                                                 <action selector="buttonPressed:" destination="TgA-2g-eO7" eventType="touchUpInside" id="6V6-Vd-i5a"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJF-5e-gmU">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJF-5e-gmU">
                                                             <rect key="frame" x="20" y="11.5" width="42" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Kw-4O-cjJ">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Kw-4O-cjJ">
                                                             <rect key="frame" x="185.5" y="11.5" width="42" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -297,6 +297,27 @@
                                     <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RLV-hu-dVC"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyb-KI-RoB" userLabel="TeamScores" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="268" y="20" width="308" height="154.5"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2pE-Mj-glV">
+                                        <rect key="frame" x="20" y="60" width="268" height="74.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="2pE-Mj-glV" firstAttribute="top" secondItem="iyb-KI-RoB" secondAttribute="top" constant="60" id="NPg-MI-wXQ"/>
+                                    <constraint firstItem="2pE-Mj-glV" firstAttribute="leading" secondItem="iyb-KI-RoB" secondAttribute="leading" constant="20" symbolic="YES" id="SJz-e9-erS"/>
+                                    <constraint firstAttribute="bottom" secondItem="2pE-Mj-glV" secondAttribute="bottom" constant="20" symbolic="YES" id="qSl-gy-g6E"/>
+                                    <constraint firstAttribute="trailing" secondItem="2pE-Mj-glV" secondAttribute="trailing" constant="20" symbolic="YES" id="qz3-gx-uce"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFT-em-0mO" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="260" height="384"/>
                                 <subviews>
@@ -356,11 +377,20 @@
                                     <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HBT-Te-ZcG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQt-yR-Dfx" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="335" y="40" width="174" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Toggle Team Scores"/>
+                                <connections>
+                                    <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eft-go-7l6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="top" secondItem="6nf-n2-xli" secondAttribute="bottom" constant="8" symbolic="YES" id="2yt-xV-pR4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q59-92-ecD" secondAttribute="trailing" id="4Qh-5t-DYv"/>
+                            <constraint firstItem="iyb-KI-RoB" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="trailing" constant="8" symbolic="YES" id="4WX-9T-WFk"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="93w-mA-raU"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="BKh-th-Hki"/>
                             <constraint firstItem="q59-92-ecD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="GIX-ZC-G64"/>
@@ -369,20 +399,27 @@
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Lnl-P6-45G"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mu4-Ie-cT6"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NQy-MG-Yoo"/>
+                            <constraint firstItem="aQt-yR-Dfx" firstAttribute="centerX" secondItem="iyb-KI-RoB" secondAttribute="centerX" id="OUK-pt-ldD"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ObH-J3-fir"/>
+                            <constraint firstItem="iyb-KI-RoB" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" constant="1" id="Q7F-SB-aB9"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qob-fY-pBc"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QxV-sm-yoD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="bottom" id="Ra9-H3-yrl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5Pn-jO-5xF" secondAttribute="bottom" id="SYJ-Zq-Z6f"/>
+                            <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iyb-KI-RoB" secondAttribute="bottom" id="SkV-Lv-W1I"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="trailing" id="TN5-7n-QWa"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" secondItem="q59-92-ecD" secondAttribute="bottom" constant="8" symbolic="YES" id="UM2-e4-dHz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hZq-3R-NvY" secondAttribute="trailing" constant="20" id="Vt9-SE-p5s"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iyb-KI-RoB" secondAttribute="trailing" id="ajS-7o-x4H"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8nQ-Ii-rtZ" secondAttribute="bottom" constant="20" id="bKO-yM-4fV"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bi8-FO-wpf"/>
                             <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="c9z-LJ-iXg"/>
+                            <constraint firstItem="aQt-yR-Dfx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="trailing" constant="8" symbolic="YES" id="d91-cM-ayZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yCl-MH-qBd" secondAttribute="trailing" id="dcP-PR-GRl"/>
+                            <constraint firstItem="aQt-yR-Dfx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="fCd-K1-qb7"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="g3t-Hd-j3k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yCl-MH-qBd" secondAttribute="bottom" id="gCr-h2-CW3"/>
+                            <constraint firstItem="iyb-KI-RoB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gUd-6t-3Zs"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="gVl-OD-3BP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="bottom" id="hhb-JF-26f"/>
                             <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="jGQ-tS-9AB"/>
@@ -395,8 +432,11 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6nf-n2-xli" secondAttribute="bottom" id="omC-Ki-5LY"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="trailing" secondItem="ue5-3h-dqr" secondAttribute="trailing" constant="20" id="q6n-ny-xUO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="rDM-QC-Hl5"/>
+                            <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aQt-yR-Dfx" secondAttribute="bottom" constant="8" symbolic="YES" id="t83-FX-ZJ9"/>
+                            <constraint firstItem="iyb-KI-RoB" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.2" constant="1" id="u6e-c9-iVy"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="vdp-tX-Jp2"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="w0B-KI-dKf"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aQt-yR-Dfx" secondAttribute="trailing" constant="8" symbolic="YES" id="wwb-OI-ooE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -409,19 +449,22 @@
                         <outlet property="diceResultLabel" destination="pul-tz-1B7" id="zgu-jx-z6U"/>
                         <outlet property="gameAndBackgroundWrapper" destination="Ph7-HO-lQ1" id="pc9-ya-kwM"/>
                         <outlet property="gameArea" destination="Yzi-uC-Odn" id="qRV-20-8r7"/>
-                        <outlet property="playerOneCapacityView" destination="z25-gl-adE" id="Ued-Uk-yUi"/>
-                        <outlet property="playerOneCargoView" destination="5NV-8O-2w1" id="eun-OD-Rk1"/>
-                        <outlet property="playerOneGoldView" destination="edJ-ZT-gPh" id="ALi-DO-pNR"/>
-                        <outlet property="playerOneInformationView" destination="MFT-em-0mO" id="XKf-HX-JgN"/>
-                        <outlet property="playerOneItemsView" destination="B3l-yt-y4u" id="pQx-Pc-Fvt"/>
+                        <outlet property="playerCargoWeightLabel" destination="5NV-8O-2w1" id="eun-OD-Rk1"/>
+                        <outlet property="playerInfoWrapper" destination="MFT-em-0mO" id="XKf-HX-JgN"/>
+                        <outlet property="playerItemsTable" destination="B3l-yt-y4u" id="pQx-Pc-Fvt"/>
+                        <outlet property="playerMoneyLabel" destination="edJ-ZT-gPh" id="ALi-DO-pNR"/>
+                        <outlet property="playerShipCapacityLabel" destination="z25-gl-adE" id="Ued-Uk-yUi"/>
                         <outlet property="portInformationView" destination="hZq-3R-NvY" id="cZb-aG-dOe"/>
                         <outlet property="portItemsTableView" destination="4M7-Lm-ad4" id="t5E-5b-Efn"/>
                         <outlet property="portNameLabel" destination="nnv-LQ-Jez" id="An5-VV-Pv5"/>
                         <outlet property="rollDiceButton" destination="bxt-Al-xiN" id="sr8-uW-nCc"/>
                         <outlet property="scrollView" destination="yCl-MH-qBd" id="sfg-kM-0DH"/>
                         <outlet property="statusLabel" destination="6nf-n2-xli" id="Bas-Lj-mTh"/>
+                        <outlet property="teamScoreTableView" destination="2pE-Mj-glV" id="ULA-HL-hw1"/>
+                        <outlet property="teamScoresWrapper" destination="iyb-KI-RoB" id="KI1-8s-cV6"/>
                         <outlet property="toggleActionPanelButton" destination="8nQ-Ii-rtZ" id="R6d-Il-V9c"/>
-                        <outlet property="togglePlayerOneInfoButton" destination="ue5-3h-dqr" id="KyB-co-3e5"/>
+                        <outlet property="togglePlayerInfoButton" destination="ue5-3h-dqr" id="KyB-co-3e5"/>
+                        <outlet property="toggleTeamScoresButton" destination="aQt-yR-Dfx" id="r0P-4F-BMC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -515,7 +558,7 @@
                                 <rect key="frame" x="0.0" y="20" width="1024" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="roomCell" id="A6R-I0-ua4" customClass="RoomViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="roomCell" id="A6R-I0-ua4" customClass="RoomViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6R-I0-ua4" id="DQK-iJ-Nfl">
@@ -866,7 +909,7 @@
                                 <rect key="frame" x="100" y="50" width="824" height="636"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerIdentifier" rowHeight="100" id="hCx-Uw-VVK" customClass="PlayerTableViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerIdentifier" rowHeight="100" id="hCx-Uw-VVK" customClass="PlayerTableViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="824" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hCx-Uw-VVK" id="8zk-wS-5Ia">
@@ -913,7 +956,7 @@
                                             <outlet property="nameField" destination="5Za-u9-8QA" id="MY9-ZI-ecs"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="turnIdentifier" rowHeight="100" id="vpM-lq-0ZP" customClass="TurnTableViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="turnIdentifier" rowHeight="100" id="vpM-lq-0ZP" customClass="TurnTableViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="128" width="824" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vpM-lq-0ZP" id="88M-e6-Wem">
@@ -1132,7 +1175,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQo-D0-shr">
-                                            <rect key="frame" x="20" y="0.0" width="150" height="50"/>
+                                            <rect key="frame" x="444" y="0.0" width="150" height="50"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Sell Price">
                                                     <attributes>
@@ -1145,7 +1188,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IuS-Sn-of9">
-                                            <rect key="frame" x="220" y="0.0" width="150" height="50"/>
+                                            <rect key="frame" x="644" y="0.0" width="150" height="50"/>
                                             <attributedString key="attributedText">
                                                 <fragment content="Buy Price">
                                                     <attributes>
@@ -1157,7 +1200,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Half Life" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYg-VZ-Gq5">
-                                            <rect key="frame" x="-180" y="10" width="150" height="30"/>
+                                            <rect key="frame" x="244" y="10" width="150" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="150" id="jZG-rv-bbG"/>
                                             </constraints>

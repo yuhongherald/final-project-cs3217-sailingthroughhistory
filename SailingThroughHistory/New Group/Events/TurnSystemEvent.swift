@@ -12,10 +12,7 @@ import Foundation
 class TurnSystemEvent: Unique, Printable {
     var identifier: Int = -1
 
-    private let _displayName: String
-    var displayName: String {
-        return _displayName
-    }
+    let displayName: String
     
     private let triggers: [Trigger]
     private let conditions: [Evaluate]
@@ -26,7 +23,7 @@ class TurnSystemEvent: Unique, Printable {
         self.triggers = triggers
         self.conditions = conditions
         self.actions = actions
-        self._displayName = displayName
+        self.displayName = displayName
     }
 
     func evaluateEvent() -> Bool {
