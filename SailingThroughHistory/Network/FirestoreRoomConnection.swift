@@ -13,6 +13,7 @@ import Foundation
 import os
 
 class FirebaseRoomConnection: RoomConnection {
+    static private let deadTime: TimeInterval = 60
     private let deviceId: String
     private(set) var roomMasterId: String
     private var numOfPlayers: Int
@@ -187,7 +188,7 @@ class FirebaseRoomConnection: RoomConnection {
                     return
                 }
 
-                if currentTime - lastHeartBeat > 60 {
+                if currentTime - lastHeartBeat > FirebaseRoomConnection.deadTime {
                     let deviceName = document.documentID
                     /// Remove player
                     self?.devicesCollectionRef.document(deviceName).delete()
@@ -325,12 +326,9 @@ class FirebaseRoomConnection: RoomConnection {
         playersCollectionRef.document(identifier).updateData([FirestoreConstants.playerTeamKey: teamName])
     }
 
-    func remove(player identifier: String, with callback: @escaping (String) -> Void) {
-        if playersCollectionRef.document(identifier).documentID == self.roomMasterId {
-            callback("Room Master cannot be removed.")
-            return
-        }
+    func remove(player identifier: String) {
         self.numOfPlayers -= 1
+        self.numOfPlayers >= 0 ? self.numOfPlayers : 0
         devicesCollectionRef.document(self.deviceId).updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
         playersCollectionRef.document(identifier).delete()
     }

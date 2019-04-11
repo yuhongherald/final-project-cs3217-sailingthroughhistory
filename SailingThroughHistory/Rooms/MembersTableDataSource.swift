@@ -44,12 +44,9 @@ class MembersTableDataSource: NSObject, UITableViewDataSource {
             self?.waitingRoom.changeTeam(of: player.playerName)
         }
         cell.removeButtonPressedCallback = { [weak self] in
-            self?.waitingRoom.remove(player: player.playerName, with: { error in
-                let alert = ControllerUtils.getGenericAlert(titled: error, withMsg: "")
-                self?.mainController.present(alert, animated: true, completion: nil)
-            })
+            self?.waitingRoom.remove(player: player.playerName)
         }
-        cell.enableButton(player.deviceId == self.deviceId)
+        cell.enableButton(player.deviceId == self.deviceId || waitingRoom.isRoomMaster())
         cell.set(playerName: player.playerName)
         cell.set(teamName: player.teamName ?? "No team")
         return cell

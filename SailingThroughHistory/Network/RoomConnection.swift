@@ -39,5 +39,5 @@ protocol RoomConnection {
 
     func changeTeamName(for identifier: String, to teamName: String)
 
-    func remove(player: String, with callback: @escaping (String) -> Void)
+    func remove(player: String)
 }
