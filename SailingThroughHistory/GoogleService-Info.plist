@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>694369737380-cqeokbvea27to1sb909ccvm0kj8r4v4v.apps.googleusercontent.com</string>
+	<string>112319398809-ugqnpapkcfknteq919mt60aoadb9seh5.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.694369737380-cqeokbvea27to1sb909ccvm0kj8r4v4v</string>
+	<string>com.googleusercontent.apps.112319398809-ugqnpapkcfknteq919mt60aoadb9seh5</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAx8p64F6QGRtmifWyKfKLCf3ycPPuI4h8</string>
+	<string>AIzaSyDSS7hxFH3roKBX9ix5A5OdPWX9b_iLImQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>694369737380</string>
+	<string>112319398809</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>nus.CS3217</string>
+	<string>nus.CS3217.SailingThrougHistory</string>
 	<key>PROJECT_ID</key>
-	<string>sailingthroughhistory</string>
+	<string>sailingthroughhistory-da5e4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sailingthroughhistory.appspot.com</string>
+	<string>sailingthroughhistory-da5e4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:694369737380:ios:c6bcb2095f4eb81e</string>
+	<string>1:112319398809:ios:dab58618dd8e521a</string>
 	<key>DATABASE_URL</key>
-	<string>https://sailingthroughhistory.firebaseio.com</string>
+	<string>https://sailingthroughhistory-da5e4.firebaseio.com</string>
 </dict>
 </plist>
