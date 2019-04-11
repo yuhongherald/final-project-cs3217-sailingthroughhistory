@@ -18,6 +18,6 @@ class VolatileMonsoon: Volatile {
         }
     }
     func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
-        return oldVelocity * modifier * GameConstants.monsoonMultiplier
+        return oldVelocity * modifier * Float(GameConstants.monsoonMultiplier)
     }
 }
