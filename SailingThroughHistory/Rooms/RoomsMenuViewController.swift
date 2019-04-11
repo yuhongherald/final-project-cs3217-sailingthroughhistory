@@ -32,6 +32,7 @@ class RoomsMenuViewController: UIViewController {
         if !canJoinRoom {
             return
         }
+
         canJoinRoom = false
         room.getConnection(removalCallback: { [weak self] in
             let alert = ControllerUtils.getGenericAlert(titled: "You have been removed from the room.", withMsg: "") {

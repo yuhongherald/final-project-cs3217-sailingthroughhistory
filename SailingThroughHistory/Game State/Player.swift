@@ -66,7 +66,8 @@ class Player: GenericPlayer {
         self.map = map
         self.deviceId = deviceId
         ship = Ship(node: node, suppliesConsumed: [])
-        _homeNode = ship.getCurrentNode()
+        //_homeNode = ship.getCurrentNode()
+        _homeNode = Node(name: "randome", frame: Rect(originX: 0, originY: 0, height: 0, width: 0))
         ship.setOwner(owner: self)
         ship.setMap(map: map)
     }
@@ -79,7 +80,8 @@ class Player: GenericPlayer {
         ship = try values.decode(Ship.self, forKey: .ship)
         deviceId = try values.decode(String.self, forKey: .deviceId)
 
-        _homeNode = ship.getCurrentNode()
+        //_homeNode = ship.getCurrentNode()
+        _homeNode = Node(name: "randome", frame: Rect(originX: 0, originY: 0, height: 0, width: 0))
         ship.setOwner(owner: self)
     }
 
@@ -102,12 +104,13 @@ class Player: GenericPlayer {
         ship.setLocation(map: map)
     }
 
-    func startTurn(speedMultiplier: Double, map: Map?) {
+    func startTurn(speedMultiplier: Double, map: Map?) -> InfoMessage? {
         self.speedMultiplier = speedMultiplier
         self.map = map
         hasRolled = false
         state.value = PlayerState.moving
         ship.startTurn()
+        return nil
     }
 
     func buyUpgrade(upgrade: Upgrade) {
