@@ -46,7 +46,8 @@ class MembersTableDataSource: NSObject, UITableViewDataSource {
         cell.removeButtonPressedCallback = { [weak self] in
             self?.waitingRoom.remove(player: player.playerName)
         }
-        cell.enableButton(player.deviceId == self.deviceId || waitingRoom.isRoomMaster())
+        let isMaster = waitingRoom.isRoomMaster()
+        cell.enableButton( isMaster || player.deviceId == self.deviceId)
         cell.set(playerName: player.playerName)
         cell.set(teamName: player.teamName ?? "No team")
         return cell

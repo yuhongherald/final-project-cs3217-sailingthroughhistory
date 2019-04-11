@@ -170,7 +170,7 @@ class Ship: Codable {
     }
 
     func getNodesInRange(roll: Int, speedMultiplier: Double, map: Map) -> [Node] {
-        guard let startNode = map.nodeIDPair[nodeId] else {
+        guard let startNode = map.nodeIDPair[1] else {
             fatalError("Ship has invalid node id.")
         }
 

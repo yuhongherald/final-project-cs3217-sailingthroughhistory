@@ -65,11 +65,20 @@ class FirebaseRoomConnection: RoomConnection {
         })
 
         listeners.append(devicesCollectionRef.document(deviceId).addSnapshotListener { (document, _) in
-            if let document = document {
-                if !document.exists {
-                    removalCallback()
-                }
+            guard let document = document, !document.exists else {
+                return
             }
+
+            self.devicesCollectionRef.document(document.documentID).collection(FirestoreConstants.playersCollectionName).getDocuments(completion: { (snapshot, _) in
+                guard let snapshot = snapshot else {
+                    return
+                }
+                snapshot.documents.forEach { document in
+                    self.playersCollectionRef.document(document.documentID).delete()
+                }
+            })
+
+            removalCallback()
         })
     }
 
@@ -104,6 +113,7 @@ class FirebaseRoomConnection: RoomConnection {
             }
 
             if let document = snapshot, document.exists {
+                connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers])
                 connection.joinRoom(completion: postConnectionActions)
             } else {
                 connection.createRoom(completion: postConnectionActions)
@@ -117,7 +127,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func getNewPlayerIndex() -> Int {
-        self.devicesCollectionRef.document(self.deviceId).getDocument { (snapshot, error) in
+        self.devicesCollectionRef.document(deviceId).getDocument { (snapshot, error) in
             if let error = error {
                 print(error.localizedDescription)
             }
@@ -128,7 +138,7 @@ class FirebaseRoomConnection: RoomConnection {
                 self.devicesCollectionRef.document(self.deviceId).setData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
             }
         }
-        return self.numOfPlayers
+        return self.numOfPlayers + 1
     }
 
     private func joinRoom(completion: @escaping (Error?) -> Void) {
@@ -204,10 +214,9 @@ class FirebaseRoomConnection: RoomConnection {
     func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws {
         let reference = Storage.storage().reference().child(deviceId).child("background.png")
         let path = reference.fullPath
-        Storage.storage().reference().child(deviceId).child("background.png")
+        reference
             .putData(background, metadata: StorageMetadata()) { [weak self] (metadata, error) in
             guard error == nil, let self = self else {
-                print(error)
                 return
             }
             let batch = FirestoreConstants.firestore.batch()
@@ -308,7 +317,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func set(teams: [Team]) {
-        roomDocumentRef.updateData([FirestoreConstants.teamsKey: teams.map { $0.name }])
+        roomDocumentRef.setData([FirestoreConstants.teamsKey: teams.map { $0.name }])
     }
 
     func subscibeToTeamNames(with callback: @escaping ([String]) -> Void) {
@@ -328,7 +337,7 @@ class FirebaseRoomConnection: RoomConnection {
 
     func remove(player identifier: String) {
         self.numOfPlayers -= 1
-        self.numOfPlayers >= 0 ? self.numOfPlayers : 0
+        self.numOfPlayers = self.numOfPlayers >= 0 ? self.numOfPlayers : 0
         devicesCollectionRef.document(self.deviceId).updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
         playersCollectionRef.document(identifier).delete()
     }
