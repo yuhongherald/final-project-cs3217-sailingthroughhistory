@@ -102,12 +102,13 @@ class Player: GenericPlayer {
         ship.setLocation(map: map)
     }
 
-    func startTurn(speedMultiplier: Double, map: Map?) {
+    func startTurn(speedMultiplier: Double, map: Map?) -> InfoMessage? {
         self.speedMultiplier = speedMultiplier
         self.map = map
         hasRolled = false
         state.value = PlayerState.moving
         ship.startTurn()
+        return nil // TODO
     }
 
     func buyUpgrade(upgrade: Upgrade) {

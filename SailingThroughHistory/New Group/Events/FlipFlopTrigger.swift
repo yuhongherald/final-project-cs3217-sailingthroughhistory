@@ -12,7 +12,7 @@ class FlipFlopTrigger: Trigger {
     func hasTriggered() -> Bool {
         return triggered
     }
-    
+
     func resetTrigger() {
         triggered = false
     }

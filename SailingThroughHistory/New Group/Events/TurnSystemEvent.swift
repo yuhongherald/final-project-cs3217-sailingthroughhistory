@@ -16,7 +16,7 @@ class TurnSystemEvent: Unique, Printable {
     var displayName: String {
         return _displayName
     }
-    
+
     private let triggers: [Trigger]
     private let conditions: [Evaluate]
     private let actions: [Modify]
@@ -29,13 +29,14 @@ class TurnSystemEvent: Unique, Printable {
         self._displayName = displayName
     }
 
-    func evaluateEvent() -> Bool {
+    func evaluateEvent() -> GameMessage? {
         if !hasTriggered() {
-            return false
+            return nil
         }
         executeWithConditions()
         resetTrigger()
-        return true
+        // TODO: Write a message parser, require on construction
+        return GameMessage.event(name: "base event", message: "message")
     }
 
     private func hasTriggered() -> Bool {

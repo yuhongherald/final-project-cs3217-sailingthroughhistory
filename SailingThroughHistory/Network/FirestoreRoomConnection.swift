@@ -163,7 +163,7 @@ class FirebaseRoomConnection: RoomConnection {
         Storage.storage().reference().child(deviceId).child("background.png")
             .putData(background, metadata: StorageMetadata()) { [weak self] (metadata, error) in
             guard error == nil, let self = self else {
-                print(error)
+                print(error ?? "")
                 return
             }
             let batch = FirestoreConstants.firestore.batch()

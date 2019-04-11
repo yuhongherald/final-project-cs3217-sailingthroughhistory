@@ -45,6 +45,7 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
+    var messages: [GameMessage] = []
     var data: GenericTurnSystemState
     var gameState: GenericGameState {
         return data.gameState
@@ -173,9 +174,17 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
+    private func playerMove(_ player: GenericPlayer, _ nodeId: Int) -> GameMessage {
+        let previous = player.playerShip.getCurrentNode().name
+        player.move(nodeId: nodeId)
+        let current = player.playerShip.getCurrentNode().name
+        return GameMessage.playerAction(name: player.name,
+                                        message: " has moved from \(previous) to \(current)")
+    }
+
     /// Throws if action is invalid
     /// For server actions only
-    func process(action: PlayerAction, for player: GenericPlayer) throws {
+    func process(action: PlayerAction, for player: GenericPlayer) throws -> GameMessage {
         switch state {
         case .evaluateMoves(for: let currentPlayer):
             if player != currentPlayer {
@@ -186,9 +195,9 @@ class TurnSystem: GenericTurnSystem {
         }
         switch action {
         case .move(let nodeId):
-            player.move(nodeId: nodeId)
+            return playerMove(player, nodeId)
         case .forceMove(let nodeId): // quick hack for updating the player's position remotely
-            player.move(nodeId: nodeId)
+            return playerMove(player, nodeId)
         // some stuff with a sequence
         // for node in nodes (Doesn't check adjacency)
         // player.move(node: node)
@@ -197,13 +206,17 @@ class TurnSystem: GenericTurnSystem {
             guard let port = gameState.map.nodeIDPair[portId] as? Port else {
                 throw PlayerActionError.invalidAction(message: "Port does not exist")
             }
-            guard player.team == port.owner else { // TODO: Fix equality assumption
+            guard player.team == port.owner else {
                 throw PlayerActionError.invalidAction(message: "Player does not own port!")
             }
+            let previous = port.taxAmount.value
             port.taxAmount.value = taxAmount
+            return GameMessage.playerAction(
+                name: player.name,
+                message: " has set the tax for \(port.name) from \(previous) to \(taxAmount)")
         case .buyOrSell(let itemType, let quantity):
             if player.deviceId == deviceId {
-                return
+                return GameMessage.playerAction(name: player.name, message: "You moved")
             }
             do {
                 if quantity >= 0 {
@@ -214,11 +227,16 @@ class TurnSystem: GenericTurnSystem {
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
+            return GameMessage.playerAction(
+                name: player.name,
+                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemType.rawValue)")
         case .purchaseUpgrade(let upgradeType):
             if player.deviceId == deviceId {
-                return
+                return GameMessage.playerAction(name: player.name, message: "You moved")
             }
             player.buyUpgrade(upgrade: upgradeType.toUpgrade())
+            return GameMessage.playerAction(name: player.name,
+                                            message: " has purchased the \(upgradeType.toUpgrade().name)!")
         }
     }
 
@@ -256,7 +274,8 @@ class TurnSystem: GenericTurnSystem {
         }
         isBlocking = true
         for (player, actions) in playerActions {
-            evaluateState(player: player, actions: actions)
+            let playerActions = evaluateState(player: player, actions: actions)
+            messages.append(contentsOf: playerActions)
         }
         updateStateMaster()
         isBlocking = false
@@ -332,16 +351,19 @@ class TurnSystem: GenericTurnSystem {
         startPlayerInput(from: player)
     }
 
-    private func evaluateState(player: GenericPlayer, actions: [PlayerAction]) {
+    private func evaluateState(player: GenericPlayer, actions: [PlayerAction])
+        -> [GameMessage] {
         var actions = actions
         state = .evaluateMoves(for: player)
+        var result = [GameMessage]()
         while !actions.isEmpty {
             do {
-                try process(action: actions.removeFirst(), for: player)
+                try result.append(process(action: actions.removeFirst(), for: player))
             } catch {
                 print("Invalid action from server, dropping action")
             }
         }
+        return result
     }
 
     private func updateStateMaster() {
@@ -370,7 +392,6 @@ class TurnSystem: GenericTurnSystem {
     }
 
     private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
-        _ = data.checkForEvents() // events will run here, non-recursive
         networkActionQueue.sync { [weak self] in
             guard let self = self else {
                 return
@@ -384,6 +405,8 @@ class TurnSystem: GenericTurnSystem {
             if self.data.currentTurn != turnNum {
                 return
             }
+            let eventResults = data.checkForEvents() // events will run here, non-recursive
+            self.messages.append(contentsOf: eventResults)
 
             for player in self.gameState.getPlayers() where
                 playerActionPairs.first(where: { $0.0 == player.name }) == nil {
@@ -395,7 +418,8 @@ class TurnSystem: GenericTurnSystem {
                     self.gameState.getPlayers().first(where: { $0.name == playerActionPair.0 }) else {
                         continue
                 }
-                self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
+                let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
+                self.messages.append(contentsOf: playerActions)
                 chosenPlayer.endTurn()
             }
             state = .waitForStateUpdate

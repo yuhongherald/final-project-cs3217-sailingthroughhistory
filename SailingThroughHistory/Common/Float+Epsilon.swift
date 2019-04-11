@@ -13,7 +13,7 @@ extension Float {
     static let infinity: Float = 1e9
     static let epsilon: Float = 1e-6
     static let sqrt3: Float = sqrt(3)
-    
+
     // randoms between 0 and 1
     static func random() -> Float {
         return Float(arc4random()) / Float(UINT32_MAX)

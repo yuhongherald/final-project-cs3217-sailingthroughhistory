@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class HeavyMonsoonEvent: TurnSystemEvent {
+class HeavyMonsoonEvent: PresetEvent {
     init(gameState: GenericGameState, start: Int, end: Int) {
         var actions: [EventAction<Bool>] = []
         for path in gameState.map.getAllPaths() {

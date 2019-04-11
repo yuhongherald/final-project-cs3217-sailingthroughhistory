@@ -9,7 +9,7 @@
 /// Used to create player death event when money goes below zero.
 /// Sets money to 0, player's position to home node and empties player inventory.
 /// Note player gets to keep ship upgrades.
-class NegativeMoneyEvent: TurnSystemEvent {
+class NegativeMoneyEvent: PresetEvent {
     init(player: GenericPlayer) {
         var actions: [Modify] = []
         actions.append(EventAction<Int>(variable: player.money,

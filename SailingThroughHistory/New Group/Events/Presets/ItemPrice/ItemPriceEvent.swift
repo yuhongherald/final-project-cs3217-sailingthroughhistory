@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class ItemPriceEvent: TurnSystemEvent {
+class ItemPriceEvent: PresetEvent {
     init(gameState: GenericGameState, itemType: ItemType,
          genericOperator: GenericOperator, modifier: Int) {
         let rawItem = gameState.itemParameters.first {

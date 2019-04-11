@@ -44,6 +44,9 @@
 		751F8FEA224BAF0E0071C057 /* GenericNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FE9224BAF0E0071C057 /* GenericNetworkSession.swift */; };
 		751F8FEC224BB11B0071C057 /* ComparableOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FEB224BB11B0071C057 /* ComparableOp.swift */; };
 		751F8FEE224BB2170071C057 /* Printable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FED224BB2170071C057 /* Printable.swift */; };
+		752D2BD8225F8E8900A3411C /* PresetEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D2BD7225F8E8900A3411C /* PresetEvent.swift */; };
+		752D2BDA225F8EAE00A3411C /* Activatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D2BD9225F8EAE00A3411C /* Activatable.swift */; };
+		752D2BDC225F976100A3411C /* GameMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D2BDB225F976100A3411C /* GameMessage.swift */; };
 		75328F56225359BB00180B03 /* EngineConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75328F55225359BB00180B03 /* EngineConstants.swift */; };
 		75328F5822535A1500180B03 /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75328F5722535A1500180B03 /* GameTime.swift */; };
 		75328F5A225360BB00180B03 /* PlayerActionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75328F59225360BB00180B03 /* PlayerActionError.swift */; };
@@ -268,6 +271,9 @@
 		751F8FE9224BAF0E0071C057 /* GenericNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkSession.swift; sourceTree = "<group>"; };
 		751F8FEB224BB11B0071C057 /* ComparableOp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparableOp.swift; sourceTree = "<group>"; };
 		751F8FED224BB2170071C057 /* Printable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printable.swift; sourceTree = "<group>"; };
+		752D2BD7225F8E8900A3411C /* PresetEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEvent.swift; sourceTree = "<group>"; };
+		752D2BD9225F8EAE00A3411C /* Activatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activatable.swift; sourceTree = "<group>"; };
+		752D2BDB225F976100A3411C /* GameMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMessage.swift; sourceTree = "<group>"; };
 		75328F55225359BB00180B03 /* EngineConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EngineConstants.swift; path = "New Group/EngineConstants.swift"; sourceTree = "<group>"; };
 		75328F5722535A1500180B03 /* GameTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameTime.swift; path = "New Group/Data/GameTime.swift"; sourceTree = "<group>"; };
 		75328F59225360BB00180B03 /* PlayerActionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerActionError.swift; sourceTree = "<group>"; };
@@ -587,6 +593,7 @@
 				7581AEF6225C879A001A8CC3 /* GameVariableEvaluatable.swift */,
 				75A72CBB225CD3A9003640D4 /* ConditionEvaluatable.swift */,
 				75A72CC7225CED03003640D4 /* FlipFlopTrigger.swift */,
+				752D2BDB225F976100A3411C /* GameMessage.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -673,6 +680,8 @@
 				7581AEF8225CB698001A8CC3 /* EventPresets.swift */,
 				75A72CB7225CBF16003640D4 /* PresetConstants.swift */,
 				75A72CB9225CC3AA003640D4 /* EventTable.swift */,
+				752D2BD7225F8E8900A3411C /* PresetEvent.swift */,
+				752D2BD9225F8EAE00A3411C /* Activatable.swift */,
 			);
 			path = Presets;
 			sourceTree = "<group>";
@@ -1281,6 +1290,7 @@
 				969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */,
 				7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
+				752D2BDA225F8EAE00A3411C /* Activatable.swift in Sources */,
 				75354467224CA7CC001B4F62 /* EqualOperator.swift in Sources */,
 				75354490224CBCBE001B4F62 /* UniqueObject.swift in Sources */,
 				967FD6B322494309008559CE /* ReadOnlyGameObject.swift in Sources */,
@@ -1312,6 +1322,7 @@
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
 				96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */,
 				96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */,
+				752D2BDC225F976100A3411C /* GameMessage.swift in Sources */,
 				96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */,
 				7581AEDD225C5602001A8CC3 /* Trigger.swift in Sources */,
 				759A5EF12250864500724BEB /* MapData.swift in Sources */,
@@ -1327,6 +1338,7 @@
 				75354456224C877F001B4F62 /* TurnSystemEvent.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
 				BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */,
+				752D2BD8225F8E8900A3411C /* PresetEvent.swift in Sources */,
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
 				7538CAF72255B8B300EB9B1F /* VariableEvaluatable.swift in Sources */,
 				7535449A224CC532001B4F62 /* WeakBox.swift in Sources */,

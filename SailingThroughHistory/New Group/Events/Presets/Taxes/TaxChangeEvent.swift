@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class TaxChangeEvent: TurnSystemEvent {
+class TaxChangeEvent: PresetEvent {
     init(gameState: GenericGameState, genericOperator: GenericOperator, modifier: Int) {
         let modifier = max(1, modifier)
         var actions: [EventAction<Int>] = []
