@@ -301,6 +301,7 @@ extension Ship {
         }
         owner?.updateMoney(by: -price)
         try addItem(item: item)
+        throw BuyItemError.purchaseSuccess(item: item)
     }
 
     func sellItem(item: GenericItem) throws {
@@ -321,6 +322,7 @@ extension Ship {
         owner?.updateMoney(by: profit)
         items.value.remove(at: index)
         items.value = items.value
+        throw BuyItemError.sellSuccess(item: item)
     }
 
     func sell(itemType: ItemType, quantity: Int) throws {
@@ -335,6 +337,7 @@ extension Ship {
         if deficit > 0 {
             throw BuyItemError.insufficientItems(shortOf: deficit)
         }
+        throw BuyItemError.sellTypeSuccess(itemType: itemType, quantity: quantity)
     }
 
     private func getRemainingCapacity() -> Int {
