@@ -17,7 +17,7 @@ class NegativeMoneyEvent: TurnSystemEvent {
         actions.append(EventAction<[GenericItem]>(variable: player.playerShip.items,
                                                   value: Evaluatable<[GenericItem]>([])))
         actions.append(EventAction<Int>(variable: player.playerShip.nodeIdVariable,
-                                        value: Evaluatable<Int>(player.homeNode.identifier)))
+                                        value: Evaluatable<Int>(player.homeNode)))
         super.init(triggers: [EventTrigger<Int>(variable: player.money,
                                                comparator: GreaterThanOperator<Int>())],
                    conditions: [EventCondition<Int>(

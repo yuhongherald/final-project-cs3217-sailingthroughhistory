@@ -18,5 +18,6 @@ protocol GenericGameState: Codable {
     func getPlayers() -> [GenericPlayer]
     func startNextTurn(speedMultiplier: Double)
     func getNextPlayer() -> GenericPlayer?
+    func getTeamMoney() -> [Team: Int]
     func endGame()
 }

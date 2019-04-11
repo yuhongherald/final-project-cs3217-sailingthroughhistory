@@ -217,6 +217,7 @@ class FirebaseRoomConnection: RoomConnection {
         reference
             .putData(background, metadata: StorageMetadata()) { [weak self] (metadata, error) in
             guard error == nil, let self = self else {
+                print(error ?? "Error starting game")
                 return
             }
             let batch = FirestoreConstants.firestore.batch()
@@ -224,7 +225,8 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
-            batch.setData(data, forDocument: self.modelCollectionRef.document(FirestoreConstants.initialStateDocumentName))
+            batch.setData(data,
+                          forDocument: self.modelCollectionRef.document(FirestoreConstants.initialStateDocumentName))
             batch.updateData([FirestoreConstants.roomStartedKey: true,
                               FirestoreConstants.backgroundUrlKey: path], forDocument: self.roomDocumentRef)
 
