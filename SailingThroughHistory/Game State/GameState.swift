@@ -157,7 +157,7 @@ class GameState: GenericGameState {
             if !teams.contains(where: {$0.name == team.name}) {
                 teams.append(team)
             }
-            let player = Player(name: String(roomPlayer.playerName.suffix(5)), team: team, map: map,
+            let player = Player(name: String(roomPlayer.playerName.prefix(5)), team: team, map: map,
                                 node: node, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self

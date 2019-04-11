@@ -17,6 +17,7 @@ class Rooms {
 
     init() {
         self.networkRooms.subscribe { [weak self] roomNames in
+            print("roomNames: \(roomNames.count)")
             let rooms = roomNames.map { NetworkFactory.createRoomInstance(named: $0) }
             self?.rooms = rooms
         }

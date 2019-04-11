@@ -71,7 +71,6 @@ class TurnSystem: GenericTurnSystem {
         network.subscribeToMembers { [weak self] members in
             self?.players = members
         }
-
     }
 
     func startGame() {
