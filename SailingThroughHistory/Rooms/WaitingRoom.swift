@@ -53,7 +53,7 @@ class WaitingRoom {
         return identifier == connection.roomMasterId
     }
 
-    func changeTeam() {
+    func changeTeam(of identifier: String) {
         guard teamNames.count > 0,
             let playerIndex = players.firstIndex(where: { $0.playerName == identifier }) else {
             return
@@ -63,6 +63,10 @@ class WaitingRoom {
         let newTeamIndex = ((teamNames.index(of: player.teamName ?? "") ?? 0) + 1) % teamNames.count
         let newTeamName = teamNames[newTeamIndex]
         connection.changeTeamName(for: player.playerName, to: newTeamName)
+    }
+
+    func remove(player playerName: String, with errorCallback: @escaping (String) -> Void) {
+        connection.remove(player: playerName, with: errorCallback)
     }
 
     private func updateTeamList() {

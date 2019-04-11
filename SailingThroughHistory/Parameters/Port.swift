@@ -7,7 +7,7 @@
 //
 
 class Port: Node {
-    public var taxAmount = 0
+    public var taxAmount: GameVariable<Int> = GameVariable(value: 0)
     public var owner: Team? {
         didSet {
             self.ownerName = self.owner?.name
@@ -70,8 +70,8 @@ class Port: Node {
         if player.team == owner {
             return
         }
-        player.updateMoney(by: -taxAmount)
-        owner?.updateMoney(by: taxAmount)
+        player.updateMoney(by: -taxAmount.value)
+        owner?.updateMoney(by: taxAmount.value)
     }
 
     func getBuyValue(of type: ItemParameter) -> Int? {

@@ -30,6 +30,7 @@ class FirestoreRooms: NetworkRooms {
 
                 self.callbacks.forEach { $0(self.rooms) }
             })
+        print("networkRooms: \(self.rooms.count)")
     }
 
     func subscribe(with callback: @escaping ([String]) -> Void) {

@@ -31,6 +31,12 @@ class MainGameViewController: UIViewController {
         }
     }
 
+    @IBOutlet private weak var availableUpgradesTableView: UITableView! {
+        didSet {
+            availableUpgradesTableView.dataSource = availableUpgradesDataSource
+            availableUpgradesTableView.reloadData()
+        }
+    }
     @IBOutlet private weak var playerOneInformationView: UIView!
     @IBOutlet private weak var playerOneGoldView: UILabel!
     @IBOutlet private weak var playerOneCapacityView: UILabel!
@@ -38,7 +44,7 @@ class MainGameViewController: UIViewController {
     @IBOutlet weak var playerOneItemsView: UITableView!
     @IBOutlet private weak var togglePlayerOneInfoButton: UIButtonRounded!
 
-    @IBOutlet private weak var monthLabel: UILabel!
+    @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var toggleActionPanelButton: UIButtonRounded!
     @IBOutlet private weak var diceResultLabel: UILabel!
     @IBOutlet private weak var actionPanelView: UIView!
@@ -57,6 +63,8 @@ class MainGameViewController: UIViewController {
         toggleActionPanelButton: actionPanelView,
         togglePlayerOneInfoButton: playerOneInformationView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
+    private lazy var availableUpgradesDataSource = AvailableUpgradesDataSource(mainController: self,
+                                                                               availableUpgrades: model.availableUpgrades)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     private let storage = LocalStorage()
     var turnSystem: GenericTurnSystem?
@@ -97,6 +105,7 @@ class MainGameViewController: UIViewController {
             guard let self = self else {
                 return
             }
+            self.statusLabel.text = ""
             self.playerTurnEnd()
             self.currentTurnOwner = nil
             switch state {
@@ -107,11 +116,13 @@ class MainGameViewController: UIViewController {
                 }
                 self.present(alert, animated: true, completion: nil)
             case .playerInput(let player, let endTime):
+                self.statusLabel.text = "\(player.name)'s Turn"
                 self.currentTurnOwner = player
                 self.playerTurnStart(player: player, endTime: endTime)
             case .ready:
                 break
             case .waitForTurnFinish:
+                self.statusLabel.text = "Waiting for other players to finish..."
                 break
             case .waitForStateUpdate:
                 break
@@ -129,6 +140,27 @@ class MainGameViewController: UIViewController {
         portItemsDataSource.didSelect(port: port, playerCanInteract:
             currentTurnOwner?.canTradeAt(port: port) ?? false)
         portItemsTableView.reloadData()
+    }
+
+    func buy(upgrade: Upgrade) {
+        guard let currentTurnOwner = currentTurnOwner else {
+            return
+        }
+
+        var errorMsg: String?
+
+        do {
+            try turnSystem?.purchase(upgrade: upgrade, by: currentTurnOwner)
+        } catch PlayerActionError.invalidAction(let msg) {
+            errorMsg = msg
+        } catch {
+            errorMsg = error.localizedDescription
+        }
+
+        if let errorMsg = errorMsg {
+            let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
+            present(alert, animated: true, completion: nil)
+        }
     }
 
     func portItemButtonPressed(action: PortItemButtonAction) {
@@ -165,7 +197,7 @@ class MainGameViewController: UIViewController {
     }
 
     @IBAction private func rollDiceButtonPressed(_ sender: UIButtonRounded) {
-        let randomLength = 20
+        let randomLength = 5
         sender.isEnabled = false
         sender.set(color: .lightGray)
         for interval in 0...randomLength {
@@ -310,6 +342,8 @@ class MainGameViewController: UIViewController {
     private func playerTurnStart(player: GenericPlayer, endTime: TimeInterval) {
 
         func animatePlayerTurnStart() {
+            availableUpgradesDataSource.enabled = player.canBuyUpgrade()
+            availableUpgradesTableView.reloadData()
             actionPanelView.isHidden = false
             toggleActionPanelButton.isHidden = false
             rollDiceButton.isEnabled = true
@@ -330,6 +364,8 @@ class MainGameViewController: UIViewController {
         countdownLabel.isHidden = true
         portInformationView.isHidden = true
         countdownLabel.isHidden = true
+        availableUpgradesDataSource.enabled = false
+        availableUpgradesTableView.reloadData()
         objectsController.resetChoosableNodes()
     }
 }

@@ -15,7 +15,9 @@ class BiggerShipUpgrade: ShipChassis {
     override var cost: Int {
         return 1000
     }
-
+    override var type: UpgradeType {
+        return .biggerShip
+    }
     override func getNewCargoCapacity(baseCapacity: Int) -> Int {
         return baseCapacity * 2
     }

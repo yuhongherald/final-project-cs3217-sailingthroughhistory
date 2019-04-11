@@ -14,6 +14,8 @@ protocol RoomConnection {
     static func getConnection(for room: FirestoreRoom,
                               removed removedCallback: @escaping () -> Void,
                               completion callback: @escaping (RoomConnection?, Error?) -> ())
+    func join(removed removedCallback: @escaping () -> Void,
+              completion callback: @escaping (RoomConnection?, Error?) -> ())
 
     func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws
 
@@ -36,4 +38,6 @@ protocol RoomConnection {
     func subscribeToStart(with callback: @escaping (GameState, Data) -> Void)
 
     func changeTeamName(for identifier: String, to teamName: String)
+
+    func remove(player: String, with callback: @escaping (String) -> Void)
 }
