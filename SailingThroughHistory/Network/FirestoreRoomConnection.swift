@@ -126,7 +126,7 @@ class FirebaseRoomConnection: RoomConnection {
         joinRoom(completion: self.postJoinActions(removed: removedCallback, completion: callback))
     }
 
-    func getNewPlayerIndex() -> Int {
+    private func getNewPlayerIndex() -> Int {
         self.devicesCollectionRef.document(deviceId).getDocument { (snapshot, error) in
             if let error = error {
                 print(error.localizedDescription)
