@@ -40,7 +40,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     private var playersCollectionRef: CollectionReference {
-        return devicesCollectionRef.document(deviceId).collection(FirestoreConstants.playersCollectionName)
+        return roomDocumentRef.collection(FirestoreConstants.playersCollectionName)
     }
 
     init(forRoom roomName: String) {
@@ -93,7 +93,6 @@ class FirebaseRoomConnection: RoomConnection {
                 }
                 connection.roomMasterId = document.get(FirestoreConstants.roomMasterKey) as? String ?? ""
             }
-            print("test")
             callback(connection, error)
         }
 
@@ -133,7 +132,7 @@ class FirebaseRoomConnection: RoomConnection {
 
     private func joinRoom(completion: @escaping (Error?) -> Void) {
         let playerId = "No. \(getNewPlayerIndex()) " + self.deviceId
-        self.playersCollectionRef.document(playerId).setData([FirestoreConstants.playerDeviceKey: self.deviceId]) { (error) in
+        self.playersCollectionRef.document(playerId).setData([FirestoreConstants.playerDeviceKey: self.deviceId]) { error in
             completion(error)
         }
     }
@@ -155,6 +154,7 @@ class FirebaseRoomConnection: RoomConnection {
                 callback(nil, error)
             }
             self.numOfPlayers += 1
+            self.subscribeRemoval(removalCallback: removedCallback)
             self.devicesCollectionRef.document(self.deviceId).updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
             self.heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
                 self.sendAndCheckHeartBeat()
@@ -262,35 +262,25 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func subscribeToMembers(with callback: @escaping ([RoomMember]) -> Void) {
-        let listener = devicesCollectionRef.addSnapshotListener { (snapshot, error) in
+        listeners.append(playersCollectionRef.addSnapshotListener { (snapshot, error) in
             guard let snapshot = snapshot, error == nil else {
                 return
             }
 
-            var allPlayers: [RoomMember] = []
-            for document in snapshot.documents {
-                self.devicesCollectionRef.document(document.documentID).collection(FirestoreConstants.playersCollectionName).getDocuments(completion: { (snapshot, error) in
-                    guard let snapshot = snapshot, error == nil else {
-                        return
-                    }
-                    let players = snapshot.documents.map({ (document) -> RoomMember in
-                        let team = document.get(FirestoreConstants.playerTeamKey) as? String
-                        let player = document.documentID
-                        guard let deviceId = document.get(FirestoreConstants.playerDeviceKey) as? String else {
-                            // Remove invalid player
-                            fatalError("Invalid player doesn't have device id.")
-                        }
+            let players = snapshot.documents.map({ (document) -> RoomMember in
+                let team = document.get(FirestoreConstants.playerTeamKey) as? String
+                let player = document.documentID
+                guard let deviceId = document.get(FirestoreConstants.playerDeviceKey) as? String else {
+                    // Remove invalid player
+                    fatalError("Invalid player doesn't have device id.")
+                }
 
-                        return RoomMember(playerName: player, teamName: team, deviceId: deviceId)
-                    })
-                    print("in: \(allPlayers.count)")
-                    allPlayers.append(contentsOf: players)
-                })
-            }
-            print("out: \(allPlayers.count)")
-            callback(allPlayers)
-        }
-        self.listeners.append(listener)
+                return RoomMember(playerName: player, teamName: team, deviceId: deviceId)
+            })
+
+            print(players.count)
+            callback(players)
+        })
     }
 
     private func push<T: Codable>(_ codable: T, to docRef: DocumentReference,
