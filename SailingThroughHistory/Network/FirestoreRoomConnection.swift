@@ -142,7 +142,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     private func joinRoom(completion: @escaping (Error?) -> Void) {
-        let playerId = "No. \(getNewPlayerIndex()) " + self.deviceId
+        let playerId = "\(getNewPlayerIndex())-" + self.deviceId
         self.playersCollectionRef.document(playerId).setData([FirestoreConstants.playerDeviceKey: self.deviceId]) { error in
             completion(error)
         }
