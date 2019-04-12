@@ -7,8 +7,8 @@
 //
 
 protocol GenericTurnSystem {
-    var eventPresets: EventPresets { get }
     var gameState: GenericGameState { get }
+    var eventPresets: EventPresets? { get set }
     var messages: [GameMessage] { get set }
     func process(action: PlayerAction, for player: GenericPlayer) throws -> GameMessage
     func roll(for player: GenericPlayer) throws -> (Int, [Int])

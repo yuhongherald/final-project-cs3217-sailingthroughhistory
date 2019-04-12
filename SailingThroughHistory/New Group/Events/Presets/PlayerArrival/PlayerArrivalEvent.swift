@@ -6,13 +6,13 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class PlayerArrivalEvent: UniqueTurnSystemEvent {
-    init(player: GenericPlayer) {
+class PlayerArrivalEvent: PresetEvent {
+    init(player: GenericPlayer, turnSystem: GenericTurnSystem) {
         super.init(triggers: [EventTrigger<Int>(
             variable: player.nodeIdVariable,
             comparator: NotEqualOperator<Int>())],
             conditions: [],
-            actions: [PirateAction(player: player), HistoryFactAction()], parsable: { return "\(player.name) is being chased by pirates!" },
+            actions: [PirateAction(player: player, turnSystem: turnSystem), HistoryFactAction()], parsable: { return "\(player.name) is being chased by pirates!" },
             displayName: "Pirate event")
     }
 }

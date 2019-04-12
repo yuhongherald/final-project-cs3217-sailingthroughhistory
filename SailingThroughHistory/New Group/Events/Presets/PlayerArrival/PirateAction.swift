@@ -8,7 +8,7 @@
 
 class PirateAction: Modify {
     private let player: GenericPlayer
-    init(player: GenericPlayer) {
+    init(player: GenericPlayer, turnSystem: GenericTurnSystem) {
         self.player = player
     }
     func modify() {

@@ -46,7 +46,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     // for events
-    let eventPresets: EventPresets
+    var eventPresets: EventPresets?
     var messages: [GameMessage] = []
     var data: GenericTurnSystemState
     var gameState: GenericGameState {
@@ -71,8 +71,10 @@ class TurnSystem: GenericTurnSystem {
         self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0)
         // TODO: Turn harcoded
         self.stateVariable = GameVariable(value: .ready)
-        self.eventPresets = EventPresets(gameState: startingState)
-        self.data.addEvents(events: self.eventPresets.getEvents())
+        self.eventPresets = EventPresets(gameState: startingState, turnSystem: self)
+        if let eventPresets = self.eventPresets {
+            self.data.addEvents(events: eventPresets.getEvents())
+        }
 
         network.subscribeToMembers { [weak self] members in
             self?.players = members
@@ -168,6 +170,10 @@ class TurnSystem: GenericTurnSystem {
             pendingActions.append(.purchaseUpgrade(type: upgrade.type))
         }
         return msg
+    }
+
+    func chasedByPirates(player: GenericPlayer) {
+        pendingActions.append(.pirate())
     }
 
     private func checkInputAllowed(from player: GenericPlayer) throws {
