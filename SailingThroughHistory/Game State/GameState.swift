@@ -141,9 +141,16 @@ class GameState: GenericGameState {
                 preconditionFailure("Player has invalid team.")
             }
 
+            var team = unwrappedParam.getTeam()
+            if let storedTeam = teams.first(where: {$0.name == team.name}) {
+                team = storedTeam
+            } else {
+                teams.append(team)
+            }
+
             let node: Node
 
-            if let startingNode = unwrappedParam.getStartingNode() {
+            if let startingNode = team.startingNode {
                 node = startingNode
             } else {
                 guard let defaultNode = map.getNodes().first else {
@@ -153,10 +160,6 @@ class GameState: GenericGameState {
                 node = defaultNode
             }
 
-            let team = unwrappedParam.getTeam()
-            if !teams.contains(where: {$0.name == team.name}) {
-                teams.append(team)
-            }
             let player = Player(name: String(roomPlayer.playerName.prefix(5)), team: team, map: map,
                                 node: node, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())

@@ -112,9 +112,15 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
-            if let document = snapshot, document.exists {
-                connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers])
-                connection.joinRoom(completion: postConnectionActions)
+            if let document = snapshot, document.exists, let started = document.get(FirestoreConstants.roomStartedKey) as? Bool {
+                if (!started) {
+                    // join as usual player
+                    connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers])
+                    connection.joinRoom(completion: postConnectionActions)
+                } else {
+                    // join as spectator - during game play
+                    connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers])
+                }
             } else {
                 connection.createRoom(completion: postConnectionActions)
             }
@@ -279,16 +285,17 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
-            let players = snapshot.documents.map({ (document) -> RoomMember in
+            var players = [RoomMember]()
+            for document in snapshot.documents {
                 let team = document.get(FirestoreConstants.playerTeamKey) as? String
                 let player = document.documentID
                 guard let deviceId = document.get(FirestoreConstants.playerDeviceKey) as? String else {
-                    // Remove invalid player
-                    fatalError("Invalid player doesn't have device id.")
+                    self.playersCollectionRef.document(document.documentID).delete()
+                    continue
                 }
 
-                return RoomMember(playerName: player, teamName: team, deviceId: deviceId)
-            })
+                players.append(RoomMember(playerName: player, teamName: team, deviceId: deviceId))
+            }
 
             print(players.count)
             callback(players)

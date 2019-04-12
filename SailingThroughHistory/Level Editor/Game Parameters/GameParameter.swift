@@ -46,6 +46,9 @@ class GameParameter: GenericLevel, Codable {
         upgrades = upgradeTypes.map { $0.toUpgrade() }
 
         for node in map.getNodes() {
+            if let index = teams.map({ $0.startId }).firstIndex(of: node.identifier) {
+                teams[index].startingNode = node
+            }
             guard let port = node as? Port else {
                 continue
             }

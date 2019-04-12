@@ -131,6 +131,10 @@ class Map: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
+        Node.nextID = try container.decode(Int.self, forKey: .nodeNextId)
+        Node.reuseID = try container.decode([Int].self, forKey: .nodeReuseId)
+        print(Node.nextID)
+
         self.map = try container.decode(String.self, forKey: .map)
         self.bounds = try container.decode(Rect.self, forKey: .bounds)
 
@@ -186,6 +190,10 @@ class Map: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(map, forKey: .map)
 
+        try container.encode(Node.nextID, forKey: .nodeNextId)
+        try container.encode(Node.reuseID, forKey: .nodeReuseId)
+        print(Node.nextID)
+
         var nodesWithType = [NodeWithType]()
         for node in nodes.value {
             if node is Port {
@@ -218,6 +226,8 @@ class Map: Codable {
         case nodes
         case paths
         case bounds
+        case nodeNextId
+        case nodeReuseId
     }
 
     enum NodeTypeKey: String, CodingKey {
