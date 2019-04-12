@@ -13,22 +13,22 @@ class EventPresets {
         case itemPrice(for: ItemType, operand: String) // split into item types
         case playerDeath(for: GenericPlayer)
     }
-    private let monsoonEvents: [Bool: TurnSystemEvent]
-    private let neutralTaxEvents: [String: TurnSystemEvent]
-    private let itemPriceEvents: [String: [String: TurnSystemEvent]]
-    private let playerDeathEvents: [String: TurnSystemEvent]
-    private let eventTable: EventTable
+    private let monsoonEvents: [Bool: PresetEvent]
+    private let neutralTaxEvents: [String: PresetEvent]
+    private let itemPriceEvents: [String: [String: PresetEvent]]
+    private let playerDeathEvents: [String: PresetEvent]
+    private let eventTable: EventTable<PresetEvent>
 
     init(gameState: GenericGameState) {
         // monsoon []
         // taxes []
         // item price []
         // player death []
-        eventTable = EventTable()
-        var monsoonEvents: [Bool: TurnSystemEvent] = [Bool: TurnSystemEvent]()
-        var neutralTaxEvents: [String: TurnSystemEvent] = [String: TurnSystemEvent]()
-        var itemPriceEvents: [String: [String: TurnSystemEvent]] = [String: [String: TurnSystemEvent]]()
-        var playerDeathEvents: [String: TurnSystemEvent] = [String: TurnSystemEvent]()
+        eventTable = EventTable<PresetEvent>()
+        var monsoonEvents: [Bool: PresetEvent] = [Bool: PresetEvent]()
+        var neutralTaxEvents: [String: PresetEvent] = [String: PresetEvent]()
+        var itemPriceEvents: [String: [String: PresetEvent]] = [String: [String: PresetEvent]]()
+        var playerDeathEvents: [String: PresetEvent] = [String: PresetEvent]()
 
         monsoonEvents[true] = eventTable.pushEvent(
             event: HeavyMonsoonEvent(gameState: gameState,
@@ -42,7 +42,7 @@ class EventPresets {
                 event: TaxChangeEvent(gameState: gameState,
                                       genericOperator: evaluators[index],
                                       modifier: PresetConstants.taxModifiers[index]))
-            itemPriceEvents[key] = [String: TurnSystemEvent]()
+            itemPriceEvents[key] = [String: PresetEvent]()
             for item in ItemType.allCases {
                 itemPriceEvents[key]?[item.rawValue] = eventTable.pushEvent(
                     event: ItemPriceEvent(gameState: gameState,
@@ -62,7 +62,7 @@ class EventPresets {
         self.itemPriceEvents = itemPriceEvents
         self.playerDeathEvents = playerDeathEvents
     }
-    func getEvent(event: Event) -> TurnSystemEvent? {
+    func getEvent(event: Event) -> PresetEvent? {
         switch event {
         case .monsoon(activate: let activate):
             return monsoonEvents[activate]
@@ -74,7 +74,10 @@ class EventPresets {
             return playerDeathEvents[player.deviceId]
         }
     }
-    func getEvent(id: Int) -> TurnSystemEvent? {
+    func getEvent(id: Int) -> PresetEvent? {
         return eventTable.getEvent(id: id)
+    }
+    func getEvents() -> [PresetEvent] {
+        return eventTable.getAllEvents()
     }
 }

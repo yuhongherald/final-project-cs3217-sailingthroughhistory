@@ -42,7 +42,7 @@ class Ship: Codable {
     private var weightCapacityVariable = GameVariable<Int>(value: 100)
     private(set) var isDocked = false
 
-    private var shipUI: ShipUI?
+    var shipObject: ShipUI?
 
     weak var map: Map? {
         didSet {
@@ -55,7 +55,7 @@ class Ship: Codable {
         self.suppliesConsumed = suppliesConsumed
 
         subscribeToItems(with: updateCargoWeight)
-        shipUI = ShipUI(ship: self)
+        shipObject = ShipUI(ship: self)
     }
 
     required init(from decoder: Decoder) throws {
@@ -74,7 +74,7 @@ class Ship: Codable {
             shipChassis = shipChassisType.toUpgrade() as? ShipChassis
         }
 
-        shipUI = ShipUI(ship: self)
+        shipObject = ShipUI(ship: self)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -110,33 +110,33 @@ class Ship: Codable {
         self.location.value = location*/
     }
 
-    func installUpgrade(upgrade: Upgrade) -> InfoMessage? {
+    func installUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
         guard let owner = owner else {
-            return InfoMessage(title: "Error", message: "Ship has no owner!")
+            return (false, InfoMessage(title: "Error", message: "Ship has no owner!"))
         }
         guard owner.money.value >= upgrade.cost else {
-            return InfoMessage(title: "Insufficient Money!",
-                        message: "You do not have sufficient funds to buy \(upgrade.name)!")
+            return (false, InfoMessage(title: "Insufficient Money!",
+                        message: "You do not have sufficient funds to buy \(upgrade.name)!"))
         }
         if shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
             owner.updateMoney(by: -upgrade.cost)
             shipChassis = shipUpgrade
             weightCapacityVariable.value = shipUpgrade.getNewCargoCapacity(baseCapacity: weightCapacity)
-            return InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!")
+            return (true, InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!"))
         }
         if auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
             owner.updateMoney(by: -upgrade.cost)
             auxiliaryUpgrade = auxiliary
-            return InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!")
+            return (true, InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!"))
         }
         if upgrade is ShipChassis {
-            return InfoMessage(title: "Duplicate upgrade",
-                message: "You already have an upgrade of type \"Ship Upgrade\"!")
+            return (false, InfoMessage(title: "Duplicate upgrade",
+                message: "You already have an upgrade of type \"Ship Upgrade\"!"))
         } else if upgrade is AuxiliaryUpgrade {
-            return InfoMessage(title: "Duplicate upgrade",
-                message: "You already have an upgrade of type \"Auxiliary Upgrade\"!")
+            return (false, InfoMessage(title: "Duplicate upgrade",
+                message: "You already have an upgrade of type \"Auxiliary Upgrade\"!"))
         }
-        return nil
+        return (false, nil)
     }
 
     func setOwner(owner: GenericPlayer) {
@@ -150,7 +150,7 @@ class Ship: Codable {
     }
 
     func setMap(map: Map) {
-        guard let shipUI = shipUI else {
+        guard let shipUI = shipObject else {
             return
         }
         self.map = map
@@ -182,10 +182,10 @@ class Ship: Codable {
     func move(node: Node) {
         self.nodeId = node.identifier
         let nodeFrame = getCurrentNode().frame
-        guard let currentFrame = shipUI?.frame.value else {
+        guard let currentFrame = shipObject?.frame.value else {
             return
         }
-        shipUI?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
+        shipObject?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
                                                    originY: nodeFrame.originY)
     }
 

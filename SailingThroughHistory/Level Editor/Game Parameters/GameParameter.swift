@@ -9,7 +9,7 @@
 import Foundation
 
 class GameParameter: GenericLevel, Codable {
-    let upgrades: [Upgrade] = [BiggerShipUpgrade(), FasterShipUpgrade(), BiggerSailsUpgrade(), MercernaryUpgrade()]
+    var upgrades: [Upgrade] = [BiggerShipUpgrade(), FasterShipUpgrade(), BiggerSailsUpgrade(), MercernaryUpgrade()]
 
     var playerParameters = [PlayerParameter]()
     var itemParameters = [ItemParameter]()
@@ -42,6 +42,8 @@ class GameParameter: GenericLevel, Codable {
         numOfTurn = try values.decode(Int.self, forKey: .numOfTurn)
         timeLimit = try values.decode(Int.self, forKey: .timeLimit)
         map = try values.decode(Map.self, forKey: .map)
+        let upgradeTypes = try values.decode([UpgradeType].self, forKey: .upgrades)
+        upgrades = upgradeTypes.map { $0.toUpgrade() }
 
         for node in map.getNodes() {
             guard let port = node as? Port else {
@@ -62,6 +64,8 @@ class GameParameter: GenericLevel, Codable {
         try container.encode(numOfTurn, forKey: .numOfTurn)
         try container.encode(timeLimit, forKey: .timeLimit)
         try container.encode(map, forKey: .map)
+        let upgradeTypes = upgrades.map { $0.type }
+        try container.encode(upgradeTypes, forKey: .upgrades)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -72,5 +76,6 @@ class GameParameter: GenericLevel, Codable {
         case numOfTurn
         case timeLimit
         case map
+        case upgrades
     }
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class ItemPriceEvent: TurnSystemEvent {
+class ItemPriceEvent: PresetEvent {
     init(gameState: GenericGameState, itemType: ItemType,
          genericOperator: GenericOperator, modifier: Int) {
         let rawItem = gameState.itemParameters.first {
@@ -24,6 +24,7 @@ class ItemPriceEvent: TurnSystemEvent {
         super.init(triggers: [FlipFlopTrigger()],
                    conditions: [],
                    actions: [EventAction<ItemParameter>(variable: item, value: evaluatable)],
+                   parsable: { return "\(itemType.rawValue)'s price has been set to \(item.value.getBuyValue())" },
                    displayName: "Set \(itemType.rawValue) price \(genericOperator.displayName) \(modifier)")
     }
 }
