@@ -11,6 +11,12 @@ import Foundation
 class Team: GenericTeam {
     var name: String
     var money: GameVariable<Int> = GameVariable(value: 0)
+    var startingNode: Node? {
+        didSet {
+            self.startId = startingNode?.identifier
+        }
+    }
+    private(set) var startId: Int?
 
     static func == (lhs: Team, rhs: Team) -> Bool {
         return lhs.name == rhs.name
@@ -24,20 +30,36 @@ class Team: GenericTeam {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
         money.value = try values.decode(Int.self, forKey: .money)
+        startId = try values.decode(Int?.self, forKey: .startId)
+        assert(checkRep())
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(money.value, forKey: .money)
+        try container.encode(startId, forKey: .startId)
     }
 
     func updateMoney(by amount: Int) {
         self.money.value += amount
     }
 
+    func start(from node: Node) {
+        self.startingNode = node
+        assert(checkRep())
+    }
+
+    private func checkRep() -> Bool {
+        if self.startingNode == nil {
+            return true
+        }
+        return self.startingNode?.identifier == self.startId
+    }
+
     private enum CodingKeys: String, CodingKey {
         case name
         case money
+        case startId
     }
 }

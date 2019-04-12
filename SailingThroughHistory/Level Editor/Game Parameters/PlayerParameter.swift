@@ -49,7 +49,7 @@ class PlayerParameter: Codable {
     }
 
     func getStartingNode() -> Node? {
-        return startingNode
+        return getTeam().startingNode
     }
 
     func set(name: String, money: Int?) {
@@ -60,10 +60,6 @@ class PlayerParameter: Codable {
         if let unwrappedMoney = money {
             self.money = GameVariable(value: unwrappedMoney)
         }
-    }
-
-    func assign(port: Port) {
-        self.startingNode = port
     }
 
     func encode(to encoder: Encoder) throws {

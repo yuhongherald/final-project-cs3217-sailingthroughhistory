@@ -16,7 +16,7 @@ class LevelEditorViewController: UIViewController {
         }
     }
     @IBOutlet weak var editPanel: UIView!
-    @IBOutlet weak var playerMenu: UIView!
+    @IBOutlet weak var teamMenu: UIView!
     @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
     @IBOutlet weak var panelToggle: UIButton!
@@ -80,18 +80,27 @@ class LevelEditorViewController: UIViewController {
         initBackground()
 
         menuDest?.data = gameParameter.teams
-        playerMenu.isUserInteractionEnabled = true
+        teamMenu.isUserInteractionEnabled = true
 
         let map = gameParameter.map
+        let teams = gameParameter.teams
+        let teamStartIds = teams.map { $0.startId }
         // remove All nodes / paths
         self.editingAreaWrapper.subviews.filter { $0 is NodeView }
             .forEach { $0.removeFromSuperview() }
         self.editingAreaWrapper.layer.sublayers?.filter { $0 is PathView }
             .forEach { $0.removeFromSuperlayer() }
         // Add nodes to map
-        map.getNodes().forEach {
-            let nodeView = NodeView(node: $0)
+        map.getNodes().forEach { node in
+            let nodeView = NodeView(node: node)
             nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: initNodeGestures())
+            if let teamIndex = teamStartIds.firstIndex(of: node.identifier) {
+                let team = teams[teamIndex]
+                team.startingNode = node
+                if let icon = getIconOf(team: teams[teamIndex]) {
+                    nodeView.addIcon(icon)
+                }
+            }
         }
         // Add paths to map
         for path in map.getAllPaths() {
@@ -107,8 +116,8 @@ class LevelEditorViewController: UIViewController {
         reInitScrollView()
         initBackground()
 
-        playerMenu.frame.size = CGSize(width: 200, height: 100)
-        playerMenu.isHidden = true
+        teamMenu.frame.size = CGSize(width: 200, height: 100)
+        teamMenu.isHidden = true
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapOnMap(_:)))
         editingAreaWrapper.addGestureRecognizer(tapGesture)
@@ -278,17 +287,33 @@ class LevelEditorViewController: UIViewController {
             return
         }
 
-        if playerMenu.isHidden {
+        if teamMenu.isHidden {
             UIView.animate(withDuration: 0, animations: {
                 let point = node.convert(CGPoint(x: node.bounds.maxX, y: node.bounds.maxY), to: self.view)
-                self.playerMenu.frame.origin = point
+                self.teamMenu.frame.origin = point
             })
-            playerMenu.isHidden = false
+            teamMenu.isHidden = false
         } else {
-            playerMenu.isHidden = true
+            teamMenu.isHidden = true
         }
 
-        menuDest?.set(port: port)
+        menuDest?.set(node: port, for: sender)
+    }
+
+    @objc func longPressOnNode(_ sender: UILongPressGestureRecognizer) {
+        guard let node = sender.view as? NodeView else {
+            return
+        }
+
+        if teamMenu.isHidden {
+            UIView.animate(withDuration: 0, animations: {
+                let point = node.convert(CGPoint(x: node.bounds.maxX, y: node.bounds.maxY), to: self.view)
+                self.teamMenu.frame.origin = point
+            })
+            teamMenu.isHidden = false
+        }
+
+        menuDest?.set(node: node.node, for: sender)
     }
 
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
@@ -397,6 +422,7 @@ class LevelEditorViewController: UIViewController {
         singleTapOnNodeGesture.numberOfTapsRequired = 1
         let doubleTapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapOnNode(_:)))
         doubleTapOnNodeGesture.numberOfTapsRequired = 2
+        let longPressOnNodeGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnNode(_:)))
 
         singleTapOnNodeGesture.require(toFail: doubleTapOnNodeGesture)
         singleTapOnNodeGesture.delaysTouchesBegan = true
@@ -404,7 +430,7 @@ class LevelEditorViewController: UIViewController {
 
         let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
 
-        return [singleTapOnNodeGesture, doubleTapOnNodeGesture, drawPathGesture]
+        return [singleTapOnNodeGesture, doubleTapOnNodeGesture, longPressOnNodeGesture, drawPathGesture]
     }
 
     private func fillWith(_ subview: UIView) {
