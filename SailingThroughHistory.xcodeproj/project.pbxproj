@@ -79,6 +79,9 @@
 		7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB012255ED2C00EB9B1F /* TaxChangeEvent.swift */; };
 		7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB052255ED6C00EB9B1F /* ItemPriceEvent.swift */; };
 		7538CB0A2255EDE800EB9B1F /* NegativeMoneyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */; };
+		753A0E822260518400A1EA99 /* PirateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A0E812260518100A1EA99 /* PirateEvent.swift */; };
+		753A0E842260531A00A1EA99 /* UniqueTurnSystemEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A0E832260531A00A1EA99 /* UniqueTurnSystemEvent.swift */; };
+		753A0E86226055B700A1EA99 /* PirateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A0E85226055B700A1EA99 /* PirateAction.swift */; };
 		754FED652243626900394215 /* Vector2F.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED642243626900394215 /* Vector2F.swift */; };
 		754FED67224363CE00394215 /* Float+Epsilon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED66224363CE00394215 /* Float+Epsilon.swift */; };
 		754FED7122437B4F00394215 /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED7022437B4F00394215 /* NPC.swift */; };
@@ -308,6 +311,9 @@
 		7538CB012255ED2C00EB9B1F /* TaxChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxChangeEvent.swift; sourceTree = "<group>"; };
 		7538CB052255ED6C00EB9B1F /* ItemPriceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPriceEvent.swift; sourceTree = "<group>"; };
 		7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeMoneyEvent.swift; sourceTree = "<group>"; };
+		753A0E812260518100A1EA99 /* PirateEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateEvent.swift; sourceTree = "<group>"; };
+		753A0E832260531A00A1EA99 /* UniqueTurnSystemEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueTurnSystemEvent.swift; sourceTree = "<group>"; };
+		753A0E85226055B700A1EA99 /* PirateAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateAction.swift; sourceTree = "<group>"; };
 		754FED642243626900394215 /* Vector2F.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2F.swift; sourceTree = "<group>"; };
 		754FED66224363CE00394215 /* Float+Epsilon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Epsilon.swift"; sourceTree = "<group>"; };
 		754FED7022437B4F00394215 /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
@@ -609,6 +615,7 @@
 				7581AEF6225C879A001A8CC3 /* GameVariableEvaluatable.swift */,
 				75A72CBB225CD3A9003640D4 /* ConditionEvaluatable.swift */,
 				75A72CC7225CED03003640D4 /* FlipFlopTrigger.swift */,
+				753A0E832260531A00A1EA99 /* UniqueTurnSystemEvent.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -687,6 +694,7 @@
 		7538CAFE2255ECCC00EB9B1F /* Presets */ = {
 			isa = PBXGroup;
 			children = (
+				753A0E802260514E00A1EA99 /* Pirate */,
 				7581AEEF225C6484001A8CC3 /* PlayerDeath */,
 				7581AEEE225C6472001A8CC3 /* ItemPrice */,
 				7581AEED225C645D001A8CC3 /* Taxes */,
@@ -699,6 +707,15 @@
 				752D2BD9225F8EAE00A3411C /* Activatable.swift */,
 			);
 			path = Presets;
+			sourceTree = "<group>";
+		};
+		753A0E802260514E00A1EA99 /* Pirate */ = {
+			isa = PBXGroup;
+			children = (
+				753A0E812260518100A1EA99 /* PirateEvent.swift */,
+				753A0E85226055B700A1EA99 /* PirateAction.swift */,
+			);
+			path = Pirate;
 			sourceTree = "<group>";
 		};
 		755FD989224E951000D83D4B /* Arithmetic */ = {
@@ -1433,6 +1450,7 @@
 				7581AEF7225C879A001A8CC3 /* GameVariableEvaluatable.swift in Sources */,
 				751F8FE6224BAEA30071C057 /* NetworkAdapter.swift in Sources */,
 				1A53D7C6224CA5FE00FAE214 /* Team.swift in Sources */,
+				753A0E86226055B700A1EA99 /* PirateAction.swift in Sources */,
 				1A53D7C82251C44A00FAE214 /* PathView.swift in Sources */,
 				9683C290225D284600E30387 /* AvailableUpgradesDataSource.swift in Sources */,
 				7581AED1225C4CF1001A8CC3 /* GameTime+Equatable.swift in Sources */,
@@ -1452,6 +1470,7 @@
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				7535447B224CAB66001B4F62 /* LessThanOrEqualOperator.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
+				753A0E822260518400A1EA99 /* PirateEvent.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */,
 				966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */,
@@ -1465,6 +1484,7 @@
 				96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */,
 				7535447D224CAB78001B4F62 /* GreaterThanOrEqualOperator.swift in Sources */,
 				75354479224CAB56001B4F62 /* GreaterThanOperator.swift in Sources */,
+				753A0E842260531A00A1EA99 /* UniqueTurnSystemEvent.swift in Sources */,
 				7581AEE1225C5664001A8CC3 /* Modify.swift in Sources */,
 				751F8FE4224BAE100071C057 /* TurnSystemState.swift in Sources */,
 				1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */,
