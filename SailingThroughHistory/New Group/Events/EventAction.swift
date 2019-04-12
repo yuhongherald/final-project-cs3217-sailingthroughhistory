@@ -8,7 +8,7 @@
 
 class EventAction<T>: Printable, Modify {
     var displayName: String = "action"
-    
+
     private let variable: GameVariable<T>
     private let value: Evaluatable<T>
 

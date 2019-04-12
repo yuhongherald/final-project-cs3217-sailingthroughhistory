@@ -18,7 +18,7 @@ class TurnSystemState: GenericTurnSystemState {
         self.gameState = gameState
         self.currentTurn = joinOnTurn
     }
-    
+
     private var triggeredEventsDict: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     var triggeredEvents: [TurnSystemEvent] {
         return Array(triggeredEventsDict.values)
@@ -52,20 +52,23 @@ class TurnSystemState: GenericTurnSystemState {
             && addEvents(events: events)
     }
 
-    func checkForEvents() -> Bool {
-        var result = false
+    func checkForEvents() -> [GameMessage] {
+        var result = [GameMessage]()
         for (_, event) in events {
-            result = result || event.evaluateEvent()
+            guard let eventResult = event.evaluateEvent() else {
+                continue
+            }
+            result.append(eventResult)
         }
         return result
     }
 
-    // TODO: Call these 2 methods
     func turnFinished() {
         currentTurn += 1
         gameState.gameTime.value.addWeeks(4)
     }
 
+    // marked for deprecation
     func processed(action: PlayerAction, from player: GenericPlayer) {
         actionHistory.append((player: player, action: action))
     }
