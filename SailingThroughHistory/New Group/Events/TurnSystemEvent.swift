@@ -12,21 +12,20 @@ import Foundation
 class TurnSystemEvent: Unique, Printable {
     var identifier: Int = -1
 
-    private let _displayName: String
-    var displayName: String {
-        return _displayName
-    }
-
+    let displayName: String
+    
     private let triggers: [Trigger]
     private let conditions: [Evaluate]
     private let actions: [Modify]
+    private let parsable: () -> String
 
     init(triggers: [Trigger], conditions: [Evaluate],
-         actions: [Modify], displayName: String) {
+         actions: [Modify], parsable: @escaping () -> String, displayName: String) {
         self.triggers = triggers
         self.conditions = conditions
         self.actions = actions
-        self._displayName = displayName
+        self.parsable = parsable
+        self.displayName = displayName
     }
 
     func evaluateEvent() -> GameMessage? {
@@ -36,7 +35,7 @@ class TurnSystemEvent: Unique, Printable {
         executeWithConditions()
         resetTrigger()
         // TODO: Write a message parser, require on construction
-        return GameMessage.event(name: "base event", message: "message")
+        return GameMessage.event(name: displayName, message: parsable())
     }
 
     private func hasTriggered() -> Bool {

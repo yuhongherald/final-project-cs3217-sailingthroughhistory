@@ -13,9 +13,10 @@ class ObjectsViewController {
     private let mainController: MainGameViewController
     private var nodeViews = [Int: NodeView]()
     private var paths = ObjectPaths()
-    private var pathLayers = [Path: CALayer]()
+    private var pathLayers = [Path: CAShapeLayer]()
     private var objectQueues = [GameObject: DispatchQueue]()
     private let view: UIView
+    private var pathWeathers = [Path: UILightningView]()
     private var modelBounds: Rect {
         return mainController.interfaceBounds
     }
@@ -100,10 +101,9 @@ class ObjectsViewController {
         let endPoint = CGPoint(x: toFrame.midX, y: toFrame.midY)
         let bezierPath = UIBezierPath()
         let layer = CAShapeLayer()
-        bezierPath.move(to: startPoint)
-        bezierPath.addLine(to: endPoint)
+        bezierPath.drawArrow(from: startPoint, to: endPoint)
         layer.path = bezierPath.cgPath
-        layer.strokeColor = UIColor.black.cgColor
+        layer.strokeColor = UIColor.darkGray.cgColor
         layer.fillColor = UIColor.clear.cgColor
         layer.lineWidth = 4.0
         layer.lineDashPattern = [10.0, 2.0]
@@ -114,6 +114,10 @@ class ObjectsViewController {
         animation.toValue = 1.0
         animation.duration = duration
         layer.add(animation, forKey: "drawLineAnimation")
+        let weatherView = UILightningViewFactory.getLightningView(frame: bezierPath.bounds)
+        pathWeathers[path] = weatherView
+        view.addSubview(weatherView)
+        weatherView.initView()
     }
 
     func subscribeToObjects(in map: Map) {
@@ -136,7 +140,30 @@ class ObjectsViewController {
 
     func updatePathWeather() {
         for path in paths.allPaths {
-            /// TODO: Weather display
+            let isActive = path
+                .modifiers
+                .map { $0.isActive }
+                .contains(true)
+            if isActive {
+                pathWeathers[path]?.start()
+            } else {
+                pathWeathers[path]?.stop()
+            }
+            pathLayers[path]?.strokeColor = (isActive ? UIColor.red : UIColor.darkGray).cgColor
+        }
+    }
+
+    func makeShipGlow(for player: GenericPlayer) {
+        for (object, view) in objectViews {
+            guard let ship = object as? ShipUI else {
+                continue
+            }
+
+            if ship == player.playerShip.shipObject {
+                view.addGlow(colored: .green)
+            } else {
+                view.removeGlow()
+            }
         }
     }
 

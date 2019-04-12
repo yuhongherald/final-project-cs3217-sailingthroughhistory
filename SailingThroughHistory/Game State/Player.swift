@@ -49,10 +49,7 @@ class Player: GenericPlayer {
     var playerShip: Ship {
         return ship
     }
-    var homeNode: Node {
-        return _homeNode
-    }
-    private let _homeNode: Node
+    let homeNode: Int
 
     var gameState: GenericGameState?
     private let ship: Ship
@@ -65,8 +62,8 @@ class Player: GenericPlayer {
         self.team = team
         self.map = map
         self.deviceId = deviceId
+        self.homeNode = node.identifier
         ship = Ship(node: node, suppliesConsumed: [])
-        _homeNode = ship.getCurrentNode()
         ship.setOwner(owner: self)
         ship.setMap(map: map)
     }
@@ -78,8 +75,7 @@ class Player: GenericPlayer {
         money.value = try values.decode(Int.self, forKey: .money)
         ship = try values.decode(Ship.self, forKey: .ship)
         deviceId = try values.decode(String.self, forKey: .deviceId)
-
-        _homeNode = ship.getCurrentNode()
+        homeNode = try values.decode(Int.self, forKey: .homeNode)
         ship.setOwner(owner: self)
     }
 
@@ -90,6 +86,7 @@ class Player: GenericPlayer {
         try container.encode(money.value, forKey: .money)
         try container.encode(ship, forKey: .ship)
         try container.encode(deviceId, forKey: .deviceId)
+        try container.encode(homeNode, forKey: .homeNode)
     }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter? {
@@ -107,12 +104,11 @@ class Player: GenericPlayer {
         self.map = map
         hasRolled = false
         state.value = PlayerState.moving
-        ship.startTurn()
-        return nil // TODO
+        return ship.startTurn()
     }
 
-    func buyUpgrade(upgrade: Upgrade) {
-        ship.installUpgrade(upgrade: upgrade)
+    func buyUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
+        return ship.installUpgrade(upgrade: upgrade)
     }
 
     func roll() -> (Int, [Int]) {
@@ -160,7 +156,7 @@ class Player: GenericPlayer {
 
     func dock() throws {
         let port = try ship.dock()
-        try port.collectTax(from: self)
+        port.collectTax(from: self)
     }
 
     func getPurchasableItemTypes() -> [ItemType] {
@@ -207,9 +203,9 @@ class Player: GenericPlayer {
         return ship.isDocked
     }
 
-    func endTurn() {
+    func endTurn() -> [InfoMessage] {
         hasRolled = false
-        ship.endTurn(speedMultiplier: speedMultiplier)
+        return ship.endTurn(speedMultiplier: speedMultiplier)
     }
 
     func canTradeAt(port: Port) -> Bool {
@@ -222,6 +218,7 @@ class Player: GenericPlayer {
         case money
         case ship
         case deviceId
+        case homeNode
     }
 }
 

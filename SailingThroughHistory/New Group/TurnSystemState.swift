@@ -35,6 +35,7 @@ class TurnSystemState: GenericTurnSystemState {
         }
         return result
     }
+
     func removeEvents(events: [TurnSystemEvent]) -> Bool {
         var result: Bool = true
         for event in events {

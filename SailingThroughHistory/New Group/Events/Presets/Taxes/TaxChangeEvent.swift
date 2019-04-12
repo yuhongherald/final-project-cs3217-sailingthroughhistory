@@ -24,6 +24,7 @@ class TaxChangeEvent: PresetEvent {
         super.init(triggers: [FlipFlopTrigger()],
                    conditions: [],
                    actions: actions,
+                   parsable: { return "Neutral port taxes have been changed" },
                    displayName: "Set neutral port taxes by \(genericOperator.displayName) \(modifier)")
     }
 }

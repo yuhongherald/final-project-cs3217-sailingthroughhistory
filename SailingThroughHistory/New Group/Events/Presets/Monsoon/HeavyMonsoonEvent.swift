@@ -29,6 +29,7 @@ class HeavyMonsoonEvent: PresetEvent {
                                                      comparator: NotEqualOperator<Int>())],
                    conditions: [],
                    actions: actions,
+                   parsable: { return "Heavy monsoon!" },
                    displayName: "Heavy monsoon!")
     }
 }

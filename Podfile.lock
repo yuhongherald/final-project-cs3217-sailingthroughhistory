@@ -97,6 +97,7 @@ PODS:
   - gRPC-Core/Interface (1.17.0)
   - GTMSessionFetcher/Core (1.2.1)
   - leveldb-library (1.20)
+  - lottie-ios-extension (1.5.1.1)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
@@ -106,6 +107,11 @@ PODS:
   - RxAtomic (4.4.1)
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
+  - URWeatherView (0.7.0):
+    - lottie-ios-extension
+    - URWeatherView/Core (= 0.7.0)
+  - URWeatherView/Core (0.7.0):
+    - lottie-ios-extension
 
 DEPENDENCIES:
   - CodableFirebase
@@ -115,6 +121,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseUI/Firestore (~> 5.0)
   - RxSwift (~> 4.0)
+  - URWeatherView (~> 0.7.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -135,10 +142,12 @@ SPEC REPOS:
     - gRPC-Core
     - GTMSessionFetcher
     - leveldb-library
+    - lottie-ios-extension
     - nanopb
     - Protobuf
     - RxAtomic
     - RxSwift
+    - URWeatherView
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: 2a230d9cd93e7ce39916044f645cebb31f37dde6
@@ -158,11 +167,13 @@ SPEC CHECKSUMS:
   gRPC-Core: 4028031ed2c5267cca0d846c876d8046b1ecb9b6
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  lottie-ios-extension: 219b261ba9f3d6a0cda7cf84bbfb545aa5806153
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
+  URWeatherView: 4a716a83149f788220ec156047e4d0e8517835bf
 
-PODFILE CHECKSUM: 90ded87ad01dd159264a5c21d116e64cf55ced33
+PODFILE CHECKSUM: 3bf216a18d04c547856bad5ad047991ab0340c7b
 
 COCOAPODS: 1.6.1

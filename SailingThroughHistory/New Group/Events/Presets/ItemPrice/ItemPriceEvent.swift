@@ -24,6 +24,7 @@ class ItemPriceEvent: PresetEvent {
         super.init(triggers: [FlipFlopTrigger()],
                    conditions: [],
                    actions: [EventAction<ItemParameter>(variable: item, value: evaluatable)],
+                   parsable: { return "\(itemType.rawValue)'s price has been set to \(item.value.getBuyValue())" },
                    displayName: "Set \(itemType.rawValue) price \(genericOperator.displayName) \(modifier)")
     }
 }

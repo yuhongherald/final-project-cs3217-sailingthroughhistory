@@ -120,6 +120,16 @@ class GameState: GenericGameState {
     func endGame() {
     }
 
+    func getTeamMoney() -> [Team: Int] {
+        var result = [Team: Int]()
+        for player in players {
+            let team = player.team
+            result[team] = (result[team] ?? 0) + player.money.value
+        }
+
+        return result
+    }
+
     private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {
@@ -147,7 +157,7 @@ class GameState: GenericGameState {
             if !teams.contains(where: {$0.name == team.name}) {
                 teams.append(team)
             }
-            let player = Player(name: String(roomPlayer.playerName.suffix(5)), team: team, map: map,
+            let player = Player(name: String(roomPlayer.playerName.prefix(5)), team: team, map: map,
                                 node: node, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self

@@ -17,11 +17,11 @@ class PresetEvent: TurnSystemEvent, Activatable {
         }
     }
 
-    override init(triggers: [Trigger], conditions: [Evaluate], actions: [Modify], displayName: String) {
+    override init(triggers: [Trigger], conditions: [Evaluate], actions: [Modify], parsable: @escaping () -> String, displayName: String) {
         var newConditions: [Evaluate] = conditions
         newConditions.append(EventCondition<Bool>(first: VariableEvaluatable<Bool>(activeVariable),
                                                   second: Evaluatable<Bool>(true),
                                                   change: EqualOperator<Bool>()))
-        super.init(triggers: triggers, conditions: conditions, actions: actions, displayName: displayName)
+        super.init(triggers: triggers, conditions: conditions, actions: actions, parsable: parsable, displayName: displayName)
     }
 }
