@@ -51,6 +51,11 @@ enum Resources {
         // static let edge: String = ""
     }
 
+    enum Flag {
+        static let british: String = "british-flag.png"
+        static let dutch: String = "dutch-flag.png"
+    }
+
     enum Icon {
         static let port: String = "port-node.png"
         static let sea: String = "sea-node.png"

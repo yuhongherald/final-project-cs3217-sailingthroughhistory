@@ -82,9 +82,9 @@ extension LevelEditorViewController: MenuViewDelegateProtocol {
         let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         switch team.name {
         case "Dutch":
-            view.image = UIImage(named: Resources.Ships.dutch.first ?? "")
+            view.image = UIImage(named: Resources.Flag.dutch)
         case "British":
-            view.image = UIImage(named: Resources.Ships.british.first ?? "")
+            view.image = UIImage(named: Resources.Flag.british)
         default:
             return nil
         }

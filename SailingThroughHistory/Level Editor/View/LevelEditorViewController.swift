@@ -230,6 +230,7 @@ class LevelEditorViewController: UIViewController {
                 return
             }
             nodeView.removeFrom(map: self.gameParameter.map)
+            nodeView.node.remove()
             var offset = 0
             for (index, lineLayer) in lineLayerArr.enumerated() {
                 if lineLayer.shipPath?.fromNode == nodeView.node
