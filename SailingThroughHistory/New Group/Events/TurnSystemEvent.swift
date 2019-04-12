@@ -14,7 +14,7 @@ class TurnSystemEvent: Unique, Printable {
 
     let displayName: String
     
-    private let triggers: [Trigger]
+    let triggers: [Trigger]
     private let conditions: [Evaluate]
     private let actions: [Modify]
     private let parsable: () -> String

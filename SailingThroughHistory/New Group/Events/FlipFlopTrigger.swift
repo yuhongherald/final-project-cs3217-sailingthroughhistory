@@ -8,7 +8,7 @@
 
 // A trigger that only fires once
 class FlipFlopTrigger: Trigger {
-    private var triggered: Bool = true
+    var triggered: Bool = true
     func hasTriggered() -> Bool {
         return triggered
     }
