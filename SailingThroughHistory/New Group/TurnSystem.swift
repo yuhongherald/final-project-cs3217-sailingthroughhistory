@@ -244,6 +244,9 @@ class TurnSystem: GenericTurnSystem {
             player.buyUpgrade(upgrade: upgradeType.toUpgrade())
             return GameMessage.playerAction(name: player.name,
                                             message: " has purchased the \(upgradeType.toUpgrade().name)!")
+        case .pirate():
+            player.playerShip.startPirateChase()
+            return GameMessage.playerAction(name: player.name, message: " is chased by pirates!")
         }
     }
 
@@ -427,7 +430,9 @@ class TurnSystem: GenericTurnSystem {
                 }
                 let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
                 self.messages.append(contentsOf: playerActions)
-                chosenPlayer.endTurn()
+                for infoMessage in chosenPlayer.endTurn() {
+                    self.messages.append(GameMessage.playerAction(name: chosenPlayer.name, message: infoMessage.message))
+                }
             }
             state = .waitForStateUpdate
             // OI

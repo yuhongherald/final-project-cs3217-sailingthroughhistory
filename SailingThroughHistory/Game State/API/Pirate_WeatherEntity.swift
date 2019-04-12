@@ -9,6 +9,6 @@
 import Foundation
 
 protocol Pirate_WeatherEntity {
-    func startPirateChase() -> InfoMessage
+    func startPirateChase()
     func getWeatherModifier() -> Double
 }

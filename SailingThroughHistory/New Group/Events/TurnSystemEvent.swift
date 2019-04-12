@@ -13,7 +13,7 @@ class TurnSystemEvent: Unique, Printable {
     var identifier: Int = -1
 
     let displayName: String
-    
+
     let triggers: [Trigger]
     private let conditions: [Evaluate]
     private let actions: [Modify]

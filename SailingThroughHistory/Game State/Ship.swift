@@ -158,14 +158,7 @@ class Ship: Codable {
 
     // Movement
 
-    func startTurn() -> InfoMessage? {
-        if isChasedByPirates && turnsToBeingCaught <= 0 {
-            // TODO: Pirate event
-            isChasedByPirates = false
-            turnsToBeingCaught = 0
-            return InfoMessage(title: "Pirates!", message: "You have been caught by pirates!. You lost all your cargo")
-        }
-        return nil
+    func startTurn() {
     }
 
     func getNodesInRange(roll: Int, speedMultiplier: Double, map: Map) -> [Node] {
@@ -179,11 +172,12 @@ class Ship: Codable {
     }
 
     func move(node: Node) {
-        self.nodeId = node.identifier
-        let nodeFrame = getCurrentNode().frame
         guard let currentFrame = shipObject?.frame.value else {
             return
         }
+        self.nodeId = node.identifier
+        let nodeFrame = getCurrentNode().frame
+        isDocked = false
         shipObject?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
                                                    originY: nodeFrame.originY)
     }
@@ -216,6 +210,13 @@ class Ship: Codable {
         var messages = [InfoMessage]()
         if isChasedByPirates {
             turnsToBeingCaught -= 1
+        }
+
+        if isChasedByPirates && turnsToBeingCaught <= 0 {
+            isChasedByPirates = false
+            turnsToBeingCaught = 0
+            items.value.removeAll()
+            messages.append(InfoMessage(title: "Pirates!", message: "You have been caught by pirates!. You lost all your cargo"))
         }
 
         for supply in suppliesConsumed {
@@ -283,7 +284,6 @@ extension Ship {
     }
 
     func buyItem(itemType: ItemType, quantity: Int) throws {
-        // TODO: auto-dock
         guard let port = getCurrentNode() as? Port, isDocked else {
             throw BuyItemError.notDocked
         }
@@ -316,8 +316,6 @@ extension Ship {
         guard let profit = items.value[index].sell(at: port) else {
             throw BuyItemError.itemNotAvailable
         }
-        // TODO: Someone needs to reflect this...
-        //showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
         owner?.updateMoney(by: profit)
         items.value.remove(at: index)
         items.value = items.value

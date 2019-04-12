@@ -16,6 +16,7 @@ protocol GenericPlayer: class, Codable {
     var weightCapacity: Int { get }
     var state: GameVariable<PlayerState> { get }
     var node: Node? { get }
+    var nodeIdVariable: GameVariable<Int> { get }
     var hasRolled: Bool { get }
     var deviceId: String { get }
     var map: Map? { get set }
@@ -39,7 +40,7 @@ protocol GenericPlayer: class, Codable {
     func subscribeToMoney(with observer: @escaping (GenericPlayer, Int) -> Void)
 
     // Before moving
-    func startTurn(speedMultiplier: Double, map: Map?) -> InfoMessage?
+    func startTurn(speedMultiplier: Double, map: Map?)
     func buyUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?)
     func roll() -> (Int, [Int])
 
