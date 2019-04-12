@@ -103,11 +103,10 @@ class Ship: Codable {
     }
 
     func setLocation(map: Map) {
-        /*guard let node = map.nodeIDPair[nodeId] else {
+        guard let node = map.nodeIDPair[nodeId] else {
             return
         }
-        let location = Location(start: nodeId, end: nodeId, fractionToEnd: 0, isDocked: node is Port)
-        self.location.value = location*/
+        nodeId = node.identifier
     }
 
     func installUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
