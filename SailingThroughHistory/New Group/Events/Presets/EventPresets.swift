@@ -19,7 +19,7 @@ class EventPresets {
     private let playerDeathEvents: [String: PresetEvent]
     private let eventTable: EventTable<PresetEvent>
 
-    init(gameState: GenericGameState) {
+    init(gameState: GenericGameState, turnSystem: GenericTurnSystem) {
         // monsoon []
         // taxes []
         // item price []
@@ -55,6 +55,7 @@ class EventPresets {
         for player in gameState.getPlayers() {
             playerDeathEvents[player.deviceId] = eventTable.pushEvent(
                 event: NegativeMoneyEvent(player: player))
+            eventTable.pushEvent(event: PlayerArrivalEvent(player: player, turnSystem: turnSystem))
         }
 
         self.monsoonEvents = monsoonEvents
