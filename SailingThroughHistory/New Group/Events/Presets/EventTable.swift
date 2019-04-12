@@ -8,11 +8,11 @@
 
 class EventTable<T> where T: TurnSystemEvent {
     private var table: [Int: T] = [Int: T]()
-    private var nextID: Int = 0
+    private var nextID: Int = Int.max
     func pushEvent(event: T) -> T {
         event.identifier = nextID
         table[nextID] = event
-        nextID += 1
+        nextID -= 1
         return event
     }
     func getEvent(id: Int) -> T? {
