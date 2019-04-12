@@ -139,7 +139,7 @@ class Player: GenericPlayer {
         }
 
         return ship.getCurrentNode()
-            .getCompletePath(to: toNode, map: map)
+            .getCompleteShortestPath(to: toNode, with: ship, map: map)
             .map { $0.identifier }
     }
 

@@ -196,6 +196,8 @@
 		BA6FBBD9225A22FE00B366DB /* InfoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */; };
 		BA6FBBDB225A237900B366DB /* Ship_Pirate_Weather_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */; };
 		BA6FBBDD225C82A700B366DB /* MovementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDC225C82A700B366DB /* MovementError.swift */; };
+		BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */; };
+		BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */; };
 		BA91905B223F256300009F49 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = BA91905A223F256200009F49 /* Images */; };
 		BA91905E223F25CE00009F49 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905D223F25CE00009F49 /* GameState.swift */; };
 		BA919060223F25E400009F49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905F223F25E400009F49 /* Player.swift */; };
@@ -423,6 +425,8 @@
 		BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMessage.swift; sourceTree = "<group>"; };
 		BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship_Pirate_Weather_Extension.swift; sourceTree = "<group>"; };
 		BA6FBBDC225C82A700B366DB /* MovementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementError.swift; sourceTree = "<group>"; };
+		BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparablePair.swift; sourceTree = "<group>"; };
 		BA91905A223F256200009F49 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		BA91905D223F25CE00009F49 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BA91905F223F25E400009F49 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -803,6 +807,7 @@
 		965E033A223A7110005F7D79 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */,
 				754FED642243626900394215 /* Vector2F.swift */,
 				754FED66224363CE00394215 /* Float+Epsilon.swift */,
 				96737E9E223CF1CB00D04C33 /* GameObject.swift */,
@@ -814,6 +819,7 @@
 				9681199D2243CCA30093ABBA /* Array+Rotate.swift */,
 				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
 				9615B7702248F28100DA12C8 /* CGRect+Rect.swift */,
+				BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1334,6 +1340,7 @@
 				9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */,
 				7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
+				BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */,
 				751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				75328F56225359BB00180B03 /* EngineConstants.swift in Sources */,
@@ -1342,6 +1349,7 @@
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				75328F5822535A1500180B03 /* GameTime.swift in Sources */,
+				BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */,
 				9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */,
 				755FD973224E842000D83D4B /* EventAction.swift in Sources */,
 				75A72CC8225CED03003640D4 /* FlipFlopTrigger.swift in Sources */,
