@@ -79,7 +79,7 @@
 		7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB012255ED2C00EB9B1F /* TaxChangeEvent.swift */; };
 		7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB052255ED6C00EB9B1F /* ItemPriceEvent.swift */; };
 		7538CB0A2255EDE800EB9B1F /* NegativeMoneyEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */; };
-		753A0E822260518400A1EA99 /* PirateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A0E812260518100A1EA99 /* PirateEvent.swift */; };
+		753A0E822260518400A1EA99 /* PlayerArrivalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A0E812260518100A1EA99 /* PlayerArrivalEvent.swift */; };
 		753A0E842260531A00A1EA99 /* UniqueTurnSystemEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A0E832260531A00A1EA99 /* UniqueTurnSystemEvent.swift */; };
 		753A0E86226055B700A1EA99 /* PirateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A0E85226055B700A1EA99 /* PirateAction.swift */; };
 		754FED652243626900394215 /* Vector2F.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754FED642243626900394215 /* Vector2F.swift */; };
@@ -204,6 +204,8 @@
 		BA6FBBD9225A22FE00B366DB /* InfoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */; };
 		BA6FBBDB225A237900B366DB /* Ship_Pirate_Weather_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */; };
 		BA6FBBDD225C82A700B366DB /* MovementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDC225C82A700B366DB /* MovementError.swift */; };
+		BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */; };
+		BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */; };
 		BA91905B223F256300009F49 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = BA91905A223F256200009F49 /* Images */; };
 		BA91905E223F25CE00009F49 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905D223F25CE00009F49 /* GameState.swift */; };
 		BA919060223F25E400009F49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905F223F25E400009F49 /* Player.swift */; };
@@ -215,6 +217,7 @@
 		BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919077223F4D0800009F49 /* ShipChassis.swift */; };
 		BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */; };
 		BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91907B223F531A00009F49 /* GenericGameState.swift */; };
+		BAB3378222605D35007A0C05 /* HistoryFactAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378122605D35007A0C05 /* HistoryFactAction.swift */; };
 		BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */; };
 		BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED4B042253697B00A8D54A /* InGameMessage.swift */; };
 		BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */; };
@@ -311,7 +314,7 @@
 		7538CB012255ED2C00EB9B1F /* TaxChangeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxChangeEvent.swift; sourceTree = "<group>"; };
 		7538CB052255ED6C00EB9B1F /* ItemPriceEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPriceEvent.swift; sourceTree = "<group>"; };
 		7538CB092255EDE800EB9B1F /* NegativeMoneyEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegativeMoneyEvent.swift; sourceTree = "<group>"; };
-		753A0E812260518100A1EA99 /* PirateEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateEvent.swift; sourceTree = "<group>"; };
+		753A0E812260518100A1EA99 /* PlayerArrivalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerArrivalEvent.swift; sourceTree = "<group>"; };
 		753A0E832260531A00A1EA99 /* UniqueTurnSystemEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueTurnSystemEvent.swift; sourceTree = "<group>"; };
 		753A0E85226055B700A1EA99 /* PirateAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateAction.swift; sourceTree = "<group>"; };
 		754FED642243626900394215 /* Vector2F.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector2F.swift; sourceTree = "<group>"; };
@@ -441,6 +444,8 @@
 		BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMessage.swift; sourceTree = "<group>"; };
 		BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship_Pirate_Weather_Extension.swift; sourceTree = "<group>"; };
 		BA6FBBDC225C82A700B366DB /* MovementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementError.swift; sourceTree = "<group>"; };
+		BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparablePair.swift; sourceTree = "<group>"; };
 		BA91905A223F256200009F49 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		BA91905D223F25CE00009F49 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BA91905F223F25E400009F49 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -454,6 +459,7 @@
 		BA919077223F4D0800009F49 /* ShipChassis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipChassis.swift; sourceTree = "<group>"; };
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
 		BA91907B223F531A00009F49 /* GenericGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameState.swift; sourceTree = "<group>"; };
+		BAB3378122605D35007A0C05 /* HistoryFactAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFactAction.swift; sourceTree = "<group>"; };
 		BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pirate_WeatherEntity.swift; sourceTree = "<group>"; };
 		BAED4B042253697B00A8D54A /* InGameMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMessage.swift; sourceTree = "<group>"; };
 		BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerShipUpgrade.swift; sourceTree = "<group>"; };
@@ -694,7 +700,7 @@
 		7538CAFE2255ECCC00EB9B1F /* Presets */ = {
 			isa = PBXGroup;
 			children = (
-				753A0E802260514E00A1EA99 /* Pirate */,
+				753A0E802260514E00A1EA99 /* PlayerArrival */,
 				7581AEEF225C6484001A8CC3 /* PlayerDeath */,
 				7581AEEE225C6472001A8CC3 /* ItemPrice */,
 				7581AEED225C645D001A8CC3 /* Taxes */,
@@ -709,13 +715,14 @@
 			path = Presets;
 			sourceTree = "<group>";
 		};
-		753A0E802260514E00A1EA99 /* Pirate */ = {
+		753A0E802260514E00A1EA99 /* PlayerArrival */ = {
 			isa = PBXGroup;
 			children = (
-				753A0E812260518100A1EA99 /* PirateEvent.swift */,
+				753A0E812260518100A1EA99 /* PlayerArrivalEvent.swift */,
 				753A0E85226055B700A1EA99 /* PirateAction.swift */,
+				BAB3378122605D35007A0C05 /* HistoryFactAction.swift */,
 			);
-			path = Pirate;
+			path = PlayerArrival;
 			sourceTree = "<group>";
 		};
 		755FD989224E951000D83D4B /* Arithmetic */ = {
@@ -845,6 +852,7 @@
 		965E033A223A7110005F7D79 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */,
 				754FED642243626900394215 /* Vector2F.swift */,
 				754FED66224363CE00394215 /* Float+Epsilon.swift */,
 				96737E9E223CF1CB00D04C33 /* GameObject.swift */,
@@ -856,6 +864,7 @@
 				9681199D2243CCA30093ABBA /* Array+Rotate.swift */,
 				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
 				9615B7702248F28100DA12C8 /* CGRect+Rect.swift */,
+				BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1384,6 +1393,7 @@
 				9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */,
 				7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
+				BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */,
 				751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				96A7D0AE225F8269001C18E4 /* CountdownLabelView.swift in Sources */,
@@ -1393,6 +1403,7 @@
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				75328F5822535A1500180B03 /* GameTime.swift in Sources */,
+				BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */,
 				9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */,
 				755FD973224E842000D83D4B /* EventAction.swift in Sources */,
 				75A72CC8225CED03003640D4 /* FlipFlopTrigger.swift in Sources */,
@@ -1454,6 +1465,7 @@
 				1A53D7C82251C44A00FAE214 /* PathView.swift in Sources */,
 				9683C290225D284600E30387 /* AvailableUpgradesDataSource.swift in Sources */,
 				7581AED1225C4CF1001A8CC3 /* GameTime+Equatable.swift in Sources */,
+				BAB3378222605D35007A0C05 /* HistoryFactAction.swift in Sources */,
 				7581AEE3225C5B84001A8CC3 /* TurnSystemController.swift in Sources */,
 				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
@@ -1470,7 +1482,7 @@
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
 				7535447B224CAB66001B4F62 /* LessThanOrEqualOperator.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
-				753A0E822260518400A1EA99 /* PirateEvent.swift in Sources */,
+				753A0E822260518400A1EA99 /* PlayerArrivalEvent.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */,
 				966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */,

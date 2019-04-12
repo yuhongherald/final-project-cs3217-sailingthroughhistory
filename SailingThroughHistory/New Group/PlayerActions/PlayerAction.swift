@@ -28,6 +28,8 @@ enum PlayerAction: Codable {
         case .purchaseUpgrade:
             let type = try container.decode(UpgradeType.self, forKey: .itemType)
             self = .purchaseUpgrade(type: type)
+        case .pirate:
+            self = .pirate()
         }
     }
 
@@ -51,6 +53,8 @@ enum PlayerAction: Codable {
         case .purchaseUpgrade(let upgradeType):
             try container.encode(Identifier.purchaseUpgrade, forKey: .type)
             try container.encode(upgradeType, forKey: .upgrade)
+        case .pirate:
+            break
         }
     }
 
@@ -59,6 +63,7 @@ enum PlayerAction: Codable {
     case forceMove(toNodeId: Int)
     case purchaseUpgrade(type: UpgradeType)
     case setTax(forPortId: Int, taxAmount: Int)
+    case pirate()
     //case setEvent(changeType: ChangeType, events: [TurnSystemEvent])
 
     private enum Identifier: String, Codable {
@@ -67,6 +72,7 @@ enum PlayerAction: Codable {
         case forceMove
         case setTax
         case purchaseUpgrade
+        case pirate
         //case setEvent
     }
 

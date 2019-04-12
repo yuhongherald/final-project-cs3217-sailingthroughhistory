@@ -13,6 +13,9 @@ enum BuyItemError: Error {
     case notDocked
     case itemNotAvailable
     case unknownItem
+    case purchaseSuccess(item: GenericItem)
+    case sellSuccess(item: GenericItem)
+    case sellTypeSuccess(itemType: ItemType, quantity: Int)
 
     func getMessage() -> String {
         switch self {
@@ -28,6 +31,12 @@ enum BuyItemError: Error {
             return "Player is not at a port!"
         case .unknownItem:
             return "Unknown item. Please contact the developers ASAP"
+        case .purchaseSuccess(item: let item):
+            return "Item purchase of \(item.name) with \(item.quantity) quantity is successful!"
+        case .sellSuccess(item: let item):
+            return "\(item.name) with \(item.quantity) quantity sold successfully!"
+        case .sellTypeSuccess(itemType: let itemType, quantity: let quantity):
+            return "\(itemType) with \(quantity) quantity sold successfully!"
         }
     }
 }
