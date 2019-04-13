@@ -8,7 +8,7 @@
 
 class HeavyMonsoonEvent: PresetEvent {
     init(gameState: GenericGameState, start: Int, end: Int) {
-        var actions: [EventAction<Bool>] = []
+        var actions: [EventAction<Bool>?] = []
         for path in gameState.map.getAllPaths() {
             for monsoon in path.modifiers {
                 guard let monsoon = monsoon as? VolatileMonsoon else {

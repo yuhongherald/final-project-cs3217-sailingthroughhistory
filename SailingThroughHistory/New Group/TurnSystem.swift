@@ -192,14 +192,17 @@ class TurnSystem: GenericTurnSystem {
     }
 
     private func playerMove(_ player: GenericPlayer, _ nodeId: Int, isEnd: Bool) -> GameMessage? {
-        let previous = player.playerShip.getCurrentNode().name
+        guard let ship = player.playerShip else {
+            return nil
+        }
+        let previous = ship.getCurrentNode().name
         player.move(nodeId: nodeId)
 
         if !isEnd {
             return nil
         }
 
-        let current = player.playerShip.getCurrentNode().name
+        let current = ship.getCurrentNode().name
         return GameMessage.playerAction(name: player.name,
                                         message: " has moved from \(previous) to \(current)")
     }
@@ -261,7 +264,7 @@ class TurnSystem: GenericTurnSystem {
             return GameMessage.playerAction(name: player.name,
                                             message: " has purchased the \(upgradeType.toUpgrade().name)!")
         case .pirate:
-            player.playerShip.startPirateChase()
+            player.playerShip?.startPirateChase()
             return GameMessage.playerAction(name: player.name, message: " is chased by pirates!")
         }
     }

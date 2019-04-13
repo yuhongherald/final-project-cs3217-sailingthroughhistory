@@ -16,7 +16,7 @@ class Player: GenericPlayer {
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
-    var team: Team
+    var team: Team?
     var node: Node? {
         return map?.nodeIDPair[ship.nodeId]
     }
@@ -46,7 +46,7 @@ class Player: GenericPlayer {
     }
 
     // for events
-    var playerShip: Ship {
+    var playerShip: Ship? {
         return ship
     }
     let homeNode: Int
@@ -96,7 +96,6 @@ class Player: GenericPlayer {
 
     func addShipsToMap(map: Map) {
         ship.setMap(map: map)
-        ship.setLocation(map: map)
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
@@ -211,7 +210,7 @@ class Player: GenericPlayer {
 
     func updateMoney(by amount: Int) {
         money.value += amount
-        team.updateMoney(by: amount)
+        team?.updateMoney(by: amount)
         guard money.value >= 0 else {
             preventPlayerBankruptcy(amount: money.value)
             return
@@ -273,7 +272,7 @@ extension Player {
 
     private func preventPlayerBankruptcy(amount: Int) {
         // TODO: Show some message?
-        team.updateMoney(by: -amount)
+        team?.updateMoney(by: -amount)
         money.value = 0
     }
 }
