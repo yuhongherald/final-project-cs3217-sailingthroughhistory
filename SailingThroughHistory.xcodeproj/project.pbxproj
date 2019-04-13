@@ -145,8 +145,6 @@
 		9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */; };
 		966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
-		96707465226253FC0056D81D /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96707464226253FC0056D81D /* LocalDatabase.swift */; };
-		96707467226254070056D81D /* LocalRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96707466226254070056D81D /* LocalRoom.swift */; };
 		96707469226254810056D81D /* LocalRoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96707468226254810056D81D /* LocalRoomConnection.swift */; };
 		9670E9202261D31600E8A01F /* MessagesTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670E91F2261D31600E8A01F /* MessagesTableController.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
@@ -224,7 +222,6 @@
 		BAB3378222605D35007A0C05 /* HistoryFactAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378122605D35007A0C05 /* HistoryFactAction.swift */; };
 		BAB3378422620357007A0C05 /* NodeResident.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378322620357007A0C05 /* NodeResident.swift */; };
 		BAB33789226203B3007A0C05 /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB33788226203B3007A0C05 /* NPC.swift */; };
-		BAB3378B226203C7007A0C05 /* PirateIsland.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378A226203C7007A0C05 /* PirateIsland.swift */; };
 		BAB3378E2262295D007A0C05 /* ShipUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378D2262295D007A0C05 /* ShipUnitTests.swift */; };
 		BAB3379022622B3F007A0C05 /* Upgradable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378F22622B3F007A0C05 /* Upgradable.swift */; };
 		BAB3379222622B86007A0C05 /* Ship_Upgradable_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379122622B86007A0C05 /* Ship_Upgradable_Extension.swift */; };
@@ -393,8 +390,6 @@
 		9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableDataSource.swift; sourceTree = "<group>"; };
 		966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameObjectImageView.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
-		96707464226253FC0056D81D /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
-		96707466226254070056D81D /* LocalRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoom.swift; sourceTree = "<group>"; };
 		96707468226254810056D81D /* LocalRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoomConnection.swift; sourceTree = "<group>"; };
 		9670E91F2261D31600E8A01F /* MessagesTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableController.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
@@ -479,7 +474,6 @@
 		BAB3378122605D35007A0C05 /* HistoryFactAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFactAction.swift; sourceTree = "<group>"; };
 		BAB3378322620357007A0C05 /* NodeResident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeResident.swift; sourceTree = "<group>"; };
 		BAB33788226203B3007A0C05 /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
-		BAB3378A226203C7007A0C05 /* PirateIsland.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateIsland.swift; sourceTree = "<group>"; };
 		BAB3378D2262295D007A0C05 /* ShipUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipUnitTests.swift; sourceTree = "<group>"; };
 		BAB3378F22622B3F007A0C05 /* Upgradable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgradable.swift; sourceTree = "<group>"; };
 		BAB3379122622B86007A0C05 /* Ship_Upgradable_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship_Upgradable_Extension.swift; sourceTree = "<group>"; };
@@ -899,8 +893,6 @@
 		96707463226253B40056D81D /* Local */ = {
 			isa = PBXGroup;
 			children = (
-				96707464226253FC0056D81D /* LocalDatabase.swift */,
-				96707466226254070056D81D /* LocalRoom.swift */,
 				96707468226254810056D81D /* LocalRoomConnection.swift */,
 			);
 			path = Local;
@@ -1465,7 +1457,6 @@
 				7581AEDF225C563E001A8CC3 /* Evaluate.swift in Sources */,
 				9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */,
 				7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */,
-				96707465226253FC0056D81D /* LocalDatabase.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
 				BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */,
 				BAB3379222622B86007A0C05 /* Ship_Upgradable_Extension.swift in Sources */,
@@ -1600,7 +1591,6 @@
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 				96CEB951224DF14400B027BA /* FirestoreRooms.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
-				96707467226254070056D81D /* LocalRoom.swift in Sources */,
 				751F8FE2224BAA420071C057 /* SerializableGameObject.swift in Sources */,
 				96E0745F2252510C0068406B /* RoomMember.swift in Sources */,
 			);

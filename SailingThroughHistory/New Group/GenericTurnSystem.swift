@@ -17,7 +17,6 @@ protocol GenericTurnSystem {
     func sell(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws
     func purchase(upgrade: Upgrade, by player: GenericPlayer) throws -> InfoMessage?
     func watchMasterUpdate(gameState: GenericGameState)
-    func watchTurnFinished(playerActions: [(GenericPlayer, [PlayerAction])])
     func endTurn()
     func endTurnCallback(action: @escaping () -> Void)
     func subscribeToState(with callback: @escaping (TurnSystem.State) -> Void)

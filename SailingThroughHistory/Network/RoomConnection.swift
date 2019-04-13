@@ -15,7 +15,7 @@ protocol RoomConnection {
 
     func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws
 
-    func push(currentState: GameState, completion callback: @escaping (Error?) -> Void) throws
+    func push(currentState: GameState, forTurn turn: Int, completion callback: @escaping (Error?) -> Void) throws
 
     func subscribeToActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void)
 
@@ -24,8 +24,6 @@ protocol RoomConnection {
     func push(actions: [PlayerAction], fromPlayer player: GenericPlayer,
               forTurnNumbered turn: Int,
               completion callback: @escaping (Error?) -> ()) throws
-
-    func checkTurnEnd(actions: [Map], forTurnNumbered turn: Int) throws
 
     func set(teams: [Team])
 
@@ -38,4 +36,6 @@ protocol RoomConnection {
     func remove(player: String)
 
     func changeRemovalCallback(to callback: @escaping () -> Void)
+
+    func subscribeToMasterState(for turn: Int, callback: @escaping (GameState) -> Void)
 }

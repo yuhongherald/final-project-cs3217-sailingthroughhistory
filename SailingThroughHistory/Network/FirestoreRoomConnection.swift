@@ -56,7 +56,7 @@ class FirebaseRoomConnection: RoomConnection {
         self.numOfPlayers = 0
     }
 
-    private func subscribeRemoval(removalCallback: @escaping () -> Void) {
+    private func subscribeRemoval(removalCallback: (() -> Void)?) {
         self.removalCallback = removalCallback
         listeners.append(roomDocumentRef.addSnapshotListener { [weak self] (document, _) in
             if let document = document {
@@ -101,7 +101,7 @@ class FirebaseRoomConnection: RoomConnection {
                     return
                 }
                 connection.roomMasterId = document.get(FirestoreConstants.roomMasterKey) as? String ?? ""
-                callback(connection, error)
+                connection.postJoinActions(completion: callback)
             }
         }
 
@@ -156,25 +156,17 @@ class FirebaseRoomConnection: RoomConnection {
         batch.commit(completion: completion)
     }
 
-    private func postJoinActions(removed removedCallback: @escaping () -> Void,
-                                 completion callback: @escaping (RoomConnection?, Error?) -> Void) -> (Error?) -> Void {
-        let completion: (Error?) -> Void = { error in
-            if let error = error {
-                callback(nil, error)
-            }
-            self.numOfPlayers += 1
-            self.sendAndCheckHeartBeat { [weak self] in
-                self?.subscribeRemoval(removalCallback: removedCallback)
-            }
-            self.devicesCollectionRef.document(self.deviceId).updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
-            self.heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
-                self.sendAndCheckHeartBeat(completion: nil)
-            })
-            self.heartbeatTimer?.fire()
-
-            callback(self, error)
+    private func postJoinActions(completion callback: @escaping (RoomConnection?, Error?) -> Void) {
+        self.sendAndCheckHeartBeat { [weak self] in
+            self?.subscribeRemoval(removalCallback: nil)
         }
-        return completion
+        self.devicesCollectionRef.document(self.deviceId).updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
+        self.heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
+            self.sendAndCheckHeartBeat(completion: nil)
+        })
+        self.heartbeatTimer?.fire()
+
+        callback(self, nil)
     }
 
     private func sendAndCheckHeartBeat(completion callback: (() -> Void)?) {
@@ -255,11 +247,23 @@ class FirebaseRoomConnection: RoomConnection {
                  completion: callback)
     }
 
-    func push(currentState: GameState, completion callback: @escaping (Error?) -> Void) throws {
+    func push(currentState: GameState, forTurn turn: Int, completion callback: @escaping (Error?) -> Void) throws {
         try push(currentState,
-                 to: modelCollectionRef.document(FirestoreConstants.currentStateDocumentName),
+                 to: modelCollectionRef.document(String(turn)),
                  encodeErrorMsg: FirestoreConstants.encodeStateErrorMsg,
                  completion: callback)
+    }
+
+    func subscribeToMasterState(for turn: Int, callback: @escaping (GameState) -> Void) {
+        listeners.append(modelCollectionRef.document(String(turn)).addSnapshotListener { (snapshot, error) in
+            guard let snapshot = snapshot,
+                error == nil,
+                let state = try? FirebaseDecoder().decode(GameState.self, from: snapshot) else {
+                    return
+            }
+
+            callback(state)
+        })
     }
 
     func subscribeToActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
@@ -325,10 +329,6 @@ class FirebaseRoomConnection: RoomConnection {
                  to: turnActionsDocumentRef.collection(String(turn)).document(player.name),
                  encodeErrorMsg: FirestoreConstants.encodeStateErrorMsg,
                  completion: callback)
-    }
-
-    func checkTurnEnd(actions: [Map], forTurnNumbered turn: Int) throws {
-
     }
 
     func set(teams: [Team]) {
