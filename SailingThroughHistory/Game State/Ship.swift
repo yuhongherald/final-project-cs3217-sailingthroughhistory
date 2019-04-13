@@ -175,18 +175,10 @@ class Ship: Codable {
         guard let currentFrame = shipObject?.frame.value else {
             return
         }
-        guard let startNode = map?.nodeIDPair[nodeId] else {
-            fatalError("Ship has invalid node id.")
-        }
         self.nodeId = node.identifier
         let nodeFrame = getCurrentNode().frame
         isDocked = false
-        guard let shipObject = shipObject else {
-            return
-        }
-        startNode.objects.removeAll(where: { $0 == shipObject })
-        node.add(object: shipObject)
-        shipObject.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
+        shipObject?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
                                                    originY: nodeFrame.originY)
     }
 
