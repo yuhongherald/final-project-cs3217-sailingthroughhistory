@@ -97,6 +97,17 @@ class GameParameterTest: XCTestCase {
         XCTAssertTrue(isEqual(itemParameter: decode, itemParameter), "Decode result is different from original one")
     }
 
+    func testCodableGameParameter() {
+        let gameParameter = GameParameter(map: Map(map: "map", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100)), teams: ["team1", "team2"])
+        guard let encode = try? JSONEncoder().encode(gameParameter) else {
+            XCTAssertThrowsError("Encode Failed")
+            return
+        }
+        let decode = try? JSONDecoder().decode(GameParameter.self, from: encode)
+        XCTAssertNotNil(decode, "Decode Failed")
+        XCTAssertTrue(isEqual(gameParameter: decode, gameParameter), "Decode result is different from original one")
+    }
+
     private func isEqual(playerParameter: PlayerParameter?, _ rhs: PlayerParameter) -> Bool {
         guard let lhs = playerParameter else {
             return false
@@ -119,5 +130,73 @@ class GameParameterTest: XCTestCase {
         return lhs.getBuyValue() == rhs.getBuyValue() && lhs.getSellValue() == rhs.getSellValue()
             && lhs.getHalfLife() == rhs.getHalfLife() && lhs.displayName == rhs.displayName
             && lhs.isConsumable == rhs.isConsumable && lhs.unitWeight == rhs.unitWeight && lhs.itemType == rhs.itemType
+    }
+
+    private func isEqual(gameParameter: GameParameter?, _ rhs: GameParameter) -> Bool {
+        guard let lhs = gameParameter else {
+            return false
+        }
+
+        guard lhs.playerParameters.count == rhs.playerParameters.count, lhs.upgrades.count == rhs.upgrades.count else {
+            return false
+        }
+
+        for parameter in lhs.playerParameters {
+            guard let index = rhs.playerParameters.firstIndex(where: { isEqual(playerParameter: $0, parameter) }) else {
+                return false
+            }
+            rhs.playerParameters.remove(at: index)
+        }
+        if !rhs.playerParameters.isEmpty {
+            return false
+        }
+
+        for upgrade in lhs.upgrades {
+            guard let index = rhs.upgrades.firstIndex(where: { isEqual(upgrade: $0, upgrade) }) else {
+                return false
+            }
+            rhs.upgrades.remove(at: index)
+        }
+        if !rhs.upgrades.isEmpty {
+            return false
+        }
+
+        return lhs.eventParameters == rhs.eventParameters && lhs.itemParameters == rhs.itemParameters
+             && lhs.numOfTurn == rhs.numOfTurn && lhs.timeLimit == rhs.timeLimit
+            && lhs.teams == rhs.teams && isEqual(map: lhs.map, rhs.map)
+    }
+
+    private func isEqual(upgrade: Upgrade?, _ rhs: Upgrade) -> Bool {
+        guard let lhs = upgrade else {
+            return false
+        }
+        return lhs.name == rhs.name && lhs.cost == rhs.cost && lhs.type == rhs.type
+    }
+
+    private func isEqual(map: Map?, _ rhs: Map) -> Bool {
+        guard let lhs = map else {
+            return false
+        }
+
+        // check same nodes
+        let lhsNodes = Set<Node>(lhs.getNodes())
+        var rhsNodes = Set<Node>(rhs.getNodes())
+        for node in lhsNodes {
+            rhsNodes.remove(node)
+        }
+        if !rhsNodes.isEmpty {
+            return false
+        }
+
+        // check same path
+        let lhsPaths = Set<Path>(lhs.getAllPaths())
+        var rhsPaths = Set<Path>(rhs.getAllPaths())
+        for path in lhsPaths {
+            rhsPaths.remove(path)
+        }
+        if !rhsPaths.isEmpty {
+            return false
+        }
+        return lhs.map == rhs.map && lhs.bounds == rhs.bounds
     }
 }

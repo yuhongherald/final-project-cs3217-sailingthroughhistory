@@ -14,7 +14,7 @@ class MapTest: XCTestCase {
     var sea: Sea = Sea(name: "sea", originX: 0, originY: 0)
     var pirateSea: Sea = {
         let sea = Sea(name: "pirateSea", originX: 100, originY: 100)
-        sea.add(object: Pirate(in: sea))
+        sea.add(object: PirateUI(in: sea))
         return sea
     }()
     var NPCport: SailingThroughHistory.Port = Port(team: nil, name: "port", originX: 20, originY: 20)
@@ -26,7 +26,7 @@ class MapTest: XCTestCase {
         map = Map(map: "", bounds: Rect(originX: 0, originY: 0, height: 1000, width: 1024))
         sea = Sea(name: "sea", originX: 0, originY: 0)
         pirateSea = Sea(name: "pirateSea", originX: 100, originY: 100)
-        let pirate = Pirate(in: pirateSea)
+        let pirate = PirateUI(in: pirateSea)
         pirateSea.add(object: pirate)
         NPCport = Port(team: nil, name: "port", originX: 20, originY: 20)
         selfport = Port(team: Team(name: "testTeam"), originX: 40, originY: 40)
@@ -48,7 +48,7 @@ class MapTest: XCTestCase {
 
         // test add path
         let node2 = Sea(name: "sea2", originX: 10, originY: 10)
-        let pirate = Pirate(in: node2)
+        let pirate = PirateUI(in: node2)
         node2.add(object: pirate)
         map.addNode(node2)
         nodes.insert(node2)

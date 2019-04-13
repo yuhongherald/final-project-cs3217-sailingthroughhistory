@@ -216,7 +216,7 @@ class Map: Codable {
 
         var entitiesArrayForType = try container.nestedUnkeyedContainer(forKey: CodingKeys.entities)
         while !entitiesArrayForType.isAtEnd {
-            let rawEntity = try nodesArrayForType.nestedContainer(keyedBy: EntityTypeKey.self)
+            let rawEntity = try entitiesArrayForType.nestedContainer(keyedBy: EntityTypeKey.self)
             let type = try rawEntity.decode(EntityTypes.self, forKey: EntityTypeKey.type)
 
             switch type {
@@ -275,7 +275,7 @@ class Map: Codable {
                 entitiesWithType.append(EntityWithType(entity: entity, type: EntityTypes.npc))
             }
         }
-        try container.encode(nodesWithType, forKey: .nodes)
+        try container.encode(entitiesWithType, forKey: .entities)
     }
 
     enum CodingKeys: String, CodingKey {

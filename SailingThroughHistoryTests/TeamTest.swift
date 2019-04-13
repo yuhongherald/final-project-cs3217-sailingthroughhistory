@@ -51,7 +51,7 @@ class TeamTest: XCTestCase {
         check(team)
 
         // test sea with objects
-        sea.add(object: Pirate(in: sea))
+        sea.add(object: PirateUI(in: sea))
         check(team)
     }
 
