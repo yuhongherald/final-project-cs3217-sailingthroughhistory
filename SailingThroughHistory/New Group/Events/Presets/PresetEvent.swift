@@ -14,13 +14,11 @@ class PresetEvent: TurnSystemEvent, Activatable {
         }
         set {
             activeVariable.value = newValue
-            if newValue {
-                for trigger in triggers where trigger is FlipFlopTrigger {
-                    guard let trigger = trigger as? FlipFlopTrigger else {
-                        continue
-                    }
-                    trigger.triggered = true
+            for trigger in triggers where trigger is FlipFlopTrigger {
+                guard let trigger = trigger as? FlipFlopTrigger else {
+                    continue
                 }
+                trigger.triggered = newValue
             }
         }
     }

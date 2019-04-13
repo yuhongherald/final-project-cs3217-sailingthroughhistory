@@ -7,12 +7,12 @@
 //
 
 class PlayerArrivalEvent: PresetEvent {
-    init(player: GenericPlayer, turnSystem: GenericTurnSystem) {
+    init(player: GenericPlayer) {
         super.init(triggers: [EventTrigger<Int>(
             variable: player.nodeIdVariable,
             comparator: NotEqualOperator<Int>())],
             conditions: [],
-            actions: [PirateAction(player: player, turnSystem: turnSystem), HistoryFactAction()], parsable: { return "\(player.name) is being chased by pirates!" },
-            displayName: "Pirate event")
+            actions: [HistoryFactAction()], parsable: { return "" },
+            displayName: "Arrival History Facts Event")
     }
 }

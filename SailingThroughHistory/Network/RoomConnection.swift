@@ -11,11 +11,7 @@ import Foundation
 protocol RoomConnection {
     var roomMasterId: String { get }
 
-    static func getConnection(for room: FirestoreRoom,
-                              removed removedCallback: @escaping () -> Void,
-                              completion callback: @escaping (RoomConnection?, Error?) -> ())
-    func join(removed removedCallback: @escaping () -> Void,
-              completion callback: @escaping (RoomConnection?, Error?) -> ())
+    func addPlayer()
 
     func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws
 
@@ -40,4 +36,6 @@ protocol RoomConnection {
     func changeTeamName(for identifier: String, to teamName: String)
 
     func remove(player: String)
+
+    func changeRemovalCallback(to callback: @escaping () -> Void)
 }

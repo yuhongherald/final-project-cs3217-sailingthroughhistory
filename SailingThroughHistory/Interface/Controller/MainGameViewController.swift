@@ -58,6 +58,11 @@ class MainGameViewController: UIViewController {
         }
     }
 
+    @IBOutlet private weak var messagesTableView: UITableView!
+    @IBOutlet private weak var messagesView: UIBlurredBackgroundView!
+    @IBOutlet private weak var toggleMessagesButton: UIButtonRounded!
+
+
     private var currentTurnOwner: GenericPlayer?
 
     private lazy var objectsController: ObjectsViewController =
@@ -65,15 +70,18 @@ class MainGameViewController: UIViewController {
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
         togglePlayerInfoButton: playerInfoWrapper,
-        toggleTeamScoresButton: teamScoresWrapper]
+        toggleTeamScoresButton: teamScoresWrapper,
+        toggleMessagesButton: messagesView]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private lazy var availableUpgradesDataSource = AvailableUpgradesDataSource(mainController: self,
                                                                                availableUpgrades: model.availableUpgrades)
     private lazy var teamScoresController = TeamScoreTableController(tableView: teamScoreTableView,
                                                                      scores: Dictionary())
+    private lazy var messagesController = MessagesTableController(tableView: messagesTableView)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     private let storage = LocalStorage()
     var turnSystem: GenericTurnSystem?
+    var network: RoomConnection?
     var backgroundData: Data?
     private var model: GenericGameState {
         guard let turnSystem = turnSystem else {
@@ -104,13 +112,19 @@ class MainGameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         turnSystem?.startGame()
+        view.window?.rootViewController = self
+        network?.changeRemovalCallback { [weak self] in
+            self?.performSegue(withIdentifier: "gameToMain", sender: nil)
+        }
     }
 
     private func updateForState(_ state: TurnSystem.State) {
         DispatchQueue.main.async { [weak self] in
-            guard let self = self else {
+            guard let self = self,
+                let turnSystem = self.turnSystem else {
                 return
             }
+            self.messagesController.set(messages: turnSystem.messages)
             self.statusLabel.text = ""
             self.playerTurnEnd()
             self.currentTurnOwner = nil

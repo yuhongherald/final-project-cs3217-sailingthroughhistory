@@ -159,22 +159,23 @@ class Player: GenericPlayer {
     }
 
     func getPirateEncounterChance() -> Double {
-        guard let map = map else {
+        guard let map = map,
+            !(auxiliaryUpgrade is MercernaryUpgrade) else {
+            return 0
+        }
+        let position = ship.getCurrentNode()
+        if position is Port {
             return 0
         }
         var chance = map.basePirateRate
-        let entities = map.getEntities()
-        let position = ship.getCurrentNode()
-        for entity in entities {
-            guard let pirate = entity as? PirateIsland,
-                let pirateNode = map.nodeIDPair[pirate.nodeId] else {
-                continue
-            }
+        let pirateIslands = map.getPiratesIslands()
+
+        for (pirateNode, pirateIsland) in pirateIslands {
             guard let distance = pirateNode.getNumNodesTo(to: position, map: map),
-                distance <= pirate.influence else {
+                distance <= pirateIsland.influence else {
                 continue
             }
-            chance = max(chance, pirate.chance)
+            chance = max(chance, pirateIsland.chance)
         }
 
         return chance

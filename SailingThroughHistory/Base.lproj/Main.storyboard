@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xnR-2a-N1z">
-    <device id="ipad9_7" orientation="landscape">
+    <device id="ipad12_9rounded" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,24 +15,24 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainGameViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView autoresizesSubviews="NO" multipleTouchEnabled="YES" contentMode="TopLeft" translatesAutoresizingMaskIntoConstraints="NO" id="yCl-MH-qBd">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                                <rect key="frame" x="0.0" y="24" width="1366" height="980"/>
                                 <subviews>
                                     <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ph7-HO-lQ1">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1366" height="980"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Sq-IX-ntE">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1366" height="980"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yzi-uC-Odn">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1366" height="980"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQB-GM-yKS">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1366" height="980"/>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -69,14 +69,14 @@
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nf-n2-xli">
-                                <rect key="frame" x="1004" y="40" width="0.0" height="0.0"/>
+                                <rect key="frame" x="1346" y="44" width="0.0" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q59-92-ecD" customClass="CountdownLabel" customModule="CountdownLabel">
-                                <rect key="frame" x="20" y="468" width="71" height="36"/>
+                                <rect key="frame" x="20" y="618.5" width="71" height="36"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -88,7 +88,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="662.5" y="48" width="341.5" height="384"/>
+                                <rect key="frame" x="890.5" y="52" width="455.5" height="512"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnv-LQ-Jez">
                                         <rect key="frame" x="20" y="20" width="0.0" height="0.0"/>
@@ -97,7 +97,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fN-oD-MBu" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="334" width="147" height="30"/>
+                                        <rect key="frame" x="20" y="462" width="147" height="30"/>
                                         <state key="normal" title="Hide Port Information"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -109,14 +109,14 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4M7-Lm-ad4">
-                                        <rect key="frame" x="20" y="28" width="301.5" height="298"/>
+                                        <rect key="frame" x="20" y="28" width="415.5" height="426"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemsTableCell" id="TgA-2g-eO7" customClass="UITradeTableCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="301.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="415.5" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TgA-2g-eO7" id="JTj-7Q-aft">
-                                                    <rect key="frame" x="0.0" y="0.0" width="301.5" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="415.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iA3-Hc-Ypi" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -191,7 +191,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Pn-jO-5xF" userLabel="Action Panel" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="512" width="341.5" height="256"/>
+                                <rect key="frame" x="0.0" y="662.5" width="455.5" height="341.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxt-Al-xiN" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
                                         <rect key="frame" x="20" y="20" width="163" height="36"/>
@@ -202,20 +202,20 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pul-tz-1B7">
-                                        <rect key="frame" x="302.5" y="20" width="19" height="36"/>
+                                        <rect key="frame" x="416.5" y="20" width="19" height="36"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dbO-3p-xaJ">
-                                        <rect key="frame" x="20" y="64" width="301.5" height="122"/>
+                                        <rect key="frame" x="20" y="64" width="415.5" height="207.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="upgradesTableCell" id="tl1-FV-fAo" customClass="UITradeTableCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="301.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="415.5" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tl1-FV-fAo" id="6XX-jk-UHE">
-                                                    <rect key="frame" x="0.0" y="0.0" width="301.5" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="415.5" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4o5-vA-S7I" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -290,7 +290,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8nQ-Ii-rtZ" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="20" y="707" width="203" height="41"/>
+                                <rect key="frame" x="20" y="943" width="203" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Toggle Action Panel"/>
                                 <connections>
@@ -298,10 +298,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyb-KI-RoB" userLabel="TeamScores" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="268" y="20" width="308" height="231.5"/>
+                                <rect key="frame" x="268" y="24" width="411" height="308"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2pE-Mj-glV">
-                                        <rect key="frame" x="20" y="60" width="268" height="151.5"/>
+                                        <rect key="frame" x="20" y="60" width="371" height="228"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -319,7 +319,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFT-em-0mO" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="260" height="384"/>
+                                <rect key="frame" x="0.0" y="24" width="260" height="512"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edJ-ZT-gPh">
                                         <rect key="frame" x="20" y="70" width="42" height="20.5"/>
@@ -340,7 +340,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B3l-yt-y4u">
-                                        <rect key="frame" x="20" y="155.5" width="220" height="208.5"/>
+                                        <rect key="frame" x="20" y="155.5" width="220" height="336.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableView>
                                 </subviews>
@@ -370,7 +370,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ue5-3h-dqr" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="20" y="40" width="220" height="36"/>
+                                <rect key="frame" x="20" y="44" width="220" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Toggle Player Information"/>
                                 <connections>
@@ -378,33 +378,68 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQt-yR-Dfx" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="335" y="40" width="174" height="36"/>
+                                <rect key="frame" x="386.5" y="44" width="174" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Toggle Team Scores"/>
                                 <connections>
                                     <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eft-go-7l6"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KxU-Yt-PMI" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="683" y="572" width="683" height="432"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3x5-TV-ZeY">
+                                        <rect key="frame" x="20" y="20" width="643" height="352"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3x5-TV-ZeY" firstAttribute="top" secondItem="KxU-Yt-PMI" secondAttribute="top" constant="20" symbolic="YES" id="BZG-Wn-730"/>
+                                    <constraint firstAttribute="trailing" secondItem="3x5-TV-ZeY" secondAttribute="trailing" constant="20" symbolic="YES" id="Djz-kk-0ga"/>
+                                    <constraint firstItem="3x5-TV-ZeY" firstAttribute="leading" secondItem="KxU-Yt-PMI" secondAttribute="leading" constant="20" symbolic="YES" id="I11-6W-7ba"/>
+                                    <constraint firstAttribute="bottom" secondItem="3x5-TV-ZeY" secondAttribute="bottom" constant="60" id="ubQ-7u-3Rh"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPy-7Q-I59" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="934" y="943" width="181" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Toggle Messages"/>
+                                <connections>
+                                    <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SLm-gr-K4u"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KxU-Yt-PMI" secondAttribute="trailing" id="2KU-u6-G1v"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="top" secondItem="6nf-n2-xli" secondAttribute="bottom" constant="8" symbolic="YES" id="2yt-xV-pR4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q59-92-ecD" secondAttribute="trailing" id="4Qh-5t-DYv"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="trailing" constant="8" symbolic="YES" id="4WX-9T-WFk"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="93w-mA-raU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KxU-Yt-PMI" secondAttribute="bottom" id="ATa-f8-i5s"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="BKh-th-Hki"/>
                             <constraint firstItem="q59-92-ecD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="GIX-ZC-G64"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="GWu-vH-dFQ"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="GYk-OA-eX0"/>
+                            <constraint firstItem="YPy-7Q-I59" firstAttribute="centerX" secondItem="KxU-Yt-PMI" secondAttribute="centerX" id="IIU-6m-91U"/>
+                            <constraint firstItem="KxU-Yt-PMI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" constant="8" symbolic="YES" id="KIr-zn-jYi"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Lnl-P6-45G"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mu4-Ie-cT6"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NQy-MG-Yoo"/>
+                            <constraint firstItem="KxU-Yt-PMI" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="OIf-7u-ejX"/>
                             <constraint firstItem="aQt-yR-Dfx" firstAttribute="centerX" secondItem="iyb-KI-RoB" secondAttribute="centerX" id="OUK-pt-ldD"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ObH-J3-fir"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" constant="1" id="Q7F-SB-aB9"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qob-fY-pBc"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QxV-sm-yoD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="bottom" id="Ra9-H3-yrl"/>
+                            <constraint firstItem="YPy-7Q-I59" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Rj3-oD-Wex"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5Pn-jO-5xF" secondAttribute="bottom" id="SYJ-Zq-Z6f"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iyb-KI-RoB" secondAttribute="bottom" id="SkV-Lv-W1I"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="trailing" id="TN5-7n-QWa"/>
@@ -424,8 +459,10 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="bottom" id="hhb-JF-26f"/>
                             <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="jGQ-tS-9AB"/>
                             <constraint firstItem="q59-92-ecD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="jJB-zK-tTp"/>
+                            <constraint firstItem="KxU-Yt-PMI" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="bottom" constant="8" symbolic="YES" id="jWe-ia-EaL"/>
                             <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="top" id="koH-dm-gN5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6nf-n2-xli" secondAttribute="trailing" constant="20" id="lRl-YQ-kVK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YPy-7Q-I59" secondAttribute="trailing" constant="20" id="lp8-VM-39J"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="m8d-iH-P1c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="leading" id="o0F-2V-7Ut"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o3e-AA-P7X"/>
@@ -434,6 +471,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="rDM-QC-Hl5"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aQt-yR-Dfx" secondAttribute="bottom" constant="8" symbolic="YES" id="t83-FX-ZJ9"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" constant="1" id="u6e-c9-iVy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YPy-7Q-I59" secondAttribute="bottom" constant="20" id="v8t-kV-uor"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="vdp-tX-Jp2"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="w0B-KI-dKf"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aQt-yR-Dfx" secondAttribute="trailing" constant="8" symbolic="YES" id="wwb-OI-ooE"/>
@@ -449,6 +487,8 @@
                         <outlet property="diceResultLabel" destination="pul-tz-1B7" id="zgu-jx-z6U"/>
                         <outlet property="gameAndBackgroundWrapper" destination="Ph7-HO-lQ1" id="pc9-ya-kwM"/>
                         <outlet property="gameArea" destination="Yzi-uC-Odn" id="qRV-20-8r7"/>
+                        <outlet property="messagesTableView" destination="3x5-TV-ZeY" id="ZKc-TV-Q9Q"/>
+                        <outlet property="messagesView" destination="KxU-Yt-PMI" id="EAa-d9-qUI"/>
                         <outlet property="playerCargoWeightLabel" destination="5NV-8O-2w1" id="eun-OD-Rk1"/>
                         <outlet property="playerInfoWrapper" destination="MFT-em-0mO" id="XKf-HX-JgN"/>
                         <outlet property="playerItemsTable" destination="B3l-yt-y4u" id="pQx-Pc-Fvt"/>
@@ -463,8 +503,10 @@
                         <outlet property="teamScoreTableView" destination="2pE-Mj-glV" id="ULA-HL-hw1"/>
                         <outlet property="teamScoresWrapper" destination="iyb-KI-RoB" id="KI1-8s-cV6"/>
                         <outlet property="toggleActionPanelButton" destination="8nQ-Ii-rtZ" id="R6d-Il-V9c"/>
+                        <outlet property="toggleMessagesButton" destination="YPy-7Q-I59" id="Fvj-S4-tan"/>
                         <outlet property="togglePlayerInfoButton" destination="ue5-3h-dqr" id="KyB-co-3e5"/>
                         <outlet property="toggleTeamScoresButton" destination="aQt-yR-Dfx" id="r0P-4F-BMC"/>
+                        <segue destination="xnR-2a-N1z" kind="presentation" identifier="gameToMain" id="d1n-eo-DHc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -474,38 +516,35 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="204" y="-307"/>
+            <point key="canvasLocation" x="1639" y="-709"/>
         </scene>
         <!--Waiting Room View Controller-->
         <scene sceneID="Dz6-Pl-KNl">
             <objects>
                 <viewController id="hud-2E-hMt" customClass="WaitingRoomViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dns-Kk-t0T">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I1d-80-XYE">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="680"/>
+                                <rect key="frame" x="0.0" y="24" width="1366" height="892"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="waitingRoomCell" id="VTi-qS-msc" customClass="WaitingRoomViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="1366" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VTi-qS-msc" id="k2O-DD-H3u">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1366" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8T-uM-dzM">
-                                                    <rect key="frame" x="10" y="7.5" width="300" height="29"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="drm-Ed-aGr"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="20" y="7.5" width="273" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6Z-14-FDQ" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                                    <rect key="frame" x="871" y="1.5" width="143" height="41"/>
+                                                    <rect key="frame" x="1203" y="1.5" width="143" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <state key="normal" title="Change Team"/>
                                                     <connections>
@@ -513,7 +552,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9v-WT-7Gd" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                                    <rect key="frame" x="777" y="1.5" width="84" height="41"/>
+                                                    <rect key="frame" x="1111" y="0.0" width="84" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <state key="normal" title="Remove"/>
                                                     <connections>
@@ -521,21 +560,31 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33S-f6-CcL">
-                                                    <rect key="frame" x="320" y="7.5" width="57" height="29"/>
+                                                    <rect key="frame" x="301" y="7.5" width="57" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="m6Z-14-FDQ" firstAttribute="leading" secondItem="m9v-WT-7Gd" secondAttribute="trailing" constant="10" id="Kfa-f5-Nao"/>
-                                                <constraint firstAttribute="trailing" secondItem="m6Z-14-FDQ" secondAttribute="trailing" constant="10" id="L63-45-lXH"/>
-                                                <constraint firstItem="33S-f6-CcL" firstAttribute="centerY" secondItem="D8T-uM-dzM" secondAttribute="centerY" id="OMh-0J-tnG"/>
-                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="ct5-eU-W0O"/>
-                                                <constraint firstItem="m9v-WT-7Gd" firstAttribute="centerY" secondItem="D8T-uM-dzM" secondAttribute="centerY" id="eyZ-tm-Ybh"/>
-                                                <constraint firstItem="33S-f6-CcL" firstAttribute="leading" secondItem="D8T-uM-dzM" secondAttribute="trailing" constant="10" id="m9o-Y1-ui3"/>
-                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="leading" secondItem="k2O-DD-H3u" secondAttribute="leading" constant="10" id="nGE-7S-th2"/>
-                                                <constraint firstItem="m6Z-14-FDQ" firstAttribute="centerY" secondItem="D8T-uM-dzM" secondAttribute="centerY" id="rxU-28-Rrc"/>
+                                                <constraint firstItem="33S-f6-CcL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k2O-DD-H3u" secondAttribute="top" id="6mq-fQ-uI4"/>
+                                                <constraint firstAttribute="bottom" secondItem="m9v-WT-7Gd" secondAttribute="bottom" id="Ak2-Tk-fg8"/>
+                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="width" secondItem="k2O-DD-H3u" secondAttribute="width" multiplier="1/5" id="Arw-be-Jr0"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="D8T-uM-dzM" secondAttribute="bottom" id="DRM-2D-I4a"/>
+                                                <constraint firstItem="m6Z-14-FDQ" firstAttribute="leading" secondItem="m9v-WT-7Gd" secondAttribute="trailing" constant="8" symbolic="YES" id="H4F-zI-bnv"/>
+                                                <constraint firstItem="33S-f6-CcL" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="JJz-fb-EvN"/>
+                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k2O-DD-H3u" secondAttribute="top" id="Kxj-5q-NA3"/>
+                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="LJf-dg-3o8"/>
+                                                <constraint firstItem="m9v-WT-7Gd" firstAttribute="top" secondItem="k2O-DD-H3u" secondAttribute="top" id="OdZ-sB-N4A"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="m6Z-14-FDQ" secondAttribute="bottom" id="Pmz-TB-AXI"/>
+                                                <constraint firstItem="m9v-WT-7Gd" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="Rt9-wn-HD8"/>
+                                                <constraint firstItem="33S-f6-CcL" firstAttribute="leading" secondItem="D8T-uM-dzM" secondAttribute="trailing" constant="8" symbolic="YES" id="S2b-az-ny6"/>
+                                                <constraint firstAttribute="trailing" secondItem="m6Z-14-FDQ" secondAttribute="trailing" constant="20" symbolic="YES" id="VKy-43-420"/>
+                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="leading" secondItem="k2O-DD-H3u" secondAttribute="leading" constant="20" symbolic="YES" id="a69-wM-aFa"/>
+                                                <constraint firstItem="m6Z-14-FDQ" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="cVE-aa-B0E"/>
+                                                <constraint firstItem="m6Z-14-FDQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k2O-DD-H3u" secondAttribute="top" id="ki3-SJ-6F1"/>
+                                                <constraint firstItem="m9v-WT-7Gd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="33S-f6-CcL" secondAttribute="trailing" id="xms-g2-ETu"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="33S-f6-CcL" secondAttribute="bottom" id="zgs-rY-cMr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -548,7 +597,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0f-gp-77X" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="20" y="700" width="175" height="48"/>
+                                <rect key="frame" x="93" y="936" width="175" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Choose Level"/>
                                 <connections>
@@ -556,7 +605,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qrm-2o-EiA" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="754" y="700" width="250" height="48"/>
+                                <rect key="frame" x="1096" y="936" width="250" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Join Another Player"/>
                                 <connections>
@@ -564,36 +613,46 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2h-Qs-FWy" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="439" y="700" width="146" height="48"/>
+                                <rect key="frame" x="610" y="936" width="146" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Start Game"/>
                                 <connections>
                                     <action selector="startGamePressed:" destination="hud-2E-hMt" eventType="touchUpInside" id="LUS-nZ-xie"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyP-nU-ABg" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="20" y="936" width="65" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="hud-2E-hMt" eventType="touchUpInside" id="ClM-Pm-vP0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="qrm-2o-EiA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g0f-gp-77X" secondAttribute="trailing" id="0wY-d2-BPo"/>
-                            <constraint firstItem="qrm-2o-EiA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LsN-TD-6NW" secondAttribute="top" constant="20" id="5Jm-KI-Fav"/>
-                            <constraint firstItem="g0f-gp-77X" firstAttribute="top" secondItem="I1d-80-XYE" secondAttribute="bottom" id="7rf-t3-4uz"/>
-                            <constraint firstItem="I1d-80-XYE" firstAttribute="leading" secondItem="LsN-TD-6NW" secondAttribute="leading" id="Bme-tz-Swh"/>
-                            <constraint firstItem="g0f-gp-77X" firstAttribute="leading" secondItem="LsN-TD-6NW" secondAttribute="leading" constant="20" id="HrD-n2-EqG"/>
-                            <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="qrm-2o-EiA" secondAttribute="bottom" constant="20" id="P0F-Tu-2vj"/>
-                            <constraint firstItem="g2h-Qs-FWy" firstAttribute="centerX" secondItem="dns-Kk-t0T" secondAttribute="centerX" id="X2T-iG-ZN4"/>
-                            <constraint firstItem="I1d-80-XYE" firstAttribute="top" secondItem="LsN-TD-6NW" secondAttribute="top" id="ZHt-1H-G3P"/>
-                            <constraint firstItem="g2h-Qs-FWy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I1d-80-XYE" secondAttribute="bottom" id="d1n-Ry-jQN"/>
-                            <constraint firstItem="LsN-TD-6NW" firstAttribute="trailing" secondItem="qrm-2o-EiA" secondAttribute="trailing" constant="20" id="ndZ-aj-BZi"/>
-                            <constraint firstItem="I1d-80-XYE" firstAttribute="trailing" secondItem="LsN-TD-6NW" secondAttribute="trailing" id="o7Z-Ld-yFf"/>
-                            <constraint firstItem="g0f-gp-77X" firstAttribute="bottom" secondItem="LsN-TD-6NW" secondAttribute="bottom" constant="-20" id="oLi-fe-esA"/>
-                            <constraint firstItem="qrm-2o-EiA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g2h-Qs-FWy" secondAttribute="trailing" id="pDV-2c-V7z"/>
-                            <constraint firstItem="g2h-Qs-FWy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g0f-gp-77X" secondAttribute="trailing" id="tHq-X4-KNT"/>
-                            <constraint firstItem="LsN-TD-6NW" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="g0f-gp-77X" secondAttribute="trailing" id="tu1-yt-WwM"/>
-                            <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="g2h-Qs-FWy" secondAttribute="bottom" constant="20" id="wkE-Gc-wHe"/>
+                            <constraint firstItem="g2h-Qs-FWy" firstAttribute="centerX" secondItem="dns-Kk-t0T" secondAttribute="centerX" id="27z-a4-7tX"/>
+                            <constraint firstItem="g0f-gp-77X" firstAttribute="leading" secondItem="hyP-nU-ABg" secondAttribute="trailing" constant="8" symbolic="YES" id="4VT-pg-bFo"/>
+                            <constraint firstItem="hyP-nU-ABg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I1d-80-XYE" secondAttribute="bottom" constant="20" id="6ne-69-gwq"/>
+                            <constraint firstItem="g2h-Qs-FWy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g0f-gp-77X" secondAttribute="trailing" constant="8" symbolic="YES" id="7dW-SV-XEr"/>
+                            <constraint firstItem="I1d-80-XYE" firstAttribute="leading" secondItem="LsN-TD-6NW" secondAttribute="leading" id="Idf-wt-SdB"/>
+                            <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="g2h-Qs-FWy" secondAttribute="bottom" constant="20" id="MUB-HE-zbX"/>
+                            <constraint firstItem="I1d-80-XYE" firstAttribute="top" secondItem="LsN-TD-6NW" secondAttribute="top" id="OWb-zV-Tzf"/>
+                            <constraint firstItem="g0f-gp-77X" firstAttribute="top" secondItem="I1d-80-XYE" secondAttribute="bottom" constant="20" id="QAe-6Z-JCr"/>
+                            <constraint firstItem="LsN-TD-6NW" firstAttribute="trailing" secondItem="qrm-2o-EiA" secondAttribute="trailing" constant="20" id="QNJ-An-BSU"/>
+                            <constraint firstItem="I1d-80-XYE" firstAttribute="trailing" secondItem="LsN-TD-6NW" secondAttribute="trailing" id="Sb8-Bo-Xft"/>
+                            <constraint firstItem="hyP-nU-ABg" firstAttribute="leading" secondItem="LsN-TD-6NW" secondAttribute="leading" constant="20" id="Vwh-63-O4K"/>
+                            <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="qrm-2o-EiA" secondAttribute="bottom" constant="20" id="aah-tv-QSI"/>
+                            <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="g0f-gp-77X" secondAttribute="bottom" constant="20" id="hLi-4E-3Dk"/>
+                            <constraint firstItem="qrm-2o-EiA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I1d-80-XYE" secondAttribute="bottom" constant="20" id="hhh-Xa-M3S"/>
+                            <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="hyP-nU-ABg" secondAttribute="bottom" constant="20" id="hlT-um-g13"/>
+                            <constraint firstItem="g2h-Qs-FWy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I1d-80-XYE" secondAttribute="bottom" constant="20" id="jFY-MU-jGo"/>
+                            <constraint firstItem="qrm-2o-EiA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g2h-Qs-FWy" secondAttribute="trailing" constant="8" symbolic="YES" id="ngC-9w-W9e"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LsN-TD-6NW"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="hyP-nU-ABg" id="sxU-SJ-2YJ"/>
                         <outlet property="chooseLevelButton" destination="g0f-gp-77X" id="DS7-c6-FTB"/>
                         <outlet property="joinPlayerButton" destination="qrm-2o-EiA" id="gyh-9L-Yce"/>
                         <outlet property="playersTableView" destination="I1d-80-XYE" id="TfF-Q8-aTs"/>
@@ -603,35 +662,35 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P9S-YG-YOF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201.5625" y="-1438.28125"/>
+            <point key="canvasLocation" x="788.87262079062953" y="-709.5703125"/>
         </scene>
         <!--Rooms Menu View Controller-->
         <scene sceneID="m8x-ki-omo">
             <objects>
                 <viewController id="asu-R7-WnI" customClass="RoomsMenuViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qh6-0c-Amp">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kYS-rv-5Bo">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="672"/>
+                                <rect key="frame" x="0.0" y="24" width="1366" height="904"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="roomCell" id="A6R-I0-ua4" customClass="RoomViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="1366" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="A6R-I0-ua4" id="DQK-iJ-Nfl">
-                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1366" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUi-De-8mb">
-                                                    <rect key="frame" x="20" y="7.5" width="57" height="29"/>
+                                                    <rect key="frame" x="20" y="11.5" width="57" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oPf-d0-MG4" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                                    <rect key="frame" x="894" y="1.5" width="110" height="41"/>
+                                                    <rect key="frame" x="894" y="5.5" width="110" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <state key="normal" title="Join Room"/>
                                                     <connections>
@@ -655,7 +714,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Uk-83-Ryb" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="428" y="700" width="168" height="48"/>
+                                <rect key="frame" x="599" y="936" width="168" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Create Room"/>
                                 <connections>
@@ -682,14 +741,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iKc-j8-4as" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-587" y="-716"/>
+            <point key="canvasLocation" x="-9" y="-708"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="8Sb-ZB-ecq">
             <objects>
                 <viewController id="xnR-2a-N1z" customClass="MainMenuViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l0h-Op-m1z">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S24-oK-2jt" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -697,9 +756,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Start Game"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="JSe-us-vae"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcs-as-uEk" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="424" y="454" width="177" height="60"/>
@@ -726,18 +782,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fak-Gj-grM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-601" y="159"/>
+            <point key="canvasLocation" x="-735" y="557"/>
         </scene>
         <!--Gallery View Controller-->
         <scene sceneID="rKI-eA-W5X">
             <objects>
                 <viewController id="vOw-dY-OFM" customClass="GalleryViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pyo-tI-73g">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yOs-6O-CFE">
-                                <rect key="frame" x="100" y="120" width="824" height="548"/>
+                                <rect key="frame" x="100" y="124" width="1166" height="780"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LPr-zB-jAK">
                                     <size key="itemSize" width="186" height="156"/>
@@ -789,7 +845,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zba-GY-W6o">
-                                <rect key="frame" x="452" y="688" width="120" height="60"/>
+                                <rect key="frame" x="623" y="924" width="120" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -814,24 +870,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fkh-Dy-Omj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1003" y="59"/>
+            <point key="canvasLocation" x="1003" y="204"/>
         </scene>
         <!--Level Editor View Controller-->
         <scene sceneID="uPZ-4o-SCp">
             <objects>
                 <viewController storyboardIdentifier="levelEditorScreen" id="fZz-0J-H6I" customClass="LevelEditorViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HuG-nD-jJd">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IkU-lw-ATW">
-                                <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                                <rect key="frame" x="0.0" y="24" width="1366" height="980"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bvr-Wr-frA">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1366" height="980"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1E8-YA-7dq" customClass="image">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="748"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1366" height="980"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </imageView>
                                         </subviews>
@@ -854,7 +910,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxy-Vg-SyH">
-                                <rect key="frame" x="0.0" y="20" width="324" height="100"/>
+                                <rect key="frame" x="0.0" y="24" width="666" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdf-0n-E5y">
                                         <rect key="frame" x="253" y="0.0" width="86" height="60"/>
@@ -866,7 +922,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-V9-wW8">
-                                        <rect key="frame" x="20" y="0.0" width="284" height="59"/>
+                                        <rect key="frame" x="20" y="0.0" width="626" height="59"/>
                                         <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="40"/>
                                         <state key="normal" title="Show Panel"/>
                                         <connections>
@@ -883,7 +939,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vlw-8p-cVm">
-                                <rect key="frame" x="813" y="20" width="211" height="100"/>
+                                <rect key="frame" x="1155" y="24" width="211" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqI-UC-Pv3">
                                         <rect key="frame" x="106" y="0.0" width="85" height="60"/>
@@ -925,7 +981,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eve-zd-5jg">
-                                <rect key="frame" x="0.0" y="559" width="1024" height="209"/>
+                                <rect key="frame" x="0.0" y="725" width="1366" height="279"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Eve-zd-5jg" secondAttribute="height" multiplier="1024:209" id="ehF-4C-amH"/>
@@ -963,25 +1019,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZR3-P0-Tw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="203.90625" y="620.3125"/>
+            <point key="canvasLocation" x="101" y="798"/>
         </scene>
         <!--Detail Edit Table View Controller-->
         <scene sceneID="6Ns-ce-QU1">
             <objects>
                 <viewController storyboardIdentifier="playerTable" id="EAt-I2-vZc" customClass="DetailEditTableViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QR7-jE-yrS">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mhs-tc-Jjg">
-                                <rect key="frame" x="100" y="50" width="824" height="636"/>
+                                <rect key="frame" x="100" y="50" width="1166" height="872"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerIdentifier" rowHeight="100" id="hCx-Uw-VVK" customClass="PlayerTableViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="824" height="100"/>
+                                        <rect key="frame" x="0.0" y="28" width="1166" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hCx-Uw-VVK" id="8zk-wS-5Ia">
-                                            <rect key="frame" x="0.0" y="0.0" width="824" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1166" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Input name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Za-u9-8QA">
@@ -1025,10 +1081,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="turnIdentifier" rowHeight="100" id="vpM-lq-0ZP" customClass="TurnTableViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="128" width="824" height="100"/>
+                                        <rect key="frame" x="0.0" y="128" width="1166" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vpM-lq-0ZP" id="88M-e6-Wem">
-                                            <rect key="frame" x="0.0" y="0.0" width="824" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1166" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dfo-oB-F85" userLabel="label">
@@ -1073,7 +1129,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0c-og-hzG">
-                                <rect key="frame" x="250" y="706" width="87" height="42"/>
+                                <rect key="frame" x="250" y="942" width="87" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -1081,7 +1137,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJG-ai-VaI">
-                                <rect key="frame" x="687" y="706" width="87" height="42"/>
+                                <rect key="frame" x="1029" y="942" width="87" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Confirm"/>
                                 <connections>
@@ -1112,18 +1168,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPm-YP-2Pu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1002.5390624999999" y="763.28125"/>
+            <point key="canvasLocation" x="1003" y="888"/>
         </scene>
         <!--Item Collection View Controller-->
         <scene sceneID="VbD-lt-Ks4">
             <objects>
                 <viewController storyboardIdentifier="itemEditTable" id="08g-fx-fPl" customClass="ItemCollectionViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Iq1-6O-SmF">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RYq-DK-tUx" userLabel="Cancel" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="250" y="706" width="87" height="42"/>
+                                <rect key="frame" x="250" y="942" width="87" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -1131,7 +1187,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ya0-h0-Ime" userLabel="Confirm" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="687" y="706" width="87" height="42"/>
+                                <rect key="frame" x="1029" y="942" width="87" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Confirm"/>
                                 <connections>
@@ -1139,7 +1195,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bHp-4Y-wpN">
-                                <rect key="frame" x="100" y="70" width="824" height="616"/>
+                                <rect key="frame" x="100" y="74" width="1166" height="848"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="42B-1A-Sr2">
                                     <size key="itemSize" width="824" height="87"/>
@@ -1149,7 +1205,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemInfoCell" id="9wY-mf-a4G" customClass="ItemCollectionViewCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="824" height="87"/>
+                                        <rect key="frame" x="171" y="50" width="824" height="87"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="824" height="87"/>
@@ -1224,7 +1280,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="itemCollectionHeaderView" id="mdu-xU-KYU">
-                                    <rect key="frame" x="0.0" y="0.0" width="824" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1166" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Fp-dy-xHo">
@@ -1301,7 +1357,7 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0s-Rv-qIO">
-                                <rect key="frame" x="887" y="-4" width="37" height="84"/>
+                                <rect key="frame" x="1229" y="0.0" width="37" height="84"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                 <state key="normal" title="+"/>
                                 <connections>
@@ -1333,18 +1389,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWV-8Y-KwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1002.5390624999999" y="1450"/>
+            <point key="canvasLocation" x="1003" y="1605"/>
         </scene>
         <!--Edit Panel View Controller-->
         <scene sceneID="drC-6i-m6q">
             <objects>
                 <viewController id="Ijb-LN-WOw" customClass="EditPanelViewController" customModule="SailingThroughHistory" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ylw-qc-8bT">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="209"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="279"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EmB-Zu-rIO" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="275" y="144" width="204.5" height="42"/>
+                                <rect key="frame" x="343" y="148" width="273.5" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Add Path"/>
                                 <connections>
@@ -1352,7 +1408,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQe-Ce-msP" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="275" y="40" width="204.5" height="42"/>
+                                <rect key="frame" x="343" y="44" width="273.5" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Add Port"/>
                                 <connections>
@@ -1360,7 +1416,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ry-qU-2bf" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="20" y="92" width="205" height="42"/>
+                                <rect key="frame" x="20" y="96" width="273" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Add Pirate"/>
                                 <connections>
@@ -1368,7 +1424,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EXY-oy-WqQ" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="529.5" y="40" width="205" height="42"/>
+                                <rect key="frame" x="666.5" y="44" width="273" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Edit Parameters"/>
                                 <connections>
@@ -1376,7 +1432,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtc-Y4-iw4" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="529.5" y="144" width="205" height="42"/>
+                                <rect key="frame" x="666.5" y="148" width="273" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Edit Events"/>
                                 <connections>
@@ -1384,7 +1440,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfi-sH-1n2" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="529.5" y="92" width="205" height="42"/>
+                                <rect key="frame" x="666.5" y="96" width="273" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Edit Items"/>
                                 <connections>
@@ -1392,7 +1448,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RxV-36-RMI" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="20" y="40" width="205" height="42"/>
+                                <rect key="frame" x="20" y="44" width="273" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Add Map"/>
                                 <connections>
@@ -1400,7 +1456,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXj-9A-ILn" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="799" y="40" width="205" height="42"/>
+                                <rect key="frame" x="1073" y="44" width="273" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Remove"/>
                                 <connections>
@@ -1410,7 +1466,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K39-oD-iM0" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="275" y="92" width="204.5" height="42"/>
+                                <rect key="frame" x="343" y="96" width="273.5" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Add Sea"/>
                                 <connections>
@@ -1418,7 +1474,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAz-B5-boY" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="20" y="144" width="205" height="42"/>
+                                <rect key="frame" x="20" y="148" width="273" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Add Weather"/>
                                 <connections>
@@ -1476,7 +1532,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNj-RA-J66" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="204" y="1132"/>
+            <point key="canvasLocation" x="101" y="1353"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="VNB-xc-w81">
@@ -1509,6 +1565,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="7Jl-WZ-ghm"/>
-        <segue reference="wfZ-Ma-LaA"/>
+        <segue reference="d1n-eo-DHc"/>
     </inferredMetricsTieBreakers>
 </document>

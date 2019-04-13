@@ -13,6 +13,11 @@ class WaitingRoomViewController: UIViewController {
     @IBOutlet weak var joinPlayerButton: UIButtonRounded!
     @IBOutlet private weak var chooseLevelButton: UIButtonRounded!
     @IBOutlet private weak var playersTableView: UITableView!
+    @IBOutlet weak var backButton: UIButtonRounded! {
+        didSet {
+            backButton.set(color: .red)
+        }
+    }
     private var dataSource: MembersTableDataSource?
     var roomConnection: RoomConnection?
     private var waitingRoom: WaitingRoom?
@@ -45,21 +50,12 @@ class WaitingRoomViewController: UIViewController {
         performSegue(withIdentifier: "waitingRoomToGallery", sender: nil)
     }
 
+    @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
     @IBAction func joinPlayerPressed(_ sender: Any) {
-        roomConnection?.join(removed: { [weak self] in
-            let alert = ControllerUtils.getGenericAlert(titled: "You have been removed from the room.", withMsg: "") {
-                self?.dismiss(animated: true, completion: nil)
-            }
-            self?.present(alert, animated: true, completion: nil)
-        }, completion: { [weak self] (connection, error) in
-            guard error == nil else {
-                let alert = ControllerUtils.getGenericAlert(titled: "Error joining room.", withMsg: "") {
-                    self?.dismiss(animated: true, completion: nil)
-                }
-                self?.present(alert, animated: true, completion: nil)
-                return
-            }
-        })
+        roomConnection?.addPlayer()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -98,6 +94,7 @@ class WaitingRoomViewController: UIViewController {
 
         let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(), network: roomConnection, startingState: initialState, deviceId: self.getWaitingRoom().identifier)
         gameController.turnSystem = system
+        gameController.network = roomConnection
         gameController.backgroundData = imageData
     }
 

@@ -9,8 +9,12 @@
 import UIKit
 
 class MainMenuViewController: UIViewController {
-    var connection = [RoomConnection?]()
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.view.window?.rootViewController = self;
     }
 }

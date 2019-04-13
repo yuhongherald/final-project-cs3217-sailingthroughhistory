@@ -114,12 +114,20 @@ class TurnSystem: GenericTurnSystem {
         if !player.roll().1.contains(nodeId) {
             throw PlayerActionError.invalidAction(message: "Node is out of range!")
         }
+
+        if nodeId == player.node?.identifier {
+            return
+        }
+
         var path = player.getPath(to: nodeId)
         path.removeFirst()
-        for transitNode in path {
-            pendingActions.append(.move(toNodeId: transitNode))
+        for (index, transitNode) in path.enumerated() {
+            pendingActions.append(.move(toNodeId: transitNode,
+                                        isEnd: index == path.indices.last))
         }
-        pendingActions.append(.move(toNodeId: nodeId))
+        if isSuccess(probability: player.getPirateEncounterChance()) {
+            pendingActions.append(.pirate)
+        }
     }
 
     func setTax(for portId: Int, to amount: Int, by player: GenericPlayer) throws {
@@ -172,10 +180,6 @@ class TurnSystem: GenericTurnSystem {
         return msg
     }
 
-    func chasedByPirates(player: GenericPlayer) {
-        pendingActions.append(.pirate())
-    }
-
     private func checkInputAllowed(from player: GenericPlayer) throws {
         switch state {
         case .playerInput(let curPlayer, _):
@@ -187,17 +191,25 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    private func playerMove(_ player: GenericPlayer, _ nodeId: Int) -> GameMessage {
-        let previous = player.playerShip?.getCurrentNode().name
+    private func playerMove(_ player: GenericPlayer, _ nodeId: Int, isEnd: Bool) -> GameMessage? {
+        guard let ship = player.playerShip else {
+            return nil
+        }
+        let previous = ship.getCurrentNode().name
         player.move(nodeId: nodeId)
-        let current = player.playerShip?.getCurrentNode().name
+
+        if !isEnd {
+            return nil
+        }
+
+        let current = ship.getCurrentNode().name
         return GameMessage.playerAction(name: player.name,
-                                        message: " has moved from \(previous ?? "nil") to \(current ?? "nil")")
+                                        message: " has moved from \(previous) to \(current)")
     }
 
     /// Throws if action is invalid
     /// For server actions only
-    func process(action: PlayerAction, for player: GenericPlayer) throws -> GameMessage {
+    private func process(action: PlayerAction, for player: GenericPlayer) throws -> GameMessage? {
         switch state {
         case .evaluateMoves(for: let currentPlayer):
             if player != currentPlayer {
@@ -207,10 +219,10 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.wrongPhase(message: "Make action called on wrong phase")
         }
         switch action {
-        case .move(let nodeId):
-            return playerMove(player, nodeId)
+        case .move(let nodeId, let isEnd):
+            return playerMove(player, nodeId, isEnd: isEnd)
         case .forceMove(let nodeId): // quick hack for updating the player's position remotely
-            return playerMove(player, nodeId)
+            return playerMove(player, nodeId, isEnd: true)
         // some stuff with a sequence
         // for node in nodes (Doesn't check adjacency)
         // player.move(node: node)
@@ -228,8 +240,11 @@ class TurnSystem: GenericTurnSystem {
                 name: player.name,
                 message: " has set the tax for \(port.name) from \(previous) to \(taxAmount)")
         case .buyOrSell(let itemType, let quantity):
+            let message = GameMessage.playerAction(
+                name: player.name,
+                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemType.rawValue)")
             if player.deviceId == deviceId {
-                return GameMessage.playerAction(name: player.name, message: "You moved")
+                return message
             }
             do {
                 if quantity >= 0 {
@@ -240,17 +255,15 @@ class TurnSystem: GenericTurnSystem {
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
-            return GameMessage.playerAction(
-                name: player.name,
-                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemType.rawValue)")
+            return message
         case .purchaseUpgrade(let upgradeType):
             if player.deviceId == deviceId {
                 return GameMessage.playerAction(name: player.name, message: "You moved")
             }
-            player.buyUpgrade(upgrade: upgradeType.toUpgrade())
+            _ = player.buyUpgrade(upgrade: upgradeType.toUpgrade())
             return GameMessage.playerAction(name: player.name,
                                             message: " has purchased the \(upgradeType.toUpgrade().name)!")
-        case .pirate():
+        case .pirate:
             player.playerShip?.startPirateChase()
             return GameMessage.playerAction(name: player.name, message: " is chased by pirates!")
         }
@@ -374,7 +387,9 @@ class TurnSystem: GenericTurnSystem {
         var result = [GameMessage]()
         while !actions.isEmpty {
             do {
-                try result.append(process(action: actions.removeFirst(), for: player))
+                if let message = try process(action: actions.removeFirst(), for: player) {
+                    result.append(message)
+                }
             } catch {
                 print("Invalid action from server, dropping action")
             }
@@ -405,6 +420,10 @@ class TurnSystem: GenericTurnSystem {
 
     private func waitTurnFinish() {
 
+    }
+
+    private func isSuccess(probability: Double) -> Bool {
+        return Double(arc4random()) / Double(UINT32_MAX) < probability
     }
 
     private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {

@@ -25,7 +25,6 @@ class Map: Codable {
             return pathsVariable.value
         }
     }
-    private var entitiesAtNode = [EntityAtNode]()
 
     init(map: String, bounds: Rect?) {
         guard let unwrappedBounds = bounds else {
@@ -61,9 +60,6 @@ class Map: Codable {
             paths[path.toNode]?.removeAll(where: { $0 == path })
             paths[path.fromNode]?.removeAll(where: { $0 == path })
         }
-
-        // Remove all entities at node
-        entitiesAtNode.removeAll(where: { $0.nodeId == node.identifier })
 
         assert(checkRep())
     }
@@ -122,32 +118,6 @@ class Map: Codable {
         gameObjects.value.append(gameObject)
     }
 
-    func addEntity(entity: EntityAtNode, at node: Node) {
-        guard let uiRepresentation = entity.uiRepresentation else {
-            return
-        }
-        guard let node = nodeIDPair[entity.nodeId] else {
-            return
-        }
-        node.add(object: uiRepresentation)
-        entitiesAtNode.append(entity)
-    }
-
-    func removeEntity(entity: EntityAtNode) {
-        guard let uiRepresentation = entity.uiRepresentation else {
-            return
-        }
-        guard let node = nodeIDPair[entity.nodeId] else {
-            return
-        }
-        node.objects.removeAll(where: { $0 == uiRepresentation })
-        entitiesAtNode.removeAll(where: { $0.nodeId == entity.nodeId })
-    }
-
-    func getEntities() -> [EntityAtNode] {
-        return entitiesAtNode
-    }
-
     func subscribeToNodes(with callback: @escaping (Set<Node>) -> Void) {
         nodes.subscribe(with: callback)
     }
@@ -158,6 +128,14 @@ class Map: Codable {
 
     func subscribeToObjects(with callback: @escaping (([GameObject]) -> Void)) {
         gameObjects.subscribe(with: callback)
+    }
+
+    func getPiratesIslands() -> [(Node, PirateIsland)] {
+        return getNodes().map { node in
+            node.objects
+                .compactMap { $0 as? PirateIsland }
+                .map { (node, $0) }
+            }.flatMap { $0 }
     }
 
     required init(from decoder: Decoder) throws {
@@ -216,23 +194,6 @@ class Map: Codable {
             }
         }
         self.pathsVariable.value = paths
-
-        var entitiesArrayForType = try container.nestedUnkeyedContainer(forKey: CodingKeys.entities)
-        while !entitiesArrayForType.isAtEnd {
-            let rawEntity = try entitiesArrayForType.nestedContainer(keyedBy: EntityTypeKey.self)
-            let type = try rawEntity.decode(EntityTypes.self, forKey: EntityTypeKey.type)
-
-            switch type {
-            case .pirate:
-                let entity = try rawEntity.decode(PirateIsland.self, forKey: EntityTypeKey.entity)
-                entitiesAtNode.append(entity)
-            case .npc:
-                let entity = try rawEntity.decode(NPC.self, forKey: EntityTypeKey.entity)
-                entitiesAtNode.append(entity)
-            }
-        }
-
-        assert(checkRep())
     }
 
     func encode(to encoder: Encoder) throws {
@@ -241,7 +202,6 @@ class Map: Codable {
 
         try container.encode(Node.nextID, forKey: .nodeNextId)
         try container.encode(Node.reuseID, forKey: .nodeReuseId)
-        print(Node.nextID)
 
         var nodesWithType = [NodeWithType]()
         for node in nodes.value {
@@ -268,17 +228,7 @@ class Map: Codable {
 
         try container.encode(simplifiedPaths, forKey: .paths)
         try container.encode(bounds, forKey: .bounds)
-
-        var entitiesWithType = [EntityWithType]()
-        for entity in entitiesAtNode {
-            if entity is PirateIsland {
-                entitiesWithType.append(EntityWithType(entity: entity, type: EntityTypes.pirate))
-            }
-            if entity is NPC {
-                entitiesWithType.append(EntityWithType(entity: entity, type: EntityTypes.npc))
-            }
-        }
-        try container.encode(entitiesWithType, forKey: .entities)
+        try container.encode(nodesWithType, forKey: .nodes)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -322,10 +272,10 @@ class Map: Codable {
     }
 
     struct EntityWithType: Codable {
-        var entity: EntityAtNode
+        var entity: NodeResident
         var type: EntityTypes
 
-        init(entity: EntityAtNode, type: EntityTypes) {
+        init(entity: NodeResident, type: EntityTypes) {
             self.entity = entity
             self.type = type
         }

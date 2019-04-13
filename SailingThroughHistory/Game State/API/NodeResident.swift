@@ -8,7 +8,7 @@
 
 import Foundation
 
-class EntityAtNode: Codable {
+class NodeResident: Codable {
     let nodeId: Int
     var uiRepresentation: GameObject?
 
