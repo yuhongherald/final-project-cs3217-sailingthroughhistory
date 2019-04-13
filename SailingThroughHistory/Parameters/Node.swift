@@ -19,7 +19,7 @@ class Node: Codable {
     init(name: String, frame: Rect) {
         self.name = name
         self.frame = frame
-        if (!Node.reuseID.isEmpty) {
+        if !Node.reuseID.isEmpty {
             self.identifier = Node.reuseID.removeLast()
         } else {
             self.identifier = Node.nextID
@@ -43,7 +43,7 @@ class Node: Codable {
 
             switch type {
             case .pirate:
-                let object = try object.decode(Pirate.self, forKey: ObjectTypeKey.object)
+                let object = try object.decode(PirateUI.self, forKey: ObjectTypeKey.object)
                 objects.append(object)
             case .shipUI:
                 let object = try object.decode(ShipUI.self, forKey: ObjectTypeKey.object)
@@ -60,7 +60,7 @@ class Node: Codable {
 
         var objectsWithType = [ObjectWithType]()
         for object in objects {
-            if object is Pirate {
+            if object is PirateUI {
                 objectsWithType.append(ObjectWithType(object: object, type: ObjectTypes.pirate))
             }
             if object is ShipUI {
@@ -68,9 +68,6 @@ class Node: Codable {
             }
         }
         try container.encode(objectsWithType, forKey: .objects)
-    }
-
-    func moveIntoNode(ship: Pirate_WeatherEntity) {
     }
 
     func add(object: GameObject) {
@@ -157,9 +154,27 @@ extension Node {
             visited.insert(next.identifier)
             for neighbor in map.getPaths(of: next) {
                 let cost = neighbor.computeCostOfPath(baseCost: 1, with: ship)
-                pq.add(ComparablePair<[Node]>(object: path + [next], weight: weight + cost))
+                pq.add(ComparablePair<[Node]>(object: path + [neighbor.toNode], weight: weight + cost))
             }
         }
         return path
+    }
+
+    func getNumNodesTo(to node: Node, map: Map) -> Int? {
+        var queue = [(Node, Int)]()
+        var visited = Set<Int>()
+        var next = self
+        var weight = -1
+        while next != node && !queue.isEmpty {
+            (next, weight) = queue.removeFirst()
+            if visited.contains(next.identifier) {
+                continue
+            }
+            visited.insert(next.identifier)
+            for neighbor in map.getPaths(of: next) {
+                queue.append((neighbor.toNode, weight + 1))
+            }
+        }
+        return weight < 0 ? nil : weight
     }
 }
