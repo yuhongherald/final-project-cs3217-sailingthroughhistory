@@ -20,10 +20,10 @@ class TurnSystemEvent: Unique, Printable {
     private let parsable: () -> String
 
     init(triggers: [Trigger], conditions: [Evaluate],
-         actions: [Modify], parsable: @escaping () -> String, displayName: String) {
+         actions: [Modify?], parsable: @escaping () -> String, displayName: String) {
         self.triggers = triggers
         self.conditions = conditions
-        self.actions = actions
+        self.actions = actions.compactMap({ $0 })
         self.parsable = parsable
         self.displayName = displayName
     }

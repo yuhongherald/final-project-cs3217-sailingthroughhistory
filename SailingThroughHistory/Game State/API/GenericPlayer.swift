@@ -10,7 +10,7 @@ import Foundation
 
 protocol GenericPlayer: class, Codable {
     var name: String { get }
-    var team: Team { get }
+    var team: Team? { get }
     var money: GameVariable<Int> { get }
     var currentCargoWeight: Int { get }
     var weightCapacity: Int { get }
@@ -22,7 +22,7 @@ protocol GenericPlayer: class, Codable {
     var map: Map? { get set }
     var gameState: GenericGameState? { get set }
     // for events
-    var playerShip: Ship { get }
+    var playerShip: Ship? { get }
     var homeNode: Int { get }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter?

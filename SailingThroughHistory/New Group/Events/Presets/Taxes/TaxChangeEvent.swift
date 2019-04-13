@@ -9,7 +9,7 @@
 class TaxChangeEvent: PresetEvent {
     init(gameState: GenericGameState, genericOperator: GenericOperator, modifier: Int) {
         let modifier = max(1, modifier)
-        var actions: [EventAction<Int>] = []
+        var actions: [EventAction<Int>?] = []
         for port in gameState.map.getNodes() {
             guard let port = port as? Port, port.owner == nil else {
                 continue

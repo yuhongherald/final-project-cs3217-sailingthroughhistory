@@ -123,7 +123,9 @@ class GameState: GenericGameState {
     func getTeamMoney() -> [Team: Int] {
         var result = [Team: Int]()
         for player in players {
-            let team = player.team
+            guard let team = player.team else {
+                continue
+            }
             result[team] = (result[team] ?? 0) + player.money.value
         }
 

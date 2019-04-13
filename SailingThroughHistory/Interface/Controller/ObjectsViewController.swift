@@ -116,7 +116,7 @@ class ObjectsViewController {
         layer.add(animation, forKey: "drawLineAnimation")
         let weatherView = UILightningViewFactory.getLightningView(frame: bezierPath.bounds)
         pathWeathers[path] = weatherView
-        view.addSubview(weatherView)
+        //view.addSubview(weatherView)
         weatherView.initView()
     }
 
@@ -159,7 +159,7 @@ class ObjectsViewController {
                 continue
             }
 
-            if ship == player.playerShip.shipObject {
+            if ship == player.playerShip?.shipObject {
                 view.addGlow(colored: .green)
             } else {
                 view.removeGlow()
