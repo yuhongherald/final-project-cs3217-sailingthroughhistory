@@ -12,7 +12,10 @@ class EventAction<T>: Printable, Modify {
     private let variable: GameVariable<T>
     private let value: Evaluatable<T>
 
-    init(variable: GameVariable<T>, value: Evaluatable<T>) {
+    init?(variable: GameVariable<T>?, value: Evaluatable<T>?) {
+        guard let variable = variable, let value = value else {
+            return nil
+        }
         self.variable = variable
         self.value = value
     }

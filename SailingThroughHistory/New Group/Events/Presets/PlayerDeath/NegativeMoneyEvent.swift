@@ -11,12 +11,12 @@
 /// Note player gets to keep ship upgrades.
 class NegativeMoneyEvent: PresetEvent {
     init(player: GenericPlayer) {
-        var actions: [Modify] = []
+        var actions: [Modify?] = []
         actions.append(EventAction<Int>(variable: player.money,
                                         value: Evaluatable<Int>(0)))
-        actions.append(EventAction<[GenericItem]>(variable: player.playerShip.items,
+        actions.append(EventAction<[GenericItem]>(variable: player.playerShip?.items,
                                                   value: Evaluatable<[GenericItem]>([])))
-        actions.append(EventAction<Int>(variable: player.playerShip.nodeIdVariable,
+        actions.append(EventAction<Int>(variable: player.playerShip?.nodeIdVariable,
                                         value: Evaluatable<Int>(player.homeNode)))
         super.init(triggers: [EventTrigger<Int>(variable: player.money,
                                                comparator: GreaterThanOperator<Int>())],

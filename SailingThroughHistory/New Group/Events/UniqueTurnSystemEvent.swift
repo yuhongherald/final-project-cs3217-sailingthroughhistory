@@ -42,7 +42,7 @@ class UniqueTurnSystemEvent: TurnSystemEvent, Hashable {
     private let _identifier: Int
     
     override init(triggers: [Trigger], conditions: [Evaluate],
-                  actions: [Modify], parsable: @escaping () -> String, displayName: String) {
+                  actions: [Modify?], parsable: @escaping () -> String, displayName: String) {
         self._identifier = UniqueTurnSystemEvent.getIdentifier()
         super.init(triggers: triggers, conditions: conditions,
                    actions: actions, parsable: parsable, displayName: displayName)

@@ -159,7 +159,7 @@ class ObjectsViewController {
                 continue
             }
 
-            if ship == player.playerShip.shipObject {
+            if ship == player.playerShip?.shipObject {
                 view.addGlow(colored: .green)
             } else {
                 view.removeGlow()
