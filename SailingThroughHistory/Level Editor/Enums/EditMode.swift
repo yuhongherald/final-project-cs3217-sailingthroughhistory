@@ -31,4 +31,13 @@ enum EditMode {
             return nil
         }
     }
+
+    func createEntityAtNode(node: Node) -> EntityAtNode? {
+        switch self {
+        case .pirate:
+            return PirateIsland(nodeId: node.identifier)
+        default:
+            return nil
+        }
+    }
 }

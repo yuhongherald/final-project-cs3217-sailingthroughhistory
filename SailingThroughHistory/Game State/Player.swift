@@ -159,6 +159,28 @@ class Player: GenericPlayer {
         port.collectTax(from: self)
     }
 
+    func getPirateEncounterChance() -> Double {
+        guard let map = map else {
+            return 0
+        }
+        var chance = map.basePirateRate
+        let entities = map.getEntities()
+        let position = ship.getCurrentNode()
+        for entity in entities {
+            guard let pirate = entity as? PirateIsland,
+                let pirateNode = map.nodeIDPair[pirate.nodeId] else {
+                continue
+            }
+            guard let distance = pirateNode.getNumNodesTo(to: position, map: map),
+                distance <= pirate.influence else {
+                continue
+            }
+            chance = max(chance, pirate.chance)
+        }
+
+        return chance
+    }
+
     func getPurchasableItemTypes() -> [ItemType] {
         return ship.getPurchasableItemTypes()
     }
