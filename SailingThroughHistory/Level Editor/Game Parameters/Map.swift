@@ -184,6 +184,7 @@ class Map: Codable {
             }
         }
         self.pathsVariable.value = paths
+        assert(checkRep())
     }
 
     func encode(to encoder: Encoder) throws {

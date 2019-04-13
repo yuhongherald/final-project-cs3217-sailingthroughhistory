@@ -8,7 +8,7 @@
 
 import XCTest
 @testable import SailingThroughHistory
-
+/*
 class InterfaceTest: XCTestCase {
     private var bounds: Rect {
         guard let frame = Rect(originX: 0, originY: 0,
@@ -125,3 +125,4 @@ class InterfaceTest: XCTestCase {
 
     /// TODO: Tests for path.
 }
+*/

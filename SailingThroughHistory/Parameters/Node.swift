@@ -108,7 +108,7 @@ class Node: Codable {
 
 extension Node: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
+        hasher.combine(self.identifier)
     }
 
     static func == (lhs: Node, rhs: Node) -> Bool {
