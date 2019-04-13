@@ -46,6 +46,10 @@ class PlayerParameter: Codable {
         return money.value
     }
 
+    func getStartingNode() -> Node? {
+        return startingNode
+    }
+
     func set(name: String, money: Int?) {
         if name != "" {
             self.name = name

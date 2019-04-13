@@ -75,7 +75,7 @@ class GameParameterTest: XCTestCase {
         itemParameter.setHalfLife(to: 20)
         XCTAssertEqual(itemParameter.getBuyValue(), 1234, "BuyValue is not successfully updated.")
         XCTAssertEqual(itemParameter.getSellValue(), 5678, "SellValue is not successfully updated.")
-        XCTAssertEqual(itemParameter.getHalfLife(), 20, "HalfLift is not successfully updated.")
+        XCTAssertEqual(itemParameter.getHalfLife(), 20, "HalfLife is not successfully updated.")
 
         // test invalid update
         itemParameter.setBuyValue(value: -1234)
