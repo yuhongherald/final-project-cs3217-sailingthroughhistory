@@ -29,13 +29,6 @@ class PlayerParameter: Codable {
         money = GameVariable(value: moneyValue)
     }
 
-    /*func getPlayer() -> Player? {
-        guard let unwrappedNode = startingNode else {
-            return nil
-        }
-        return Player(name: name, team: Team(name: teamName), node: unwrappedNode)
-    }*/
-
     func getName() -> String {
         return name
     }
@@ -48,10 +41,6 @@ class PlayerParameter: Codable {
         return money.value
     }
 
-    func getStartingNode() -> Node? {
-        return startingNode
-    }
-
     func set(name: String, money: Int?) {
         if name != "" {
             self.name = name
@@ -60,10 +49,6 @@ class PlayerParameter: Codable {
         if let unwrappedMoney = money {
             self.money = GameVariable(value: unwrappedMoney)
         }
-    }
-
-    func assign(port: Port) {
-        self.startingNode = port
     }
 
     func encode(to encoder: Encoder) throws {

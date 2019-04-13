@@ -27,7 +27,7 @@ class Node: Codable {
         }
     }
 
-    deinit {
+    func remove() {
         Node.reuseID.append(self.identifier)
     }
 

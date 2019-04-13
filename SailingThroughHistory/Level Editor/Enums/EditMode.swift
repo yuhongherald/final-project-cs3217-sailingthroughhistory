@@ -16,6 +16,8 @@ enum EditMode {
     case weather
     case item
     case erase
+    case startingNode
+    case portOwnership
 
     func getNodeView(name: String, at center: CGPoint) -> NodeView? {
         switch self {

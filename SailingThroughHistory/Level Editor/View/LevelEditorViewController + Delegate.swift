@@ -35,18 +35,59 @@ extension LevelEditorViewController: UIScrollViewDelegate {
     }
 
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        UIView.transition(with: playerMenu, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.playerMenu.alpha = 0
+        UIView.transition(with: teamMenu, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.teamMenu.alpha = 0
         }, completion: { _ in
-            self.playerMenu.isHidden = true
-            self.playerMenu.alpha = 1
+            self.teamMenu.isHidden = true
+            self.teamMenu.alpha = 1
         })
     }
 }
 
 extension LevelEditorViewController: MenuViewDelegateProtocol {
     func assign(port: Port, to team: Team?) {
-        playerMenu.isHidden = true
+        teamMenu.isHidden = true
         port.assignOwner(team)
+    }
+
+    func start(from node: Node, for team: Team) {
+        teamMenu.isHidden = true
+        let preStartingNode = team.startingNode
+        team.startingNode = node
+        self.editingAreaWrapper.subviews.forEach { view in
+            guard let nodeView = view as? NodeView else {
+                return
+            }
+            if nodeView.node == preStartingNode {
+                nodeView.removeIcon()
+            }
+            if team.startingNode == nodeView.node, let shipIcon = getIconOf(team: team) {
+                nodeView.addIcon(shipIcon)
+            }
+        }
+    }
+
+    func getEditingMode(for gesture: UIGestureRecognizer) -> EditMode? {
+        switch gesture {
+        case is UITapGestureRecognizer:
+            return .portOwnership
+        case is UILongPressGestureRecognizer:
+            return .startingNode
+        default:
+            return nil
+        }
+    }
+
+    func getIconOf(team: Team) -> UIImageView? {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        switch team.name {
+        case "Dutch":
+            view.image = UIImage(named: Resources.Flag.dutch)
+        case "British":
+            view.image = UIImage(named: Resources.Flag.british)
+        default:
+            return nil
+        }
+        return view
     }
 }

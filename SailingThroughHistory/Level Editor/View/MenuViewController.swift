@@ -10,6 +10,8 @@ import UIKit
 
 protocol MenuViewDelegateProtocol: class {
     func assign(port: Port, to team: Team?)
+    func start(from node: Node, for team: Team)
+    func getEditingMode(for gesture: UIGestureRecognizer) -> EditMode?
 }
 
 class MenuViewController: UITableViewController {
@@ -18,7 +20,8 @@ class MenuViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-    var port: Port?
+    var node: Node?
+    private var editMode: EditMode?
     weak var delegate: MenuViewDelegateProtocol?
 
     override func viewDidLoad() {
@@ -43,30 +46,38 @@ class MenuViewController: UITableViewController {
         cell.textLabel?.text = data[indexPath.item].name
         cell.textLabel?.textAlignment = .center
 
-        if let portOwner = port?.owner, portOwner == data[indexPath.item] {
+        guard editMode == .portOwnership else {
+            return cell
+        }
+
+        if let unwrappedPort = node as? Port, let portOwner = unwrappedPort.owner, portOwner == data[indexPath.item] {
             cell.backgroundColor = .gray
         } else {
             cell.backgroundColor = .white
         }
+
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let unwrappedPort = port else {
-            return
+        let selectedTeam = data[indexPath.item]
+
+        if editMode == .portOwnership, let unwrappedPort = node as? Port {
+            if let portOwner = unwrappedPort.owner, portOwner == selectedTeam {
+                self.delegate?.assign(port: unwrappedPort, to: nil)
+            } else {
+                self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
+            }
         }
 
-        if let portOwner = port?.owner, portOwner == data[indexPath.item] {
-            self.delegate?.assign(port: unwrappedPort, to: nil)
-        } else {
-            self.delegate?.assign(port: unwrappedPort, to: data[indexPath.item])
+        if editMode == .startingNode, let unwrappedNode = node {
+            self.delegate?.start(from: unwrappedNode, for: selectedTeam)
         }
-
     }
 
-    func set(port: Port) {
-        self.port = port
+    func set(node: Node, for gesture: UIGestureRecognizer) {
+        self.node = node
         self.tableView.reloadData()
+        self.editMode = delegate?.getEditingMode(for: gesture)
     }
-
 }
