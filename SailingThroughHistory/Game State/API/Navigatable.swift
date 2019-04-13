@@ -9,5 +9,8 @@
 import Foundation
 
 protocol Navigatable {
-    
+    func getNodesInRange(roll: Int, speedMultiplier: Double, map: Map) -> [Node]
+    func move(node: Node)
+    func canDock() -> Bool
+    func dock() throws -> Port
 }
