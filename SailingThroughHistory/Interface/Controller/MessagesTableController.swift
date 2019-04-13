@@ -53,6 +53,7 @@ extension MessagesTableController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         let message = messages[indexPath.row]
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
         cell.textLabel?.text = convertToString(from: message)
 
         return cell

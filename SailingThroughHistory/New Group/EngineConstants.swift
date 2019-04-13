@@ -72,7 +72,7 @@ enum Resources {
                 return Resources.Icon.sea
             }
 
-            if object is PirateUI {
+            if object is PirateIsland {
                 return Resources.Icon.pirate
             }
             return nil

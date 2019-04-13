@@ -13,7 +13,8 @@ enum PlayerAction: Codable {
         switch type {
         case .move:
             let node = try container.decode(Int.self, forKey: .nodeId)
-            self = .move(toNodeId: node)
+            let isEnd = try container.decode(Bool.self, forKey: .isEnd)
+            self = .move(toNodeId: node, isEnd: isEnd)
         case .forceMove:
             let node = try container.decode(Int.self, forKey: .nodeId)
             self = .forceMove(toNodeId: node)
@@ -36,9 +37,10 @@ enum PlayerAction: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-        case .move(let node):
+        case .move(let node, let isEnd):
             try container.encode(Identifier.move, forKey: .type)
             try container.encode(node, forKey: .nodeId)
+            try container.encode(isEnd, forKey: .isEnd)
         case .forceMove(let node):
             try container.encode(Identifier.forceMove, forKey: .type)
             try container.encode(node, forKey: .nodeId)
@@ -60,7 +62,7 @@ enum PlayerAction: Codable {
     }
 
     case buyOrSell(itemType: ItemType, quantity: Int)
-    case move(toNodeId: Int)
+    case move(toNodeId: Int, isEnd: Bool)
     case forceMove(toNodeId: Int)
     case purchaseUpgrade(type: UpgradeType)
     case setTax(forPortId: Int, taxAmount: Int)
@@ -80,6 +82,7 @@ enum PlayerAction: Codable {
     enum CodingKeys: String, CodingKey {
         case type
         case nodeId
+        case isEnd
         case itemType
         case taxAmount
         case quantity

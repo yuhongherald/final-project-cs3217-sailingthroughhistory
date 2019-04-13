@@ -81,6 +81,7 @@ class MainGameViewController: UIViewController {
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     private let storage = LocalStorage()
     var turnSystem: GenericTurnSystem?
+    var network: RoomConnection?
     var backgroundData: Data?
     private var model: GenericGameState {
         guard let turnSystem = turnSystem else {
@@ -111,6 +112,10 @@ class MainGameViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         turnSystem?.startGame()
+        view.window?.rootViewController = self
+        network?.changeRemovalCallback { [weak self] in
+            self?.performSegue(withIdentifier: "gameToMain", sender: nil)
+        }
     }
 
     private func updateForState(_ state: TurnSystem.State) {

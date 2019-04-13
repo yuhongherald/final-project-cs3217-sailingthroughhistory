@@ -274,14 +274,7 @@ class LevelEditorViewController: UIViewController {
                 alert.present(in: self)
                 return
             }
-            guard let pirateIsland = self.editMode?.createEntityAtNode(node: nodeView.node),
-                let uiRepresentation = pirateIsland.uiRepresentation else {
-                    let alert = UIAlert(errorMsg: "Failed to create a pirate!", msg: nil)
-                    alert.present(in: self)
-                return
-            }
-            gameParameter.map.addEntity(entity: pirateIsland, at: nodeView.node)
-            nodeView.node.add(object: uiRepresentation)
+            nodeView.node.add(object: PirateIsland(in: nodeView.node))
             nodeView.update()
         }
 

@@ -43,7 +43,7 @@ class Node: Codable {
 
             switch type {
             case .pirate:
-                let object = try object.decode(PirateUI.self, forKey: ObjectTypeKey.object)
+                let object = try object.decode(PirateIsland.self, forKey: ObjectTypeKey.object)
                 objects.append(object)
             case .shipUI:
                 let object = try object.decode(ShipUI.self, forKey: ObjectTypeKey.object)
@@ -60,7 +60,7 @@ class Node: Codable {
 
         var objectsWithType = [ObjectWithType]()
         for object in objects {
-            if object is PirateUI {
+            if object is PirateIsland {
                 objectsWithType.append(ObjectWithType(object: object, type: ObjectTypes.pirate))
             }
             if object is ShipUI {
@@ -117,13 +117,13 @@ extension Node: Hashable {
 extension Node {
 
     func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
-        var pq = PriorityQueue<ComparablePair<Node>>()
+        var pQueue = PriorityQueue<ComparablePair<Node>>()
         var visited = Set<Int>()
         var next = self
         var nodesInRange = [Node]()
-        pq.add(ComparablePair(object: next, weight: 0))
-        while !pq.isEmpty {
-            let comparableNode = pq.poll()
+        pQueue.add(ComparablePair(object: next, weight: 0))
+        while !pQueue.isEmpty {
+            let comparableNode = pQueue.poll()
             let weight = comparableNode?.weight ?? 0
             next = comparableNode?.object ?? self
             if visited.contains(next.identifier) || weight > range {
@@ -133,20 +133,20 @@ extension Node {
             nodesInRange.append(next)
             for neighbor in map.getPaths(of: next) {
                 let cost = neighbor.computeCostOfPath(baseCost: 1, with: ship)
-                pq.add(ComparablePair<Node>(object: neighbor.toNode, weight: weight + cost))
+                pQueue.add(ComparablePair<Node>(object: neighbor.toNode, weight: weight + cost))
             }
         }
         return nodesInRange
     }
 
     func getCompleteShortestPath(to node: Node, with ship: Pirate_WeatherEntity, map: Map) -> [Node] {
-        var pq = PriorityQueue<ComparablePair<[Node]>>()
+        var pQueue = PriorityQueue<ComparablePair<[Node]>>()
         var visited = Set<Int>()
         var next = self
         var path = [Node]()
-        pq.add(ComparablePair(object: [next], weight: 0))
-        while next != node && !pq.isEmpty {
-            let comparablePath = pq.poll()
+        pQueue.add(ComparablePair(object: [next], weight: 0))
+        while next != node && !pQueue.isEmpty {
+            let comparablePath = pQueue.poll()
             path = comparablePath?.object ?? [self]
             let weight = comparablePath?.weight ?? 0
             next = path.last ?? self
@@ -156,7 +156,7 @@ extension Node {
             visited.insert(next.identifier)
             for neighbor in map.getPaths(of: next) {
                 let cost = neighbor.computeCostOfPath(baseCost: 1, with: ship)
-                pq.add(ComparablePair<[Node]>(object: path + [neighbor.toNode], weight: weight + cost))
+                pQueue.add(ComparablePair<[Node]>(object: path + [neighbor.toNode], weight: weight + cost))
             }
         }
         return path

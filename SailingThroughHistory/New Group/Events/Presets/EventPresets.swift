@@ -38,18 +38,20 @@ class EventPresets {
         var evaluators = 0.evaluators
         for index in 0..<evaluators.count {
             let key = evaluators[index].displayName
+            let taxEvent = TaxChangeEvent(gameState: gameState,
+                                          genericOperator: evaluators[index],
+                                          modifier: PresetConstants.taxModifiers[index])
+            taxEvent.active = false
             neutralTaxEvents[key] = eventTable.pushEvent(
-                event: TaxChangeEvent(gameState: gameState,
-                                      genericOperator: evaluators[index],
-                                      modifier: PresetConstants.taxModifiers[index]))
-            itemPriceEvents[key] = [String: PresetEvent]()
+                event: taxEvent)
+            /*itemPriceEvents[key] = [String: PresetEvent]()
             for item in ItemType.allCases {
                 itemPriceEvents[key]?[item.rawValue] = eventTable.pushEvent(
                     event: ItemPriceEvent(gameState: gameState,
                                           itemType: item,
                                           genericOperator: evaluators[index],
                                           modifier: PresetConstants.priceModifers[index]))
-            }
+            }*/
         }
 
         for player in gameState.getPlayers() {

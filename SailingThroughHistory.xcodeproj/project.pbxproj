@@ -137,7 +137,7 @@
 		965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0336223A4BB3005F7D79 /* VolatileModifier.swift */; };
 		965E0339223A4BFA005F7D79 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E0338223A4BFA005F7D79 /* Weather.swift */; };
 		965E033C223A7127005F7D79 /* CGPoint+Arithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033B223A7127005F7D79 /* CGPoint+Arithmetic.swift */; };
-		965E033E223A8EBA005F7D79 /* PirateUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033D223A8EBA005F7D79 /* PirateUI.swift */; };
+		965E033E223A8EBA005F7D79 /* PirateIsland.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033D223A8EBA005F7D79 /* PirateIsland.swift */; };
 		965E0340223A9AD1005F7D79 /* Port.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965E033F223A9AD1005F7D79 /* Port.swift */; };
 		96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E36224510310014E0C5 /* PortItemTableCellDelegate.swift */; };
 		96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E38224510740014E0C5 /* PortItemButtonAction.swift */; };
@@ -145,6 +145,9 @@
 		9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */; };
 		966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
+		96707465226253FC0056D81D /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96707464226253FC0056D81D /* LocalDatabase.swift */; };
+		96707467226254070056D81D /* LocalRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96707466226254070056D81D /* LocalRoom.swift */; };
+		96707469226254810056D81D /* LocalRoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96707468226254810056D81D /* LocalRoomConnection.swift */; };
 		9670E9202261D31600E8A01F /* MessagesTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670E91F2261D31600E8A01F /* MessagesTableController.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
 		96737EA4223D335100D04C33 /* View+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA3223D335100D04C33 /* View+Translate.swift */; };
@@ -219,9 +222,8 @@
 		BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */; };
 		BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91907B223F531A00009F49 /* GenericGameState.swift */; };
 		BAB3378222605D35007A0C05 /* HistoryFactAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378122605D35007A0C05 /* HistoryFactAction.swift */; };
-		BAB3378422620357007A0C05 /* EntityAtNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378322620357007A0C05 /* EntityAtNode.swift */; };
+		BAB3378422620357007A0C05 /* NodeResident.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378322620357007A0C05 /* NodeResident.swift */; };
 		BAB33789226203B3007A0C05 /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB33788226203B3007A0C05 /* NPC.swift */; };
-		BAB3378B226203C7007A0C05 /* PirateIsland.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378A226203C7007A0C05 /* PirateIsland.swift */; };
 		BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */; };
 		BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED4B042253697B00A8D54A /* InGameMessage.swift */; };
 		BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */; };
@@ -376,7 +378,7 @@
 		965E0336223A4BB3005F7D79 /* VolatileModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileModifier.swift; sourceTree = "<group>"; };
 		965E0338223A4BFA005F7D79 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		965E033B223A7127005F7D79 /* CGPoint+Arithmetic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Arithmetic.swift"; sourceTree = "<group>"; };
-		965E033D223A8EBA005F7D79 /* PirateUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateUI.swift; sourceTree = "<group>"; };
+		965E033D223A8EBA005F7D79 /* PirateIsland.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateIsland.swift; sourceTree = "<group>"; };
 		965E033F223A9AD1005F7D79 /* Port.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Port.swift; sourceTree = "<group>"; };
 		96619E36224510310014E0C5 /* PortItemTableCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemTableCellDelegate.swift; sourceTree = "<group>"; };
 		96619E38224510740014E0C5 /* PortItemButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemButtonAction.swift; sourceTree = "<group>"; };
@@ -384,6 +386,9 @@
 		9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableDataSource.swift; sourceTree = "<group>"; };
 		966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameObjectImageView.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
+		96707464226253FC0056D81D /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
+		96707466226254070056D81D /* LocalRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoom.swift; sourceTree = "<group>"; };
+		96707468226254810056D81D /* LocalRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoomConnection.swift; sourceTree = "<group>"; };
 		9670E91F2261D31600E8A01F /* MessagesTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableController.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		96737EA3223D335100D04C33 /* View+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Translate.swift"; sourceTree = "<group>"; };
@@ -465,9 +470,8 @@
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
 		BA91907B223F531A00009F49 /* GenericGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameState.swift; sourceTree = "<group>"; };
 		BAB3378122605D35007A0C05 /* HistoryFactAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFactAction.swift; sourceTree = "<group>"; };
-		BAB3378322620357007A0C05 /* EntityAtNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityAtNode.swift; sourceTree = "<group>"; };
+		BAB3378322620357007A0C05 /* NodeResident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeResident.swift; sourceTree = "<group>"; };
 		BAB33788226203B3007A0C05 /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
-		BAB3378A226203C7007A0C05 /* PirateIsland.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PirateIsland.swift; sourceTree = "<group>"; };
 		BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pirate_WeatherEntity.swift; sourceTree = "<group>"; };
 		BAED4B042253697B00A8D54A /* InGameMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMessage.swift; sourceTree = "<group>"; };
 		BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerShipUpgrade.swift; sourceTree = "<group>"; };
@@ -813,15 +817,16 @@
 		9603F772224A8005007D54E0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				96707463226253B40056D81D /* Local */,
 				9603F773224A8254007D54E0 /* RoomConnection.swift */,
 				9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */,
 				96CEB954224DF8EC00B027BA /* NetworkRooms.swift */,
 				96CEB950224DF14400B027BA /* FirestoreRooms.swift */,
+				96CEB956224DFA0E00B027BA /* NetworkFactory.swift */,
 				9603F781224A9748007D54E0 /* Room.swift */,
 				9603F785224A990E007D54E0 /* FirestoreRoom.swift */,
 				9603F789224AAA06007D54E0 /* FirestoreConstants.swift */,
 				9603F78B224AB0E3007D54E0 /* NetworkError.swift */,
-				96CEB956224DFA0E00B027BA /* NetworkFactory.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -850,7 +855,7 @@
 				965E0334223A4B84005F7D79 /* Sea.swift */,
 				965E0336223A4BB3005F7D79 /* VolatileModifier.swift */,
 				965E0338223A4BFA005F7D79 /* Weather.swift */,
-				965E033D223A8EBA005F7D79 /* PirateUI.swift */,
+				965E033D223A8EBA005F7D79 /* PirateIsland.swift */,
 				965E033F223A9AD1005F7D79 /* Port.swift */,
 				754FED7022437B4F00394215 /* NPCUI.swift */,
 			);
@@ -875,6 +880,16 @@
 				BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		96707463226253B40056D81D /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				96707464226253FC0056D81D /* LocalDatabase.swift */,
+				96707466226254070056D81D /* LocalRoom.swift */,
+				96707468226254810056D81D /* LocalRoomConnection.swift */,
+			);
+			path = Local;
 			sourceTree = "<group>";
 		};
 		96737EA2223D319A00D04C33 /* Interface */ = {
@@ -1049,7 +1064,7 @@
 				BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */,
 				BA485907223FCB4B009ED2F6 /* PlayerState.swift */,
 				BAED4B042253697B00A8D54A /* InGameMessage.swift */,
-				BAB3378322620357007A0C05 /* EntityAtNode.swift */,
+				BAB3378322620357007A0C05 /* NodeResident.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1079,8 +1094,8 @@
 		BA91906E223F443600009F49 /* Game Parameters */ = {
 			isa = PBXGroup;
 			children = (
-				BA919073223F44A400009F49 /* GameParameter.swift */,
 				BA919071223F447F00009F49 /* ItemParameter.swift */,
+				BA919073223F44A400009F49 /* GameParameter.swift */,
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
 				BA485901223F8B6E009ED2F6 /* Consumable.swift */,
 				1A9FF08B224030E000005FCB /* Map.swift */,
@@ -1094,7 +1109,6 @@
 			isa = PBXGroup;
 			children = (
 				BAB33788226203B3007A0C05 /* NPC.swift */,
-				BAB3378A226203C7007A0C05 /* PirateIsland.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1412,6 +1426,7 @@
 				7581AEDF225C563E001A8CC3 /* Evaluate.swift in Sources */,
 				9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */,
 				7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */,
+				96707465226253FC0056D81D /* LocalDatabase.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
 				BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */,
 				751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */,
@@ -1419,7 +1434,7 @@
 				96A7D0AE225F8269001C18E4 /* CountdownLabelView.swift in Sources */,
 				75328F56225359BB00180B03 /* EngineConstants.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
-				965E033E223A8EBA005F7D79 /* PirateUI.swift in Sources */,
+				965E033E223A8EBA005F7D79 /* PirateIsland.swift in Sources */,
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				75328F5822535A1500180B03 /* GameTime.swift in Sources */,
@@ -1492,6 +1507,7 @@
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */,
 				96A7D0AC225F6CF7001C18E4 /* TeamScoreTableController.swift in Sources */,
+				96707469226254810056D81D /* LocalRoomConnection.swift in Sources */,
 				7535447F224CAC72001B4F62 /* ConditionComparable.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
 				9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */,
@@ -1511,14 +1527,13 @@
 				7581AEE9225C6385001A8CC3 /* MultiplyOperator.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
 				1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */,
-				BAB3378B226203C7007A0C05 /* PirateIsland.swift in Sources */,
 				7581AEE7225C5F6A001A8CC3 /* BAEEvaluatable.swift in Sources */,
 				96877E54223EC7D80020F44C /* Path.swift in Sources */,
 				9683C28E225D256600E30387 /* UpgradeType.swift in Sources */,
 				96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */,
 				7535447D224CAB78001B4F62 /* GreaterThanOrEqualOperator.swift in Sources */,
 				75354479224CAB56001B4F62 /* GreaterThanOperator.swift in Sources */,
-				BAB3378422620357007A0C05 /* EntityAtNode.swift in Sources */,
+				BAB3378422620357007A0C05 /* NodeResident.swift in Sources */,
 				753A0E842260531A00A1EA99 /* UniqueTurnSystemEvent.swift in Sources */,
 				7581AEE1225C5664001A8CC3 /* Modify.swift in Sources */,
 				751F8FE4224BAE100071C057 /* TurnSystemState.swift in Sources */,
@@ -1544,6 +1559,7 @@
 				1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */,
 				96CEB951224DF14400B027BA /* FirestoreRooms.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
+				96707467226254070056D81D /* LocalRoom.swift in Sources */,
 				751F8FE2224BAA420071C057 /* SerializableGameObject.swift in Sources */,
 				96E0745F2252510C0068406B /* RoomMember.swift in Sources */,
 			);
