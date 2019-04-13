@@ -18,7 +18,10 @@ class Player: GenericPlayer {
     var name: String
     var team: Team
     var node: Node? {
-        return getNodesInRange(roll: 0).first
+        return map?.nodeIDPair[ship.nodeId]
+    }
+    var nodeIdVariable: GameVariable<Int> {
+        return ship.nodeIdVariable
     }
     var map: Map? {
         didSet {
@@ -34,9 +37,6 @@ class Player: GenericPlayer {
                 }
             }
         }
-    }
-    var currentNode: Node? {
-        return map?.nodeIDPair[ship.nodeId]
     }
     var currentCargoWeight: Int {
         return ship.currentCargoWeight
@@ -99,7 +99,7 @@ class Player: GenericPlayer {
         ship.setLocation(map: map)
     }
 
-    func startTurn(speedMultiplier: Double, map: Map?) -> InfoMessage? {
+    func startTurn(speedMultiplier: Double, map: Map?) {
         self.speedMultiplier = speedMultiplier
         self.map = map
         hasRolled = false
@@ -136,7 +136,7 @@ class Player: GenericPlayer {
         }
 
         return ship.getCurrentNode()
-            .getCompletePath(to: toNode, map: map)
+            .getCompleteShortestPath(to: toNode, with: ship, map: map)
             .map { $0.identifier }
     }
 

@@ -103,11 +103,10 @@ class Ship: Codable {
     }
 
     func setLocation(map: Map) {
-        /*guard let node = map.nodeIDPair[nodeId] else {
+        guard let node = map.nodeIDPair[nodeId] else {
             return
         }
-        let location = Location(start: nodeId, end: nodeId, fractionToEnd: 0, isDocked: node is Port)
-        self.location.value = location*/
+        nodeId = node.identifier
     }
 
     func installUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
@@ -159,14 +158,7 @@ class Ship: Codable {
 
     // Movement
 
-    func startTurn() -> InfoMessage? {
-        if isChasedByPirates && turnsToBeingCaught <= 0 {
-            // TODO: Pirate event
-            isChasedByPirates = false
-            turnsToBeingCaught = 0
-            return InfoMessage(title: "Pirates!", message: "You have been caught by pirates!. You lost all your cargo")
-        }
-        return nil
+    func startTurn() {
     }
 
     func getNodesInRange(roll: Int, speedMultiplier: Double, map: Map) -> [Node] {
@@ -180,11 +172,12 @@ class Ship: Codable {
     }
 
     func move(node: Node) {
-        self.nodeId = node.identifier
-        let nodeFrame = getCurrentNode().frame
         guard let currentFrame = shipObject?.frame.value else {
             return
         }
+        self.nodeId = node.identifier
+        let nodeFrame = getCurrentNode().frame
+        isDocked = false
         shipObject?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
                                                    originY: nodeFrame.originY)
     }
@@ -217,6 +210,13 @@ class Ship: Codable {
         var messages = [InfoMessage]()
         if isChasedByPirates {
             turnsToBeingCaught -= 1
+        }
+
+        if isChasedByPirates && turnsToBeingCaught <= 0 {
+            isChasedByPirates = false
+            turnsToBeingCaught = 0
+            items.value.removeAll()
+            messages.append(InfoMessage(title: "Pirates!", message: "You have been caught by pirates!. You lost all your cargo"))
         }
 
         for supply in suppliesConsumed {
@@ -284,7 +284,6 @@ extension Ship {
     }
 
     func buyItem(itemType: ItemType, quantity: Int) throws {
-        // TODO: auto-dock
         guard let port = getCurrentNode() as? Port, isDocked else {
             throw BuyItemError.notDocked
         }
@@ -301,6 +300,7 @@ extension Ship {
         }
         owner?.updateMoney(by: -price)
         try addItem(item: item)
+        throw BuyItemError.purchaseSuccess(item: item)
     }
 
     func sellItem(item: GenericItem) throws {
@@ -316,11 +316,10 @@ extension Ship {
         guard let profit = items.value[index].sell(at: port) else {
             throw BuyItemError.itemNotAvailable
         }
-        // TODO: Someone needs to reflect this...
-        //showMessage(titled: "Item sold!", withMsg: "You have sold \(item.quantity) of \(itemType.displayName)")
         owner?.updateMoney(by: profit)
         items.value.remove(at: index)
         items.value = items.value
+        throw BuyItemError.sellSuccess(item: item)
     }
 
     func sell(itemType: ItemType, quantity: Int) throws {
@@ -335,6 +334,7 @@ extension Ship {
         if deficit > 0 {
             throw BuyItemError.insufficientItems(shortOf: deficit)
         }
+        throw BuyItemError.sellTypeSuccess(itemType: itemType, quantity: quantity)
     }
 
     private func getRemainingCapacity() -> Int {

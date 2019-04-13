@@ -4,10 +4,30 @@
 
 ## Supporting components required to use the TurnSystem
 ### Interface
+To be done
 ### Network
+To be done
 ### GameState
+Any class that conforms to *GenericGameState* will work, as long as they have:
+* A *Map*
+* At least 1 *GenericPlayer*
+* A *Port* that buys/sells *Item*s
+
 
 ##  Using Events in TurnSystem
+
+### Structure of an event
+
+The base class for events is the *TurnSystemEvent*. It has:
+
+- An identifier: Int
+- A list of triggers:
+- A list of conditions:
+- A list of actions:
+- A message: () -> String
+- A display name: String
+
+
 
 ### Conditions - Operators
 * Comparables: Int { ==, !=, <, >, <=, >=, changed } (Money, item quantity, time (weeks), roll number)

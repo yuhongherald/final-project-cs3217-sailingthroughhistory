@@ -957,8 +957,8 @@
                         <outlet property="editingAreaWrapper" destination="bvr-Wr-frA" id="QIb-TT-eyV"/>
                         <outlet property="mapBackground" destination="1E8-YA-7dq" id="fjQ-Lx-rQ3"/>
                         <outlet property="panelToggle" destination="PSS-V9-wW8" id="yvf-GX-oAY"/>
-                        <outlet property="playerMenu" destination="37o-lK-feO" id="mzM-C6-bEx"/>
                         <outlet property="scrollView" destination="IkU-lw-ATW" id="SGQ-fp-wA1"/>
+                        <outlet property="teamMenu" destination="37o-lK-feO" id="mzM-C6-bEx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZR3-P0-Tw5" userLabel="First Responder" sceneMemberID="firstResponder"/>

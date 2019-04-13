@@ -1,22 +1,27 @@
 //
-//  UniqueObject.swift
+//  UniqueTurnSystemEvent.swift
 //  SailingThroughHistory
 //
-//  Created by Herald on 28/3/19.
+//  Created by Herald on 11/4/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
 import Foundation
 
-class UniqueObject: Unique, Hashable {
-    var identifier: Int {
-        return _identifier
+class UniqueTurnSystemEvent: TurnSystemEvent, Hashable {
+    override var identifier: Int {
+        get {
+            return _identifier
+        }
+        set {
+            // discard
+        }
     }
-
-    static func == (lhs: UniqueObject, rhs: UniqueObject) -> Bool {
+    
+    static func == (lhs: UniqueTurnSystemEvent, rhs: UniqueTurnSystemEvent) -> Bool {
         return lhs.identifier == rhs.identifier
     }
-
+    
     private static func getIdentifier() -> Int {
         var identifier: Int = 0 // dummy value
         queue.sync {
@@ -29,25 +34,28 @@ class UniqueObject: Unique, Hashable {
         }
         return identifier
     }
-
+    
     private static var nextID: Int = 0
     private static var identifiers = Set<Int>()
     private static let queue = DispatchQueue(label: "UniqueTurnSystemEventQueue",
                                              attributes: .concurrent)
     private let _identifier: Int
-
-    init() {
-        self._identifier = UniqueObject.getIdentifier()
+    
+    override init(triggers: [Trigger], conditions: [Evaluate],
+                  actions: [Modify], parsable: @escaping () -> String, displayName: String) {
+        self._identifier = UniqueTurnSystemEvent.getIdentifier()
+        super.init(triggers: triggers, conditions: conditions,
+                   actions: actions, parsable: parsable, displayName: displayName)
     }
-
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
     }
-
+    
     deinit {
         let identifier = self.identifier
-        UniqueObject.queue.async(flags: .barrier) {
-            UniqueObject.identifiers.remove(identifier)
+        UniqueTurnSystemEvent.queue.async(flags: .barrier) {
+            UniqueTurnSystemEvent.identifiers.remove(identifier)
         }
     }
 }

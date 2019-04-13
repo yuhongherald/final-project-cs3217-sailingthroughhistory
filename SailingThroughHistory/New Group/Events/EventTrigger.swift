@@ -22,7 +22,9 @@ class EventTrigger<T>: Printable, Trigger {
             guard let self = self else {
                 return
             }
-            self.triggered = self.triggered || self.comparator.compare(first: self.oldValue, second: self.variable.value)
+            self.triggered = self.triggered ||
+                self.comparator.compare(first: self.oldValue,
+                                        second: self.variable.value)
         }
     }
 
