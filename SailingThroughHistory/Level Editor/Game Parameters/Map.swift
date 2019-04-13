@@ -126,6 +126,9 @@ class Map: Codable {
         guard let uiRepresentation = entity.uiRepresentation else {
             return
         }
+        guard let node = nodeIDPair[entity.nodeId] else {
+            return
+        }
         node.add(object: uiRepresentation)
         entitiesAtNode.append(entity)
     }
