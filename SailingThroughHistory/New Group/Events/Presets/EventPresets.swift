@@ -38,24 +38,26 @@ class EventPresets {
         var evaluators = 0.evaluators
         for index in 0..<evaluators.count {
             let key = evaluators[index].displayName
+            let taxEvent = TaxChangeEvent(gameState: gameState,
+                                          genericOperator: evaluators[index],
+                                          modifier: PresetConstants.taxModifiers[index])
+            taxEvent.active = false
             neutralTaxEvents[key] = eventTable.pushEvent(
-                event: TaxChangeEvent(gameState: gameState,
-                                      genericOperator: evaluators[index],
-                                      modifier: PresetConstants.taxModifiers[index]))
-            itemPriceEvents[key] = [String: PresetEvent]()
+                event: taxEvent)
+            /*itemPriceEvents[key] = [String: PresetEvent]()
             for item in ItemType.allCases {
                 itemPriceEvents[key]?[item.rawValue] = eventTable.pushEvent(
                     event: ItemPriceEvent(gameState: gameState,
                                           itemType: item,
                                           genericOperator: evaluators[index],
                                           modifier: PresetConstants.priceModifers[index]))
-            }
+            }*/
         }
 
         for player in gameState.getPlayers() {
-            playerDeathEvents[player.deviceId] = eventTable.pushEvent(
+            playerDeathEvents[player.name] = eventTable.pushEvent(
                 event: NegativeMoneyEvent(player: player))
-            eventTable.pushEvent(event: PlayerArrivalEvent(player: player, turnSystem: turnSystem))
+            eventTable.pushEvent(event: PlayerArrivalEvent(player: player))
         }
 
         self.monsoonEvents = monsoonEvents
@@ -72,7 +74,7 @@ class EventPresets {
         case .itemPrice(for: let itemType, operand: let operand):
             return itemPriceEvents[operand]?[itemType.rawValue]
         case .playerDeath(for: let player):
-            return playerDeathEvents[player.deviceId]
+            return playerDeathEvents[player.name]
         }
     }
     func getEvent(id: Int) -> PresetEvent? {

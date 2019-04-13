@@ -25,5 +25,4 @@ struct ComparablePair<T>: Comparable {
     static func ==(lhs: ComparablePair, rhs: ComparablePair) -> Bool {
         return lhs.weight == rhs.weight
     }
-
 }

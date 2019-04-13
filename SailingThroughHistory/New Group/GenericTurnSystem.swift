@@ -10,7 +10,6 @@ protocol GenericTurnSystem {
     var gameState: GenericGameState { get }
     var eventPresets: EventPresets? { get set }
     var messages: [GameMessage] { get set }
-    func process(action: PlayerAction, for player: GenericPlayer) throws -> GameMessage
     func roll(for player: GenericPlayer) throws -> (Int, [Int])
     func selectForMovement(nodeId: Int, by player: GenericPlayer) throws
     func setTax(for portId: Int, to amount: Int, by player: GenericPlayer) throws
