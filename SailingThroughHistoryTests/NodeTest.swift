@@ -21,6 +21,7 @@ class NodeTest: XCTestCase {
 
     override func setUp() {
         Node.nextID = 0
+        Node.reuseID = []
         sea = Sea(name: "sea", originX: 0, originY: 0)
         pirateSea = Sea(name: "pirateSea", originX: 100, originY: 100)
         let pirate = Pirate(in: pirateSea)
@@ -34,10 +35,6 @@ class NodeTest: XCTestCase {
         let objects = [Pirate(in: sea), Pirate(in: sea)]
         objects.forEach { sea.add(object: $0) }
         XCTAssertEqual(sea.objects, objects, "Objects update failed.")
-    }
-
-    func testNavigation() {
-
     }
 
     func testCodableSea() {

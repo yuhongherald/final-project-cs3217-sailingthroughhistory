@@ -22,6 +22,7 @@ class MapTest: XCTestCase {
 
     override func setUp() {
         Node.nextID = 0
+        Node.reuseID = []
         map = Map(map: "", bounds: Rect(originX: 0, originY: 0, height: 1000, width: 1024))
         sea = Sea(name: "sea", originX: 0, originY: 0)
         pirateSea = Sea(name: "pirateSea", originX: 100, originY: 100)
@@ -58,6 +59,13 @@ class MapTest: XCTestCase {
         XCTAssertEqual(map.getAllPaths(), paths, "Path is not successfully added")
         XCTAssertEqual(map.getPaths(of: node1), [path], "Path is not added to node1")
         XCTAssertEqual(map.getPaths(of: node2), [path], "Path is not added to node2")
+
+        // test add object
+        var objects = [GameObject]()
+        let ship = ShipUI(ship: Ship(node: sea, suppliesConsumed: []))
+        map.addGameObject(gameObject: ship)
+        objects.append(ship)
+        XCTAssertEqual(map.gameObjects.value, objects, "Objects are not successfully added")
 
         // test remove path
         map.removePath(path)
