@@ -116,7 +116,7 @@ class ObjectsViewController {
         layer.add(animation, forKey: "drawLineAnimation")
         let weatherView = UILightningViewFactory.getLightningView(frame: bezierPath.bounds)
         pathWeathers[path] = weatherView
-        view.addSubview(weatherView)
+        //view.addSubview(weatherView)
         weatherView.initView()
     }
 
