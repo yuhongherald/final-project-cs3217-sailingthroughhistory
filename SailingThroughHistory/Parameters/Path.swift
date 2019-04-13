@@ -37,7 +37,7 @@ class Path: Hashable, Codable {
     func computeCostOfPath(baseCost: Double, with ship: Pirate_WeatherEntity) -> Double {
         var result = baseCost
         for modifier in modifiers {
-            result = Double(modifier.applyVelocityModifier(to: Float(baseCost), with: Float(ship.getWeatherModifier())))
+            result = Double(modifier.applyVelocityModifier(to: Float(result), with: Float(ship.getWeatherModifier())))
         }
         return result
     }

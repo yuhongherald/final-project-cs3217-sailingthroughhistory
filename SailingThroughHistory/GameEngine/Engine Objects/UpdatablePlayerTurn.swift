@@ -29,7 +29,7 @@ class UpdatablePlayerTurn: GameObject, Updatable {
 
     func checkForEvent() -> GenericGameEvent? {
         if !nextTurn {
-            gameState.getNextPlayer()?.endTurn() // TODO: Remove hotfix
+            gameState.getNextPlayer()?.endTurn() // Remove hotfix
         }
         guard let nextPlayer = gameState.getNextPlayer() else {
             if !nextTurn {

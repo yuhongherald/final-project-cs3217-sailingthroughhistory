@@ -16,13 +16,14 @@ protocol GenericPlayer: class, Codable {
     var weightCapacity: Int { get }
     var state: GameVariable<PlayerState> { get }
     var node: Node? { get }
+    var nodeIdVariable: GameVariable<Int> { get }
     var hasRolled: Bool { get }
     var deviceId: String { get }
     var map: Map? { get set }
     var gameState: GenericGameState? { get set }
     // for events
     var playerShip: Ship { get }
-    var homeNode: Node { get }
+    var homeNode: Int { get }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter?
     func addShipsToMap(map: Map)
@@ -39,8 +40,8 @@ protocol GenericPlayer: class, Codable {
     func subscribeToMoney(with observer: @escaping (GenericPlayer, Int) -> Void)
 
     // Before moving
-    func startTurn(speedMultiplier: Double, map: Map?) -> InfoMessage?
-    func buyUpgrade(upgrade: Upgrade)
+    func startTurn(speedMultiplier: Double, map: Map?)
+    func buyUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?)
     func roll() -> (Int, [Int])
 
     // Moving - Auto progress to End turn if cannot dock
@@ -51,6 +52,7 @@ protocol GenericPlayer: class, Codable {
     // After moving can choose to dock
     func canDock() -> Bool
     func dock() throws
+    func getPirateEncounterChance() -> Double
 
     // Docked - End turn is manual here
     func getPurchasableItemTypes() -> [ItemType]
@@ -61,7 +63,7 @@ protocol GenericPlayer: class, Codable {
     func setTax(port: Port, amount: Int)
 
     // End turn - supplies are removed here
-    func endTurn()
+    func endTurn() -> [InfoMessage]
 
     func canTradeAt(port: Port) -> Bool 
 }

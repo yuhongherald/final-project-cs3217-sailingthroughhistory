@@ -19,7 +19,7 @@ class Node: Codable {
     init(name: String, frame: Rect) {
         self.name = name
         self.frame = frame
-        if (!Node.reuseID.isEmpty) {
+        if !Node.reuseID.isEmpty {
             self.identifier = Node.reuseID.removeLast()
         } else {
             self.identifier = Node.nextID
@@ -43,7 +43,7 @@ class Node: Codable {
 
             switch type {
             case .pirate:
-                let object = try object.decode(Pirate.self, forKey: ObjectTypeKey.object)
+                let object = try object.decode(PirateUI.self, forKey: ObjectTypeKey.object)
                 objects.append(object)
             case .shipUI:
                 let object = try object.decode(ShipUI.self, forKey: ObjectTypeKey.object)
@@ -60,7 +60,7 @@ class Node: Codable {
 
         var objectsWithType = [ObjectWithType]()
         for object in objects {
-            if object is Pirate {
+            if object is PirateUI {
                 objectsWithType.append(ObjectWithType(object: object, type: ObjectTypes.pirate))
             }
             if object is ShipUI {
@@ -68,9 +68,6 @@ class Node: Codable {
             }
         }
         try container.encode(objectsWithType, forKey: .objects)
-    }
-
-    func moveIntoNode(ship: Pirate_WeatherEntity) {
     }
 
     func add(object: GameObject) {
@@ -120,44 +117,64 @@ extension Node: Hashable {
 extension Node {
 
     func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
+        var pq = PriorityQueue<ComparablePair<Node>>()
         var visited = Set<Int>()
-        return getNodesInRange(ship: ship, visited: &visited, range: range, map: map)
+        var next = self
+        var nodesInRange = [Node]()
+        while !pq.isEmpty {
+            let comparableNode = pq.poll()
+            let weight = comparableNode?.weight ?? 0
+            next = comparableNode?.object ?? self
+            if visited.contains(next.identifier) || weight > range {
+                continue
+            }
+            visited.insert(next.identifier)
+            nodesInRange.append(next)
+            for neighbor in map.getPaths(of: next) {
+                let cost = neighbor.computeCostOfPath(baseCost: 1, with: ship)
+                pq.add(ComparablePair<Node>(object: next, weight: weight + cost))
+            }
+        }
+        return nodesInRange
     }
 
-    func getCompletePath(to node: Node, map: Map) -> [Node] {
-        var queue = [(self, [Node]())]
+    func getCompleteShortestPath(to node: Node, with ship: Pirate_WeatherEntity, map: Map) -> [Node] {
+        var pq = PriorityQueue<ComparablePair<[Node]>>()
         var visited = Set<Int>()
         var next = self
         var path = [Node]()
-        while next != node && !queue.isEmpty {
-            (next, path) = queue.removeFirst()
+        while next != node && !pq.isEmpty {
+            let comparablePath = pq.poll()
+            path = comparablePath?.object ?? [self]
+            let weight = comparablePath?.weight ?? 0
+            next = path.last ?? self
             if visited.contains(next.identifier) {
                 continue
             }
             visited.insert(next.identifier)
             for neighbor in map.getPaths(of: next) {
-                queue.append((neighbor.toNode, path + [next]))
+                let cost = neighbor.computeCostOfPath(baseCost: 1, with: ship)
+                pq.add(ComparablePair<[Node]>(object: path + [neighbor.toNode], weight: weight + cost))
             }
         }
-        path.append(node)
         return path
     }
 
-    private func getNodesInRange(ship: Pirate_WeatherEntity, visited: inout Set<Int>, range: Double, map: Map) -> [Node] {
-        var result = [Node]()
-        guard range >= 0 else {
-            return result
-        }
-        result.append(self)
-        for path in map.getPaths(of: self) {
-            let neighbour = path.toNode
-            if visited.contains(neighbour.identifier) {
+    func getNumNodesTo(to node: Node, map: Map) -> Int? {
+        var queue = [(Node, Int)]()
+        var visited = Set<Int>()
+        var next = self
+        var weight = -1
+        while next != node && !queue.isEmpty {
+            (next, weight) = queue.removeFirst()
+            if visited.contains(next.identifier) {
                 continue
             }
-            visited.insert(neighbour.identifier)
-            let remainingMovement = range - path.computeCostOfPath(baseCost: 1, with: ship)
-            result += neighbour.getNodesInRange(ship: ship, range: remainingMovement, map: map)
+            visited.insert(next.identifier)
+            for neighbor in map.getPaths(of: next) {
+                queue.append((neighbor.toNode, weight + 1))
+            }
         }
-        return result
+        return weight < 0 ? nil : weight
     }
 }

@@ -274,11 +274,17 @@ class LevelEditorViewController: UIViewController {
                 alert.present(in: self)
                 return
             }
-
-            let pirate = Pirate(in: nodeView.node)
-            nodeView.node.add(object: pirate)
+            guard let pirateIsland = self.editMode?.createEntityAtNode(node: nodeView.node),
+                let uiRepresentation = pirateIsland.uiRepresentation else {
+                    let alert = UIAlert(errorMsg: "Failed to create a pirate!", msg: nil)
+                    alert.present(in: self)
+                return
+            }
+            gameParameter.map.addEntity(entity: pirateIsland, at: nodeView.node)
+            nodeView.node.add(object: uiRepresentation)
             nodeView.update()
         }
+
     }
 
     @objc func doubleTapOnNode(_ sender: UITapGestureRecognizer) {
@@ -360,8 +366,14 @@ class LevelEditorViewController: UIViewController {
             bazier.addLine(to: toNode.center)
 
             let path = Path(from: fromNode.node, to: toNode.node)
+            let pathReversed = Path(from: toNode.node, to: fromNode.node)
+            if gameParameter.map.getAllPaths().contains(path) {
+                lineLayer.removeFromSuperlayer()
+                return
+            }
             lineLayer.set(path: path)
             gameParameter.map.add(path: path)
+            gameParameter.map.add(path: pathReversed)
             lineLayer.path = bazier.cgPath
             lineLayerArr.append(lineLayer)
         default:

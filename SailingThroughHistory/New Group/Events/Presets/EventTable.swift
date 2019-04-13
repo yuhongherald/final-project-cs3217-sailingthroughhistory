@@ -6,16 +6,19 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class EventTable {
-    private var table: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
-    private var nextID: Int = 0
-    func pushEvent(event: TurnSystemEvent) -> TurnSystemEvent {
+class EventTable<T> where T: TurnSystemEvent {
+    private var table: [Int: T] = [Int: T]()
+    private var nextID: Int = Int.max
+    func pushEvent(event: T) -> T {
         event.identifier = nextID
         table[nextID] = event
-        nextID += 1
+        nextID -= 1
         return event
     }
-    func getEvent(id: Int) -> TurnSystemEvent? {
+    func getEvent(id: Int) -> T? {
         return table[id]
+    }
+    func getAllEvents() -> [T] {
+        return Array(table.values)
     }
 }

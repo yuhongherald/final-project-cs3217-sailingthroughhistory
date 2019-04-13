@@ -16,7 +16,7 @@ protocol GenericTurnSystemState {
     func addEvents(events: [TurnSystemEvent]) -> Bool
     func removeEvents(events: [TurnSystemEvent]) -> Bool
     func setEvents(events: [TurnSystemEvent]) -> Bool
-    func checkForEvents() -> Bool
+    func checkForEvents() -> [GameMessage]
 
     func turnFinished()
     func processed(action: PlayerAction, from player: GenericPlayer)

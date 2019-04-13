@@ -18,7 +18,10 @@ class Player: GenericPlayer {
     var name: String
     var team: Team
     var node: Node? {
-        return getNodesInRange(roll: 0).first
+        return map?.nodeIDPair[ship.nodeId]
+    }
+    var nodeIdVariable: GameVariable<Int> {
+        return ship.nodeIdVariable
     }
     var map: Map? {
         didSet {
@@ -35,9 +38,6 @@ class Player: GenericPlayer {
             }
         }
     }
-    var currentNode: Node? {
-        return map?.nodeIDPair[ship.nodeId]
-    }
     var currentCargoWeight: Int {
         return ship.currentCargoWeight
     }
@@ -49,10 +49,7 @@ class Player: GenericPlayer {
     var playerShip: Ship {
         return ship
     }
-    var homeNode: Node {
-        return _homeNode
-    }
-    private let _homeNode: Node
+    let homeNode: Int
 
     var gameState: GenericGameState?
     private let ship: Ship
@@ -65,9 +62,8 @@ class Player: GenericPlayer {
         self.team = team
         self.map = map
         self.deviceId = deviceId
+        self.homeNode = node.identifier
         ship = Ship(node: node, suppliesConsumed: [])
-        //_homeNode = ship.getCurrentNode()
-        _homeNode = Node(name: "randome", frame: Rect(originX: 0, originY: 0, height: 0, width: 0))
         ship.setOwner(owner: self)
         ship.setMap(map: map)
     }
@@ -79,9 +75,7 @@ class Player: GenericPlayer {
         money.value = try values.decode(Int.self, forKey: .money)
         ship = try values.decode(Ship.self, forKey: .ship)
         deviceId = try values.decode(String.self, forKey: .deviceId)
-
-        //_homeNode = ship.getCurrentNode()
-        _homeNode = Node(name: "randome", frame: Rect(originX: 0, originY: 0, height: 0, width: 0))
+        homeNode = try values.decode(Int.self, forKey: .homeNode)
         ship.setOwner(owner: self)
     }
 
@@ -92,6 +86,7 @@ class Player: GenericPlayer {
         try container.encode(money.value, forKey: .money)
         try container.encode(ship, forKey: .ship)
         try container.encode(deviceId, forKey: .deviceId)
+        try container.encode(homeNode, forKey: .homeNode)
     }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter? {
@@ -104,17 +99,16 @@ class Player: GenericPlayer {
         ship.setLocation(map: map)
     }
 
-    func startTurn(speedMultiplier: Double, map: Map?) -> InfoMessage? {
+    func startTurn(speedMultiplier: Double, map: Map?) {
         self.speedMultiplier = speedMultiplier
         self.map = map
         hasRolled = false
         state.value = PlayerState.moving
-        ship.startTurn()
-        return nil
+        return ship.startTurn()
     }
 
-    func buyUpgrade(upgrade: Upgrade) {
-        ship.installUpgrade(upgrade: upgrade)
+    func buyUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
+        return ship.installUpgrade(upgrade: upgrade)
     }
 
     func roll() -> (Int, [Int]) {
@@ -142,7 +136,7 @@ class Player: GenericPlayer {
         }
 
         return ship.getCurrentNode()
-            .getCompletePath(to: toNode, map: map)
+            .getCompleteShortestPath(to: toNode, with: ship, map: map)
             .map { $0.identifier }
     }
 
@@ -162,7 +156,29 @@ class Player: GenericPlayer {
 
     func dock() throws {
         let port = try ship.dock()
-        try port.collectTax(from: self)
+        port.collectTax(from: self)
+    }
+
+    func getPirateEncounterChance() -> Double {
+        guard let map = map else {
+            return 0
+        }
+        var chance = map.basePirateRate
+        let entities = map.getEntities()
+        let position = ship.getCurrentNode()
+        for entity in entities {
+            guard let pirate = entity as? PirateIsland,
+                let pirateNode = map.nodeIDPair[pirate.nodeId] else {
+                continue
+            }
+            guard let distance = pirateNode.getNumNodesTo(to: position, map: map),
+                distance <= pirate.influence else {
+                continue
+            }
+            chance = max(chance, pirate.chance)
+        }
+
+        return chance
     }
 
     func getPurchasableItemTypes() -> [ItemType] {
@@ -209,9 +225,9 @@ class Player: GenericPlayer {
         return ship.isDocked
     }
 
-    func endTurn() {
+    func endTurn() -> [InfoMessage] {
         hasRolled = false
-        ship.endTurn(speedMultiplier: speedMultiplier)
+        return ship.endTurn(speedMultiplier: speedMultiplier)
     }
 
     func canTradeAt(port: Port) -> Bool {
@@ -224,6 +240,7 @@ class Player: GenericPlayer {
         case money
         case ship
         case deviceId
+        case homeNode
     }
 }
 

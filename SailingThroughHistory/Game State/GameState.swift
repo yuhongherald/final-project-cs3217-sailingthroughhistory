@@ -120,6 +120,16 @@ class GameState: GenericGameState {
     func endGame() {
     }
 
+    func getTeamMoney() -> [Team: Int] {
+        var result = [Team: Int]()
+        for player in players {
+            let team = player.team
+            result[team] = (result[team] ?? 0) + player.money.value
+        }
+
+        return result
+    }
+
     private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {

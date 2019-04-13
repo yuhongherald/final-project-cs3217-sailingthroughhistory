@@ -37,18 +37,21 @@ class MainGameViewController: UIViewController {
             availableUpgradesTableView.reloadData()
         }
     }
-    @IBOutlet private weak var playerOneInformationView: UIView!
-    @IBOutlet private weak var playerOneGoldView: UILabel!
-    @IBOutlet private weak var playerOneCapacityView: UILabel!
-    @IBOutlet private weak var playerOneCargoView: UILabel!
-    @IBOutlet weak var playerOneItemsView: UITableView!
-    @IBOutlet private weak var togglePlayerOneInfoButton: UIButtonRounded!
+    @IBOutlet private weak var playerInfoWrapper: UIView!
+    @IBOutlet private weak var playerMoneyLabel: UILabel!
+    @IBOutlet private weak var playerShipCapacityLabel: UILabel!
+    @IBOutlet private weak var playerCargoWeightLabel: UILabel!
+    @IBOutlet private weak var playerItemsTable: UITableView!
+    @IBOutlet private weak var togglePlayerInfoButton: UIButtonRounded!
 
+    @IBOutlet private weak var toggleTeamScoresButton: UIButtonRounded!
+    @IBOutlet private weak var teamScoresWrapper: UIBlurredBackgroundView!
+    @IBOutlet private weak var teamScoreTableView: UITableView!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var toggleActionPanelButton: UIButtonRounded!
     @IBOutlet private weak var diceResultLabel: UILabel!
     @IBOutlet private weak var actionPanelView: UIView!
-    @IBOutlet private weak var countdownLabel: CountdownLabel!
+    @IBOutlet private weak var countdownLabel: CountdownLabelView!
     @IBOutlet private weak var rollDiceButton: UIButtonRounded! {
         didSet {
             rollDiceButton.set(color: .red)
@@ -61,10 +64,13 @@ class MainGameViewController: UIViewController {
         ObjectsViewController(view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
         toggleActionPanelButton: actionPanelView,
-        togglePlayerOneInfoButton: playerOneInformationView]
+        togglePlayerInfoButton: playerInfoWrapper,
+        toggleTeamScoresButton: teamScoresWrapper]
     private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
     private lazy var availableUpgradesDataSource = AvailableUpgradesDataSource(mainController: self,
                                                                                availableUpgrades: model.availableUpgrades)
+    private lazy var teamScoresController = TeamScoreTableController(tableView: teamScoreTableView,
+                                                                     scores: Dictionary())
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     private let storage = LocalStorage()
     var turnSystem: GenericTurnSystem?
@@ -108,6 +114,8 @@ class MainGameViewController: UIViewController {
             self.statusLabel.text = ""
             self.playerTurnEnd()
             self.currentTurnOwner = nil
+            self.objectsController.updatePathWeather()
+            self.teamScoresController.set(scores: self.model.getTeamMoney())
             switch state {
             case .waitPlayerInput(let player):
                 let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
@@ -123,12 +131,11 @@ class MainGameViewController: UIViewController {
                 break
             case .waitForTurnFinish:
                 self.statusLabel.text = "Waiting for other players to finish..."
-                break
             case .waitForStateUpdate:
                 break
             case .invalid:
                 break
-            case .evaluateMoves(_):
+            case .evaluateMoves:
                 break
             }
         }
@@ -147,18 +154,20 @@ class MainGameViewController: UIViewController {
             return
         }
 
-        var errorMsg: String?
-
+        var msg: String?
+        var title: String? = "Error"
         do {
-            try turnSystem?.purchase(upgrade: upgrade, by: currentTurnOwner)
-        } catch PlayerActionError.invalidAction(let msg) {
-            errorMsg = msg
+            let result = try turnSystem?.purchase(upgrade: upgrade, by: currentTurnOwner)
+            msg = result?.message
+            title = result?.title
+        } catch PlayerActionError.invalidAction(let errorMsg) {
+            msg = errorMsg
         } catch {
-            errorMsg = error.localizedDescription
+            msg = error.localizedDescription
         }
 
-        if let errorMsg = errorMsg {
-            let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
+        if let msg = msg, let title = title {
+            let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg)
             present(alert, animated: true, completion: nil)
         }
     }
@@ -185,7 +194,7 @@ class MainGameViewController: UIViewController {
             let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
             present(alert, animated: true, completion: nil)
         }
-        playerOneItemsView.reloadData()
+        playerItemsTable.reloadData()
     }
 
     @IBAction private func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -251,7 +260,6 @@ class MainGameViewController: UIViewController {
     }
 
     private func initBackground() {
-        /// TODO: Change map
         guard let backgroundData = backgroundData,
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
             return
@@ -296,12 +304,12 @@ class MainGameViewController: UIViewController {
         let gold = player.money.value
         let cargo = player.currentCargoWeight
         let capacity = player.weightCapacity
-        playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
-        playerOneCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
-        playerOneCapacityView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
+        playerMoneyLabel.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
+        playerCargoWeightLabel.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
+        playerShipCapacityLabel.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
         playerItemsDataSources.removeAll()
         let dataSource = PlayerItemsTableDataSource(player: player,
-                                                    tableView: playerOneItemsView)
+                                                    tableView: playerItemsTable)
         playerItemsDataSources.append(dataSource)
     }
 
@@ -314,7 +322,7 @@ class MainGameViewController: UIViewController {
                 if currentTurnOwner != player {
                     return
                 }
-                self?.playerOneGoldView.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
+                self?.playerMoneyLabel.text = "\(InterfaceConstants.moneyPrefix)\(gold)"
             }
 
             player.subscribeToCargoWeight { [weak self] player, cargo in
@@ -324,7 +332,7 @@ class MainGameViewController: UIViewController {
                 if currentTurnOwner != player {
                     return
                 }
-                self?.playerOneCargoView.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
+                self?.playerCargoWeightLabel.text = "\(InterfaceConstants.cargoPrefix)\(cargo)"
             }
 
             player.subscribeToWeightCapcity { [weak self] player, capacity in
@@ -334,7 +342,7 @@ class MainGameViewController: UIViewController {
                 if currentTurnOwner != player {
                     return
                 }
-                self?.playerOneCapacityView.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
+                self?.playerShipCapacityLabel.text = "\(InterfaceConstants.capacityPrefix)\(capacity)"
             }
         }
     }
@@ -342,15 +350,15 @@ class MainGameViewController: UIViewController {
     private func playerTurnStart(player: GenericPlayer, endTime: TimeInterval) {
 
         func animatePlayerTurnStart() {
+            objectsController.makeShipGlow(for: player)
             availableUpgradesDataSource.enabled = player.canBuyUpgrade()
             availableUpgradesTableView.reloadData()
             actionPanelView.isHidden = false
             toggleActionPanelButton.isHidden = false
             rollDiceButton.isEnabled = true
             rollDiceButton.set(color: .red)
-            countdownLabel.isHidden = false
-            countdownLabel.animationType = CountdownEffect.Burn
-            countdownLabel.setCountDownTime(minutes: endTime - Date().timeIntervalSince1970)
+            countdownLabel.set(isHidden: false)
+            countdownLabel.setCountDownTime(seconds: endTime - Date().timeIntervalSince1970)
             countdownLabel.start()
         }
 
@@ -361,9 +369,8 @@ class MainGameViewController: UIViewController {
     private func playerTurnEnd() {
         actionPanelView.isHidden = true
         toggleActionPanelButton.isHidden = true
-        countdownLabel.isHidden = true
+        countdownLabel.set(isHidden: true)
         portInformationView.isHidden = true
-        countdownLabel.isHidden = true
         availableUpgradesDataSource.enabled = false
         availableUpgradesTableView.reloadData()
         objectsController.resetChoosableNodes()

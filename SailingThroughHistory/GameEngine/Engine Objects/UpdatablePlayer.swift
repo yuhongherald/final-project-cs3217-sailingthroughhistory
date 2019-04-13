@@ -22,8 +22,8 @@ class UpdatablePlayer: GameObject, Updatable {
     }
 
     func update(weeks: Double) -> Bool {
-        // TODO: Get movement speed of player, do multi-node movement
-        // TODO: Check if endNode is dock
+        // Get movement speed of player, do multi-node movement
+        // Check if endNode is dock
         location.value = Location(start: location.value.start,
                                   end: location.value.end,
                                   fractionToEnd: location.value.fractionToEnd

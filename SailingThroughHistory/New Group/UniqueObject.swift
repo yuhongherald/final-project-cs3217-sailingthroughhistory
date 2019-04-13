@@ -12,11 +12,11 @@ class UniqueObject: Unique, Hashable {
     var identifier: Int {
         return _identifier
     }
-    
+
     static func == (lhs: UniqueObject, rhs: UniqueObject) -> Bool {
         return lhs.identifier == rhs.identifier
     }
-    
+
     private static func getIdentifier() -> Int {
         var identifier: Int = 0 // dummy value
         queue.sync {
@@ -29,21 +29,21 @@ class UniqueObject: Unique, Hashable {
         }
         return identifier
     }
-    
+
     private static var nextID: Int = 0
     private static var identifiers = Set<Int>()
     private static let queue = DispatchQueue(label: "UniqueTurnSystemEventQueue",
                                              attributes: .concurrent)
     private let _identifier: Int
-    
+
     init() {
         self._identifier = UniqueObject.getIdentifier()
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
     }
-    
+
     deinit {
         let identifier = self.identifier
         UniqueObject.queue.async(flags: .barrier) {

@@ -20,6 +20,7 @@ enum GameConstants {
     static let monthsInYear: Int = 12
     static let playerTurnDuration: Double = 120
     static let numOfTurn: Int = 20
+    static let monsoonMultiplier: Double = 2
 }
 
 enum Resources {
@@ -62,7 +63,7 @@ enum Resources {
         static let pirate: String = "pirate-node.png"
         static let weather: String = "weather-icon.png"
 
-        static func of(_ object: Any) -> String?{
+        static func of(_ object: Any) -> String? {
             if object is Port {
                 return Resources.Icon.port
             }
@@ -71,7 +72,7 @@ enum Resources {
                 return Resources.Icon.sea
             }
 
-            if object is Pirate {
+            if object is PirateUI {
                 return Resources.Icon.pirate
             }
             return nil

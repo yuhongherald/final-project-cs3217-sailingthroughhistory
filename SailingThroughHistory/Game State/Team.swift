@@ -63,3 +63,9 @@ class Team: GenericTeam {
         case startId
     }
 }
+
+extension Team: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+    }
+}
