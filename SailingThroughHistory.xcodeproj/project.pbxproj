@@ -145,6 +145,7 @@
 		9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */; };
 		966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
+		9670E9202261D31600E8A01F /* MessagesTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670E91F2261D31600E8A01F /* MessagesTableController.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
 		96737EA4223D335100D04C33 /* View+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA3223D335100D04C33 /* View+Translate.swift */; };
 		96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EA5223D398200D04C33 /* CGRect+Translate.swift */; };
@@ -173,7 +174,7 @@
 		96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemParameter.swift */; };
 		96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* GenericLevel.swift */; };
 		96A65ADC22491FE900D7512C /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
-		96A7D0AC225F6CF7001C18E4 /* TeamScoreTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AB225F6CF7001C18E4 /* TeamScoreTableDataSource.swift */; };
+		96A7D0AC225F6CF7001C18E4 /* TeamScoreTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AB225F6CF7001C18E4 /* TeamScoreTableController.swift */; };
 		96A7D0AE225F8269001C18E4 /* CountdownLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AD225F8269001C18E4 /* CountdownLabelView.swift */; };
 		96A7D0B0225F971D001C18E4 /* UIBezierPath+Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */; };
 		96A7D0B2225FA8E0001C18E4 /* UILightningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0B1225FA8E0001C18E4 /* UILightningView.swift */; };
@@ -380,6 +381,7 @@
 		9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableDataSource.swift; sourceTree = "<group>"; };
 		966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameObjectImageView.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
+		9670E91F2261D31600E8A01F /* MessagesTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableController.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		96737EA3223D335100D04C33 /* View+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Translate.swift"; sourceTree = "<group>"; };
 		96737EA5223D398200D04C33 /* CGRect+Translate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Translate.swift"; sourceTree = "<group>"; };
@@ -411,7 +413,7 @@
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlurredBackgroundView.swift; sourceTree = "<group>"; };
 		96A261D32246454500BBCC60 /* InterfaceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceTest.swift; sourceTree = "<group>"; };
-		96A7D0AB225F6CF7001C18E4 /* TeamScoreTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamScoreTableDataSource.swift; sourceTree = "<group>"; };
+		96A7D0AB225F6CF7001C18E4 /* TeamScoreTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamScoreTableController.swift; sourceTree = "<group>"; };
 		96A7D0AD225F8269001C18E4 /* CountdownLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLabelView.swift; sourceTree = "<group>"; };
 		96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Arrow.swift"; sourceTree = "<group>"; };
 		96A7D0B1225FA8E0001C18E4 /* UILightningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILightningView.swift; sourceTree = "<group>"; };
@@ -990,7 +992,8 @@
 				967FAA7C2244BF1F005054B6 /* PortItemTableDataSource.swift */,
 				9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */,
 				9683C28F225D284600E30387 /* AvailableUpgradesDataSource.swift */,
-				96A7D0AB225F6CF7001C18E4 /* TeamScoreTableDataSource.swift */,
+				96A7D0AB225F6CF7001C18E4 /* TeamScoreTableController.swift */,
+				9670E91F2261D31600E8A01F /* MessagesTableController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1455,6 +1458,7 @@
 				754FED652243626900394215 /* Vector2F.swift in Sources */,
 				75328F5A225360BB00180B03 /* PlayerActionError.swift in Sources */,
 				7538CAF02255137600EB9B1F /* BuyItemError.swift in Sources */,
+				9670E9202261D31600E8A01F /* MessagesTableController.swift in Sources */,
 				751F8FEE224BB2170071C057 /* Printable.swift in Sources */,
 				751F8FEA224BAF0E0071C057 /* GenericNetworkSession.swift in Sources */,
 				7535449E224CCB34001B4F62 /* BaseGameObject.swift in Sources */,
@@ -1470,7 +1474,7 @@
 				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */,
-				96A7D0AC225F6CF7001C18E4 /* TeamScoreTableDataSource.swift in Sources */,
+				96A7D0AC225F6CF7001C18E4 /* TeamScoreTableController.swift in Sources */,
 				7535447F224CAC72001B4F62 /* ConditionComparable.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
 				9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */,

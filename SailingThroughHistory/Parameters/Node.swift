@@ -124,6 +124,7 @@ extension Node {
         var visited = Set<Int>()
         var next = self
         var nodesInRange = [Node]()
+        pq.add(ComparablePair(object: next, weight: 0))
         while !pq.isEmpty {
             let comparableNode = pq.poll()
             let weight = comparableNode?.weight ?? 0
@@ -135,7 +136,7 @@ extension Node {
             nodesInRange.append(next)
             for neighbor in map.getPaths(of: next) {
                 let cost = neighbor.computeCostOfPath(baseCost: 1, with: ship)
-                pq.add(ComparablePair<Node>(object: next, weight: weight + cost))
+                pq.add(ComparablePair<Node>(object: neighbor.toNode, weight: weight + cost))
             }
         }
         return nodesInRange
@@ -146,6 +147,7 @@ extension Node {
         var visited = Set<Int>()
         var next = self
         var path = [Node]()
+        pq.add(ComparablePair(object: [next], weight: 0))
         while next != node && !pq.isEmpty {
             let comparablePath = pq.poll()
             path = comparablePath?.object ?? [self]
@@ -157,7 +159,7 @@ extension Node {
             visited.insert(next.identifier)
             for neighbor in map.getPaths(of: next) {
                 let cost = neighbor.computeCostOfPath(baseCost: 1, with: ship)
-                pq.add(ComparablePair<[Node]>(object: path + [next], weight: weight + cost))
+                pq.add(ComparablePair<[Node]>(object: path + [neighbor.toNode], weight: weight + cost))
             }
         }
         return path

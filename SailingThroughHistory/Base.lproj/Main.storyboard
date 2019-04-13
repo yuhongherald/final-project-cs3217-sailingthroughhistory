@@ -385,26 +385,61 @@
                                     <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eft-go-7l6"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KxU-Yt-PMI" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="512" y="440" width="512" height="328"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3x5-TV-ZeY">
+                                        <rect key="frame" x="20" y="20" width="472" height="248"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3x5-TV-ZeY" firstAttribute="top" secondItem="KxU-Yt-PMI" secondAttribute="top" constant="20" symbolic="YES" id="BZG-Wn-730"/>
+                                    <constraint firstAttribute="trailing" secondItem="3x5-TV-ZeY" secondAttribute="trailing" constant="20" symbolic="YES" id="Djz-kk-0ga"/>
+                                    <constraint firstItem="3x5-TV-ZeY" firstAttribute="leading" secondItem="KxU-Yt-PMI" secondAttribute="leading" constant="20" symbolic="YES" id="I11-6W-7ba"/>
+                                    <constraint firstAttribute="bottom" secondItem="3x5-TV-ZeY" secondAttribute="bottom" constant="60" id="ubQ-7u-3Rh"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPy-7Q-I59" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="677.5" y="707" width="181" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Toggle Messages"/>
+                                <connections>
+                                    <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SLm-gr-K4u"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KxU-Yt-PMI" secondAttribute="trailing" id="2KU-u6-G1v"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="top" secondItem="6nf-n2-xli" secondAttribute="bottom" constant="8" symbolic="YES" id="2yt-xV-pR4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q59-92-ecD" secondAttribute="trailing" id="4Qh-5t-DYv"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="trailing" constant="8" symbolic="YES" id="4WX-9T-WFk"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="93w-mA-raU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KxU-Yt-PMI" secondAttribute="bottom" id="ATa-f8-i5s"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="BKh-th-Hki"/>
                             <constraint firstItem="q59-92-ecD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="GIX-ZC-G64"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="GWu-vH-dFQ"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="GYk-OA-eX0"/>
+                            <constraint firstItem="YPy-7Q-I59" firstAttribute="centerX" secondItem="KxU-Yt-PMI" secondAttribute="centerX" id="IIU-6m-91U"/>
+                            <constraint firstItem="KxU-Yt-PMI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" constant="8" symbolic="YES" id="KIr-zn-jYi"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Lnl-P6-45G"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mu4-Ie-cT6"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NQy-MG-Yoo"/>
+                            <constraint firstItem="KxU-Yt-PMI" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="OIf-7u-ejX"/>
                             <constraint firstItem="aQt-yR-Dfx" firstAttribute="centerX" secondItem="iyb-KI-RoB" secondAttribute="centerX" id="OUK-pt-ldD"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ObH-J3-fir"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" constant="1" id="Q7F-SB-aB9"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qob-fY-pBc"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QxV-sm-yoD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="bottom" id="Ra9-H3-yrl"/>
+                            <constraint firstItem="YPy-7Q-I59" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Rj3-oD-Wex"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5Pn-jO-5xF" secondAttribute="bottom" id="SYJ-Zq-Z6f"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iyb-KI-RoB" secondAttribute="bottom" id="SkV-Lv-W1I"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="trailing" id="TN5-7n-QWa"/>
@@ -424,8 +459,10 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="bottom" id="hhb-JF-26f"/>
                             <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="jGQ-tS-9AB"/>
                             <constraint firstItem="q59-92-ecD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="jJB-zK-tTp"/>
+                            <constraint firstItem="KxU-Yt-PMI" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="bottom" constant="8" symbolic="YES" id="jWe-ia-EaL"/>
                             <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="top" id="koH-dm-gN5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6nf-n2-xli" secondAttribute="trailing" constant="20" id="lRl-YQ-kVK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YPy-7Q-I59" secondAttribute="trailing" constant="20" id="lp8-VM-39J"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="m8d-iH-P1c"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="leading" id="o0F-2V-7Ut"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="o3e-AA-P7X"/>
@@ -434,6 +471,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="rDM-QC-Hl5"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aQt-yR-Dfx" secondAttribute="bottom" constant="8" symbolic="YES" id="t83-FX-ZJ9"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" constant="1" id="u6e-c9-iVy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YPy-7Q-I59" secondAttribute="bottom" constant="20" id="v8t-kV-uor"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="vdp-tX-Jp2"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="w0B-KI-dKf"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aQt-yR-Dfx" secondAttribute="trailing" constant="8" symbolic="YES" id="wwb-OI-ooE"/>
@@ -449,6 +487,8 @@
                         <outlet property="diceResultLabel" destination="pul-tz-1B7" id="zgu-jx-z6U"/>
                         <outlet property="gameAndBackgroundWrapper" destination="Ph7-HO-lQ1" id="pc9-ya-kwM"/>
                         <outlet property="gameArea" destination="Yzi-uC-Odn" id="qRV-20-8r7"/>
+                        <outlet property="messagesTableView" destination="3x5-TV-ZeY" id="ZKc-TV-Q9Q"/>
+                        <outlet property="messagesView" destination="KxU-Yt-PMI" id="EAa-d9-qUI"/>
                         <outlet property="playerCargoWeightLabel" destination="5NV-8O-2w1" id="eun-OD-Rk1"/>
                         <outlet property="playerInfoWrapper" destination="MFT-em-0mO" id="XKf-HX-JgN"/>
                         <outlet property="playerItemsTable" destination="B3l-yt-y4u" id="pQx-Pc-Fvt"/>
@@ -463,6 +503,7 @@
                         <outlet property="teamScoreTableView" destination="2pE-Mj-glV" id="ULA-HL-hw1"/>
                         <outlet property="teamScoresWrapper" destination="iyb-KI-RoB" id="KI1-8s-cV6"/>
                         <outlet property="toggleActionPanelButton" destination="8nQ-Ii-rtZ" id="R6d-Il-V9c"/>
+                        <outlet property="toggleMessagesButton" destination="YPy-7Q-I59" id="Fvj-S4-tan"/>
                         <outlet property="togglePlayerInfoButton" destination="ue5-3h-dqr" id="KyB-co-3e5"/>
                         <outlet property="toggleTeamScoresButton" destination="aQt-yR-Dfx" id="r0P-4F-BMC"/>
                     </connections>

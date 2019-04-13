@@ -53,9 +53,9 @@ class EventPresets {
         }
 
         for player in gameState.getPlayers() {
-            playerDeathEvents[player.deviceId] = eventTable.pushEvent(
+            playerDeathEvents[player.name] = eventTable.pushEvent(
                 event: NegativeMoneyEvent(player: player))
-            eventTable.pushEvent(event: PlayerArrivalEvent(player: player, turnSystem: turnSystem))
+            eventTable.pushEvent(event: PlayerArrivalEvent(player: player))
         }
 
         self.monsoonEvents = monsoonEvents
@@ -72,7 +72,7 @@ class EventPresets {
         case .itemPrice(for: let itemType, operand: let operand):
             return itemPriceEvents[operand]?[itemType.rawValue]
         case .playerDeath(for: let player):
-            return playerDeathEvents[player.deviceId]
+            return playerDeathEvents[player.name]
         }
     }
     func getEvent(id: Int) -> PresetEvent? {

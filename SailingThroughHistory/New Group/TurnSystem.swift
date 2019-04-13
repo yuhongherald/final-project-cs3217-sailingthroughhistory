@@ -114,6 +114,11 @@ class TurnSystem: GenericTurnSystem {
         if !player.roll().1.contains(nodeId) {
             throw PlayerActionError.invalidAction(message: "Node is out of range!")
         }
+
+        if nodeId == player.node?.identifier {
+            return
+        }
+
         var path = player.getPath(to: nodeId)
         path.removeFirst()
         for transitNode in path {
@@ -173,7 +178,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func chasedByPirates(player: GenericPlayer) {
-        pendingActions.append(.pirate())
+        pendingActions.append(.pirate)
     }
 
     private func checkInputAllowed(from player: GenericPlayer) throws {
@@ -228,8 +233,11 @@ class TurnSystem: GenericTurnSystem {
                 name: player.name,
                 message: " has set the tax for \(port.name) from \(previous) to \(taxAmount)")
         case .buyOrSell(let itemType, let quantity):
+            let message = GameMessage.playerAction(
+                name: player.name,
+                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemType.rawValue)")
             if player.deviceId == deviceId {
-                return GameMessage.playerAction(name: player.name, message: "You moved")
+                return message
             }
             do {
                 if quantity >= 0 {
@@ -240,17 +248,15 @@ class TurnSystem: GenericTurnSystem {
             } catch let error as BuyItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
-            return GameMessage.playerAction(
-                name: player.name,
-                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemType.rawValue)")
+            return message
         case .purchaseUpgrade(let upgradeType):
             if player.deviceId == deviceId {
                 return GameMessage.playerAction(name: player.name, message: "You moved")
             }
-            player.buyUpgrade(upgrade: upgradeType.toUpgrade())
+            _ = player.buyUpgrade(upgrade: upgradeType.toUpgrade())
             return GameMessage.playerAction(name: player.name,
                                             message: " has purchased the \(upgradeType.toUpgrade().name)!")
-        case .pirate():
+        case .pirate:
             player.playerShip.startPirateChase()
             return GameMessage.playerAction(name: player.name, message: " is chased by pirates!")
         }
