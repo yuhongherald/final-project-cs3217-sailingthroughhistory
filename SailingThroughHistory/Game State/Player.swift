@@ -96,7 +96,6 @@ class Player: GenericPlayer {
 
     func addShipsToMap(map: Map) {
         ship.setMap(map: map)
-        ship.setLocation(map: map)
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {

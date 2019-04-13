@@ -33,14 +33,19 @@ class Ship: Codable {
         return currentCargoWeightVariable.value
     }
     var weightCapacity: Int {
-        return weightCapacityVariable.value
+        get {
+            return weightCapacityVariable.value
+        }
+        set(value) {
+            weightCapacityVariable.value = weightCapacity
+        }
     }
     let nodeIdVariable: GameVariable<Int> // public for events
-    private weak var owner: GenericPlayer?
+    weak var owner: GenericPlayer?
     var items = GameVariable<[GenericItem]>(value: []) // public for events
+    var isDocked = false
     private var currentCargoWeightVariable = GameVariable<Int>(value: 0)
     private var weightCapacityVariable = GameVariable<Int>(value: 100)
-    private(set) var isDocked = false
 
     var shipObject: ShipUI?
 
@@ -102,42 +107,6 @@ class Ship: Codable {
         case auxiliaryUpgrade
     }
 
-    func setLocation(map: Map) {
-        guard let node = map.nodeIDPair[nodeId] else {
-            return
-        }
-        nodeId = node.identifier
-    }
-
-    func installUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
-        guard let owner = owner else {
-            return (false, InfoMessage(title: "Error", message: "Ship has no owner!"))
-        }
-        guard owner.money.value >= upgrade.cost else {
-            return (false, InfoMessage(title: "Insufficient Money!",
-                        message: "You do not have sufficient funds to buy \(upgrade.name)!"))
-        }
-        if shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
-            owner.updateMoney(by: -upgrade.cost)
-            shipChassis = shipUpgrade
-            weightCapacityVariable.value = shipUpgrade.getNewCargoCapacity(baseCapacity: weightCapacity)
-            return (true, InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!"))
-        }
-        if auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
-            owner.updateMoney(by: -upgrade.cost)
-            auxiliaryUpgrade = auxiliary
-            return (true, InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!"))
-        }
-        if upgrade is ShipChassis {
-            return (false, InfoMessage(title: "Duplicate upgrade",
-                message: "You already have an upgrade of type \"Ship Upgrade\"!"))
-        } else if upgrade is AuxiliaryUpgrade {
-            return (false, InfoMessage(title: "Duplicate upgrade",
-                message: "You already have an upgrade of type \"Auxiliary Upgrade\"!"))
-        }
-        return (false, nil)
-    }
-
     func setOwner(owner: GenericPlayer) {
         self.owner = owner
         for item in items.value {
@@ -159,51 +128,6 @@ class Ship: Codable {
     // Movement
 
     func startTurn() {
-    }
-
-    func getNodesInRange(roll: Int, speedMultiplier: Double, map: Map) -> [Node] {
-        guard let startNode = map.nodeIDPair[nodeId] else {
-            fatalError("Ship has invalid node id.")
-        }
-
-        let movement = computeMovement(roll: roll, speedMultiplier: speedMultiplier)
-        let nodesFromStart = startNode.getNodesInRange(ship: self, range: movement, map: map)
-        return nodesFromStart
-    }
-
-    func move(node: Node) {
-        guard let currentFrame = shipObject?.frame.value else {
-            return
-        }
-        self.nodeId = node.identifier
-        let nodeFrame = getCurrentNode().frame
-        isDocked = false
-        shipObject?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
-                                                   originY: nodeFrame.originY)
-    }
-
-    func canDock() -> Bool {
-        guard let map = map else {
-            fatalError("Ship does not reside on any map.")
-        }
-        return map.nodeIDPair[nodeId] as? Port != nil
-    }
-
-    func dock() throws -> Port {
-        guard let map = map else {
-            fatalError("Ship does not reside on any map.")
-        }
-        guard canDock() else {
-            throw MovementError.unableToDock
-        }
-        guard let port = map.nodeIDPair[nodeId] as? Port else {
-            throw MovementError.invalidPort
-        }
-
-        isDocked = true
-        isChasedByPirates = false
-        turnsToBeingCaught = 0
-        return port
     }
 
     func endTurn(speedMultiplier: Double) -> [InfoMessage] {
@@ -239,19 +163,6 @@ class Ship: Codable {
                         message: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!"))
         }
         return messages
-    }
-
-    private func computeMovement(roll: Int, speedMultiplier: Double) -> Double {
-        var multiplier = 1.0
-        multiplier = applyMovementModifiers(to: multiplier)
-        return Double(roll) * speedMultiplier * multiplier
-    }
-
-    private func applyMovementModifiers(to multiplier: Double) -> Double {
-        var result = multiplier
-        result *= shipChassis?.getMovementModifier() ?? 1
-        result *= auxiliaryUpgrade?.getMovementModifier() ?? 1
-        return result
     }
 
     func getCurrentNode() -> Node {
