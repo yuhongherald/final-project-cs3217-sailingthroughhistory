@@ -291,15 +291,6 @@ class Map: Codable {
             }
         }
 
-        for entity in getEntities() {
-            guard entity.uiRepresentation != nil else {
-                return false
-            }
-            guard nodeIDPair[entity.nodeId] != nil else {
-                return false
-            }
-        }
-
         for node in nodes.value {
             guard nodeIDPair[node.identifier] != nil else {
                 return false
