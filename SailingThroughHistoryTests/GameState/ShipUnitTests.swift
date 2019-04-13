@@ -10,51 +10,26 @@ import XCTest
 @testable import SailingThroughHistory
 
 class ShipUnitTests: XCTestCase {
-    func testInstallUpgrade() {
-
+    func testConstructor() {
+        //init(node: Node, suppliesConsumed: [GenericItem])
     }
 
     func testSetOwner() {
+        //func setOwner(owner: GenericPlayer)
+    }
 
+    func testSetMap() {
+        //func setMap(map: Map)
     }
 
     func testStartTurn() {
-
-    }
-
-    func testGetNodesInRange() {
-
-    }
-
-    func testMove() {
-
-    }
-
-    func testCanDock() {
-
-    }
-
-    func testDock() {
-
-    }
-
-    func testGetPurchasableItemParameters() {
-
-    }
-
-    func testGetMaxPurchaseAmount() {
-
-    }
-
-    func testBuyItem() {
-
-    }
-
-    func testSellItem() {
-
     }
 
     func testEndTurn() {
-        
+        //func endTurn(speedMultiplier: Double) -> [InfoMessage]
+    }
+
+    func testGetCurrentNode() {
+        //func getCurrentNode() -> Node
     }
 }

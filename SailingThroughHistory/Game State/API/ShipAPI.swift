@@ -24,7 +24,6 @@ protocol ShipAPI {
     var isDocked: Bool { get set }
 
     var shipObject: ShipUI? { get set }
-
     var map: Map? { get set }
 
     init(node: Node, suppliesConsumed: [GenericItem])
