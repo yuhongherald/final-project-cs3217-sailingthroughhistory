@@ -9,7 +9,5 @@
 protocol Room {
     var name: String { get }
 
-    static func getAllRooms(completion: @escaping ([Room]) -> Void)
-    func getConnection(removalCallback: @escaping () -> Void,
-                       completion callback: @escaping (RoomConnection?, Error?) -> Void)
+    func getConnection(completion callback: @escaping (RoomConnection?, Error?) -> Void)
 }

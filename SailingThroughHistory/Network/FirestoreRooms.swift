@@ -16,7 +16,6 @@ class FirestoreRooms: NetworkRooms {
     init() {
         self.listener = FirestoreConstants
             .roomCollection
-            .whereField(FirestoreConstants.roomStartedKey, isEqualTo: false)
             .addSnapshotListener({ [unowned self] (snapshot, _) in
                 guard let snapshot = snapshot else {
                     return
@@ -25,7 +24,9 @@ class FirestoreRooms: NetworkRooms {
                 for document in snapshot.documents {
                     let name = document.documentID
                     FirestoreRoom.deleteIfNecessary(named: name)
-                    self.rooms.append(name)
+                    if !(document.data()[FirestoreConstants.roomStartedKey] as? Bool ?? false) {
+                        self.rooms.append(name)
+                    }
                 }
 
                 self.callbacks.forEach { $0(self.rooms) }
