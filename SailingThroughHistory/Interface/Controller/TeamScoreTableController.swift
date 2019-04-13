@@ -1,5 +1,5 @@
 //
-//  TeamScoreTableDataSource.swift
+//  TeamScoreTableController.swift
 //  SailingThroughHistory
 //
 //  Created by Jason Chong on 11/4/19.
