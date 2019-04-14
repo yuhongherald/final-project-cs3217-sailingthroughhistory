@@ -39,7 +39,7 @@ class Item: GenericItem, Codable {
     private var realQuantity = 0
     private var decimalQuantity = 0.0
 
-    required init(itemParameter: ItemParameter, quantity: Int) {
+    init(itemParameter: ItemParameter, quantity: Int) {
         self.itemType = itemParameter.itemType
         self.itemParameter = itemParameter
         self.quantity = quantity

@@ -9,16 +9,15 @@
 import Foundation
 
 class Ship: Codable {
+    let suppliesConsumed: [GenericItem]
+
     var name: String {
         return owner?.name ?? "NPC Ship"
     }
-
     var isChasedByPirates = false
     var turnsToBeingCaught = 0
     var shipChassis: ShipChassis?
     var auxiliaryUpgrade: AuxiliaryUpgrade?
-
-    private let suppliesConsumed: [GenericItem]
 
     var nodeId: Int {
         get {
@@ -106,6 +105,7 @@ class Ship: Codable {
         case auxiliaryUpgrade
     }
 
+    // TODO: delete item part
     func setOwner(owner: GenericPlayer) {
         self.owner = owner
         for item in items.value {
@@ -116,6 +116,7 @@ class Ship: Codable {
         }
     }
 
+    // TODO: delete
     func setMap(map: Map) {
         guard let shipUI = shipObject else {
             return
@@ -164,6 +165,7 @@ class Ship: Codable {
         return messages
     }
 
+    // TODO: Change to computed property
     func getCurrentNode() -> Node {
         guard let map = map, let node = map.nodeIDPair[nodeId] else {
             fatalError("Ship does not reside on any map or nodeId is invalid.")

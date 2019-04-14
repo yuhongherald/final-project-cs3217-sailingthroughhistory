@@ -221,6 +221,9 @@
 		BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919077223F4D0800009F49 /* ShipChassis.swift */; };
 		BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */; };
 		BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91907B223F531A00009F49 /* GenericGameState.swift */; };
+		BAA0D03E22626549004417CA /* NodeStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D03D22626549004417CA /* NodeStub.swift */; };
+		BAA0D0402262655C004417CA /* GenericItemStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D03F2262655C004417CA /* GenericItemStub.swift */; };
+		BAA0D04222634925004417CA /* GenericPlayerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D04122634925004417CA /* GenericPlayerStub.swift */; };
 		BAB3378222605D35007A0C05 /* HistoryFactAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378122605D35007A0C05 /* HistoryFactAction.swift */; };
 		BAB3378422620357007A0C05 /* NodeResident.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378322620357007A0C05 /* NodeResident.swift */; };
 		BAB33789226203B3007A0C05 /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB33788226203B3007A0C05 /* NPC.swift */; };
@@ -237,8 +240,6 @@
 		BAB337A422625DDD007A0C05 /* ShipUpgradableUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB337A322625DDD007A0C05 /* ShipUpgradableUnitTests.swift */; };
 		BAB337A622625DFB007A0C05 /* ShipNavigatableUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB337A522625DFB007A0C05 /* ShipNavigatableUnitTests.swift */; };
 		BAB337A822625E0E007A0C05 /* ShipPirateWeatherUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB337A722625E0E007A0C05 /* ShipPirateWeatherUnitTests.swift */; };
-		BAB337AB22626063007A0C05 /* NodeStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB337AA22626063007A0C05 /* NodeStub.swift */; };
-		BAB337AD22626075007A0C05 /* GenericItemStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB337AC22626075007A0C05 /* GenericItemStub.swift */; };
 		BAD32C7022492730001E70B8 /* Pirate_WeatherEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */; };
 		BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED4B042253697B00A8D54A /* InGameMessage.swift */; };
 		BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */; };
@@ -484,6 +485,9 @@
 		BA919077223F4D0800009F49 /* ShipChassis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipChassis.swift; sourceTree = "<group>"; };
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
 		BA91907B223F531A00009F49 /* GenericGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericGameState.swift; sourceTree = "<group>"; };
+		BAA0D03D22626549004417CA /* NodeStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeStub.swift; sourceTree = "<group>"; };
+		BAA0D03F2262655C004417CA /* GenericItemStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericItemStub.swift; sourceTree = "<group>"; };
+		BAA0D04122634925004417CA /* GenericPlayerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerStub.swift; sourceTree = "<group>"; };
 		BAB3378122605D35007A0C05 /* HistoryFactAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFactAction.swift; sourceTree = "<group>"; };
 		BAB3378322620357007A0C05 /* NodeResident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeResident.swift; sourceTree = "<group>"; };
 		BAB33788226203B3007A0C05 /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
@@ -500,8 +504,6 @@
 		BAB337A322625DDD007A0C05 /* ShipUpgradableUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipUpgradableUnitTests.swift; sourceTree = "<group>"; };
 		BAB337A522625DFB007A0C05 /* ShipNavigatableUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipNavigatableUnitTests.swift; sourceTree = "<group>"; };
 		BAB337A722625E0E007A0C05 /* ShipPirateWeatherUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipPirateWeatherUnitTests.swift; sourceTree = "<group>"; };
-		BAB337AA22626063007A0C05 /* NodeStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeStub.swift; sourceTree = "<group>"; };
-		BAB337AC22626075007A0C05 /* GenericItemStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericItemStub.swift; sourceTree = "<group>"; };
 		BAD32C6F22492730001E70B8 /* Pirate_WeatherEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pirate_WeatherEntity.swift; sourceTree = "<group>"; };
 		BAED4B042253697B00A8D54A /* InGameMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameMessage.swift; sourceTree = "<group>"; };
 		BAFA1D7E224517260099EEEC /* BiggerShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerShipUpgrade.swift; sourceTree = "<group>"; };
@@ -1184,8 +1186,9 @@
 		BAB337A922626055007A0C05 /* Stubs */ = {
 			isa = PBXGroup;
 			children = (
-				BAB337AA22626063007A0C05 /* NodeStub.swift */,
-				BAB337AC22626075007A0C05 /* GenericItemStub.swift */,
+				BAA0D03D22626549004417CA /* NodeStub.swift */,
+				BAA0D03F2262655C004417CA /* GenericItemStub.swift */,
+				BAA0D04122634925004417CA /* GenericPlayerStub.swift */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1435,6 +1438,7 @@
 				759A5EEF2250863A00724BEB /* PlayerData.swift in Sources */,
 				75A72CC4225CD8D2003640D4 /* MonthWithinCondition.swift in Sources */,
 				1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */,
+				BAA0D03E22626549004417CA /* NodeStub.swift in Sources */,
 				96CEB955224DF8EC00B027BA /* NetworkRooms.swift in Sources */,
 				1A749D682240FE7900482CE5 /* ItemCollectionViewController.swift in Sources */,
 				96E0745B225250610068406B /* MembersTableDataSource.swift in Sources */,
@@ -1451,6 +1455,7 @@
 				967FD6B322494309008559CE /* ReadOnlyGameObject.swift in Sources */,
 				96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */,
 				964EACD5224D13BD004BA7C0 /* RoomViewCell.swift in Sources */,
+				BAA0D0402262655C004417CA /* GenericItemStub.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				968F13662244008200FE32E0 /* NodePaths.swift in Sources */,
 				7581AEDB225C53D8001A8CC3 /* VolatileMonsoon.swift in Sources */,
@@ -1526,6 +1531,7 @@
 				BAB3379B226255C6007A0C05 /* ItemStorage.swift in Sources */,
 				75354492224CBCDE001B4F62 /* Unique.swift in Sources */,
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
+				BAA0D04222634925004417CA /* GenericPlayerStub.swift in Sources */,
 				7538CAF32255ADA200EB9B1F /* ItemBuySellCache.swift in Sources */,
 				96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */,
 				96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */,
@@ -1656,7 +1662,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAB337A222625DBF007A0C05 /* ShipItemStorageUnitTests.swift in Sources */,
-				BAB337AD22626075007A0C05 /* GenericItemStub.swift in Sources */,
 				BAB337A422625DDD007A0C05 /* ShipUpgradableUnitTests.swift in Sources */,
 				759A5EE522507E1100724BEB /* TurnSystemTest.swift in Sources */,
 				9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */,
@@ -1665,7 +1670,6 @@
 				BAB337A622625DFB007A0C05 /* ShipNavigatableUnitTests.swift in Sources */,
 				BAB337A822625E0E007A0C05 /* ShipPirateWeatherUnitTests.swift in Sources */,
 				96A261D42246454500BBCC60 /* InterfaceTest.swift in Sources */,
-				BAB337AB22626063007A0C05 /* NodeStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

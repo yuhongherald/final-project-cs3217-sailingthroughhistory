@@ -15,8 +15,6 @@ protocol GenericItem: Codable {
     var weight: Int? { get }
     var quantity: Int { get set }
 
-    init(itemParameter: ItemParameter, quantity: Int)
-
     func setItemParameter(_ itemParameter: ItemParameter)
     func decayItem(with time: Double) -> Int?
     func combine(with item: GenericItem) -> Bool
