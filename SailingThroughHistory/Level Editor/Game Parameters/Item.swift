@@ -39,7 +39,7 @@ class Item: GenericItem, Codable {
     private var realQuantity = 0
     private var decimalQuantity = 0.0
 
-    required init(itemParameter: ItemParameter, quantity: Int) {
+    init(itemParameter: ItemParameter, quantity: Int) {
         self.itemType = itemParameter.itemType
         self.itemParameter = itemParameter
         self.quantity = quantity
@@ -48,12 +48,14 @@ class Item: GenericItem, Codable {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         try itemType = values.decode(ItemType.self, forKey: .itemType)
+        try itemParameter = values.decode(ItemParameter.self, forKey: .itemParameter)
         try quantity = values.decode(Int.self, forKey: .quantity)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(itemType, forKey: .itemType)
+        try container.encode(itemParameter, forKey: .itemParameter)
         try container.encode(quantity, forKey: .quantity)
     }
 
@@ -126,5 +128,6 @@ class Item: GenericItem, Codable {
     private enum CodingKeys: String, CodingKey {
         case itemType
         case quantity
+        case itemParameter
     }
 }

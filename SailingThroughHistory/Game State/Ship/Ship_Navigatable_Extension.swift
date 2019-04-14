@@ -24,7 +24,7 @@ extension Ship: Navigatable {
             return
         }
         self.nodeId = node.identifier
-        let nodeFrame = getCurrentNode().frame
+        let nodeFrame = node.frame
         isDocked = false
         shipObject?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
                                                        originY: nodeFrame.originY)

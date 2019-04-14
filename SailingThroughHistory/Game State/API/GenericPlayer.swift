@@ -60,12 +60,12 @@ protocol GenericPlayer: class, Codable {
     func buy(itemType: ItemType, quantity: Int) throws
     func sell(item: GenericItem) throws
     func sell(itemType: ItemType, quantity: Int) throws
-    func setTax(port: Port, amount: Int)
+    func setTax(port: Port, amount: Int) throws
 
     // End turn - supplies are removed here
     func endTurn() -> [InfoMessage]
 
-    func canTradeAt(port: Port) -> Bool 
+    func canTradeAt(port: Port) -> Bool
 }
 
 func == (lhs: GenericPlayer, rhs: GenericPlayer?) -> Bool {

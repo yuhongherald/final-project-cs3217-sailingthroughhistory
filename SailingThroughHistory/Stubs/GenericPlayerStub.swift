@@ -1,15 +1,15 @@
 //
-//  GameMaster.swift
+//  GenericPlayerStub.swift
 //  SailingThroughHistory
 //
-//  Created by henry on 13/4/19.
+//  Created by henry on 14/4/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
 import Foundation
 
-class GameMaster: GenericPlayer {
-    var name: String
+class GenericPlayerStub {
+    var name: String = ""
     var team: Team?
     var money: GameVariable<Int> = GameVariable(value: 0)
     var currentCargoWeight: Int = 0
@@ -26,21 +26,15 @@ class GameMaster: GenericPlayer {
 
     private let errorMessage = "GameMaster cannot perform normal actions"
 
-    required init(name: String) {
-        self.name = name
+    required init() {
     }
 
     required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        name = try values.decode(String.self, forKey: .name)
+        fatalError(errorMessage)
     }
 
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(name, forKey: .name)
-    }
-    private enum CodingKeys: String, CodingKey {
-        case name
+        fatalError(errorMessage)
     }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter? {
