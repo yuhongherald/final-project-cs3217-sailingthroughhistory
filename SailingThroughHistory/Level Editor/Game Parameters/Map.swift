@@ -195,6 +195,7 @@ class Map: Codable {
             }
         }
         self.pathsVariable.value = paths
+        self.npcs = try container.decode([NPC].self, forKey: .npcs)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -230,6 +231,7 @@ class Map: Codable {
         try container.encode(simplifiedPaths, forKey: .paths)
         try container.encode(bounds, forKey: .bounds)
         try container.encode(nodesWithType, forKey: .nodes)
+        try container.encode(npcs, forKey: .npcs)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -240,6 +242,7 @@ class Map: Codable {
         case entities
         case nodeNextId
         case nodeReuseId
+        case npcs
     }
 
     enum NodeTypeKey: String, CodingKey {
