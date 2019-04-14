@@ -178,7 +178,6 @@
 		96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemParameter.swift */; };
 		96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* GenericLevel.swift */; };
 		96A65ADC22491FE900D7512C /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
-		96A7D0AC225F6CF7001C18E4 /* TeamScoreTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AB225F6CF7001C18E4 /* TeamScoreTableController.swift */; };
 		96A7D0AE225F8269001C18E4 /* CountdownLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AD225F8269001C18E4 /* CountdownLabelView.swift */; };
 		96A7D0B0225F971D001C18E4 /* UIBezierPath+Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */; };
 		96A7D0B2225FA8E0001C18E4 /* UILightningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0B1225FA8E0001C18E4 /* UILightningView.swift */; };
@@ -437,7 +436,6 @@
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlurredBackgroundView.swift; sourceTree = "<group>"; };
 		96A261D32246454500BBCC60 /* InterfaceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceTest.swift; sourceTree = "<group>"; };
-		96A7D0AB225F6CF7001C18E4 /* TeamScoreTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamScoreTableController.swift; sourceTree = "<group>"; };
 		96A7D0AD225F8269001C18E4 /* CountdownLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLabelView.swift; sourceTree = "<group>"; };
 		96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Arrow.swift"; sourceTree = "<group>"; };
 		96A7D0B1225FA8E0001C18E4 /* UILightningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILightningView.swift; sourceTree = "<group>"; };
@@ -1046,7 +1044,6 @@
 				9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */,
 				9683C28F225D284600E30387 /* AvailableUpgradesDataSource.swift */,
 				1ABBA217226230B400222E7A /* TeamScoreTableController.swift */,
-				96A7D0AB225F6CF7001C18E4 /* TeamScoreTableController.swift */,
 				9670E91F2261D31600E8A01F /* MessagesTableController.swift */,
 			);
 			path = Controller;
@@ -1590,7 +1587,6 @@
 				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */,
-				96A7D0AC225F6CF7001C18E4 /* TeamScoreTableController.swift in Sources */,
 				96707469226254810056D81D /* LocalRoomConnection.swift in Sources */,
 				7535447F224CAC72001B4F62 /* ConditionComparable.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,

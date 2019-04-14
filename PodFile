@@ -1,5 +1,6 @@
 # Podfile
 use_frameworks!
+inhibit_all_warnings!
 
 target 'SailingThroughHistory' do
     pod 'RxSwift',           '~> 4.0'

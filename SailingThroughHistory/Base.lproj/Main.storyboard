@@ -90,8 +90,8 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="890.5" y="52" width="455.5" height="512"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnv-LQ-Jez">
-                                        <rect key="frame" x="20" y="20" width="0.0" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Port" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnv-LQ-Jez">
+                                        <rect key="frame" x="20" y="20" width="45.5" height="31.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -109,7 +109,7 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4M7-Lm-ad4">
-                                        <rect key="frame" x="20" y="28" width="415.5" height="426"/>
+                                        <rect key="frame" x="20" y="99" width="415.5" height="355"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemsTableCell" id="TgA-2g-eO7" customClass="UITradeTableCell" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -168,19 +168,55 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXb-5a-5iD" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                        <rect key="frame" x="384.5" y="462" width="51" height="30"/>
+                                        <state key="normal" title="Set Tax"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="hidePortInformationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vus-ud-A2u"/>
+                                            <action selector="setTaxButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f20-XR-RrV"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Own" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0z-7n-wJV">
+                                        <rect key="frame" x="383" y="20" width="52.5" height="32"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tax: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcD-nA-bRP">
+                                        <rect key="frame" x="20" y="59.5" width="51" height="31.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="top" id="9oQ-XU-7sa"/>
                                     <constraint firstAttribute="trailing" secondItem="4M7-Lm-ad4" secondAttribute="trailing" constant="20" symbolic="YES" id="AXb-j3-svI"/>
+                                    <constraint firstItem="jXb-5a-5iD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="z0z-7n-wJV" secondAttribute="bottom" constant="8" symbolic="YES" id="FiZ-WE-iRk"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="trailing" id="GdP-bE-Whs"/>
+                                    <constraint firstAttribute="trailing" secondItem="jXb-5a-5iD" secondAttribute="trailing" constant="20" symbolic="YES" id="KsJ-Fp-ZdF"/>
+                                    <constraint firstItem="z0z-7n-wJV" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="top" constant="20" symbolic="YES" id="Oxd-c7-QK1"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mcD-nA-bRP" secondAttribute="trailing" constant="20" symbolic="YES" id="REn-mN-eL1"/>
+                                    <constraint firstAttribute="trailing" secondItem="z0z-7n-wJV" secondAttribute="trailing" constant="20" symbolic="YES" id="SJW-QD-pV7"/>
+                                    <constraint firstItem="jXb-5a-5iD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="trailing" constant="8" symbolic="YES" id="WBK-Qa-aeC"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nnv-LQ-Jez" secondAttribute="trailing" constant="20" symbolic="YES" id="ZWB-Cb-InL"/>
                                     <constraint firstItem="nnv-LQ-Jez" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="top" constant="8" symbolic="YES" id="ZXp-9c-TRO"/>
-                                    <constraint firstItem="4M7-Lm-ad4" firstAttribute="top" secondItem="nnv-LQ-Jez" secondAttribute="bottom" constant="8" symbolic="YES" id="gtg-GZ-asZ"/>
+                                    <constraint firstItem="4M7-Lm-ad4" firstAttribute="top" secondItem="mcD-nA-bRP" secondAttribute="bottom" constant="8" symbolic="YES" id="gtg-GZ-asZ"/>
                                     <constraint firstItem="4M7-Lm-ad4" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="lbD-fZ-FWz"/>
+                                    <constraint firstItem="mcD-nA-bRP" firstAttribute="top" secondItem="nnv-LQ-Jez" secondAttribute="bottom" constant="8" symbolic="YES" id="llH-OF-VYY"/>
+                                    <constraint firstItem="mcD-nA-bRP" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="mYT-0K-JPh"/>
                                     <constraint firstAttribute="bottom" secondItem="3fN-oD-MBu" secondAttribute="bottom" constant="20" symbolic="YES" id="naO-AH-pd8"/>
                                     <constraint firstItem="nnv-LQ-Jez" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="top" constant="20" symbolic="YES" id="niK-wH-eGM"/>
+                                    <constraint firstItem="jXb-5a-5iD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4M7-Lm-ad4" secondAttribute="bottom" id="oxe-f0-WJ9"/>
                                     <constraint firstItem="nnv-LQ-Jez" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="qpv-7R-5EZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="jXb-5a-5iD" secondAttribute="bottom" constant="20" symbolic="YES" id="qt7-az-XZh"/>
+                                    <constraint firstItem="z0z-7n-wJV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="s6o-a2-xF8"/>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="xAx-aP-vby"/>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="top" secondItem="4M7-Lm-ad4" secondAttribute="bottom" constant="8" symbolic="YES" id="yt8-eY-2f8"/>
                                 </constraints>
@@ -497,6 +533,9 @@
                         <outlet property="portInformationView" destination="hZq-3R-NvY" id="cZb-aG-dOe"/>
                         <outlet property="portItemsTableView" destination="4M7-Lm-ad4" id="t5E-5b-Efn"/>
                         <outlet property="portNameLabel" destination="nnv-LQ-Jez" id="An5-VV-Pv5"/>
+                        <outlet property="portOwnerLabel" destination="z0z-7n-wJV" id="9uo-HT-bn9"/>
+                        <outlet property="portSetTaxButton" destination="jXb-5a-5iD" id="SZv-eF-pxZ"/>
+                        <outlet property="portTaxLabel" destination="mcD-nA-bRP" id="i6x-WG-ARQ"/>
                         <outlet property="rollDiceButton" destination="bxt-Al-xiN" id="sr8-uW-nCc"/>
                         <outlet property="scrollView" destination="yCl-MH-qBd" id="sfg-kM-0DH"/>
                         <outlet property="statusLabel" destination="6nf-n2-xli" id="Bas-Lj-mTh"/>
@@ -516,7 +555,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1639" y="-709"/>
+            <point key="canvasLocation" x="1638.7994143484625" y="-709.5703125"/>
         </scene>
         <!--Waiting Room View Controller-->
         <scene sceneID="Dz6-Pl-KNl">

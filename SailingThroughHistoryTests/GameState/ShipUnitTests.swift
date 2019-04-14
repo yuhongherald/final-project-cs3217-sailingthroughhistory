@@ -11,14 +11,9 @@ import XCTest
 
 class ShipUnitTests: XCTestCase {
     let speedMultiplier = 1.0
-    var node: NodeStub
+    var node = NodeStub(name: "testNode", id: 0)
     var items = [GenericItemStub]()
     var suppliesConsumed = [GenericItemStub]()
-
-    override init() {
-        setUp()
-        super.init()
-    }
 
     override func setUp() {
         super.setUp()
@@ -35,7 +30,7 @@ class ShipUnitTests: XCTestCase {
 
     func testConstructor() {
         //init(node: Node, suppliesConsumed: [GenericItem])
-        let ship = Ship(node: node, suppliesConsumed: [])
+        let ship = Ship(node: node, suppliesConsumed: suppliesConsumed)
         XCTAssertEqual(ship.nodeId, node.identifier)
         XCTAssertTrue(testTwoGenericItemArray(ship.suppliesConsumed, suppliesConsumed))
         XCTAssertEqual(ship.isChasedByPirates, false)
@@ -54,10 +49,12 @@ class ShipUnitTests: XCTestCase {
         ship1.auxiliaryUpgrade = auxiliaryUpgrade
 
         guard let ship1Encoded = try? JSONEncoder().encode(ship1) else {
-            XCTAssertThrowsError("Encode failed")
+            XCTFail("Encode failed")
+            return
         }
         guard let ship1Decoded = try? JSONDecoder().decode(Ship.self, from: ship1Encoded) else {
-            XCTAssertThrowsError("Decode failed")
+            XCTFail("Decode failed")
+            return
         }
         XCTAssertTrue(testTwoGenericItemArray(ship1Decoded.items.value, ship1.items.value))
         XCTAssertEqual(ship1Decoded.nodeId, ship1.nodeId)
