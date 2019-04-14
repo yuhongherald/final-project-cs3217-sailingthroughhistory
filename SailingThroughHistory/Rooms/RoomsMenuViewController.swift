@@ -10,6 +10,11 @@ import UIKit
 
 class RoomsMenuViewController: UIViewController {
     @IBOutlet weak var roomsTableView: UITableView!
+    @IBOutlet weak var backButton: UIButtonRounded! {
+        didSet {
+            backButton.set(color: .red)
+        }
+    }
 
     private lazy var dataSource = RoomsTableDataSource(withView: roomsTableView, mainController: self)
     private var roomConnection: RoomConnection?
@@ -26,6 +31,10 @@ class RoomsMenuViewController: UIViewController {
             self?.join(room: NetworkFactory.createRoomInstance(named: roomName))
             }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
+    }
+
+    @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 
     func join(room: Room) {

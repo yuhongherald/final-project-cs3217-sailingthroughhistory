@@ -44,10 +44,6 @@ class LevelEditorViewController: UIViewController {
 
     private let storage = LocalStorage()
 
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "toEditPanel":
@@ -221,11 +217,12 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func singleTapOnNode(_ sender: UITapGestureRecognizer) {
-        guard editMode != nil else {
+        guard let mode = editMode else {
             return
         }
 
-        if editMode == .erase {
+        switch mode {
+        case .erase:
             guard let nodeView = sender.view as? NodeView else {
                 return
             }
@@ -240,8 +237,7 @@ class LevelEditorViewController: UIViewController {
                     offset+=1
                 }
             }
-        }
-        if editMode == .item {
+        case .item:
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
                 as? ItemCollectionViewController else {
@@ -261,9 +257,7 @@ class LevelEditorViewController: UIViewController {
             self.addChild(controller)
             view.addSubview(controller.view)
             controller.didMove(toParent: self)
-        }
-
-        if editMode == .pirate {
+        case .pirate:
             guard let nodeView = sender.view as? NodeView else {
                 let alert = UIAlert(errorMsg: "Please select a node!", msg: nil)
                 alert.present(in: self)
@@ -276,6 +270,8 @@ class LevelEditorViewController: UIViewController {
             }
             nodeView.node.add(object: PirateIsland(in: nodeView.node))
             nodeView.update()
+        default:
+            return
         }
 
     }
