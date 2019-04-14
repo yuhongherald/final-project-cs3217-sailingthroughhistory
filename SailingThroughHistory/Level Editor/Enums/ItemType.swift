@@ -13,4 +13,5 @@ enum ItemType: String, Codable, CaseIterable {
     case silk = "Silk"
     case perfume = "Perfume"
     case opium = "Opium"
+    case food = "Food"
 }

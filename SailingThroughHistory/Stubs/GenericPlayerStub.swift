@@ -1,14 +1,14 @@
 //
-//  GameMaster.swift
+//  GenericPlayerStub.swift
 //  SailingThroughHistory
 //
-//  Created by henry on 13/4/19.
+//  Created by henry on 14/4/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
 import Foundation
 
-class GameMaster: GenericPlayer {
+class GenericPlayerStub {
     var name: String = ""
     var team: Team?
     var money: GameVariable<Int> = GameVariable(value: 0)

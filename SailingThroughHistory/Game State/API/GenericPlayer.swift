@@ -65,7 +65,7 @@ protocol GenericPlayer: class, Codable {
     // End turn - supplies are removed here
     func endTurn() -> [InfoMessage]
 
-    func canTradeAt(port: Port) -> Bool 
+    func canTradeAt(port: Port) -> Bool
 }
 
 func == (lhs: GenericPlayer, rhs: GenericPlayer?) -> Bool {
