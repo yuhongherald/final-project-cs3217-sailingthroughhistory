@@ -40,6 +40,7 @@ class GameState: GenericGameState {
             $0.addShipsToMap(map: map)
         }
         initializePortTaxes(to: level.defaultTaxAmount)
+        initializeNPCs(amount: level.numNPC)
     }
 
     required init(from decoder: Decoder) throws {
@@ -182,6 +183,16 @@ class GameState: GenericGameState {
                 continue
             }
             port.taxAmount.value = amount
+        }
+    }
+
+    private func initializeNPCs(amount: Int) {
+        guard let node = map.getNodes().first else {
+            return
+        }
+        map.npcs.removeAll()
+        for _ in 0..<amount {
+            map.npcs.append(NPC(node: node))
         }
     }
 }
