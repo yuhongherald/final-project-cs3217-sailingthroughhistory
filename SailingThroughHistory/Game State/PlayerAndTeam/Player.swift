@@ -28,7 +28,7 @@ class Player: GenericPlayer {
             guard let map = map else {
                 return
             }
-            ship.setMap(map: map)
+            ship.map = map
             if canDock() {
                 do {
                     try dock()
@@ -64,8 +64,8 @@ class Player: GenericPlayer {
         self.deviceId = deviceId
         self.homeNode = node.identifier
         ship = Ship(node: node, suppliesConsumed: [])
-        ship.setOwner(owner: self)
-        ship.setMap(map: map)
+        ship.owner = self
+        ship.map = map
     }
 
     required init(from decoder: Decoder) throws {
@@ -76,7 +76,7 @@ class Player: GenericPlayer {
         ship = try values.decode(Ship.self, forKey: .ship)
         deviceId = try values.decode(String.self, forKey: .deviceId)
         homeNode = try values.decode(Int.self, forKey: .homeNode)
-        ship.setOwner(owner: self)
+        ship.owner = self
     }
 
     func encode(to encoder: Encoder) throws {
@@ -95,7 +95,7 @@ class Player: GenericPlayer {
     }
 
     func addShipsToMap(map: Map) {
-        ship.setMap(map: map)
+        ship.map = map
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
@@ -134,7 +134,7 @@ class Player: GenericPlayer {
             fatalError("To node does not exist")
         }
 
-        return ship.getCurrentNode()
+        return ship.node
             .getCompleteShortestPath(to: toNode, with: ship, map: map)
             .map { $0.identifier }
     }
@@ -163,7 +163,7 @@ class Player: GenericPlayer {
             !(auxiliaryUpgrade is MercernaryUpgrade) else {
             return 0
         }
-        let position = ship.getCurrentNode()
+        let position = ship.node
         if position is Port {
             return 0
         }
