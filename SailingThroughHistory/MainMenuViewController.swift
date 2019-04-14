@@ -15,6 +15,20 @@ class MainMenuViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        self.view.window?.rootViewController = self;
+        self.view.window?.rootViewController = self
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "menuToLocalRoom" {
+            guard let roomController = segue.destination as? WaitingRoomViewController,
+                let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
+                    let alert = ControllerUtils.getGenericAlert(titled: "Error",
+                                                                withMsg: "An error has occured. Please try again later.")
+                    present(alert, animated: true)
+                    return
+            }
+
+            roomController.roomConnection = LocalRoomConnection(deviceId: deviceId)
+        }
     }
 }

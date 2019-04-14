@@ -32,7 +32,6 @@ class TurnSystem: GenericTurnSystem {
     // TODO: Move this into new class
     private var callbacks: [() -> Void] = []
     private var stateVariable: GameVariable<State>
-    private var isBlocking = false
     private let isMaster: Bool
     private let deviceId: String
     private var pendingActions = [PlayerAction]()
@@ -87,7 +86,6 @@ class TurnSystem: GenericTurnSystem {
             return
         }
         state = .waitPlayerInput(from: player)
-        data.turnFinished()
     }
 
     // for testing
@@ -290,26 +288,6 @@ class TurnSystem: GenericTurnSystem {
         startGame()
     }
 
-    func watchTurnFinished(playerActions: [(GenericPlayer, [PlayerAction])]) {
-        // make player actions
-        if isBlocking {
-            return
-        }
-        switch state {
-        case .waitForTurnFinish:
-            break
-        default:
-            return
-        }
-        isBlocking = true
-        for (player, actions) in playerActions {
-            let playerActions = evaluateState(player: player, actions: actions)
-            messages.append(contentsOf: playerActions)
-        }
-        updateStateMaster()
-        isBlocking = false
-    }
-
     func endTurn() {
         if let currentPlayer = currentPlayer {
             /// TODO: Add error handling. If it throws, then encoding has failed.
@@ -335,7 +313,6 @@ class TurnSystem: GenericTurnSystem {
                 }
                 self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
             }
-            state = .waitForTurnFinish
             return
         }
         state = .waitPlayerInput(from: player)
@@ -401,12 +378,11 @@ class TurnSystem: GenericTurnSystem {
         state = .waitForStateUpdate
         if isMaster {
             // TODO: Change the typecast
-            // TODO: Hook up watch master update with network
             guard let gameState = gameState as? GameState else {
                 return
             }
             do {
-                try network.push(currentState: gameState) {
+                try network.push(currentState: gameState, forTurn: data.currentTurn) {
                     guard let error = $0 else {
                         return
                     }
@@ -415,6 +391,15 @@ class TurnSystem: GenericTurnSystem {
             } catch let error {
                 print(error.localizedDescription)
             }
+        }
+        /// The game state parameter is ignored for now, validation can be added here
+        network.subscribeToMasterState(for: data.currentTurn) { [weak self] _ in
+            self?.data.turnFinished()
+            guard let player = self?.getFirstPlayer() else {
+                self?.state = .waitForTurnFinish
+                return
+            }
+            self?.state = .waitPlayerInput(from: player)
         }
     }
 
@@ -459,16 +444,7 @@ class TurnSystem: GenericTurnSystem {
                     self.messages.append(GameMessage.playerAction(name: chosenPlayer.name, message: infoMessage.message))
                 }
             }
-            state = .waitForStateUpdate
-            // OI
-            startGame() // TODO: Remove this
-            /*
-            guard let player = self.getFirstPlayer() else {
-                self.state = .waitForTurnFinish
-                return
-            }
-            state = .waitPlayerInput(from: player)
-            */
+            updateStateMaster()
         }
     }
 

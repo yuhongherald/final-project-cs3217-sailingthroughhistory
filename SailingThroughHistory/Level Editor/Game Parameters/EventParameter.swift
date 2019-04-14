@@ -11,3 +11,9 @@ import Foundation
 struct EventParameter: Codable {
 
 }
+
+extension EventParameter: Equatable {
+    static func == (lhs: EventParameter, rhs: EventParameter) -> Bool {
+        return true
+    }
+}
