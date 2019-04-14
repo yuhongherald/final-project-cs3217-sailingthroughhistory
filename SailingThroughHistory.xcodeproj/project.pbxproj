@@ -198,11 +198,9 @@
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
 		96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* GenericPublishSubject.swift */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
-		BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485901223F8B6E009ED2F6 /* Consumable.swift */; };
 		BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485905223F959A009ED2F6 /* GenericPlayer.swift */; };
 		BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485907223FCB4B009ED2F6 /* PlayerState.swift */; };
 		BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48590A2240A00E009ED2F6 /* GenericItem.swift */; };
-		BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48590C2240A151009ED2F6 /* GenericConsumable.swift */; };
 		BA48591122410CC7009ED2F6 /* ShipUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48591022410CC7009ED2F6 /* ShipUI.swift */; };
 		BA6FBBD3225A103200B366DB /* FasterShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD2225A103200B366DB /* FasterShipUpgrade.swift */; };
 		BA6FBBD5225A108900B366DB /* BiggerSailsUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD4225A108900B366DB /* BiggerSailsUpgrade.swift */; };
@@ -462,11 +460,9 @@
 		9940A707D8BECA7B37E95F22 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		9E8EF1ED58F41F667A1319C7 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4858FF223F89F7009ED2F6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		BA485901223F8B6E009ED2F6 /* Consumable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consumable.swift; sourceTree = "<group>"; };
 		BA485905223F959A009ED2F6 /* GenericPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayer.swift; sourceTree = "<group>"; };
 		BA485907223FCB4B009ED2F6 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		BA48590A2240A00E009ED2F6 /* GenericItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericItem.swift; sourceTree = "<group>"; };
-		BA48590C2240A151009ED2F6 /* GenericConsumable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericConsumable.swift; sourceTree = "<group>"; };
 		BA48591022410CC7009ED2F6 /* ShipUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipUI.swift; sourceTree = "<group>"; };
 		BA6FBBD2225A103200B366DB /* FasterShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FasterShipUpgrade.swift; sourceTree = "<group>"; };
 		BA6FBBD4225A108900B366DB /* BiggerSailsUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerSailsUpgrade.swift; sourceTree = "<group>"; };
@@ -893,7 +889,6 @@
 				965E0338223A4BFA005F7D79 /* Weather.swift */,
 				965E033D223A8EBA005F7D79 /* PirateIsland.swift */,
 				965E033F223A9AD1005F7D79 /* Port.swift */,
-				754FED7022437B4F00394215 /* NPCUI.swift */,
 			);
 			path = Parameters;
 			sourceTree = "<group>";
@@ -1127,7 +1122,6 @@
 			children = (
 				BA91906A223F429900009F49 /* GenericLevel.swift */,
 				BA48590A2240A00E009ED2F6 /* GenericItem.swift */,
-				BA48590C2240A151009ED2F6 /* GenericConsumable.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1138,7 +1132,6 @@
 				BA919071223F447F00009F49 /* ItemParameter.swift */,
 				BA919073223F44A400009F49 /* GameParameter.swift */,
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
-				BA485901223F8B6E009ED2F6 /* Consumable.swift */,
 				1A9FF08B224030E000005FCB /* Map.swift */,
 				1A9FF08F2240A52900005FCB /* PlayerParameter.swift */,
 				1A9FF0912240AC9C00005FCB /* EventParameter.swift */,
@@ -1150,6 +1143,7 @@
 			isa = PBXGroup;
 			children = (
 				BAB33788226203B3007A0C05 /* NPC.swift */,
+				754FED7022437B4F00394215 /* NPCUI.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1510,7 +1504,6 @@
 				75354456224C877F001B4F62 /* TurnSystemEvent.swift in Sources */,
 				96A7D0B0225F971D001C18E4 /* UIBezierPath+Arrow.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
-				BA48590D2240A151009ED2F6 /* GenericConsumable.swift in Sources */,
 				752D2BD8225F8E8900A3411C /* PresetEvent.swift in Sources */,
 				BA919060223F25E400009F49 /* Player.swift in Sources */,
 				7538CAF72255B8B300EB9B1F /* VariableEvaluatable.swift in Sources */,
@@ -1573,7 +1566,6 @@
 				1A749D772244B6ED00482CE5 /* UIView + ScreenShot.swift in Sources */,
 				1A69B4D2224934D200176DDD /* DetailEditTableViewController + Delegate.swift in Sources */,
 				9621CC092246C321008178FF /* Rect.swift in Sources */,
-				BA485902223F8B6E009ED2F6 /* Consumable.swift in Sources */,
 				1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */,
 				BA6FBBD3225A103200B366DB /* FasterShipUpgrade.swift in Sources */,
 				1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */,
