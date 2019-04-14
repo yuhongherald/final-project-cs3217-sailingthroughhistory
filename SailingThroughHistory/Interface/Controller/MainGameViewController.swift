@@ -23,6 +23,8 @@ class MainGameViewController: UIViewController {
 
     @IBOutlet private weak var portInformationView: UIView!
     @IBOutlet private weak var portNameLabel: UILabel!
+    @IBOutlet private weak var portOwnerLabel: UILabel!
+    @IBOutlet private weak var portSetTaxButton: UIButtonRounded!
     @IBOutlet private weak var portItemsTableView: UITableView! {
         didSet {
             portItemsTableView.dataSource = portItemsDataSource
@@ -30,6 +32,7 @@ class MainGameViewController: UIViewController {
             portItemsTableView.reloadData()
         }
     }
+    @IBOutlet private weak var portTaxLabel: UILabel!
 
     @IBOutlet private weak var availableUpgradesTableView: UITableView! {
         didSet {
@@ -62,7 +65,6 @@ class MainGameViewController: UIViewController {
     @IBOutlet private weak var messagesView: UIBlurredBackgroundView!
     @IBOutlet private weak var toggleMessagesButton: UIButtonRounded!
 
-
     private var currentTurnOwner: GenericPlayer?
 
     private lazy var objectsController: ObjectsViewController =
@@ -80,6 +82,7 @@ class MainGameViewController: UIViewController {
     private lazy var messagesController = MessagesTableController(tableView: messagesTableView)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     private let storage = LocalStorage()
+    private var selectedPort: Port?
     var turnSystem: GenericTurnSystem?
     var network: RoomConnection?
     var backgroundData: Data?
@@ -156,10 +159,16 @@ class MainGameViewController: UIViewController {
     }
 
     func showInformation(ofPort port: Port) {
+        selectedPort = port
         portInformationView.isHidden = false
+        portTaxLabel.text = "\(InterfaceConstants.taxPrefix)\(port.taxAmount.value)"
         portNameLabel.text = port.name
+        portOwnerLabel.text = port.owner?.name ?? InterfaceConstants.unownedPortOwner
         portItemsDataSource.didSelect(port: port, playerCanInteract:
             currentTurnOwner?.canTradeAt(port: port) ?? false)
+        portSetTaxButton.isHidden = currentTurnOwner == nil
+            || port.owner != currentTurnOwner?.team
+
         portItemsTableView.reloadData()
     }
 
@@ -206,7 +215,7 @@ class MainGameViewController: UIViewController {
 
         if let errorMsg = errorMsg {
             let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
-            present(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
         playerItemsTable.reloadData()
     }
@@ -217,6 +226,45 @@ class MainGameViewController: UIViewController {
 
     @IBAction private func hidePortInformationPressed(_ sender: Any) {
         portInformationView.isHidden = true
+    }
+
+    @IBAction private func setTaxButtonPressed(_ sender: UIButtonRounded) {
+        guard let player = currentTurnOwner,
+            let port = selectedPort else {
+            return
+        }
+        let alert2 = UIAlertController(title: "Changing tax of \(port.name)",
+            message: "Please enter the amount you wish to change the tax to.",
+            preferredStyle: .alert)
+        alert2.addTextField { textField in
+            textField.keyboardType = .numberPad
+        }
+        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            guard let input = alert2.textFields?.first?.text,
+                let newTax = Int(input) else {
+                let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: "Only numbers are allowed.")
+                self?.present(alert, animated: true, completion: nil)
+                return
+            }
+            var msg: String?
+            do {
+                try self?.turnSystem?.setTax(for: port.identifier, to: newTax, by: player)
+            } catch PlayerActionError.invalidAction(let errorMsg) {
+                msg = errorMsg
+            } catch {
+                msg = error.localizedDescription
+            }
+            if let msg = msg {
+                let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: msg)
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
+        alert2.addAction(okAction)
+
+        // Create Cancel button
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+        alert2.addAction(cancelAction)
+        present(alert2, animated: true, completion: nil)
     }
 
     @IBAction private func rollDiceButtonPressed(_ sender: UIButtonRounded) {

@@ -36,7 +36,7 @@ class TurnSystem: GenericTurnSystem {
     private let deviceId: String
     private var pendingActions = [PlayerAction]()
     private let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
-
+    private var setTaxActions = [Int: (PlayerAction, GenericPlayer, Bool)]()
     private let network: RoomConnection
     private var players = [RoomMember]() {
         didSet {
@@ -224,19 +224,18 @@ class TurnSystem: GenericTurnSystem {
         // some stuff with a sequence
         // for node in nodes (Doesn't check adjacency)
         // player.move(node: node)
-        case .setTax(let portId, let taxAmount):
-            /// TODO: Handle conflicting set tax
+        case .setTax(let portId, _):
             guard let port = gameState.map.nodeIDPair[portId] as? Port else {
-                throw PlayerActionError.invalidAction(message: "Port does not exist")
+                throw PlayerActionError.invalidAction(message: "Port does not exist.")
             }
-            guard player.team == port.owner else {
-                throw PlayerActionError.invalidAction(message: "Player does not own port!")
+
+            if setTaxActions[portId] != nil {
+                setTaxActions[portId] = (action, player, false)
+            } else {
+                setTaxActions[portId] = (action, player, true)
             }
-            let previous = port.taxAmount.value
-            port.taxAmount.value = taxAmount
-            return GameMessage.playerAction(
-                name: player.name,
-                message: " has set the tax for \(port.name) from \(previous) to \(taxAmount)")
+
+            return .playerAction(name: player.name, message: "Instructed \(port.name) to change tax.")
         case .buyOrSell(let itemType, let quantity):
             let message = GameMessage.playerAction(
                 name: player.name,
@@ -265,6 +264,32 @@ class TurnSystem: GenericTurnSystem {
             player.playerShip?.startPirateChase()
             return GameMessage.playerAction(name: player.name, message: " is chased by pirates!")
         }
+    }
+
+    private func handleSetTax() {
+        for (action, player, success) in setTaxActions.values {
+            switch action {
+            case .setTax(let portId, let taxAmount):
+                guard let port = gameState.map.nodeIDPair[portId] as? Port else {
+                    return
+                }
+                guard player.team == port.owner else {
+                    return
+                }
+                guard success else {
+                    self.messages.append(GameMessage.playerAction(name: "", message: "Failed to change tax for \(port.name) due to conflicting instructions."))
+                    return
+                }
+                let previous = port.taxAmount.value
+                port.taxAmount.value = taxAmount
+                self.messages.append(GameMessage.playerAction(
+                    name: player.name,
+                    message: " has set the tax for \(port.name) from \(previous) to \(taxAmount)"))
+            default:
+                return
+            }
+        }
+        setTaxActions = Dictionary()
     }
 
     private func setEvents(changeType: ChangeType, events: [TurnSystemEvent]) -> Bool {
@@ -441,9 +466,12 @@ class TurnSystem: GenericTurnSystem {
                 let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
                 self.messages.append(contentsOf: playerActions)
                 for infoMessage in chosenPlayer.endTurn() {
-                    self.messages.append(GameMessage.playerAction(name: chosenPlayer.name, message: infoMessage.message))
+                    self.messages.append(GameMessage.playerAction(name: chosenPlayer.name,
+                                                                  message: infoMessage.message))
                 }
             }
+
+            handleSetTax()
             updateStateMaster()
         }
     }

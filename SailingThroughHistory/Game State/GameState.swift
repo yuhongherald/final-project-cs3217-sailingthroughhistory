@@ -34,8 +34,10 @@ class GameState: GenericGameState {
             itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
         }
         initializePlayers(from: level.playerParameters, for: players)
-        self.players.forEach {
-            $0.addShipsToMap(map: map)
+        self.players.forEach { player in
+            player.map = map
+            player.addShipsToMap(map: map)
+            player.gameState = self
         }
     }
 

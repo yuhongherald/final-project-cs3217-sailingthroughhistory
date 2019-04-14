@@ -15,4 +15,6 @@ enum InterfaceConstants {
     static let itemQuantityPrefix = "x"
     static let waitingForOthersMsg = "Waiting for other players to finish."
     static let defaultAnimationDuration: TimeInterval = 0.25
+    static let unownedPortOwner = "Neutral"
+    static let taxPrefix = "Tax: "
 }
