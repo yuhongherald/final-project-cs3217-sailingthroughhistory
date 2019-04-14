@@ -9,7 +9,7 @@
 import Foundation
 
 class GameMaster: GenericPlayer {
-    var name: String = ""
+    var name: String
     var team: Team?
     var money: GameVariable<Int> = GameVariable(value: 0)
     var currentCargoWeight: Int = 0
@@ -26,15 +26,21 @@ class GameMaster: GenericPlayer {
 
     private let errorMessage = "GameMaster cannot perform normal actions"
 
-    required init() {
+    required init(name: String) {
+        self.name = name
     }
 
     required init(from decoder: Decoder) throws {
-        fatalError(errorMessage)
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String.self, forKey: .name)
     }
 
     func encode(to encoder: Encoder) throws {
-        fatalError(errorMessage)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+    }
+    private enum CodingKeys: String, CodingKey {
+        case name
     }
 
     func getItemParameter(itemType: ItemType) -> ItemParameter? {

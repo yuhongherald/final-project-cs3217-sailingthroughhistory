@@ -14,6 +14,7 @@ class Map: Codable {
     var bounds: Rect
     var nodeIDPair: [Int: Node]
     private(set) var gameObjects = GameVariable(value: [GameObject]())
+    var npcs = [NPC]()
     var nodes = GameVariable(value: Set<Node>()) // need acces to nodes and paths
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
     private var paths: [Node: [Path]] {
@@ -267,16 +268,6 @@ class Map: Codable {
 
         init(node: Node, type: NodeTypes) {
             self.node = node
-            self.type = type
-        }
-    }
-
-    struct EntityWithType: Codable {
-        var entity: NodeResident
-        var type: EntityTypes
-
-        init(entity: NodeResident, type: EntityTypes) {
-            self.entity = entity
             self.type = type
         }
     }

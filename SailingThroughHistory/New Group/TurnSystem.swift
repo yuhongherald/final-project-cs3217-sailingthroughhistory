@@ -193,14 +193,14 @@ class TurnSystem: GenericTurnSystem {
         guard let ship = player.playerShip else {
             return nil
         }
-        let previous = ship.getCurrentNode().name
+        let previous = ship.node.name
         player.move(nodeId: nodeId)
 
         if !isEnd {
             return nil
         }
 
-        let current = ship.getCurrentNode().name
+        let current = ship.node.name
         return GameMessage.playerAction(name: player.name,
                                         message: " has moved from \(previous) to \(current)")
     }

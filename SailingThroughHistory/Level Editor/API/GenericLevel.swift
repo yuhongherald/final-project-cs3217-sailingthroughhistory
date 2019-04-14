@@ -9,6 +9,9 @@
 import Foundation
 
 protocol GenericLevel {
+    var maxTaxAmount: Int { get }
+    var defaultTaxAmount: Int { get }
+    var numNPC: Int { get }
     var upgrades: [Upgrade] { get }
     var playerParameters: [PlayerParameter] { get set }
     var itemParameters: [ItemParameter] { get set }
