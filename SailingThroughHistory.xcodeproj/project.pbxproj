@@ -568,6 +568,17 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
+		1ABBA2192263D5F800222E7A /* GameParameter */ = {
+			isa = PBXGroup;
+			children = (
+				1A53D7C92251E80900FAE214 /* GameParameterTest.swift */,
+				1ABBA215226208F100222E7A /* TeamTest.swift */,
+				1ABBA2112261F6F700222E7A /* MapTest.swift */,
+				1ABBA2132261FD2F00222E7A /* NodeTest.swift */,
+			);
+			path = GameParameter;
+			sourceTree = "<group>";
+		};
 		2BF33E1D467651D7EF28C97F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -993,13 +1004,10 @@
 		9690F5DD223A4875005291EE /* SailingThroughHistoryTests */ = {
 			isa = PBXGroup;
 			children = (
+				1ABBA2192263D5F800222E7A /* GameParameter */,
 				BAB3378C2262274D007A0C05 /* GameState */,
 				9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */,
 				9690F5E0223A4875005291EE /* Info.plist */,
-				1A53D7C92251E80900FAE214 /* GameParameterTest.swift */,
-				1ABBA215226208F100222E7A /* TeamTest.swift */,
-				1ABBA2112261F6F700222E7A /* MapTest.swift */,
-				1ABBA2132261FD2F00222E7A /* NodeTest.swift */,
 				96A261D32246454500BBCC60 /* InterfaceTest.swift */,
 				759A5EE422507E1100724BEB /* TurnSystemTest.swift */,
 			);

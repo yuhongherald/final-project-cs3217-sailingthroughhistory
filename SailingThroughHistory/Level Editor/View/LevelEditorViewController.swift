@@ -133,18 +133,6 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
-            do {
-                try self.storage.verify(name: name)
-            } catch StorageError.fileExisted {
-                let alert = UIAlert(errorMsg: "File Existed. Are you sure to replace?", msg: "", confirm: { _ in
-                    self.store(with: name)
-                })
-                alert.present(in: self)
-            } catch {
-                let error = error as? StorageError
-                let alert = UIAlert(errorMsg: error?.getMessage() ?? "Unknown Error.", msg: nil)
-                alert.present(in: self)
-            }
             self.store(with: name)
         }, textPlaceHolder: "Input level name here")
         alert.present(in: self)
@@ -378,8 +366,32 @@ class LevelEditorViewController: UIViewController {
             bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
         }
         self.gameParameter.map.changeBackground("\(name)background", with: bounds)
-        self.storage.save(self.gameParameter, self.mapBackground.image,
-                          preview: self.scrollView.screenShot, with: name)
+        guard let background = self.mapBackground.image, let preview = self.scrollView.screenShot else {
+            let alert = UIAlert(errorMsg: "Cannot save without background and preview image.", msg: "", confirm: { _ in
+                self.store(with: name)
+            })
+            alert.present(in: self)
+            return
+        }
+
+        do {
+            let result = try storage.save(self.gameParameter, background, preview: preview, with: name)
+            if result == false {
+                let alert = UIAlert(errorMsg: "Save failed.", msg: "", confirm: { _ in
+                    self.store(with: name)
+                })
+                alert.present(in: self)
+            }
+        } catch StorageError.fileExisted {
+            let alert = UIAlert(errorMsg: "File Existed. Are you sure to replace?", msg: "", confirm: { _ in
+                self.store(with: name)
+            })
+            alert.present(in: self)
+        } catch {
+            let error = error as? StorageError
+            let alert = UIAlert(errorMsg: error?.getMessage() ?? "Unknown Error.", msg: nil)
+            alert.present(in: self)
+        }
     }
 
     private func initBackground() {
