@@ -61,17 +61,18 @@ class NPC: GameObject {
         NPC.reuseIds.append(identifier)
     }
 
-    func moveToNextNode(map: Map, maxTaxAmount: Int) {
+    func moveToNextNode(map: Map, maxTaxAmount: Int) -> [Node] {
         let nextNodeId = getNextNode(map: map, maxTaxAmount: maxTaxAmount)
-        guard let node = map.nodeIDPair[nodeId] as? Node else {
-            return
+        guard let currentNode = map.nodeIDPair[nodeId], let nextNode = map.nodeIDPair[nodeId] else {
+            return []
         }
         nodeId = nextNodeId
-        frame.value = node.frame
-        guard let port = node as? Port else {
-            return
+        frame.value = nextNode.frame
+        let path = currentNode.getCompleteShortestPath(to: nextNode, with: self, map: map)
+        if let port = nextNode as? Port {
+            port.collectTax(from: self)
         }
-        port.collectTax(from: self)
+        return path
     }
 
     func getNextNode(map: Map, maxTaxAmount: Int) -> Int {
