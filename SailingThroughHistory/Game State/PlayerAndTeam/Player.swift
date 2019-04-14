@@ -13,6 +13,7 @@ class Player: GenericPlayer {
     var hasRolled: Bool = false
     private var rollResult: Int = 0
 
+    let numDieSides = 6
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
@@ -112,7 +113,7 @@ class Player: GenericPlayer {
 
     func roll() -> (Int, [Int]) {
         if !hasRolled {
-            rollResult = Int.random(in: 1...6)
+            rollResult = Int.random(in: 1...numDieSides)
             hasRolled = true
         }
         return (rollResult, getNodesInRange(roll: rollResult).map({ $0.identifier }))
@@ -201,9 +202,16 @@ class Player: GenericPlayer {
         try ship.sell(itemType: itemType, quantity: quantity)
     }
 
-    func setTax(port: Port, amount: Int) {
+    func setTax(port: Port, amount: Int) throws {
+        let maxTaxAmount = gameState?.maxTaxAmount ?? 0
+        guard amount <= maxTaxAmount else {
+            throw PortAdminError.exceedMaxTax(maxTaxAmount: maxTaxAmount)
+        }
+        guard amount >= 0 else {
+            throw PortAdminError.belowMinTax(minTaxAmount: 0)
+        }
         guard team == port.owner else {
-            return
+            throw PortAdminError.badPortOwnership
         }
         port.taxAmount.value = amount
     }

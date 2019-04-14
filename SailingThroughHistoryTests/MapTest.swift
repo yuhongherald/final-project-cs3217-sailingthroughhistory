@@ -113,7 +113,6 @@ class MapTest: XCTestCase {
         map.add(path: Path(from: pirateSea, to: NPCport))
         map.add(path: Path(from: NPCport, to: sea))
         map.addGameObject(gameObject: PirateIsland(in: pirateSea))
-        map.addGameObject(gameObject: NPCUI(in: NPCport))
         map.addGameObject(gameObject: ShipUI(ship: Ship(node: selfport, suppliesConsumed: [])))
 
         guard let encode = try? JSONEncoder().encode(map) else {

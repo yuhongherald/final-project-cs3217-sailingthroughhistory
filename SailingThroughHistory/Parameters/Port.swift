@@ -74,6 +74,10 @@ class Port: Node {
         owner?.updateMoney(by: taxAmount.value)
     }
 
+    public func collectTax(from npc: NPC) {
+        owner?.updateMoney(by: taxAmount.value)
+    }
+
     func getBuyValue(of type: ItemParameter) -> Int? {
         return getBuyValue(of: type.itemType)
     }
