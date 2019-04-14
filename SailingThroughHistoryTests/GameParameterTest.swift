@@ -20,15 +20,6 @@ class GameParameterTest: XCTestCase {
         XCTAssertEqual(playerParameter.getName(), changedName, "Name is not successfully changed")
         XCTAssertEqual(playerParameter.getMoney(), 158, "Money is not successfully changed")
         XCTAssertTrue(playerParameter.getTeam() == Team(name: "team"), "Team is accidently changed")
-        XCTAssertEqual(playerParameter.getStartingNode(), nil, "Node is accidently changed.")
-
-        // test update starting node
-        let port = Port(player: playerParameter.getPlayer(), name: "selfport", originX: 0, originY: 0)
-        playerParameter.assign(port: port)
-        XCTAssertEqual(playerParameter.getName(), changedName, "Name is accidently changed")
-        XCTAssertEqual(playerParameter.getMoney(), 158, "Money is accidently changed")
-        XCTAssertTrue(playerParameter.getTeam() == Team(name: "team"), "Team is accidently changed")
-        XCTAssertTrue(isEqual(node: playerParameter.getStartingNode(), port), "Node is not successful changed.")
     }
 
     func testCodablePlayerParameter() {
@@ -52,8 +43,9 @@ class GameParameterTest: XCTestCase {
         XCTAssertNotNil(decode, "Decode Failed")
         XCTAssertTrue(isEqual(playerParameter: decode, playerParameter), "Decode result is different from original one")
 
+        // test with port
         playerParameter = PlayerParameter(name: "", teamName: "",
-                                          node: Port(player: nil, name: "NPCport", originX: 0, originY: 0))
+                                          node: Port(team: nil, name: "NPCport", originX: 0, originY: 0))
         guard let encode3 = try? JSONEncoder().encode(playerParameter) else {
             XCTAssertThrowsError("Encode Failed")
             return
@@ -63,8 +55,9 @@ class GameParameterTest: XCTestCase {
         XCTAssertTrue(isEqual(playerParameter: decode, playerParameter), "Decode result is different from original one")
 
         playerParameter = PlayerParameter(name: "", teamName: "", node: nil)
-        let port = Port(player: playerParameter.getPlayer(), name: "selfport", originX: 0, originY: 0)
-        playerParameter.assign(port: port)
+        let team = Team(name: "team")
+        let port = Port(team: team, name: "selfport", originX: 0, originY: 0)
+        port.assignOwner(team)
         guard let encode4 = try? JSONEncoder().encode(playerParameter) else {
             XCTAssertThrowsError("Encode Failed")
             return
@@ -104,105 +97,15 @@ class GameParameterTest: XCTestCase {
         XCTAssertTrue(isEqual(itemParameter: decode, itemParameter), "Decode result is different from original one")
     }
 
-    func testUpdateMap() {
-        let map = Map(map: "worldmap1815", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100))
-        // test udpate map
-        map.changeBackground("", with: Rect(originX: 100, originY: 100, height: 100, width: 100))
-        XCTAssertEqual(map.map, "", "Map is not successfully updated")
-        XCTAssertEqual(map.bounds, Rect(originX: 100, originY: 100, height: 100, width: 100), "Bounds is not successfully updated")
-
-        // test add node
-        let node1 = Sea(name: "sea1", originX: 0, originY: 0)
-        map.addNode(node1)
-        var nodes = Set<Node>()
-        nodes.insert(node1)
-        XCTAssertEqual(map.getNodes(), nodes, "Node is not successfully added")
-
-        // test add path
-        let node2 = Pirate(name: "sea2", originX: 10, originY: 10)
-        map.addNode(node2)
-        nodes.insert(node2)
-        let path = Path(from: node1, to: node2)
-        map.add(path: path)
-        var paths = Set<Path>()
-        paths.insert(path)
-        XCTAssertEqual(map.getAllPaths(), paths, "Path is not successfully added")
-        XCTAssertEqual(map.getPaths(of: node1), [path], "Path is not added to node1")
-        XCTAssertEqual(map.getPaths(of: node2), [path], "Path is not added to node2")
-
-        // test remove path
-        map.removePath(path)
-        paths.remove(path)
-        XCTAssertEqual(map.getNodes(), nodes, "Node is not successfully removed")
-        XCTAssertEqual(map.getAllPaths(), paths, "Path is not successfully removed")
-        XCTAssertEqual(map.getPaths(of: node1), [], "Path is not successfully removed from node1")
-        XCTAssertEqual(map.getPaths(of: node2), [], "Path is not successfully removed from node2")
-
-        // test remove node
-        map.add(path: path)
-        paths.insert(path)
-        map.removeNode(node1)
-        nodes.remove(node1)
-        paths.remove(path)
-        XCTAssertEqual(map.getNodes(), nodes, "Node is not successfully removed")
-        XCTAssertEqual(map.getAllPaths(), paths, "Path is not successfully removed")
-        XCTAssertEqual(map.getPaths(of: node2), [], "Path is not successfully removed from node2")
-    }
-
-    func testCodableMap() {
-        let map = Map(map: "", bounds: nil)
-        let sea = Sea(name: "sea", originX: 0, originY: 0)
-        let pirate = Pirate(name: "pirate", originX: 10, originY: 10)
-        let NPCport = Port(player: nil, name: "port", originX: 20, originY: 20)
-        let selfport = Port(player: Player(name: "player", team: Team(name: "testTeam"), node: NPCport), originX: 40, originY: 40)
-        guard let encode1 = try? JSONEncoder().encode(map) else {
+    func testCodableGameParameter() {
+        let gameParameter = GameParameter(map: Map(map: "map", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100)), teams: ["team1", "team2"])
+        guard let encode = try? JSONEncoder().encode(gameParameter) else {
             XCTAssertThrowsError("Encode Failed")
             return
         }
-        var decode = try? JSONDecoder().decode(Map.self, from: encode1)
+        let decode = try? JSONDecoder().decode(GameParameter.self, from: encode)
         XCTAssertNotNil(decode, "Decode Failed")
-        XCTAssertTrue(isEqual(map: decode, map), "Decode result is different from original one")
-
-        // test map with sea and pirate added
-        map.addNode(sea)
-        map.addNode(pirate)
-        guard let encode2 = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
-            return
-        }
-        decode = try? JSONDecoder().decode(Map.self, from: encode2)
-        XCTAssertNotNil(decode, "Decode Failed")
-        XCTAssertTrue(isEqual(map: decode, map), "Decode result is different from original one")
-
-        // test map with NPCport added
-        map.addNode(NPCport)
-        guard let encode3 = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
-            return
-        }
-        decode = try? JSONDecoder().decode(Map.self, from: encode3)
-        XCTAssertNotNil(decode, "Decode Failed")
-        XCTAssertTrue(isEqual(map: decode, map), "Decode result is different from original one")
-
-        // test map with player owned port added
-        map.addNode(selfport)
-        guard let encode4 = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
-            return
-        }
-        decode = try? JSONDecoder().decode(Map.self, from: encode4)
-        XCTAssertNotNil(decode, "Decode Failed")
-        XCTAssertTrue(isEqual(map: decode, map), "Decode result is different from original one")
-
-        // test map with path added
-        map.add(path: Path(from: sea, to: pirate))
-        guard let encode5 = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
-            return
-        }
-        decode = try? JSONDecoder().decode(Map.self, from: encode5)
-        XCTAssertNotNil(decode, "Decode Failed")
-        XCTAssertTrue(isEqual(map: decode, map), "Decode result is different from original one")
+        XCTAssertTrue(isEqual(gameParameter: decode, gameParameter), "Decode result is different from original one")
     }
 
     private func isEqual(playerParameter: PlayerParameter?, _ rhs: PlayerParameter) -> Bool {
@@ -210,14 +113,14 @@ class GameParameterTest: XCTestCase {
             return false
         }
         return lhs.getName() == rhs.getName() && lhs.getTeam() == rhs.getTeam()
-            && lhs.getMoney() == rhs.getMoney() && isEqual(node: lhs.getStartingNode(), rhs.getStartingNode())
+            && lhs.getMoney() == rhs.getMoney()
     }
 
     private func isEqual(node lhsNode: Node?, _ rhsNode: Node?) -> Bool {
         guard let lhs = lhsNode, let rhs = rhsNode else {
             return lhsNode == nil && rhsNode == nil
         }
-        return lhs.frame == rhs.frame && lhs.image == rhs.image && lhs.name == rhs.image
+        return lhs.frame == rhs.frame && lhs.name == rhs.name
     }
 
     private func isEqual(itemParameter: ItemParameter?, _ rhs: ItemParameter) -> Bool {
@@ -229,13 +132,54 @@ class GameParameterTest: XCTestCase {
             && lhs.isConsumable == rhs.isConsumable && lhs.unitWeight == rhs.unitWeight && lhs.itemType == rhs.itemType
     }
 
+    private func isEqual(gameParameter: GameParameter?, _ rhs: GameParameter) -> Bool {
+        guard let lhs = gameParameter else {
+            return false
+        }
+
+        guard lhs.playerParameters.count == rhs.playerParameters.count, lhs.upgrades.count == rhs.upgrades.count else {
+            return false
+        }
+
+        for parameter in lhs.playerParameters {
+            guard let index = rhs.playerParameters.firstIndex(where: { isEqual(playerParameter: $0, parameter) }) else {
+                return false
+            }
+            rhs.playerParameters.remove(at: index)
+        }
+        if !rhs.playerParameters.isEmpty {
+            return false
+        }
+
+        for upgrade in lhs.upgrades {
+            guard let index = rhs.upgrades.firstIndex(where: { isEqual(upgrade: $0, upgrade) }) else {
+                return false
+            }
+            rhs.upgrades.remove(at: index)
+        }
+        if !rhs.upgrades.isEmpty {
+            return false
+        }
+
+        return lhs.eventParameters == rhs.eventParameters && lhs.itemParameters == rhs.itemParameters
+             && lhs.numOfTurn == rhs.numOfTurn && lhs.timeLimit == rhs.timeLimit
+            && lhs.teams == rhs.teams && isEqual(map: lhs.map, rhs.map)
+    }
+
+    private func isEqual(upgrade: Upgrade?, _ rhs: Upgrade) -> Bool {
+        guard let lhs = upgrade else {
+            return false
+        }
+        return lhs.name == rhs.name && lhs.cost == rhs.cost && lhs.type == rhs.type
+    }
+
     private func isEqual(map: Map?, _ rhs: Map) -> Bool {
         guard let lhs = map else {
             return false
         }
 
         // check same nodes
-        var lhsNodes = Set<Node>(lhs.getNodes())
+        let lhsNodes = Set<Node>(lhs.getNodes())
         var rhsNodes = Set<Node>(rhs.getNodes())
         for node in lhsNodes {
             rhsNodes.remove(node)
@@ -245,7 +189,7 @@ class GameParameterTest: XCTestCase {
         }
 
         // check same path
-        var lhsPaths = Set<Path>(lhs.getAllPaths())
+        let lhsPaths = Set<Path>(lhs.getAllPaths())
         var rhsPaths = Set<Path>(rhs.getAllPaths())
         for path in lhsPaths {
             rhsPaths.remove(path)

@@ -12,7 +12,12 @@ class PlayerParameter: Codable {
     private var name: String
     private var teamName: String
     private var money = GameVariable(value: 0)
-    private var startingNode: Node?
+    private(set) var startingId: Int?
+    private var startingNode: Node? {
+        didSet {
+            self.startingId = startingNode?.identifier
+        }
+    }
 
     init(name: String, teamName: String, node: Node?) {
         self.name = name
@@ -25,7 +30,7 @@ class PlayerParameter: Codable {
         name = try values.decode(String.self, forKey: .name)
         teamName = try values.decode(String.self, forKey: .teamName)
         let moneyValue = try values.decode(Int.self, forKey: .money)
-        startingNode = try values.decode(Node?.self, forKey: .node)
+        startingNode = try values.decode(Node?.self, forKey: .nodeId)
         money = GameVariable(value: moneyValue)
     }
 
@@ -60,13 +65,13 @@ class PlayerParameter: Codable {
         try container.encode(name, forKey: .name)
         try container.encode(teamName, forKey: .teamName)
         try container.encode(money.value, forKey: .money)
-        try container.encode(startingNode, forKey: .node)
+        try container.encode(startingId, forKey: .nodeId)
     }
 
     enum CodingKeys: String, CodingKey {
         case name
         case teamName
         case money
-        case node
+        case nodeId
     }
 }

@@ -290,6 +290,19 @@ class Map: Codable {
                 return false
             }
         }
+
+        for node in nodes.value {
+            guard nodeIDPair[node.identifier] != nil else {
+                return false
+            }
+        }
+
+        for node in nodeIDPair.values {
+            guard nodes.value.contains(node) else {
+                return false
+            }
+        }
+
         return true
     }
 }
