@@ -160,19 +160,18 @@ class GameState: GenericGameState {
             }
 
             let node: Node
-
             if let startingNode = team.startingNode {
                 node = startingNode
             } else {
                 guard let defaultNode = map.getNodes().first else {
                     fatalError("No nodes to start from")
                 }
-
                 node = defaultNode
             }
 
-            let player = Player(name: String(roomPlayer.playerName.prefix(5)), team: team, map: map,
-                                node: node, deviceId: roomPlayer.deviceId)
+            let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemTypeTupleToItem(tuple: $0) }).compactMap({ $0 })
+            let player = Player(name: String(roomPlayer.playerName.prefix(5)),
+                                team: team, map: map, node: node, itemsConsumed: itemsConsumed, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self
             players.append(player)
@@ -196,5 +195,13 @@ class GameState: GenericGameState {
         for _ in 0..<amount {
             map.npcs.append(NPC(node: node))
         }
+    }
+
+    private func itemTypeTupleToItem(tuple: (ItemType, Int)) -> GenericItem? {
+        guard let itemParameter = itemParameters.first(where: { $0.value.itemType == tuple.0 })?.value else {
+            return nil
+        }
+        let item = Item(itemParameter: itemParameter, quantity: tuple.1)
+        return item
     }
 }

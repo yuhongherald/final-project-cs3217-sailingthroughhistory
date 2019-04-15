@@ -24,7 +24,7 @@ class GenericPlayerStub: GenericPlayer {
     var playerShip: Ship?
     var homeNode: Int = 0
 
-    private let errorMessage = "GameMaster cannot perform normal actions"
+    private let errorMessage = "Stub cannot perform normal actions"
 
     required init() {
     }
