@@ -67,7 +67,7 @@ class GenericItemStub: GenericItem {
     }
 
     func copy() -> GenericItemStub {
-        let newCopy = GenericItemStub(name: name ?? "", itemType: itemType, quantity: quantity)
+        let newCopy = GenericItemStub(name: name, itemType: itemType, quantity: quantity)
         newCopy.itemParameter = itemParameter
         newCopy.weight = weight
 

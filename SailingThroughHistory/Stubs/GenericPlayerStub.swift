@@ -9,6 +9,7 @@
 import Foundation
 
 class GenericPlayerStub: GenericPlayer {
+    var isGameMaster = false
     var name: String = ""
     var team: Team?
     var money: GameVariable<Int> = GameVariable(value: 0)
