@@ -114,10 +114,14 @@ class FirebaseRoomConnection: RoomConnection {
             if let document = snapshot, document.exists, let started = document.get(FirestoreConstants.roomStartedKey) as? Bool {
                 if (!started) {
                     // join as usual player
-                    connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers])
+                    connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers]) { error in
+                        postConnectionActions(error: error)
+                    }
                 } else {
                     // join as spectator - during game play
-                    connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers])
+                    connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers]) { error in
+                        postConnectionActions(error: error)
+                    }
                 }
             } else {
                 connection.createRoom(completion: postConnectionActions)

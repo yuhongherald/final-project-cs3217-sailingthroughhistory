@@ -39,7 +39,8 @@ class RoomsMenuViewController: UIViewController {
 
     func join(room: Room) {
         if !canJoinRoom {
-            return
+            let alert = ControllerUtils.getGenericAlert(titled: "You cannot join multiple rooms.", withMsg: "")
+            self.present(alert, animated: true, completion: nil)
         }
 
         canJoinRoom = false
