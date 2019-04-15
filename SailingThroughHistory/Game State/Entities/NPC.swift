@@ -36,7 +36,8 @@ class NPC: GameObject {
         identifier = try values.decode(UInt.self, forKey: .identifier)
         nextSeed = try values.decode(UInt.self, forKey: .nextSeed)
         nextDestinationId = try values.decode(Int.self, forKey: .nextDestinationId)
-        try super.init(from: decoder)
+        let superDecoder = try values.superDecoder()
+        try super.init(from: superDecoder)
     }
 
     override func encode(to encoder: Encoder) throws {
