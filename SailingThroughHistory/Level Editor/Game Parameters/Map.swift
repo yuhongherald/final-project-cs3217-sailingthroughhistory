@@ -14,7 +14,10 @@ class Map: Codable {
     var bounds: Rect
     var nodeIDPair: [Int: Node]
     private(set) var gameObjects = GameVariable(value: [GameObject]())
-    var npcs = [NPC]()
+    var npcs: [NPC] {
+        return gameObjects.value
+            .compactMap { $0 as? NPC }
+    }
     var nodes = GameVariable(value: Set<Node>()) // need acces to nodes and paths
     private var pathsVariable = GameVariable(value: [Node: [Path]]())
     private var paths: [Node: [Path]] {
@@ -139,6 +142,12 @@ class Map: Codable {
             }.flatMap { $0 }
     }
 
+    func removeAllNpcs() {
+        gameObjects.value = gameObjects
+            .value
+            .filter { $0 as? NPC == nil }
+    }
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -195,7 +204,7 @@ class Map: Codable {
             }
         }
         self.pathsVariable.value = paths
-        self.npcs = try container.decode([NPC].self, forKey: .npcs)
+        self.gameObjects.value = try container.decode([GameObject].self, forKey: .objects)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -231,7 +240,7 @@ class Map: Codable {
         try container.encode(simplifiedPaths, forKey: .paths)
         try container.encode(bounds, forKey: .bounds)
         try container.encode(nodesWithType, forKey: .nodes)
-        try container.encode(npcs, forKey: .npcs)
+        try container.encode(gameObjects.value, forKey: .objects)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -243,6 +252,7 @@ class Map: Codable {
         case nodeNextId
         case nodeReuseId
         case npcs
+        case objects
     }
 
     enum NodeTypeKey: String, CodingKey {
