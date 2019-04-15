@@ -8,5 +8,5 @@
 
 // TODO: Implement, do protocol
 protocol GameEvent {
-    
+
 }

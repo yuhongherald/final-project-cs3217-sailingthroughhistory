@@ -13,7 +13,7 @@ class TurnSystem {
         switch action {
         case .changeInventory(changeType: let changeType, money: let money, items: let items):
             break
-        case .roll():
+        case .roll:
             break
         case .move(to: let node):
             break

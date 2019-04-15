@@ -32,9 +32,9 @@ enum BuyItemError: Error {
         case .unknownItem:
             return "Unknown item. Please contact the developers ASAP"
         case .purchaseSuccess(item: let item):
-            return "Item purchase of \(item.name) with \(item.quantity) quantity is successful!"
+            return "Item purchase of \(item.name ?? "") with \(item.quantity) quantity is successful!"
         case .sellSuccess(item: let item):
-            return "\(item.name) with \(item.quantity) quantity sold successfully!"
+            return "\(item.name ?? "") with \(item.quantity) quantity sold successfully!"
         case .sellTypeSuccess(itemType: let itemType, quantity: let quantity):
             return "\(itemType) with \(quantity) quantity sold successfully!"
         }

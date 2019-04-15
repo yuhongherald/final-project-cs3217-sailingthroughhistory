@@ -98,7 +98,8 @@ class GameParameterTest: XCTestCase {
     }
 
     func testCodableGameParameter() {
-        let gameParameter = GameParameter(map: Map(map: "map", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100)), teams: ["team1", "team2"])
+        let gameParameter = GameParameter(map: Map(
+            map: "map", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100)), teams: ["team1", "team2"])
         guard let encode = try? JSONEncoder().encode(gameParameter) else {
             XCTAssertThrowsError("Encode Failed")
             return

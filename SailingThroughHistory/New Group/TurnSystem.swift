@@ -72,7 +72,7 @@ class TurnSystem: GenericTurnSystem {
         self.stateVariable = GameVariable(value: .ready)
         self.eventPresets = EventPresets(gameState: startingState, turnSystem: self)
         if let eventPresets = self.eventPresets {
-            self.data.addEvents(events: eventPresets.getEvents())
+            _ = self.data.addEvents(events: eventPresets.getEvents())
         }
 
         network.subscribeToMembers { [weak self] members in
@@ -317,7 +317,8 @@ class TurnSystem: GenericTurnSystem {
         if let currentPlayer = currentPlayer {
             /// TODO: Add error handling. If it throws, then encoding has failed.
             do {
-                try network.push(actions: pendingActions, fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) { _ in
+                try network.push(actions: pendingActions,
+                                 fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) { _ in
                     /// TODO: Add error handling
                 }
             } catch {

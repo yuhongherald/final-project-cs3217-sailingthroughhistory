@@ -82,7 +82,7 @@ class LocalRoomConnection: RoomConnection {
     }
 
     func push(actions: [PlayerAction], fromPlayer player: GenericPlayer, forTurnNumbered turn: Int,
-              completion callback: @escaping (Error?) -> ()) throws {
+              completion callback: @escaping (Error?) -> Void) throws {
         self.actions[turn, default: []].append((player.name, actions))
         self.actionCallbacks[turn, default: []].forEach { $0(self.actions[turn, default: []], nil) }
         callback(nil)

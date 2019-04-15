@@ -282,7 +282,8 @@ class MainGameViewController: UIViewController {
                         self?.diceResultLabel.text = String(Int(result))
                         self?.objectsController.make(choosableNodes: nodes)
                     } catch {
-                        let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: error.localizedDescription)
+                        let alert = ControllerUtils.getGenericAlert(
+                            titled: "Error", withMsg: error.localizedDescription)
                         self?.rollDiceButton.isEnabled = true
                         self?.present(alert, animated: true, completion: nil)
                     }

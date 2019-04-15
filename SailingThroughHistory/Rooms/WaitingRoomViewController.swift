@@ -33,7 +33,7 @@ class WaitingRoomViewController: UIViewController {
             }
             present(alert, animated: true, completion: nil)
             return
-        }        
+        }
         let waitingRoom = WaitingRoom(fromConnection: roomConnection)
         subscribeToGameStart()
         self.waitingRoom = waitingRoom
@@ -63,10 +63,8 @@ class WaitingRoomViewController: UIViewController {
         switch segue.identifier {
         case "waitingRoomToGallery":
             prepareForSegueToGallery(segue: segue)
-            break
         case "waitingRoomToGame":
             prepareForSegueToGame(segue: segue)
-            break
         default:
             break
         }
@@ -92,7 +90,8 @@ class WaitingRoomViewController: UIViewController {
             return
         }
 
-        let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(), network: roomConnection, startingState: initialState, deviceId: self.getWaitingRoom().identifier)
+        let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(),
+                                network: roomConnection, startingState: initialState, deviceId: self.getWaitingRoom().identifier)
         gameController.turnSystem = system
         gameController.network = roomConnection
         gameController.backgroundData = imageData

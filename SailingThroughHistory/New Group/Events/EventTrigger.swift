@@ -8,7 +8,7 @@
 
 class EventTrigger<T>: Printable, Trigger {
     var displayName: String = "trigger"
-    
+
     private let variable: GameVariable<T>
     private let comparator: GenericComparator
     private var triggered: Bool = false
