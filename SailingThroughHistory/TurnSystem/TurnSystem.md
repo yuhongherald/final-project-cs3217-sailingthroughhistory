@@ -111,7 +111,17 @@ You can extend the Protocol **Evaluate** if you want your condition to evaluate 
 An example will be ...
 
 ```
+EventCondition<Int>(
+first: GameVariableEvaluatable<Int>(variable: player.money),
+second: Evaluatable<Int>(0), change: LessThanOperator<Int>())
 ```
+
+The above condition evaluates to true if player's money is below zero.
+
+### Actions
+
+#### EventAction
+An **EvenetAction** has 
 
 ## Supporting classes
 
