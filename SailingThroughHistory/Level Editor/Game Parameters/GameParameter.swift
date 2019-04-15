@@ -17,22 +17,20 @@ class GameParameter: GenericLevel, Codable {
     var playerParameters = [PlayerParameter]()
     var itemParameters = [ItemParameter]()
     var eventParameters = [EventParameter]()
-    var teams = [Team]()
+    var teams: [Team]
     var numOfTurn = GameConstants.numOfTurn
     var timeLimit = Int(GameConstants.playerTurnDuration)
     var map: Map
 
     required init(map: Map, teams: [String]) {
         self.map = map
+        self.teams = teams.map { Team(name: $0) }
+        self.playerParameters = teams.map { PlayerParameter(name: "\($0)-player", teamName: $0, node: nil) }
         ItemType.allCases.forEach {
             self.itemParameters.append(ItemParameter(itemType: $0,
                                                      displayName: $0.rawValue,
                                                      weight: 0,
                                                      isConsumable: true))
-        }
-        for teamName in teams {
-            self.teams.append(Team(name: teamName))
-            self.playerParameters.append(PlayerParameter(name: "\(teamName)-player", teamName: teamName, node: nil))
         }
     }
 
