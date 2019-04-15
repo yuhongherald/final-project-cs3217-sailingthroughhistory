@@ -752,8 +752,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FnD-Tw-eho" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="20" y="936" width="65" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="asu-R7-WnI" eventType="touchUpInside" id="0WW-ye-5mk"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Uk-83-Ryb" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="599" y="936" width="168" height="48"/>
+                                <rect key="frame" x="300" y="936" width="766" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Create Room"/>
                                 <connections>
@@ -763,24 +771,28 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="FnD-Tw-eho" firstAttribute="leading" secondItem="Qh6-0c-Amp" secondAttribute="leading" constant="20" id="1lU-bp-7kh"/>
                             <constraint firstItem="kYS-rv-5Bo" firstAttribute="leading" secondItem="gMf-QG-eWL" secondAttribute="leading" id="HAL-w4-p23"/>
                             <constraint firstItem="1Uk-83-Ryb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Qh6-0c-Amp" secondAttribute="topMargin" constant="20" id="Nfw-Bd-NOF"/>
                             <constraint firstItem="1Uk-83-Ryb" firstAttribute="top" secondItem="kYS-rv-5Bo" secondAttribute="bottom" constant="8" symbolic="YES" id="SFe-w5-sOK"/>
+                            <constraint firstItem="FnD-Tw-eho" firstAttribute="centerY" secondItem="1Uk-83-Ryb" secondAttribute="centerY" id="Z3d-HZ-72b"/>
                             <constraint firstItem="gMf-QG-eWL" firstAttribute="bottom" secondItem="1Uk-83-Ryb" secondAttribute="bottom" constant="20" id="con-Nf-AaJ"/>
                             <constraint firstItem="kYS-rv-5Bo" firstAttribute="top" secondItem="gMf-QG-eWL" secondAttribute="top" id="fqy-uP-Gzj"/>
                             <constraint firstItem="gMf-QG-eWL" firstAttribute="trailing" secondItem="kYS-rv-5Bo" secondAttribute="trailing" id="g3r-gr-x0i"/>
                             <constraint firstItem="1Uk-83-Ryb" firstAttribute="centerX" secondItem="Qh6-0c-Amp" secondAttribute="centerX" id="myz-Zj-Uwh"/>
+                            <constraint firstItem="gMf-QG-eWL" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="1Uk-83-Ryb" secondAttribute="trailing" constant="300" id="p9o-LS-Lcc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gMf-QG-eWL"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="FnD-Tw-eho" id="GIb-jk-FcE"/>
                         <outlet property="roomsTableView" destination="kYS-rv-5Bo" id="sso-Sd-uMC"/>
                         <segue destination="hud-2E-hMt" kind="presentation" identifier="roomsToWaitingRoom" id="QLW-hl-erw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iKc-j8-4as" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9" y="-708"/>
+            <point key="canvasLocation" x="-9.2240117130307464" y="-708.3984375"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="8Sb-ZB-ecq">
@@ -954,17 +966,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxy-Vg-SyH">
                                 <rect key="frame" x="0.0" y="24" width="666" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdf-0n-E5y">
-                                        <rect key="frame" x="253" y="0.0" width="86" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdf-0n-E5y">
+                                        <rect key="frame" x="20" y="-0.5" width="86" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Back"/>
                                         <connections>
-                                            <segue destination="xnR-2a-N1z" kind="show" id="xXF-cH-9Ps"/>
+                                            <action selector="backPressed:" destination="fZz-0J-H6I" eventType="touchUpInside" id="kft-g1-xmf"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-V9-wW8">
-                                        <rect key="frame" x="20" y="0.0" width="626" height="59"/>
+                                        <rect key="frame" x="126" y="0.0" width="213" height="59"/>
                                         <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="40"/>
                                         <state key="normal" title="Show Panel"/>
                                         <connections>
@@ -974,10 +985,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="PSS-V9-wW8" secondAttribute="trailing" constant="20" id="UMy-lP-Zdb"/>
+                                    <constraint firstItem="hdf-0n-E5y" firstAttribute="centerY" secondItem="PSS-V9-wW8" secondAttribute="centerY" id="UXR-EI-Khv"/>
                                     <constraint firstAttribute="height" constant="100" id="XyL-ht-pYY"/>
-                                    <constraint firstItem="PSS-V9-wW8" firstAttribute="leading" secondItem="fxy-Vg-SyH" secondAttribute="leading" constant="20" id="hHF-Zo-bDG"/>
+                                    <constraint firstItem="PSS-V9-wW8" firstAttribute="leading" secondItem="hdf-0n-E5y" secondAttribute="trailing" constant="20" id="cvv-on-kl4"/>
                                     <constraint firstItem="PSS-V9-wW8" firstAttribute="top" secondItem="fxy-Vg-SyH" secondAttribute="top" id="qGy-Ck-uvJ"/>
+                                    <constraint firstItem="hdf-0n-E5y" firstAttribute="leading" secondItem="fxy-Vg-SyH" secondAttribute="leading" constant="20" id="t5n-6l-QV0"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vlw-8p-cVm">
@@ -1061,7 +1073,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZR3-P0-Tw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="101" y="798"/>
+            <point key="canvasLocation" x="100.58565153733528" y="797.4609375"/>
         </scene>
         <!--Detail Edit Table View Controller-->
         <scene sceneID="6Ns-ce-QU1">
@@ -1606,8 +1618,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7Jl-WZ-ghm"/>
-        <segue reference="d1n-eo-DHc"/>
-        <segue reference="id6-QH-97E"/>
+        <segue reference="gYr-xT-g3t"/>
+        <segue reference="QLW-hl-erw"/>
     </inferredMetricsTieBreakers>
 </document>

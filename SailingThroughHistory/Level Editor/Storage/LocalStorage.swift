@@ -9,6 +9,9 @@
 import UIKit
 
 class LocalStorage {
+    /// Check the validation of level name.
+    /// - Parameters:
+    ///   - name: the proposed level name.
     func verify(name: String) throws {
         guard name != "" else {
             throw StorageError.invalidName(message: "Empty level name.")
@@ -21,13 +24,22 @@ class LocalStorage {
         guard !name.contains("/") else {
             throw StorageError.invalidName(message: "Level name contains invalid symbol.")
         }
-
-        guard !isLevelExist(name) else {
-            throw StorageError.fileExisted(message: "Level already exists.")
-        }
     }
 
-    func save<T: Encodable>(_ data: T, _ background: UIImage?, preview screenShot: UIImage?, with name: String) -> Bool {
+    /// Attempt to encode level data into json file. A complete level data set should contains data, background image and preview image.
+    /// On failure, all the related level data should be deleted.
+    /// - Parameters:
+    ///   - data: encodable data to be save into a JSON file
+    ///   - background: the background image to be saved
+    ///   - screenShot: the preview of level
+    ///   - name: proposed level name
+    func save<T: Encodable>(_ data: T, _ background: UIImage, preview screenShot: UIImage, with name: String, replace: Bool = false) throws -> Bool {
+        try verify(name: name)
+        print("\(replace), \(isLevelExist(name))")
+        guard replace || !isLevelExist(name) else {
+            throw StorageError.fileExisted(message: "Level already exists.")
+        }
+
         let backgroundName = name + Default.Suffix.background
         let fileURL = getFullURL(from: name, ".pList")
         let backgroundURL = getFullURL(from: backgroundName, ".png")
@@ -38,8 +50,8 @@ class LocalStorage {
         jsonEncoder.outputFormatting = .prettyPrinted
 
         guard let jsonData = try? jsonEncoder.encode(data),
-              (try? background?.pngData()?.write(to: backgroundURL)) != nil,
-            (try? screenShot?.pngData()?.write(to: previewURL)) != nil else {
+              (try? background.pngData()?.write(to: backgroundURL)) != nil,
+            (try? screenShot.pngData()?.write(to: previewURL)) != nil else {
             deleteLevel(name)
             NSLog("Couldn't encode data to JSON format.")
             return false
@@ -49,6 +61,10 @@ class LocalStorage {
         return true
     }
 
+    /// Attempt to decode level data.
+    /// On failure return nil and delete all related data. Log the failure information.
+    /// - Parameters:
+    ///   - fileName: name of the level to be decoded
     func readLevelData<T: Codable>(_ fileName: String) -> T? {
         let url = getFullURL(from: fileName, ".pList")
         guard let data = try? Data(contentsOf: url) else {
@@ -65,6 +81,12 @@ class LocalStorage {
         return levelData
     }
 
+    /// Attempt to decode and init UIImage from image data.
+    /// On failure return nil and delete all related data. Log the failure information.
+    /// - Parameters:
+    ///   - fileName: name of the image to be decoded
+    /// - Returns:
+    ///   UIImage constructed from the decoded data.
     func readImage(_ fileName: String) -> UIImage? {
         guard let imageData = readImageData(fileName) else {
             deleteLevel(fileName)
@@ -79,6 +101,10 @@ class LocalStorage {
         return image
     }
 
+    /// Attempt to decode image data.
+    /// On failure return nil and delete all related data. Log the failure information.
+    /// - Parameters:
+    ///   - fileName: name of the image to be decoded
     func readImageData(_ fileName: String) -> Data? {
         let url = getFullURL(from: fileName, ".png")
 
@@ -90,6 +116,7 @@ class LocalStorage {
         return imageData
     }
 
+    /// Delete all files related to a level, including JSON file, background image and preview image.
     func deleteLevel(_ name: String) {
         let backgroundName = name + Default.Suffix.background
         let fileURL = getFullURL(from: name, ".pList")

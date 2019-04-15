@@ -34,6 +34,7 @@
 		1ABBA2142261FD2F00222E7A /* NodeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA2132261FD2F00222E7A /* NodeTest.swift */; };
 		1ABBA216226208F100222E7A /* TeamTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA215226208F100222E7A /* TeamTest.swift */; };
 		1ABBA218226230B400222E7A /* TeamScoreTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA217226230B400222E7A /* TeamScoreTableController.swift */; };
+		1ABBA21F22646D8C00222E7A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1ABBA21E22646D8B00222E7A /* GoogleService-Info.plist */; };
 		1AF01830224752FF008B468B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF0182F224752FE008B468B /* MenuViewController.swift */; };
 		3EC2FDF4A8A2C929B6156B79 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E8EF1ED58F41F667A1319C7 /* Pods_SailingThroughHistory.framework */; };
 		751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD1224B9D5D0071C057 /* TurnSystem.swift */; };
@@ -182,7 +183,6 @@
 		96A7D0B0225F971D001C18E4 /* UIBezierPath+Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */; };
 		96A7D0B2225FA8E0001C18E4 /* UILightningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0B1225FA8E0001C18E4 /* UILightningView.swift */; };
 		96A7D0B4225FAAE3001C18E4 /* UILightningViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0B3225FAAE3001C18E4 /* UILightningViewFactory.swift */; };
-		96A7D0B6225FAF96001C18E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96A7D0B5225FAF96001C18E4 /* GoogleService-Info.plist */; };
 		96CEB951224DF14400B027BA /* FirestoreRooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CEB950224DF14400B027BA /* FirestoreRooms.swift */; };
 		96CEB953224DF88B00B027BA /* Rooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CEB952224DF88B00B027BA /* Rooms.swift */; };
 		96CEB955224DF8EC00B027BA /* NetworkRooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CEB954224DF8EC00B027BA /* NetworkRooms.swift */; };
@@ -289,6 +289,7 @@
 		1ABBA2132261FD2F00222E7A /* NodeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTest.swift; sourceTree = "<group>"; };
 		1ABBA215226208F100222E7A /* TeamTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTest.swift; sourceTree = "<group>"; };
 		1ABBA217226230B400222E7A /* TeamScoreTableController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamScoreTableController.swift; sourceTree = "<group>"; };
+		1ABBA21E22646D8B00222E7A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1AF0182F224752FE008B468B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		6F0099311893FCDCE3BBA5C6 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		751F8FD1224B9D5D0071C057 /* TurnSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnSystem.swift; sourceTree = "<group>"; };
@@ -440,7 +441,6 @@
 		96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Arrow.swift"; sourceTree = "<group>"; };
 		96A7D0B1225FA8E0001C18E4 /* UILightningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILightningView.swift; sourceTree = "<group>"; };
 		96A7D0B3225FAAE3001C18E4 /* UILightningViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILightningViewFactory.swift; sourceTree = "<group>"; };
-		96A7D0B5225FAF96001C18E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		96CEB950224DF14400B027BA /* FirestoreRooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRooms.swift; sourceTree = "<group>"; };
 		96CEB952224DF88B00B027BA /* Rooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rooms.swift; sourceTree = "<group>"; };
 		96CEB954224DF8EC00B027BA /* NetworkRooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRooms.swift; sourceTree = "<group>"; };
@@ -566,6 +566,17 @@
 				1A749D642240F6DC00482CE5 /* ItemType.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		1ABBA2192263D5F800222E7A /* GameParameter */ = {
+			isa = PBXGroup;
+			children = (
+				1A53D7C92251E80900FAE214 /* GameParameterTest.swift */,
+				1ABBA215226208F100222E7A /* TeamTest.swift */,
+				1ABBA2112261F6F700222E7A /* MapTest.swift */,
+				1ABBA2132261FD2F00222E7A /* NodeTest.swift */,
+			);
+			path = GameParameter;
 			sourceTree = "<group>";
 		};
 		2BF33E1D467651D7EF28C97F /* Frameworks */ = {
@@ -982,7 +993,7 @@
 				9690F5D0223A4875005291EE /* Assets.xcassets */,
 				9690F5D2223A4875005291EE /* LaunchScreen.storyboard */,
 				9690F5D5223A4875005291EE /* Info.plist */,
-				96A7D0B5225FAF96001C18E4 /* GoogleService-Info.plist */,
+				1ABBA21E22646D8B00222E7A /* GoogleService-Info.plist */,
 				969016F5224BD21600296333 /* MainMenuViewController.swift */,
 				75328F5722535A1500180B03 /* GameTime.swift */,
 				75328F55225359BB00180B03 /* EngineConstants.swift */,
@@ -993,13 +1004,10 @@
 		9690F5DD223A4875005291EE /* SailingThroughHistoryTests */ = {
 			isa = PBXGroup;
 			children = (
+				1ABBA2192263D5F800222E7A /* GameParameter */,
 				BAB3378C2262274D007A0C05 /* GameState */,
 				9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */,
 				9690F5E0223A4875005291EE /* Info.plist */,
-				1A53D7C92251E80900FAE214 /* GameParameterTest.swift */,
-				1ABBA215226208F100222E7A /* TeamTest.swift */,
-				1ABBA2112261F6F700222E7A /* MapTest.swift */,
-				1ABBA2132261FD2F00222E7A /* NodeTest.swift */,
 				96A261D32246454500BBCC60 /* InterfaceTest.swift */,
 				759A5EE422507E1100724BEB /* TurnSystemTest.swift */,
 			);
@@ -1311,7 +1319,7 @@
 				9690F5D1223A4875005291EE /* Assets.xcassets in Resources */,
 				75354486224CAF2A001B4F62 /* TurnSystem.md in Resources */,
 				9690F5CF223A4874005291EE /* Main.storyboard in Resources */,
-				96A7D0B6225FAF96001C18E4 /* GoogleService-Info.plist in Resources */,
+				1ABBA21F22646D8C00222E7A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

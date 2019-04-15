@@ -44,10 +44,6 @@ class LevelEditorViewController: UIViewController {
 
     private let storage = LocalStorage()
 
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "toEditPanel":
@@ -123,6 +119,9 @@ class LevelEditorViewController: UIViewController {
         editingAreaWrapper.addGestureRecognizer(tapGesture)
     }
 
+    @IBAction func backPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func editPressed(_ sender: Any) {
         if editPanel.isHidden {
             editPanel.isHidden = false
@@ -137,18 +136,6 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
-            do {
-                try self.storage.verify(name: name)
-            } catch StorageError.fileExisted {
-                let alert = UIAlert(errorMsg: "File Existed. Are you sure to replace?", msg: "", confirm: { _ in
-                    self.store(with: name)
-                })
-                alert.present(in: self)
-            } catch {
-                let error = error as? StorageError
-                let alert = UIAlert(errorMsg: error?.getMessage() ?? "Unknown Error.", msg: nil)
-                alert.present(in: self)
-            }
             self.store(with: name)
         }, textPlaceHolder: "Input level name here")
         alert.present(in: self)
@@ -221,11 +208,12 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func singleTapOnNode(_ sender: UITapGestureRecognizer) {
-        guard editMode != nil else {
+        guard let mode = editMode else {
             return
         }
 
-        if editMode == .erase {
+        switch mode {
+        case .erase:
             guard let nodeView = sender.view as? NodeView else {
                 return
             }
@@ -240,8 +228,7 @@ class LevelEditorViewController: UIViewController {
                     offset+=1
                 }
             }
-        }
-        if editMode == .item {
+        case .item:
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
                 as? ItemCollectionViewController else {
@@ -261,9 +248,7 @@ class LevelEditorViewController: UIViewController {
             self.addChild(controller)
             view.addSubview(controller.view)
             controller.didMove(toParent: self)
-        }
-
-        if editMode == .pirate {
+        case .pirate:
             guard let nodeView = sender.view as? NodeView else {
                 let alert = UIAlert(errorMsg: "Please select a node!", msg: nil)
                 alert.present(in: self)
@@ -276,6 +261,8 @@ class LevelEditorViewController: UIViewController {
             }
             nodeView.node.add(object: PirateIsland(in: nodeView.node))
             nodeView.update()
+        default:
+            return
         }
 
     }
@@ -374,7 +361,7 @@ class LevelEditorViewController: UIViewController {
         }
     }
 
-    private func store(with name: String) {
+    private func store(with name: String, replace: Bool = false) {
         var bounds = Rect(originX: 0, originY: 0,
                           height: Double(self.view.bounds.size.height),
                           width: Double(self.view.bounds.size.width))
@@ -382,8 +369,30 @@ class LevelEditorViewController: UIViewController {
             bounds = Rect(originX: 0, originY: 0, height: Double(size.height), width: Double(size.width))
         }
         self.gameParameter.map.changeBackground("\(name)background", with: bounds)
-        self.storage.save(self.gameParameter, self.mapBackground.image,
-                          preview: self.scrollView.screenShot, with: name)
+        guard let background = self.mapBackground.image, let preview = self.scrollView.screenShot else {
+            let alert = UIAlert(errorMsg: "Cannot save without background and preview image.", msg: "", confirm: { _ in
+                self.store(with: name)
+            })
+            alert.present(in: self)
+            return
+        }
+
+        do {
+            let result = try storage.save(self.gameParameter, background, preview: preview, with: name, replace: replace)
+            if result == false {
+                let alert = UIAlert(errorMsg: "Save failed.", msg: "")
+                alert.present(in: self)
+            }
+        } catch StorageError.fileExisted {
+            let alert = UIAlert(errorMsg: "File Existed. Are you sure to replace?", msg: "", confirm: { _ in
+                self.store(with: name, replace: true)
+            })
+            alert.present(in: self)
+        } catch {
+            let error = error as? StorageError
+            let alert = UIAlert(errorMsg: error?.getMessage() ?? "Unknown Error.", msg: nil)
+            alert.present(in: self)
+        }
     }
 
     private func initBackground() {

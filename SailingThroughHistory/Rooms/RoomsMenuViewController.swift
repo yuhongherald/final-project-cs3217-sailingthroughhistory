@@ -10,6 +10,11 @@ import UIKit
 
 class RoomsMenuViewController: UIViewController {
     @IBOutlet weak var roomsTableView: UITableView!
+    @IBOutlet weak var backButton: UIButtonRounded! {
+        didSet {
+            backButton.set(color: .red)
+        }
+    }
 
     private lazy var dataSource = RoomsTableDataSource(withView: roomsTableView, mainController: self)
     private var roomConnection: RoomConnection?
@@ -28,9 +33,14 @@ class RoomsMenuViewController: UIViewController {
         alert.present(in: self)
     }
 
+    @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+
     func join(room: Room) {
         if !canJoinRoom {
-            return
+            let alert = ControllerUtils.getGenericAlert(titled: "You cannot join multiple rooms.", withMsg: "")
+            self.present(alert, animated: true, completion: nil)
         }
 
         canJoinRoom = false
