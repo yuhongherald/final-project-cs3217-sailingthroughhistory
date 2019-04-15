@@ -98,21 +98,7 @@ class WaitingRoomViewController: UIViewController {
     }
 
     @IBAction func startGamePressed(_ sender: Any) {
-        guard getWaitingRoom().isRoomMaster() else {
-                showNotAuthorizedAlert()
-                return
-        }
-
-        guard let parameters = getWaitingRoom().parameters else {
-            let alert = ControllerUtils.getGenericAlert(titled: "Missing Level.",
-                                                        withMsg: "Please choose a level first.")
-            present(alert, animated: true, completion: nil)
-            return
-        }
-        guard let imageData = LocalStorage().readImageData(parameters.map.map) else {
-            let alert = ControllerUtils.getGenericAlert(titled: "Missing Image.",
-                                                        withMsg: "Please choose a valid level first.")
-            present(alert, animated: true, completion: nil)
+        guard let (parameters, imageData) = getGameData() else {
             return
         }
         /// TODO: Remove hardcoded year
@@ -132,6 +118,49 @@ class WaitingRoomViewController: UIViewController {
                                                         withMsg: "Error in game level.")
             present(alert, animated: true, completion: nil)
         }
+    }
+
+    private func getGameData() -> (parameters: GameParameter, imageData: Data)? {
+        guard !getWaitingRoom().players.isEmpty else {
+            let alert = ControllerUtils.getGenericAlert(titled: "No players are registered.",
+                                                        withMsg: "You cannot start a game with no players.")
+            present(alert, animated: true, completion: nil)
+            return nil
+        }
+
+        guard let parameters = getWaitingRoom().parameters else {
+            let alert = ControllerUtils.getGenericAlert(titled: "Missing Level.",
+                                                        withMsg: "Please choose a level first.")
+            present(alert, animated: true, completion: nil)
+            return nil
+        }
+
+        guard let imageData = LocalStorage().readImageData(parameters.map.map) else {
+            let alert = ControllerUtils.getGenericAlert(titled: "Missing Image.",
+                                                        withMsg: "Please choose a valid level first.")
+            present(alert, animated: true, completion: nil)
+            return nil
+        }
+
+        var gmFound = false
+        for member in getWaitingRoom().players {
+            if member.isGameMaster {
+                if gmFound {
+                    let alert = ControllerUtils.getGenericAlert(titled: "More than one GM found",
+                        withMsg: "There can only be at most 1 Game Master.")
+                    present(alert, animated: true, completion: nil)
+                    return nil
+                }
+                gmFound = true
+            } else if !member.hasTeam {
+                let alert = ControllerUtils.getGenericAlert(titled: "\(member.playerName) has no team.",
+                    withMsg: "Please make sure everyone has a team.")
+                present(alert, animated: true, completion: nil)
+                return nil
+            }
+        }
+
+        return (parameters: parameters, imageData: imageData)
     }
 
     func subscribeToGameStart() {

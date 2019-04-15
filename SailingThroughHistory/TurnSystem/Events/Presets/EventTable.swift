@@ -21,4 +21,10 @@ class EventTable<T> where T: TurnSystemEvent {
     func getAllEvents() -> [T] {
         return Array(table.values)
     }
+
+    func getAllFlipFlopEvents() -> [PresetEvent] {
+        return getAllEvents().filter { event in
+            event.triggers.contains { $0 is FlipFlopTrigger }
+            }.compactMap { $0 as? PresetEvent }
+    }
 }

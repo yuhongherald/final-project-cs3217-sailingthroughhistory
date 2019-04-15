@@ -11,6 +11,7 @@ import Foundation
 protocol GenericPlayer: class, Codable {
     var name: String { get }
     var team: Team? { get }
+    var isGameMaster: Bool { get }
     var money: GameVariable<Int> { get }
     var currentCargoWeight: Int { get }
     var weightCapacity: Int { get }

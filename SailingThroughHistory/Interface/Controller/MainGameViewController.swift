@@ -65,12 +65,13 @@ class MainGameViewController: UIViewController {
     @IBOutlet private weak var messagesView: UIBlurredBackgroundView!
     @IBOutlet private weak var toggleMessagesButton: UIButtonRounded!
 
+    @IBOutlet private weak var gameMasterPanel: UIBlurredBackgroundView!
+
     private var currentTurnOwner: GenericPlayer?
 
     private lazy var objectsController: ObjectsViewController =
         ObjectsViewController(view: gameArea, mainController: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
-        toggleActionPanelButton: actionPanelView,
         togglePlayerInfoButton: playerInfoWrapper,
         toggleTeamScoresButton: teamScoresWrapper,
         toggleMessagesButton: messagesView]
@@ -222,6 +223,21 @@ class MainGameViewController: UIViewController {
 
     @IBAction private func togglePanelVisibility(_ sender: UIButtonRounded) {
         togglablePanels[sender]?.isHidden.toggle()
+    }
+
+    @IBAction private func toggleActionPanelVisibility(_ sender: UIButtonRounded) {
+        guard let currentTurnOwner = currentTurnOwner else {
+            actionPanelView.isHidden = false
+            gameMasterPanel.isHidden = false
+            return
+        }
+        if currentTurnOwner.isGameMaster {
+            gameMasterPanel.isHidden.toggle()
+            actionPanelView.isHidden = false
+        } else {
+            actionPanelView.isHidden.toggle()
+            gameMasterPanel.isHidden = false
+        }
     }
 
     @IBAction private func hidePortInformationPressed(_ sender: Any) {
@@ -413,19 +429,26 @@ class MainGameViewController: UIViewController {
     private func playerTurnStart(player: GenericPlayer, endTime: TimeInterval) {
 
         func animatePlayerTurnStart() {
-            objectsController.makeShipGlow(for: player)
-            availableUpgradesDataSource.enabled = player.canBuyUpgrade()
-            availableUpgradesTableView.reloadData()
-            actionPanelView.isHidden = false
-            toggleActionPanelButton.isHidden = false
-            rollDiceButton.isEnabled = true
-            rollDiceButton.set(color: .red)
+            if player.isGameMaster {
+                gameMasterPanel.isHidden = false
+            } else {
+                actionPanelView.isHidden = false
+                objectsController.makeShipGlow(for: player)
+                availableUpgradesDataSource.enabled = player.canBuyUpgrade()
+                availableUpgradesTableView.reloadData()
+                toggleActionPanelButton.isHidden = false
+                rollDiceButton.isEnabled = true
+                rollDiceButton.set(color: .red)
+            }
             countdownLabel.set(isHidden: false)
             countdownLabel.setCountDownTime(seconds: endTime - Date().timeIntervalSince1970)
             countdownLabel.start()
         }
 
         animatePlayerTurnStart()
+        if player.isGameMaster {
+            return
+        }
         updatePlayerInformation(for: player)
     }
 

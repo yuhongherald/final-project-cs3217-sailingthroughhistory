@@ -10,6 +10,7 @@ import Foundation
 
 class Player: GenericPlayer {
     let deviceId: String
+    let isGameMaster = false
     var hasRolled: Bool = false
     private var rollResult: Int = 0
 
