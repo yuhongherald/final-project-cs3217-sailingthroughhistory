@@ -57,6 +57,7 @@ class LevelEditorViewController: UIViewController {
                 return
             }
             menuDest.delegate = self
+            menuDest.data = gameParameter.teams
             self.menuDest = menuDest
         case "toGallary":
             guard let gallaryDest = segue.destination as? GalleryViewController else {

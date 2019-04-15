@@ -264,12 +264,11 @@ class FirebaseRoomConnection: RoomConnection {
 
     func subscribeToMasterState(for turn: Int, callback: @escaping (GameState) -> Void) {
         listeners.append(modelCollectionRef.document(String(turn)).addSnapshotListener { (snapshot, error) in
-            guard let snapshot = snapshot,
+            guard let data = snapshot?.data(),
                 error == nil,
-                let state = try? FirebaseDecoder().decode(GameState.self, from: snapshot) else {
+                let state = try? FirestoreDecoder.init().decode(GameState.self, from: data) else {
                     return
             }
-
             callback(state)
         })
     }
