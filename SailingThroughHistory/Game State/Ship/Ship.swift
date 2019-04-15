@@ -140,10 +140,10 @@ class Ship: Codable {
             let parameter = supply.itemParameter
             let type = supply.itemType
             let deficit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
-            owner?.updateMoney(by: -deficit * parameter.getBuyValue())
+            owner?.updateMoney(by: -deficit * 2 * parameter.getBuyValue())
             messages.append(InfoMessage(title: "deficit!",
                                message: "You have exhausted \(parameter.displayName) and have a deficit"
-                                    + "of \(deficit) and paid for it."))
+                                    + "of \(deficit) and paid twice the normal amount for it."))
         }
 
         // decay remaining items

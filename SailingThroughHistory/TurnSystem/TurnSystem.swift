@@ -217,15 +217,6 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.wrongPhase(message: "Make action called on wrong phase")
         }
         switch action {
-<<<<<<< HEAD
-        case .changeInventory(changeType: let changeType, money: let money, items: let items):
-            break
-        case .roll:
-            break
-        case .move(to: let node):
-            break
-        case .forceMove(to: let node): // quick hack for updating the player's position remotely
-=======
         case .move(let nodeId, let isEnd):
             return playerMove(player, nodeId, isEnd: isEnd)
         case .forceMove(let nodeId): // quick hack for updating the player's position remotely
@@ -315,7 +306,6 @@ class TurnSystem: GenericTurnSystem {
     func watchMasterUpdate(gameState: GenericGameState) {
         switch state {
         case .waitForStateUpdate:
->>>>>>> e29a82d53bee555bea0594ed90971a881a8ed289
             break
         default:
             return
