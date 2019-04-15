@@ -192,9 +192,9 @@ class GameState: GenericGameState {
         guard let node = map.getNodes().first else {
             return
         }
-        map.npcs.removeAll()
+        map.removeAllNpcs()
         for _ in 0..<amount {
-            map.npcs.append(NPC(node: node))
+            map.addGameObject(gameObject: NPC(node: node))
         }
     }
 }
