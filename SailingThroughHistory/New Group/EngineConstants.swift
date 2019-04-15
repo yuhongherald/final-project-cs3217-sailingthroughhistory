@@ -94,6 +94,6 @@ enum Default {
     }
 
     enum Background {
-        static let image: String = "worldmap1815"
+        static let image: String = "worldmap1815.jpg"
     }
 }

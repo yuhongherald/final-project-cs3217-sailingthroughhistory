@@ -59,6 +59,8 @@ class Ship: Codable {
                 let shipUI = shipObject else {
                 return
             }
+            /// Move ship to its node
+            self.nodeId = self.nodeIdVariable.value
             map.addGameObject(gameObject: shipUI)
         }
     }

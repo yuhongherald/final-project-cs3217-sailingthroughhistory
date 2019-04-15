@@ -24,7 +24,7 @@ class GameObject: ReadOnlyGameObject, Codable {
     }
 
     init(frame: Rect) {
-        self.frame = GameVariable(value: Rect())
+        self.frame = GameVariable(value: frame)
     }
 
     func subscibeToFrame(with callback: @escaping (Rect) -> Void) {
