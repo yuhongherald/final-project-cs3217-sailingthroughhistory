@@ -119,6 +119,9 @@ class LevelEditorViewController: UIViewController {
         editingAreaWrapper.addGestureRecognizer(tapGesture)
     }
 
+    @IBAction func backPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     @IBAction func editPressed(_ sender: Any) {
         if editPanel.isHidden {
             editPanel.isHidden = false
@@ -358,7 +361,7 @@ class LevelEditorViewController: UIViewController {
         }
     }
 
-    private func store(with name: String) {
+    private func store(with name: String, replace: Bool = false) {
         var bounds = Rect(originX: 0, originY: 0,
                           height: Double(self.view.bounds.size.height),
                           width: Double(self.view.bounds.size.width))
@@ -375,16 +378,14 @@ class LevelEditorViewController: UIViewController {
         }
 
         do {
-            let result = try storage.save(self.gameParameter, background, preview: preview, with: name)
+            let result = try storage.save(self.gameParameter, background, preview: preview, with: name, replace: replace)
             if result == false {
-                let alert = UIAlert(errorMsg: "Save failed.", msg: "", confirm: { _ in
-                    self.store(with: name)
-                })
+                let alert = UIAlert(errorMsg: "Save failed.", msg: "")
                 alert.present(in: self)
             }
         } catch StorageError.fileExisted {
             let alert = UIAlert(errorMsg: "File Existed. Are you sure to replace?", msg: "", confirm: { _ in
-                self.store(with: name)
+                self.store(with: name, replace: true)
             })
             alert.present(in: self)
         } catch {

@@ -24,10 +24,6 @@ class LocalStorage {
         guard !name.contains("/") else {
             throw StorageError.invalidName(message: "Level name contains invalid symbol.")
         }
-
-        guard !isLevelExist(name) else {
-            throw StorageError.fileExisted(message: "Level already exists.")
-        }
     }
 
     /// Attempt to encode level data into json file. A complete level data set should contains data, background image and preview image.
@@ -37,8 +33,13 @@ class LocalStorage {
     ///   - background: the background image to be saved
     ///   - screenShot: the preview of level
     ///   - name: proposed level name
-    func save<T: Encodable>(_ data: T, _ background: UIImage, preview screenShot: UIImage, with name: String) throws -> Bool {
+    func save<T: Encodable>(_ data: T, _ background: UIImage, preview screenShot: UIImage, with name: String, replace: Bool = false) throws -> Bool {
         try verify(name: name)
+        print("\(replace), \(isLevelExist(name))")
+        guard replace || !isLevelExist(name) else {
+            throw StorageError.fileExisted(message: "Level already exists.")
+        }
+
         let backgroundName = name + Default.Suffix.background
         let fileURL = getFullURL(from: name, ".pList")
         let backgroundURL = getFullURL(from: backgroundName, ".png")

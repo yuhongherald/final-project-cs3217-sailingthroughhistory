@@ -971,7 +971,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Back"/>
                                         <connections>
-                                            <segue destination="xnR-2a-N1z" kind="show" id="xXF-cH-9Ps"/>
+                                            <action selector="backPressed:" destination="fZz-0J-H6I" eventType="touchUpInside" id="kft-g1-xmf"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-V9-wW8">
@@ -1618,8 +1618,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7Jl-WZ-ghm"/>
-        <segue reference="xXF-cH-9Ps"/>
+        <segue reference="gYr-xT-g3t"/>
         <segue reference="QLW-hl-erw"/>
     </inferredMetricsTieBreakers>
 </document>
