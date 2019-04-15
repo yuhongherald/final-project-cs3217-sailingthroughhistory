@@ -11,7 +11,7 @@ import Foundation
 // Mark : - Item Manipulation
 extension Ship: ItemStorage {
     func getPurchasableItemTypes() -> [ItemType] {
-        guard let port = getCurrentNode() as? Port, isDocked else {
+        guard let port = node as? Port, isDocked else {
             return []
         }
         return port.itemParametersSoldByPort
@@ -29,7 +29,7 @@ extension Ship: ItemStorage {
     }
 
     func buyItem(itemType: ItemType, quantity: Int) throws {
-        guard let port = getCurrentNode() as? Port, isDocked else {
+        guard let port = node as? Port, isDocked else {
             throw BuyItemError.notDocked
         }
         guard let itemParameter = owner?.getItemParameter(itemType: itemType) else {
@@ -49,7 +49,7 @@ extension Ship: ItemStorage {
     }
 
     func sellItem(item: GenericItem) throws {
-        guard let port = getCurrentNode() as? Port, isDocked else {
+        guard let port = node as? Port, isDocked else {
             throw BuyItemError.notDocked
         }
         guard let itemType = item.itemParameter else {

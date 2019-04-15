@@ -13,6 +13,7 @@ protocol GenericGameState: Codable {
     var gameObjects: [GameObject] { get }
     var map: Map { get }
     var availableUpgrades: [Upgrade] { get }
+    var maxTaxAmount: Int { get }
     var itemParameters: [GameVariable<ItemParameter>] { get set }
 
     func getPlayers() -> [GenericPlayer]

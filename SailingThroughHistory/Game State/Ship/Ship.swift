@@ -27,6 +27,12 @@ class Ship: Codable {
             nodeIdVariable.value = newValue
         }
     }
+    var node: Node {
+        guard let map = map, let currentNode = map.nodeIDPair[nodeId] else {
+            fatalError("Ship does not reside on any map or nodeId is invalid.")
+        }
+        return currentNode
+    }
     var currentCargoWeight: Int {
         return currentCargoWeightVariable.value
     }
@@ -49,7 +55,11 @@ class Ship: Codable {
 
     weak var map: Map? {
         didSet {
-            self.nodeId = self.nodeIdVariable.value
+            guard let map = map,
+                let shipUI = shipObject else {
+                return
+            }
+            map.addGameObject(gameObject: shipUI)
         }
     }
 
@@ -105,26 +115,6 @@ class Ship: Codable {
         case auxiliaryUpgrade
     }
 
-    // TODO: delete item part
-    func setOwner(owner: GenericPlayer) {
-        self.owner = owner
-        for item in items.value {
-            guard let itemParameter = owner.getItemParameter(itemType: item.itemType) else {
-                continue
-            }
-            item.setItemParameter(itemParameter)
-        }
-    }
-
-    // TODO: delete
-    func setMap(map: Map) {
-        guard let shipUI = shipObject else {
-            return
-        }
-        self.map = map
-        map.addGameObject(gameObject: shipUI)
-    }
-
     // Movement
 
     func startTurn() {
@@ -163,14 +153,6 @@ class Ship: Codable {
                         message: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!"))
         }
         return messages
-    }
-
-    // TODO: Change to computed property
-    func getCurrentNode() -> Node {
-        guard let map = map, let node = map.nodeIDPair[nodeId] else {
-            fatalError("Ship does not reside on any map or nodeId is invalid.")
-        }
-        return node
     }
 }
 

@@ -13,6 +13,7 @@ class Player: GenericPlayer {
     var hasRolled: Bool = false
     private var rollResult: Int = 0
 
+    let numDieSides = 6
     let money = GameVariable(value: 0)
     let state = GameVariable(value: PlayerState.endTurn)
     var name: String
@@ -28,7 +29,7 @@ class Player: GenericPlayer {
             guard let map = map else {
                 return
             }
-            ship.setMap(map: map)
+            ship.map = map
             if canDock() {
                 do {
                     try dock()
@@ -64,8 +65,8 @@ class Player: GenericPlayer {
         self.deviceId = deviceId
         self.homeNode = node.identifier
         ship = Ship(node: node, suppliesConsumed: [])
-        ship.setOwner(owner: self)
-        ship.setMap(map: map)
+        ship.owner = self
+        ship.map = map
     }
 
     required init(from decoder: Decoder) throws {
@@ -76,7 +77,7 @@ class Player: GenericPlayer {
         ship = try values.decode(Ship.self, forKey: .ship)
         deviceId = try values.decode(String.self, forKey: .deviceId)
         homeNode = try values.decode(Int.self, forKey: .homeNode)
-        ship.setOwner(owner: self)
+        ship.owner = self
     }
 
     func encode(to encoder: Encoder) throws {
@@ -95,7 +96,7 @@ class Player: GenericPlayer {
     }
 
     func addShipsToMap(map: Map) {
-        ship.setMap(map: map)
+        ship.map = map
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
@@ -112,7 +113,7 @@ class Player: GenericPlayer {
 
     func roll() -> (Int, [Int]) {
         if !hasRolled {
-            rollResult = Int.random(in: 1...6)
+            rollResult = Int.random(in: 1...numDieSides)
             hasRolled = true
         }
         return (rollResult, getNodesInRange(roll: rollResult).map({ $0.identifier }))
@@ -134,7 +135,7 @@ class Player: GenericPlayer {
             fatalError("To node does not exist")
         }
 
-        return ship.getCurrentNode()
+        return ship.node
             .getCompleteShortestPath(to: toNode, with: ship, map: map)
             .map { $0.identifier }
     }
@@ -163,7 +164,7 @@ class Player: GenericPlayer {
             !(auxiliaryUpgrade is MercernaryUpgrade) else {
             return 0
         }
-        let position = ship.getCurrentNode()
+        let position = ship.node
         if position is Port {
             return 0
         }
@@ -201,9 +202,16 @@ class Player: GenericPlayer {
         try ship.sell(itemType: itemType, quantity: quantity)
     }
 
-    func setTax(port: Port, amount: Int) {
+    func setTax(port: Port, amount: Int) throws {
+        let maxTaxAmount = gameState?.maxTaxAmount ?? 0
+        guard amount <= maxTaxAmount else {
+            throw PortAdminError.exceedMaxTax(maxTaxAmount: maxTaxAmount)
+        }
+        guard amount >= 0 else {
+            throw PortAdminError.belowMinTax(minTaxAmount: 0)
+        }
         guard team == port.owner else {
-            return
+            throw PortAdminError.badPortOwnership
         }
         port.taxAmount.value = amount
     }

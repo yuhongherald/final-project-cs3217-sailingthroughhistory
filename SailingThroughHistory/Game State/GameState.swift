@@ -13,6 +13,7 @@ class GameState: GenericGameState {
     var gameObjects: [GameObject] {
         return map.gameObjects.value
     }
+    let maxTaxAmount: Int
     let availableUpgrades: [Upgrade]
     var itemParameters: [GameVariable<ItemParameter>]
 
@@ -29,6 +30,7 @@ class GameState: GenericGameState {
         //initializePlayersFromParameters(parameters: level.playerParameters)
         map = level.map
         availableUpgrades = level.upgrades
+        maxTaxAmount = level.maxTaxAmount
         itemParameters = [GameVariable<ItemParameter>]()
         for itemParameter in level.itemParameters {
             itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
@@ -39,6 +41,8 @@ class GameState: GenericGameState {
             player.addShipsToMap(map: map)
             player.gameState = self
         }
+        initializePortTaxes(to: level.defaultTaxAmount)
+        initializeNPCs(amount: level.numNPC)
     }
 
     required init(from decoder: Decoder) throws {
@@ -57,6 +61,7 @@ class GameState: GenericGameState {
 
         let upgradeTypes = try values.decode([UpgradeType].self, forKey: .availableUpgrades)
         availableUpgrades = upgradeTypes.map { $0.toUpgrade() }
+        maxTaxAmount = try values.decode(Int.self, forKey: .maxTaxAmount)
 
         for player in players {
             player.map = map
@@ -89,6 +94,7 @@ class GameState: GenericGameState {
         try container.encode(speedMultiplier, forKey: .speedMultiplier)
         let upgradeTypes = availableUpgrades.map { $0.type }
         try container.encode(upgradeTypes, forKey: .availableUpgrades)
+        try container.encode(maxTaxAmount, forKey: .maxTaxAmount)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -99,6 +105,7 @@ class GameState: GenericGameState {
         case players
         case speedMultiplier
         case availableUpgrades
+        case maxTaxAmount
     }
 
     func getPlayers() -> [GenericPlayer] {
@@ -169,6 +176,25 @@ class GameState: GenericGameState {
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self
             players.append(player)
+        }
+    }
+
+    private func initializePortTaxes(to amount: Int) {
+        for node in map.getNodes() {
+            guard let port = node as? Port else {
+                continue
+            }
+            port.taxAmount.value = amount
+        }
+    }
+
+    private func initializeNPCs(amount: Int) {
+        guard let node = map.getNodes().first else {
+            return
+        }
+        map.npcs.removeAll()
+        for _ in 0..<amount {
+            map.npcs.append(NPC(node: node))
         }
     }
 }
