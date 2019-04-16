@@ -17,7 +17,7 @@ class VolatileMonsoon: Volatile {
             isActiveVariable.value = newValue
         }
     }
-    func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
+    override func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
         return oldVelocity * modifier * Float(GameConstants.monsoonMultiplier)
     }
 }

@@ -357,6 +357,9 @@ class LevelEditorViewController: UIViewController {
             gameParameter.map.add(path: pathReversed)
             lineLayer.path = bazier.cgPath
             lineLayerArr.append(lineLayer)
+            let lineLayerR = PathView(path: pathReversed)
+            lineLayerR.path = bazier.reversing().cgPath
+            lineLayerArr.append(lineLayerR)
         default:
             return
         }
