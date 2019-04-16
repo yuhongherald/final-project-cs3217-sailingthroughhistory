@@ -18,11 +18,11 @@ struct ComparablePair<T>: Comparable {
         self.weight = weight
     }
 
-    static func <(lhs: ComparablePair, rhs: ComparablePair) -> Bool {
+    static func < (lhs: ComparablePair, rhs: ComparablePair) -> Bool {
         return lhs.weight < rhs.weight
     }
 
-    static func ==(lhs: ComparablePair, rhs: ComparablePair) -> Bool {
+    static func == (lhs: ComparablePair, rhs: ComparablePair) -> Bool {
         return lhs.weight == rhs.weight
     }
 }

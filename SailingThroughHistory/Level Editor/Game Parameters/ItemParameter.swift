@@ -15,8 +15,6 @@ struct ItemParameter: Codable {
     let itemType: ItemType
     let isConsumable: Bool
 
-    private var sellValue: Int = Default.Item.sellValue
-    private var buyValue: Int = Default.Item.buyValue
     private var halfLife: Int?
 
     init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {
@@ -33,12 +31,12 @@ struct ItemParameter: Codable {
     }
 
     // Global pricing information
-    func getBuyValue() -> Int {
-        return buyValue
+    func getBuyValue(ports: [Port]) -> Int {
+        return ports.map({ $0.getBuyValue(of: self) }).compactMap({ $0 }).max() ?? 0
     }
 
-    func getSellValue() -> Int {
-        return sellValue
+    func getSellValue(ports: [Port]) -> Int {
+        return ports.map({ $0.getSellValue(of: self) }).compactMap({ $0 }).min() ?? 0
     }
 
     func getHalfLife() -> Int? {
@@ -53,27 +51,11 @@ struct ItemParameter: Codable {
         assert(checkRep())
     }
 
-    mutating func setBuyValue(value: Int) {
-        if value < 0 {
-            return
-        }
-        buyValue = value
-        assert(checkRep())
-    }
-
-    mutating func setSellValue(value: Int) {
-        if value < 0 {
-            return
-        }
-        sellValue = value
-        assert(checkRep())
-    }
-
     private func checkRep() -> Bool {
         guard let unwrappedHalfLife = halfLife else {
-            return sellValue >= 0 && buyValue >= 0
+            return unitWeight >= 0
         }
-        return sellValue >= 0 && buyValue >= 0 && unwrappedHalfLife >= 0 && unitWeight >= 0
+        return unwrappedHalfLife >= 0 && unitWeight >= 0
     }
 }
 

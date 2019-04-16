@@ -59,13 +59,13 @@ class Player: GenericPlayer {
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    init(name: String, team: Team, map: Map, node: Node, deviceId: String) {
+    init(name: String, team: Team, map: Map, node: Node, itemsConsumed: [GenericItem], deviceId: String) {
         self.name = name
         self.team = team
         self.map = map
         self.deviceId = deviceId
         self.homeNode = node.identifier
-        ship = Ship(node: node, suppliesConsumed: [])
+        ship = Ship(node: node, itemsConsumed: itemsConsumed)
         ship.owner = self
         ship.map = map
     }
@@ -223,7 +223,6 @@ class Player: GenericPlayer {
 
     func updateMoney(by amount: Int) {
         money.value += amount
-        team?.updateMoney(by: amount)
         guard money.value >= 0 else {
             preventPlayerBankruptcy(amount: money.value)
             return

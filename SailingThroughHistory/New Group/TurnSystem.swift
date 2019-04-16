@@ -72,16 +72,12 @@ class TurnSystem: GenericTurnSystem {
         self.stateVariable = GameVariable(value: .ready)
         self.eventPresets = EventPresets(gameState: startingState, turnSystem: self)
         if let eventPresets = self.eventPresets {
-            self.data.addEvents(events: eventPresets.getEvents())
+            _ = self.data.addEvents(events: eventPresets.getEvents())
         }
 
         network.subscribeToMembers { [weak self] members in
             self?.players = members
         }
-    }
-
-    func getPresetEvents() -> [PresetEvent] {
-        return data.getPresetEvents()
     }
 
     func startGame() {
@@ -127,8 +123,7 @@ class TurnSystem: GenericTurnSystem {
             pendingActions.append(.move(toNodeId: transitNode,
                                         isEnd: index == path.indices.last))
         }
-
-        if isSuccess(probability: player.getPirateEncounterChance(at: nodeId)) {
+        if isSuccess(probability: player.getPirateEncounterChance()) {
             pendingActions.append(.pirate)
         }
     }
@@ -171,18 +166,6 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    func toggle(eventId: Int, enabled: Bool, by player: GenericPlayer) throws {
-        guard let event = data.events[eventId] as? PresetEvent else {
-            throw PlayerActionError.invalidAction(message: "Event does not exist")
-        }
-        try checkInputAllowed(from: player)
-        if !player.isGameMaster {
-            throw PlayerActionError.invalidAction(message: "You are not a game master.")
-        }
-        event.active = enabled
-        pendingActions.append(.togglePresetEvent(eventId: eventId, enabled: enabled))
-    }
-
     func purchase(upgrade: Upgrade, by player: GenericPlayer) throws -> InfoMessage? {
         try checkInputAllowed(from: player)
         if !player.canBuyUpgrade() {
@@ -202,7 +185,7 @@ class TurnSystem: GenericTurnSystem {
                 throw PlayerActionError.wrongPhase(message: "Please wait for your turn")
             }
         default:
-            throw PlayerActionError.wrongPhase(message: "Action called on wrong phase")
+            throw PlayerActionError.wrongPhase(message: "Aaction called on wrong phase")
         }
     }
 
@@ -238,8 +221,8 @@ class TurnSystem: GenericTurnSystem {
             return playerMove(player, nodeId, isEnd: isEnd)
         case .forceMove(let nodeId): // quick hack for updating the player's position remotely
             return playerMove(player, nodeId, isEnd: true)
-            // some stuff with a sequence
-            // for node in nodes (Doesn't check adjacency)
+        // some stuff with a sequence
+        // for node in nodes (Doesn't check adjacency)
         // player.move(node: node)
         case .setTax(let portId, _):
             guard let port = gameState.map.nodeIDPair[portId] as? Port else {
@@ -280,15 +263,6 @@ class TurnSystem: GenericTurnSystem {
         case .pirate:
             player.playerShip?.startPirateChase()
             return GameMessage.playerAction(name: player.name, message: " is chased by pirates!")
-        case .togglePresetEvent(let eventId, let enabled):
-            if player.deviceId == deviceId {
-                return nil
-            }
-            guard let event = data.events[eventId] as? PresetEvent else {
-                return nil
-            }
-            event.active = enabled
-            return nil
         }
     }
 
@@ -303,10 +277,7 @@ class TurnSystem: GenericTurnSystem {
                     return
                 }
                 guard success else {
-                    self.messages.append(
-                        GameMessage.playerAction(name: "",
-                                                 message: "Failed to change tax for \(port.name) " +
-                            "due to conflicting instructions."))
+                    self.messages.append(GameMessage.playerAction(name: "", message: "Failed to change tax for \(port.name) due to conflicting instructions."))
                     return
                 }
                 let previous = port.taxAmount.value
@@ -346,7 +317,8 @@ class TurnSystem: GenericTurnSystem {
         if let currentPlayer = currentPlayer {
             /// TODO: Add error handling. If it throws, then encoding has failed.
             do {
-                try network.push(actions: pendingActions, fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) { _ in
+                try network.push(actions: pendingActions,
+                                 fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) { _ in
                     /// TODO: Add error handling
                 }
             } catch {
@@ -413,19 +385,19 @@ class TurnSystem: GenericTurnSystem {
 
     private func evaluateState(player: GenericPlayer, actions: [PlayerAction])
         -> [GameMessage] {
-            var actions = actions
-            state = .evaluateMoves(for: player)
-            var result = [GameMessage]()
-            while !actions.isEmpty {
-                do {
-                    if let message = try process(action: actions.removeFirst(), for: player) {
-                        result.append(message)
-                    }
-                } catch {
-                    print("Invalid action from server, dropping action")
+        var actions = actions
+        state = .evaluateMoves(for: player)
+        var result = [GameMessage]()
+        while !actions.isEmpty {
+            do {
+                if let message = try process(action: actions.removeFirst(), for: player) {
+                    result.append(message)
                 }
+            } catch {
+                print("Invalid action from server, dropping action")
             }
-            return result
+        }
+        return result
     }
 
     private func updateStateMaster() {
@@ -479,6 +451,8 @@ class TurnSystem: GenericTurnSystem {
             if self.data.currentTurn != turnNum {
                 return
             }
+            let eventResults = data.checkForEvents() // events will run here, non-recursive
+            self.messages.append(contentsOf: eventResults)
 
             for player in self.gameState.getPlayers() where
                 playerActionPairs.first(where: { $0.0 == player.name }) == nil {
@@ -492,19 +466,13 @@ class TurnSystem: GenericTurnSystem {
                 }
                 let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
                 self.messages.append(contentsOf: playerActions)
-                let messages = chosenPlayer.endTurn()
-                if chosenPlayer.deviceId == deviceId {
-                    self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
-                                                                                             message: $0.message)})
+                for infoMessage in chosenPlayer.endTurn() {
+                    self.messages.append(GameMessage.playerAction(name: chosenPlayer.name,
+                                                                  message: infoMessage.message))
                 }
             }
-            gameState.map.npcs.forEach { _ = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000)}
+
             handleSetTax()
-            let eventResults = data.checkForEvents() // events will run here, non-recursive
-            self.messages.append(contentsOf: eventResults)
-            gameState.gameTime.value.addWeeks(4)
-            gameState.map.updateWeather(for: gameState.gameTime.value.month)
-            gameState.distributeTeamMoney()
             updateStateMaster()
         }
     }

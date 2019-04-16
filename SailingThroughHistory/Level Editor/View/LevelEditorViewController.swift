@@ -57,6 +57,7 @@ class LevelEditorViewController: UIViewController {
                 return
             }
             menuDest.delegate = self
+            menuDest.data = gameParameter.teams
             self.menuDest = menuDest
         case "toGallary":
             guard let gallaryDest = segue.destination as? GalleryViewController else {
@@ -378,7 +379,8 @@ class LevelEditorViewController: UIViewController {
         }
 
         do {
-            let result = try storage.save(self.gameParameter, background, preview: preview, with: name, replace: replace)
+            let result = try storage.save(self.gameParameter, background,
+                                          preview: preview, with: name, replace: replace)
             if result == false {
                 let alert = UIAlert(errorMsg: "Save failed.", msg: "")
                 alert.present(in: self)

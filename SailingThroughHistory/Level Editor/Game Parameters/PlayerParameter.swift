@@ -9,6 +9,8 @@
 import Foundation
 
 class PlayerParameter: Codable {
+    let itemsConsumed: [(ItemType, Int)] = [(.food, 1)]
+
     private var name: String
     private var teamName: String
     private var money = GameVariable(value: 0)

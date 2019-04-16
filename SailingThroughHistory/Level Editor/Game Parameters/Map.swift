@@ -40,7 +40,7 @@ class Map: Codable {
     }
 
     func updateWeather(for month: Int) {
-        for path in paths.values.flatMap( { $0 } ) {
+        for path in paths.values.flatMap({ $0 }) {
             for weather in path.modifiers {
                 weather.update(currentMonth: month)
             }
@@ -267,7 +267,7 @@ class Map: Codable {
         var objectsWithType = [ObjectWithType]()
         for object in gameObjects.value {
             if object is ShipUI {
-                objectsWithType.append(ObjectWithType(object: object, type: ObjectType.ship))
+                continue
             } else if object is PirateIsland {
                 objectsWithType.append(ObjectWithType(object: object, type: ObjectType.pirate))
             } else if object is NPC {

@@ -9,9 +9,11 @@
 import Foundation
 
 class GenericItemStub: GenericItem {
-    let name: String?
-    let itemType: ItemType
-    var itemParameter: ItemParameter?
+    let name: String
+    var itemType: ItemType {
+        return itemParameter.itemType
+    }
+    var itemParameter: ItemParameter
     var weight: Int?
     var quantity: Int
 
@@ -22,7 +24,7 @@ class GenericItemStub: GenericItem {
 
     init(name: String, itemType: ItemType, quantity: Int) {
         self.name = name
-        self.itemType = itemType
+        itemParameter = ItemParameter(itemType: itemType, displayName: itemType.rawValue, weight: 0, isConsumable: false)
         self.quantity = quantity
     }
 
@@ -65,7 +67,7 @@ class GenericItemStub: GenericItem {
     }
 
     func copy() -> GenericItemStub {
-        let newCopy = GenericItemStub(name: name ?? "", itemType: itemType, quantity: quantity)
+        let newCopy = GenericItemStub(name: name, itemType: itemType, quantity: quantity)
         newCopy.itemParameter = itemParameter
         newCopy.weight = weight
 

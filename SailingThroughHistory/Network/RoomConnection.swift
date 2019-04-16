@@ -23,7 +23,7 @@ protocol RoomConnection {
 
     func push(actions: [PlayerAction], fromPlayer player: GenericPlayer,
               forTurnNumbered turn: Int,
-              completion callback: @escaping (Error?) -> ()) throws
+              completion callback: @escaping (Error?) -> Void) throws
 
     func set(teams: [Team])
 

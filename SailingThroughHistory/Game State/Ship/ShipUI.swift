@@ -12,7 +12,7 @@ class ShipUI: GameObject {
     private let shipWidth: Double = 50
 
     init(ship: Ship) {
-        let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) 
+        let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth)
         super.init(frame: frame)
         ship.subscribeToLocation(with: moveShip)
     }

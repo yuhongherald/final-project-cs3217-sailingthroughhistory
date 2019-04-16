@@ -7,13 +7,13 @@
 //
 
 class Port: Node {
-    public var taxAmount: GameVariable<Int> = GameVariable(value: 0)
-    public var owner: Team? {
+    var taxAmount: GameVariable<Int> = GameVariable(value: 0)
+    var owner: Team? {
         didSet {
             self.ownerName = self.owner?.name
         }
     }
-    public var ownerName: String?
+    var ownerName: String?
     // TODO: add item quantity editing in level editor
     var itemParametersSoldByPort: [ItemType] {
         return [ItemType](itemBuyValue.keys)
@@ -48,6 +48,7 @@ class Port: Node {
         ownerName = try values.decode(String?.self, forKey: .ownerName)
         itemBuyValue = try values.decode([ItemType: Int].self, forKey: .itemBuyValue)
         itemSellValue = try values.decode([ItemType: Int].self, forKey: .itemSellValue)
+        taxAmount.value = try values.decode(Int.self, forKey: .tax)
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
     }
@@ -57,6 +58,7 @@ class Port: Node {
         try container.encode(owner?.name, forKey: .ownerName)
         try container.encode(itemBuyValue, forKey: .itemBuyValue)
         try container.encode(itemSellValue, forKey: .itemSellValue)
+        try container.encode(taxAmount.value, forKey: .tax)
         let superencoder = container.superEncoder()
         try super.encode(to: superencoder)
     }
@@ -129,5 +131,6 @@ class Port: Node {
         case itemParameters
         case itemBuyValue
         case itemSellValue
+        case tax
     }
 }

@@ -34,7 +34,7 @@ class PlayerItemsTableDataSource: NSObject, UITableViewDataSource {
         let cell = UITableViewCell(style: .value1,
                                    reuseIdentifier: PlayerItemsTableDataSource.reuseIdentifier)
 
-        cell.textLabel?.text = items[indexPath.row].itemParameter?.displayName ?? ""
+        cell.textLabel?.text = items[indexPath.row].name
         cell.detailTextLabel?.text = "\(InterfaceConstants.itemQuantityPrefix)\(items[indexPath.row].quantity)"
 
         return cell

@@ -8,7 +8,8 @@
 
 import Foundation
 
-class GenericPlayerStub {
+class GenericPlayerStub: GenericPlayer {
+    var isGameMaster = false
     var name: String = ""
     var team: Team?
     var money: GameVariable<Int> = GameVariable(value: 0)
@@ -24,7 +25,7 @@ class GenericPlayerStub {
     var playerShip: Ship?
     var homeNode: Int = 0
 
-    private let errorMessage = "GameMaster cannot perform normal actions"
+    private let errorMessage = "Stub cannot perform normal actions"
 
     required init() {
     }
@@ -105,7 +106,7 @@ class GenericPlayerStub {
         fatalError(errorMessage)
     }
 
-    func getPirateEncounterChance() -> Double {
+    func getPirateEncounterChance(at node: Int) -> Double {
         fatalError(errorMessage)
     }
 

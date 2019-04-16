@@ -9,7 +9,7 @@
 import Foundation
 
 class Ship: Codable {
-    let suppliesConsumed: [GenericItem]
+    let itemsConsumed: [GenericItem]
 
     var name: String {
         return owner?.name ?? "NPC Ship"
@@ -65,9 +65,9 @@ class Ship: Codable {
         }
     }
 
-    init(node: Node, suppliesConsumed: [GenericItem]) {
+    init(node: Node, itemsConsumed: [GenericItem]) {
         self.nodeIdVariable = GameVariable(value: node.identifier)
-        self.suppliesConsumed = suppliesConsumed
+        self.itemsConsumed = itemsConsumed
 
         subscribeToItems(with: updateCargoWeight)
         shipObject = ShipUI(ship: self)
@@ -76,7 +76,7 @@ class Ship: Codable {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         nodeIdVariable = GameVariable(value: try values.decode(Int.self, forKey: .nodeID))
-        suppliesConsumed = try values.decode([Item].self, forKey: .items)
+        itemsConsumed = try values.decode([Item].self, forKey: .suppliesConsumed)
         items.value = try values.decode([Item].self, forKey: .items)
 
         if values.contains(.auxiliaryUpgrade) {
@@ -93,7 +93,7 @@ class Ship: Codable {
     }
 
     func encode(to encoder: Encoder) throws {
-        guard let suppliesConsumed = suppliesConsumed as? [Item],
+        guard let suppliesConsumed = itemsConsumed as? [Item],
             let shipItems = items.value as? [Item] else {
                 return
         }
@@ -132,18 +132,21 @@ class Ship: Codable {
             isChasedByPirates = false
             turnsToBeingCaught = 0
             items.value.removeAll()
-            messages.append(InfoMessage(title: "Pirates!", message: "You have been caught by pirates!. You lost all your cargo"))
+            messages.append(InfoMessage(title: "Pirates!",
+                                        message: "You have been caught by pirates!. You lost all your cargo"))
         }
 
-        for supply in suppliesConsumed {
-            guard let parameter = supply.itemParameter else {
-                continue
-            }
+        for supply in itemsConsumed {
+            let parameter = supply.itemParameter
             let type = supply.itemType
             let deficit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
-            owner?.updateMoney(by: -deficit * parameter.getBuyValue())
-            messages.append(InfoMessage(title: "deficit!",
-                               message: "You have exhausted \(parameter.displayName) and have a deficit of \(deficit) and paid for it."))
+            if let owner = owner,
+                let ports = owner.gameState?.map.nodes.value.map({ $0 as? Port }).compactMap({ $0 }) {
+                owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
+                messages.append(InfoMessage(title: "deficit!",
+                               message: "You have exhausted \(parameter.displayName) and have a deficit"
+                                    + "of \(deficit) and paid twice the normal amount for it."))
+            }
         }
 
         // decay remaining items
@@ -152,13 +155,12 @@ class Ship: Codable {
                 continue
             }
             messages.append(InfoMessage(title: "Lost Item",
-                        message: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!"))
+                        message: "You have lost \(lostQuantity) of \(item.name) from decay"
+                            + "and have \(item.quantity) remaining!"))
         }
         return messages
     }
 }
-
-
 
 // MARK: - Observable values
 extension Ship {

@@ -37,7 +37,8 @@ class MapTest: XCTestCase {
         // test udpate map
         map.changeBackground("", with: Rect(originX: 100, originY: 100, height: 100, width: 100))
         XCTAssertEqual(map.map, "", "Map is not successfully updated")
-        XCTAssertEqual(map.bounds, Rect(originX: 100, originY: 100, height: 100, width: 100), "Bounds is not successfully updated")
+        XCTAssertEqual(map.bounds, Rect(originX: 100, originY: 100,
+                                        height: 100, width: 100), "Bounds is not successfully updated")
     }
 
     func testUpdateNodePath() {

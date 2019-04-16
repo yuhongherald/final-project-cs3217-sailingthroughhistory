@@ -9,15 +9,15 @@
 import Foundation
 
 class Item: GenericItem, Codable {
-    var name: String? {
-        return itemParameter?.displayName
+    var name: String {
+        return itemParameter.displayName
     }
-    var itemType: ItemType
-    var itemParameter: ItemParameter?
+    var itemType: ItemType {
+        return itemParameter.itemType
+    }
+    let itemParameter: ItemParameter
     var weight: Int? {
-        guard let unitWeight = itemParameter?.unitWeight else {
-            return nil
-        }
+        let unitWeight = itemParameter.unitWeight
         return quantity * unitWeight
     }
     // TODO: prevent quantity from going below 0
@@ -40,31 +40,24 @@ class Item: GenericItem, Codable {
     private var decimalQuantity = 0.0
 
     init(itemParameter: ItemParameter, quantity: Int) {
-        self.itemType = itemParameter.itemType
         self.itemParameter = itemParameter
         self.quantity = quantity
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        try itemType = values.decode(ItemType.self, forKey: .itemType)
         try itemParameter = values.decode(ItemParameter.self, forKey: .itemParameter)
         try quantity = values.decode(Int.self, forKey: .quantity)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(itemType, forKey: .itemType)
         try container.encode(itemParameter, forKey: .itemParameter)
         try container.encode(quantity, forKey: .quantity)
     }
 
-    func setItemParameter(_ itemParameter: ItemParameter) {
-        self.itemParameter = itemParameter
-    }
-
     func decayItem(with time: Double) -> Int? {
-        guard let halfLife = itemParameter?.getHalfLife() else {
+        guard let halfLife = itemParameter.getHalfLife() else {
             return nil
         }
         decimalQuantity /= pow(M_E, M_LN2 / Double(halfLife))
@@ -104,16 +97,14 @@ class Item: GenericItem, Codable {
     }
 
     func getBuyValue(at port: Port) -> Int? {
-        guard let itemParameter = itemParameter,
-            let unitValue = port.getBuyValue(of: itemParameter) else {
+        guard let unitValue = port.getBuyValue(of: itemParameter) else {
             return nil
         }
         return unitValue * quantity
     }
 
     func sell(at port: Port) -> Int? {
-        guard let itemParameter = itemParameter,
-            let unitValue = port.getSellValue(of: itemParameter) else {
+        guard let unitValue = port.getSellValue(of: itemParameter) else {
             return nil
         }
         let value = unitValue * quantity
@@ -126,7 +117,6 @@ class Item: GenericItem, Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case itemType
         case quantity
         case itemParameter
     }
