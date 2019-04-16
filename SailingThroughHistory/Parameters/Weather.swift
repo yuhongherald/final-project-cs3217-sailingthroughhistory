@@ -12,7 +12,7 @@ class Weather: Volatile {
     var windVelocity: Float = 0
     let strengths: [Float] = Default.Weather.strengths
 
-    func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
+    override func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
         if isActive {
             return oldVelocity + windVelocity
         } else {
@@ -21,8 +21,8 @@ class Weather: Volatile {
     }
 
     /// Update wind velocity based on current month strength.
-    func update(currentMonth: Int) {
+    override func update(currentMonth: Int) {
         windVelocity = strengths[currentMonth / 4]
-        isActive = windVelocity == 0
+        isActive = windVelocity != 0
     }
 }

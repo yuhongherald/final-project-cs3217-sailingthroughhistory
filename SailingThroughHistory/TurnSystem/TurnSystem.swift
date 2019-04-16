@@ -86,7 +86,7 @@ class TurnSystem: GenericTurnSystem {
 
     func startGame() {
         guard let player = getFirstPlayer() else {
-            state = .waitForTurnFinish
+            waitForTurnFinish()
             return
         }
         state = .waitPlayerInput(from: player)
@@ -358,18 +358,22 @@ class TurnSystem: GenericTurnSystem {
             callback()
         }
         guard let player = getNextPlayer() else {
-            state = .waitForTurnFinish
-            let currentTurn = data.currentTurn
-            network.subscribeToActions(for: currentTurn) { [weak self] actionPair, error in
-                if let _ = error {
-                    /// TODO: Error handling
-                    return
-                }
-                self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
-            }
+            waitForTurnFinish()
             return
         }
         state = .waitPlayerInput(from: player)
+    }
+
+    private func waitForTurnFinish() {
+        state = .waitForTurnFinish
+        let currentTurn = data.currentTurn
+        network.subscribeToActions(for: currentTurn) { [weak self] actionPair, error in
+            if let _ = error {
+                /// TODO: Error handling
+                return
+            }
+            self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
+        }
     }
 
     // Unused

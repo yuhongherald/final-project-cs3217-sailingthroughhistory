@@ -164,7 +164,7 @@ class GameState: GenericGameState {
             if roomPlayer.isGameMaster {
                 let player = GameMaster(name: roomPlayer.playerName, deviceId: roomPlayer.deviceId)
                 players.append(player)
-                return
+                continue
             }
             let parameter = parameters.first {
                 $0.getTeam().name == roomPlayer.teamName
