@@ -27,7 +27,7 @@ UICollectionViewDelegate, UITextFieldDelegate {
     }
 
     @IBAction func addPressed(_ sender: Any) {
-        let alert = UIAlert(title: "Input item display name:", msg: nil, confirm: { name in
+        let alert = UIAlert(title: "Input item display name:", msg: nil, confirm: { _ in
             // TODO: add item type, add item parameter
         }, textPlaceHolder: "Input item name here")
         alert.present(in: self)

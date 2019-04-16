@@ -23,7 +23,7 @@ class MainMenuViewController: UIViewController {
             guard let roomController = segue.destination as? WaitingRoomViewController,
                 let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
                     let alert = ControllerUtils.getGenericAlert(titled: "Error",
-                                                                withMsg: "An error has occured. Please try again later.")
+                        withMsg: "An error has occured. Please try again later.")
                     present(alert, animated: true)
                     return
             }

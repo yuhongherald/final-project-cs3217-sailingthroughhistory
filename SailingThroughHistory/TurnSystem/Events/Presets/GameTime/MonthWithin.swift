@@ -17,7 +17,7 @@ class MonthWithin: GenericComparator {
         self.end = max(end, 0) % 12 + 1
     }
     func compare(first: Any?, second: Any?) -> Bool {
-        guard let _ = first as? GameTime,
+        guard first is GameTime,
             let secondTime = second as? GameTime else {
             return false
         }

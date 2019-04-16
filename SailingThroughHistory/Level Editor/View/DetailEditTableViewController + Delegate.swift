@@ -1,4 +1,3 @@
-
 //
 //  File.swift
 //  SailingThroughHistory
@@ -21,14 +20,16 @@ extension DetailEditTableViewController: UITableViewDelegate, UITableViewDataSou
         let item = data[indexPath.section][indexPath.item]
         switch item.type {
         case .player:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "playerIdentifier") as? PlayerTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: "playerIdentifier") as? PlayerTableViewCell else {
                 fatalError("The dequeued cell is not an instance of PlayerTableViewCell.")
             }
             cell.item = item
 
             return cell
         case .turn:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "turnIdentifier") as? TurnTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(
+                    withIdentifier: "turnIdentifier") as? TurnTableViewCell else {
                 fatalError("The dequeued cell is not an instance of TurnTableViewCell.")
             }
             cell.item = item

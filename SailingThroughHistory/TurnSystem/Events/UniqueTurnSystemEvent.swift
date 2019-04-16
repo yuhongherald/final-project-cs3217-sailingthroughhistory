@@ -13,15 +13,15 @@ class UniqueTurnSystemEvent: TurnSystemEvent, Hashable {
         get {
             return _identifier
         }
-        set {
-            // discard
+        set(value) {
+            _ = value
         }
     }
-    
+
     static func == (lhs: UniqueTurnSystemEvent, rhs: UniqueTurnSystemEvent) -> Bool {
         return lhs.identifier == rhs.identifier
     }
-    
+
     private static func getIdentifier() -> Int {
         var identifier: Int = 0 // dummy value
         queue.sync {
@@ -34,24 +34,24 @@ class UniqueTurnSystemEvent: TurnSystemEvent, Hashable {
         }
         return identifier
     }
-    
+
     private static var nextID: Int = 0
     private static var identifiers = Set<Int>()
     private static let queue = DispatchQueue(label: "UniqueTurnSystemEventQueue",
                                              attributes: .concurrent)
     private let _identifier: Int
-    
+
     override init(triggers: [Trigger], conditions: [Evaluate],
                   actions: [Modify?], parsable: @escaping () -> String, displayName: String) {
         self._identifier = UniqueTurnSystemEvent.getIdentifier()
         super.init(triggers: triggers, conditions: conditions,
                    actions: actions, parsable: parsable, displayName: displayName)
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
     }
-    
+
     deinit {
         let identifier = self.identifier
         UniqueTurnSystemEvent.queue.async(flags: .barrier) {

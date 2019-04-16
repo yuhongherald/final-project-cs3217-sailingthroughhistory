@@ -26,7 +26,7 @@ class FirestoreRoom: Room {
             .map { FirestoreRoom(named: $0.documentID) }
     }
 
-    func getConnection(completion callback: @escaping (RoomConnection?, Error?) -> ()) {
+    func getConnection(completion callback: @escaping (RoomConnection?, Error?) -> Void) {
         FirebaseRoomConnection.getConnection(for: self, completion: callback)
     }
 

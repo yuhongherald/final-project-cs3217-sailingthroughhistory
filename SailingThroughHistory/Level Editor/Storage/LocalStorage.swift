@@ -26,14 +26,16 @@ class LocalStorage {
         }
     }
 
-    /// Attempt to encode level data into json file. A complete level data set should contains data, background image and preview image.
+    /// Attempt to encode level data into json file. A complete level data set
+    /// should contains data, background image and preview image.
     /// On failure, all the related level data should be deleted.
     /// - Parameters:
     ///   - data: encodable data to be save into a JSON file
     ///   - background: the background image to be saved
     ///   - screenShot: the preview of level
     ///   - name: proposed level name
-    func save<T: Encodable>(_ data: T, _ background: UIImage, preview screenShot: UIImage, with name: String, replace: Bool = false) throws -> Bool {
+    func save<T: Encodable>(_ data: T, _ background: UIImage,
+                            preview screenShot: UIImage, with name: String, replace: Bool = false) throws -> Bool {
         try verify(name: name)
         print("\(replace), \(isLevelExist(name))")
         guard replace || !isLevelExist(name) else {
