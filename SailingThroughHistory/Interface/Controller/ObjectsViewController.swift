@@ -48,7 +48,6 @@ class ObjectsViewController {
                 nodeView.isUserInteractionEnabled = true
                 nodeView.frame = CGRect.translatingFrom(otherBounds: self.modelBounds, otherFrame: node.frame,
                                                         to: self.view.bounds)
-                nodeView.image = self.getImageFor(node: node)
                 self.view.addSubview(nodeView)
                 self.nodeViews[node.identifier] = nodeView
             }
@@ -201,21 +200,18 @@ class ObjectsViewController {
         object.subscibeToFrame { [weak self] frame in
             self?.update(frame: frame, for: object)
         }
-        if object as? ShipUI != nil {
-            objectView.image = UIImage(named: "ship.png")
+        if let shipUI = object as? ShipUI {
+            objectView.image = UIImage(named: Resources.Icon.ship)
+            if let team = shipUI.ship?.owner?.team {
+                let icon = Icon(image: UIImage(named: Resources.Flag.of(team)))
+                icon.addIcon(to: objectView)
+            }
+        }
+        if object as? NPC != nil {
+            objectView.image = UIImage(named: Resources.Icon.npc)
         }
         self.objectViews[object] = objectView
         self.view.addSubview(objectView)
-    }
-
-    private func getImageFor(node: Node) -> UIImage? {
-        if node as? Sea != nil {
-            return UIImage(named: "sea-node")
-        } else if node as? Port != nil {
-            return UIImage(named: "port-node")
-        }
-
-        return nil
     }
 
     private func onTapPort(portView: NodeView) {

@@ -76,7 +76,7 @@ class Ship: Codable {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         nodeIdVariable = GameVariable(value: try values.decode(Int.self, forKey: .nodeID))
-        itemsConsumed = try values.decode([Item].self, forKey: .items)
+        itemsConsumed = try values.decode([Item].self, forKey: .suppliesConsumed)
         items.value = try values.decode([Item].self, forKey: .items)
 
         if values.contains(.auxiliaryUpgrade) {
@@ -130,7 +130,7 @@ class Ship: Codable {
                                          message: "\(turnsToBeingCaught) more turns to being caught!"))
         }
 
-        if isChasedByPirates && turnsToBeingCaught <= 0 {
+        if isChasedByPirates && turnsToBeingCaught <= 0 && !isDocked {
             isChasedByPirates = false
             turnsToBeingCaught = 0
             items.value.removeAll()

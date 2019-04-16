@@ -45,15 +45,11 @@ extension Ship: ItemStorage {
         }
         owner?.updateMoney(by: -price)
         try addItem(item: item)
-        throw BuyItemError.purchaseSuccess(item: item)
     }
 
     func sellItem(item: GenericItem) throws {
         guard let port = node as? Port, isDocked else {
             throw BuyItemError.notDocked
-        }
-        guard item.itemParameter != nil else {
-            throw BuyItemError.unknownItem
         }
         guard let index = items.value.firstIndex(where: {$0 == item}) else {
             throw BuyItemError.itemNotAvailable

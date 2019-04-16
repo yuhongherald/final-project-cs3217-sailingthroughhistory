@@ -9,7 +9,7 @@
 protocol GenericTurnSystemState {
     var currentTurn: Int { get }
     var gameState: GenericGameState { get }
-
+    var events: [Int: TurnSystemEvent] { get }
     var currentPlayerIndex: Int { get set }
 
     var triggeredEvents: [TurnSystemEvent] { get }
@@ -17,7 +17,8 @@ protocol GenericTurnSystemState {
     func removeEvents(events: [TurnSystemEvent]) -> Bool
     func setEvents(events: [TurnSystemEvent]) -> Bool
     func checkForEvents() -> [GameMessage]
-
+    func getPresetEvents() -> [PresetEvent]
+    
     func turnFinished()
     func processed(action: PlayerAction, from player: GenericPlayer)
 }

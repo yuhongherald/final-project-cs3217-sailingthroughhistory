@@ -33,4 +33,5 @@ enum FirestoreConstants {
     static let playerDeviceKey = "Device"
     static let teamsKey = "Teams"
     static let backgroundUrlKey = "backgroundUrl"
+    static let isGmKey = "isGm"
 }

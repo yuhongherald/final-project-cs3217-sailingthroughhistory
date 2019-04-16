@@ -306,13 +306,15 @@ class FirebaseRoomConnection: RoomConnection {
             var players = [RoomMember]()
             for document in snapshot.documents {
                 let team = document.get(FirestoreConstants.playerTeamKey) as? String
+                let isGameMaster = document.get(FirestoreConstants.isGmKey) as? Bool
                 let player = document.documentID
                 guard let deviceId = document.get(FirestoreConstants.playerDeviceKey) as? String else {
                     self.playersCollectionRef.document(document.documentID).delete()
                     continue
                 }
-
-                players.append(RoomMember(playerName: player, teamName: team, deviceId: deviceId))
+                var member = RoomMember(playerName: player, teamName: team, deviceId: deviceId)
+                member.isGameMaster = isGameMaster ?? false
+                players.append(member)
             }
 
             callback(players)

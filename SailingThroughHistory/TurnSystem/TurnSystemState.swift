@@ -8,7 +8,7 @@
 
 // A class used to hold the state of the turn based game
 class TurnSystemState: GenericTurnSystemState {
-    private var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
+    private(set) var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     private var actionHistory = [(player: GenericPlayer, action: PlayerAction)]()
     let gameState: GenericGameState
     var currentPlayerIndex = 0
@@ -22,6 +22,10 @@ class TurnSystemState: GenericTurnSystemState {
     private var triggeredEventsDict: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     var triggeredEvents: [TurnSystemEvent] {
         return Array(triggeredEventsDict.values)
+    }
+
+    func getPresetEvents() -> [PresetEvent] {
+        return events.values.compactMap { $0 as? PresetEvent }
     }
 
     func addEvents(events: [TurnSystemEvent]) -> Bool {

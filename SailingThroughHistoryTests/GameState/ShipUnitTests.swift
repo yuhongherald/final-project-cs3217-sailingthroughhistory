@@ -13,7 +13,7 @@ class ShipUnitTests: XCTestCase {
     let speedMultiplier = 1.0
     var node = NodeStub(name: "testNode", identifier: 0)
     var items = [GenericItemStub]()
-    var suppliesConsumed = [GenericItemStub]()
+    var itemsConsumed = [GenericItemStub]()
 
     override func setUp() {
         super.setUp()
@@ -23,16 +23,16 @@ class ShipUnitTests: XCTestCase {
         let item1 = GenericItemStub(name: "TestItem1", itemType: .opium, quantity: 1)
         items.append(item1)
 
-        suppliesConsumed = [GenericItemStub]()
+        itemsConsumed = [GenericItemStub]()
         let consumed1 = GenericItemStub(name: "TestConsume1", itemType: .food, quantity: 1)
-        suppliesConsumed.append(consumed1)
+        itemsConsumed.append(consumed1)
     }
 
     func testConstructor() {
-        //init(node: Node, suppliesConsumed: [GenericItem])
-        let ship = Ship(node: node, itemsConsumed: suppliesConsumed)
+        //init(node: Node, itemsConsumed: [GenericItem])
+        let ship = Ship(node: node, itemsConsumed: itemsConsumed)
         XCTAssertEqual(ship.nodeId, node.identifier)
-        XCTAssertTrue(testTwoGenericItemArray(ship.itemsConsumed, suppliesConsumed))
+        XCTAssertTrue(testTwoGenericItemArray(ship.itemsConsumed, itemsConsumed))
         XCTAssertEqual(ship.isChasedByPirates, false)
         XCTAssertEqual(ship.turnsToBeingCaught, 0)
 
@@ -93,12 +93,12 @@ class ShipUnitTests: XCTestCase {
         //messages.append(InfoMessage(title: "Pirates!", message: "You have
         //been caught by pirates!. You lost all your cargo"))
 
-        let ship3 = Ship(node: node, itemsConsumed: suppliesConsumed)
+        let ship3 = Ship(node: node, itemsConsumed: itemsConsumed)
         let money3 = 1000
         let owner3 = GenericPlayerStub()
         ship3.owner = owner3
         owner3.money.value = money3
-        ship3.items.value = suppliesConsumed.map { $0.copy() }
+        ship3.items.value = itemsConsumed.map { $0.copy() }
         let messages3 = ship3.endTurn(speedMultiplier: speedMultiplier)
 
         XCTAssertTrue(testTwoGenericItemArray(ship3.items.value, [GenericItem]()))

@@ -39,6 +39,14 @@ class Map: Codable {
         nodeIDPair = [Int: Node]()
     }
 
+    func updateWeather(for month: Int) {
+        for path in paths.values.flatMap({ $0 }) {
+            for weather in path.modifiers {
+                weather.update(currentMonth: month)
+            }
+        }
+    }
+
     func changeBackground(_ map: String, with bounds: Rect?) {
         guard let unwrappedBounds = bounds else {
             fatalError("Map bounds shouldn't be nil.")
@@ -178,31 +186,44 @@ class Map: Codable {
         }
         self.nodes.value = nodes
 
-        let pathDictionary = try container.decode([Int: [Int: [Volatile]]].self, forKey: .paths)
-        for pair in pathDictionary {
-            guard let fromNode = nodeIDPair[pair.key] else {
+        var simplifiedPaths = try container.nestedUnkeyedContainer(forKey: .paths)
+        while !simplifiedPaths.isAtEnd {
+            let simplifiedPath = try simplifiedPaths.nestedContainer(keyedBy: PathKeys.self)
+            let fromId = try simplifiedPath.decode(Int.self, forKey: PathKeys.fromId)
+            let toId = try simplifiedPath.decode(Int.self, forKey: PathKeys.toId)
+            guard let fromNode = nodeIDPair[fromId], let toNode = nodeIDPair[toId] else {
                 continue
             }
-            for subPair in pair.value {
-                guard let toNode = nodeIDPair[subPair.key] else {
-                    continue
-                }
 
-                // add path to from node neighbour
-                if paths[fromNode] == nil {
-                    paths[fromNode] = []
-                }
-                let path = Path(from: fromNode, to: toNode)
-                path.modifiers = subPair.value
-                paths[fromNode]?.append(path)
+            var volatilesArrayForType = try simplifiedPath.nestedUnkeyedContainer(forKey: PathKeys.volatiles)
+            var modifiers = [Volatile]()
+            while !volatilesArrayForType.isAtEnd {
+                let volatile = try volatilesArrayForType.nestedContainer(keyedBy: VolatileTypeKey.self)
+                let type = try volatile.decode(VolatileTypes.self, forKey: VolatileTypeKey.type)
 
-                // add path to to node neighbour
-                if paths[toNode] == nil {
-                    paths[toNode] = []
+                switch type {
+                case .volatileMonsoom:
+                    let volatile = try volatile.decode(VolatileMonsoon.self, forKey: VolatileTypeKey.volatile)
+                    modifiers.append(volatile)
+                case .weather:
+                    let volatile = try volatile.decode(Weather.self, forKey: VolatileTypeKey.volatile)
+                    modifiers.append(volatile)
                 }
-                paths[toNode]?.append(path)
             }
+
+            let path = Path(from: fromNode, to: toNode)
+            path.modifiers = modifiers
+
+            if self.paths[fromNode] == nil {
+                self.paths[fromNode] = []
+            }
+            if self.paths[toNode] == nil {
+                self.paths[toNode] = []
+            }
+            self.paths[fromNode]?.append(path)
+            self.paths[toNode]?.append(path)
         }
+
         self.pathsVariable.value = paths
         var objectsWithType = try container.nestedUnkeyedContainer(forKey: CodingKeys.objects)
         while !objectsWithType.isAtEnd {
@@ -241,25 +262,28 @@ class Map: Codable {
         }
         try container.encode(nodesWithType, forKey: .nodes)
 
-        var simplifiedPaths = [Int: [Int: [Volatile]]]()
-
+        var simplifiedPaths = [SimplifiedPath]()
         for pair in getAllPaths() {
             let fromID = pair.fromNode.identifier
             let toID = pair.toNode.identifier
-            if simplifiedPaths[fromID] == nil {
-                simplifiedPaths[fromID] = [:]
+            var volatileWithType = [VolatileWithType]()
+            for volatile in pair.modifiers {
+                if volatile is VolatileMonsoon {
+                    volatileWithType.append(VolatileWithType(volatile: volatile, type: VolatileTypes.volatileMonsoom))
+                }
+                if volatile is Weather {
+                    volatileWithType.append(VolatileWithType(volatile: volatile, type: VolatileTypes.weather))
+                }
             }
-            simplifiedPaths[fromID]?[toID] = []
-            pair.modifiers.forEach { simplifiedPaths[fromID]?[toID]?.append($0)}
+            simplifiedPaths.append(SimplifiedPath(fromId: fromID, toId: toID, volatiles: volatileWithType))
         }
-
         try container.encode(simplifiedPaths, forKey: .paths)
         try container.encode(bounds, forKey: .bounds)
         try container.encode(nodesWithType, forKey: .nodes)
         var objectsWithType = [ObjectWithType]()
         for object in gameObjects.value {
             if object is ShipUI {
-                objectsWithType.append(ObjectWithType(object: object, type: ObjectType.ship))
+                continue
             } else if object is PirateIsland {
                 objectsWithType.append(ObjectWithType(object: object, type: ObjectType.pirate))
             } else if object is NPC {
@@ -289,6 +313,44 @@ class Map: Codable {
     enum NodeTypes: String, Codable {
         case port
         case sea
+    }
+
+    struct SimplifiedPath: Codable {
+        var fromId: Int
+        var toId: Int
+        var volatiles: [VolatileWithType]
+
+        init(fromId: Int, toId: Int, volatiles: [VolatileWithType]) {
+            self.fromId = fromId
+            self.toId = toId
+            self.volatiles = volatiles
+        }
+    }
+
+    enum PathKeys: String, CodingKey {
+        case fromId
+        case toId
+        case volatiles
+    }
+
+    enum VolatileTypeKey: String, CodingKey {
+        case type
+        case volatile
+    }
+
+    enum VolatileTypes: String, Codable {
+        case volatileMonsoom
+        case weather
+    }
+
+    struct VolatileWithType: Codable {
+        var volatile: Volatile
+        var type: VolatileTypes
+
+        init(volatile: Volatile, type: VolatileTypes) {
+            self.volatile = volatile
+            self.type = type
+        }
     }
 
     enum ObjectTypeKey: String, CodingKey {
@@ -342,3 +404,4 @@ class Map: Codable {
         return true
     }
 }
+
