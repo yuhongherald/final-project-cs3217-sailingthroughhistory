@@ -52,9 +52,6 @@ extension Ship: ItemStorage {
         guard let port = node as? Port, isDocked else {
             throw BuyItemError.notDocked
         }
-        guard item.itemParameter != nil else {
-            throw BuyItemError.unknownItem
-        }
         guard let index = items.value.firstIndex(where: {$0 == item}) else {
             throw BuyItemError.itemNotAvailable
         }

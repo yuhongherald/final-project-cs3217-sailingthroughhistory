@@ -24,7 +24,7 @@ class GenericItemStub: GenericItem {
 
     init(name: String, itemType: ItemType, quantity: Int) {
         self.name = name
-        itemParameter = ItemParameter(itemType: itemType, displayName: itemType.rawValue, weight: 0, isConsumable: false)
+        self.itemParameter = ItemParameter(itemType: itemType, displayName: itemType.rawValue, weight: 0, isConsumable: false)
         self.quantity = quantity
     }
 

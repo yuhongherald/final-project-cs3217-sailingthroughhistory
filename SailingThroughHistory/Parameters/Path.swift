@@ -22,7 +22,38 @@ class Path: Hashable, Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         fromNode = try values.decode(Node.self, forKey: .fromNode)
         toNode = try values.decode(Node.self, forKey: .toNode)
-        modifiers = try values.decode([Volatile].self, forKey: .modifiers)
+
+        var volatilesArrayForType = try values.nestedUnkeyedContainer(forKey: CodingKeys.modifiers)
+        while !volatilesArrayForType.isAtEnd {
+            let volatile = try volatilesArrayForType.nestedContainer(keyedBy: VolatileTypeKey.self)
+            let type = try volatile.decode(VolatileTypes.self, forKey: VolatileTypeKey.type)
+
+            switch type {
+            case .volatileMonsoom:
+                let volatile = try volatile.decode(VolatileMonsoon.self, forKey: VolatileTypeKey.volatile)
+                modifiers.append(volatile)
+            case .weather:
+                let volatile = try volatile.decode(Weather.self, forKey: VolatileTypeKey.volatile)
+                modifiers.append(volatile)
+            }
+        }
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(fromNode, forKey: .fromNode)
+        try container.encode(toNode, forKey: .toNode)
+
+        var volatileWithType = [VolatileWithType]()
+        for volatile in modifiers {
+            if volatile is VolatileMonsoon {
+                volatileWithType.append(VolatileWithType(volatile: volatile, type: VolatileTypes.volatileMonsoom))
+            }
+            if volatile is Weather {
+                volatileWithType.append(VolatileWithType(volatile: volatile, type: VolatileTypes.weather))
+            }
+        }
+        try container.encode(volatileWithType, forKey: .modifiers)
     }
 
     static func == (lhs: Path, rhs: Path) -> Bool {
@@ -46,5 +77,25 @@ class Path: Hashable, Codable {
         case fromNode
         case toNode
         case modifiers
+    }
+
+    enum VolatileTypeKey: String, CodingKey {
+        case type
+        case volatile
+    }
+
+    enum VolatileTypes: String, Codable {
+        case volatileMonsoom
+        case weather
+    }
+
+    struct VolatileWithType: Codable {
+        var volatile: Volatile
+        var type: VolatileTypes
+
+        init(volatile: Volatile, type: VolatileTypes) {
+            self.volatile = volatile
+            self.type = type
+        }
     }
 }

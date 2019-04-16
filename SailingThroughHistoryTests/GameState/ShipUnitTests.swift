@@ -13,7 +13,7 @@ class ShipUnitTests: XCTestCase {
     let speedMultiplier = 1.0
     var node = NodeStub(name: "testNode", identifier: 0)
     var items = [GenericItemStub]()
-    var suppliesConsumed = [GenericItemStub]()
+    var itemsConsumed = [GenericItemStub]()
 
     override func setUp() {
         super.setUp()
@@ -23,16 +23,16 @@ class ShipUnitTests: XCTestCase {
         let item1 = GenericItemStub(name: "TestItem1", itemType: .opium, quantity: 1)
         items.append(item1)
 
-        suppliesConsumed = [GenericItemStub]()
+        itemsConsumed = [GenericItemStub]()
         let consumed1 = GenericItemStub(name: "TestConsume1", itemType: .food, quantity: 1)
-        suppliesConsumed.append(consumed1)
+        itemsConsumed.append(consumed1)
     }
 
     func testConstructor() {
-        //init(node: Node, suppliesConsumed: [GenericItem])
-        let ship = Ship(node: node, suppliesConsumed: suppliesConsumed)
+        //init(node: Node, itemsConsumed: [GenericItem])
+        let ship = Ship(node: node, itemsConsumed: itemsConsumed)
         XCTAssertEqual(ship.nodeId, node.identifier)
-        XCTAssertTrue(testTwoGenericItemArray(ship.suppliesConsumed, suppliesConsumed))
+        XCTAssertTrue(testTwoGenericItemArray(ship.itemsConsumed, itemsConsumed))
         XCTAssertEqual(ship.isChasedByPirates, false)
         XCTAssertEqual(ship.turnsToBeingCaught, 0)
 
@@ -41,7 +41,7 @@ class ShipUnitTests: XCTestCase {
     }
 
     func testEncodeDecode() {
-        let ship1 = Ship(node: node, suppliesConsumed: [])
+        let ship1 = Ship(node: node, itemsConsumed: [])
         //ship1.items.value = items
         let shipChassis = BiggerShipUpgrade()
         let auxiliaryUpgrade = MercernaryUpgrade()
@@ -58,7 +58,7 @@ class ShipUnitTests: XCTestCase {
         }
         //XCTAssertTrue(testTwoGenericItemArray(ship1Decoded.items.value, ship1.items.value))
         XCTAssertEqual(ship1Decoded.nodeId, ship1.nodeId)
-        XCTAssertTrue(testTwoGenericItemArray(ship1Decoded.suppliesConsumed, ship1.suppliesConsumed))
+        XCTAssertTrue(testTwoGenericItemArray(ship1Decoded.itemsConsumed, ship1.itemsConsumed))
         XCTAssertEqual(ship1Decoded.shipChassis?.name,
                        ship1.shipChassis?.name)
         XCTAssertEqual(ship1Decoded.auxiliaryUpgrade?.name,
@@ -70,7 +70,7 @@ class ShipUnitTests: XCTestCase {
 
     func testEndTurn() {
         //func endTurn(speedMultiplier: Double) -> [InfoMessage]
-        let ship1 = Ship(node: node, suppliesConsumed: [])
+        let ship1 = Ship(node: node, itemsConsumed: [])
         let pirateTimer1 = 10
         ship1.items.value = items
         ship1.isChasedByPirates = true
@@ -81,7 +81,7 @@ class ShipUnitTests: XCTestCase {
         XCTAssertEqual(ship1.isChasedByPirates, true)
         XCTAssertEqual(ship1.turnsToBeingCaught, pirateTimer1 - 1)
 
-        let ship2 = Ship(node: node, suppliesConsumed: [])
+        let ship2 = Ship(node: node, itemsConsumed: [])
         ship2.items.value = items
         ship2.isChasedByPirates = true
         ship2.turnsToBeingCaught = 1
@@ -93,12 +93,12 @@ class ShipUnitTests: XCTestCase {
         //messages.append(InfoMessage(title: "Pirates!", message: "You have
         //been caught by pirates!. You lost all your cargo"))
 
-        let ship3 = Ship(node: node, suppliesConsumed: suppliesConsumed)
+        let ship3 = Ship(node: node, itemsConsumed: itemsConsumed)
         let money3 = 1000
         let owner3 = GenericPlayerStub()
         ship3.owner = owner3
         owner3.money.value = money3
-        ship3.items.value = suppliesConsumed.map { $0.copy() }
+        ship3.items.value = itemsConsumed.map { $0.copy() }
         let messages3 = ship3.endTurn(speedMultiplier: speedMultiplier)
 
         XCTAssertTrue(testTwoGenericItemArray(ship3.items.value, [GenericItem]()))
