@@ -165,6 +165,7 @@ extension Node {
         var queue = [(Node, Int)]()
         var visited = Set<Int>()
         var next = self
+        queue.append((next, 0))
         var weight = -1
         while next != node && !queue.isEmpty {
             (next, weight) = queue.removeFirst()

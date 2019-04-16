@@ -48,7 +48,6 @@ class ObjectsViewController {
                 nodeView.isUserInteractionEnabled = true
                 nodeView.frame = CGRect.translatingFrom(otherBounds: self.modelBounds, otherFrame: node.frame,
                                                         to: self.view.bounds)
-                nodeView.image = self.getImageFor(node: node)
                 self.view.addSubview(nodeView)
                 self.nodeViews[node.identifier] = nodeView
             }
@@ -213,16 +212,6 @@ class ObjectsViewController {
         }
         self.objectViews[object] = objectView
         self.view.addSubview(objectView)
-    }
-
-    private func getImageFor(node: Node) -> UIImage? {
-        if node as? Sea != nil {
-            return UIImage(named: "sea-node")
-        } else if node as? Port != nil {
-            return UIImage(named: "port-node")
-        }
-
-        return nil
     }
 
     private func onTapPort(portView: NodeView) {

@@ -39,6 +39,14 @@ class Map: Codable {
         nodeIDPair = [Int: Node]()
     }
 
+    func updateWeather(for month: Int) {
+        for path in paths.values.flatMap({ $0 }) {
+            for weather in path.modifiers {
+                weather.update(currentMonth: month)
+            }
+        }
+    }
+
     func changeBackground(_ map: String, with bounds: Rect?) {
         guard let unwrappedBounds = bounds else {
             fatalError("Map bounds shouldn't be nil.")
@@ -275,7 +283,7 @@ class Map: Codable {
         var objectsWithType = [ObjectWithType]()
         for object in gameObjects.value {
             if object is ShipUI {
-                objectsWithType.append(ObjectWithType(object: object, type: ObjectType.ship))
+                continue
             } else if object is PirateIsland {
                 objectsWithType.append(ObjectWithType(object: object, type: ObjectType.pirate))
             } else if object is NPC {

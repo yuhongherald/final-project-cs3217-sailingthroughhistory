@@ -53,7 +53,7 @@ protocol GenericPlayer: class, Codable {
     // After moving can choose to dock
     func canDock() -> Bool
     func dock() throws
-    func getPirateEncounterChance() -> Double
+    func getPirateEncounterChance(at nodeId: Int) -> Double
 
     // Docked - End turn is manual here
     func getPurchasableItemTypes() -> [ItemType]

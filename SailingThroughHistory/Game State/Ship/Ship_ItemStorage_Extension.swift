@@ -45,7 +45,6 @@ extension Ship: ItemStorage {
         }
         owner?.updateMoney(by: -price)
         try addItem(item: item)
-        throw BuyItemError.purchaseSuccess(item: item)
     }
 
     func sellItem(item: GenericItem) throws {

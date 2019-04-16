@@ -106,7 +106,7 @@ class GenericPlayerStub: GenericPlayer {
         fatalError(errorMessage)
     }
 
-    func getPirateEncounterChance() -> Double {
+    func getPirateEncounterChance(at node: Int) -> Double {
         fatalError(errorMessage)
     }
 
