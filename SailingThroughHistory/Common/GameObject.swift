@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class GameObject: ReadOnlyGameObject, Codable {
+class GameObject: Codable {
     let frame: GameVariable<Rect>
 
     required init(from decoder: Decoder) throws {

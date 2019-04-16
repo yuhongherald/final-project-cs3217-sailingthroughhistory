@@ -69,6 +69,17 @@ class WaitingRoom {
         connection.remove(player: playerName)
     }
 
+    func makeGameMaster(_ identifier: String) {
+        guard isRoomMaster(),
+            let playerIndex = players.firstIndex(where: { $0.playerName == identifier }) else {
+            return
+        }
+        for index in players.indices {
+            players[index].isGameMaster = false
+        }
+        players[playerIndex].isGameMaster = true
+    }
+
     private func updateTeamList() {
         guard isRoomMaster(),
             let parameters = parameters else {

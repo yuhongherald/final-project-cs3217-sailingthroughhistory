@@ -115,7 +115,6 @@ extension Node: Hashable {
 
 // Mark : - Information
 extension Node {
-
     func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
         var pQueue = PriorityQueue<ComparablePair<Node>>()
         var visited = Set<Int>()
