@@ -42,7 +42,7 @@ class GameState: GenericGameState {
             player.gameState = self
         }
         initializePortTaxes(to: level.defaultTaxAmount)
-        initializeNPCs(amount: level.numNPC)
+        initializeNPCs(amount: players.count)
     }
 
     required init(from decoder: Decoder) throws {
