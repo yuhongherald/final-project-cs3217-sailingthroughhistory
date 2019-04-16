@@ -428,7 +428,7 @@ class TurnSystem: GenericTurnSystem {
             guard let gameState = self?.gameState else {
                 return
             }
-            assert(gameState.description == networkGameState.description)
+            //assert(gameState.description == networkGameState.description)
         }
     }
 
