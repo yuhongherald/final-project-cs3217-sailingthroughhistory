@@ -111,17 +111,20 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
-            if let document = snapshot, document.exists, let started = document.get(FirestoreConstants.roomStartedKey) as? Bool {
-                if (!started) {
+            if let document = snapshot, document.exists,
+                let started = document.get(FirestoreConstants.roomStartedKey) as? Bool {
+                if !started {
                     // join as usual player
-                    connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers]) { error in
-                        postConnectionActions(error: error)
-                    }
+                    connection.devicesCollectionRef.document(connection.deviceId)
+                        .setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers]) { error in
+                            postConnectionActions(error: error)
+                        }
                 } else {
                     // join as spectator - during game play
-                    connection.devicesCollectionRef.document(connection.deviceId).setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers]) { error in
-                        postConnectionActions(error: error)
-                    }
+                    connection.devicesCollectionRef.document(connection.deviceId)
+                            .setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers]) { error in
+                                postConnectionActions(error: error)
+                        }
                 }
             } else {
                 connection.createRoom(completion: postConnectionActions)
@@ -207,7 +210,8 @@ class FirebaseRoomConnection: RoomConnection {
 
     private func removeDevice(withId deviceName: String) {
         self.devicesCollectionRef.document(deviceName).delete()
-        self.playersCollectionRef.whereField(FirestoreConstants.playerDeviceKey, isEqualTo: deviceName).getDocuments { (snapshot, error) in
+        self.playersCollectionRef.whereField(
+            FirestoreConstants.playerDeviceKey, isEqualTo: deviceName).getDocuments { (snapshot, _) in
             guard let snapshot = snapshot else {
                 return
             }
@@ -234,8 +238,8 @@ class FirebaseRoomConnection: RoomConnection {
                     return
                 }
 
-                batch.setData(data,
-                              forDocument: self.modelCollectionRef.document(FirestoreConstants.initialStateDocumentName))
+                batch.setData(data, forDocument: self.modelCollectionRef.document(
+                    FirestoreConstants.initialStateDocumentName))
                 batch.updateData([FirestoreConstants.roomStartedKey: true,
                                   FirestoreConstants.backgroundUrlKey: path], forDocument: self.roomDocumentRef)
 
@@ -325,7 +329,7 @@ class FirebaseRoomConnection: RoomConnection {
         docRef.setData(encoded, completion: callback)
     }
 
-    func push(actions: [PlayerAction], fromPlayer player: GenericPlayer, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> ()) throws {
+    func push(actions: [PlayerAction], fromPlayer player: GenericPlayer, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> Void) throws {
         /// TODO: Change collection
         /// Room doc -> runtimeinfo(col) -> TurnActions (doc) -> Turn1...Turn999 (col)
         try push(PlayerActionBatch(playerName: player.name, actions: actions),

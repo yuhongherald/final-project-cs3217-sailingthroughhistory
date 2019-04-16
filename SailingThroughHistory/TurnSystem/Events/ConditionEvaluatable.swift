@@ -16,8 +16,8 @@ class ConditionEvaluatable<T>: Evaluatable<T> {
             }
             return trueValue.value
         }
-        set {
-            // discarded
+        set(inputValue) {
+            _ = inputValue
         }
     }
     private let conditions: [Evaluate]

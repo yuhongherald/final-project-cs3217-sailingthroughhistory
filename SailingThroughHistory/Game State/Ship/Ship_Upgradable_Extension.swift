@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Ship: Upgradable{
+extension Ship: Upgradable {
     func installUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
         guard let owner = owner else {
             return (false, InfoMessage(title: "Error", message: "Ship has no owner!"))

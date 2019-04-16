@@ -15,9 +15,6 @@ class ItemTest: XCTestCase {
 
     func testUpdateItem() {
         let item = Item(itemParameter: cItemParameter, quantity: 200)
-        item.setItemParameter(uncItemParameter)
-        XCTAssertEqual(item.itemParameter, uncItemParameter, "Item parameter is not successfully updated.")
-
         item.setQuantity(quantity: -100)
         XCTAssertEqual(item.quantity, 0, "Item quantity should not fall below 0.")
         item.setQuantity(quantity: 100)
@@ -48,7 +45,6 @@ class ItemTest: XCTestCase {
 
     func testDecay() {
         let cItem = Item(itemParameter: cItemParameter, quantity: 100)
-        cItem.decayItem(with: <#T##Double#>)
         // TODO:
     }
 

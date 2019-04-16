@@ -9,7 +9,8 @@
 import UIKit
 
 extension UIBezierPath {
-    func drawArrow(from start: CGPoint, to end: CGPoint, arrowAngle: CGFloat = CGFloat.pi / 6, headLength: CGFloat = 30) {
+    func drawArrow(from start: CGPoint, to end: CGPoint,
+                   arrowAngle: CGFloat = CGFloat.pi / 6, headLength: CGFloat = 30) {
         self.move(to: start)
         self.addLine(to: end)
         let startEndAngle = atan((end.y - start.y) / (end.x - start.x))

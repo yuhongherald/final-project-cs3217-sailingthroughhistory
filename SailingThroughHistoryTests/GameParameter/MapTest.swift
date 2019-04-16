@@ -37,7 +37,8 @@ class MapTest: XCTestCase {
         // test udpate map
         map.changeBackground("", with: Rect(originX: 100, originY: 100, height: 100, width: 100))
         XCTAssertEqual(map.map, "", "Map is not successfully updated")
-        XCTAssertEqual(map.bounds, Rect(originX: 100, originY: 100, height: 100, width: 100), "Bounds is not successfully updated")
+        XCTAssertEqual(map.bounds, Rect(originX: 100, originY: 100,
+                                        height: 100, width: 100), "Bounds is not successfully updated")
     }
 
     func testUpdateNodePath() {
@@ -84,7 +85,7 @@ class MapTest: XCTestCase {
     func testUpdateObject() {
         // test add object
         var objects = [GameObject]()
-        let ship = ShipUI(ship: Ship(node: sea, suppliesConsumed: []))
+        let ship = ShipUI(ship: Ship(node: sea, itemsConsumed: []))
         map.addGameObject(gameObject: ship)
         objects.append(ship)
         XCTAssertEqual(map.gameObjects.value, objects, "Objects are not successfully added")
@@ -109,7 +110,7 @@ class MapTest: XCTestCase {
         map.add(path: Path(from: pirateSea, to: NPCport))
         map.add(path: Path(from: NPCport, to: sea))
         map.addGameObject(gameObject: PirateIsland(in: pirateSea))
-        map.addGameObject(gameObject: ShipUI(ship: Ship(node: selfport, suppliesConsumed: [])))
+        map.addGameObject(gameObject: ShipUI(ship: Ship(node: selfport, itemsConsumed: [])))
 
         guard let encode = try? JSONEncoder().encode(map) else {
             XCTAssertThrowsError("Encode Failed")

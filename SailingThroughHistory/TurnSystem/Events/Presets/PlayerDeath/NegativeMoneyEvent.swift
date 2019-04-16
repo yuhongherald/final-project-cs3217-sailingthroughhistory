@@ -24,7 +24,8 @@ class NegativeMoneyEvent: PresetEvent {
                     first: GameVariableEvaluatable<Int>(variable: player.money),
                     second: Evaluatable<Int>(0), change: LessThanOperator<Int>())],
                    actions: actions,
-                   parsable: { return "\(player.name) has lost their ship's cargo and is sent back to \(player.homeNode)" },
+                   parsable: { return "\(player.name) has lost their ship's"
+                    + "cargo and is sent back to \(player.homeNode)" },
                    displayName: "\(player.name)'s money below 0")
     }
 }

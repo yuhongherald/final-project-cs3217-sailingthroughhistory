@@ -21,7 +21,7 @@ class AuxiliaryUpgrade: Upgrade {
     func getNewSuppliesConsumed(baseConsumption: [GenericItem]) -> [GenericItem] {
         return baseConsumption
     }
-    
+
     func getMovementModifier() -> Double {
         return 1.0
     }

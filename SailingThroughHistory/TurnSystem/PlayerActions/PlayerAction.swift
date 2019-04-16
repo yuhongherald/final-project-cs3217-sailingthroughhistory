@@ -57,7 +57,6 @@ enum PlayerAction: Codable {
             try container.encode(upgradeType, forKey: .upgrade)
         case .pirate:
             try container.encode(Identifier.pirate, forKey: .type)
-            break
         }
     }
 
