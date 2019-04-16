@@ -59,7 +59,7 @@ class Player: GenericPlayer {
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    init(name: String, team: Team, map: Map, node: Node, itemsConsumed: [GenericItem], deviceId: String) {
+    init(name: String, team: Team, map: Map, node: Node, itemsConsumed: [GenericItem], startingItems: [GenericItem], deviceId: String) {
         self.name = name
         self.team = team
         self.map = map
@@ -68,6 +68,7 @@ class Player: GenericPlayer {
         ship = Ship(node: node, itemsConsumed: itemsConsumed)
         ship.owner = self
         ship.map = map
+        ship.items.value.append(contentsOf: startingItems)
     }
 
     required init(from decoder: Decoder) throws {
