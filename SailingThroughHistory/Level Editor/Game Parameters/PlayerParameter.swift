@@ -10,6 +10,7 @@ import Foundation
 
 class PlayerParameter: Codable {
     let itemsConsumed: [(ItemType, Int)] = [(.food, 1)]
+    let startingItems: [(ItemType, Int)] = [(.food, 5)]
 
     private var name: String
     private var teamName: String

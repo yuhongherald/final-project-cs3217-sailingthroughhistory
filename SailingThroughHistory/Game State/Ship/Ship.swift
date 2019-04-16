@@ -126,6 +126,8 @@ class Ship: Codable {
         var messages = [InfoMessage]()
         if isChasedByPirates {
             turnsToBeingCaught -= 1
+            messages.append(InfoMessage(title: "Pirates!",
+                                         message: "\(turnsToBeingCaught) more turns to being caught!"))
         }
 
         if isChasedByPirates && turnsToBeingCaught <= 0 && !isDocked {
@@ -143,9 +145,11 @@ class Ship: Codable {
             if let owner = owner,
                 let ports = owner.gameState?.map.nodes.value.map({ $0 as? Port }).compactMap({ $0 }) {
                 owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
-                messages.append(InfoMessage(title: "deficit!",
+                if deficit > 0 {
+                    messages.append(InfoMessage(title: "deficit!",
                                message: "You have exhausted \(parameter.displayName) and have a deficit"
                                     + "of \(deficit) and paid twice the normal amount for it."))
+                }
             }
         }
 

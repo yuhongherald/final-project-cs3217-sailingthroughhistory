@@ -191,8 +191,10 @@ class GameState: GenericGameState {
             }
 
             let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemTypeTupleToItem(tuple: $0) }).compactMap({ $0 })
+            let startingItems = unwrappedParam.startingItems.map({ itemTypeTupleToItem(tuple:
+                $0) }).compactMap({ $0 })
             let player = Player(name: String(roomPlayer.playerName.prefix(5)),
-                                team: team, map: map, node: node, itemsConsumed: itemsConsumed, deviceId: roomPlayer.deviceId)
+                                team: team, map: map, node: node, itemsConsumed: itemsConsumed, startingItems: startingItems, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self
             players.append(player)
@@ -224,5 +226,15 @@ class GameState: GenericGameState {
         }
         let item = Item(itemParameter: itemParameter, quantity: tuple.1)
         return item
+    }
+}
+
+// String convertible
+extension GameState {
+    var description: String {
+        guard let string = try? JSONEncoder().encode(self).hashed(.sha256) else {
+            return ""
+        }
+        return string ?? ""
     }
 }
