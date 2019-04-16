@@ -11,6 +11,7 @@ import Foundation
 class GameMaster: GenericPlayer {
     var name: String
     var team: Team?
+    let isGameMaster = true
     var money: GameVariable<Int> = GameVariable(value: 0)
     var currentCargoWeight: Int = 0
     var weightCapacity: Int = 0

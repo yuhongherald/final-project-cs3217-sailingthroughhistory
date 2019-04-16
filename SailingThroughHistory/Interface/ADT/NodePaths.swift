@@ -42,16 +42,6 @@ struct ObjectPaths {
         assert(checkRep())
     }
 
-    mutating func removeAllPathsAssociated(with object: ReadOnlyGameObject) {
-        assert(checkRep())
-        /*paths[object]?.forEach { path in
-            paths[path.toNode]?.removeAll { otherPath in path == otherPath }
-        }
-
-        paths[object] = nil*/
-        assert(checkRep())
-    }
-
     mutating func removeAllPathsAssociated(with node: Node) {
         assert(checkRep())
         paths[node]?.forEach { path in
@@ -64,10 +54,5 @@ struct ObjectPaths {
 
     func contains(path: Path) -> Bool {
         return allPaths.contains(path)
-    }
-
-    func getPathsFor(object: ReadOnlyGameObject) -> [Path] {
-        return []
-       // return paths[object, default: []]
     }
 }

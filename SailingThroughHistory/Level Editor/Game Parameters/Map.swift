@@ -204,7 +204,23 @@ class Map: Codable {
             }
         }
         self.pathsVariable.value = paths
-        self.gameObjects.value = try container.decode([GameObject].self, forKey: .objects)
+        var objectsWithType = try container.nestedUnkeyedContainer(forKey: CodingKeys.objects)
+        while !objectsWithType.isAtEnd {
+            let object = try objectsWithType.nestedContainer(keyedBy: ObjectTypeKey.self)
+            let type = try object.decode(ObjectType.self, forKey: .type)
+
+            switch type {
+            case .npc:
+                let object = try object.decode(NPC.self, forKey: .object)
+                addGameObject(gameObject: object)
+            case .ship:
+                let object = try object.decode(ShipUI.self, forKey: .object)
+                addGameObject(gameObject: object)
+            case .pirate:
+                let object = try object.decode(PirateIsland.self, forKey: .object)
+                addGameObject(gameObject: object)
+            }
+        }
     }
 
     func encode(to encoder: Encoder) throws {
@@ -240,7 +256,17 @@ class Map: Codable {
         try container.encode(simplifiedPaths, forKey: .paths)
         try container.encode(bounds, forKey: .bounds)
         try container.encode(nodesWithType, forKey: .nodes)
-        try container.encode(gameObjects.value, forKey: .objects)
+        var objectsWithType = [ObjectWithType]()
+        for object in gameObjects.value {
+            if object is ShipUI {
+                objectsWithType.append(ObjectWithType(object: object, type: ObjectType.ship))
+            } else if object is PirateIsland {
+                objectsWithType.append(ObjectWithType(object: object, type: ObjectType.pirate))
+            } else if object is NPC {
+                objectsWithType.append(ObjectWithType(object: object, type: ObjectType.npc))
+            }
+        }
+        try container.encode(objectsWithType, forKey: .objects)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -265,14 +291,15 @@ class Map: Codable {
         case sea
     }
 
-    enum EntityTypeKey: String, CodingKey {
+    enum ObjectTypeKey: String, CodingKey {
         case type
-        case entity
+        case object
     }
 
-    enum EntityTypes: String, Codable {
-        case pirate
+    enum ObjectType: String, Codable {
         case npc
+        case pirate
+        case ship
     }
 
     struct NodeWithType: Codable, Hashable {
@@ -283,6 +310,11 @@ class Map: Codable {
             self.node = node
             self.type = type
         }
+    }
+
+    struct ObjectWithType: Codable {
+        let object: GameObject
+        let type: ObjectType
     }
 
     private func checkRep() -> Bool {

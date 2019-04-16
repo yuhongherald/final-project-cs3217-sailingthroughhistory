@@ -144,6 +144,11 @@ class GameState: GenericGameState {
     private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {
+            if roomPlayer.isGameMaster {
+                let player = GameMaster(name: roomPlayer.playerName)
+                players.append(player)
+                return
+            }
             let parameter = parameters.first {
                 $0.getTeam().name == roomPlayer.teamName
             }

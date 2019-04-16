@@ -47,9 +47,18 @@ class MembersTableDataSource: NSObject, UITableViewDataSource {
             self?.waitingRoom.remove(player: player.playerName)
         }
         let isMaster = waitingRoom.isRoomMaster()
+        if isMaster {
+            cell.makeGameMasterButtonPressedCallback = { [weak self] in
+                self?.waitingRoom.makeGameMaster(player.playerName)
+            }
+        }
         cell.enableButton( isMaster || player.deviceId == self.deviceId)
         cell.set(playerName: player.playerName)
-        cell.set(teamName: player.teamName ?? "No team")
+        if player.isGameMaster {
+            cell.set(teamName: "Game Master")
+        } else {
+            cell.set(teamName: player.teamName ?? "No team")
+        }
         return cell
     }
 }

@@ -144,7 +144,6 @@
 		96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E38224510740014E0C5 /* PortItemButtonAction.swift */; };
 		96619E3B224511A50014E0C5 /* UITradeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E3A224511A50014E0C5 /* UITradeTableCell.swift */; };
 		9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */; };
-		966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
 		96707469226254810056D81D /* LocalRoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96707468226254810056D81D /* LocalRoomConnection.swift */; };
 		9670E9202261D31600E8A01F /* MessagesTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670E91F2261D31600E8A01F /* MessagesTableController.swift */; };
@@ -154,8 +153,6 @@
 		96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EAA223D772900D04C33 /* UIVIew+Border.swift */; };
 		96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */; };
 		967FAA7D2244BF1F005054B6 /* PortItemTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967FAA7C2244BF1F005054B6 /* PortItemTableDataSource.swift */; };
-		967FD6B322494309008559CE /* ReadOnlyGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967FD6B222494309008559CE /* ReadOnlyGameObject.swift */; };
-		967FD6B522494619008559CE /* ObjectFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967FD6B422494619008559CE /* ObjectFrames.swift */; };
 		9681199E2243CCA30093ABBA /* Array+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9681199D2243CCA30093ABBA /* Array+Rotate.swift */; };
 		9683C28E225D256600E30387 /* UpgradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683C28D225D256600E30387 /* UpgradeType.swift */; };
 		9683C290225D284600E30387 /* AvailableUpgradesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683C28F225D284600E30387 /* AvailableUpgradesDataSource.swift */; };
@@ -165,7 +162,9 @@
 		96877E54223EC7D80020F44C /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96877E53223EC7D80020F44C /* Path.swift */; };
 		9688D7762255F9BB000AD368 /* PlayerActionBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9688D7752255F9BB000AD368 /* PlayerActionBatch.swift */; };
 		9689401722532A1600A56B36 /* ControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9689401622532A1500A56B36 /* ControllerUtils.swift */; };
-		968F13662244008200FE32E0 /* NodePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968F13652244008200FE32E0 /* NodePaths.swift */; };
+		968D6F0A2264D42A009552B1 /* EventTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D6F092264D42A009552B1 /* EventTableController.swift */; };
+		968D6F0C2264DDF3009552B1 /* UIEventTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D6F0B2264DDF3009552B1 /* UIEventTableCell.swift */; };
+		968D6F0E226500B9009552B1 /* NodePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968D6F0D226500B9009552B1 /* NodePaths.swift */; };
 		969016F6224BD21600296333 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969016F5224BD21600296333 /* MainMenuViewController.swift */; };
 		9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5C9223A4874005291EE /* AppDelegate.swift */; };
 		9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5CB223A4874005291EE /* MainGameViewController.swift */; };
@@ -399,7 +398,6 @@
 		96619E38224510740014E0C5 /* PortItemButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemButtonAction.swift; sourceTree = "<group>"; };
 		96619E3A224511A50014E0C5 /* UITradeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITradeTableCell.swift; sourceTree = "<group>"; };
 		9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableDataSource.swift; sourceTree = "<group>"; };
-		966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGameObjectImageView.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
 		96707468226254810056D81D /* LocalRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoomConnection.swift; sourceTree = "<group>"; };
 		9670E91F2261D31600E8A01F /* MessagesTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableController.swift; sourceTree = "<group>"; };
@@ -409,8 +407,6 @@
 		96737EAA223D772900D04C33 /* UIVIew+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIew+Border.swift"; sourceTree = "<group>"; };
 		96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonRounded.swift; sourceTree = "<group>"; };
 		967FAA7C2244BF1F005054B6 /* PortItemTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemTableDataSource.swift; sourceTree = "<group>"; };
-		967FD6B222494309008559CE /* ReadOnlyGameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyGameObject.swift; sourceTree = "<group>"; };
-		967FD6B422494619008559CE /* ObjectFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectFrames.swift; sourceTree = "<group>"; };
 		9681199D2243CCA30093ABBA /* Array+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Rotate.swift"; sourceTree = "<group>"; };
 		9683C28D225D256600E30387 /* UpgradeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeType.swift; sourceTree = "<group>"; };
 		9683C28F225D284600E30387 /* AvailableUpgradesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableUpgradesDataSource.swift; sourceTree = "<group>"; };
@@ -420,7 +416,9 @@
 		96877E53223EC7D80020F44C /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		9688D7752255F9BB000AD368 /* PlayerActionBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerActionBatch.swift; sourceTree = "<group>"; };
 		9689401622532A1500A56B36 /* ControllerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerUtils.swift; sourceTree = "<group>"; };
-		968F13652244008200FE32E0 /* NodePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePaths.swift; sourceTree = "<group>"; };
+		968D6F092264D42A009552B1 /* EventTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableController.swift; sourceTree = "<group>"; };
+		968D6F0B2264DDF3009552B1 /* UIEventTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEventTableCell.swift; sourceTree = "<group>"; };
+		968D6F0D226500B9009552B1 /* NodePaths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodePaths.swift; sourceTree = "<group>"; };
 		969016F5224BD21600296333 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		9690F5C6223A4874005291EE /* SailingThroughHistory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SailingThroughHistory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5C9223A4874005291EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -938,7 +936,6 @@
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				96F6584922412126006CD412 /* GenericPublishSubject.swift */,
 				9689401622532A1500A56B36 /* ControllerUtils.swift */,
-				967FD6B222494309008559CE /* ReadOnlyGameObject.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -946,9 +943,8 @@
 		967FAA7B2244B7F8005054B6 /* ADT */ = {
 			isa = PBXGroup;
 			children = (
-				968F13652244008200FE32E0 /* NodePaths.swift */,
 				9621CC082246C321008178FF /* Rect.swift */,
-				967FD6B422494619008559CE /* ObjectFrames.swift */,
+				968D6F0D226500B9009552B1 /* NodePaths.swift */,
 			);
 			path = ADT;
 			sourceTree = "<group>";
@@ -1028,7 +1024,6 @@
 				96737EA3223D335100D04C33 /* View+Translate.swift */,
 				96737EAA223D772900D04C33 /* UIVIew+Border.swift */,
 				96737EAC223D77AD00D04C33 /* UIButtonRounded.swift */,
-				966941D9223FD3A900F07A50 /* UIGameObjectImageView.swift */,
 				96F658472240E13E006CD412 /* View+SpecialEffects.swift */,
 				969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */,
 				96619E36224510310014E0C5 /* PortItemTableCellDelegate.swift */,
@@ -1038,6 +1033,7 @@
 				96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */,
 				96A7D0B1225FA8E0001C18E4 /* UILightningView.swift */,
 				96A7D0B3225FAAE3001C18E4 /* UILightningViewFactory.swift */,
+				968D6F0B2264DDF3009552B1 /* UIEventTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1052,6 +1048,7 @@
 				9683C28F225D284600E30387 /* AvailableUpgradesDataSource.swift */,
 				1ABBA217226230B400222E7A /* TeamScoreTableController.swift */,
 				9670E91F2261D31600E8A01F /* MessagesTableController.swift */,
+				968D6F092264D42A009552B1 /* EventTableController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1454,12 +1451,10 @@
 				752D2BDA225F8EAE00A3411C /* Activatable.swift in Sources */,
 				75354467224CA7CC001B4F62 /* EqualOperator.swift in Sources */,
 				75354490224CBCBE001B4F62 /* UniqueObject.swift in Sources */,
-				967FD6B322494309008559CE /* ReadOnlyGameObject.swift in Sources */,
 				96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */,
 				964EACD5224D13BD004BA7C0 /* RoomViewCell.swift in Sources */,
 				BAA0D0402262655C004417CA /* GenericItemStub.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
-				968F13662244008200FE32E0 /* NodePaths.swift in Sources */,
 				7581AEDB225C53D8001A8CC3 /* VolatileMonsoon.swift in Sources */,
 				751F8FDC224BA2A90071C057 /* GenericTurnSystem.swift in Sources */,
 				751F8FD8224B9D5E0071C057 /* ChangeType.swift in Sources */,
@@ -1515,6 +1510,7 @@
 				BAB3379222622B86007A0C05 /* Ship_Upgradable_Extension.swift in Sources */,
 				751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
+				968D6F0E226500B9009552B1 /* NodePaths.swift in Sources */,
 				96A7D0AE225F8269001C18E4 /* CountdownLabelView.swift in Sources */,
 				9684669D2264ACFB00BDA989 /* GameTime.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
@@ -1551,7 +1547,6 @@
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
 				751F8FE0224BA97A0071C057 /* GenericComparator.swift in Sources */,
 				BAB337A02262585E007A0C05 /* ShipAPI.swift in Sources */,
-				967FD6B522494619008559CE /* ObjectFrames.swift in Sources */,
 				BAFA1D7F224517260099EEEC /* BiggerShipUpgrade.swift in Sources */,
 				BA91907A223F4D5500009F49 /* AuxiliaryUpgrade.swift in Sources */,
 				BA919067223F266E00009F49 /* ObservableVariable.swift in Sources */,
@@ -1561,6 +1556,7 @@
 				BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */,
 				75A72CBC225CD3A9003640D4 /* ConditionEvaluatable.swift in Sources */,
 				7538CAF52255B85D00EB9B1F /* Evaluatable.swift in Sources */,
+				968D6F0C2264DDF3009552B1 /* UIEventTableCell.swift in Sources */,
 				96619E3B224511A50014E0C5 /* UITradeTableCell.swift in Sources */,
 				75354475224CAB26001B4F62 /* NotEqualOperator.swift in Sources */,
 				1A749D772244B6ED00482CE5 /* UIView + ScreenShot.swift in Sources */,
@@ -1609,7 +1605,6 @@
 				BAB3379422624CA1007A0C05 /* Navigatable.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */,
-				966941DA223FD3A900F07A50 /* UIGameObjectImageView.swift in Sources */,
 				7581AEEB225C6392001A8CC3 /* DivideOperator.swift in Sources */,
 				7581AEE9225C6385001A8CC3 /* MultiplyOperator.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
@@ -1628,6 +1623,7 @@
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
 				BA6FBBD5225A108900B366DB /* BiggerSailsUpgrade.swift in Sources */,
+				968D6F0A2264D42A009552B1 /* EventTableController.swift in Sources */,
 				96E0745922524FA10068406B /* WaitingRoomViewController.swift in Sources */,
 				755FD977224E85A600D83D4B /* GenericOperator.swift in Sources */,
 				1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */,

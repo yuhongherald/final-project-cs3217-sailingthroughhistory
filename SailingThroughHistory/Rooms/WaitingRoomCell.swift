@@ -10,11 +10,17 @@ import UIKit
 
 class WaitingRoomViewCell: UITableViewCell {
     @IBOutlet private weak var changeButton: UIButton!
+    @IBOutlet private weak var makeGameMasterButton: UIButton!
     @IBOutlet private weak var removeButton: UIButton!
     @IBOutlet private weak var playerNameLabel: UILabel!
     @IBOutlet private weak var teamNameLabel: UILabel!
     var changeButtonPressedCallback: (() -> Void)?
     var removeButtonPressedCallback: (() -> Void)?
+    var makeGameMasterButtonPressedCallback: (() -> Void)? {
+        didSet {
+            makeGameMasterButton.isHidden = makeGameMasterButtonPressedCallback == nil
+        }
+    }
 
     @IBAction private func changeButtonPressed(_ sender: UIButton) {
         changeButtonPressedCallback?()
@@ -22,6 +28,10 @@ class WaitingRoomViewCell: UITableViewCell {
 
     @IBAction private func removeButtonPressed(_ sender: UIButton) {
         removeButtonPressedCallback?()
+    }
+
+    @IBAction private func makeGameMasterButtonPressed(_ sender: UIButton) {
+        makeGameMasterButtonPressedCallback?()
     }
 
     func set(playerName: String) {
