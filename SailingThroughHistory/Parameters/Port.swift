@@ -65,7 +65,7 @@ class Port: Node {
         owner = team
     }
 
-    public func collectTax(from player: Player) {
+    public func collectTax(from player: GenericPlayer) {
         // Prevent event listeners from firing unneccessarily
         if player.team == owner {
             return

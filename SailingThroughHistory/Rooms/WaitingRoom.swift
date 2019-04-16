@@ -27,6 +27,7 @@ class WaitingRoom {
     private var connection: RoomConnection
     private var teamNames = [String]()
     let identifier: String
+    var gameMaster: String?
 
     init(fromConnection connection: RoomConnection) {
         guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
@@ -35,12 +36,16 @@ class WaitingRoom {
         self.identifier = deviceId
         self.players = []
         self.connection = connection
-        connection.subscribeToMembers {
-            self.players = $0
+        connection.subscribeToMembers { [weak self] in
+            var players = $0
+            for (index, player) in players.enumerated() where player.playerName == self?.gameMaster {
+                players[index].isGameMaster = true
+            }
+            self?.players = players
         }
 
-        connection.subscibeToTeamNames {
-            self.teamNames = $0
+        connection.subscibeToTeamNames { [weak self] in
+            self?.teamNames = $0
         }
     }
 
@@ -77,6 +82,7 @@ class WaitingRoom {
         for index in players.indices {
             players[index].isGameMaster = false
         }
+        gameMaster = identifier
         players[playerIndex].isGameMaster = true
     }
 

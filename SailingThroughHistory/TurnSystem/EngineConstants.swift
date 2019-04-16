@@ -86,7 +86,7 @@ enum Default {
         static let sellValue: Int = 100
     }
     enum Weather {
-        static let strengths: [Float] = [0, 0, 0, 0]
+        static let strengths: [Float] = [0.5, 0, 1.5, 2]
     }
 
     enum Suffix {

@@ -11,8 +11,11 @@ import Foundation
 // MARK: - Affected by Pirates and Weather
 extension Ship: Pirate_WeatherEntity {
     func startPirateChase() {
+        if isChasedByPirates {
+            return
+        }
         isChasedByPirates = true
-        turnsToBeingCaught = 2
+        turnsToBeingCaught = 4
     }
     func getWeatherModifier() -> Double {
         var multiplier = 1.0

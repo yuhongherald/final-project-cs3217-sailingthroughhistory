@@ -145,7 +145,7 @@ class GameState: GenericGameState {
         players.removeAll()
         for roomPlayer in roomPlayers {
             if roomPlayer.isGameMaster {
-                let player = GameMaster(name: roomPlayer.playerName)
+                let player = GameMaster(name: roomPlayer.playerName, deviceId: roomPlayer.deviceId)
                 players.append(player)
                 return
             }

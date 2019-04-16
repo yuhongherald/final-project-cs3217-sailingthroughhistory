@@ -54,11 +54,11 @@ class EventPresets {
             }*/
         }
 
-        for player in gameState.getPlayers() {
+        /*for player in gameState.getPlayers() {
             playerDeathEvents[player.name] = eventTable.pushEvent(
                 event: NegativeMoneyEvent(player: player))
             eventTable.pushEvent(event: PlayerArrivalEvent(player: player))
-        }
+        }*/
 
         self.monsoonEvents = monsoonEvents
         self.neutralTaxEvents = neutralTaxEvents

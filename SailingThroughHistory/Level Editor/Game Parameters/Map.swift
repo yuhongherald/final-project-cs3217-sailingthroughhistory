@@ -39,6 +39,14 @@ class Map: Codable {
         nodeIDPair = [Int: Node]()
     }
 
+    func updateWeather(for month: Int) {
+        for path in paths.values.flatMap( { $0 } ) {
+            for weather in path.modifiers {
+                weather.update(currentMonth: month)
+            }
+        }
+    }
+
     func changeBackground(_ map: String, with bounds: Rect?) {
         guard let unwrappedBounds = bounds else {
             fatalError("Map bounds shouldn't be nil.")

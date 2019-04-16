@@ -23,5 +23,6 @@ class Weather: Volatile {
     /// Update wind velocity based on current month strength.
     func update(currentMonth: Int) {
         windVelocity = strengths[currentMonth / 4]
+        isActive = windVelocity == 0
     }
 }

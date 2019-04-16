@@ -128,7 +128,7 @@ class Ship: Codable {
             turnsToBeingCaught -= 1
         }
 
-        if isChasedByPirates && turnsToBeingCaught <= 0 {
+        if isChasedByPirates && turnsToBeingCaught <= 0 && !isDocked {
             isChasedByPirates = false
             turnsToBeingCaught = 0
             items.value.removeAll()

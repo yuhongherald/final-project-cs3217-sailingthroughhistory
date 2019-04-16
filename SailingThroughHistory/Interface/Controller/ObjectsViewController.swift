@@ -203,6 +203,9 @@ class ObjectsViewController {
         }
         if object as? ShipUI != nil {
             objectView.image = UIImage(named: "ship.png")
+        } else if object as? NPC != nil {
+            objectView.image = UIImage(named: Resources.Icon.weather)
+            //objectView.alpha = 0.5
         }
         self.objectViews[object] = objectView
         self.view.addSubview(objectView)

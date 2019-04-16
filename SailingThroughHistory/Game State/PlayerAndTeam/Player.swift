@@ -160,12 +160,16 @@ class Player: GenericPlayer {
         port.collectTax(from: self)
     }
 
-    func getPirateEncounterChance() -> Double {
+    func getPirateEncounterChance(at nodeId: Int) -> Double {
         guard let map = map,
             !(auxiliaryUpgrade is MercernaryUpgrade) else {
             return 0
         }
-        let position = ship.node
+
+        guard let position = map.nodeIDPair[nodeId] else {
+            return 0
+        }
+
         if position is Port {
             return 0
         }
@@ -236,6 +240,9 @@ class Player: GenericPlayer {
 
     func endTurn() -> [InfoMessage] {
         hasRolled = false
+        if canDock() {
+            try? dock()
+        }
         return ship.endTurn(speedMultiplier: speedMultiplier)
     }
 

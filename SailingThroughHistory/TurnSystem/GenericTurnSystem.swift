@@ -10,11 +10,13 @@ protocol GenericTurnSystem {
     var gameState: GenericGameState { get }
     var eventPresets: EventPresets? { get set }
     var messages: [GameMessage] { get set }
+    func getPresetEvents() -> [PresetEvent]
     func roll(for player: GenericPlayer) throws -> (Int, [Int])
     func selectForMovement(nodeId: Int, by player: GenericPlayer) throws
     func setTax(for portId: Int, to amount: Int, by player: GenericPlayer) throws
     func buy(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws
     func sell(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws
+    func toggle(eventId: Int, enabled: Bool, by player: GenericPlayer) throws
     func purchase(upgrade: Upgrade, by player: GenericPlayer) throws -> InfoMessage?
     func watchMasterUpdate(gameState: GenericGameState)
     func endTurn()

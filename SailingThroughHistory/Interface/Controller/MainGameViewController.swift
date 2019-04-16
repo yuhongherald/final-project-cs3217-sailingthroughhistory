@@ -65,6 +65,11 @@ class MainGameViewController: UIViewController {
     @IBOutlet private weak var messagesView: UIBlurredBackgroundView!
     @IBOutlet private weak var toggleMessagesButton: UIButtonRounded!
 
+    @IBOutlet private weak var eventTableView: UITableView! {
+        didSet {
+            eventTableView.dataSource = eventsController
+        }
+    }
     @IBOutlet private weak var gameMasterPanel: UIBlurredBackgroundView!
 
     private var currentTurnOwner: GenericPlayer?
@@ -81,6 +86,7 @@ class MainGameViewController: UIViewController {
     private lazy var teamScoresController = TeamScoreTableController(tableView: teamScoreTableView,
                                                                      scores: Dictionary())
     private lazy var messagesController = MessagesTableController(tableView: messagesTableView)
+    private lazy var eventsController = EventTableController(tableView: eventTableView, events: [], mainController: self)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
     private let storage = LocalStorage()
     private var selectedPort: Port?
@@ -337,6 +343,10 @@ class MainGameViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
+    @IBAction func gmEndTurnPressed(_ sender: Any) {
+        turnSystem?.endTurn()
+    }
+    
     private func initBackground() {
         guard let backgroundData = backgroundData,
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
@@ -426,11 +436,15 @@ class MainGameViewController: UIViewController {
     }
 
     private func playerTurnStart(player: GenericPlayer, endTime: TimeInterval) {
-
+        guard let turnSystem = turnSystem else {
+            fatalError("Turn system is nil")
+        }
         func animatePlayerTurnStart() {
             if player.isGameMaster {
                 gameMasterPanel.isHidden = false
+                eventsController.set(events: turnSystem.getPresetEvents())
             } else {
+                gameMasterPanel.isHidden = true
                 actionPanelView.isHidden = false
                 objectsController.makeShipGlow(for: player)
                 availableUpgradesDataSource.enabled = player.canBuyUpgrade()
@@ -465,5 +479,24 @@ class MainGameViewController: UIViewController {
 extension MainGameViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return gameAndBackgroundWrapper
+    }
+}
+
+extension MainGameViewController {
+    func toggle(event: PresetEvent, enabled: Bool) {
+        guard let currentTurnOwner = currentTurnOwner else {
+            return
+        }
+        var msg: String?
+        do {
+            try turnSystem?.toggle(eventId: event.identifier, enabled: enabled, by: currentTurnOwner)
+        } catch PlayerActionError.invalidAction(let errorMsg) {
+            msg = errorMsg
+        } catch {
+            msg = error.localizedDescription
+        }
+        let alert = ControllerUtils.getGenericAlert(titled: msg == nil ? "Success" : "Error",
+                                                    withMsg: msg ?? "Successfully toggled")
+        present(alert, animated: true, completion: nil)
     }
 }
