@@ -418,13 +418,17 @@ class TurnSystem: GenericTurnSystem {
             }
         }
         /// The game state parameter is ignored for now, validation can be added here
-        network.subscribeToMasterState(for: data.currentTurn) { [weak self] _ in
+        network.subscribeToMasterState(for: data.currentTurn) { [weak self] networkGameState in
             self?.data.turnFinished()
             guard let player = self?.getFirstPlayer() else {
                 self?.state = .waitForTurnFinish
                 return
             }
             self?.state = .waitPlayerInput(from: player)
+            guard let gameState = self?.gameState else {
+                return
+            }
+            assert(gameState.description == networkGameState.description)
         }
     }
 

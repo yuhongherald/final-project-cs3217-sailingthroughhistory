@@ -212,3 +212,13 @@ class GameState: GenericGameState {
         return item
     }
 }
+
+// String convertible
+extension GameState {
+    var description: String {
+        guard let string = try? JSONEncoder().encode(self).hashed(.sha256) else {
+            return ""
+        }
+        return string ?? ""
+    }
+}
