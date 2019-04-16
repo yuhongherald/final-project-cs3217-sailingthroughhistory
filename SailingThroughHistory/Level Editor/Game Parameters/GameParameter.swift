@@ -29,7 +29,7 @@ class GameParameter: GenericLevel, Codable {
         ItemType.allCases.forEach {
             self.itemParameters.append(ItemParameter(itemType: $0,
                                                      displayName: $0.rawValue,
-                                                     weight: 0,
+                                                     weight: $0.getUnitWeight(),
                                                      isConsumable: true))
         }
     }
