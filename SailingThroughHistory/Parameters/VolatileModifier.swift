@@ -15,16 +15,14 @@ protocol VolatileModifier: Codable {
     func update(currentMonth: Int)
 }
 
-extension VolatileModifier {
+// Generic class inheritate from VolatileModifier to force subclasses conform to codable
+class Volatile: VolatileModifier, Codable {
+    var isActive = false
 
     func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
         return oldVelocity
     }
 
-    func update(currentMonth: Int) { }
-}
-
-// Generic class inheritate from VolatileModifier to force subclasses conform to codable
-class Volatile: VolatileModifier, Codable {
-    var isActive = false
+    func update(currentMonth: Int) {
+    }
 }
