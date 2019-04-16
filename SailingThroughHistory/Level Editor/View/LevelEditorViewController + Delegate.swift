@@ -58,8 +58,14 @@ extension LevelEditorViewController: MenuViewDelegateProtocol {
             guard let nodeView = view as? NodeView else {
                 return
             }
+            if nodeView.node == preStartingNode {
+                nodeView.subviews.forEach {
+                    if $0 is Icon {
+                        $0.removeFromSuperview()
+                    }
+                }
+            }
             if team.startingNode == nodeView.node, let shipIcon = getIconOf(team: team) {
-                shipIcon.removeFromSuperview()
                 shipIcon.addIcon(to: nodeView)
             }
         }

@@ -174,12 +174,15 @@ class MapTest: XCTestCase {
         // test map with path added
         map.addNode(sea)
         map.addNode(pirateSea)
-        map.add(path: Path(from: sea, to: pirateSea))
+        let path = Path(from: sea, to: pirateSea)
+        path.modifiers.append(Weather())
+        map.add(path: path)
         guard let encode = try? JSONEncoder().encode(map) else {
             XCTAssertThrowsError("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
+        print(String(data: encode, encoding: String.Encoding.utf8) ?? "Data could not be printed")
         XCTAssertNotNil(decode, "Decode Failed")
         XCTAssertTrue(isEqual(map: decode, map), "Decode result is different from original one")
     }

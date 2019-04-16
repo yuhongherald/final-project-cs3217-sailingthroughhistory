@@ -136,7 +136,6 @@ class Ship: Codable {
                                         message: "You have been caught by pirates!. You lost all your cargo"))
         }
 
-
         for supply in itemsConsumed {
             let parameter = supply.itemParameter
             let type = supply.itemType
