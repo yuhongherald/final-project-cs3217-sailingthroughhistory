@@ -126,6 +126,8 @@ class Ship: Codable {
         var messages = [InfoMessage]()
         if isChasedByPirates {
             turnsToBeingCaught -= 1
+            messages.append(InfoMessage(title: "Pirates!",
+                                         message: "\(turnsToBeingCaught) more turns to being caught!"))
         }
 
         if isChasedByPirates && turnsToBeingCaught <= 0 {

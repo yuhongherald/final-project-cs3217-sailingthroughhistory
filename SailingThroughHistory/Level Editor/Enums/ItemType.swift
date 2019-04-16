@@ -26,7 +26,7 @@ enum ItemType: String, Codable, CaseIterable {
         case .opium:
             return 100
         case .food:
-            return 150
+            return 50
         }
     }
 }
