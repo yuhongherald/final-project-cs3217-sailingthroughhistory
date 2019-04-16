@@ -70,23 +70,6 @@ class NodeView: UIImageView {
         self.removeFromSuperview()
     }
 
-    /// Add icon on left top of the node view to represent special attribute of the node.
-    /// - Parameters:
-    ///   - icon: The image view of the icon.
-    func addIcon(_ icon: UIImageView) {
-        self.addSubview(icon)
-        self.icon = icon
-        icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        icon.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 20).isActive = true
-    }
-
-    func removeIcon() {
-        self.icon?.removeFromSuperview()
-    }
-
     func highlighted(_ highlighted: Bool) {
         if highlighted {
             self.layer.borderColor = UIColor.white.cgColor

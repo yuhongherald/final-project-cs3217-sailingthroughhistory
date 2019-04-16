@@ -21,6 +21,8 @@ enum GameConstants {
     static let playerTurnDuration: Double = 120
     static let numOfTurn: Int = 20
     static let monsoonMultiplier: Double = 2
+    static let britishTeam: String = "British"
+    static let dutchTeam: String = "Dutch"
 }
 
 enum Resources {
@@ -55,6 +57,17 @@ enum Resources {
     enum Flag {
         static let british: String = "british-flag.png"
         static let dutch: String = "dutch-flag.png"
+
+        static func of(_ team: Team) -> String {
+            switch team.name {
+            case GameConstants.britishTeam:
+                return Resources.Flag.british
+            case GameConstants.dutchTeam:
+                return Resources.Flag.dutch
+            default:
+                return "" // For NPC no flag
+            }
+        }
     }
 
     enum Icon {
@@ -62,20 +75,26 @@ enum Resources {
         static let sea: String = "sea-node.png"
         static let pirate: String = "pirate-node.png"
         static let weather: String = "weather-icon.png"
+        static let ship: String = "ship.png"
+        static let npc: String = "npc.png"
 
         static func of(_ object: Any) -> String? {
-            if object is Port {
+            switch object {
+            case is Port:
                 return Resources.Icon.port
-            }
-
-            if object is Sea {
+            case is Sea:
                 return Resources.Icon.sea
-            }
-
-            if object is PirateIsland {
+            case is PirateIsland:
                 return Resources.Icon.pirate
+            case is Weather:
+                return Resources.Icon.weather
+            case is Ship:
+                return Resources.Icon.ship
+            case is NPC:
+                return Resources.Icon.npc
+            default:
+                return nil
             }
-            return nil
         }
     }
 }
