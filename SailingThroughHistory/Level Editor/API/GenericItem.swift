@@ -9,10 +9,10 @@
 import Foundation
 
 protocol GenericItem: Codable {
-    var name: String? { get }
+    var name: String { get }
     var itemType: ItemType { get }
-    var itemParameter: ItemParameter? { get }
-    var weight: Int? { get }
+    var itemParameter: ItemParameter { get }
+    var weight: Int { get }
     var quantity: Int { get set }
 
     func setItemParameter(_ itemParameter: ItemParameter)

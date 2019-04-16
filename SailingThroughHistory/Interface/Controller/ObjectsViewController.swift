@@ -201,8 +201,15 @@ class ObjectsViewController {
         object.subscibeToFrame { [weak self] frame in
             self?.update(frame: frame, for: object)
         }
-        if object as? ShipUI != nil {
-            objectView.image = UIImage(named: "ship.png")
+        if let shipUI = object as? ShipUI {
+            objectView.image = UIImage(named: Resources.Icon.ship)
+            if let team = shipUI.ship?.owner?.team {
+                let icon = Icon(image: UIImage(named: Resources.Flag.of(team)))
+                icon.addIcon(to: objectView)
+            }
+        }
+        if object as? NPC != nil {
+            objectView.image = UIImage(named: Resources.Icon.npc)
         }
         self.objectViews[object] = objectView
         self.view.addSubview(objectView)

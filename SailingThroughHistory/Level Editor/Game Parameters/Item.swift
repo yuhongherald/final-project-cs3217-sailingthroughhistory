@@ -9,16 +9,13 @@
 import Foundation
 
 class Item: GenericItem, Codable {
-    var name: String? {
-        return itemParameter?.displayName
+    var name: String {
+        return itemParameter.displayName
     }
     var itemType: ItemType
-    var itemParameter: ItemParameter?
-    var weight: Int? {
-        guard let unitWeight = itemParameter?.unitWeight else {
-            return nil
-        }
-        return quantity * unitWeight
+    var itemParameter: ItemParameter
+    var weight: Int {
+        return quantity * itemParameter.unitWeight
     }
     // TODO: prevent quantity from going below 0
     var quantity: Int {
@@ -64,7 +61,7 @@ class Item: GenericItem, Codable {
     }
 
     func decayItem(with time: Double) -> Int? {
-        guard let halfLife = itemParameter?.getHalfLife() else {
+        guard let halfLife = itemParameter.getHalfLife() else {
             return nil
         }
         decimalQuantity /= pow(M_E, M_LN2 / Double(halfLife))
@@ -104,16 +101,14 @@ class Item: GenericItem, Codable {
     }
 
     func getBuyValue(at port: Port) -> Int? {
-        guard let itemParameter = itemParameter,
-            let unitValue = port.getBuyValue(of: itemParameter) else {
+        guard let unitValue = port.getBuyValue(of: itemParameter) else {
             return nil
         }
         return unitValue * quantity
     }
 
     func sell(at port: Port) -> Int? {
-        guard let itemParameter = itemParameter,
-            let unitValue = port.getSellValue(of: itemParameter) else {
+        guard let unitValue = port.getSellValue(of: itemParameter) else {
             return nil
         }
         let value = unitValue * quantity

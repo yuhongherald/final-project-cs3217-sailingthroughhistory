@@ -58,11 +58,9 @@ extension LevelEditorViewController: MenuViewDelegateProtocol {
             guard let nodeView = view as? NodeView else {
                 return
             }
-            if nodeView.node == preStartingNode {
-                nodeView.removeIcon()
-            }
             if team.startingNode == nodeView.node, let shipIcon = getIconOf(team: team) {
-                nodeView.addIcon(shipIcon)
+                shipIcon.removeFromSuperview()
+                shipIcon.addIcon(to: nodeView)
             }
         }
     }
@@ -78,12 +76,12 @@ extension LevelEditorViewController: MenuViewDelegateProtocol {
         }
     }
 
-    func getIconOf(team: Team) -> UIImageView? {
-        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+    func getIconOf(team: Team) -> Icon? {
+        let view = Icon(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         switch team.name {
-        case "Dutch":
+        case GameConstants.dutchTeam:
             view.image = UIImage(named: Resources.Flag.dutch)
-        case "British":
+        case GameConstants.britishTeam:
             view.image = UIImage(named: Resources.Flag.british)
         default:
             return nil

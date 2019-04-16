@@ -33,7 +33,7 @@ class LevelEditorViewController: UIViewController {
         }
 
         let map = Map(map: imageName, bounds: bounds)
-        return GameParameter(map: map, teams: ["Dutch", "British"])
+        return GameParameter(map: map, teams: [GameConstants.dutchTeam, GameConstants.britishTeam])
     }()
 
     var editMode: EditMode?
@@ -95,7 +95,7 @@ class LevelEditorViewController: UIViewController {
                 let team = teams[teamIndex]
                 team.startingNode = node
                 if let icon = getIconOf(team: teams[teamIndex]) {
-                    nodeView.addIcon(icon)
+                    icon.addIcon(to: nodeView)
                 }
             }
         }

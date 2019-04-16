@@ -10,8 +10,10 @@ import UIKit
 
 class ShipUI: GameObject {
     private let shipWidth: Double = 50
+    private(set) weak var ship: Ship?
 
     init(ship: Ship) {
+        self.ship = ship
         let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) 
         super.init(frame: frame)
         ship.subscribeToLocation(with: moveShip)

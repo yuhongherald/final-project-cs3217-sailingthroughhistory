@@ -44,8 +44,6 @@ class TeamTest: XCTestCase {
     }
 
     func testCodableTeamWithSea() {
-        setUp()
-
         // test sea without objects
         team.start(from: sea)
         check(team)

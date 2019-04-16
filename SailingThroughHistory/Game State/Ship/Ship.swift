@@ -136,11 +136,9 @@ class Ship: Codable {
         }
 
         for supply in suppliesConsumed {
-            guard let parameter = supply.itemParameter else {
-                continue
-            }
             let type = supply.itemType
             let deficit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
+            let parameter = supply.itemParameter
             owner?.updateMoney(by: -deficit * parameter.getBuyValue())
             messages.append(InfoMessage(title: "deficit!",
                                message: "You have exhausted \(parameter.displayName) and have a deficit of \(deficit) and paid for it."))
@@ -152,7 +150,7 @@ class Ship: Codable {
                 continue
             }
             messages.append(InfoMessage(title: "Lost Item",
-                        message: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!"))
+                        message: "You have lost \(lostQuantity) of \(item.itemParameter.displayName ?? "") from decay and have \(item.quantity) remaining!"))
         }
         return messages
     }
