@@ -401,11 +401,17 @@ class LevelEditorViewController: UIViewController {
     }
 
     func initBackground() {
-        guard let image = storage.readImage(gameParameter.map.map) ?? UIImage(named: gameParameter.map.map),
-            let editingAreaWrapper = self.editingAreaWrapper else {
+        guard let image = storage.readImage(gameParameter.map.map) ?? UIImage(named: gameParameter.map.map) else {
                 return
         }
+        mapBackground.image = image
+        layoutBackground()
+    }
 
+    func layoutBackground() {
+        guard let image = mapBackground.image, let editingAreaWrapper = self.editingAreaWrapper else {
+            return
+        }
         mapBackground.contentMode = .topLeft
         var size = image.size
         if size.width < self.view.frame.width {
@@ -425,7 +431,7 @@ class LevelEditorViewController: UIViewController {
         mapBackground.image = image
     }
 
-    private func reInitScrollView () {
+    func reInitScrollView () {
         guard let oldScrollView = self.scrollView else {
             preconditionFailure("scrollView is nil.")
         }
