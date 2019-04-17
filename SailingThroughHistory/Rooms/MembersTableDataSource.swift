@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MembersTableDataSource: NSObject, UITableViewDataSource {
+class MembersTableDataSource: NSObject, UITableViewDataSource, UITextFieldDelegate {
     private let deviceId: String
     private let mainController: WaitingRoomViewController
     private static let reuseIdentifier = "waitingRoomCell"
@@ -41,19 +41,24 @@ class MembersTableDataSource: NSObject, UITableViewDataSource {
         }
         let player = waitingRoom.players[indexPath.row]
         cell.changeButtonPressedCallback = { [weak self] in
-            self?.waitingRoom.changeTeam(of: player.playerName)
+            self?.waitingRoom.changeTeam(of: player.identifier)
         }
         cell.removeButtonPressedCallback = { [weak self] in
-            self?.waitingRoom.remove(player: player.playerName)
+            self?.waitingRoom.remove(player: player.identifier)
+        }
+        cell.delegate = self
+        cell.set(playerName: player.playerName)
+        cell.renameButtonPressedCallback = { [weak self] name in
+            self?.waitingRoom.changeName(of: player.identifier, to: name)
         }
         let isMaster = waitingRoom.isRoomMaster()
         if isMaster {
             cell.makeGameMasterButtonPressedCallback = { [weak self] in
-                self?.waitingRoom.makeGameMaster(player.playerName)
+                self?.waitingRoom.makeGameMaster(player.identifier)
             }
         }
         cell.enableButton( isMaster || player.deviceId == self.deviceId)
-        cell.set(playerName: player.playerName)
+        cell.disableTextField()
         if player.isGameMaster {
             cell.set(teamName: "Game Master")
         } else {

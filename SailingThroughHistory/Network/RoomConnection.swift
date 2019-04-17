@@ -33,6 +33,8 @@ protocol RoomConnection {
 
     func changeTeamName(for identifier: String, to teamName: String)
 
+    func changePlayerName(for identifier: String, to playerName: String)
+
     func remove(player: String)
 
     func changeRemovalCallback(to callback: @escaping () -> Void)

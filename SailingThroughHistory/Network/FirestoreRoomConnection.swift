@@ -158,7 +158,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func addPlayer() {
-        let playerId = "\(self.numOfPlayers + 1)-" + self.deviceId
+        let playerId = "\(getNewPlayerIndex())-" + self.deviceId
         self.playersCollectionRef
             .document(playerId)
             .setData([FirestoreConstants.playerDeviceKey: self.deviceId]) { [weak self] error in
@@ -335,13 +335,14 @@ class FirebaseRoomConnection: RoomConnection {
             var players = [RoomMember]()
             for document in snapshot.documents {
                 let team = document.get(FirestoreConstants.playerTeamKey) as? String
+                let playerName = document.get(FirestoreConstants.playerNameKey) as? String
                 let isGameMaster = document.get(FirestoreConstants.isGmKey) as? Bool
-                let player = document.documentID
+                let playerID = document.documentID
                 guard let deviceId = document.get(FirestoreConstants.playerDeviceKey) as? String else {
                     self.playersCollectionRef.document(document.documentID).delete()
                     continue
                 }
-                var member = RoomMember(playerName: player, teamName: team, deviceId: deviceId)
+                var member = RoomMember(identifier: playerID, playerName: playerName, teamName: team, deviceId: deviceId)
                 member.isGameMaster = isGameMaster ?? false
                 players.append(member)
             }
@@ -388,6 +389,10 @@ class FirebaseRoomConnection: RoomConnection {
         playersCollectionRef.document(identifier).updateData([FirestoreConstants.playerTeamKey: teamName])
     }
 
+    func changePlayerName(for identifier: String, to playerName: String) {
+        playersCollectionRef.document(identifier).updateData([FirestoreConstants.playerNameKey: playerName])
+    }
+
     func remove(player identifier: String) {
         self.numOfPlayers -= 1
         self.numOfPlayers = self.numOfPlayers >= 0 ? self.numOfPlayers : 0
@@ -430,11 +435,13 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func changeRemovalCallback(to callback: @escaping () -> Void) {
-        self.removalCallback = callback
+        self.removalCallback = {
+            callback()
+            self.listeners.forEach { $0.remove() }
+        }
     }
 
     func disconnect() {
-        print("Disconnect.")
         self.heartbeatTimer?.invalidate()
         self.removeDevice(withId: deviceId)
     }

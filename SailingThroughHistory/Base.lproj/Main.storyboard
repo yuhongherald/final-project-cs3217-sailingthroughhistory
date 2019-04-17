@@ -653,12 +653,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="1366" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8T-uM-dzM">
-                                                    <rect key="frame" x="20" y="7.5" width="273" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6Z-14-FDQ" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
                                                     <rect key="frame" x="1203" y="1.5" width="143" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -676,7 +670,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33S-f6-CcL">
-                                                    <rect key="frame" x="301" y="7.5" width="57" height="29"/>
+                                                    <rect key="frame" x="316.5" y="7.5" width="57" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -689,38 +683,61 @@
                                                         <action selector="makeGameMasterButtonPressed:" destination="VTi-qS-msc" eventType="touchUpInside" id="itV-pG-hjd"/>
                                                     </connections>
                                                 </button>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hek-4m-d6f">
+                                                    <rect key="frame" x="33.5" y="7" width="273" height="30"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxY-kj-Zrf">
+                                                    <rect key="frame" x="10" y="10" width="23.5" height="23.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="23.5" id="ZdW-Gn-62v"/>
+                                                        <constraint firstAttribute="width" secondItem="vxY-kj-Zrf" secondAttribute="height" multiplier="1:1" id="lXh-85-2LP"/>
+                                                    </constraints>
+                                                    <state key="normal" image="edit"/>
+                                                    <connections>
+                                                        <action selector="renameButtonPressed:" destination="VTi-qS-msc" eventType="touchUpInside" id="ThU-Op-XkQ"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="m9v-WT-7Gd" firstAttribute="leading" secondItem="O4A-nh-e44" secondAttribute="trailing" constant="8" symbolic="YES" id="385-2h-B99"/>
                                                 <constraint firstItem="33S-f6-CcL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k2O-DD-H3u" secondAttribute="top" id="6mq-fQ-uI4"/>
                                                 <constraint firstItem="O4A-nh-e44" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="33S-f6-CcL" secondAttribute="trailing" constant="8" symbolic="YES" id="9hh-tt-6mo"/>
+                                                <constraint firstAttribute="bottom" secondItem="vxY-kj-Zrf" secondAttribute="bottom" constant="10" id="Ahd-mQ-qT8"/>
                                                 <constraint firstAttribute="bottom" secondItem="m9v-WT-7Gd" secondAttribute="bottom" id="Ak2-Tk-fg8"/>
-                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="width" secondItem="k2O-DD-H3u" secondAttribute="width" multiplier="1/5" id="Arw-be-Jr0"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="O4A-nh-e44" secondAttribute="bottom" id="CtX-cq-X1S"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="D8T-uM-dzM" secondAttribute="bottom" id="DRM-2D-I4a"/>
                                                 <constraint firstItem="O4A-nh-e44" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k2O-DD-H3u" secondAttribute="top" id="Esb-av-JL4"/>
                                                 <constraint firstItem="m6Z-14-FDQ" firstAttribute="leading" secondItem="m9v-WT-7Gd" secondAttribute="trailing" constant="8" symbolic="YES" id="H4F-zI-bnv"/>
+                                                <constraint firstItem="vxY-kj-Zrf" firstAttribute="top" secondItem="k2O-DD-H3u" secondAttribute="top" constant="10" id="Ifx-5d-xaW"/>
                                                 <constraint firstItem="33S-f6-CcL" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="JJz-fb-EvN"/>
-                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k2O-DD-H3u" secondAttribute="top" id="Kxj-5q-NA3"/>
-                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="LJf-dg-3o8"/>
                                                 <constraint firstItem="m9v-WT-7Gd" firstAttribute="top" secondItem="k2O-DD-H3u" secondAttribute="top" id="OdZ-sB-N4A"/>
+                                                <constraint firstItem="33S-f6-CcL" firstAttribute="centerY" secondItem="Hek-4m-d6f" secondAttribute="centerY" id="OqO-XX-j2V"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="m6Z-14-FDQ" secondAttribute="bottom" id="Pmz-TB-AXI"/>
                                                 <constraint firstItem="m9v-WT-7Gd" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="Rt9-wn-HD8"/>
-                                                <constraint firstItem="33S-f6-CcL" firstAttribute="leading" secondItem="D8T-uM-dzM" secondAttribute="trailing" constant="8" symbolic="YES" id="S2b-az-ny6"/>
                                                 <constraint firstItem="O4A-nh-e44" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="Tcu-Tr-XVl"/>
                                                 <constraint firstAttribute="trailing" secondItem="m6Z-14-FDQ" secondAttribute="trailing" constant="20" symbolic="YES" id="VKy-43-420"/>
-                                                <constraint firstItem="D8T-uM-dzM" firstAttribute="leading" secondItem="k2O-DD-H3u" secondAttribute="leading" constant="20" symbolic="YES" id="a69-wM-aFa"/>
                                                 <constraint firstItem="m6Z-14-FDQ" firstAttribute="centerY" secondItem="k2O-DD-H3u" secondAttribute="centerY" id="cVE-aa-B0E"/>
+                                                <constraint firstItem="vxY-kj-Zrf" firstAttribute="leading" secondItem="k2O-DD-H3u" secondAttribute="leading" constant="10" id="kZM-rK-GLg"/>
                                                 <constraint firstItem="m6Z-14-FDQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="k2O-DD-H3u" secondAttribute="top" id="ki3-SJ-6F1"/>
+                                                <constraint firstItem="33S-f6-CcL" firstAttribute="leading" secondItem="Hek-4m-d6f" secondAttribute="trailing" constant="10" id="pMi-LT-jrU"/>
+                                                <constraint firstItem="Hek-4m-d6f" firstAttribute="leading" secondItem="vxY-kj-Zrf" secondAttribute="trailing" id="swM-pc-0KA"/>
+                                                <constraint firstItem="O4A-nh-e44" firstAttribute="centerY" secondItem="Hek-4m-d6f" secondAttribute="centerY" id="tLZ-vT-35y"/>
+                                                <constraint firstItem="Hek-4m-d6f" firstAttribute="centerY" secondItem="vxY-kj-Zrf" secondAttribute="centerY" id="w4Q-DB-SzP"/>
                                                 <constraint firstItem="m9v-WT-7Gd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="33S-f6-CcL" secondAttribute="trailing" id="xms-g2-ETu"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="33S-f6-CcL" secondAttribute="bottom" id="zgs-rY-cMr"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="Hek-4m-d6f" firstAttribute="width" secondItem="VTi-qS-msc" secondAttribute="width" multiplier="1/5" id="buZ-Ad-Y9N"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="changeButton" destination="m6Z-14-FDQ" id="z7O-qJ-Gow"/>
                                             <outlet property="makeGameMasterButton" destination="O4A-nh-e44" id="cW6-ej-IEe"/>
-                                            <outlet property="playerNameLabel" destination="D8T-uM-dzM" id="pML-VR-pfY"/>
+                                            <outlet property="playerNameTextField" destination="Hek-4m-d6f" id="LKe-q1-9GN"/>
                                             <outlet property="removeButton" destination="m9v-WT-7Gd" id="Lwe-KK-iFM"/>
+                                            <outlet property="renameButton" destination="vxY-kj-Zrf" id="qcd-nG-znD"/>
                                             <outlet property="teamNameLabel" destination="33S-f6-CcL" id="vcb-D3-ru3"/>
                                         </connections>
                                     </tableViewCell>
@@ -1727,6 +1744,7 @@
     </scenes>
     <resources>
         <image name="1799-Asia" width="3119" height="2339"/>
+        <image name="edit" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Jl-WZ-ghm"/>

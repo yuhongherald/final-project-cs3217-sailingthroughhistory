@@ -164,7 +164,7 @@ class WaitingRoomViewController: UIViewController {
                 }
                 gmFound = true
             } else if !member.hasTeam {
-                let alert = ControllerUtils.getGenericAlert(titled: "\(member.playerName) has no team.",
+                let alert = ControllerUtils.getGenericAlert(titled: "\(member.identifier) has no team.",
                     withMsg: "Please make sure everyone has a team.")
                 present(alert, animated: true, completion: nil)
                 return nil
