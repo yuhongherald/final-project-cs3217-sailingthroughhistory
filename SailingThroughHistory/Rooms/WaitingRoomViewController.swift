@@ -20,7 +20,7 @@ class WaitingRoomViewController: UIViewController {
     }
     private var dataSource: MembersTableDataSource?
     var roomConnection: RoomConnection?
-    private var waitingRoom: WaitingRoom?
+    private var gameRoom: GameRoom?
     private var initialState: GenericGameState?
     private var imageData: Data?
 
@@ -34,11 +34,21 @@ class WaitingRoomViewController: UIViewController {
             present(alert, animated: true, completion: nil)
             return
         }
-        let waitingRoom = WaitingRoom(fromConnection: roomConnection)
+        let waitingRoom = GameRoom(fromConnection: roomConnection)
         subscribeToGameStart()
-        self.waitingRoom = waitingRoom
+        self.gameRoom = waitingRoom
         dataSource = MembersTableDataSource(withView: playersTableView, withRoom: waitingRoom, mainController: self)
         playersTableView.dataSource = dataSource
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        roomConnection?.changeRemovalCallback { [weak self] in
+            let alert = ControllerUtils.getGenericAlert(titled: "You have been removed from the room.", withMsg: "") {
+                self?.dismiss(animated: true)
+            }
+            self?.present(alert, animated: true, completion: nil)
+        }
     }
 
     @IBAction func chooseLevelPressed(_ sender: Any) {
@@ -78,7 +88,7 @@ class WaitingRoomViewController: UIViewController {
         }
 
         galleryController.selectedCallback = { [weak self] gameParameter in
-            self?.waitingRoom?.parameters = gameParameter
+            self?.gameRoom?.parameters = gameParameter
         }
     }
 
@@ -179,8 +189,8 @@ class WaitingRoomViewController: UIViewController {
         }
     }
 
-    func getWaitingRoom() -> WaitingRoom {
-        guard let waitingRoom = waitingRoom else {
+    func getWaitingRoom() -> GameRoom {
+        guard let waitingRoom = gameRoom else {
             fatalError("Waiting room is nil.")
         }
 
@@ -195,6 +205,6 @@ class WaitingRoomViewController: UIViewController {
 
     override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
-        waitingRoom?.disconnect()
+        gameRoom?.disconnect()
     }
 }

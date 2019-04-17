@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WaitingRoom {
+class GameRoom {
     private var observers = [(callback: ([RoomMember]) -> Void, observer: AnyObject?)]()
     private(set) var players: [RoomMember] {
         didSet {
