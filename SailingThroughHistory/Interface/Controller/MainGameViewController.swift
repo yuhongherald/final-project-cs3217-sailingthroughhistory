@@ -240,16 +240,16 @@ class MainGameViewController: UIViewController {
 
     @IBAction private func toggleActionPanelVisibility(_ sender: UIButtonRounded) {
         guard let currentTurnOwner = currentTurnOwner else {
-            actionPanelView.isHidden = false
-            gameMasterPanel.isHidden = false
+            actionPanelView.isHidden = true
+            gameMasterPanel.isHidden = true
             return
         }
         if currentTurnOwner.isGameMaster {
             gameMasterPanel.isHidden.toggle()
-            actionPanelView.isHidden = false
+            actionPanelView.isHidden = true
         } else {
             actionPanelView.isHidden.toggle()
-            gameMasterPanel.isHidden = false
+            gameMasterPanel.isHidden = true
         }
     }
 

@@ -400,7 +400,7 @@ class LevelEditorViewController: UIViewController {
         }
     }
 
-    func initBackground() {
+    private func initBackground() {
         guard let image = storage.readImage(gameParameter.map.map) ?? UIImage(named: gameParameter.map.map) else {
                 return
         }

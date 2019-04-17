@@ -37,7 +37,6 @@ class LocalStorage {
     func save<T: Encodable>(_ data: T, _ background: UIImage,
                             preview screenShot: UIImage, with name: String, replace: Bool = false) throws -> Bool {
         try verify(name: name)
-        print("\(replace), \(isLevelExist(name))")
         guard replace || !isLevelExist(name) else {
             throw StorageError.fileExisted(message: "Level already exists.")
         }

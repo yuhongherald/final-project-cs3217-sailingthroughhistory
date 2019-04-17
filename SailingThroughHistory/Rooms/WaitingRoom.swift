@@ -58,6 +58,10 @@ class WaitingRoom {
         return identifier == connection.roomMasterId
     }
 
+    func disconnect() {
+        connection.disconnect()
+    }
+
     func changeTeam(of identifier: String) {
         guard teamNames.count > 0,
             let playerIndex = players.firstIndex(where: { $0.playerName == identifier }) else {
