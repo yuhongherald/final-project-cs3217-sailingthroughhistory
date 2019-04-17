@@ -80,7 +80,7 @@ class MainGameViewController: UIViewController {
         togglePlayerInfoButton: playerInfoWrapper,
         toggleTeamScoresButton: teamScoresWrapper,
         toggleMessagesButton: messagesView]
-    private lazy var portItemsDataSource = PortItemTableDataSource(mainController: self)
+    private lazy var portItemsDataSource = PortItemTableController(delegate: self)
     private lazy var availableUpgradesDataSource = AvailableUpgradesDataSource(mainController: self,
                                                                                availableUpgrades: model.availableUpgrades)
     private lazy var teamScoresController = TeamScoreTableController(tableView: teamScoreTableView,
@@ -125,6 +125,13 @@ class MainGameViewController: UIViewController {
         view.window?.rootViewController = self
         network?.changeRemovalCallback { [weak self] in
             self?.performSegue(withIdentifier: "gameToMain", sender: nil)
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if let mainMenuController = segue.destination as? MainMenuViewController {
+            mainMenuController.message = "You have been removed from the game."
         }
     }
 
@@ -207,31 +214,6 @@ class MainGameViewController: UIViewController {
             let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg)
             present(alert, animated: true, completion: nil)
         }
-    }
-
-    func portItemButtonPressed(action: PortItemButtonAction) {
-        guard let currentTurnOwner = currentTurnOwner else {
-            return
-        }
-        var errorMsg: String?
-        do {
-            switch action {
-            case .playerBuy(let itemType):
-                try turnSystem?.buy(itemType: itemType, quantity: 1, by: currentTurnOwner)
-            case .playerSell(let itemType):
-                try turnSystem?.sell(itemType: itemType, quantity: 1, by: currentTurnOwner)
-            }
-        } catch PlayerActionError.invalidAction(let msg) {
-            errorMsg = msg
-        } catch {
-            errorMsg = error.localizedDescription
-        }
-
-        if let errorMsg = errorMsg {
-            let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
-            self.present(alert, animated: true, completion: nil)
-        }
-        playerItemsTable.reloadData()
     }
 
     @IBAction private func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -506,5 +488,32 @@ extension MainGameViewController {
         let alert = ControllerUtils.getGenericAlert(titled: msg == nil ? "Success" : "Error",
                                                     withMsg: msg ?? "Successfully toggled")
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension MainGameViewController: PortItemTableControllerDelegate {
+    func portItemButtonPressed(action: PortItemButtonAction) {
+        guard let currentTurnOwner = currentTurnOwner else {
+            return
+        }
+        var errorMsg: String?
+        do {
+            switch action {
+            case .playerBuy(let itemType):
+                try turnSystem?.buy(itemType: itemType, quantity: 1, by: currentTurnOwner)
+            case .playerSell(let itemType):
+                try turnSystem?.sell(itemType: itemType, quantity: 1, by: currentTurnOwner)
+            }
+        } catch PlayerActionError.invalidAction(let msg) {
+            errorMsg = msg
+        } catch {
+            errorMsg = error.localizedDescription
+        }
+
+        if let errorMsg = errorMsg {
+            let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: errorMsg)
+            self.present(alert, animated: true, completion: nil)
+        }
+        playerItemsTable.reloadData()
     }
 }

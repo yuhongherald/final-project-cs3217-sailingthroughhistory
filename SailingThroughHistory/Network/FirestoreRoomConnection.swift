@@ -9,6 +9,7 @@
 import FirebaseFirestore
 import CodableFirebase
 import FirebaseStorage
+import FirebaseFunctions
 import Foundation
 import os
 
@@ -168,8 +169,7 @@ class FirebaseRoomConnection: RoomConnection {
 
                 self.numOfPlayers += 1
                 self.devicesCollectionRef.document(self.deviceId)
-                    .setData([FirestoreConstants.numPlayersKey: self.numOfPlayers,
-                              FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970])
+                    .updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
         }
     }
 
@@ -222,6 +222,8 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
+            var roomMasterPresent = false
+
             for document in data.documents {
                 let deviceName = document.documentID
                 guard let lastHeartBeat = document.get(FirestoreConstants.lastHeartBeatKey) as? TimeInterval else {
@@ -232,6 +234,14 @@ class FirebaseRoomConnection: RoomConnection {
                 if currentTime - lastHeartBeat > FirebaseRoomConnection.deadTime {
                     self?.removeDevice(withId: deviceName)
                 }
+
+                if document.documentID == self?.roomMasterId {
+                    roomMasterPresent = true
+                }
+            }
+
+            if !roomMasterPresent {
+                self?.deleteRoom()
             }
         }
     }
@@ -249,8 +259,13 @@ class FirebaseRoomConnection: RoomConnection {
                 }
         }
         if deviceName == self.roomMasterId {
-            self.roomDocumentRef.delete()
+            deleteRoom()
         }
+    }
+
+    private func deleteRoom() {
+        Functions.functions().httpsCallable("recursiveDelete").call(["path": self.roomDocumentRef.path],
+                                                                    completion: {_, _ in })
     }
 
     func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws {
@@ -303,27 +318,40 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func subscribeToActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
-        listeners.append(turnActionsDocumentRef.collection(String(turn)).addSnapshotListener { (query, queryError) in
-            guard let snapshot = query else {
-                callback([], NetworkError.pullError(message: "Snapshot is nil for turn actions"))
-                return
-            }
-
-            if let queryError = queryError {
-                callback([], NetworkError.pullError(message: queryError.localizedDescription))
-                return
-            }
-
-            do {
-                let actions = try snapshot.documents.map {
-                    ($0.documentID, try FirebaseDecoder.init().decode(PlayerActionBatch.self, from: $0.data()).actions)
-                }
-                callback(actions, nil)
-            } catch {
-                callback([],
-                         NetworkError.pullError(message: "Error when decoding: \(error.localizedDescription)"))
-            }
+        listeners.append(
+            turnActionsDocumentRef.collection(String(turn)).addSnapshotListener { [weak self] (query, queryError) in
+                self?.getTurnActions(from: query, error: queryError, callback: callback)
         })
+    }
+
+    private func getTurnActions(from query: QuerySnapshot?,
+        error: Error?,
+        callback: ([(String, [PlayerAction])], Error?) -> Void) {
+        guard let snapshot = query else {
+            callback([], NetworkError.pullError(message: "Snapshot is nil for turn actions"))
+            return
+        }
+
+        if let queryError = error {
+            callback([], NetworkError.pullError(message: queryError.localizedDescription))
+            return
+        }
+
+        do {
+            let actions = try snapshot.documents.map {
+                ($0.documentID, try FirebaseDecoder.init().decode(PlayerActionBatch.self, from: $0.data()).actions)
+            }
+            callback(actions, nil)
+        } catch {
+            callback([],
+                     NetworkError.pullError(message: "Error when decoding: \(error.localizedDescription)"))
+        }
+    }
+
+    func getTurnActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
+        turnActionsDocumentRef.collection(String(turn)).getDocuments { [weak self] (snapshot, error) in
+            self?.getTurnActions(from: snapshot, error: error, callback: callback)
+        }
     }
 
     func subscribeToMembers(with callback: @escaping ([RoomMember]) -> Void) {

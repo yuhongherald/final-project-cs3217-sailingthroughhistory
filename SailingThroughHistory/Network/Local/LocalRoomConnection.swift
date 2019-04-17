@@ -133,7 +133,10 @@ class LocalRoomConnection: RoomConnection {
         return
     }
 
+    func getTurnActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
+        callback(actions[turn] ?? [], nil)
+    }
+
     func disconnect() {
-        
     }
 }

@@ -37,6 +37,8 @@ protocol RoomConnection {
 
     func remove(player: String)
 
+    func getTurnActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void)
+
     func changeRemovalCallback(to callback: @escaping () -> Void)
 
     func subscribeToMasterState(for turn: Int, callback: @escaping (GameState) -> Void)
