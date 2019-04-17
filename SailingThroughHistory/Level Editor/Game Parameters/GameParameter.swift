@@ -11,7 +11,6 @@ import Foundation
 class GameParameter: GenericLevel, Codable {
     let maxTaxAmount = 2000
     let defaultTaxAmount = 1000
-    let numNPC = 5
     var upgrades: [Upgrade] = [BiggerShipUpgrade(), FasterShipUpgrade(), BiggerSailsUpgrade(), MercernaryUpgrade()]
 
     var playerParameters = [PlayerParameter]()

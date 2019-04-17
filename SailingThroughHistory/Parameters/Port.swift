@@ -97,11 +97,13 @@ class Port: Node {
     }
 
     func setBuyValue(of type: ItemType, value: Int) {
-        itemBuyValue[type] = value
+        let finalValue = max(getSellValue(of: type) ?? 0, value)
+        itemBuyValue[type] = finalValue
     }
 
     func setSellValue(of type: ItemType, value: Int) {
-        itemSellValue[type] = value
+        let finalValue = min(getBuyValue(of: type) ?? value, value)
+        itemSellValue[type] = finalValue
     }
 
     // Availability at ports
