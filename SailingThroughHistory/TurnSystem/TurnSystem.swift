@@ -506,7 +506,7 @@ class TurnSystem: GenericTurnSystem {
         }
 
         for player in players where
-            playerActionPairs.first(where: { $0.0 == player.playerName }) == nil {
+            playerActionPairs.first(where: { player.playerName.hasPrefix($0.0) }) == nil {
                 return
         }
 
