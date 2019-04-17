@@ -9,6 +9,8 @@
 import UIKit
 
 class MainMenuViewController: UIViewController {
+    var message: String?
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -20,6 +22,11 @@ class MainMenuViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.view.window?.rootViewController = self
+        if let message = message {
+            let alert = ControllerUtils.getGenericAlert(titled: message, withMsg: "")
+            present(alert, animated: true, completion: nil)
+            self.message = nil
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

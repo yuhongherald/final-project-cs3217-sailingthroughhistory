@@ -13,9 +13,9 @@ class MembersTableDataSource: NSObject, UITableViewDataSource {
     private let mainController: WaitingRoomViewController
     private static let reuseIdentifier = "waitingRoomCell"
     private let view: UITableView
-    private var waitingRoom: WaitingRoom
+    private var waitingRoom: GameRoom
 
-    init(withView view: UITableView, withRoom waitingRoom: WaitingRoom, mainController: WaitingRoomViewController) {
+    init(withView view: UITableView, withRoom waitingRoom: GameRoom, mainController: WaitingRoomViewController) {
         guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
             fatalError("Device has no uuid")
         }

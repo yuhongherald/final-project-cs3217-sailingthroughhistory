@@ -41,7 +41,10 @@ class TurnSystem: GenericTurnSystem {
     private let network: RoomConnection
     private var players = [RoomMember]() {
         didSet {
-
+            let turn = data.currentTurn
+            network.getTurnActions(for: turn) { [weak self] (actions, _) in
+                self?.processNetworkTurnActions(forTurnNumber: turn, playerActionPairs: actions)
+            }
         }
     }
 
@@ -487,46 +490,47 @@ class TurnSystem: GenericTurnSystem {
 
     private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
         networkActionQueue.sync { [weak self] in
-            guard let self = self else {
-                return
-            }
-            switch self.state {
-            case .waitForTurnFinish:
-                break
-            default:
-                return
-            }
-            if self.data.currentTurn != turnNum {
-                return
-            }
-
-            for player in self.gameState.getPlayers() where
-                playerActionPairs.first(where: { $0.0 == player.name }) == nil {
-                    return
-            }
-
-            for playerActionPair in playerActionPairs {
-                guard let chosenPlayer =
-                    self.gameState.getPlayers().first(where: { $0.name == playerActionPair.0 }) else {
-                        continue
-                }
-                let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
-                self.messages.append(contentsOf: playerActions)
-                let messages = chosenPlayer.endTurn()
-                if chosenPlayer.deviceId == deviceId {
-                    self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
-                                                                                             message: $0.message)})
-                }
-            }
-            gameState.map.npcs.forEach { _ = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000)}
-            handleSetTax()
-            let eventResults = data.checkForEvents() // events will run here, non-recursive
-            self.messages.append(contentsOf: eventResults)
-            gameState.gameTime.value.addWeeks(4)
-            gameState.map.updateWeather(for: gameState.gameTime.value.month)
-            gameState.distributeTeamMoney()
-            updateStateMaster()
+            self?.processNetworkTurnActions(forTurnNumber: turnNum, playerActionPairs: playerActionPairs)
         }
+    }
+
+    private func processNetworkTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
+        switch self.state {
+        case .waitForTurnFinish:
+            break
+        default:
+            return
+        }
+        if self.data.currentTurn != turnNum {
+            return
+        }
+
+        for player in players where
+            playerActionPairs.first(where: { player.playerName.hasPrefix($0.0) }) == nil {
+                return
+        }
+
+        for playerActionPair in playerActionPairs {
+            guard let chosenPlayer =
+                self.gameState.getPlayers().first(where: { $0.name == playerActionPair.0 }) else {
+                    continue
+            }
+            let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
+            self.messages.append(contentsOf: playerActions)
+            let messages = chosenPlayer.endTurn()
+            if chosenPlayer.deviceId == deviceId {
+                self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
+                                                                                         message: $0.message)})
+            }
+        }
+        gameState.map.npcs.forEach { _ = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000)}
+        handleSetTax()
+        let eventResults = data.checkForEvents() // events will run here, non-recursive
+        self.messages.append(contentsOf: eventResults)
+        gameState.gameTime.value.addWeeks(4)
+        gameState.map.updateWeather(for: gameState.gameTime.value.month)
+        gameState.distributeTeamMoney()
+        updateStateMaster()
     }
 
     private func startPlayerInput(from player: GenericPlayer) {

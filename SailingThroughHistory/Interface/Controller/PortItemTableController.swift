@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
+class PortItemTableController: NSObject, UITableViewDataSource, UITableViewDelegate {
     private static let reuseIdentifier: String = "itemsTableCell"
     private static let defaultPrice: Int = 100
     private static let buyButtonLabel = "Buy"
@@ -16,14 +16,14 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     private static let boughtSection = 0
     private static let soldSection = 1
     private static let numSections = 2
-    private weak var mainController: MainGameViewController?
+    private weak var delegate: PortItemTableControllerDelegate?
     private var playerCanInteract = false
     private var selectedPort: Port?
     private var itemTypesSoldByPort = [ItemType]()
     private var itemTypesBoughtByPort = [ItemType]()
 
-    init(mainController: MainGameViewController) {
-        self.mainController = mainController
+    init(delegate: PortItemTableControllerDelegate) {
+        self.delegate = delegate
     }
 
     func didSelect(port: Port, playerCanInteract: Bool) {
@@ -35,7 +35,7 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: PortItemTableDataSource.reuseIdentifier, for: indexPath)
+            withIdentifier: PortItemTableController.reuseIdentifier, for: indexPath)
             as? UITradeTableCell
 
         guard let tableCell = cell else {
@@ -48,23 +48,23 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
 
         var array: [ItemType]
         switch indexPath.section {
-        case PortItemTableDataSource.boughtSection:
+        case PortItemTableController.boughtSection:
             array = itemTypesBoughtByPort
             let item = array[indexPath.row]
             tableCell.set(price: port.getSellValue(of: item) ??
-                PortItemTableDataSource.defaultPrice)
-            tableCell.set(buttonLabel: PortItemTableDataSource.sellButtonLabel)
+                PortItemTableController.defaultPrice)
+            tableCell.set(buttonLabel: PortItemTableController.sellButtonLabel)
             tableCell.buttonPressedCallback = { [weak self] in
-                self?.mainController?.portItemButtonPressed(action: .playerSell(item: item))
+                self?.delegate?.portItemButtonPressed(action: .playerSell(item: item))
             }
-        case PortItemTableDataSource.soldSection:
+        case PortItemTableController.soldSection:
             array = itemTypesSoldByPort
             let item = array[indexPath.row]
             tableCell.set(price: port.getBuyValue(of: array[indexPath.row]) ??
-                PortItemTableDataSource.defaultPrice)
-            tableCell.set(buttonLabel: PortItemTableDataSource.buyButtonLabel)
+                PortItemTableController.defaultPrice)
+            tableCell.set(buttonLabel: PortItemTableController.buyButtonLabel)
             tableCell.buttonPressedCallback = { [weak self] in
-                self?.mainController?.portItemButtonPressed(action: .playerBuy(item: item))
+                self?.delegate?.portItemButtonPressed(action: .playerBuy(item: item))
             }
         default:
             array = []
@@ -81,14 +81,14 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return PortItemTableDataSource.numSections
+        return PortItemTableController.numSections
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case PortItemTableDataSource.boughtSection:
+        case PortItemTableController.boughtSection:
             return itemTypesBoughtByPort.count
-        case PortItemTableDataSource.soldSection:
+        case PortItemTableController.soldSection:
             return itemTypesSoldByPort.count
         default:
             return 0
@@ -97,9 +97,9 @@ class PortItemTableDataSource: NSObject, UITableViewDataSource, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case PortItemTableDataSource.boughtSection:
+        case PortItemTableController.boughtSection:
             return "Buying"
-        case PortItemTableDataSource.soldSection:
+        case PortItemTableController.soldSection:
             return "Selling"
         default:
             return nil
