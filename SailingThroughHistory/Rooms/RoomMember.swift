@@ -7,6 +7,7 @@
 //
 
 struct RoomMember {
+    let identifier: String
     let playerName: String
     let teamName: String?
     let deviceId: String
@@ -15,8 +16,9 @@ struct RoomMember {
         return teamName != nil
     }
 
-    init(playerName: String, teamName: String?, deviceId: String) {
-        self.playerName = playerName
+    init(identifier: String, playerName: String?, teamName: String?, deviceId: String) {
+        self.identifier = identifier
+        self.playerName = playerName ?? String(identifier.prefix(8))
         self.teamName = teamName
         self.deviceId = deviceId
     }

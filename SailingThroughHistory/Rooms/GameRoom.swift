@@ -38,7 +38,7 @@ class GameRoom {
         self.connection = connection
         connection.subscribeToMembers { [weak self] in
             var players = $0
-            for (index, player) in players.enumerated() where player.playerName == self?.gameMaster {
+            for (index, player) in players.enumerated() where player.identifier == self?.gameMaster {
                 players[index].isGameMaster = true
             }
             self?.players = players
@@ -64,14 +64,23 @@ class GameRoom {
 
     func changeTeam(of identifier: String) {
         guard teamNames.count > 0,
-            let playerIndex = players.firstIndex(where: { $0.playerName == identifier }) else {
+            let playerIndex = players.firstIndex(where: { $0.identifier == identifier }) else {
             return
         }
 
         let player = players[playerIndex]
         let newTeamIndex = ((teamNames.index(of: player.teamName ?? "") ?? 0) + 1) % teamNames.count
         let newTeamName = teamNames[newTeamIndex]
-        connection.changeTeamName(for: player.playerName, to: newTeamName)
+        connection.changeTeamName(for: player.identifier, to: newTeamName)
+    }
+
+    func changeName(of identifier: String, to newName: String) {
+        guard let playerIndex = players.firstIndex(where: { $0.identifier == identifier }) else {
+            return
+        }
+
+        let player = players[playerIndex]
+        connection.changePlayerName(for: player.identifier, to: newName)
     }
 
     func remove(player playerName: String) {
@@ -80,7 +89,7 @@ class GameRoom {
 
     func makeGameMaster(_ identifier: String) {
         guard isRoomMaster(),
-            let playerIndex = players.firstIndex(where: { $0.playerName == identifier }) else {
+            let playerIndex = players.firstIndex(where: { $0.identifier == identifier }) else {
             return
         }
         for index in players.indices {

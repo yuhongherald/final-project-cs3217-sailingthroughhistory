@@ -41,7 +41,7 @@ class LocalRoomConnection: RoomConnection {
     }
 
     func addPlayer() {
-        let member = RoomMember(playerName: "\(roomMembers.count)-Play", teamName: nil, deviceId: roomMasterId)
+        let member = RoomMember(identifier: "\(roomMembers.count)-Play", playerName: nil, teamName: nil, deviceId: roomMasterId)
         roomMembers.append(member)
     }
 
@@ -107,15 +107,25 @@ class LocalRoomConnection: RoomConnection {
     }
 
     func changeTeamName(for identifier: String, to teamName: String) {
-        for (index, member) in roomMembers.enumerated() where member.playerName == identifier {
-            roomMembers[index] = RoomMember(playerName: member.playerName,
+        for (index, member) in roomMembers.enumerated() where member.identifier == identifier {
+            roomMembers[index] = RoomMember(identifier: member.identifier,
+                                            playerName: member.playerName,
                                             teamName: teamName,
                                             deviceId: member.deviceId)
         }
     }
 
+    func changePlayerName(for identifier: String, to playerName: String) {
+        for (index, member) in roomMembers.enumerated() where member.identifier == identifier {
+            roomMembers[index] = RoomMember(identifier: member.identifier,
+                                            playerName: playerName,
+                                            teamName: member.teamName,
+                                            deviceId: member.deviceId)
+        }
+    }
+
     func remove(player: String) {
-        roomMembers = roomMembers.filter { $0.playerName != player }
+        roomMembers = roomMembers.filter { $0.identifier != player }
     }
 
     func changeRemovalCallback(to callback: @escaping () -> Void) {

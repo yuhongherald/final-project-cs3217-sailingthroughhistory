@@ -24,6 +24,16 @@ class WaitingRoomViewController: UIViewController {
     private var initialState: GenericGameState?
     private var imageData: Data?
 
+    override func viewDidAppear(_ animated: Bool) {
+        roomConnection?.changeRemovalCallback { [weak self] in
+            let alert = ControllerUtils.getGenericAlert(titled: "You are removed from room.", withMsg: "", action: {
+                self?.dismiss(animated: true, completion: nil)
+            })
+            self?.present(alert, animated: true, completion: nil)
+        }
+        super.viewDidAppear(animated)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let roomConnection = roomConnection else {
@@ -39,16 +49,6 @@ class WaitingRoomViewController: UIViewController {
         self.gameRoom = waitingRoom
         dataSource = MembersTableDataSource(withView: playersTableView, withRoom: waitingRoom, mainController: self)
         playersTableView.dataSource = dataSource
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        roomConnection?.changeRemovalCallback { [weak self] in
-            let alert = ControllerUtils.getGenericAlert(titled: "You have been removed from the room.", withMsg: "") {
-                self?.dismiss(animated: true)
-            }
-            self?.present(alert, animated: true, completion: nil)
-        }
     }
 
     @IBAction func chooseLevelPressed(_ sender: Any) {
@@ -165,7 +165,7 @@ class WaitingRoomViewController: UIViewController {
                 }
                 gmFound = true
             } else if !member.hasTeam {
-                let alert = ControllerUtils.getGenericAlert(titled: "\(member.playerName) has no team.",
+                let alert = ControllerUtils.getGenericAlert(titled: "\(member.identifier) has no team.",
                     withMsg: "Please make sure everyone has a team.")
                 present(alert, animated: true, completion: nil)
                 return nil
