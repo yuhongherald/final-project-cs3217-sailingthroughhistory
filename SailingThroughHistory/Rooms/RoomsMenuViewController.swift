@@ -28,7 +28,15 @@ class RoomsMenuViewController: UIViewController {
 
     @IBAction func createRoomButtonPressed(_ sender: UIButton) {
         let alert = UIAlert(title: "Input name: ", confirm: { [weak self] roomName in
-            self?.join(room: NetworkFactory.createRoomInstance(named: roomName))
+            let room: Room
+            do {
+                room = try NetworkFactory.createRoomInstance(named: roomName)
+                self?.join(room: room)
+            } catch {
+                let error = error as? StorageError
+                let alert = ControllerUtils.getGenericAlert(titled: error?.getMessage() ?? "Error connectiong to room.", withMsg: "")
+                self?.present(alert, animated: true, completion: nil)
+            }
             }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
     }

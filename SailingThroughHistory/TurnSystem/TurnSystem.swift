@@ -346,14 +346,16 @@ class TurnSystem: GenericTurnSystem {
     func endTurn() {
         if let currentPlayer = currentPlayer {
             /// TODO: Add error handling. If it throws, then encoding has failed.
-            do {
-                try network.push(actions: pendingActions, fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) { _ in
-                    /// TODO: Add error handling
+            if !pendingActions.isEmpty {
+                do {
+                    try network.push(actions: pendingActions, fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) { _ in
+                        /// TODO: Add error handling
+                    }
+                } catch {
+                    print(error)
                 }
-            } catch {
-                print(error)
+                pendingActions = []
             }
-            pendingActions = []
         }
         for callback in callbacks {
             callback()

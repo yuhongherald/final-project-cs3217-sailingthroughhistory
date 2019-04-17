@@ -32,6 +32,7 @@ class GameParameter: GenericLevel, Codable {
                                                      isConsumable: true))
         }
     }
+    
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)

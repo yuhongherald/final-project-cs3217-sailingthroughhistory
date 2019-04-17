@@ -20,6 +20,7 @@ class NodeView: UIImageView {
 
         nodeLabel.text = node.name
         nodeLabel.frame.size = CGSize(width: node.frame.width, height: 15)
+        nodeLabel.adjustsFontSizeToFitWidth = true
         if let image = Resources.Icon.of(node) {
             self.image = UIImage(named: image)
         }
