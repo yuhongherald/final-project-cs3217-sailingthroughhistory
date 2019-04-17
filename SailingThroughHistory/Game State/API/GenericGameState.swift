@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol GenericGameState: Codable {
+protocol GenericGameState: Codable, CustomStringConvertible {
     var gameTime: GameVariable<GameTime> { get set }
     var gameObjects: [GameObject] { get }
     var map: Map { get }

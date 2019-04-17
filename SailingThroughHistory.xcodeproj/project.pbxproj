@@ -224,6 +224,7 @@
 		BAA0D0402262655C004417CA /* GenericItemStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D03F2262655C004417CA /* GenericItemStub.swift */; };
 		BAA0D04222634925004417CA /* GenericPlayerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D04122634925004417CA /* GenericPlayerStub.swift */; };
 		BAA0D044226388BA004417CA /* PortAdminError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D043226388BA004417CA /* PortAdminError.swift */; };
+		BAA0D0482265C541004417CA /* String+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA0D0472265C541004417CA /* String+Crypto.swift */; };
 		BAB3378222605D35007A0C05 /* HistoryFactAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378122605D35007A0C05 /* HistoryFactAction.swift */; };
 		BAB33789226203B3007A0C05 /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB33788226203B3007A0C05 /* NPC.swift */; };
 		BAB3378E2262295D007A0C05 /* ShipUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378D2262295D007A0C05 /* ShipUnitTests.swift */; };
@@ -487,6 +488,7 @@
 		BAA0D03F2262655C004417CA /* GenericItemStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericItemStub.swift; sourceTree = "<group>"; };
 		BAA0D04122634925004417CA /* GenericPlayerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerStub.swift; sourceTree = "<group>"; };
 		BAA0D043226388BA004417CA /* PortAdminError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortAdminError.swift; sourceTree = "<group>"; };
+		BAA0D0472265C541004417CA /* String+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Crypto.swift"; sourceTree = "<group>"; };
 		BAB3378122605D35007A0C05 /* HistoryFactAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFactAction.swift; sourceTree = "<group>"; };
 		BAB33788226203B3007A0C05 /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
 		BAB3378D2262295D007A0C05 /* ShipUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipUnitTests.swift; sourceTree = "<group>"; };
@@ -920,6 +922,7 @@
 				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
 				9615B7702248F28100DA12C8 /* CGRect+Rect.swift */,
 				BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */,
+				BAA0D0472265C541004417CA /* String+Crypto.swift */,
 				1ABBA2302265ADFD00222E7A /* UIImageView+Icon.swift */,
 			);
 			path = Common;
@@ -1455,6 +1458,7 @@
 				7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */,
 				965E0335223A4B84005F7D79 /* Sea.swift in Sources */,
 				752D2BDA225F8EAE00A3411C /* Activatable.swift in Sources */,
+				BAA0D0482265C541004417CA /* String+Crypto.swift in Sources */,
 				75354467224CA7CC001B4F62 /* EqualOperator.swift in Sources */,
 				75354490224CBCBE001B4F62 /* UniqueObject.swift in Sources */,
 				96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */,
