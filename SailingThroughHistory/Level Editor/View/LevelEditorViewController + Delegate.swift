@@ -19,14 +19,21 @@ extension LevelEditorViewController: EditPanelDelegateProtocol {
 
     func addMapBackground(_ image: UIImage) {
         mapBackground.image = image
-        mapBackground.frame = CGRect(origin: CGPoint.zero, size: image.size)
+        mapBackground.contentMode = .topLeft
+        var size = image.size
+        if size.width < self.view.frame.width {
+            let width = self.view.frame.width
+            let height = size.height / size.width * width
+            size = CGSize(width: width, height: height)
+        }
+        mapBackground.frame = CGRect(origin: CGPoint.zero, size: size)
         editingAreaWrapper.frame = mapBackground.frame
         editingAreaWrapper.subviews.forEach {
             $0.frame = mapBackground.frame
         }
 
-        scrollView.contentSize = image.size
-        scrollView.minimumZoomScale = max(view.frame.height/image.size.height, view.frame.width/image.size.width)
+        scrollView.contentSize = size
+        scrollView.minimumZoomScale = max(view.frame.height/size.height, view.frame.width/size.width)
         scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
     }
 }
