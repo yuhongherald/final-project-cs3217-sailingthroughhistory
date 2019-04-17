@@ -893,6 +893,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1799-Asia" translatesAutoresizingMaskIntoConstraints="NO" id="tu2-gN-wSZ">
+                                <rect key="frame" x="0.0" y="2" width="1366" height="1024"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S24-oK-2jt" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
                                 <rect key="frame" x="412" y="294" width="201" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -922,6 +925,12 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="tu2-gN-wSZ" firstAttribute="centerY" secondItem="Wkc-Zw-S7W" secondAttribute="centerY" id="HcF-dR-b2x"/>
+                            <constraint firstItem="tu2-gN-wSZ" firstAttribute="width" secondItem="l0h-Op-m1z" secondAttribute="width" id="OqR-8V-h7U"/>
+                            <constraint firstItem="tu2-gN-wSZ" firstAttribute="height" secondItem="l0h-Op-m1z" secondAttribute="height" id="oSv-bz-9TD"/>
+                            <constraint firstItem="tu2-gN-wSZ" firstAttribute="centerX" secondItem="Wkc-Zw-S7W" secondAttribute="centerX" id="w99-oS-kYm"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Wkc-Zw-S7W"/>
                     </view>
                 </viewController>
@@ -1708,8 +1717,11 @@
             <point key="canvasLocation" x="547.8515625" y="132.8125"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="1799-Asia" width="3119" height="2339"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Jl-WZ-ghm"/>
-        <segue reference="QLW-hl-erw"/>
+        <segue reference="id6-QH-97E"/>
     </inferredMetricsTieBreakers>
 </document>
