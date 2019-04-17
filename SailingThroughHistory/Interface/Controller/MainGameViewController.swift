@@ -161,6 +161,13 @@ class MainGameViewController: UIViewController {
                 break
             case .evaluateMoves:
                 break
+            case .finished(let winner):
+                let alert = ControllerUtils.getGenericAlert(
+                titled: "\(winner?.name ?? "No one") has won, Congratulations!",
+                withMsg: "") { [weak self] in
+                    self?.performSegue(withIdentifier: "gameToMain", sender: nil)
+                }
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }
