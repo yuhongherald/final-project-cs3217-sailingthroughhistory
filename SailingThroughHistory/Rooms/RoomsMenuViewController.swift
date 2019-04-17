@@ -17,13 +17,7 @@ class RoomsMenuViewController: UIViewController {
     }
 
     private lazy var dataSource = RoomsTableDataSource(withView: roomsTableView, mainController: self)
-    private var roomConnection: RoomConnection? {
-        didSet {
-            roomConnection?.changeRemovalCallback { [weak self] in
-                self?.performSegue(withIdentifier: "gameToMain", sender: nil)
-            }
-        }
-    }
+    private var roomConnection: RoomConnection?
     private var canJoinRoom = true
 
     override func viewDidLoad() {

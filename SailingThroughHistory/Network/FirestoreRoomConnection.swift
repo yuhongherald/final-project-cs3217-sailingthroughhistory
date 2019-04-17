@@ -57,7 +57,6 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     private func subscribeRemoval(removalCallback: (() -> Void)?) {
-        self.removalCallback = removalCallback
         listeners.append(roomDocumentRef.addSnapshotListener { [weak self] (document, _) in
             guard let document = document, !document.exists else {
                 return
@@ -101,15 +100,15 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
-            document.reference.collection(FirestoreConstants.playersCollectionName)
-                .getDocuments(completion: { (snapshot, _) in
+            self?.playersCollectionRef.whereField(
+                FirestoreConstants.playerDeviceKey, isEqualTo: document.documentID).getDocuments { (snapshot, _) in
                     guard let snapshot = snapshot else {
                         return
                     }
                     snapshot.documents.forEach { document in
-                        self?.playersCollectionRef.document(document.documentID).delete()
+                        document.reference.delete()
                     }
-                })
+            }
 
             self?.removalCallback?()
         })
@@ -171,7 +170,8 @@ class FirebaseRoomConnection: RoomConnection {
 
                 self.numOfPlayers += 1
                 self.devicesCollectionRef.document(self.deviceId)
-                    .setData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
+                    .setData([FirestoreConstants.numPlayersKey: self.numOfPlayers,
+                              FirestoreConstants.lastHeartBeatKey: Date().timeIntervalSince1970])
         }
     }
 
@@ -207,9 +207,13 @@ class FirebaseRoomConnection: RoomConnection {
     private func sendAndCheckHeartBeat(completion callback: (() -> Void)?) {
         let currentTime = Date().timeIntervalSince1970
         devicesCollectionRef.document(deviceId)
-            .updateData([FirestoreConstants.lastHeartBeatKey: currentTime]) { _ in
+            .setData([FirestoreConstants.lastHeartBeatKey: currentTime]) { _ in
                 callback?()
+                self.checkHeartBeat(currentTime: currentTime)
         }
+    }
+
+    private func checkHeartBeat(currentTime: TimeInterval) {
         devicesCollectionRef.getDocuments { [weak self] (snapshot, error) in
             if let error = error {
                 print("Error reading device documents. \(error.localizedDescription)")
@@ -222,13 +226,15 @@ class FirebaseRoomConnection: RoomConnection {
 
             for document in data.documents {
                 guard let lastHeartBeat = document.get(FirestoreConstants.lastHeartBeatKey) as? TimeInterval else {
-                    print("Error reading last heartbeat for \(document.documentID)")
+                    print("Error reading last heartbeat for \(document.documentID) \(document.exists)")
                     document.reference.delete()
                     return
                 }
+                print("Updated last heartbeat for \(document.documentID)")
 
                 if currentTime - lastHeartBeat > FirebaseRoomConnection.deadTime {
                     let deviceName = document.documentID
+                    print("Remove device \(deviceName)")
                     /// Remove player
                     self?.removeDevice(withId: deviceName)
                 }
@@ -238,15 +244,6 @@ class FirebaseRoomConnection: RoomConnection {
 
     private func removeDevice(withId deviceName: String) {
         self.devicesCollectionRef.document(deviceName).delete()
-        self.playersCollectionRef.whereField(
-            FirestoreConstants.playerDeviceKey, isEqualTo: deviceName).getDocuments { (snapshot, _) in
-            guard let snapshot = snapshot else {
-                return
-            }
-            snapshot.documents.forEach { document in
-                document.reference.delete()
-            }
-        }
         if deviceName == self.roomMasterId {
             self.roomDocumentRef.delete()
         }
@@ -433,6 +430,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func disconnect() {
+        print("Disconnect.")
         self.heartbeatTimer?.invalidate()
         self.listeners.forEach { $0.remove() }
         self.removeDevice(withId: deviceId)
