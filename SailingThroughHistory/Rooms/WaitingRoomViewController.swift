@@ -31,6 +31,7 @@ class WaitingRoomViewController: UIViewController {
             })
             self?.present(alert, animated: true, completion: nil)
         }
+        super.viewDidAppear(animated)
     }
 
     override func viewDidLoad() {
@@ -48,16 +49,6 @@ class WaitingRoomViewController: UIViewController {
         self.gameRoom = waitingRoom
         dataSource = MembersTableDataSource(withView: playersTableView, withRoom: waitingRoom, mainController: self)
         playersTableView.dataSource = dataSource
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        roomConnection?.changeRemovalCallback { [weak self] in
-            let alert = ControllerUtils.getGenericAlert(titled: "You have been removed from the room.", withMsg: "") {
-                self?.dismiss(animated: true)
-            }
-            self?.present(alert, animated: true, completion: nil)
-        }
     }
 
     @IBAction func chooseLevelPressed(_ sender: Any) {
