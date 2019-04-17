@@ -459,7 +459,7 @@ class TurnSystem: GenericTurnSystem {
             if let data = self?.data, let numTurns = self?.numTurns, let gameState = self?.gameState {
                 if data.currentTurn >= numTurns {
                     let winner = gameState.getTeamMoney().max { (first, second) -> Bool in
-                        return first.value < first.value
+                        return first.value < second.value
                         }?.key
                     self?.state = .finished(winner: winner)
                     return
