@@ -15,6 +15,7 @@ protocol GenericGameState: Codable, CustomStringConvertible {
     var availableUpgrades: [Upgrade] { get }
     var maxTaxAmount: Int { get }
     var itemParameters: [GameVariable<ItemParameter>] { get set }
+    var numTurns: Int { get }
 
     func getPlayers() -> [GenericPlayer]
     func startNextTurn(speedMultiplier: Double)
