@@ -9,6 +9,7 @@
 import FirebaseFirestore
 import CodableFirebase
 import FirebaseStorage
+import FirebaseFunctions
 import Foundation
 import os
 
@@ -220,7 +221,9 @@ class FirebaseRoomConnection: RoomConnection {
             }
         }
         if deviceName == self.roomMasterId {
-            self.roomDocumentRef.delete()
+            Functions.functions().httpsCallable("recursiveDelete").call(["path": self.roomDocumentRef.path],
+                                                                        completion: {_, _ in })
+
         }
     }
 

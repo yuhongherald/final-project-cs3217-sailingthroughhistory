@@ -192,4 +192,9 @@ class WaitingRoomViewController: UIViewController {
                                                     withMsg: "You are not the room master.")
         present(alert, animated: true, completion: nil)
     }
+
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        roomConnection.disconnect()
+    }
 }

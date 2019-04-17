@@ -7,6 +7,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseFunctions
 
 class FirestoreRoom: Room {
     let name: String
@@ -43,8 +44,9 @@ class FirestoreRoom: Room {
                     return
                 }
                 if snapshot.documents.count <= 0 {
-                    FirestoreConstants.roomCollection.document(name).delete()
-                    deleteAllRoomInformation(named: name)
+                    Functions.functions().httpsCallable("recursiveDelete")
+                        .call(["path": FirestoreConstants.roomCollection.document(name).path],
+                              completion: {_, _ in })
                 }
             })
         }
@@ -59,28 +61,11 @@ class FirestoreRoom: Room {
                 guard let lastHeartBeat = document.get(FirestoreConstants.lastHeartBeatKey)
                     as? Double,
                     Date().timeIntervalSince1970 - lastHeartBeat < 60 else {
-                        document.reference.delete(completion: deleteIfEmpty)
-                        return
+                        document.reference.delete()
+                        continue
                 }
             }
-        }
-    }
-
-    private static func deleteAllRoomInformation(named name: String) {
-        let devicesCollectionReference = FirestoreConstants
-            .roomCollection
-            .document(name)
-            .collection(FirestoreConstants.devicesCollectionName)
-        let playersCollectionReference = FirestoreConstants
-            .roomCollection
-            .document(name)
-            .collection(FirestoreConstants.playersCollectionName)
-        for reference in [devicesCollectionReference, playersCollectionReference] {
-            reference.getDocuments { (snapshot, _) in
-                for document in snapshot?.documents ?? [] {
-                    document.reference.delete()
-                }
-            }
+            deleteIfEmpty(nil)
         }
     }
 }
