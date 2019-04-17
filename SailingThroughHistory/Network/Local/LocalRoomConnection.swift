@@ -122,4 +122,8 @@ class LocalRoomConnection: RoomConnection {
         // Removal callback should never be triggered in a local game.
         return
     }
+
+    func disconnect() {
+        
+    }
 }

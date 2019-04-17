@@ -38,4 +38,6 @@ protocol RoomConnection {
     func changeRemovalCallback(to callback: @escaping () -> Void)
 
     func subscribeToMasterState(for turn: Int, callback: @escaping (GameState) -> Void)
+
+    func disconnect()
 }

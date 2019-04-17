@@ -90,6 +90,7 @@ class Ship: Codable {
         }
 
         shipObject = ShipUI(ship: self)
+        updateCargoWeight(items: items.value)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -192,7 +193,7 @@ extension Ship {
         weightCapacityVariable.subscribe(with: observer)
     }
 
-    private func updateCargoWeight(items: [GenericItem]) {
+    func updateCargoWeight(items: [GenericItem]) {
         var result = 0
         for item in items {
             result += item.weight ?? 0

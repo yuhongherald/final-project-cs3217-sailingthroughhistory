@@ -18,15 +18,15 @@ enum ItemType: String, Codable, CaseIterable {
     func getUnitWeight() -> Int {
         switch(self) {
         case .teaLeaves:
-            return 250
+            return 25
         case .silk:
-            return 200
+            return 20
         case .perfume:
-            return 100
+            return 10
         case .opium:
-            return 100
+            return 10
         case .food:
-            return 50
+            return 5
         }
     }
 }

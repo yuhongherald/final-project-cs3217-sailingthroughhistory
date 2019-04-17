@@ -17,8 +17,13 @@ class Rooms {
 
     init() {
         self.networkRooms.subscribe { [weak self] roomNames in
-            print("roomNames: \(roomNames.count)")
-            let rooms = roomNames.map { NetworkFactory.createRoomInstance(named: $0) }
+            var rooms = [Room]()
+            for roomName in roomNames {
+                guard let room = try? NetworkFactory.createRoomInstance(named: roomName) else {
+                    continue
+                }
+                rooms.append(room)
+            }
             self?.rooms = rooms
         }
     }

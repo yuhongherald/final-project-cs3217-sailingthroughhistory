@@ -43,8 +43,9 @@ extension Ship: ItemStorage {
         guard difference >= 0 else {
             throw BuyItemError.insufficientFunds(shortOf: difference)
         }
-        owner?.updateMoney(by: -price)
         try addItem(item: item)
+        owner?.updateMoney(by: -price)
+        updateCargoWeight(items: self.items.value)
     }
 
     func sellItem(item: GenericItem) throws {
@@ -60,7 +61,7 @@ extension Ship: ItemStorage {
         owner?.updateMoney(by: profit)
         items.value.remove(at: index)
         items.value = items.value
-        throw BuyItemError.sellSuccess(item: item)
+        updateCargoWeight(items: self.items.value)
     }
 
     func sell(itemType: ItemType, quantity: Int) throws {
@@ -75,7 +76,6 @@ extension Ship: ItemStorage {
         if deficit > 0 {
             throw BuyItemError.insufficientItems(shortOf: deficit)
         }
-        throw BuyItemError.sellTypeSuccess(itemType: itemType, quantity: quantity)
     }
 
     func removeItem(by itemType: ItemType, with quantity: Int) -> Int {

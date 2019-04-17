@@ -69,6 +69,7 @@ class Player: GenericPlayer {
         ship.owner = self
         ship.map = map
         ship.items.value.append(contentsOf: startingItems)
+        ship.updateCargoWeight(items: ship.items.value)
     }
 
     required init(from decoder: Decoder) throws {
@@ -80,6 +81,7 @@ class Player: GenericPlayer {
         deviceId = try values.decode(String.self, forKey: .deviceId)
         homeNode = try values.decode(Int.self, forKey: .homeNode)
         ship.owner = self
+        ship.updateCargoWeight(items: ship.items.value)
     }
 
     func encode(to encoder: Encoder) throws {

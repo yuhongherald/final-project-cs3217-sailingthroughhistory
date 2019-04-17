@@ -169,8 +169,8 @@ class FirebaseRoomConnection: RoomConnection {
             self?.subscribeRemoval(removalCallback: nil)
         }
         self.devicesCollectionRef.document(self.deviceId).updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
-        self.heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { _ in
-            self.sendAndCheckHeartBeat(completion: nil)
+        self.heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [weak self] _ in
+            self?.sendAndCheckHeartBeat(completion: nil)
         })
         self.heartbeatTimer?.fire()
 
@@ -301,8 +301,8 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func subscribeToMembers(with callback: @escaping ([RoomMember]) -> Void) {
-        listeners.append(playersCollectionRef.addSnapshotListener { (snapshot, error) in
-            guard let snapshot = snapshot, error == nil else {
+        listeners.append(playersCollectionRef.addSnapshotListener { [weak self] (snapshot, error) in
+            guard let snapshot = snapshot, error == nil, let self = self else {
                 return
             }
 
@@ -407,8 +407,13 @@ class FirebaseRoomConnection: RoomConnection {
         self.removalCallback = callback
     }
 
-    deinit {
+    func disconnect() {
         self.heartbeatTimer?.invalidate()
         self.listeners.forEach { $0.remove() }
+        self.removeDevice(withId: deviceId)
+    }
+
+    deinit {
+        disconnect()
     }
 }
