@@ -18,6 +18,7 @@ class TurnSystem: GenericTurnSystem {
         case evaluateMoves(for: GenericPlayer)
         case waitForStateUpdate
         case invalid
+        case finished(winner: Team?)
     }
     private var state: State {
         get {
@@ -38,6 +39,7 @@ class TurnSystem: GenericTurnSystem {
     private let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
     private var setTaxActions = [Int: (PlayerAction, GenericPlayer, Bool)]()
     private let network: RoomConnection
+    private let numTurns: Int
     private var players = [RoomMember]() {
         didSet {
 
@@ -63,10 +65,11 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, deviceId: String) {
+    init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, numTurns: Int, deviceId: String) {
         self.deviceId = deviceId
         self.network = network
         self.isMaster = isMaster
+        self.numTurns = numTurns
         self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0)
         // TODO: Turn harcoded
         self.stateVariable = GameVariable(value: .ready)
@@ -453,6 +456,15 @@ class TurnSystem: GenericTurnSystem {
         /// The game state parameter is ignored for now, validation can be added here
         network.subscribeToMasterState(for: data.currentTurn) { [weak self] _ in
             self?.data.turnFinished()
+            if let data = self?.data, let numTurns = self?.numTurns, let gameState = self?.gameState {
+                if data.currentTurn >= numTurns {
+                    let winner = gameState.getTeamMoney().max { (first, second) -> Bool in
+                        return first.value < first.value
+                        }?.key
+                    self?.state = .finished(winner: winner)
+                    return
+                }
+            }
             guard let player = self?.getFirstPlayer() else {
                 self?.state = .waitForTurnFinish
                 return

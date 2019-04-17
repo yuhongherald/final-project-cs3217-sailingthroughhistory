@@ -21,6 +21,7 @@ class WaitingRoomViewController: UIViewController {
     private var dataSource: MembersTableDataSource?
     var roomConnection: RoomConnection?
     private var waitingRoom: WaitingRoom?
+    private var numTurns: Int?
     private var initialState: GenericGameState?
     private var imageData: Data?
 
@@ -86,12 +87,16 @@ class WaitingRoomViewController: UIViewController {
         guard let roomConnection = roomConnection,
             let initialState = initialState,
             let imageData = imageData,
+            let numTurns = numTurns,
             let gameController = segue.destination as? MainGameViewController else {
             return
         }
 
         let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(),
-                                network: roomConnection, startingState: initialState, deviceId: self.getWaitingRoom().identifier)
+                                network: roomConnection,
+                                startingState: initialState,
+                                numTurns: numTurns,
+                                deviceId: self.getWaitingRoom().identifier)
         gameController.turnSystem = system
         gameController.network = roomConnection
         gameController.backgroundData = imageData
@@ -103,6 +108,7 @@ class WaitingRoomViewController: UIViewController {
         }
         /// TODO: Remove hardcoded year
         let state = GameState(baseYear: 1900, level: parameters, players: getWaitingRoom().players)
+        numTurns = parameters.numOfTurn
         do {
             try roomConnection?.startGame(initialState: state, background: imageData) { [weak self] error in
                 guard let error = error else {
