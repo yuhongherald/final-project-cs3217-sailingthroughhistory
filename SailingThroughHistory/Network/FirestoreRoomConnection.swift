@@ -59,11 +59,41 @@ class FirebaseRoomConnection: RoomConnection {
     private func subscribeRemoval(removalCallback: (() -> Void)?) {
         self.removalCallback = removalCallback
         listeners.append(roomDocumentRef.addSnapshotListener { [weak self] (document, _) in
-            if let document = document {
-                if !document.exists {
-                    self?.removalCallback?()
-                }
+            guard let document = document, !document.exists else {
+                return
             }
+
+            document.reference.collection(FirestoreConstants.devicesCollectionName)
+                .getDocuments(completion: { (snapshot, _) in
+                guard let snapshot = snapshot else {
+                    return
+                }
+                snapshot.documents.forEach { document in
+                    self?.devicesCollectionRef.document(document.documentID).delete()
+                }
+            })
+
+            document.reference.collection(FirestoreConstants.modelCollectionName)
+                .getDocuments(completion: { (snapshot, _) in
+                guard let snapshot = snapshot else {
+                    return
+                }
+                snapshot.documents.forEach { document in
+                    self?.modelCollectionRef.document(document.documentID).delete()
+                }
+            })
+
+            document.reference.collection(FirestoreConstants.runTimeInfoCollectionName)
+                .getDocuments(completion: { (snapshot, _) in
+                guard let snapshot = snapshot else {
+                    return
+                }
+                snapshot.documents.forEach { document in
+                    self?.modelCollectionRef.document(document.documentID).delete()
+                }
+            })
+
+            self?.removalCallback?()
         })
 
         listeners.append(devicesCollectionRef.document(deviceId).addSnapshotListener { [weak self] (document, _) in
@@ -71,9 +101,7 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
-            self?.devicesCollectionRef
-                .document(document.documentID)
-                .collection(FirestoreConstants.playersCollectionName)
+            document.reference.collection(FirestoreConstants.playersCollectionName)
                 .getDocuments(completion: { (snapshot, _) in
                     guard let snapshot = snapshot else {
                         return

@@ -24,6 +24,15 @@ class WaitingRoomViewController: UIViewController {
     private var initialState: GenericGameState?
     private var imageData: Data?
 
+    override func viewDidAppear(_ animated: Bool) {
+        roomConnection?.changeRemovalCallback { [weak self] in
+            let alert = ControllerUtils.getGenericAlert(titled: "You are removed from room.", withMsg: "", action: {
+                self?.dismiss(animated: true, completion: nil)
+            })
+            self?.present(alert, animated: true, completion: nil)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let roomConnection = roomConnection else {
