@@ -859,23 +859,31 @@
                                     <action selector="createRoomButtonPressed:" destination="asu-R7-WnI" eventType="touchUpInside" id="MCv-PD-FcW"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="AaF-Oe-NP4">
+                                <rect key="frame" x="0.0" y="24" width="1366" height="1044"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FnD-Tw-eho" firstAttribute="leading" secondItem="Qh6-0c-Amp" secondAttribute="leading" constant="20" id="1lU-bp-7kh"/>
+                            <constraint firstItem="AaF-Oe-NP4" firstAttribute="top" secondItem="gMf-QG-eWL" secondAttribute="top" id="9Ww-du-s4j"/>
+                            <constraint firstAttribute="bottom" secondItem="AaF-Oe-NP4" secondAttribute="bottom" constant="-44" id="Cba-hM-uAQ"/>
                             <constraint firstItem="kYS-rv-5Bo" firstAttribute="leading" secondItem="gMf-QG-eWL" secondAttribute="leading" id="HAL-w4-p23"/>
                             <constraint firstItem="1Uk-83-Ryb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Qh6-0c-Amp" secondAttribute="topMargin" constant="20" id="Nfw-Bd-NOF"/>
                             <constraint firstItem="1Uk-83-Ryb" firstAttribute="top" secondItem="kYS-rv-5Bo" secondAttribute="bottom" constant="8" symbolic="YES" id="SFe-w5-sOK"/>
+                            <constraint firstItem="AaF-Oe-NP4" firstAttribute="leading" secondItem="gMf-QG-eWL" secondAttribute="leading" id="Tzl-gi-jMZ"/>
                             <constraint firstItem="FnD-Tw-eho" firstAttribute="centerY" secondItem="1Uk-83-Ryb" secondAttribute="centerY" id="Z3d-HZ-72b"/>
                             <constraint firstItem="gMf-QG-eWL" firstAttribute="bottom" secondItem="1Uk-83-Ryb" secondAttribute="bottom" constant="20" id="con-Nf-AaJ"/>
                             <constraint firstItem="kYS-rv-5Bo" firstAttribute="top" secondItem="gMf-QG-eWL" secondAttribute="top" id="fqy-uP-Gzj"/>
                             <constraint firstItem="gMf-QG-eWL" firstAttribute="trailing" secondItem="kYS-rv-5Bo" secondAttribute="trailing" id="g3r-gr-x0i"/>
+                            <constraint firstItem="AaF-Oe-NP4" firstAttribute="trailing" secondItem="gMf-QG-eWL" secondAttribute="trailing" id="hj8-pc-nem"/>
                             <constraint firstItem="1Uk-83-Ryb" firstAttribute="centerX" secondItem="Qh6-0c-Amp" secondAttribute="centerX" id="myz-Zj-Uwh"/>
                             <constraint firstItem="gMf-QG-eWL" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="1Uk-83-Ryb" secondAttribute="trailing" constant="300" id="p9o-LS-Lcc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gMf-QG-eWL"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="AaF-Oe-NP4" id="CLD-oO-4gk"/>
                         <outlet property="backButton" destination="FnD-Tw-eho" id="GIb-jk-FcE"/>
                         <outlet property="roomsTableView" destination="kYS-rv-5Bo" id="sso-Sd-uMC"/>
                         <segue destination="hud-2E-hMt" kind="presentation" identifier="roomsToWaitingRoom" id="QLW-hl-erw"/>
@@ -1722,6 +1730,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Jl-WZ-ghm"/>
-        <segue reference="id6-QH-97E"/>
+        <segue reference="QLW-hl-erw"/>
     </inferredMetricsTieBreakers>
 </document>

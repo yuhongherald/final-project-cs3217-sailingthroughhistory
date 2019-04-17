@@ -243,7 +243,13 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     private func removeDevice(withId deviceName: String) {
-        self.devicesCollectionRef.document(deviceName).delete()
+        self.devicesCollectionRef.document(deviceName).delete { [weak self] error in
+            guard error == nil else {
+                self?.removeDevice(withId: deviceName)
+                return
+            }
+            self?.listeners.forEach { $0.remove() }
+        }
         if deviceName == self.roomMasterId {
             self.roomDocumentRef.delete()
         }
@@ -432,7 +438,6 @@ class FirebaseRoomConnection: RoomConnection {
     func disconnect() {
         print("Disconnect.")
         self.heartbeatTimer?.invalidate()
-        self.listeners.forEach { $0.remove() }
         self.removeDevice(withId: deviceId)
     }
 
