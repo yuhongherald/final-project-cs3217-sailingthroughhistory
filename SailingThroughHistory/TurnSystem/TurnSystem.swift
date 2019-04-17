@@ -39,7 +39,6 @@ class TurnSystem: GenericTurnSystem {
     private let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
     private var setTaxActions = [Int: (PlayerAction, GenericPlayer, Bool)]()
     private let network: RoomConnection
-    private let numTurns: Int
     private var players = [RoomMember]() {
         didSet {
 
@@ -65,11 +64,10 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, numTurns: Int, deviceId: String) {
+    init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, deviceId: String) {
         self.deviceId = deviceId
         self.network = network
         self.isMaster = isMaster
-        self.numTurns = numTurns
         self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0)
         // TODO: Turn harcoded
         self.stateVariable = GameVariable(value: .ready)
@@ -456,8 +454,8 @@ class TurnSystem: GenericTurnSystem {
         /// The game state parameter is ignored for now, validation can be added here
         network.subscribeToMasterState(for: data.currentTurn) { [weak self] networkGameState in
             self?.data.turnFinished()
-            if let data = self?.data, let numTurns = self?.numTurns, let gameState = self?.gameState {
-                if data.currentTurn >= numTurns {
+            if let data = self?.data, let gameState = self?.gameState {
+                if data.currentTurn >= gameState.numTurns {
                     let winner = gameState.getTeamMoney().max { (first, second) -> Bool in
                         return first.value < second.value
                         }?.key

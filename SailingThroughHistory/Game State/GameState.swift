@@ -16,6 +16,7 @@ class GameState: GenericGameState {
     let maxTaxAmount: Int
     let availableUpgrades: [Upgrade]
     var itemParameters: [GameVariable<ItemParameter>]
+    let numTurns: Int
 
     private(set) var map: Map
     private var teams = [Team]()
@@ -35,6 +36,7 @@ class GameState: GenericGameState {
         for itemParameter in level.itemParameters {
             itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
         }
+        numTurns = level.numOfTurn
         initializePlayers(from: level.playerParameters, for: players)
         self.players.forEach { player in
             player.map = map
@@ -58,6 +60,7 @@ class GameState: GenericGameState {
         try teams = values.decode([Team].self, forKey: .teams)
         try players = values.decode([Player].self, forKey: .players)
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
+        try numTurns = values.decode(Int.self, forKey: .numTurns)
 
         let upgradeTypes = try values.decode([UpgradeType].self, forKey: .availableUpgrades)
         availableUpgrades = upgradeTypes.map { $0.toUpgrade() }
@@ -88,6 +91,7 @@ class GameState: GenericGameState {
         let itemParameters = self.itemParameters.map {
             return $0.value
         }
+        try container.encode(numTurns, forKey: .numTurns)
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(teams, forKey: .teams)
         try container.encode(players, forKey: .players)
@@ -106,6 +110,7 @@ class GameState: GenericGameState {
         case speedMultiplier
         case availableUpgrades
         case maxTaxAmount
+        case numTurns
     }
 
     func getPlayers() -> [GenericPlayer] {
