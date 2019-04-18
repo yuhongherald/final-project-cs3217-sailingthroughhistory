@@ -23,7 +23,7 @@ enum HashType {
     case sha512
 
     var length: Int32 {
-        switch self{
+        switch self {
         case .md5:
             return CC_MD5_DIGEST_LENGTH
         case .sha1:

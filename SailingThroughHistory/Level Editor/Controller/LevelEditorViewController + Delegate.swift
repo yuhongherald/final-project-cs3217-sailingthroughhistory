@@ -20,7 +20,6 @@ extension LevelEditorViewController: EditPanelDelegateProtocol {
     func addMapBackground(_ image: UIImage) {
         mapBackground.image = image
         layoutBackground()
-        reInitScrollView()
     }
 }
 

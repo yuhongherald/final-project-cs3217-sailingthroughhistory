@@ -15,8 +15,8 @@ class EventTable<T> where T: TurnSystemEvent {
         nextID -= 1
         return event
     }
-    func getEvent(id: Int) -> T? {
-        return table[id]
+    func getEvent(identifier: Int) -> T? {
+        return table[identifier]
     }
     func getAllEvents() -> [T] {
         return Array(table.values)

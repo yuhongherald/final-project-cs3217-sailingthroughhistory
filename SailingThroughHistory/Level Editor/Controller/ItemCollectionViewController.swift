@@ -10,7 +10,6 @@ import UIKit
 
 class ItemCollectionViewController: UIViewController, UICollectionViewDataSource,
 UICollectionViewDelegate, UITextFieldDelegate {
-    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     private var itemTypes: [ItemType] = []
     private var selectedPort: Port?
@@ -24,13 +23,6 @@ UICollectionViewDelegate, UITextFieldDelegate {
         collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
         collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
-    }
-
-    @IBAction func addPressed(_ sender: Any) {
-        let alert = UIAlert(title: "Input item display name:", msg: nil, confirm: { _ in
-            // TODO: add item type, add item parameter
-        }, textPlaceHolder: "Input item name here")
-        alert.present(in: self)
     }
 
     @IBAction func confirmPressed(_ sender: Any?) {

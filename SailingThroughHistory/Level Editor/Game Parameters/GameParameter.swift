@@ -15,7 +15,6 @@ class GameParameter: GenericLevel, Codable {
 
     var playerParameters = [PlayerParameter]()
     var itemParameters = [ItemParameter]()
-    var eventParameters = [EventParameter]()
     var teams: [Team]
     var numOfTurn = GameConstants.numOfTurn
     var timeLimit = Int(GameConstants.playerTurnDuration)
@@ -32,13 +31,11 @@ class GameParameter: GenericLevel, Codable {
                                                      isConsumable: true))
         }
     }
-    
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         playerParameters = try values.decode([PlayerParameter].self, forKey: .playerParameters)
         itemParameters = try values.decode([ItemParameter].self, forKey: .itemParameters)
-        eventParameters = try values.decode([EventParameter].self, forKey: .eventParameters)
         teams = try values.decode([Team].self, forKey: .teams)
         numOfTurn = try values.decode(Int.self, forKey: .numOfTurn)
         timeLimit = try values.decode(Int.self, forKey: .timeLimit)
@@ -63,7 +60,6 @@ class GameParameter: GenericLevel, Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(playerParameters, forKey: .playerParameters)
         try container.encode(itemParameters, forKey: .itemParameters)
-        try container.encode(eventParameters, forKey: .eventParameters)
         try container.encode(teams, forKey: .teams)
         try container.encode(numOfTurn, forKey: .numOfTurn)
         try container.encode(timeLimit, forKey: .timeLimit)
@@ -75,7 +71,6 @@ class GameParameter: GenericLevel, Codable {
     private enum CodingKeys: String, CodingKey {
         case playerParameters
         case itemParameters
-        case eventParameters
         case teams
         case numOfTurn
         case timeLimit

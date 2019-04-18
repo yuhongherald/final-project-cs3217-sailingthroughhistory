@@ -14,7 +14,6 @@ class Port: Node {
         }
     }
     var ownerName: String?
-    // TODO: add item quantity editing in level editor
     var itemParametersSoldByPort: [ItemType] {
         return [ItemType](itemBuyValue.keys)
     }

@@ -199,7 +199,8 @@ class GameState: GenericGameState {
             let startingItems = unwrappedParam.startingItems.map({ itemTypeTupleToItem(tuple:
                 $0) }).compactMap({ $0 })
             let player = Player(name: String(roomPlayer.playerName.prefix(8)),
-                                team: team, map: map, node: node, itemsConsumed: itemsConsumed, startingItems: startingItems, deviceId: roomPlayer.deviceId)
+                                team: team, map: map, node: node, itemsConsumed: itemsConsumed,
+                                startingItems: startingItems, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self
             players.append(player)

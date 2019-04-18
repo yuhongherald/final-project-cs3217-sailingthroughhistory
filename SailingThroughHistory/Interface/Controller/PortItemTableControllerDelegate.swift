@@ -7,5 +7,5 @@
 //
 
 protocol PortItemTableControllerDelegate: class {
-    func portItemButtonPressed(action: PortItemButtonAction) 
+    func portItemButtonPressed(action: PortItemButtonAction)
 }
