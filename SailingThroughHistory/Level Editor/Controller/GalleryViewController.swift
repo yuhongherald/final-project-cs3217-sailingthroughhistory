@@ -27,8 +27,8 @@ class GalleryViewController: UIViewController {
         super.viewDidLoad()
 
         levelNames = storage.getAllRecords()
-        // Do any additional setup after loading the view.
     }
+
     @IBAction func cancelPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: {
             self.collectionView.removeFromSuperview()

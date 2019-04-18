@@ -9,6 +9,7 @@
 import UIKit
 
 extension LevelEditorViewController {
+    /// Update views with updated game parameter.
     func reInit() {
         reInitScrollView()
         initBackground()
@@ -41,6 +42,8 @@ extension LevelEditorViewController {
         }
     }
 
+    /// Set up background of the map.
+    /// Load image of background and layout it.
     func initBackground() {
         guard let image = storage.readImage(gameParameter.map.map) ?? UIImage(named: gameParameter.map.map) else {
             return

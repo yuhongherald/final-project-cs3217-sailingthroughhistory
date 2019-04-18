@@ -333,7 +333,7 @@ class TurnSystem: GenericTurnSystem {
             state = .waitForTurnFinish
             let currentTurn = data.currentTurn
             network.subscribeToActions(for: currentTurn) { [weak self] actionPair, error in
-                if let _ = error {
+                if error != nil {
                     /// TODO: Error handling
                     return
                 }

@@ -51,6 +51,10 @@ class LevelEditorViewController: UIViewController {
 
    let storage = LocalStorage()
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "toEditPanel":
@@ -366,13 +370,5 @@ class LevelEditorViewController: UIViewController {
         self.addChild(controller)
         view.addSubview(controller.view)
         controller.didMove(toParent: self)
-    }
-
-    private func fillWith(_ subview: UIView) {
-        subview.translatesAutoresizingMaskIntoConstraints = false
-        subview.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        subview.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        subview.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        subview.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 }

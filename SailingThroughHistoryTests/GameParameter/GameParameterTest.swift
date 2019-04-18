@@ -158,7 +158,7 @@ class GameParameterTest: XCTestCase {
             return false
         }
 
-        return lhs.eventParameters == rhs.eventParameters && lhs.itemParameters == rhs.itemParameters
+        return lhs.itemParameters == rhs.itemParameters
              && lhs.numOfTurn == rhs.numOfTurn && lhs.timeLimit == rhs.timeLimit
             && lhs.teams == rhs.teams && isEqual(map: lhs.map, rhs.map)
     }

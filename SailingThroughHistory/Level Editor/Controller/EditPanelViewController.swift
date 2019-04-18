@@ -70,10 +70,6 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
         self.delegate?.clicked(.item)
     }
 
-    @IBAction func editEventsPressed(_ sender: Any) {
-        // TODO: set events condition
-    }
-
     @IBAction func removePressed(_ sender: Any) {
         delegate?.clicked(.erase)
     }

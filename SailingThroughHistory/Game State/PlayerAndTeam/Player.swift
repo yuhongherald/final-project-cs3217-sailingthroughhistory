@@ -59,7 +59,8 @@ class Player: GenericPlayer {
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
 
-    init(name: String, team: Team, map: Map, node: Node, itemsConsumed: [GenericItem], startingItems: [GenericItem], deviceId: String) {
+    init(name: String, team: Team, map: Map, node: Node, itemsConsumed: [GenericItem],
+         startingItems: [GenericItem], deviceId: String) {
         self.name = name
         self.team = team
         self.map = map

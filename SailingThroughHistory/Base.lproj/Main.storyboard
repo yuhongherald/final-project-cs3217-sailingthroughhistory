@@ -893,9 +893,11 @@
                             <constraint firstItem="gMf-QG-eWL" firstAttribute="bottom" secondItem="1Uk-83-Ryb" secondAttribute="bottom" constant="20" id="con-Nf-AaJ"/>
                             <constraint firstItem="kYS-rv-5Bo" firstAttribute="top" secondItem="gMf-QG-eWL" secondAttribute="top" id="fqy-uP-Gzj"/>
                             <constraint firstItem="gMf-QG-eWL" firstAttribute="trailing" secondItem="kYS-rv-5Bo" secondAttribute="trailing" id="g3r-gr-x0i"/>
+                            <constraint firstItem="FnD-Tw-eho" firstAttribute="leading" secondItem="gMf-QG-eWL" secondAttribute="leading" constant="20" id="gUE-M5-rXG"/>
                             <constraint firstItem="AaF-Oe-NP4" firstAttribute="trailing" secondItem="gMf-QG-eWL" secondAttribute="trailing" id="hj8-pc-nem"/>
                             <constraint firstItem="1Uk-83-Ryb" firstAttribute="centerX" secondItem="Qh6-0c-Amp" secondAttribute="centerX" id="myz-Zj-Uwh"/>
                             <constraint firstItem="gMf-QG-eWL" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="1Uk-83-Ryb" secondAttribute="trailing" constant="300" id="p9o-LS-Lcc"/>
+                            <constraint firstItem="1Uk-83-Ryb" firstAttribute="leading" relation="lessThanOrEqual" secondItem="FnD-Tw-eho" secondAttribute="trailing" constant="215" id="sqt-zs-CeS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gMf-QG-eWL"/>
                     </view>
@@ -921,27 +923,24 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1799-Asia" translatesAutoresizingMaskIntoConstraints="NO" id="tu2-gN-wSZ">
                                 <rect key="frame" x="0.0" y="2" width="1366" height="1024"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S24-oK-2jt" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="412" y="294" width="201" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S24-oK-2jt" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="582.5" y="482" width="201" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Play Locally"/>
                                 <connections>
                                     <segue destination="hud-2E-hMt" kind="presentation" identifier="menuToLocalRoom" id="id6-QH-97E"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcs-as-uEk" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="413" y="454" width="199" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lcs-as-uEk" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="583.5" y="642" width="199" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Level Editor"/>
                                 <connections>
                                     <segue destination="fZz-0J-H6I" kind="show" id="lZJ-gH-OM7"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7FK-dP-8rD" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="418" y="174" width="192" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7FK-dP-8rD" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="587" y="322" width="192" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Play Online"/>
                                 <connections>
@@ -951,10 +950,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="S24-oK-2jt" firstAttribute="centerX" secondItem="l0h-Op-m1z" secondAttribute="centerX" id="6m9-u9-FIL"/>
+                            <constraint firstItem="lcs-as-uEk" firstAttribute="centerX" secondItem="l0h-Op-m1z" secondAttribute="centerX" id="Edb-HF-440"/>
                             <constraint firstItem="tu2-gN-wSZ" firstAttribute="centerY" secondItem="Wkc-Zw-S7W" secondAttribute="centerY" id="HcF-dR-b2x"/>
+                            <constraint firstItem="S24-oK-2jt" firstAttribute="centerX" secondItem="7FK-dP-8rD" secondAttribute="centerX" id="Nxb-lT-YMF"/>
                             <constraint firstItem="tu2-gN-wSZ" firstAttribute="width" secondItem="l0h-Op-m1z" secondAttribute="width" id="OqR-8V-h7U"/>
+                            <constraint firstItem="lcs-as-uEk" firstAttribute="top" secondItem="S24-oK-2jt" secondAttribute="bottom" constant="100" id="PpI-eS-fS1"/>
+                            <constraint firstItem="7FK-dP-8rD" firstAttribute="centerX" secondItem="l0h-Op-m1z" secondAttribute="centerX" id="iLn-A8-CiO"/>
                             <constraint firstItem="tu2-gN-wSZ" firstAttribute="height" secondItem="l0h-Op-m1z" secondAttribute="height" id="oSv-bz-9TD"/>
+                            <constraint firstItem="lcs-as-uEk" firstAttribute="centerX" secondItem="7FK-dP-8rD" secondAttribute="centerX" id="uAV-Nw-lgr"/>
                             <constraint firstItem="tu2-gN-wSZ" firstAttribute="centerX" secondItem="Wkc-Zw-S7W" secondAttribute="centerX" id="w99-oS-kYm"/>
+                            <constraint firstItem="S24-oK-2jt" firstAttribute="top" secondItem="7FK-dP-8rD" secondAttribute="bottom" constant="100" id="yIR-Zl-5wh"/>
+                            <constraint firstItem="S24-oK-2jt" firstAttribute="centerY" secondItem="l0h-Op-m1z" secondAttribute="centerY" id="zCu-hP-JaC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wkc-Zw-S7W"/>
                     </view>
@@ -1538,34 +1545,23 @@
                                     <outlet property="delegate" destination="08g-fx-fPl" id="qBC-0k-38q"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0s-Rv-qIO">
-                                <rect key="frame" x="1229" y="0.0" width="37" height="84"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                <state key="normal" title="+"/>
-                                <connections>
-                                    <action selector="addPressed:" destination="08g-fx-fPl" eventType="touchUpInside" id="TfP-db-RqK"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="bHp-4Y-wpN" firstAttribute="leading" secondItem="d8C-ep-uRX" secondAttribute="leading" constant="100" id="3C4-Rs-RTY"/>
                             <constraint firstItem="RYq-DK-tUx" firstAttribute="leading" secondItem="d8C-ep-uRX" secondAttribute="leading" constant="250" id="4Co-V2-zU1"/>
                             <constraint firstItem="ya0-h0-Ime" firstAttribute="centerY" secondItem="RYq-DK-tUx" secondAttribute="centerY" id="8Pf-H9-ZSN"/>
-                            <constraint firstItem="bHp-4Y-wpN" firstAttribute="top" secondItem="k0s-Rv-qIO" secondAttribute="bottom" constant="-10" id="ECC-yb-HhV"/>
                             <constraint firstItem="bHp-4Y-wpN" firstAttribute="top" secondItem="d8C-ep-uRX" secondAttribute="top" constant="50" placeholder="YES" id="Fn7-qT-yNv"/>
                             <constraint firstItem="ya0-h0-Ime" firstAttribute="width" secondItem="RYq-DK-tUx" secondAttribute="width" id="MEm-Qj-Odf"/>
                             <constraint firstItem="d8C-ep-uRX" firstAttribute="trailing" secondItem="ya0-h0-Ime" secondAttribute="trailing" constant="250" id="VSq-Zo-8Ex"/>
                             <constraint firstItem="ya0-h0-Ime" firstAttribute="height" secondItem="RYq-DK-tUx" secondAttribute="height" id="gS0-eR-ooE"/>
                             <constraint firstItem="RYq-DK-tUx" firstAttribute="bottom" secondItem="d8C-ep-uRX" secondAttribute="bottom" constant="-20" id="pMG-gn-oOF"/>
-                            <constraint firstItem="k0s-Rv-qIO" firstAttribute="trailing" secondItem="bHp-4Y-wpN" secondAttribute="trailing" id="xfU-Hm-d8N"/>
                             <constraint firstItem="RYq-DK-tUx" firstAttribute="top" secondItem="bHp-4Y-wpN" secondAttribute="bottom" constant="20" id="xtx-vE-w90"/>
                             <constraint firstItem="bHp-4Y-wpN" firstAttribute="trailing" secondItem="d8C-ep-uRX" secondAttribute="trailing" constant="-100" id="yz8-RA-Rad"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d8C-ep-uRX"/>
                     </view>
                     <connections>
-                        <outlet property="addButton" destination="k0s-Rv-qIO" id="ztc-d0-N86"/>
                         <outlet property="collectionView" destination="bHp-4Y-wpN" id="d1t-0Z-XFq"/>
                     </connections>
                 </viewController>
@@ -1611,14 +1607,6 @@
                                 <state key="normal" title="Edit Parameters"/>
                                 <connections>
                                     <action selector="editParamPressed:" destination="Ijb-LN-WOw" eventType="touchUpInside" id="3av-e8-yKn"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mtc-Y4-iw4" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="666.5" y="148" width="273" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Edit Events"/>
-                                <connections>
-                                    <action selector="editEventsPressed:" destination="Ijb-LN-WOw" eventType="touchUpInside" id="6kz-ns-HN9"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfi-sH-1n2" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -1670,7 +1658,6 @@
                             <constraint firstItem="EmB-Zu-rIO" firstAttribute="width" secondItem="RxV-36-RMI" secondAttribute="width" id="03C-QQ-WW0"/>
                             <constraint firstItem="LXj-9A-ILn" firstAttribute="height" secondItem="RxV-36-RMI" secondAttribute="height" id="19g-WK-3Bs"/>
                             <constraint firstItem="K39-oD-iM0" firstAttribute="width" secondItem="RxV-36-RMI" secondAttribute="width" id="3k6-0z-QSu"/>
-                            <constraint firstItem="mtc-Y4-iw4" firstAttribute="top" secondItem="Bfi-sH-1n2" secondAttribute="bottom" constant="10" id="5Og-pm-hL3"/>
                             <constraint firstItem="bAz-B5-boY" firstAttribute="height" secondItem="RxV-36-RMI" secondAttribute="height" id="7Wm-jR-Tnu"/>
                             <constraint firstItem="bAz-B5-boY" firstAttribute="top" secondItem="2ry-qU-2bf" secondAttribute="bottom" constant="10" id="7kR-hS-uek"/>
                             <constraint firstItem="Bfi-sH-1n2" firstAttribute="width" secondItem="RxV-36-RMI" secondAttribute="width" id="9A9-G0-FpL"/>
@@ -1693,6 +1680,7 @@
                             <constraint firstItem="Bfi-sH-1n2" firstAttribute="height" secondItem="RxV-36-RMI" secondAttribute="height" id="TgU-PC-MjE"/>
                             <constraint firstItem="bAz-B5-boY" firstAttribute="centerX" secondItem="RxV-36-RMI" secondAttribute="centerX" id="YmM-lV-CcN"/>
                             <constraint firstItem="LXj-9A-ILn" firstAttribute="trailing" secondItem="UfN-ZF-f11" secondAttribute="trailing" constant="-20" id="Zbo-3N-Qen"/>
+                            <constraint firstItem="LXj-9A-ILn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EXY-oy-WqQ" secondAttribute="trailing" constant="50" id="cDX-aQ-fda"/>
                             <constraint firstItem="RxV-36-RMI" firstAttribute="top" secondItem="UfN-ZF-f11" secondAttribute="top" constant="20" id="dfk-Au-oJa"/>
                             <constraint firstItem="2ry-qU-2bf" firstAttribute="leading" secondItem="UfN-ZF-f11" secondAttribute="leading" constant="20" id="fmZ-ga-AFy"/>
                             <constraint firstItem="EmB-Zu-rIO" firstAttribute="height" secondItem="RxV-36-RMI" secondAttribute="height" id="gin-8g-XWt"/>
@@ -1700,14 +1688,11 @@
                             <constraint firstItem="EXY-oy-WqQ" firstAttribute="height" secondItem="RxV-36-RMI" secondAttribute="height" id="ifn-fv-uWy"/>
                             <constraint firstItem="K39-oD-iM0" firstAttribute="height" secondItem="RxV-36-RMI" secondAttribute="height" id="iqt-mw-LvY"/>
                             <constraint firstItem="2ry-qU-2bf" firstAttribute="centerX" secondItem="RxV-36-RMI" secondAttribute="centerX" id="nVW-kq-Pl3"/>
-                            <constraint firstItem="mtc-Y4-iw4" firstAttribute="width" secondItem="RxV-36-RMI" secondAttribute="width" id="nfo-XY-aL0"/>
                             <constraint firstItem="K39-oD-iM0" firstAttribute="centerX" secondItem="kQe-Ce-msP" secondAttribute="centerX" id="o2g-fm-9c4"/>
                             <constraint firstItem="EXY-oy-WqQ" firstAttribute="leading" secondItem="kQe-Ce-msP" secondAttribute="trailing" constant="50" id="sTh-9T-AfU"/>
                             <constraint firstItem="RxV-36-RMI" firstAttribute="leading" secondItem="UfN-ZF-f11" secondAttribute="leading" constant="20" id="uWX-eD-GZV"/>
                             <constraint firstItem="EXY-oy-WqQ" firstAttribute="top" secondItem="UfN-ZF-f11" secondAttribute="top" constant="20" id="wTR-EE-dIh"/>
-                            <constraint firstItem="mtc-Y4-iw4" firstAttribute="centerX" secondItem="EXY-oy-WqQ" secondAttribute="centerX" id="xtd-Sv-FZV"/>
                             <constraint firstItem="K39-oD-iM0" firstAttribute="top" secondItem="kQe-Ce-msP" secondAttribute="bottom" constant="10" id="xxX-J1-GyG"/>
-                            <constraint firstItem="mtc-Y4-iw4" firstAttribute="height" secondItem="RxV-36-RMI" secondAttribute="height" id="zgm-WY-AoY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UfN-ZF-f11"/>
                     </view>

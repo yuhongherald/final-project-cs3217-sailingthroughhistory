@@ -541,7 +541,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A749D662240FD6B00482CE5 /* View */ = {
+		1A749D662240FD6B00482CE5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				1A49D237223E468300A419F4 /* LevelEditorViewController.swift */,
@@ -559,7 +559,7 @@
 				1AF0182F224752FE008B468B /* MenuViewController.swift */,
 				1A53D7C72251C44A00FAE214 /* PathView.swift */,
 			);
-			path = View;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		1A749D752244B5C700482CE5 /* Storage */ = {
@@ -1125,7 +1125,7 @@
 			isa = PBXGroup;
 			children = (
 				1A749D752244B5C700482CE5 /* Storage */,
-				1A749D662240FD6B00482CE5 /* View */,
+				1A749D662240FD6B00482CE5 /* Controller */,
 				1A9FF084223F6CE400005FCB /* Enums */,
 				BA91906D223F441900009F49 /* API */,
 				BA91906E223F443600009F49 /* Game Parameters */,

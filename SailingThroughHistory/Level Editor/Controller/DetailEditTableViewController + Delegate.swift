@@ -35,8 +35,6 @@ extension DetailEditTableViewController: UITableViewDelegate, UITableViewDataSou
             cell.item = item
 
             return cell
-        default:
-            fatalError("Section exceed bounds.")
         }
     }
 
@@ -44,6 +42,7 @@ extension DetailEditTableViewController: UITableViewDelegate, UITableViewDataSou
         return data[section][0].sectionTitle
     }
 }
+
 extension DetailEditTableViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
