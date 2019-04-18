@@ -193,7 +193,8 @@ class FirebaseRoomConnection: RoomConnection {
         self.sendAndCheckHeartBeat { [weak self] in
             self?.subscribeRemoval(removalCallback: nil)
         }
-        self.devicesCollectionRef.document(self.deviceId).updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
+        self.devicesCollectionRef.document(self.deviceId)
+            .updateData([FirestoreConstants.numPlayersKey: self.numOfPlayers])
         self.heartbeatTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { [weak self] _ in
             self?.sendAndCheckHeartBeat(completion: nil)
         })
@@ -364,9 +365,8 @@ class FirebaseRoomConnection: RoomConnection {
         })
     }
 
-    private func getTurnActions(from query: QuerySnapshot?,
-        error: Error?,
-        callback: ([(String, [PlayerAction])], Error?) -> Void) {
+    private func getTurnActions(from query: QuerySnapshot?, error: Error?,
+                                callback: ([(String, [PlayerAction])], Error?) -> Void) {
         guard let snapshot = query else {
             callback([], NetworkError.pullError(message: "Snapshot is nil for turn actions"))
             return
@@ -410,7 +410,8 @@ class FirebaseRoomConnection: RoomConnection {
                     self.playersCollectionRef.document(document.documentID).delete()
                     continue
                 }
-                var member = RoomMember(identifier: playerID, playerName: playerName, teamName: team, deviceId: deviceId)
+                var member = RoomMember(identifier: playerID, playerName: playerName,
+                                        teamName: team, deviceId: deviceId)
                 member.isGameMaster = isGameMaster ?? false
                 players.append(member)
             }
@@ -429,7 +430,8 @@ class FirebaseRoomConnection: RoomConnection {
         docRef.setData(encoded, completion: callback)
     }
 
-    func push(actions: [PlayerAction], fromPlayer player: GenericPlayer, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> Void) throws {
+    func push(actions: [PlayerAction], fromPlayer player: GenericPlayer,
+              forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> Void) throws {
         /// TODO: Change collection
         /// Room doc -> runtimeinfo(col) -> TurnActions (doc) -> Turn1...Turn999 (col)
         try push(PlayerActionBatch(playerName: player.name, actions: actions),

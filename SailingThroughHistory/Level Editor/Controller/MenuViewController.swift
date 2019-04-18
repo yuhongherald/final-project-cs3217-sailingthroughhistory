@@ -14,33 +14,38 @@ protocol MenuViewDelegateProtocol: class {
     func getEditingMode(for gesture: UIGestureRecognizer) -> EditMode?
 }
 
-class MenuViewController: UITableViewController {
+class TeamMenuDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
+    var tableView: UITableView? {
+        didSet {
+            self.tableView?.isUserInteractionEnabled = true
+            self.tableView?.isScrollEnabled = false
+        }
+    }
     var data: [Team] = [] {
         didSet {
-            self.tableView.reloadData()
+            self.tableView?.reloadData()
         }
     }
     var node: Node?
-    private var editMode: EditMode?
     weak var delegate: MenuViewDelegateProtocol?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tableView.isUserInteractionEnabled = true
-        self.tableView.isScrollEnabled = false
-    }
+    private var editMode: EditMode?
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    init(data: [Team], delegate: MenuViewDelegateProtocol?) {
+        self.delegate = delegate
+        self.data = data
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell", for: indexPath)
 
         cell.textLabel?.text = data[indexPath.item].name
@@ -59,7 +64,7 @@ class MenuViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedTeam = data[indexPath.item]
 
         if editMode == .portOwnership, let unwrappedPort = node as? Port {
@@ -77,7 +82,7 @@ class MenuViewController: UITableViewController {
 
     func set(node: Node, for gesture: UIGestureRecognizer) {
         self.node = node
-        self.tableView.reloadData()
+        self.tableView?.reloadData()
         self.editMode = delegate?.getEditingMode(for: gesture)
     }
 }

@@ -41,7 +41,8 @@ class LocalRoomConnection: RoomConnection {
     }
 
     func addPlayer() {
-        let member = RoomMember(identifier: "\(roomMembers.count)-Play", playerName: nil, teamName: nil, deviceId: roomMasterId)
+        let member = RoomMember(identifier: "\(roomMembers.count)-Play",
+            playerName: nil, teamName: nil, deviceId: roomMasterId)
         roomMembers.append(member)
     }
 

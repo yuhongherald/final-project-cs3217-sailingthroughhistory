@@ -16,7 +16,7 @@ enum ItemType: String, Codable, CaseIterable {
     case food = "Food"
 
     func getUnitWeight() -> Int {
-        switch(self) {
+        switch self {
         case .teaLeaves:
             return 25
         case .silk:

@@ -20,12 +20,6 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
         return true
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
     @IBAction func addMapPressed(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -74,10 +68,6 @@ class EditPanelViewController: UIViewController, UIImagePickerControllerDelegate
 
     @IBAction func editItemPressed(_ sender: Any) {
         self.delegate?.clicked(.item)
-    }
-
-    @IBAction func editEventsPressed(_ sender: Any) {
-        // TODO: set events condition
     }
 
     @IBAction func removePressed(_ sender: Any) {

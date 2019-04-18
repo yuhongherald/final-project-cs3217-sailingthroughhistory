@@ -342,7 +342,7 @@ class MainGameViewController: UIViewController {
     @IBAction func gmEndTurnPressed(_ sender: Any) {
         turnSystem?.endTurn()
     }
-    
+
     private func initBackground() {
         guard let backgroundData = backgroundData,
             let gameAndBackgroundWrapper = self.gameAndBackgroundWrapper else {
