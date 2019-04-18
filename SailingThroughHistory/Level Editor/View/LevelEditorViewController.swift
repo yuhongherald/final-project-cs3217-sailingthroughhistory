@@ -44,12 +44,12 @@ class LevelEditorViewController: UIViewController {
     }()
 
     var editMode: EditMode?
-    private var lineLayerArr = [PathView]()
-    private var lineLayer = PathView()
+    var lineLayerArr = [PathView]()
+    var lineLayer = PathView()
     private var startingNode: NodeView?
     private var destination: NodeView?
 
-    private let storage = LocalStorage()
+   let storage = LocalStorage()
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
@@ -72,38 +72,6 @@ class LevelEditorViewController: UIViewController {
         }
     }
 
-    func reInit() {
-        reInitScrollView()
-        initBackground()
-
-        let map = gameParameter.map
-        let teams = gameParameter.teams
-        let teamStartIds = teams.map { $0.startId }
-        // remove All nodes / paths
-        self.editingAreaWrapper.subviews.filter { $0 is NodeView }
-            .forEach { $0.removeFromSuperview() }
-        self.editingAreaWrapper.layer.sublayers?.filter { $0 is PathView }
-            .forEach { $0.removeFromSuperlayer() }
-        // Add nodes to map
-        map.getNodes().forEach { node in
-            let nodeView = NodeView(node: node)
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: initNodeGestures())
-            if let teamIndex = teamStartIds.firstIndex(of: node.identifier) {
-                let team = teams[teamIndex]
-                team.startingNode = node
-                if let icon = getIconOf(team: teams[teamIndex]) {
-                    icon.addIcon(to: nodeView)
-                }
-            }
-        }
-        // Add paths to map
-        for path in map.getAllPaths() {
-            lineLayer = PathView(path: path)
-            editingAreaWrapper.layer.addSublayer(lineLayer)
-            lineLayerArr.append(lineLayer)
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -120,6 +88,7 @@ class LevelEditorViewController: UIViewController {
     @IBAction func backPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+
     @IBAction func editPressed(_ sender: Any) {
         if editPanel.isHidden {
             editPanel.isHidden = false
@@ -140,69 +109,22 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func tapOnMap(_ sender: UITapGestureRecognizer) {
-        guard editMode != nil else {
-            return
-        }
-
-        if !editPanel.isHidden {
+        guard let mode = editMode, editPanel.isHidden else {
             return
         }
 
         let location = sender.location(in: self.mapBackground)
 
-        if editMode == .erase {
-            var removed = 0
-            for (index, path) in self.lineLayerArr.enumerated() {
-                if self.isPoint(point: location, withinDistance: 20, ofPath: path.path) {
-                    self.lineLayerArr.remove(at: index - removed)
-                    removed += 1
-                    path.removeFromSuperlayer()
-
-                    guard let path = path.shipPath else {
-                        return
-                    }
-                    self.gameParameter.map.removePath(path)
-                }
-            }
+        switch mode {
+        case .erase:
+            removePath(at: location)
+        case .weather:
+            addWeather(at: location)
+        case .sea, .port:
+            addNode(at: location)
+        default:
             return
         }
-
-        if editMode == .weather {
-            self.lineLayerArr.forEach { path in
-                if self.isPoint(point: location, withinDistance: 20, ofPath: path.path) {
-                    path.add(Weather())
-                }
-            }
-            return
-        }
-
-        if editMode == .sea || editMode == .port {
-            let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
-                guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
-                    return
-                }
-                nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
-            }, textPlaceHolder: "Input name here.")
-            alert.present(in: self)
-        }
-    }
-
-    final func isPoint(point: CGPoint, withinDistance distance: CGFloat, ofPath path: CGPath?) -> Bool {
-        guard let castedPath = path else {
-            return false
-        }
-
-        if let hitPath = CGPath( __byStroking: castedPath,
-                                 transform: nil,
-                                 lineWidth: distance,
-                                 lineCap: CGLineCap.round,
-                                 lineJoin: CGLineJoin.miter,
-                                 miterLimit: 0) {
-
-            let isWithinDistance = hitPath.contains(point)
-            return isWithinDistance
-        }
-        return false
     }
 
     @objc func singleTapOnNode(_ sender: UITapGestureRecognizer) {
@@ -215,24 +137,8 @@ class LevelEditorViewController: UIViewController {
             guard let nodeView = sender.view as? NodeView else {
                 return
             }
-            nodeView.removeFrom(map: self.gameParameter.map)
-            nodeView.node.remove()
-            var offset = 0
-            for (index, lineLayer) in lineLayerArr.enumerated() {
-                if lineLayer.shipPath?.fromNode == nodeView.node
-                    || lineLayer.shipPath?.toNode == nodeView.node {
-                    lineLayerArr.remove(at: index - offset)
-                    lineLayer.removeFromSuperlayer()
-                    offset+=1
-                }
-            }
+            removeNode(nodeView)
         case .item:
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
-                as? ItemCollectionViewController else {
-                fatalError("Controller itemEditTable cannot be casted into ItemCollectionViewController")
-            }
-
             guard let portView = sender.view as? NodeView,
                 let port = portView.node as? Port else {
                 let alert = UIAlert(errorMsg: "Please select a port!", msg: nil)
@@ -240,25 +146,14 @@ class LevelEditorViewController: UIViewController {
                 return
             }
 
-            _ = controller.view
-            controller.initWith(port: port)
-
-            self.addChild(controller)
-            view.addSubview(controller.view)
-            controller.didMove(toParent: self)
+            presentItemEditor(for: port)
         case .pirate:
             guard let nodeView = sender.view as? NodeView else {
                 let alert = UIAlert(errorMsg: "Please select a node!", msg: nil)
                 alert.present(in: self)
                 return
             }
-            if nodeView.node is Port {
-                let alert = UIAlert(errorMsg: "You cannot add pirate to a port!", msg: nil)
-                alert.present(in: self)
-                return
-            }
-            nodeView.node.add(object: PirateIsland(in: nodeView.node))
-            nodeView.update()
+            addPirate(to: nodeView)
         default:
             return
         }
@@ -399,69 +294,78 @@ class LevelEditorViewController: UIViewController {
         }
     }
 
-    private func initBackground() {
-        guard let image = storage.readImage(gameParameter.map.map) ?? UIImage(named: gameParameter.map.map) else {
-                return
+    private func removeNode(_ nodeView: NodeView) {
+        nodeView.removeFrom(map: self.gameParameter.map)
+        nodeView.node.remove()
+        var offset = 0
+        for (index, lineLayer) in lineLayerArr.enumerated() {
+            if lineLayer.shipPath?.fromNode == nodeView.node
+                || lineLayer.shipPath?.toNode == nodeView.node {
+                lineLayerArr.remove(at: index - offset)
+                lineLayer.removeFromSuperlayer()
+                offset+=1
+            }
         }
-        mapBackground.image = image
-        layoutBackground()
     }
 
-    func layoutBackground() {
-        guard let image = mapBackground.image, let editingAreaWrapper = self.editingAreaWrapper else {
+    private func removePath(at location: CGPoint) {
+        var removed = 0
+        for (index, path) in self.lineLayerArr.enumerated() {
+            if self.isPoint(point: location, withinDistance: 20, ofPath: path.path) {
+                self.lineLayerArr.remove(at: index - removed)
+                removed += 1
+                path.removeFromSuperlayer()
+
+                guard let path = path.shipPath else {
+                    return
+                }
+                self.gameParameter.map.removePath(path)
+            }
+        }
+        return
+    }
+
+    private func addWeather(at location: CGPoint) {
+        self.lineLayerArr.forEach { path in
+            if self.isPoint(point: location, withinDistance: 20, ofPath: path.path) {
+                path.add(Weather())
+            }
+        }
+    }
+
+    private func addNode(at location: CGPoint) {
+        let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
+            guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
+                return
+            }
+            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
+        }, textPlaceHolder: "Input name here.")
+        alert.present(in: self)
+    }
+
+    private func addPirate(to nodeView: NodeView) {
+        if nodeView.node is Port {
+            let alert = UIAlert(errorMsg: "You cannot add pirate to a port!", msg: nil)
+            alert.present(in: self)
             return
         }
-        mapBackground.contentMode = .topLeft
-        var size = image.size
-        if size.width < self.view.frame.width {
-            let width = self.view.frame.width
-            let height = size.height / size.width * width
-            size = CGSize(width: width, height: height)
-        }
-        mapBackground.frame = CGRect(origin: CGPoint.zero, size: size)
-        editingAreaWrapper.frame = mapBackground.frame
-        editingAreaWrapper.subviews.forEach {
-            $0.frame = mapBackground.frame
-        }
-
-        scrollView.contentSize = size
-        scrollView.minimumZoomScale = max(view.frame.height/size.height, view.frame.width/size.width)
-        scrollView.setZoomScale(scrollView.minimumZoomScale, animated: false)
-        mapBackground.image = image
+        nodeView.node.add(object: PirateIsland(in: nodeView.node))
+        nodeView.update()
     }
 
-    func reInitScrollView () {
-        guard let oldScrollView = self.scrollView else {
-            preconditionFailure("scrollView is nil.")
+    private func presentItemEditor(for port: Port) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let controller = storyboard.instantiateViewController(withIdentifier: "itemEditTable")
+            as? ItemCollectionViewController else {
+                fatalError("Controller itemEditTable cannot be casted into ItemCollectionViewController")
         }
 
-        let scrollView = UIScrollView(frame: self.scrollView.frame)
-        self.scrollView = scrollView
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        view.insertSubview(scrollView, aboveSubview: oldScrollView)
-        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.updateConstraints()
-        editingAreaWrapper.removeFromSuperview()
-        scrollView.addSubview(editingAreaWrapper)
-    }
+        _ = controller.view
+        controller.initWith(port: port)
 
-    private func initNodeGestures() -> [UIGestureRecognizer] {
-        let singleTapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(singleTapOnNode(_:)))
-        singleTapOnNodeGesture.numberOfTapsRequired = 1
-        let doubleTapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(doubleTapOnNode(_:)))
-        doubleTapOnNodeGesture.numberOfTapsRequired = 2
-        let longPressOnNodeGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressOnNode(_:)))
-
-        singleTapOnNodeGesture.require(toFail: doubleTapOnNodeGesture)
-        singleTapOnNodeGesture.delaysTouchesBegan = true
-        doubleTapOnNodeGesture.delaysTouchesBegan = true
-
-        let drawPathGesture = UIPanGestureRecognizer(target: self, action: #selector(drawPath(_:)))
-
-        return [singleTapOnNodeGesture, doubleTapOnNodeGesture, longPressOnNodeGesture, drawPathGesture]
+        self.addChild(controller)
+        view.addSubview(controller.view)
+        controller.didMove(toParent: self)
     }
 
     private func fillWith(_ subview: UIView) {
