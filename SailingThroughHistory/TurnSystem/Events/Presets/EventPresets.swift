@@ -77,7 +77,7 @@ class EventPresets {
         }
     }
     func getEvent(id: Int) -> PresetEvent? {
-        return eventTable.getEvent(id: id)
+        return eventTable.getEvent(identifier: id)
     }
     func getEvents() -> [PresetEvent] {
         return eventTable.getAllEvents()

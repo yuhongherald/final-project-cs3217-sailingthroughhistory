@@ -49,7 +49,7 @@ class LevelEditorViewController: UIViewController {
     private var startingNode: NodeView?
     private var destination: NodeView?
 
-   let storage = LocalStorage()
+    let storage = LocalStorage()
 
     override var prefersStatusBarHidden: Bool {
         return true

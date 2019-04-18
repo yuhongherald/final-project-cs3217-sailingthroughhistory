@@ -65,9 +65,6 @@ extension LevelEditorViewController {
         }
         mapBackground.frame = CGRect(origin: CGPoint.zero, size: size)
         editingAreaWrapper.frame = mapBackground.frame
-        editingAreaWrapper.subviews.forEach {
-            $0.frame = mapBackground.frame
-        }
 
         scrollView.contentSize = size
         scrollView.minimumZoomScale = max(view.frame.height/size.height, view.frame.width/size.width)
