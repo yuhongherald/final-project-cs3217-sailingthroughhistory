@@ -49,7 +49,15 @@ class MembersTableDataSource: NSObject, UITableViewDataSource, UITextFieldDelega
         cell.delegate = self
         cell.set(playerName: player.playerName)
         cell.renameButtonPressedCallback = { [weak self] name in
-            self?.waitingRoom.changeName(of: player.identifier, to: name)
+            do {
+                try self?.waitingRoom.changeName(of: player.identifier, to: name)
+            } catch {
+                let error = error as? StorageError
+                let alert = ControllerUtils.getGenericAlert(titled: "Rename Failed.",
+                                                            withMsg: error?.getMessage() ?? "Error renaming player.",
+                                                            action: { cell.set(playerName: player.playerName) })
+                self?.mainController.present(alert, animated: true, completion: nil)
+            }
         }
         let isMaster = waitingRoom.isRoomMaster()
         if isMaster {

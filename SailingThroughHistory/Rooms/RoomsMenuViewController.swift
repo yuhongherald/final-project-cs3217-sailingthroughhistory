@@ -35,7 +35,8 @@ class RoomsMenuViewController: UIViewController {
                 self?.join(room: room)
             } catch {
                 let error = error as? StorageError
-                let alert = ControllerUtils.getGenericAlert(titled: error?.getMessage() ?? "Error connectiong to room.", withMsg: "")
+                let alert = ControllerUtils.getGenericAlert(titled: "Create Room Failed.",
+                                                            withMsg: error?.getMessage() ?? "Error connectiong to room.")
                 self?.present(alert, animated: true, completion: nil)
             }
             }, textPlaceHolder: "Input name here.")

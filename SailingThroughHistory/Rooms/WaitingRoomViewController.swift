@@ -28,6 +28,7 @@ class WaitingRoomViewController: UIViewController {
         roomConnection?.changeRemovalCallback { [weak self] in
             let alert = ControllerUtils.getGenericAlert(titled: "You are removed from room.", withMsg: "", action: {
                 self?.dismiss(animated: true, completion: nil)
+                self?.gameRoom?.disconnect()
             })
             self?.present(alert, animated: true, completion: nil)
         }
@@ -40,6 +41,7 @@ class WaitingRoomViewController: UIViewController {
             let alert = ControllerUtils.getGenericAlert(titled: "Error getting connection",
                                                         withMsg: "") { [weak self] in
                                                             self?.dismiss(animated: true, completion: nil)
+                                                            self?.gameRoom?.disconnect()
             }
             present(alert, animated: true, completion: nil)
             return
@@ -62,6 +64,7 @@ class WaitingRoomViewController: UIViewController {
 
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        gameRoom?.disconnect()
     }
 
     @IBAction func joinPlayerPressed(_ sender: Any) {
@@ -201,10 +204,5 @@ class WaitingRoomViewController: UIViewController {
         let alert = ControllerUtils.getGenericAlert(titled: "Action not allowed.",
                                                     withMsg: "You are not the room master.")
         present(alert, animated: true, completion: nil)
-    }
-
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        super.dismiss(animated: flag, completion: completion)
-        gameRoom?.disconnect()
     }
 }

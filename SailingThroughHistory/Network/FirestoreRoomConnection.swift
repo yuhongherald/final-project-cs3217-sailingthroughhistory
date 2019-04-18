@@ -247,7 +247,6 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     private func removeDevice(withId deviceName: String) {
-        print("Removed")
         self.devicesCollectionRef.document(deviceName).delete()
         self.playersCollectionRef.whereField(
             FirestoreConstants.playerDeviceKey, isEqualTo: deviceName).getDocuments { (snapshot, _) in
@@ -413,11 +412,13 @@ class FirebaseRoomConnection: RoomConnection {
         }))
     }
 
-    func changeTeamName(for identifier: String, to teamName: String) {
+    func changeTeamName(for identifier: String, to teamName: String) throws {
+        try verify(reference: teamName)
         playersCollectionRef.document(identifier).updateData([FirestoreConstants.playerTeamKey: teamName])
     }
 
-    func changePlayerName(for identifier: String, to playerName: String) {
+    func changePlayerName(for identifier: String, to playerName: String) throws {
+        try verify(reference: playerName)
         playersCollectionRef.document(identifier).updateData([FirestoreConstants.playerNameKey: playerName])
     }
 
@@ -469,12 +470,13 @@ class FirebaseRoomConnection: RoomConnection {
         }
     }
 
-    func disconnect() {
-        self.heartbeatTimer?.invalidate()
-        self.removeDevice(withId: deviceId)
+    func verify(reference name: String) throws {
+        try NetworkFactory.verify(name)
     }
 
-    deinit {
-        disconnect()
+    func disconnect() {
+        print("disconnect")
+        self.heartbeatTimer?.invalidate()
+        self.removeDevice(withId: deviceId)
     }
 }
