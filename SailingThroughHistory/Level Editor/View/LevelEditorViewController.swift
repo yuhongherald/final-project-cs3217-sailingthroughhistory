@@ -395,7 +395,7 @@ class LevelEditorViewController: UIViewController {
             alert.present(in: self)
         } catch {
             let error = error as? StorageError
-            let alert = UIAlert(errorMsg: error?.getMessage() ?? "Unknown Error.", msg: nil)
+            let alert = UIAlert(errorMsg: "Store Failed.", msg: error?.getMessage() ?? "Unknown Error.")
             alert.present(in: self)
         }
     }

@@ -33,7 +33,10 @@ class WaitingRoomViewCell: UITableViewCell {
         if playerNameTextField.isEnabled {
             playerNameTextField.isEnabled = false
             playerNameTextField.borderStyle = .none
-            renameButtonPressedCallback?(playerNameTextField.text ?? "")
+            guard let newName = playerNameTextField.text else {
+                return
+            }
+            renameButtonPressedCallback?(newName)
         } else {
             playerNameTextField.isEnabled = true
             playerNameTextField.borderStyle = .line

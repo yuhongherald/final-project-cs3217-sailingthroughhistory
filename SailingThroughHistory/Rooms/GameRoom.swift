@@ -71,16 +71,16 @@ class GameRoom {
         let player = players[playerIndex]
         let newTeamIndex = ((teamNames.index(of: player.teamName ?? "") ?? 0) + 1) % teamNames.count
         let newTeamName = teamNames[newTeamIndex]
-        connection.changeTeamName(for: player.identifier, to: newTeamName)
+        try? connection.changeTeamName(for: player.identifier, to: newTeamName)
     }
 
-    func changeName(of identifier: String, to newName: String) {
+    func changeName(of identifier: String, to newName: String) throws {
         guard let playerIndex = players.firstIndex(where: { $0.identifier == identifier }) else {
             return
         }
 
         let player = players[playerIndex]
-        connection.changePlayerName(for: player.identifier, to: newName)
+        try connection.changePlayerName(for: player.identifier, to: newName)
     }
 
     func remove(player playerName: String) {

@@ -31,9 +31,9 @@ protocol RoomConnection {
 
     func subscribeToStart(with callback: @escaping (GameState, Data) -> Void)
 
-    func changeTeamName(for identifier: String, to teamName: String)
+    func changeTeamName(for identifier: String, to teamName: String) throws
 
-    func changePlayerName(for identifier: String, to playerName: String)
+    func changePlayerName(for identifier: String, to playerName: String) throws
 
     func remove(player: String)
 
@@ -42,6 +42,8 @@ protocol RoomConnection {
     func changeRemovalCallback(to callback: @escaping () -> Void)
 
     func subscribeToMasterState(for turn: Int, callback: @escaping (GameState) -> Void)
+
+    func verify(reference: String) throws
 
     func disconnect()
 }

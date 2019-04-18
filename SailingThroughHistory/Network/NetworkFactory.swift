@@ -17,16 +17,16 @@ enum NetworkFactory {
     }
 
     static func verify(_ name: String) throws {
-        guard name != "" else {
-            throw StorageError.invalidName(message: "Empty room name.")
+        guard !name.isEmpty else {
+            throw StorageError.invalidName(message: "Empty name.")
         }
 
         guard name.count < 255 else {
-            throw StorageError.invalidName(message: "Room name is too long.")
+            throw StorageError.invalidName(message: "Name is too long.")
         }
 
         guard name.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil else {
-            throw StorageError.invalidName(message: "Room name contains invalid symbol. Only alphanumeric name is allowed.")
+            throw StorageError.invalidName(message: "Name contains invalid symbol. Only alphanumeric name is allowed.")
         }
     }
 }

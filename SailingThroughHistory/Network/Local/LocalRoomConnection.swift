@@ -106,7 +106,7 @@ class LocalRoomConnection: RoomConnection {
         callback(initialState.state, initialState.background)
     }
 
-    func changeTeamName(for identifier: String, to teamName: String) {
+    func changeTeamName(for identifier: String, to teamName: String) throws {
         for (index, member) in roomMembers.enumerated() where member.identifier == identifier {
             roomMembers[index] = RoomMember(identifier: member.identifier,
                                             playerName: member.playerName,
@@ -115,7 +115,7 @@ class LocalRoomConnection: RoomConnection {
         }
     }
 
-    func changePlayerName(for identifier: String, to playerName: String) {
+    func changePlayerName(for identifier: String, to playerName: String) throws {
         for (index, member) in roomMembers.enumerated() where member.identifier == identifier {
             roomMembers[index] = RoomMember(identifier: member.identifier,
                                             playerName: playerName,
@@ -135,6 +135,9 @@ class LocalRoomConnection: RoomConnection {
 
     func getTurnActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
         callback(actions[turn] ?? [], nil)
+    }
+
+    func verify(reference: String) throws {
     }
 
     func disconnect() {
