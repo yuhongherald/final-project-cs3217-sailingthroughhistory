@@ -16,12 +16,19 @@ class LevelEditorViewController: UIViewController {
         }
     }
     @IBOutlet weak var editPanel: UIView!
-    @IBOutlet weak var teamMenu: UIView!
+    @IBOutlet weak var teamMenu: UITableView! {
+        didSet {
+            teamMenu.dataSource = teamMenuDataSource
+            teamMenu.delegate = teamMenuDataSource
+            teamMenu.reloadData()
+        }
+    }
     @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
     @IBOutlet weak var panelToggle: UIButton!
     private var panelDest: EditPanelViewController?
-    private var menuDest: MenuViewController?
+    private lazy var teamMenuDataSource = TeamMenuDataSource(data: gameParameter.teams, delegate: self)
+
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"
 
@@ -52,13 +59,6 @@ class LevelEditorViewController: UIViewController {
             }
             panelDest.delegate = self
             self.panelDest = panelDest
-        case "toPlayerMenu":
-            guard let menuDest = segue.destination as? MenuViewController else {
-                return
-            }
-            menuDest.delegate = self
-            menuDest.data = gameParameter.teams
-            self.menuDest = menuDest
         case "toGallary":
             guard let gallaryDest = segue.destination as? GalleryViewController else {
                 return
@@ -75,9 +75,6 @@ class LevelEditorViewController: UIViewController {
     func reInit() {
         reInitScrollView()
         initBackground()
-
-        menuDest?.data = gameParameter.teams
-        teamMenu.isUserInteractionEnabled = true
 
         let map = gameParameter.map
         let teams = gameParameter.teams
@@ -285,13 +282,15 @@ class LevelEditorViewController: UIViewController {
             teamMenu.isHidden = true
         }
 
-        menuDest?.set(node: port, for: sender)
+        teamMenuDataSource.set(node: port, for: sender)
     }
 
     @objc func longPressOnNode(_ sender: UILongPressGestureRecognizer) {
         guard let node = sender.view as? NodeView else {
             return
         }
+
+        teamMenuDataSource.tableView = teamMenu
 
         if teamMenu.isHidden {
             UIView.animate(withDuration: 0, animations: {
@@ -301,7 +300,7 @@ class LevelEditorViewController: UIViewController {
             teamMenu.isHidden = false
         }
 
-        menuDest?.set(node: node.node, for: sender)
+        teamMenuDataSource.set(node: node.node, for: sender)
     }
 
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
