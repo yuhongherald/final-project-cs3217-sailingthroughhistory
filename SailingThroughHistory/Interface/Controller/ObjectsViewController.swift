@@ -10,20 +10,19 @@ import UIKit
 
 class ObjectsViewController {
     private var objectViews = [GameObject: UIImageView]()
-    private let mainController: MainGameViewController
+    private weak var delegate: ObjectsViewControllerDelegate?
     private var nodeViews = [Int: NodeView]()
     private var paths = ObjectPaths()
     private var pathLayers = [Path: CAShapeLayer]()
     private var objectQueues = [GameObject: DispatchQueue]()
     private let view: UIView
     private var pathWeathers = [Path: UILightningView]()
-    private var modelBounds: Rect {
-        return mainController.interfaceBounds
-    }
+    private var modelBounds: Rect
 
-    init(view: UIView, mainController: MainGameViewController) {
+    init(view: UIView, modelBounds: Rect, delegate: ObjectsViewControllerDelegate) {
         self.view = view
-        self.mainController = mainController
+        self.delegate = delegate
+        self.modelBounds = modelBounds
     }
 
     func onTap(nodeView: NodeView) -> Int {
@@ -219,7 +218,7 @@ class ObjectsViewController {
             return
         }
 
-        mainController.showInformation(ofPort: port)
+        delegate?.showInformation(of: port)
     }
 
     private enum State {

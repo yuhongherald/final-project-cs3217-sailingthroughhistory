@@ -69,8 +69,8 @@ class PortItemTableController: NSObject, UITableViewDataSource, UITableViewDeleg
         default:
             array = []
         }
-
-        tableCell.set(name: array[indexPath.row].rawValue)
+        let item = array[indexPath.row]
+        tableCell.set(name: "\(item.rawValue) \(item.getUnitWeight())\(InterfaceConstants.weightSuffix)")
         if playerCanInteract {
             tableCell.enable()
         } else {

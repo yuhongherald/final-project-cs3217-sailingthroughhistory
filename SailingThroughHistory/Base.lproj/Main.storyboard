@@ -88,7 +88,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZq-3R-NvY" userLabel="Port Information" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="890.5" y="52" width="455.5" height="512"/>
+                                <rect key="frame" x="679" y="52" width="667" height="512"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Port" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnv-LQ-Jez">
                                         <rect key="frame" x="20" y="20" width="45.5" height="31.5"/>
@@ -109,14 +109,14 @@
                                         </connections>
                                     </button>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4M7-Lm-ad4">
-                                        <rect key="frame" x="20" y="99" width="415.5" height="355"/>
+                                        <rect key="frame" x="20" y="99" width="627" height="355"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemsTableCell" id="TgA-2g-eO7" customClass="UITradeTableCell" customModule="SailingThroughHistory" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="415.5" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="627" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TgA-2g-eO7" id="JTj-7Q-aft">
-                                                    <rect key="frame" x="0.0" y="0.0" width="415.5" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="627" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iA3-Hc-Ypi" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
@@ -169,7 +169,7 @@
                                         </prototypes>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jXb-5a-5iD" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                        <rect key="frame" x="384.5" y="462" width="51" height="30"/>
+                                        <rect key="frame" x="596" y="462" width="51" height="30"/>
                                         <state key="normal" title="Set Tax"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -177,12 +177,23 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="hidePortInformationPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vus-ud-A2u"/>
                                             <action selector="setTaxButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="f20-XR-RrV"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OTA-Wg-rat">
+                                        <rect key="frame" x="558" y="462" width="30" height="30"/>
+                                        <state key="normal" title="+"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="portQuantityChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A6p-8R-zfP"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Own" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0z-7n-wJV">
-                                        <rect key="frame" x="383" y="20" width="52.5" height="32"/>
+                                        <rect key="frame" x="594.5" y="20" width="52.5" height="32"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -193,32 +204,61 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRb-mP-XCB">
+                                        <rect key="frame" x="547" y="467" width="11" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YEm-QD-6L7">
+                                        <rect key="frame" x="517" y="462" width="30" height="30"/>
+                                        <state key="normal" title="-"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="portQuantityChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QAJ-fP-RXh"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="OTA-Wg-rat" secondAttribute="bottom" constant="20" symbolic="YES" id="9Uz-EG-CFY"/>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="top" id="9oQ-XU-7sa"/>
                                     <constraint firstAttribute="trailing" secondItem="4M7-Lm-ad4" secondAttribute="trailing" constant="20" symbolic="YES" id="AXb-j3-svI"/>
                                     <constraint firstItem="jXb-5a-5iD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="z0z-7n-wJV" secondAttribute="bottom" constant="8" symbolic="YES" id="FiZ-WE-iRk"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="trailing" id="GdP-bE-Whs"/>
                                     <constraint firstAttribute="trailing" secondItem="jXb-5a-5iD" secondAttribute="trailing" constant="20" symbolic="YES" id="KsJ-Fp-ZdF"/>
+                                    <constraint firstItem="jXb-5a-5iD" firstAttribute="leading" secondItem="OTA-Wg-rat" secondAttribute="trailing" constant="8" symbolic="YES" id="Mew-7B-9cR"/>
                                     <constraint firstItem="z0z-7n-wJV" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="top" constant="20" symbolic="YES" id="Oxd-c7-QK1"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mcD-nA-bRP" secondAttribute="trailing" constant="20" symbolic="YES" id="REn-mN-eL1"/>
                                     <constraint firstAttribute="trailing" secondItem="z0z-7n-wJV" secondAttribute="trailing" constant="20" symbolic="YES" id="SJW-QD-pV7"/>
+                                    <constraint firstItem="YEm-QD-6L7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="trailing" constant="8" symbolic="YES" id="TLD-f1-vOT"/>
                                     <constraint firstItem="jXb-5a-5iD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="trailing" constant="8" symbolic="YES" id="WBK-Qa-aeC"/>
+                                    <constraint firstItem="mRb-mP-XCB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="top" constant="20" symbolic="YES" id="ZW7-6z-anv"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nnv-LQ-Jez" secondAttribute="trailing" constant="20" symbolic="YES" id="ZWB-Cb-InL"/>
                                     <constraint firstItem="nnv-LQ-Jez" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="3fN-oD-MBu" secondAttribute="top" constant="8" symbolic="YES" id="ZXp-9c-TRO"/>
+                                    <constraint firstItem="OTA-Wg-rat" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="top" constant="20" symbolic="YES" id="bXQ-DO-uz4"/>
+                                    <constraint firstItem="YEm-QD-6L7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="top" constant="20" symbolic="YES" id="ba0-5b-axG"/>
                                     <constraint firstItem="4M7-Lm-ad4" firstAttribute="top" secondItem="mcD-nA-bRP" secondAttribute="bottom" constant="8" symbolic="YES" id="gtg-GZ-asZ"/>
+                                    <constraint firstItem="mRb-mP-XCB" firstAttribute="leading" secondItem="YEm-QD-6L7" secondAttribute="trailing" id="iDl-jP-kj6"/>
+                                    <constraint firstItem="mRb-mP-XCB" firstAttribute="centerY" secondItem="OTA-Wg-rat" secondAttribute="centerY" id="lEP-6Y-ymI"/>
                                     <constraint firstItem="4M7-Lm-ad4" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="lbD-fZ-FWz"/>
                                     <constraint firstItem="mcD-nA-bRP" firstAttribute="top" secondItem="nnv-LQ-Jez" secondAttribute="bottom" constant="8" symbolic="YES" id="llH-OF-VYY"/>
                                     <constraint firstItem="mcD-nA-bRP" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="mYT-0K-JPh"/>
                                     <constraint firstAttribute="bottom" secondItem="3fN-oD-MBu" secondAttribute="bottom" constant="20" symbolic="YES" id="naO-AH-pd8"/>
                                     <constraint firstItem="nnv-LQ-Jez" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="top" constant="20" symbolic="YES" id="niK-wH-eGM"/>
                                     <constraint firstItem="jXb-5a-5iD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="4M7-Lm-ad4" secondAttribute="bottom" id="oxe-f0-WJ9"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="mRb-mP-XCB" secondAttribute="bottom" constant="20" symbolic="YES" id="p24-iB-8O0"/>
                                     <constraint firstItem="nnv-LQ-Jez" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="qpv-7R-5EZ"/>
                                     <constraint firstAttribute="bottom" secondItem="jXb-5a-5iD" secondAttribute="bottom" constant="20" symbolic="YES" id="qt7-az-XZh"/>
                                     <constraint firstItem="z0z-7n-wJV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="s6o-a2-xF8"/>
+                                    <constraint firstAttribute="bottom" secondItem="YEm-QD-6L7" secondAttribute="bottom" constant="20" symbolic="YES" id="tyO-rc-nCD"/>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="leading" secondItem="hZq-3R-NvY" secondAttribute="leading" constant="20" symbolic="YES" id="xAx-aP-vby"/>
                                     <constraint firstItem="3fN-oD-MBu" firstAttribute="top" secondItem="4M7-Lm-ad4" secondAttribute="bottom" constant="8" symbolic="YES" id="yt8-eY-2f8"/>
+                                    <constraint firstItem="OTA-Wg-rat" firstAttribute="leading" secondItem="mRb-mP-XCB" secondAttribute="trailing" id="yxz-u2-YiJ"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -485,7 +525,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aQt-yR-Dfx" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
-                                <rect key="frame" x="386.5" y="44" width="174" height="36"/>
+                                <rect key="frame" x="276" y="44" width="395" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Toggle Team Scores"/>
                                 <connections>
@@ -521,10 +561,42 @@
                                     <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SLm-gr-K4u"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3KI-5Q-Nif" customClass="UIBlurredBackgroundView" customModule="SailingThroughHistory" customModuleProvider="target">
+                                <rect key="frame" x="410" y="309" width="546" height="410"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0g-PX-cYB">
+                                        <rect key="frame" x="273" y="301" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6P-Yx-DeP" customClass="UIButtonRounded" customModule="SailingThroughHistory" customModuleProvider="target">
+                                        <rect key="frame" x="202.5" y="309" width="141" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Acknowledge"/>
+                                        <connections>
+                                            <action selector="togglePanelVisibility:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yqJ-gH-CG6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="n6P-Yx-DeP" secondAttribute="trailing" constant="20" symbolic="YES" id="2KB-4c-yyv"/>
+                                    <constraint firstItem="n6P-Yx-DeP" firstAttribute="top" secondItem="S0g-PX-cYB" secondAttribute="bottom" constant="8" symbolic="YES" id="Ae5-4W-8Bm"/>
+                                    <constraint firstItem="S0g-PX-cYB" firstAttribute="centerX" secondItem="3KI-5Q-Nif" secondAttribute="centerX" id="Isq-CS-98N"/>
+                                    <constraint firstItem="S0g-PX-cYB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3KI-5Q-Nif" secondAttribute="top" constant="20" symbolic="YES" id="L5e-ze-HbZ"/>
+                                    <constraint firstItem="S0g-PX-cYB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3KI-5Q-Nif" secondAttribute="leading" constant="20" symbolic="YES" id="cos-3K-oaX"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="S0g-PX-cYB" secondAttribute="trailing" constant="20" symbolic="YES" id="p19-io-4qp"/>
+                                    <constraint firstItem="n6P-Yx-DeP" firstAttribute="centerX" secondItem="3KI-5Q-Nif" secondAttribute="centerX" id="qvF-EJ-ntm"/>
+                                    <constraint firstAttribute="bottom" secondItem="n6P-Yx-DeP" secondAttribute="bottom" constant="60" id="wg4-wd-yNT"/>
+                                    <constraint firstItem="n6P-Yx-DeP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3KI-5Q-Nif" secondAttribute="leading" constant="20" symbolic="YES" id="yIE-lB-qTg"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KxU-Yt-PMI" secondAttribute="trailing" id="2KU-u6-G1v"/>
+                            <constraint firstItem="3KI-5Q-Nif" firstAttribute="top" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="2rm-Xs-I2D"/>
                             <constraint firstItem="hZq-3R-NvY" firstAttribute="top" secondItem="6nf-n2-xli" secondAttribute="bottom" constant="8" symbolic="YES" id="2yt-xV-pR4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q59-92-ecD" secondAttribute="trailing" id="4Qh-5t-DYv"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="leading" secondItem="MFT-em-0mO" secondAttribute="trailing" constant="8" symbolic="YES" id="4WX-9T-WFk"/>
@@ -537,12 +609,14 @@
                             <constraint firstItem="YPy-7Q-I59" firstAttribute="centerX" secondItem="KxU-Yt-PMI" secondAttribute="centerX" id="IIU-6m-91U"/>
                             <constraint firstItem="y36-uP-zBE" firstAttribute="top" secondItem="MFT-em-0mO" secondAttribute="bottom" constant="8" symbolic="YES" id="IwJ-1Q-BAZ"/>
                             <constraint firstItem="KxU-Yt-PMI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" constant="8" symbolic="YES" id="KIr-zn-jYi"/>
+                            <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="3KI-5Q-Nif" secondAttribute="bottom" id="LUh-6B-6Xe"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Lnl-P6-45G"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mu4-Ie-cT6"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="NQy-MG-Yoo"/>
                             <constraint firstItem="KxU-Yt-PMI" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="OIf-7u-ejX"/>
                             <constraint firstItem="aQt-yR-Dfx" firstAttribute="centerX" secondItem="iyb-KI-RoB" secondAttribute="centerX" id="OUK-pt-ldD"/>
                             <constraint firstItem="yCl-MH-qBd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ObH-J3-fir"/>
+                            <constraint firstItem="3KI-5Q-Nif" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Plh-cy-qZb"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.3" constant="1" id="Q7F-SB-aB9"/>
                             <constraint firstItem="ue5-3h-dqr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qob-fY-pBc"/>
                             <constraint firstItem="6nf-n2-xli" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QxV-sm-yoD"/>
@@ -550,6 +624,7 @@
                             <constraint firstItem="YPy-7Q-I59" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Rj3-oD-Wex"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5Pn-jO-5xF" secondAttribute="bottom" id="SYJ-Zq-Z6f"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iyb-KI-RoB" secondAttribute="bottom" id="SkV-Lv-W1I"/>
+                            <constraint firstItem="3KI-5Q-Nif" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="TBO-yj-GCu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ue5-3h-dqr" secondAttribute="trailing" id="TN5-7n-QWa"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" secondItem="q59-92-ecD" secondAttribute="bottom" constant="8" symbolic="YES" id="UM2-e4-dHz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="y36-uP-zBE" secondAttribute="bottom" id="Utf-Q9-EK3"/>
@@ -566,8 +641,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yCl-MH-qBd" secondAttribute="bottom" id="gCr-h2-CW3"/>
                             <constraint firstItem="y36-uP-zBE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gER-S7-Wnp"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gUd-6t-3Zs"/>
-                            <constraint firstItem="hZq-3R-NvY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="1/3" id="gVl-OD-3BP"/>
+                            <constraint firstItem="3KI-5Q-Nif" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="gi9-aO-8dr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hZq-3R-NvY" secondAttribute="bottom" id="hhb-JF-26f"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="3KI-5Q-Nif" secondAttribute="trailing" id="hiD-XW-i9z"/>
                             <constraint firstItem="8nQ-Ii-rtZ" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="jGQ-tS-9AB"/>
                             <constraint firstItem="q59-92-ecD" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MFT-em-0mO" secondAttribute="bottom" id="jJB-zK-tTp"/>
                             <constraint firstItem="KxU-Yt-PMI" firstAttribute="top" secondItem="hZq-3R-NvY" secondAttribute="bottom" constant="8" symbolic="YES" id="jWe-ia-EaL"/>
@@ -580,17 +656,22 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6nf-n2-xli" secondAttribute="bottom" id="omC-Ki-5LY"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="trailing" secondItem="ue5-3h-dqr" secondAttribute="trailing" constant="20" id="q6n-ny-xUO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Pn-jO-5xF" secondAttribute="trailing" id="rDM-QC-Hl5"/>
+                            <constraint firstItem="3KI-5Q-Nif" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="s0E-Ee-dbL"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="aQt-yR-Dfx" secondAttribute="bottom" constant="8" symbolic="YES" id="t83-FX-ZJ9"/>
                             <constraint firstItem="iyb-KI-RoB" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" constant="1" id="u6e-c9-iVy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YPy-7Q-I59" secondAttribute="bottom" constant="20" id="v8t-kV-uor"/>
                             <constraint firstItem="MFT-em-0mO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="vdp-tX-Jp2"/>
                             <constraint firstItem="5Pn-jO-5xF" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/3" id="w0B-KI-dKf"/>
-                            <constraint firstItem="hZq-3R-NvY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="aQt-yR-Dfx" secondAttribute="trailing" constant="8" symbolic="YES" id="wwb-OI-ooE"/>
+                            <constraint firstItem="3KI-5Q-Nif" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.4" id="wG9-vQ-S86"/>
+                            <constraint firstItem="hZq-3R-NvY" firstAttribute="leading" secondItem="aQt-yR-Dfx" secondAttribute="trailing" constant="8" symbolic="YES" id="wwb-OI-ooE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="acknoledgeButtonView" destination="n6P-Yx-DeP" id="YgH-cc-y0z"/>
                         <outlet property="actionPanelView" destination="5Pn-jO-5xF" id="wyJ-XJ-AES"/>
+                        <outlet property="alertMessageView" destination="S0g-PX-cYB" id="WF6-yH-os4"/>
+                        <outlet property="alertPanel" destination="3KI-5Q-Nif" id="Ot9-KA-LHi"/>
                         <outlet property="availableUpgradesTableView" destination="dbO-3p-xaJ" id="8dD-VF-uTb"/>
                         <outlet property="backgroundImageView" destination="9Sq-IX-ntE" id="4ND-FK-iTu"/>
                         <outlet property="contextView" destination="jQB-GM-yKS" id="K7A-Cf-hzY"/>
@@ -611,6 +692,9 @@
                         <outlet property="portItemsTableView" destination="4M7-Lm-ad4" id="t5E-5b-Efn"/>
                         <outlet property="portNameLabel" destination="nnv-LQ-Jez" id="An5-VV-Pv5"/>
                         <outlet property="portOwnerLabel" destination="z0z-7n-wJV" id="9uo-HT-bn9"/>
+                        <outlet property="portQuantityAddButton" destination="OTA-Wg-rat" id="VhC-Cg-KzB"/>
+                        <outlet property="portQuantityLabel" destination="mRb-mP-XCB" id="65u-Ox-6V2"/>
+                        <outlet property="portQuantityMinusButton" destination="YEm-QD-6L7" id="tdC-6e-ZSP"/>
                         <outlet property="portSetTaxButton" destination="jXb-5a-5iD" id="SZv-eF-pxZ"/>
                         <outlet property="portTaxLabel" destination="mcD-nA-bRP" id="i6x-WG-ARQ"/>
                         <outlet property="rollDiceButton" destination="bxt-Al-xiN" id="sr8-uW-nCc"/>
@@ -622,7 +706,7 @@
                         <outlet property="toggleMessagesButton" destination="YPy-7Q-I59" id="Fvj-S4-tan"/>
                         <outlet property="togglePlayerInfoButton" destination="ue5-3h-dqr" id="KyB-co-3e5"/>
                         <outlet property="toggleTeamScoresButton" destination="aQt-yR-Dfx" id="r0P-4F-BMC"/>
-                        <segue destination="xnR-2a-N1z" kind="presentation" identifier="gameToMain" id="d1n-eo-DHc"/>
+                        <segue destination="xnR-2a-N1z" kind="show" identifier="gameToMain" id="d1n-eo-DHc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1748,6 +1832,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Jl-WZ-ghm"/>
-        <segue reference="QLW-hl-erw"/>
+        <segue reference="id6-QH-97E"/>
     </inferredMetricsTieBreakers>
 </document>

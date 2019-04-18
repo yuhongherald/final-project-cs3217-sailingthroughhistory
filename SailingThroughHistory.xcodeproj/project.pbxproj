@@ -74,7 +74,7 @@
 		7535449A224CC532001B4F62 /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75354499224CC532001B4F62 /* WeakBox.swift */; };
 		7535449E224CCB34001B4F62 /* BaseGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7535449D224CCB34001B4F62 /* BaseGameObject.swift */; };
 		7536A8422240C25F00D9D0FE /* Double+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7536A8412240C25F00D9D0FE /* Double+Lerp.swift */; };
-		7538CAF02255137600EB9B1F /* BuyItemError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CAEF2255137600EB9B1F /* BuyItemError.swift */; };
+		7538CAF02255137600EB9B1F /* TradeItemError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CAEF2255137600EB9B1F /* TradeItemError.swift */; };
 		7538CAF32255ADA200EB9B1F /* ItemBuySellCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CAF22255ADA200EB9B1F /* ItemBuySellCache.swift */; };
 		7538CAF52255B85D00EB9B1F /* Evaluatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CAF42255B85D00EB9B1F /* Evaluatable.swift */; };
 		7538CAF72255B8B300EB9B1F /* VariableEvaluatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7538CAF62255B8B300EB9B1F /* VariableEvaluatable.swift */; };
@@ -149,6 +149,9 @@
 		96619E3B224511A50014E0C5 /* UITradeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E3A224511A50014E0C5 /* UITradeTableCell.swift */; };
 		9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
+		966FAD682268E1BF000B48AC /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FAD672268E1BF000B48AC /* AlertWindowController.swift */; };
+		966FAD6A2268E1D8000B48AC /* AlertWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */; };
+		966FAD6C2268EB31000B48AC /* ObjectsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FAD6B2268EB31000B48AC /* ObjectsViewControllerDelegate.swift */; };
 		96707469226254810056D81D /* LocalRoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96707468226254810056D81D /* LocalRoomConnection.swift */; };
 		9670E9202261D31600E8A01F /* MessagesTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670E91F2261D31600E8A01F /* MessagesTableController.swift */; };
 		96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96737E9E223CF1CB00D04C33 /* GameObject.swift */; };
@@ -160,6 +163,7 @@
 		9681199E2243CCA30093ABBA /* Array+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9681199D2243CCA30093ABBA /* Array+Rotate.swift */; };
 		9683C28E225D256600E30387 /* UpgradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683C28D225D256600E30387 /* UpgradeType.swift */; };
 		9683C290225D284600E30387 /* AvailableUpgradesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9683C28F225D284600E30387 /* AvailableUpgradesDataSource.swift */; };
+		968402EB2268C72D006F4F7F /* AlertQueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968402EA2268C72D006F4F7F /* AlertQueueViewController.swift */; };
 		9684669B2264ACC300BDA989 /* ChangeOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684669A2264ACC300BDA989 /* ChangeOperator.swift */; };
 		9684669D2264ACFB00BDA989 /* GameTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684669C2264ACFB00BDA989 /* GameTime.swift */; };
 		9684669F2264AD2A00BDA989 /* EngineConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9684669E2264AD2A00BDA989 /* EngineConstants.swift */; };
@@ -332,7 +336,7 @@
 		75354499224CC532001B4F62 /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
 		7535449D224CCB34001B4F62 /* BaseGameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGameObject.swift; sourceTree = "<group>"; };
 		7536A8412240C25F00D9D0FE /* Double+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Lerp.swift"; sourceTree = "<group>"; };
-		7538CAEF2255137600EB9B1F /* BuyItemError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyItemError.swift; sourceTree = "<group>"; };
+		7538CAEF2255137600EB9B1F /* TradeItemError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeItemError.swift; sourceTree = "<group>"; };
 		7538CAF22255ADA200EB9B1F /* ItemBuySellCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemBuySellCache.swift; sourceTree = "<group>"; };
 		7538CAF42255B85D00EB9B1F /* Evaluatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluatable.swift; sourceTree = "<group>"; };
 		7538CAF62255B8B300EB9B1F /* VariableEvaluatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableEvaluatable.swift; sourceTree = "<group>"; };
@@ -407,6 +411,9 @@
 		96619E3A224511A50014E0C5 /* UITradeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITradeTableCell.swift; sourceTree = "<group>"; };
 		9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableDataSource.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
+		966FAD672268E1BF000B48AC /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
+		966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowDelegate.swift; sourceTree = "<group>"; };
+		966FAD6B2268EB31000B48AC /* ObjectsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewControllerDelegate.swift; sourceTree = "<group>"; };
 		96707468226254810056D81D /* LocalRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoomConnection.swift; sourceTree = "<group>"; };
 		9670E91F2261D31600E8A01F /* MessagesTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesTableController.swift; sourceTree = "<group>"; };
 		96737E9E223CF1CB00D04C33 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
@@ -418,6 +425,7 @@
 		9681199D2243CCA30093ABBA /* Array+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Rotate.swift"; sourceTree = "<group>"; };
 		9683C28D225D256600E30387 /* UpgradeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeType.swift; sourceTree = "<group>"; };
 		9683C28F225D284600E30387 /* AvailableUpgradesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailableUpgradesDataSource.swift; sourceTree = "<group>"; };
+		968402EA2268C72D006F4F7F /* AlertQueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertQueueViewController.swift; sourceTree = "<group>"; };
 		9684669A2264ACC300BDA989 /* ChangeOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeOperator.swift; sourceTree = "<group>"; };
 		9684669C2264ACFB00BDA989 /* GameTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTime.swift; sourceTree = "<group>"; };
 		9684669E2264AD2A00BDA989 /* EngineConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineConstants.swift; sourceTree = "<group>"; };
@@ -944,8 +952,8 @@
 				967FAA7B2244B7F8005054B6 /* ADT */,
 				969F48222242CACD00F86D1E /* Controller */,
 				969F48212242CAB200F86D1E /* View */,
-				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				96F6584922412126006CD412 /* GenericPublishSubject.swift */,
+				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				9689401622532A1500A56B36 /* ControllerUtils.swift */,
 			);
 			path = Interface;
@@ -1060,6 +1068,10 @@
 				9670E91F2261D31600E8A01F /* MessagesTableController.swift */,
 				968D6F092264D42A009552B1 /* EventTableController.swift */,
 				96618F442267CC9200B41008 /* PortItemTableControllerDelegate.swift */,
+				968402EA2268C72D006F4F7F /* AlertQueueViewController.swift */,
+				966FAD672268E1BF000B48AC /* AlertWindowController.swift */,
+				966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */,
+				966FAD6B2268EB31000B48AC /* ObjectsViewControllerDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1087,7 +1099,7 @@
 				BAB3379722624D54007A0C05 /* PlayerAndTeam */,
 				BAB3379E226256E2007A0C05 /* Ship */,
 				BA91905D223F25CE00009F49 /* GameState.swift */,
-				7538CAEF2255137600EB9B1F /* BuyItemError.swift */,
+				7538CAEF2255137600EB9B1F /* TradeItemError.swift */,
 				BAA0D043226388BA004417CA /* PortAdminError.swift */,
 				BA6FBBDC225C82A700B366DB /* MovementError.swift */,
 				BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */,
@@ -1534,6 +1546,7 @@
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
 				BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */,
+				966FAD6A2268E1D8000B48AC /* AlertWindowDelegate.swift in Sources */,
 				9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */,
 				755FD973224E842000D83D4B /* EventAction.swift in Sources */,
 				75A72CC8225CED03003640D4 /* FlipFlopTrigger.swift in Sources */,
@@ -1542,6 +1555,7 @@
 				9690F5CA223A4874005291EE /* AppDelegate.swift in Sources */,
 				BAA0D04222634925004417CA /* GenericPlayerStub.swift in Sources */,
 				7538CAF32255ADA200EB9B1F /* ItemBuySellCache.swift in Sources */,
+				968402EB2268C72D006F4F7F /* AlertQueueViewController.swift in Sources */,
 				96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */,
 				96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */,
 				967FAA7D2244BF1F005054B6 /* PortItemTableController.swift in Sources */,
@@ -1583,12 +1597,13 @@
 				1A749D6A2241021900482CE5 /* LevelEditorViewController + Delegate.swift in Sources */,
 				75354477224CAB4B001B4F62 /* LessThanOperator.swift in Sources */,
 				1A749D7422440C3E00482CE5 /* GalleryCollectionViewCell.swift in Sources */,
+				966FAD682268E1BF000B48AC /* AlertWindowController.swift in Sources */,
 				1A749D6E2243CFF800482CE5 /* LocalStorage.swift in Sources */,
 				1A9FF08A2240142B00005FCB /* UIAlert.swift in Sources */,
 				96737EA6223D398200D04C33 /* CGRect+Translate.swift in Sources */,
 				754FED652243626900394215 /* Vector2F.swift in Sources */,
 				75328F5A225360BB00180B03 /* PlayerActionError.swift in Sources */,
-				7538CAF02255137600EB9B1F /* BuyItemError.swift in Sources */,
+				7538CAF02255137600EB9B1F /* TradeItemError.swift in Sources */,
 				9670E9202261D31600E8A01F /* MessagesTableController.swift in Sources */,
 				751F8FEE224BB2170071C057 /* Printable.swift in Sources */,
 				751F8FEA224BAF0E0071C057 /* GenericNetworkSession.swift in Sources */,
@@ -1618,6 +1633,7 @@
 				7535447B224CAB66001B4F62 /* LessThanOrEqualOperator.swift in Sources */,
 				BA919074223F44A400009F49 /* GameParameter.swift in Sources */,
 				753A0E822260518400A1EA99 /* PlayerArrivalEvent.swift in Sources */,
+				966FAD6C2268EB31000B48AC /* ObjectsViewControllerDelegate.swift in Sources */,
 				BAB3379422624CA1007A0C05 /* Navigatable.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */,

@@ -31,7 +31,6 @@ class TurnSystem: GenericTurnSystem {
     }
 
     // TODO: Move this into new class
-    private var callbacks: [() -> Void] = []
     private var stateVariable: GameVariable<State>
     private let isMaster: Bool
     private let deviceId: String
@@ -44,6 +43,9 @@ class TurnSystem: GenericTurnSystem {
             let turn = data.currentTurn
             network.getTurnActions(for: turn) { [weak self] (actions, _) in
                 self?.processNetworkTurnActions(forTurnNumber: turn, playerActionPairs: actions)
+            }
+            for player in oldValue where players.first(where: { $0.playerName == player.playerName }) == nil {
+                self.messages.append(GameMessage.playerAction(name: player.playerName, message: "has left the game."))
             }
         }
     }
@@ -168,7 +170,7 @@ class TurnSystem: GenericTurnSystem {
         if quantity >= 0 {
             do {
                 try player.sell(itemType: itemType, quantity: quantity)
-            } catch let error as BuyItemError {
+            } catch let error as TradeItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
             pendingActions.append(.buyOrSell(itemType: itemType, quantity: -quantity))
@@ -270,7 +272,7 @@ class TurnSystem: GenericTurnSystem {
                 } else {
                     try player.sell(itemType: itemType, quantity: -quantity)
                 }
-            } catch let error as BuyItemError {
+            } catch let error as TradeItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
             return message
@@ -360,9 +362,6 @@ class TurnSystem: GenericTurnSystem {
                 pendingActions = []
             }
         }
-        for callback in callbacks {
-            callback()
-        }
         guard let player = getNextPlayer() else {
             waitForTurnFinish()
             return
@@ -380,11 +379,6 @@ class TurnSystem: GenericTurnSystem {
             }
             self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
         }
-    }
-
-    // Unused
-    func endTurnCallback(action: @escaping () -> Void) {
-        callbacks.append(action)
     }
 
     func getNextPlayer() -> GenericPlayer? {
@@ -523,7 +517,12 @@ class TurnSystem: GenericTurnSystem {
                                                                                          message: $0.message)})
             }
         }
-        gameState.map.npcs.forEach { _ = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000)}
+        gameState.map.npcs.forEach {
+            guard let node = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000) else {
+                return
+            }
+            self.messages.append(GameMessage.playerAction(name: "NPC", message: "An npc has moved into \(node.name)"))
+        }
         handleSetTax()
         let eventResults = data.checkForEvents() // events will run here, non-recursive
         self.messages.append(contentsOf: eventResults)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainMenuViewController: UIViewController {
+class MainMenuViewController: AlertQueueController {
     var message: String?
 
     override var prefersStatusBarHidden: Bool {

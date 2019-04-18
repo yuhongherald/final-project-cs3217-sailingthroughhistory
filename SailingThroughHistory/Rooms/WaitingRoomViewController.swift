@@ -155,7 +155,14 @@ class WaitingRoomViewController: UIViewController {
         }
 
         var gmFound = false
+        var names = Set<String>()
         for member in getWaitingRoom().players {
+            if names.contains(member.playerName) {
+                let alert = ControllerUtils.getGenericAlert(titled: "Duplicate name found",
+                                                            withMsg: "Each player must have a unique name.")
+                present(alert, animated: true, completion: nil)
+                return nil
+            }
             if member.isGameMaster {
                 if gmFound {
                     let alert = ControllerUtils.getGenericAlert(titled: "More than one GM found",
@@ -170,6 +177,7 @@ class WaitingRoomViewController: UIViewController {
                 present(alert, animated: true, completion: nil)
                 return nil
             }
+            names.insert(member.playerName)
         }
 
         return (parameters: parameters, imageData: imageData)

@@ -60,8 +60,6 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseUI/Firestore (5.2.2):
-    - Firebase/Firestore
   - GoogleAppMeasurement (5.7.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -127,7 +125,6 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Functions
   - Firebase/Storage
-  - FirebaseUI/Firestore (~> 5.0)
   - RxSwift (~> 4.0)
   - URWeatherView (~> 0.7.0)
 
@@ -144,7 +141,6 @@ SPEC REPOS:
     - FirebaseFunctions
     - FirebaseInstanceID
     - FirebaseStorage
-    - FirebaseUI
     - GoogleAppMeasurement
     - GoogleUtilities
     - "gRPC-C++"
@@ -170,7 +166,6 @@ SPEC CHECKSUMS:
   FirebaseFunctions: 3ee25c43a467ec3099718d77323de04ce07828d8
   FirebaseInstanceID: bd6fc5a258884e206fd5c474ebe4f5b00e21770e
   FirebaseStorage: 29075f874c2b3cf61e5221a62c4ceefc809e5412
-  FirebaseUI: 09519bf436a055cd696bf68687d624423150e4c0
   GoogleAppMeasurement: 6cf307834da065863f9faf4c0de0a936d81dd832
   GoogleUtilities: 1e25823cbf46540b4284f6ef8e17b3a68ee12bbc
   "gRPC-C++": e76441995900ac90e9bd98644ab4733f12521edf
@@ -184,6 +179,6 @@ SPEC CHECKSUMS:
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   URWeatherView: 4a716a83149f788220ec156047e4d0e8517835bf
 
-PODFILE CHECKSUM: 9ed118f115cf3d09b7ab84b801703c7cb386f12c
+PODFILE CHECKSUM: fc0c87240a14ad68a9828a476274c8b3847a38ba
 
 COCOAPODS: 1.6.1

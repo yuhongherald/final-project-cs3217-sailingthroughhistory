@@ -33,6 +33,9 @@ class MainGameViewController: UIViewController {
         }
     }
     @IBOutlet private weak var portTaxLabel: UILabel!
+    @IBOutlet private weak var portQuantityLabel: UILabel!
+    @IBOutlet private weak var portQuantityAddButton: UIButton!
+    @IBOutlet private weak var portQuantityMinusButton: UIButton!
 
     @IBOutlet private weak var availableUpgradesTableView: UITableView! {
         didSet {
@@ -72,10 +75,14 @@ class MainGameViewController: UIViewController {
     }
     @IBOutlet private weak var gameMasterPanel: UIBlurredBackgroundView!
 
+    @IBOutlet weak var acknoledgeButtonView: UIButtonRounded!
+    @IBOutlet weak var alertMessageView: UILabel!
+    @IBOutlet weak var alertPanel: UIBlurredBackgroundView!
+
     private var currentTurnOwner: GenericPlayer?
 
     private lazy var objectsController: ObjectsViewController =
-        ObjectsViewController(view: gameArea, mainController: self)
+        ObjectsViewController(view: gameArea, modelBounds: model.map.bounds, delegate: self)
     private lazy var togglablePanels: [UIButton: UIView] = [
         togglePlayerInfoButton: playerInfoWrapper,
         toggleTeamScoresButton: teamScoresWrapper,
@@ -87,12 +94,15 @@ class MainGameViewController: UIViewController {
                                                                      scores: Dictionary())
     private lazy var messagesController = MessagesTableController(tableView: messagesTableView)
     private lazy var eventsController = EventTableController(tableView: eventTableView, events: [], mainController: self)
+    private lazy var alertController = AlertWindowController(delegate: self, wrapperView: alertPanel, messageView: alertMessageView, buttonView: acknoledgeButtonView)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
+
     private let storage = LocalStorage()
     private var selectedPort: Port?
     var turnSystem: GenericTurnSystem?
     var network: RoomConnection?
     var backgroundData: Data?
+    private var alertQueue = [UIAlertController]()
     private var model: GenericGameState {
         guard let turnSystem = turnSystem else {
             fatalError("Turn system is nil")
@@ -143,17 +153,14 @@ class MainGameViewController: UIViewController {
             }
             self.messagesController.set(messages: turnSystem.messages)
             self.statusLabel.text = ""
+            self.alertController.hide()
             self.playerTurnEnd()
             self.currentTurnOwner = nil
             self.objectsController.updatePathWeather()
             self.teamScoresController.set(scores: self.model.getTeamMoney())
             switch state {
             case .waitPlayerInput(let player):
-                let alert = ControllerUtils.getGenericAlert(titled: "\(player.name)'s turn has started.",
-                withMsg: "") { [weak self] in
-                    self?.turnSystem?.acknoledgeTurnStart()
-                }
-                self.present(alert, animated: true, completion: nil)
+                self.alertController.show(withMessage: "\(player.name)'s turn has started.")
             case .playerInput(let player, let endTime):
                 self.statusLabel.text = "\(player.name)'s Turn"
                 self.currentTurnOwner = player
@@ -179,20 +186,6 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    func showInformation(ofPort port: Port) {
-        selectedPort = port
-        portInformationView.isHidden = false
-        portTaxLabel.text = "\(InterfaceConstants.taxPrefix)\(port.taxAmount.value)"
-        portNameLabel.text = port.name
-        portOwnerLabel.text = port.owner?.name ?? InterfaceConstants.unownedPortOwner
-        portItemsDataSource.didSelect(port: port, playerCanInteract:
-            currentTurnOwner?.canTradeAt(port: port) ?? false)
-        portSetTaxButton.isHidden = currentTurnOwner == nil
-            || port.owner != currentTurnOwner?.team
-
-        portItemsTableView.reloadData()
-    }
-
     func buy(upgrade: Upgrade) {
         guard let currentTurnOwner = currentTurnOwner else {
             return
@@ -214,6 +207,19 @@ class MainGameViewController: UIViewController {
             let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg)
             present(alert, animated: true, completion: nil)
         }
+    }
+
+    @IBAction private func portQuantityChange(_ sender: UIButton) {
+        var quantity = Int(portQuantityLabel.text ?? "0") ?? 0
+        switch sender {
+        case portQuantityAddButton:
+            quantity += 1
+        case portQuantityMinusButton:
+            quantity -= 1
+        default:
+            break
+        }
+        portQuantityLabel.text = String(quantity)
     }
 
     @IBAction private func togglePanelVisibility(_ sender: UIButtonRounded) {
@@ -464,6 +470,10 @@ class MainGameViewController: UIViewController {
         availableUpgradesTableView.reloadData()
         objectsController.resetChoosableNodes()
     }
+
+    private func getTradeQuantity() -> Int {
+        return Int(portQuantityLabel.text ?? "0") ?? 0
+    }
 }
 
 extension MainGameViewController: UIScrollViewDelegate {
@@ -493,21 +503,27 @@ extension MainGameViewController {
 
 extension MainGameViewController: PortItemTableControllerDelegate {
     func portItemButtonPressed(action: PortItemButtonAction) {
-        guard let currentTurnOwner = currentTurnOwner else {
+        let quantity = getTradeQuantity()
+        guard let currentTurnOwner = currentTurnOwner, quantity > 0 else {
             return
         }
+
         var errorMsg: String?
         do {
             switch action {
             case .playerBuy(let itemType):
-                try turnSystem?.buy(itemType: itemType, quantity: 1, by: currentTurnOwner)
+                try turnSystem?.buy(itemType: itemType, quantity: quantity, by: currentTurnOwner)
             case .playerSell(let itemType):
-                try turnSystem?.sell(itemType: itemType, quantity: 1, by: currentTurnOwner)
+                try turnSystem?.sell(itemType: itemType, quantity: quantity, by: currentTurnOwner)
             }
         } catch PlayerActionError.invalidAction(let msg) {
             errorMsg = msg
         } catch {
-            errorMsg = error.localizedDescription
+            if let error = error as? TradeItemError {
+                errorMsg = error.getMessage()
+            } else {
+                errorMsg = error.localizedDescription
+            }
         }
 
         if let errorMsg = errorMsg {
@@ -515,5 +531,27 @@ extension MainGameViewController: PortItemTableControllerDelegate {
             self.present(alert, animated: true, completion: nil)
         }
         playerItemsTable.reloadData()
+    }
+}
+
+extension MainGameViewController: AlertWindowDelegate {
+    func acknoledgePressed() {
+        turnSystem?.acknoledgeTurnStart()
+    }
+}
+
+extension MainGameViewController: ObjectsViewControllerDelegate {
+    func showInformation(of port: Port) {
+        selectedPort = port
+        portInformationView.isHidden = false
+        portTaxLabel.text = "\(InterfaceConstants.taxPrefix)\(port.taxAmount.value)"
+        portNameLabel.text = port.name
+        portOwnerLabel.text = port.owner?.name ?? InterfaceConstants.unownedPortOwner
+        portItemsDataSource.didSelect(port: port, playerCanInteract:
+            currentTurnOwner?.canTradeAt(port: port) ?? false)
+        portSetTaxButton.isHidden = currentTurnOwner == nil
+            || port.owner != currentTurnOwner?.team
+
+        portItemsTableView.reloadData()
     }
 }

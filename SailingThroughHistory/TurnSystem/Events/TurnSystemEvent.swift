@@ -58,7 +58,7 @@ class TurnSystemEvent: Unique, Printable {
         }
     }
 
-    private func resetTrigger() {
+    func resetTrigger() {
         for trigger in triggers {
             trigger.resetTrigger()
         }

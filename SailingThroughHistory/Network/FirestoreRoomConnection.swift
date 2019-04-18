@@ -222,6 +222,10 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
+            guard let deviceId = self?.deviceId else {
+                return
+            }
+
             var roomMasterPresent = false
 
             for document in data.documents {
@@ -241,12 +245,12 @@ class FirebaseRoomConnection: RoomConnection {
             }
 
             if !roomMasterPresent {
-                self?.deleteRoom()
+                self?.removeDevice(withId: deviceId)
             }
         }
     }
 
-    private func removeDevice(withId deviceName: String) {
+    func removeDevice(withId deviceName: String) {
         self.devicesCollectionRef.document(deviceName).delete()
         self.playersCollectionRef.whereField(
             FirestoreConstants.playerDeviceKey, isEqualTo: deviceName).getDocuments { (snapshot, _) in
@@ -258,13 +262,49 @@ class FirebaseRoomConnection: RoomConnection {
                 }
         }
         if deviceName == self.roomMasterId {
-            deleteRoom()
+            FirebaseRoomConnection.deleteRoom(named: roomName)
         }
     }
 
-    private func deleteRoom() {
-        Functions.functions().httpsCallable("recursiveDelete").call(["path": self.roomDocumentRef.path],
-                                                                    completion: {_, _ in })
+    static func deleteRoom(named name: String) {
+        Functions.functions()
+            .httpsCallable("recursiveDelete")
+            .call(["path": FirestoreConstants.roomCollection.document(name).path],
+                  completion: { (_, error) in
+                    if error != nil {
+                        FirebaseRoomConnection.deleteWithoutFirebaseFunction(roomNamed: name)
+                    }
+        })
+    }
+
+    private static func deleteWithoutFirebaseFunction(roomNamed name: String) {
+        let emptyConnection = FirebaseRoomConnection(forRoom: name)
+        emptyConnection.devicesCollectionRef.getDocuments(completion: FirebaseRoomConnection.deleteDocuments)
+        emptyConnection.playersCollectionRef.getDocuments(completion: FirebaseRoomConnection.deleteDocuments)
+        emptyConnection.runTimeInfoCollectionRef.getDocuments(completion: FirebaseRoomConnection.deleteDocuments)
+        func deleteTurnAction(from turn: Int) {
+            emptyConnection.turnActionsDocumentRef.collection(String(turn)).getDocuments { (snapshot, error) in
+                guard let snapshot = snapshot else {
+                    return
+                }
+                if snapshot.documents.count > 0 {
+                    deleteTurnAction(from: turn + 1)
+                }
+                FirebaseRoomConnection.deleteDocuments(snapshot: snapshot, error: error)
+            }
+        }
+        deleteTurnAction(from: 0)
+        emptyConnection.roomDocumentRef.delete()
+    }
+
+    private static func deleteDocuments(snapshot: QuerySnapshot?, error: Error?) {
+        guard let snapshot = snapshot else {
+            return
+        }
+
+        for document in snapshot.documents {
+            document.reference.delete()
+        }
     }
 
     func startGame(initialState: GameState, background: Data, completion callback: @escaping (Error?) -> Void) throws {
@@ -278,6 +318,7 @@ class FirebaseRoomConnection: RoomConnection {
                 }
                 let batch = FirestoreConstants.firestore.batch()
                 guard let data = try? FirestoreEncoder.init().encode(initialState) else {
+                    print("Error encoding game state")
                     return
                 }
 
