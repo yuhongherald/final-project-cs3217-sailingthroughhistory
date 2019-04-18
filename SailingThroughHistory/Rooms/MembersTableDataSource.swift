@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MembersTableDataSource: NSObject, UITableViewDataSource, UITextFieldDelegate {
+class MembersTableDataSource: NSObject, UITableViewDataSource {
     private let deviceId: String
     private let mainController: WaitingRoomViewController
     private static let reuseIdentifier = "waitingRoomCell"
@@ -46,7 +46,6 @@ class MembersTableDataSource: NSObject, UITableViewDataSource, UITextFieldDelega
         cell.removeButtonPressedCallback = { [weak self] in
             self?.waitingRoom.remove(player: player.identifier)
         }
-        cell.delegate = self
         cell.set(playerName: player.playerName)
         cell.renameButtonPressedCallback = { [weak self] name in
             do {

@@ -36,7 +36,7 @@ class FirestoreRoom: Room {
             .roomCollection
             .document(name)
             .collection(FirestoreConstants.devicesCollectionName)
-
+        let connection = FirebaseRoomConnection(forRoom: name)
         func deleteIfEmpty(_: Error?) {
             devicesCollectionReference.getDocuments(completion: { (snapshot, error) in
                 guard let snapshot = snapshot else {
@@ -44,9 +44,7 @@ class FirestoreRoom: Room {
                     return
                 }
                 if snapshot.documents.count <= 0 {
-                    Functions.functions().httpsCallable("recursiveDelete")
-                        .call(["path": FirestoreConstants.roomCollection.document(name).path],
-                              completion: {_, _ in })
+                    FirebaseRoomConnection.deleteRoom(named: name)
                 }
             })
         }
@@ -61,7 +59,7 @@ class FirestoreRoom: Room {
                 guard let lastHeartBeat = document.get(FirestoreConstants.lastHeartBeatKey)
                     as? Double,
                     Date().timeIntervalSince1970 - lastHeartBeat < 60 else {
-                        document.reference.delete()
+                        connection.removeDevice(withId: document.documentID)
                         continue
                 }
             }

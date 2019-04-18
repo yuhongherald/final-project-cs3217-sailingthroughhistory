@@ -13,13 +13,12 @@ class WaitingRoomViewCell: UITableViewCell {
     @IBOutlet private weak var changeButton: UIButton!
     @IBOutlet private weak var makeGameMasterButton: UIButton!
     @IBOutlet private weak var removeButton: UIButton!
-    @IBOutlet private weak var playerNameTextField: UITextField!
-    @IBOutlet private weak var teamNameLabel: UILabel!
-    var delegate: UITextFieldDelegate? {
+    @IBOutlet private weak var playerNameTextField: UITextField! {
         didSet {
-            playerNameTextField.delegate = delegate
+            playerNameTextField.delegate = self
         }
     }
+    @IBOutlet private weak var teamNameLabel: UILabel!
     var changeButtonPressedCallback: (() -> Void)?
     var removeButtonPressedCallback: (() -> Void)?
     var renameButtonPressedCallback: ((String) -> Void)?
@@ -28,19 +27,28 @@ class WaitingRoomViewCell: UITableViewCell {
             makeGameMasterButton.isHidden = makeGameMasterButtonPressedCallback == nil
         }
     }
+    
 
     @IBAction func renameButtonPressed(_ sender: UIButton) {
         if playerNameTextField.isEnabled {
-            playerNameTextField.isEnabled = false
-            playerNameTextField.borderStyle = .none
-            guard let newName = playerNameTextField.text else {
-                return
-            }
-            renameButtonPressedCallback?(newName)
+            submitName()
         } else {
             playerNameTextField.isEnabled = true
             playerNameTextField.borderStyle = .line
+            playerNameTextField.becomeFirstResponder()
         }
+    }
+
+    private func submitName() {
+        if !playerNameTextField.isEnabled {
+            return
+        }
+        playerNameTextField.isEnabled = false
+        playerNameTextField.borderStyle = .none
+        guard let newName = playerNameTextField.text else {
+            return
+        }
+        renameButtonPressedCallback?(newName)
     }
 
     @IBAction private func changeButtonPressed(_ sender: UIButton) {
@@ -71,5 +79,14 @@ class WaitingRoomViewCell: UITableViewCell {
     func disableTextField() {
         playerNameTextField.borderStyle = .none
         playerNameTextField.isEnabled = false
+    }
+}
+
+
+extension WaitingRoomViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        submitName()
+        return true
     }
 }

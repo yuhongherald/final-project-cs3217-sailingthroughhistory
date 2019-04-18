@@ -30,18 +30,18 @@ extension Ship: ItemStorage {
 
     func buyItem(itemType: ItemType, quantity: Int) throws {
         guard let port = node as? Port, isDocked else {
-            throw BuyItemError.notDocked
+            throw TradeItemError.notDocked
         }
         guard let itemParameter = owner?.getItemParameter(itemType: itemType) else {
-            throw BuyItemError.unknownItem
+            throw TradeItemError.unknownItem
         }
         let item = itemParameter.createItem(quantity: quantity)
         guard let price = item.getBuyValue(at: port) else {
-            throw BuyItemError.itemNotAvailable
+            throw TradeItemError.itemNotAvailable
         }
         let difference = (owner?.money.value ?? 0) - price
         guard difference >= 0 else {
-            throw BuyItemError.insufficientFunds(shortOf: difference)
+            throw TradeItemError.insufficientFunds(shortOf: difference)
         }
         try addItem(item: item)
         owner?.updateMoney(by: -price)
@@ -50,13 +50,13 @@ extension Ship: ItemStorage {
 
     func sellItem(item: GenericItem) throws {
         guard let port = node as? Port, isDocked else {
-            throw BuyItemError.notDocked
+            throw TradeItemError.notDocked
         }
         guard let index = items.value.firstIndex(where: {$0 == item}) else {
-            throw BuyItemError.itemNotAvailable
+            throw TradeItemError.itemNotAvailable
         }
         guard let profit = items.value[index].sell(at: port) else {
-            throw BuyItemError.itemNotAvailable
+            throw TradeItemError.itemNotAvailable
         }
         owner?.updateMoney(by: profit)
         items.value.remove(at: index)
@@ -66,15 +66,15 @@ extension Ship: ItemStorage {
 
     func sell(itemType: ItemType, quantity: Int) throws {
         guard let map = map, let port = map.nodeIDPair[nodeId] as? Port else {
-            throw BuyItemError.notDocked
+            throw TradeItemError.notDocked
         }
         guard let value = port.getSellValue(of: itemType) else {
-            throw BuyItemError.itemNotAvailable
+            throw TradeItemError.itemNotAvailable
         }
         let deficit = removeItem(by: itemType, with: quantity)
         owner?.updateMoney(by: (quantity - deficit) * value)
         if deficit > 0 {
-            throw BuyItemError.insufficientItems(shortOf: deficit)
+            throw TradeItemError.insufficientItems(shortOf: deficit, sold: quantity - deficit)
         }
     }
 
@@ -100,7 +100,7 @@ extension Ship: ItemStorage {
     private func addItem(item: GenericItem) throws {
         let difference = getRemainingCapacity() - (item.weight ?? 0)
         guard difference >= 0 else {
-            throw BuyItemError.insufficientFunds(shortOf: difference)
+            throw TradeItemError.insufficientFunds(shortOf: difference)
         }
         guard let sameType = items.value.first(where: { $0.itemParameter == item.itemParameter }) else {
             items.value.append(item)

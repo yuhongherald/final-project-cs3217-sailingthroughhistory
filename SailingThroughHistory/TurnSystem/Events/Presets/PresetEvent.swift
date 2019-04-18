@@ -32,4 +32,9 @@ class PresetEvent: TurnSystemEvent, Activatable {
         super.init(triggers: triggers, conditions: conditions,
                    actions: actions, parsable: parsable, displayName: displayName)
     }
+
+    override func resetTrigger() {
+        super.resetTrigger()
+        active = false
+    }
 }

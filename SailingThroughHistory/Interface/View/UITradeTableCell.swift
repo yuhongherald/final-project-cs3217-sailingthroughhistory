@@ -10,7 +10,11 @@ import UIKit
 
 class UITradeTableCell: UITableViewCell {
 
-    @IBOutlet private weak var itemNameLabel: UILabel!
+    @IBOutlet private weak var itemNameLabel: UILabel! {
+        didSet {
+            itemNameLabel.adjustsFontSizeToFitWidth = true
+        }
+    }
     @IBOutlet private weak var itemPriceLabel: UILabel!
     @IBOutlet private weak var actionButton: UIButtonRounded!
 

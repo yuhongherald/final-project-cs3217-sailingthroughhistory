@@ -58,7 +58,7 @@ class GameState: GenericGameState {
         }
 
         try teams = values.decode([Team].self, forKey: .teams)
-        try players = values.decode([Player].self, forKey: .players)
+        try players = values.decode([PlayerWithType].self, forKey: .players).map { $0.player }
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
         try numTurns = values.decode(Int.self, forKey: .numTurns)
 
@@ -82,9 +82,6 @@ class GameState: GenericGameState {
     }
 
     func encode(to encoder: Encoder) throws {
-        guard let players = players as? [Player] else {
-            return
-        }
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(gameTime.value, forKey: .gameTime)
         try container.encode(map, forKey: .map)
@@ -94,7 +91,7 @@ class GameState: GenericGameState {
         try container.encode(numTurns, forKey: .numTurns)
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(teams, forKey: .teams)
-        try container.encode(players, forKey: .players)
+        try container.encode(players.map { PlayerWithType(from: $0) }, forKey: .players)
         try container.encode(speedMultiplier, forKey: .speedMultiplier)
         let upgradeTypes = availableUpgrades.map { $0.type }
         try container.encode(upgradeTypes, forKey: .availableUpgrades)
@@ -232,6 +229,53 @@ class GameState: GenericGameState {
         }
         let item = Item(itemParameter: itemParameter, quantity: tuple.1)
         return item
+    }
+
+    struct PlayerWithType: Codable {
+        let type: PlayerType
+        let player: GenericPlayer
+
+        init(from player: GenericPlayer) {
+            if player is Player {
+                self.type = .player
+            } else if player is GameMaster {
+                self.type = .gameMaster
+            } else {
+                fatalError("Unsupported player type.")
+            }
+            self.player = player
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.type = try container.decode(PlayerType.self, forKey: .type)
+            switch self.type {
+            case .gameMaster:
+                self.player = try container.decode(GameMaster.self, forKey: .player)
+            case .player:
+                self.player = try container.decode(Player.self, forKey: .player)
+            }
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(type, forKey: .type)
+            if let master = player as? GameMaster {
+                try container.encode(master, forKey: .player)
+            } else if let player = player as? Player {
+                try container.encode(player, forKey: .player)
+            }
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case type
+            case player
+        }
+    }
+
+    enum PlayerType: String, Codable {
+        case gameMaster
+        case player
     }
 }
 
