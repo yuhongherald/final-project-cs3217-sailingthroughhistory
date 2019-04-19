@@ -355,24 +355,22 @@ class TurnSystem: GenericTurnSystem {
     func endTurn() {
         let currentTurn = data.currentTurn
         if let currentPlayer = currentPlayer {
-            if !pendingActions.isEmpty {
-                do {
-                    try network.push(
-                        actions: pendingActions, fromPlayer: currentPlayer,
-                        forTurnNumbered: currentTurn) { [weak self] error in
-                            guard let self = self, error != nil else {
-                                return
-                            }
-                            /// Usually firebase will resend after internet connection is re-established,
-                            /// but we resend it just in-case
-                            try? self.network.push(actions: self.pendingActions, fromPlayer: currentPlayer,
-                                forTurnNumbered: currentTurn) { _ in }
-                    }
-                } catch {
-                    fatalError("Unable to encode actions.")
+            do {
+                try network.push(
+                    actions: pendingActions, fromPlayer: currentPlayer,
+                    forTurnNumbered: currentTurn) { [weak self] error in
+                        guard let self = self, error != nil else {
+                            return
+                        }
+                        /// Usually firebase will resend after internet connection is re-established,
+                        /// but we resend it just in-case
+                        try? self.network.push(actions: self.pendingActions, fromPlayer: currentPlayer,
+                                               forTurnNumbered: currentTurn) { _ in }
                 }
-                pendingActions = []
+            } catch {
+                fatalError("Unable to encode actions.")
             }
+            pendingActions = []
         }
         guard let player = getNextPlayer() else {
             waitForTurnFinish()
