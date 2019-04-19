@@ -552,20 +552,17 @@
 		1A749D662240FD6B00482CE5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1A9FF0892240142B00005FCB /* UIAlert.swift */,
+				1AE048BD226893FC006ABBA3 /* UIViewController + PointIn.swift */,
 				1A49D237223E468300A419F4 /* LevelEditorViewController.swift */,
 				1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */,
 				1AE048BB2268922F006ABBA3 /* LevelEditorViewController + Layout.swift */,
 				1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */,
 				1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */,
-				1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */,
-				1A9FF08D224037AF00005FCB /* NodeView.swift */,
 				1A49D239223F644F00A419F4 /* EditPanelViewController.swift */,
 				1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */,
-				1A749D7122440C0800482CE5 /* ItemCollectionViewCell.swift */,
 				1A749D6F224409E300482CE5 /* GalleryViewController.swift */,
-				1A749D7322440C3E00482CE5 /* GalleryCollectionViewCell.swift */,
 				1AF0182F224752FE008B468B /* MenuViewController.swift */,
-				1A53D7C72251C44A00FAE214 /* PathView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -597,6 +594,20 @@
 				1ABBA2132261FD2F00222E7A /* NodeTest.swift */,
 			);
 			path = GameParameter;
+			sourceTree = "<group>";
+		};
+		1AE048BF2269D944006ABBA3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1ABBA2302265ADFD00222E7A /* UIImageView+Icon.swift */,
+				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
+				1A9FF0952240C03A00005FCB /* PlayerTableViewCell.swift */,
+				1A9FF08D224037AF00005FCB /* NodeView.swift */,
+				1A53D7C72251C44A00FAE214 /* PathView.swift */,
+				1A749D7322440C3E00482CE5 /* GalleryCollectionViewCell.swift */,
+				1A749D7122440C0800482CE5 /* ItemCollectionViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2BF33E1D467651D7EF28C97F /* Frameworks */ = {
@@ -932,14 +943,10 @@
 				96737EA5223D398200D04C33 /* CGRect+Translate.swift */,
 				7536A8412240C25F00D9D0FE /* Double+Lerp.swift */,
 				7559898422422493004037E6 /* Int+Lerp.swift */,
-				1A9FF0892240142B00005FCB /* UIAlert.swift */,
 				9681199D2243CCA30093ABBA /* Array+Rotate.swift */,
-				1A749D762244B6ED00482CE5 /* UIView + ScreenShot.swift */,
-				1AE048BD226893FC006ABBA3 /* UIViewController + PointIn.swift */,
 				9615B7702248F28100DA12C8 /* CGRect+Rect.swift */,
 				BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */,
 				BAA0D0472265C541004417CA /* String+Crypto.swift */,
-				1ABBA2302265ADFD00222E7A /* UIImageView+Icon.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1137,6 +1144,7 @@
 		BA91906C223F440700009F49 /* Level Editor */ = {
 			isa = PBXGroup;
 			children = (
+				1AE048BF2269D944006ABBA3 /* View */,
 				1A749D752244B5C700482CE5 /* Storage */,
 				1A749D662240FD6B00482CE5 /* Controller */,
 				1A9FF084223F6CE400005FCB /* Enums */,

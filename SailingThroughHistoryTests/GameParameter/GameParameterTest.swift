@@ -67,17 +67,6 @@ class GameParameterTest: XCTestCase {
         XCTAssertTrue(isEqual(playerParameter: decode, playerParameter), "Decode result is different from original one")
     }
 
-    func testUpdateItemParameter() {
-        // test valid update
-        var itemParameter = ItemParameter(itemType: .opium, displayName: "Opium", weight: 100, isConsumable: true)
-        itemParameter.setHalfLife(to: 20)
-        XCTAssertEqual(itemParameter.getHalfLife(), 20, "HalfLife is not successfully updated.")
-
-        // test invalid update
-        itemParameter.setHalfLife(to: -20)
-        XCTAssertEqual(itemParameter.getHalfLife(), 20, "HalfLife should not be updated to invalid value.")
-    }
-
     func testCodableItemParameter() {
         let itemParameter = ItemParameter(itemType: .opium, displayName: "Opium", weight: 100, isConsumable: true)
         guard let encode = try? JSONEncoder().encode(itemParameter) else {
@@ -123,7 +112,7 @@ class GameParameterTest: XCTestCase {
         // TODO
         /*
         return lhs.getBuyValue() == rhs.getBuyValue() && lhs.getSellValue() == rhs.getSellValue()
-            && lhs.getHalfLife() == rhs.getHalfLife() && lhs.displayName == rhs.displayName
+            && lhs.displayName == rhs.displayName
             && lhs.isConsumable == rhs.isConsumable && lhs.unitWeight == rhs.unitWeight && lhs.itemType == rhs.itemType
          */
         return true
