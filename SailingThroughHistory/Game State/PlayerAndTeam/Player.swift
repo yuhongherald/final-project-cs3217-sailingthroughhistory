@@ -30,7 +30,7 @@ class Player: GenericPlayer {
             guard let map = map else {
                 return
             }
-            ship.map = map
+            self.ship.map = map
             if canDock() {
                 do {
                     try dock()
@@ -48,13 +48,13 @@ class Player: GenericPlayer {
     }
 
     // for events
-    var playerShip: Ship? {
+    var playerShip: ShipAPI? {
         return ship
     }
     let homeNode: Int
 
     var gameState: GenericGameState?
-    private let ship: Ship
+    private var ship: Ship
     private var speedMultiplier = 1.0
     private var shipChassis: ShipChassis?
     private var auxiliaryUpgrade: AuxiliaryUpgrade?
@@ -108,7 +108,8 @@ class Player: GenericPlayer {
     }
 
     func buyUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
-        return ship.installUpgrade(upgrade: upgrade)
+        var shipAPI = ship as ShipAPI
+        return ship.upgradeManager.installUpgrade(ship: &shipAPI, upgrade: upgrade)
     }
 
     func roll() -> (Int, [Int]) {
@@ -123,7 +124,8 @@ class Player: GenericPlayer {
         guard let node = map?.nodeIDPair[nodeId] else {
             return
         }
-        ship.move(node: node)
+        var shipAPI = ship as ShipAPI
+        ship.navigationManager.move(ship: &shipAPI, node: node)
     }
 
     func getPath(to nodeId: Int) -> [Int] {
@@ -144,18 +146,19 @@ class Player: GenericPlayer {
         guard let map = map else {
             fatalError("Cannot check dock if map does not exist.")
         }
-        return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier, map: map)
+        return ship.navigationManager.getNodesInRange(ship: ship, roll: roll, speedMultiplier: speedMultiplier)
     }
 
     func canDock() -> Bool {
         guard map != nil else {
             fatalError("Cannot check dock if map does not exist.")
         }
-        return ship.canDock()
+        return ship.navigationManager.canDock(ship: ship)
     }
 
     func dock() throws {
-        let port = try ship.dock()
+        var shipAPI = ship as ShipAPI
+        let port = try ship.navigationManager.dock(ship: &shipAPI)
         port.collectTax(from: self)
     }
 
@@ -187,23 +190,23 @@ class Player: GenericPlayer {
     }
 
     func getPurchasableItemParameters() -> [ItemParameter] {
-        return ship.getPurchasableItemParameters()
+        return ship.itemManager.getPurchasableItemParameters(ship: ship)
     }
 
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
-        return ship.getMaxPurchaseAmount(itemParameter: itemParameter)
+        return ship.itemManager.getMaxPurchaseAmount(ship: ship, itemParameter: itemParameter)
     }
 
     func buy(itemParameter: ItemParameter, quantity: Int) throws {
-        try ship.buyItem(itemParameter: itemParameter, quantity: quantity)
+        try ship.itemManager.buyItem(ship: ship, itemParameter: itemParameter, quantity: quantity)
     }
 
     func sell(item: GenericItem) throws {
-        try ship.sellItem(item: item)
+        try ship.itemManager.sellItem(ship: ship, item: item)
     }
 
     func sell(itemParameter: ItemParameter, quantity: Int) throws {
-        try ship.sell(itemParameter: itemParameter, quantity: quantity)
+        try ship.itemManager.sell(ship: ship, itemParameter: itemParameter, quantity: quantity)
     }
 
     func setTax(port: Port, amount: Int) throws {

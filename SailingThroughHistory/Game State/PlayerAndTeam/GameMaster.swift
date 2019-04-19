@@ -22,7 +22,7 @@ class GameMaster: GenericPlayer {
     var deviceId: String = ""
     var map: Map?
     var gameState: GenericGameState?
-    var playerShip: Ship?
+    var playerShip: ShipAPI?
     var homeNode: Int = 0
 
     private let errorMessage = "GameMaster cannot perform normal actions"

@@ -8,15 +8,27 @@
 
 import Foundation
 
-class Ship: Codable {
-    let itemsConsumed: [GenericItem]
+class Ship: ShipAPI, Codable {
+    private static let baseCapacity = 100
 
+    let itemManager: ItemStorage = ShipItemManager()
+    let upgradeManager: Upgradable = ShipUpgradeManager()
+    let navigationManager: Navigatable = ShipNavigationManager()
+
+    let itemsConsumed: [GenericItem]
     var name: String {
         return owner?.name ?? "NPC Ship"
     }
     var isChasedByPirates = false
     var turnsToBeingCaught = 0
-    var shipChassis: ShipChassis?
+    var shipChassis: ShipChassis? {
+        didSet {
+            guard let newCapacity = shipChassis?.getNewCargoCapacity(baseCapacity: Ship.baseCapacity) else {
+                return
+            }
+            weightCapacity = newCapacity
+        }
+    }
     var auxiliaryUpgrade: AuxiliaryUpgrade?
 
     var nodeId: Int {
@@ -40,7 +52,7 @@ class Ship: Codable {
         get {
             return weightCapacityVariable.value
         }
-        set(value) {
+        set {
             weightCapacityVariable.value = weightCapacity
         }
     }
@@ -48,8 +60,9 @@ class Ship: Codable {
     weak var owner: GenericPlayer?
     var items = GameVariable<[GenericItem]>(value: []) // public for events
     var isDocked = false
+
     private var currentCargoWeightVariable = GameVariable<Int>(value: 0)
-    private var weightCapacityVariable = GameVariable<Int>(value: 100)
+    private var weightCapacityVariable = GameVariable<Int>(value: Ship.baseCapacity)
 
     var shipObject: ShipUI?
 
@@ -141,7 +154,7 @@ class Ship: Codable {
 
         for supply in itemsConsumed {
             let parameter = supply.itemParameter
-            let deficit = removeItem(by: parameter, with: Int(Double(supply.quantity) * speedMultiplier))
+            let deficit = itemManager.removeItem(ship: self, by: parameter, with: Int(Double(supply.quantity) * speedMultiplier))
             if let owner = owner,
                 let ports = owner.gameState?.map.nodes.value.map({ $0 as? Port }).compactMap({ $0 }) {
                 owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
@@ -198,5 +211,22 @@ extension Ship {
             result += item.weight ?? 0
         }
         currentCargoWeightVariable.value = result
+    }
+}
+
+// MARK: - Affected by Pirates and Weather
+extension Ship {
+    func startPirateChase() {
+        if isChasedByPirates {
+            return
+        }
+        isChasedByPirates = true
+        turnsToBeingCaught = 4
+    }
+    func getWeatherModifier() -> Double {
+        var multiplier = 1.0
+        multiplier *= shipChassis?.getWeatherModifier() ?? 1
+        multiplier *= auxiliaryUpgrade?.getWeatherModifier() ?? 1
+        return multiplier
     }
 }

@@ -211,7 +211,6 @@
 		BA6FBBD5225A108900B366DB /* BiggerSailsUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD4225A108900B366DB /* BiggerSailsUpgrade.swift */; };
 		BA6FBBD7225A10D600B366DB /* MercernaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD6225A10D600B366DB /* MercernaryUpgrade.swift */; };
 		BA6FBBD9225A22FE00B366DB /* InfoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */; };
-		BA6FBBDB225A237900B366DB /* Ship_Pirate_Weather_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */; };
 		BA6FBBDD225C82A700B366DB /* MovementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDC225C82A700B366DB /* MovementError.swift */; };
 		BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */; };
 		BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */; };
@@ -235,12 +234,12 @@
 		BAB33789226203B3007A0C05 /* NPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB33788226203B3007A0C05 /* NPC.swift */; };
 		BAB3378E2262295D007A0C05 /* ShipUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378D2262295D007A0C05 /* ShipUnitTests.swift */; };
 		BAB3379022622B3F007A0C05 /* Upgradable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3378F22622B3F007A0C05 /* Upgradable.swift */; };
-		BAB3379222622B86007A0C05 /* Ship_Upgradable_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379122622B86007A0C05 /* Ship_Upgradable_Extension.swift */; };
+		BAB3379222622B86007A0C05 /* ShipUpgradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379122622B86007A0C05 /* ShipUpgradeManager.swift */; };
 		BAB3379422624CA1007A0C05 /* Navigatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379322624CA1007A0C05 /* Navigatable.swift */; };
-		BAB3379622624CB7007A0C05 /* Ship_Navigatable_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379522624CB7007A0C05 /* Ship_Navigatable_Extension.swift */; };
+		BAB3379622624CB7007A0C05 /* ShipNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379522624CB7007A0C05 /* ShipNavigationManager.swift */; };
 		BAB3379922624D7B007A0C05 /* GameMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379822624D7B007A0C05 /* GameMaster.swift */; };
 		BAB3379B226255C6007A0C05 /* ItemStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379A226255C6007A0C05 /* ItemStorage.swift */; };
-		BAB3379D2262560E007A0C05 /* Ship_ItemStorage_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379C2262560E007A0C05 /* Ship_ItemStorage_Extension.swift */; };
+		BAB3379D2262560E007A0C05 /* ShipItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379C2262560E007A0C05 /* ShipItemManager.swift */; };
 		BAB337A02262585E007A0C05 /* ShipAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB3379F2262585E007A0C05 /* ShipAPI.swift */; };
 		BAB337A222625DBF007A0C05 /* ShipItemStorageUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB337A122625DBF007A0C05 /* ShipItemStorageUnitTests.swift */; };
 		BAB337A422625DDD007A0C05 /* ShipUpgradableUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB337A322625DDD007A0C05 /* ShipUpgradableUnitTests.swift */; };
@@ -479,7 +478,6 @@
 		BA6FBBD4225A108900B366DB /* BiggerSailsUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerSailsUpgrade.swift; sourceTree = "<group>"; };
 		BA6FBBD6225A10D600B366DB /* MercernaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercernaryUpgrade.swift; sourceTree = "<group>"; };
 		BA6FBBD8225A22FE00B366DB /* InfoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoMessage.swift; sourceTree = "<group>"; };
-		BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship_Pirate_Weather_Extension.swift; sourceTree = "<group>"; };
 		BA6FBBDC225C82A700B366DB /* MovementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementError.swift; sourceTree = "<group>"; };
 		BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparablePair.swift; sourceTree = "<group>"; };
@@ -505,12 +503,12 @@
 		BAB33788226203B3007A0C05 /* NPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPC.swift; sourceTree = "<group>"; };
 		BAB3378D2262295D007A0C05 /* ShipUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipUnitTests.swift; sourceTree = "<group>"; };
 		BAB3378F22622B3F007A0C05 /* Upgradable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgradable.swift; sourceTree = "<group>"; };
-		BAB3379122622B86007A0C05 /* Ship_Upgradable_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship_Upgradable_Extension.swift; sourceTree = "<group>"; };
+		BAB3379122622B86007A0C05 /* ShipUpgradeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipUpgradeManager.swift; sourceTree = "<group>"; };
 		BAB3379322624CA1007A0C05 /* Navigatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigatable.swift; sourceTree = "<group>"; };
-		BAB3379522624CB7007A0C05 /* Ship_Navigatable_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship_Navigatable_Extension.swift; sourceTree = "<group>"; };
+		BAB3379522624CB7007A0C05 /* ShipNavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipNavigationManager.swift; sourceTree = "<group>"; };
 		BAB3379822624D7B007A0C05 /* GameMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMaster.swift; sourceTree = "<group>"; };
 		BAB3379A226255C6007A0C05 /* ItemStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStorage.swift; sourceTree = "<group>"; };
-		BAB3379C2262560E007A0C05 /* Ship_ItemStorage_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship_ItemStorage_Extension.swift; sourceTree = "<group>"; };
+		BAB3379C2262560E007A0C05 /* ShipItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipItemManager.swift; sourceTree = "<group>"; };
 		BAB3379F2262585E007A0C05 /* ShipAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipAPI.swift; sourceTree = "<group>"; };
 		BAB337A122625DBF007A0C05 /* ShipItemStorageUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipItemStorageUnitTests.swift; sourceTree = "<group>"; };
 		BAB337A322625DDD007A0C05 /* ShipUpgradableUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipUpgradableUnitTests.swift; sourceTree = "<group>"; };
@@ -1198,10 +1196,9 @@
 			isa = PBXGroup;
 			children = (
 				BA919063223F260A00009F49 /* Ship.swift */,
-				BAB3379C2262560E007A0C05 /* Ship_ItemStorage_Extension.swift */,
-				BAB3379122622B86007A0C05 /* Ship_Upgradable_Extension.swift */,
-				BAB3379522624CB7007A0C05 /* Ship_Navigatable_Extension.swift */,
-				BA6FBBDA225A237900B366DB /* Ship_Pirate_Weather_Extension.swift */,
+				BAB3379C2262560E007A0C05 /* ShipItemManager.swift */,
+				BAB3379122622B86007A0C05 /* ShipUpgradeManager.swift */,
+				BAB3379522624CB7007A0C05 /* ShipNavigationManager.swift */,
 				BA48591022410CC7009ED2F6 /* ShipUI.swift */,
 			);
 			path = Ship;
@@ -1495,7 +1492,6 @@
 				7581AEE5225C5BEC001A8CC3 /* NetworkInfo.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				96CEB957224DFA0E00B027BA /* NetworkFactory.swift in Sources */,
-				BA6FBBDB225A237900B366DB /* Ship_Pirate_Weather_Extension.swift in Sources */,
 				9603F782224A9748007D54E0 /* Room.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				759A5EF32250A38700724BEB /* NodeData.swift in Sources */,
@@ -1522,7 +1518,7 @@
 				7538CB002255ECDF00EB9B1F /* RegularMonsoonEvent.swift in Sources */,
 				75A72CB8225CBF16003640D4 /* PresetConstants.swift in Sources */,
 				BA919070223F446800009F49 /* Upgrade.swift in Sources */,
-				BAB3379622624CB7007A0C05 /* Ship_Navigatable_Extension.swift in Sources */,
+				BAB3379622624CB7007A0C05 /* ShipNavigationManager.swift in Sources */,
 				759A5EED2250833E00724BEB /* Arithmetic.swift in Sources */,
 				7581AEF1225C8562001A8CC3 /* CountdownCondition.swift in Sources */,
 				BAB3379022622B3F007A0C05 /* Upgradable.swift in Sources */,
@@ -1539,7 +1535,7 @@
 				7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
 				BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */,
-				BAB3379222622B86007A0C05 /* Ship_Upgradable_Extension.swift in Sources */,
+				BAB3379222622B86007A0C05 /* ShipUpgradeManager.swift in Sources */,
 				751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */,
 				BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */,
 				96618F452267CC9200B41008 /* PortItemTableControllerDelegate.swift in Sources */,
@@ -1651,7 +1647,7 @@
 				96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */,
 				7535447D224CAB78001B4F62 /* GreaterThanOrEqualOperator.swift in Sources */,
 				75354479224CAB56001B4F62 /* GreaterThanOperator.swift in Sources */,
-				BAB3379D2262560E007A0C05 /* Ship_ItemStorage_Extension.swift in Sources */,
+				BAB3379D2262560E007A0C05 /* ShipItemManager.swift in Sources */,
 				753A0E842260531A00A1EA99 /* UniqueTurnSystemEvent.swift in Sources */,
 				7581AEE1225C5664001A8CC3 /* Modify.swift in Sources */,
 				751F8FE4224BAE100071C057 /* TurnSystemState.swift in Sources */,
