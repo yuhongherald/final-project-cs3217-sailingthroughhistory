@@ -97,7 +97,7 @@ extension Ship: ItemStorage {
     private func addItem(item: GenericItem) throws {
         let difference = getRemainingCapacity() - (item.weight ?? 0)
         guard difference >= 0 else {
-            throw TradeItemError.insufficientFunds(shortOf: difference)
+            throw TradeItemError.insufficientCapacity(shortOf: difference)
         }
         guard let sameType = items.value.first(where: { $0.itemParameter == item.itemParameter }) else {
             items.value.append(item)

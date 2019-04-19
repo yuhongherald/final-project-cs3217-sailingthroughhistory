@@ -10,6 +10,7 @@ import UIKit
 
 class WaitingRoomViewController: UIViewController {
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var joinPlayerButton: UIButtonRounded!
     @IBOutlet private weak var chooseLevelButton: UIButtonRounded!
     @IBOutlet private weak var playersTableView: UITableView!
@@ -36,6 +37,7 @@ class WaitingRoomViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator.isHidden = true
         guard let roomConnection = roomConnection else {
             let alert = ControllerUtils.getGenericAlert(titled: "Error getting connection",
                                                         withMsg: "") { [weak self] in
@@ -110,13 +112,18 @@ class WaitingRoomViewController: UIViewController {
     }
 
     @IBAction func startGamePressed(_ sender: Any) {
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
         guard let (parameters, imageData) = getGameData() else {
             return
         }
         /// TODO: Remove hardcoded year
+        activityIndicator.isHidden = false
         let state = GameState(baseYear: 1900, level: parameters, players: getWaitingRoom().players)
         do {
             try roomConnection?.startGame(initialState: state, background: imageData) { [weak self] error in
+                self?.activityIndicator.stopAnimating()
+                self?.activityIndicator.isHidden = true
                 guard let error = error else {
                     return
                 }
@@ -128,6 +135,8 @@ class WaitingRoomViewController: UIViewController {
         } catch {
             let alert = ControllerUtils.getGenericAlert(titled: "Failed to start game.",
                                                         withMsg: "Error in game level.")
+            self.activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
             present(alert, animated: true, completion: nil)
         }
     }
