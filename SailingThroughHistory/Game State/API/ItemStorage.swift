@@ -9,10 +9,10 @@
 import Foundation
 
 protocol ItemStorage {
-    func getPurchasableItemTypes() -> [ItemType]
+    func getPurchasableItemParameters() -> [ItemParameter]
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
-    func buyItem(itemType: ItemType, quantity: Int) throws
+    func buyItem(itemParameter: ItemParameter, quantity: Int) throws
     func sellItem(item: GenericItem) throws
-    func sell(itemType: ItemType, quantity: Int) throws
-    func removeItem(by itemType: ItemType, with quantity: Int) -> Int
+    func sell(itemParameter: ItemParameter, quantity: Int) throws
+    func removeItem(by itemParameter: ItemParameter, with quantity: Int) -> Int
 }

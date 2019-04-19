@@ -14,14 +14,14 @@ class Port: Node {
         }
     }
     var ownerName: String?
-    var itemParametersSoldByPort: [ItemType] {
-        return [ItemType](itemBuyValue.keys)
+    var itemParametersSoldByPort: [ItemParameter] {
+        return [ItemParameter](itemBuyValue.keys)
     }
-    var itemParametersBoughtByPort: [ItemType] {
-        return [ItemType](itemSellValue.keys)
+    var itemParametersBoughtByPort: [ItemParameter] {
+        return [ItemParameter](itemSellValue.keys)
     }
-    var itemSellValue = [ItemType: Int]()
-    var itemBuyValue = [ItemType: Int]()
+    var itemSellValue = [ItemParameter: Int]()
+    var itemBuyValue = [ItemParameter: Int]()
 
     private static let portNodeWidth: Double = 50
     private static let portNodeHeight: Double = 50
@@ -45,8 +45,8 @@ class Port: Node {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         ownerName = try values.decode(String?.self, forKey: .ownerName)
-        itemBuyValue = try values.decode([ItemType: Int].self, forKey: .itemBuyValue)
-        itemSellValue = try values.decode([ItemType: Int].self, forKey: .itemSellValue)
+        itemBuyValue = try values.decode([ItemParameter: Int].self, forKey: .itemBuyValue)
+        itemSellValue = try values.decode([ItemParameter: Int].self, forKey: .itemSellValue)
         taxAmount.value = try values.decode(Int.self, forKey: .tax)
         let superDecoder = try values.superDecoder()
         try super.init(from: superDecoder)
@@ -80,27 +80,19 @@ class Port: Node {
     }
 
     func getBuyValue(of type: ItemParameter) -> Int? {
-        return getBuyValue(of: type.itemType)
-    }
-
-    func getBuyValue(of type: ItemType) -> Int? {
         return itemBuyValue[type]
     }
 
     func getSellValue(of type: ItemParameter) -> Int? {
-        return getSellValue(of: type.itemType)
-    }
-
-    func getSellValue(of type: ItemType) -> Int? {
         return itemSellValue[type]
     }
 
-    func setBuyValue(of type: ItemType, value: Int) {
+    func setBuyValue(of type: ItemParameter, value: Int) {
         let finalValue = max(getSellValue(of: type) ?? 0, value)
         itemBuyValue[type] = finalValue
     }
 
-    func setSellValue(of type: ItemType, value: Int) {
+    func setSellValue(of type: ItemParameter, value: Int) {
         let finalValue = min(getBuyValue(of: type) ?? value, value)
         itemSellValue[type] = finalValue
     }
@@ -108,20 +100,20 @@ class Port: Node {
     // Availability at ports
     func delete(_ type: ItemParameter) {
         if getBuyValue(of: type) != nil {
-            itemBuyValue.removeValue(forKey: type.itemType)
+            itemBuyValue.removeValue(forKey: type)
         }
         if getSellValue(of: type) != nil {
-            itemSellValue.removeValue(forKey: type.itemType)
+            itemSellValue.removeValue(forKey: type)
         }
     }
 
-    func getAllItemType() -> [ItemType] {
+    func getAllItemParameters() -> [ItemParameter] {
         // default/placeholder for all items
         return Array(Set(itemParametersSoldByPort + itemParametersBoughtByPort))
     }
 
     private func initDefaultPrices() {
-        ItemType.allCases.forEach { [weak self] itemType in
+        ItemParameter.allCases.forEach { [weak self] itemType in
             self?.itemSellValue[itemType] = ItemParameter.defaultPrice
             self?.itemBuyValue[itemType] = ItemParameter.defaultPrice
         }

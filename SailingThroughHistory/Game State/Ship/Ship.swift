@@ -141,14 +141,13 @@ class Ship: Codable {
 
         for supply in itemsConsumed {
             let parameter = supply.itemParameter
-            let type = supply.itemType
-            let deficit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
+            let deficit = removeItem(by: parameter, with: Int(Double(supply.quantity) * speedMultiplier))
             if let owner = owner,
                 let ports = owner.gameState?.map.nodes.value.map({ $0 as? Port }).compactMap({ $0 }) {
                 owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
                 if deficit > 0 {
                     messages.append(InfoMessage(title: "deficit!",
-                               message: "You have exhausted \(parameter.displayName) and have a deficit"
+                               message: "You have exhausted \(parameter.rawValue) and have a deficit"
                                     + "of \(deficit) and paid twice the normal amount for it."))
                 }
             }

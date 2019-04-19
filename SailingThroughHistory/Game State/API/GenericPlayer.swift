@@ -26,7 +26,6 @@ protocol GenericPlayer: class, Codable {
     var playerShip: Ship? { get }
     var homeNode: Int { get }
 
-    func getItemParameter(itemType: ItemType) -> ItemParameter?
     func addShipsToMap(map: Map)
 
     // update money
@@ -56,11 +55,11 @@ protocol GenericPlayer: class, Codable {
     func getPirateEncounterChance(at nodeId: Int) -> Double
 
     // Docked - End turn is manual here
-    func getPurchasableItemTypes() -> [ItemType]
+    func getPurchasableItemParameters() -> [ItemParameter]
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
-    func buy(itemType: ItemType, quantity: Int) throws
+    func buy(itemParameter: ItemParameter, quantity: Int) throws
     func sell(item: GenericItem) throws
-    func sell(itemType: ItemType, quantity: Int) throws
+    func sell(itemParameter: ItemParameter, quantity: Int) throws
     func setTax(port: Port, amount: Int) throws
 
     // End turn - supplies are removed here

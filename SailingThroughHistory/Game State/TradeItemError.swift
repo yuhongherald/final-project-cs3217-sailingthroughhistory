@@ -12,10 +12,9 @@ enum TradeItemError: Error {
     case insufficientCapacity(shortOf: Int)
     case notDocked
     case itemNotAvailable
-    case unknownItem
     case purchaseSuccess(item: GenericItem)
     case sellSuccess(item: GenericItem)
-    case sellTypeSuccess(itemType: ItemType, quantity: Int)
+    case sellTypeSuccess(itemParameter: ItemParameter, quantity: Int)
 
     func getMessage() -> String {
         switch self {
@@ -29,14 +28,12 @@ enum TradeItemError: Error {
             return "Item not available at port!"
         case .notDocked:
             return "Player is not at a port!"
-        case .unknownItem:
-            return "Unknown item. Please contact the developers ASAP"
         case .purchaseSuccess(let item):
             return "Item purchase of \(item.name) with \(item.quantity) quantity is successful!"
         case .sellSuccess(let item):
             return "\(item.name) with \(item.quantity) quantity sold successfully!"
-        case .sellTypeSuccess(let itemType, let quantity):
-            return "\(itemType) with \(quantity) quantity sold successfully!"
+        case .sellTypeSuccess(let itemParameter, let quantity):
+            return "\(itemParameter) with \(quantity) quantity sold successfully!"
         }
     }
 }

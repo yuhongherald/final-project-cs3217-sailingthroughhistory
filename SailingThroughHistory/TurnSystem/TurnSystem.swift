@@ -151,29 +151,30 @@ class TurnSystem: GenericTurnSystem {
         pendingActions.append(.setTax(forPortId: portId, taxAmount: amount))
     }
 
-    func buy(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws {
+    func buy(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws {
         try checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
         }
+        //TODO
         if quantity >= 0 {
-            try player.buy(itemType: itemType, quantity: quantity)
-            pendingActions.append(.buyOrSell(itemType: itemType, quantity: quantity))
+            try player.buy(itemParameter: itemParameter, quantity: quantity)
+            pendingActions.append(.buyOrSell(itemParameter: itemParameter, quantity: quantity))
         }
     }
 
-    func sell(itemType: ItemType, quantity: Int, by player: GenericPlayer) throws {
+    func sell(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws {
         try checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
         }
         if quantity >= 0 {
             do {
-                try player.sell(itemType: itemType, quantity: quantity)
+                try player.sell(itemParameter: itemParameter, quantity: quantity)
             } catch let error as TradeItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
-            pendingActions.append(.buyOrSell(itemType: itemType, quantity: -quantity))
+            pendingActions.append(.buyOrSell(itemParameter: itemParameter, quantity: -quantity))
         }
     }
 
@@ -259,18 +260,18 @@ class TurnSystem: GenericTurnSystem {
             }
 
             return .playerAction(name: player.name, message: "Instructed \(port.name) to change tax.")
-        case .buyOrSell(let itemType, let quantity):
+        case .buyOrSell(let itemParameter, let quantity):
             let message = GameMessage.playerAction(
                 name: player.name,
-                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemType.rawValue)")
+                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemParameter.rawValue)")
             if player.deviceId == deviceId {
                 return message
             }
             do {
                 if quantity >= 0 {
-                    try player.buy(itemType: itemType, quantity: quantity)
+                    try player.buy(itemParameter: itemParameter, quantity: quantity)
                 } else {
-                    try player.sell(itemType: itemType, quantity: -quantity)
+                    try player.sell(itemParameter: itemParameter, quantity: -quantity)
                 }
             } catch let error as TradeItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())

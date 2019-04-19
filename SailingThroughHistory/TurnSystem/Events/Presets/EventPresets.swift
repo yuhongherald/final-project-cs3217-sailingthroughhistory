@@ -10,7 +10,7 @@ class EventPresets {
     enum Event {
         case monsoon(activate: Bool)
         case neutralTax(operand: String) // split into add sub mult div
-        case itemPrice(for: ItemType, operand: String) // split into item types
+        case itemPrice(for: ItemParameter, operand: String) // split into item types
         case playerDeath(for: GenericPlayer)
     }
     private let monsoonEvents: [Bool: PresetEvent]
@@ -70,8 +70,8 @@ class EventPresets {
             return monsoonEvents[activate]
         case .neutralTax(operand: let operand):
             return neutralTaxEvents[operand]
-        case .itemPrice(for: let itemType, operand: let operand):
-            return itemPriceEvents[operand]?[itemType.rawValue]
+        case .itemPrice(for: let itemParameter, operand: let operand):
+            return itemPriceEvents[operand]?[itemParameter.rawValue]
         case .playerDeath(for: let player):
             return playerDeathEvents[player.name]
         }
