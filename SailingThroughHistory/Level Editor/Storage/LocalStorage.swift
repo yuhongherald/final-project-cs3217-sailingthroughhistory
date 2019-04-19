@@ -13,7 +13,7 @@ class LocalStorage {
     /// - Parameters:
     ///   - name: the proposed level name.
     func verify(name: String) throws {
-        guard name.isEmpty else {
+        guard !name.isEmpty else {
             throw StorageError.invalidName(message: "Empty level name.")
         }
 
@@ -22,7 +22,8 @@ class LocalStorage {
         }
 
         guard name.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil else {
-            throw StorageError.invalidName(message: "Room name contains invalid symbol. Only alphanumeric name is allowed.")
+            throw StorageError.invalidName(message:
+                "Room name contains invalid symbol. Only alphanumeric name is allowed.")
         }
     }
 
