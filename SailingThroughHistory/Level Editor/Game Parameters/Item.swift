@@ -10,10 +10,7 @@ import Foundation
 
 class Item: GenericItem, Codable {
     var name: String {
-        return itemParameter.displayName
-    }
-    var itemType: ItemType {
-        return itemParameter.itemType
+        return itemParameter.rawValue
     }
     let itemParameter: ItemParameter
     var weight: Int? {

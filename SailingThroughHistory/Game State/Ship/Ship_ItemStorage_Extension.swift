@@ -10,7 +10,7 @@ import Foundation
 
 // Mark : - Item Manipulation
 extension Ship: ItemStorage {
-    func getPurchasableItemTypes() -> [ItemType] {
+    func getPurchasableItemParameters() -> [ItemParameter] {
         guard let port = node as? Port, isDocked else {
             return []
         }
@@ -28,12 +28,9 @@ extension Ship: ItemStorage {
         return min(owner?.money.value ?? 0 / unitValue, getRemainingCapacity() / itemParameter.unitWeight)
     }
 
-    func buyItem(itemType: ItemType, quantity: Int) throws {
+    func buyItem(itemParameter: ItemParameter, quantity: Int) throws {
         guard let port = node as? Port, isDocked else {
             throw TradeItemError.notDocked
-        }
-        guard let itemParameter = owner?.getItemParameter(itemType: itemType) else {
-            throw TradeItemError.unknownItem
         }
         let item = itemParameter.createItem(quantity: quantity)
         guard let price = item.getBuyValue(at: port) else {
@@ -64,22 +61,22 @@ extension Ship: ItemStorage {
         updateCargoWeight(items: self.items.value)
     }
 
-    func sell(itemType: ItemType, quantity: Int) throws {
+    func sell(itemParameter: ItemParameter, quantity: Int) throws {
         guard let map = map, let port = map.nodeIDPair[nodeId] as? Port else {
             throw TradeItemError.notDocked
         }
-        guard let value = port.getSellValue(of: itemType) else {
+        guard let value = port.getSellValue(of: itemParameter) else {
             throw TradeItemError.itemNotAvailable
         }
-        let deficit = removeItem(by: itemType, with: quantity)
+        let deficit = removeItem(by: itemParameter, with: quantity)
         owner?.updateMoney(by: (quantity - deficit) * value)
         if deficit > 0 {
             throw TradeItemError.insufficientItems(shortOf: deficit, sold: quantity - deficit)
         }
     }
 
-    func removeItem(by itemType: ItemType, with quantity: Int) -> Int {
-        guard let index = items.value.firstIndex(where: { $0.itemType == itemType }) else {
+    func removeItem(by itemParameter: ItemParameter, with quantity: Int) -> Int {
+        guard let index = items.value.firstIndex(where: { $0.itemParameter == itemParameter }) else {
             return quantity
         }
         let deficit = items.value[index].remove(amount: quantity)
@@ -88,7 +85,7 @@ extension Ship: ItemStorage {
             items.value = items.value
         }
         guard deficit <= 0 else {
-            return removeItem(by: itemType, with: deficit)
+            return removeItem(by: itemParameter, with: deficit)
         }
         return 0
     }

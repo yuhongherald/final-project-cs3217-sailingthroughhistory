@@ -95,11 +95,6 @@ class Player: GenericPlayer {
         try container.encode(homeNode, forKey: .homeNode)
     }
 
-    func getItemParameter(itemType: ItemType) -> ItemParameter? {
-        let parameters = gameState?.itemParameters ?? []
-        return parameters.first(where: { $0.value.itemType == itemType })?.value
-    }
-
     func addShipsToMap(map: Map) {
         ship.map = map
     }
@@ -191,24 +186,24 @@ class Player: GenericPlayer {
         return chance
     }
 
-    func getPurchasableItemTypes() -> [ItemType] {
-        return ship.getPurchasableItemTypes()
+    func getPurchasableItemParameters() -> [ItemParameter] {
+        return ship.getPurchasableItemParameters()
     }
 
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
         return ship.getMaxPurchaseAmount(itemParameter: itemParameter)
     }
 
-    func buy(itemType: ItemType, quantity: Int) throws {
-        try ship.buyItem(itemType: itemType, quantity: quantity)
+    func buy(itemParameter: ItemParameter, quantity: Int) throws {
+        try ship.buyItem(itemParameter: itemParameter, quantity: quantity)
     }
 
     func sell(item: GenericItem) throws {
         try ship.sellItem(item: item)
     }
 
-    func sell(itemType: ItemType, quantity: Int) throws {
-        try ship.sell(itemType: itemType, quantity: quantity)
+    func sell(itemParameter: ItemParameter, quantity: Int) throws {
+        try ship.sell(itemParameter: itemParameter, quantity: quantity)
     }
 
     func setTax(port: Port, amount: Int) throws {

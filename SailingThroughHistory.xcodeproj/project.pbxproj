@@ -187,7 +187,6 @@
 		969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */; };
 		96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemParameter.swift */; };
 		96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* GenericLevel.swift */; };
-		96A65ADC22491FE900D7512C /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A749D642240F6DC00482CE5 /* ItemType.swift */; };
 		96A7D0AE225F8269001C18E4 /* CountdownLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AD225F8269001C18E4 /* CountdownLabelView.swift */; };
 		96A7D0B0225F971D001C18E4 /* UIBezierPath+Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */; };
 		96A7D0B2225FA8E0001C18E4 /* UILightningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0B1225FA8E0001C18E4 /* UILightningView.swift */; };
@@ -278,7 +277,6 @@
 		1A53D7C72251C44A00FAE214 /* PathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathView.swift; sourceTree = "<group>"; };
 		1A53D7C92251E80900FAE214 /* GameParameterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameterTest.swift; sourceTree = "<group>"; };
 		1A69B4D1224934D200176DDD /* DetailEditTableViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailEditTableViewController + Delegate.swift"; sourceTree = "<group>"; };
-		1A749D642240F6DC00482CE5 /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 		1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewController.swift; sourceTree = "<group>"; };
 		1A749D692241021900482CE5 /* LevelEditorViewController + Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LevelEditorViewController + Delegate.swift"; sourceTree = "<group>"; };
 		1A749D6D2243CFF800482CE5 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
@@ -584,7 +582,7 @@
 			isa = PBXGroup;
 			children = (
 				1A9FF085223F6DAB00005FCB /* EditMode.swift */,
-				1A749D642240F6DC00482CE5 /* ItemType.swift */,
+				BA919071223F447F00009F49 /* ItemParameter.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -1160,7 +1158,6 @@
 		BA91906E223F443600009F49 /* Game Parameters */ = {
 			isa = PBXGroup;
 			children = (
-				BA919071223F447F00009F49 /* ItemParameter.swift */,
 				BA919073223F44A400009F49 /* GameParameter.swift */,
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
 				1A9FF08B224030E000005FCB /* Map.swift */,
@@ -1569,7 +1566,6 @@
 				96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */,
 				96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */,
 				967FAA7D2244BF1F005054B6 /* PortItemTableController.swift in Sources */,
-				96A65ADC22491FE900D7512C /* ItemType.swift in Sources */,
 				9603F77E224A95D2007D54E0 /* FirestoreRoomConnection.swift in Sources */,
 				9684669F2264AD2A00BDA989 /* EngineConstants.swift in Sources */,
 				759A5EFB2250A86500724BEB /* InventoryData.swift in Sources */,

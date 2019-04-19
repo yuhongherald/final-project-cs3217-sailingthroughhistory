@@ -23,11 +23,11 @@ enum PlayerAction: Codable {
             let taxAmount = try container.decode(Int.self, forKey: .taxAmount)
             self = .setTax(forPortId: port, taxAmount: taxAmount)
         case .buyOrSell:
-            let itemType = try container.decode(ItemType.self, forKey: .itemType)
+            let itemParameter = try container.decode(ItemParameter.self, forKey: .itemParameter)
             let quantity = try container.decode(Int.self, forKey: .quantity)
-            self = .buyOrSell(itemType: itemType, quantity: quantity)
+            self = .buyOrSell(itemParameter: itemParameter, quantity: quantity)
         case .purchaseUpgrade:
-            let type = try container.decode(UpgradeType.self, forKey: .itemType)
+            let type = try container.decode(UpgradeType.self, forKey: .itemParameter)
             self = .purchaseUpgrade(type: type)
         case .pirate:
             self = .pirate
@@ -52,9 +52,9 @@ enum PlayerAction: Codable {
             try container.encode(Identifier.setTax, forKey: .type)
             try container.encode(port, forKey: .nodeId)
             try container.encode(taxAmount, forKey: .taxAmount)
-        case .buyOrSell(let itemType, let quantity):
+        case .buyOrSell(let itemParameter, let quantity):
             try container.encode(Identifier.buyOrSell, forKey: .type)
-            try container.encode(itemType, forKey: .itemType)
+            try container.encode(itemParameter, forKey: .itemParameter)
             try container.encode(quantity, forKey: .quantity)
         case .purchaseUpgrade(let upgradeType):
             try container.encode(Identifier.purchaseUpgrade, forKey: .type)
@@ -68,7 +68,7 @@ enum PlayerAction: Codable {
         }
     }
 
-    case buyOrSell(itemType: ItemType, quantity: Int)
+    case buyOrSell(itemParameter: ItemParameter, quantity: Int)
     case move(toNodeId: Int, isEnd: Bool)
     case forceMove(toNodeId: Int)
     case purchaseUpgrade(type: UpgradeType)
@@ -92,7 +92,7 @@ enum PlayerAction: Codable {
         case type
         case nodeId
         case isEnd
-        case itemType
+        case itemParameter
         case taxAmount
         case quantity
         case upgrade
