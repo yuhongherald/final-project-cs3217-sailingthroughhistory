@@ -24,12 +24,7 @@ class GameParameter: GenericLevel, Codable {
         self.map = map
         self.teams = teams.map { Team(name: $0) }
         self.playerParameters = teams.map { PlayerParameter(name: "\($0)-player", teamName: $0, node: nil) }
-        ItemType.allCases.forEach {
-            self.itemParameters.append(ItemParameter(itemType: $0,
-                                                     displayName: $0.rawValue,
-                                                     weight: $0.getUnitWeight(),
-                                                     isConsumable: true))
-        }
+        self.itemParameters = ItemParameter.allCases
     }
 
     required init(from decoder: Decoder) throws {

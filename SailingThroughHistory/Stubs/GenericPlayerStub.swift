@@ -38,10 +38,6 @@ class GenericPlayerStub: GenericPlayer {
         fatalError(errorMessage)
     }
 
-    func getItemParameter(itemType: ItemType) -> ItemParameter? {
-        fatalError(errorMessage)
-    }
-
     func addShipsToMap(map: Map) {
         fatalError(errorMessage)
     }
@@ -110,7 +106,7 @@ class GenericPlayerStub: GenericPlayer {
         fatalError(errorMessage)
     }
 
-    func getPurchasableItemTypes() -> [ItemType] {
+    func getPurchasableItemParameters() -> [ItemParameter] {
         fatalError(errorMessage)
     }
 
@@ -118,7 +114,7 @@ class GenericPlayerStub: GenericPlayer {
         fatalError(errorMessage)
     }
 
-    func buy(itemType: ItemType, quantity: Int) throws {
+    func buy(itemParameter: ItemParameter, quantity: Int) throws {
         fatalError(errorMessage)
     }
 
@@ -126,7 +122,7 @@ class GenericPlayerStub: GenericPlayer {
         fatalError(errorMessage)
     }
 
-    func sell(itemType: ItemType, quantity: Int) throws {
+    func sell(itemParameter: ItemParameter, quantity: Int) throws {
         fatalError(errorMessage)
     }
 

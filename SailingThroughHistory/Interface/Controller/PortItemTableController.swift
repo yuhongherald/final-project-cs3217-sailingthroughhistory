@@ -19,16 +19,16 @@ class PortItemTableController: NSObject, UITableViewDataSource, UITableViewDeleg
     private weak var delegate: PortItemTableControllerDelegate?
     private var playerCanInteract = false
     private var selectedPort: Port?
-    private var itemTypesSoldByPort = [ItemType]()
-    private var itemTypesBoughtByPort = [ItemType]()
+    private var itemParametersSoldByPort = [ItemParameter]()
+    private var itemParametersBoughtByPort = [ItemParameter]()
 
     init(delegate: PortItemTableControllerDelegate) {
         self.delegate = delegate
     }
 
     func didSelect(port: Port, playerCanInteract: Bool) {
-        self.itemTypesSoldByPort = port.itemParametersSoldByPort
-        self.itemTypesBoughtByPort = port.itemParametersBoughtByPort
+        self.itemParametersSoldByPort = port.itemParametersSoldByPort
+        self.itemParametersBoughtByPort = port.itemParametersBoughtByPort
         self.playerCanInteract = playerCanInteract
         self.selectedPort = port
     }
@@ -46,31 +46,31 @@ class PortItemTableController: NSObject, UITableViewDataSource, UITableViewDeleg
             return tableCell
         }
 
-        var array: [ItemType]
+        var array: [ItemParameter]
         switch indexPath.section {
         case PortItemTableController.boughtSection:
-            array = itemTypesBoughtByPort
-            let item = array[indexPath.row]
-            tableCell.set(price: port.getSellValue(of: item) ??
+            array = itemParametersBoughtByPort
+            let itemParameter = array[indexPath.row]
+            tableCell.set(price: port.getSellValue(of: itemParameter) ??
                 PortItemTableController.defaultPrice)
             tableCell.set(buttonLabel: PortItemTableController.sellButtonLabel)
             tableCell.buttonPressedCallback = { [weak self] in
-                self?.delegate?.portItemButtonPressed(action: .playerSell(item: item))
+                self?.delegate?.portItemButtonPressed(action: .playerSell(itemParameter: itemParameter))
             }
         case PortItemTableController.soldSection:
-            array = itemTypesSoldByPort
-            let item = array[indexPath.row]
+            array = itemParametersSoldByPort
+            let itemParameter = array[indexPath.row]
             tableCell.set(price: port.getBuyValue(of: array[indexPath.row]) ??
                 PortItemTableController.defaultPrice)
             tableCell.set(buttonLabel: PortItemTableController.buyButtonLabel)
             tableCell.buttonPressedCallback = { [weak self] in
-                self?.delegate?.portItemButtonPressed(action: .playerBuy(item: item))
+                self?.delegate?.portItemButtonPressed(action: .playerBuy(itemParameter: itemParameter))
             }
         default:
             array = []
         }
-        let item = array[indexPath.row]
-        tableCell.set(name: "\(item.rawValue) \(item.getUnitWeight())\(InterfaceConstants.weightSuffix)")
+        let itemParameter = array[indexPath.row]
+        tableCell.set(name: "\(itemParameter.rawValue) \(itemParameter.unitWeight)\(InterfaceConstants.weightSuffix)")
         if playerCanInteract {
             tableCell.enable()
         } else {
@@ -87,9 +87,9 @@ class PortItemTableController: NSObject, UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case PortItemTableController.boughtSection:
-            return itemTypesBoughtByPort.count
+            return itemParametersBoughtByPort.count
         case PortItemTableController.soldSection:
-            return itemTypesSoldByPort.count
+            return itemParametersSoldByPort.count
         default:
             return 0
         }

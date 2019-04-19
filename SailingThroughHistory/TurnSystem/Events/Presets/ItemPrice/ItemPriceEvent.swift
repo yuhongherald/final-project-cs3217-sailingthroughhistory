@@ -7,25 +7,19 @@
 //
 
 class ItemPriceEvent: PresetEvent {
-    init(gameState: GenericGameState, itemType: ItemType,
+    init(gameState: GenericGameState, itemParameter: GameVariable<ItemParameter>,
          genericOperator: GenericOperator, modifier: Int) {
-        let rawItem = gameState.itemParameters.first {
-            $0.value.itemType == itemType
-        }
-        guard let item = rawItem else {
-            fatalError("Item not found in item parameters during runtime")
-        }
 
         let evaluatable = ItemBuyPriceEvaluatable(
-            item: item,
+            itemParameter: itemParameter,
             genericOperator: genericOperator,
             modifier: modifier)
 
         //TODO
         super.init(triggers: [FlipFlopTrigger()],
                    conditions: [],
-                   actions: [EventAction<ItemParameter>(variable: item, value: evaluatable)],
-                   parsable: { return "\(itemType.rawValue)'s price has been set to \(item.value.getBuyValue(ports: [Port]()))" },
-                   displayName: "Set \(itemType.rawValue) price \(genericOperator.displayName) \(modifier)")
+                   actions: [EventAction<ItemParameter>(variable: itemParameter, value: evaluatable)],
+                   parsable: { return "\(itemParameter.value.rawValue)'s price has been set to \(itemParameter.value.getBuyValue(ports: [Port]()))" },
+                   displayName: "Set \(itemParameter.value.rawValue) price \(genericOperator.displayName) \(modifier)")
     }
 }

@@ -7,7 +7,7 @@
 //
 
 class ItemBuyPriceEvaluatable: Evaluatable<ItemParameter> {
-    private let item: GameVariable<ItemParameter>
+    private let itemParameter: GameVariable<ItemParameter>
     private let genericOperator: GenericOperator
     //TODO
     private let ports = [Port]()
@@ -15,22 +15,22 @@ class ItemBuyPriceEvaluatable: Evaluatable<ItemParameter> {
     override var value: ItemParameter {
         get {
             guard let newValue = genericOperator.evaluate(
-                first: item.value.getBuyValue(ports: ports), second: modifier) as? Int else {
-                    return item.value
+                first: itemParameter.value.getBuyValue(ports: ports), second: modifier) as? Int else {
+                    return itemParameter.value
             }
-            var copy = item.value
+            var copy = itemParameter.value
             //copy.setBuyValue(value: newValue)
             return copy
         }
         set {
-            item.value = newValue
+            itemParameter.value = newValue
         }
     }
-    init(item: GameVariable<ItemParameter>, genericOperator: GenericOperator,
+    init(itemParameter: GameVariable<ItemParameter>, genericOperator: GenericOperator,
          modifier: Int) {
         self.genericOperator = genericOperator
         self.modifier = modifier
-        self.item = item
-        super.init(item.value)
+        self.itemParameter = itemParameter
+        super.init(itemParameter.value)
     }
 }

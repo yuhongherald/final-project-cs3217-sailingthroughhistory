@@ -10,8 +10,8 @@ import XCTest
 @testable import SailingThroughHistory
 
 class ItemTest: XCTestCase {
-    let cItemParameter = ItemParameter(itemType: .food, displayName: "food", weight: 100, isConsumable: true)
-    let uncItemParameter = ItemParameter(itemType: .silk, displayName: "silk", weight: 100, isConsumable: false)
+    let cItemParameter = ItemParameter.food
+    let uncItemParameter = ItemParameter.silk
 
     func testUpdateItem() {
         let item = Item(itemParameter: cItemParameter, quantity: 200)
@@ -68,7 +68,7 @@ class ItemTest: XCTestCase {
         let quantity = 100
         let item = Item(itemParameter: uncItemParameter, quantity: quantity)
         let port = SailingThroughHistory.Port(team: nil, name: "port", originX: 0, originY: 0)
-        port.setBuyValue(of: uncItemParameter.itemType, value: price)
+        port.setBuyValue(of: uncItemParameter, value: price)
         let invPort = SailingThroughHistory.Port(team: nil, name: "port", originX: 0, originY: 0)
 
         // can buy item at port
@@ -83,7 +83,7 @@ class ItemTest: XCTestCase {
         let quantity = 100
         let item = Item(itemParameter: uncItemParameter, quantity: quantity)
         let port = SailingThroughHistory.Port(team: nil, name: "port", originX: 0, originY: 0)
-        port.setBuyValue(of: uncItemParameter.itemType, value: price)
+        port.setBuyValue(of: uncItemParameter, value: price)
         let invPort = SailingThroughHistory.Port(team: nil, name: "port", originX: 0, originY: 0)
 
         // can sell item at port
