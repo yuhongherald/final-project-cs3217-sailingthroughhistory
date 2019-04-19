@@ -8,23 +8,23 @@
 
 import UIKit
 
-class AvailableUpgradesDataSource: NSObject, UITableViewDataSource {
+class AvailableUpgradesController: NSObject, UITableViewDataSource {
     private static let reuseIdentifier: String = "upgradesTableCell"
     private static let header = "Available Upgrades"
     private static let buttonLabel = "Buy"
     private let upgrades: [Upgrade]
-    private weak var mainController: MainGameViewController?
+    private weak var delegate: AvailableUpgradesControllerDelegate?
 
     var enabled = false
 
-    init(mainController: MainGameViewController, availableUpgrades: [Upgrade]) {
-        self.mainController = mainController
+    init(delegate: AvailableUpgradesControllerDelegate, availableUpgrades: [Upgrade]) {
+        self.delegate = delegate
         self.upgrades = availableUpgrades
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
-            withIdentifier: AvailableUpgradesDataSource.reuseIdentifier, for: indexPath)
+            withIdentifier: AvailableUpgradesController.reuseIdentifier, for: indexPath)
             as? UITradeTableCell
 
         guard let tableCell = cell else {
@@ -34,9 +34,9 @@ class AvailableUpgradesDataSource: NSObject, UITableViewDataSource {
         let upgrade = upgrades[indexPath.row]
         tableCell.set(name: upgrade.name)
         tableCell.set(price: upgrade.cost)
-        tableCell.set(buttonLabel: AvailableUpgradesDataSource.buttonLabel)
+        tableCell.set(buttonLabel: AvailableUpgradesController.buttonLabel)
         tableCell.buttonPressedCallback = { [weak self] in
-            self?.mainController?.buy(upgrade: upgrade)
+            self?.delegate?.buy(upgrade: upgrade)
         }
 
         return tableCell
@@ -51,6 +51,6 @@ class AvailableUpgradesDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return AvailableUpgradesDataSource.header
+        return AvailableUpgradesController.header
     }
 }

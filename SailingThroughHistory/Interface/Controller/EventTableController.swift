@@ -12,12 +12,12 @@ class EventTableController: NSObject {
     private static let reuseIdentifier = "eventCell"
     private var events: [PresetEvent]
     private weak var tableView: UITableView?
-    private weak var mainController: MainGameViewController?
+    private weak var delegate: EventTableControllerDelegate?
 
-    init(tableView: UITableView, events: [PresetEvent], mainController: MainGameViewController) {
+    init(tableView: UITableView, events: [PresetEvent], delegate: EventTableControllerDelegate) {
         self.tableView = tableView
         self.events = events
-        self.mainController = mainController
+        self.delegate = delegate
         self.tableView?.reloadData()
     }
 
@@ -43,7 +43,7 @@ extension EventTableController: UITableViewDataSource {
         cell.set(label: event.displayName)
         cell.set(buttonLabel: triggered ? "Turn Off" : "Turn On")
         cell.buttonPressedCallback = {  [weak self] in
-            self?.mainController?.toggle(event: event, enabled: !triggered)
+            self?.delegate?.toggle(event: event, enabled: !triggered)
             self?.tableView?.reloadData()
         }
 

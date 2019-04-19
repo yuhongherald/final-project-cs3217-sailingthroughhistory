@@ -8,36 +8,22 @@
 
 import Foundation
 
-enum ItemParameter: String, Codable, CaseIterable {
-    case teaLeaves = "Tea Leaves"
-    case silk = "Silk"
-    case perfume = "Perfume"
-    case opium = "Opium"
-    case food = "Food"
-
+struct ItemParameter: Codable {
     static let defaultPrice = 100
+    let displayName: String
+    let unitWeight: Int
+    let itemType: ItemType
+    let isConsumable: Bool
 
-    var unitWeight: Int {
-        switch self {
-        case .teaLeaves:
-            return 25
-        case .silk:
-            return 20
-        case .perfume:
-            return 10
-        case .opium:
-            return 10
-        case .food:
-            return 5
-        }
+    private var halfLife: Int?
+
+    init(itemType: ItemType, displayName: String, weight: Int, isConsumable: Bool) {
+        self.itemType = itemType
+        self.displayName = displayName
+        self.unitWeight = abs(weight)
+        self.isConsumable = isConsumable
+        assert(checkRep())
     }
-
-    private var halfLife: Int? {
-        return nil
-    }
-
-    //let isConsumable: Bool
-
 
     // Create a quantized representation
     func createItem(quantity: Int) -> GenericItem {
@@ -57,10 +43,20 @@ enum ItemParameter: String, Codable, CaseIterable {
         return halfLife
     }
 
+    private func checkRep() -> Bool {
+        guard let unwrappedHalfLife = halfLife else {
+            return unitWeight >= 0
+        }
+        return unwrappedHalfLife >= 0 && unitWeight >= 0
+    }
 }
 
 extension ItemParameter: Hashable {
+    static func == (lhs: ItemParameter, rhs: ItemParameter) -> Bool {
+        return lhs.itemType == rhs.itemType
+    }
+
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self)
+        hasher.combine(self.itemType)
     }
 }

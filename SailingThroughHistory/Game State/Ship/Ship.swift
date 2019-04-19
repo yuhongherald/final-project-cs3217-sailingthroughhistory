@@ -175,6 +175,7 @@ class Ship: ShipAPI, Codable {
                         message: "You have lost \(lostQuantity) of \(item.name) from decay"
                             + "and have \(item.quantity) remaining!"))
         }
+        updateCargoWeight(items: self.items.value)
         return messages
     }
 }

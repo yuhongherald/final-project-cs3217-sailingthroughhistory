@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ItemCollectionViewController: UIViewController, UICollectionViewDataSource,
-UICollectionViewDelegate, UITextFieldDelegate {
+class ItemCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     private var itemParameters: [ItemParameter] = []
     private var selectedPort: Port?
@@ -37,10 +36,6 @@ UICollectionViewDelegate, UITextFieldDelegate {
             }
             let itemParameter = itemParameters[indexPath.item]
 
-           /* if itemParam.isConsumable, let lifeText = castedCell.lifeField.text, let life = Int(lifeText) {
-                itemParam.setHalfLife(to: life)
-            }
-            */
             if let buyPriceText = castedCell.buyField.text, let buyPrice = Int(buyPriceText) {
                 port.setBuyValue(of: itemParameter, value: buyPrice)
             }
@@ -63,7 +58,9 @@ UICollectionViewDelegate, UITextFieldDelegate {
 
     func initWith(port: Port) {
         self.selectedPort = port
-        self.itemParameters = port.getAllItemParameters()
+        self.itemParameters = port.getAllItemParameters().sorted(by: { (lhs, rhs) -> Bool in
+            return lhs.rawValue < rhs.rawValue
+        })
         collectionView.reloadData()
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -91,16 +88,6 @@ UICollectionViewDelegate, UITextFieldDelegate {
             cell.buyField.text = String(buyPrice)
         }
 
-        /// TODO: Refactor and move this
-        /*if itemParam.isConsumable, let life = itemParam.getHalfLife() {
-            cell.lifeField.isEnabled = true
-            cell.lifeField.text = String(life)
-        }
-
-        if !itemParam.isConsumable {
-            cell.lifeField.isEnabled = false
-        }*/
-
         return cell
     }
 
@@ -116,10 +103,20 @@ UICollectionViewDelegate, UITextFieldDelegate {
             assert(false, "Invalid element type")
         }
     }
+}
 
+extension ItemCollectionViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
         let invalidCharacters = CharacterSet(charactersIn: "0123456789").inverted
         return string.rangeOfCharacter(from: invalidCharacters) == nil
+    }
+}
+
+extension ItemCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.size.width, height: 100)
     }
 }

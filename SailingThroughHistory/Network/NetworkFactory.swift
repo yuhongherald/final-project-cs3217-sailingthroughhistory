@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Factory for creating objects in the Network module.
 enum NetworkFactory {
     static func createRoomInstance(named name: String) throws -> Room {
         try verify(name)
