@@ -192,8 +192,8 @@ class GameState: GenericGameState {
                 node = defaultNode
             }
 
-            let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemTypeTupleToItem(tuple: $0) }).compactMap({ $0 })
-            let startingItems = unwrappedParam.startingItems.map({ itemTypeTupleToItem(tuple:
+            let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemParameterTupleToItem(tuple: $0) }).compactMap({ $0 })
+            let startingItems = unwrappedParam.startingItems.map({ itemParameterTupleToItem(tuple:
                 $0) }).compactMap({ $0 })
             let player = Player(name: String(roomPlayer.playerName.prefix(8)),
                                 team: team, map: map, node: node, itemsConsumed: itemsConsumed,
@@ -223,8 +223,8 @@ class GameState: GenericGameState {
         }
     }
 
-    private func itemTypeTupleToItem(tuple: (ItemType, Int)) -> GenericItem? {
-        guard let itemParameter = itemParameters.first(where: { $0.value.itemType == tuple.0 })?.value else {
+    private func itemParameterTupleToItem(tuple: (ItemParameter, Int)) -> GenericItem? {
+        guard let itemParameter = itemParameters.first(where: { $0.value == tuple.0 })?.value else {
             return nil
         }
         let item = Item(itemParameter: itemParameter, quantity: tuple.1)

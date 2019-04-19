@@ -36,7 +36,7 @@ class PlayerItemsTableDataSource: NSObject, UITableViewDataSource {
 
         let item = items[indexPath.row]
 
-        cell.textLabel?.text = "\(item.name) \(item.itemType.getUnitWeight())\(InterfaceConstants.weightSuffix)"
+        cell.textLabel?.text = "\(item.name) \(item.itemParameter.unitWeight)\(InterfaceConstants.weightSuffix)"
         cell.detailTextLabel?.text = "\(InterfaceConstants.itemQuantityPrefix)\(item.quantity)"
 
         return cell

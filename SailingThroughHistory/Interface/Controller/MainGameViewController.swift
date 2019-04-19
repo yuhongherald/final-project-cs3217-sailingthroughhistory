@@ -511,10 +511,10 @@ extension MainGameViewController: PortItemTableControllerDelegate {
         var errorMsg: String?
         do {
             switch action {
-            case .playerBuy(let itemType):
-                try turnSystem?.buy(itemType: itemType, quantity: quantity, by: currentTurnOwner)
-            case .playerSell(let itemType):
-                try turnSystem?.sell(itemType: itemType, quantity: quantity, by: currentTurnOwner)
+            case .playerBuy(let itemParameter):
+                try turnSystem?.buy(itemParameter: itemParameter, quantity: quantity, by: currentTurnOwner)
+            case .playerSell(let itemParameter):
+                try turnSystem?.sell(itemParameter: itemParameter, quantity: quantity, by: currentTurnOwner)
             }
         } catch PlayerActionError.invalidAction(let msg) {
             errorMsg = msg

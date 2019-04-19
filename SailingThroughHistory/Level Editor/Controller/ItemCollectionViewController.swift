@@ -11,7 +11,7 @@ import UIKit
 class ItemCollectionViewController: UIViewController, UICollectionViewDataSource,
 UICollectionViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
-    private var itemTypes: [ItemType] = []
+    private var itemParameters: [ItemParameter] = []
     private var selectedPort: Port?
 
     override var prefersStatusBarHidden: Bool {
@@ -35,18 +35,18 @@ UICollectionViewDelegate, UITextFieldDelegate {
             let castedCell = cell as? ItemCollectionViewCell else {
                 continue
             }
-            let itemType = itemTypes[indexPath.item]
+            let itemParameter = itemParameters[indexPath.item]
 
            /* if itemParam.isConsumable, let lifeText = castedCell.lifeField.text, let life = Int(lifeText) {
                 itemParam.setHalfLife(to: life)
             }
             */
             if let buyPriceText = castedCell.buyField.text, let buyPrice = Int(buyPriceText) {
-                port.setBuyValue(of: itemType, value: buyPrice)
+                port.setBuyValue(of: itemParameter, value: buyPrice)
             }
 
             if let sellPriceText = castedCell.sellField.text, let sellPrice = Int(sellPriceText) {
-                port.setSellValue(of: itemType, value: sellPrice)
+                port.setSellValue(of: itemParameter, value: sellPrice)
             }
         }
 
@@ -63,11 +63,11 @@ UICollectionViewDelegate, UITextFieldDelegate {
 
     func initWith(port: Port) {
         self.selectedPort = port
-        self.itemTypes = port.getAllItemType()
+        self.itemParameters = port.getAllItemParameters()
         collectionView.reloadData()
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return itemTypes.count
+        return itemParameters.count
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -76,18 +76,18 @@ UICollectionViewDelegate, UITextFieldDelegate {
             .dequeueReusableCell(withReuseIdentifier: "itemInfoCell", for: indexPath) as? ItemCollectionViewCell else {
                 fatalError("Cell cannot be casted into ItemCollectionViewCell")
         }
-        let itemType = itemTypes[indexPath.item]
-        cell.label.text = itemType.rawValue
+        let itemParameter = itemParameters[indexPath.item]
+        cell.label.text = itemParameter.rawValue
 
         guard let port = selectedPort else {
             return cell
         }
 
-        if let sellPrice = port.getSellValue(of: itemType) {
+        if let sellPrice = port.getSellValue(of: itemParameter) {
             cell.sellField.text = String(sellPrice)
         }
 
-        if let buyPrice = port.getBuyValue(of: itemType) {
+        if let buyPrice = port.getBuyValue(of: itemParameter) {
             cell.buyField.text = String(buyPrice)
         }
 
