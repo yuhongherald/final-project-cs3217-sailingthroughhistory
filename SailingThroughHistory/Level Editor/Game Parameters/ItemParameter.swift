@@ -43,14 +43,6 @@ struct ItemParameter: Codable {
         return halfLife
     }
 
-    mutating func setHalfLife(to value: Int) {
-        if value < 0 {
-            return
-        }
-        halfLife = value
-        assert(checkRep())
-    }
-
     private func checkRep() -> Bool {
         guard let unwrappedHalfLife = halfLife else {
             return unitWeight >= 0
