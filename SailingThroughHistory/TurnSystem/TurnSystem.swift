@@ -29,7 +29,6 @@ class TurnSystem: GenericTurnSystem {
             stateVariable.value = newValue
         }
     }
-
     // TODO: Move this into new class
     private var stateVariable: GameVariable<State>
     private let isMaster: Bool
@@ -78,7 +77,7 @@ class TurnSystem: GenericTurnSystem {
         self.stateVariable = GameVariable(value: .ready)
         self.eventPresets = EventPresets(gameState: startingState, turnSystem: self)
         if let eventPresets = self.eventPresets {
-            self.data.addEvents(events: eventPresets.getEvents())
+            _ = self.data.addEvents(events: eventPresets.getEvents())
         }
 
         network.subscribeToMembers { [weak self] members in
@@ -130,8 +129,7 @@ class TurnSystem: GenericTurnSystem {
         var path = player.getPath(to: nodeId)
         path.removeFirst()
         for (index, transitNode) in path.enumerated() {
-            pendingActions.append(.move(toNodeId: transitNode,
-                                        isEnd: index == path.indices.last))
+            pendingActions.append(.move(toNodeId: transitNode, isEnd: index == path.indices.last))
         }
 
         if isSuccess(probability: player.getPirateEncounterChance(at: nodeId)) {
@@ -244,38 +242,10 @@ class TurnSystem: GenericTurnSystem {
             return playerMove(player, nodeId, isEnd: isEnd)
         case .forceMove(let nodeId): // quick hack for updating the player's position remotely
             return playerMove(player, nodeId, isEnd: true)
-            // some stuff with a sequence
-            // for node in nodes (Doesn't check adjacency)
-        // player.move(node: node)
-        case .setTax(let portId, _):
-            guard let port = gameState.map.nodeIDPair[portId] as? Port else {
-                throw PlayerActionError.invalidAction(message: "Port does not exist.")
-            }
-
-            if setTaxActions[portId] != nil {
-                setTaxActions[portId] = (action, player, false)
-            } else {
-                setTaxActions[portId] = (action, player, true)
-            }
-
-            return .playerAction(name: player.name, message: "Instructed \(port.name) to change tax.")
-        case .buyOrSell(let itemType, let quantity):
-            let message = GameMessage.playerAction(
-                name: player.name,
-                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemType.rawValue)")
-            if player.deviceId == deviceId {
-                return message
-            }
-            do {
-                if quantity >= 0 {
-                    try player.buy(itemType: itemType, quantity: quantity)
-                } else {
-                    try player.sell(itemType: itemType, quantity: -quantity)
-                }
-            } catch let error as TradeItemError {
-                throw PlayerActionError.invalidAction(message: error.getMessage())
-            }
-            return message
+        case .setTax:
+            return try register(portTaxAction: action, by: player)
+        case .buyOrSell:
+            return try handle(tradeAction: action, by: player)
         case .purchaseUpgrade(let upgradeType):
             if player.deviceId == deviceId {
                 return GameMessage.playerAction(name: player.name, message: "You moved")
@@ -294,6 +264,49 @@ class TurnSystem: GenericTurnSystem {
                 return nil
             }
             event.active = enabled
+            return nil
+        }
+    }
+
+    private func register(portTaxAction action: PlayerAction, by player: GenericPlayer) throws -> GameMessage? {
+        switch action {
+        case .setTax(let portId, _):
+            guard let port = gameState.map.nodeIDPair[portId] as? Port else {
+                throw PlayerActionError.invalidAction(message: "Port does not exist.")
+            }
+
+            if setTaxActions[portId] != nil {
+                setTaxActions[portId] = (action, player, false)
+            } else {
+                setTaxActions[portId] = (action, player, true)
+            }
+
+            return .playerAction(name: player.name, message: "Instructed \(port.name) to change tax.")
+        default:
+            return nil
+        }
+    }
+
+    private func handle(tradeAction: PlayerAction, by player: GenericPlayer) throws -> GameMessage? {
+        switch tradeAction {
+        case .buyOrSell(let itemType, let quantity):
+            let message = GameMessage.playerAction(
+                name: player.name,
+                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemType.rawValue)")
+            if player.deviceId == deviceId {
+                return message
+            }
+            do {
+                if quantity >= 0 {
+                    try player.buy(itemType: itemType, quantity: quantity)
+                } else {
+                    try player.sell(itemType: itemType, quantity: -quantity)
+                }
+            } catch let error as TradeItemError {
+                throw PlayerActionError.invalidAction(message: error.getMessage())
+            }
+            return message
+        default:
             return nil
         }
     }
@@ -338,26 +351,24 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    func watchMasterUpdate(gameState: GenericGameState) {
-        switch state {
-        case .waitForStateUpdate:
-            break
-        default:
-            return
-        }
-        startGame()
-    }
-
     func endTurn() {
+        let currentTurn = data.currentTurn
         if let currentPlayer = currentPlayer {
-            /// TODO: Add error handling. If it throws, then encoding has failed.
             if !pendingActions.isEmpty {
                 do {
-                    try network.push(actions: pendingActions, fromPlayer: currentPlayer, forTurnNumbered: data.currentTurn) { _ in
-                        /// TODO: Add error handling
+                    try network.push(
+                        actions: pendingActions, fromPlayer: currentPlayer,
+                        forTurnNumbered: currentTurn) { [weak self] error in
+                            guard let self = self, error != nil else {
+                                return
+                            }
+                            /// Usually firebase will resend after internet connection is re-established,
+                            /// but we resend it just in-case
+                            try? self.network.push(actions: self.pendingActions, fromPlayer: currentPlayer,
+                                forTurnNumbered: currentTurn) { _ in }
                     }
                 } catch {
-                    print(error)
+                    fatalError("Unable to encode actions.")
                 }
                 pendingActions = []
             }
@@ -372,11 +383,7 @@ class TurnSystem: GenericTurnSystem {
     private func waitForTurnFinish() {
         state = .waitForTurnFinish
         let currentTurn = data.currentTurn
-        network.subscribeToActions(for: currentTurn) { [weak self] actionPair, error in
-            if let _ = error {
-                /// TODO: Error handling
-                return
-            }
+        network.subscribeToActions(for: currentTurn) { [weak self] actionPair, _ in
             self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
         }
     }
@@ -472,10 +479,6 @@ class TurnSystem: GenericTurnSystem {
             }
             //assert(gameState.description == networkGameState.description)
         }
-    }
-
-    private func waitTurnFinish() {
-
     }
 
     private func isSuccess(probability: Double) -> Bool {

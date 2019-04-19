@@ -88,20 +88,21 @@ class MainGameViewController: UIViewController {
         toggleTeamScoresButton: teamScoresWrapper,
         toggleMessagesButton: messagesView]
     private lazy var portItemsDataSource = PortItemTableController(delegate: self)
-    private lazy var availableUpgradesDataSource = AvailableUpgradesDataSource(mainController: self,
-                                                                               availableUpgrades: model.availableUpgrades)
+    private lazy var availableUpgradesDataSource =
+        AvailableUpgradesController(delegate: self,
+                                    availableUpgrades: model.availableUpgrades)
     private lazy var teamScoresController = TeamScoreTableController(tableView: teamScoreTableView,
                                                                      scores: Dictionary())
     private lazy var messagesController = MessagesTableController(tableView: messagesTableView)
-    private lazy var eventsController = EventTableController(tableView: eventTableView, events: [], mainController: self)
-    private lazy var alertController = AlertWindowController(delegate: self, wrapperView: alertPanel, messageView: alertMessageView, buttonView: acknoledgeButtonView)
+    private lazy var eventsController = EventTableController(tableView: eventTableView, events: [],
+                                                             delegate: self)
+    private lazy var alertController = AlertWindowController(delegate: self, wrapperView: alertPanel,
+                                                             messageView: alertMessageView,
+                                                             buttonView: acknoledgeButtonView)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
 
     private let storage = LocalStorage()
     private var selectedPort: Port?
-    var turnSystem: GenericTurnSystem?
-    var network: RoomConnection?
-    var backgroundData: Data?
     private var alertQueue = [UIAlertController]()
     private var model: GenericGameState {
         guard let turnSystem = turnSystem else {
@@ -109,6 +110,10 @@ class MainGameViewController: UIViewController {
         }
         return turnSystem.gameState
     }
+
+    var turnSystem: GenericTurnSystem?
+    var network: RoomConnection?
+    var backgroundData: Data?
 
     var interfaceBounds: Rect {
         return model.map.bounds
@@ -183,29 +188,6 @@ class MainGameViewController: UIViewController {
                 }
                 self.present(alert, animated: true, completion: nil)
             }
-        }
-    }
-
-    func buy(upgrade: Upgrade) {
-        guard let currentTurnOwner = currentTurnOwner else {
-            return
-        }
-
-        var msg: String?
-        var title: String? = "Error"
-        do {
-            let result = try turnSystem?.purchase(upgrade: upgrade, by: currentTurnOwner)
-            msg = result?.message
-            title = result?.title
-        } catch PlayerActionError.invalidAction(let errorMsg) {
-            msg = errorMsg
-        } catch {
-            msg = error.localizedDescription
-        }
-
-        if let msg = msg, let title = title {
-            let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg)
-            present(alert, animated: true, completion: nil)
         }
     }
 
@@ -482,7 +464,7 @@ extension MainGameViewController: UIScrollViewDelegate {
     }
 }
 
-extension MainGameViewController {
+extension MainGameViewController: EventTableControllerDelegate {
     func toggle(event: PresetEvent, enabled: Bool) {
         guard let currentTurnOwner = currentTurnOwner else {
             return
@@ -553,5 +535,30 @@ extension MainGameViewController: ObjectsViewControllerDelegate {
             || port.owner != currentTurnOwner?.team
 
         portItemsTableView.reloadData()
+    }
+}
+
+extension MainGameViewController: AvailableUpgradesControllerDelegate {
+    func buy(upgrade: Upgrade) {
+        guard let currentTurnOwner = currentTurnOwner else {
+            return
+        }
+
+        var msg: String?
+        var title: String? = "Error"
+        do {
+            let result = try turnSystem?.purchase(upgrade: upgrade, by: currentTurnOwner)
+            msg = result?.message
+            title = result?.title
+        } catch PlayerActionError.invalidAction(let errorMsg) {
+            msg = errorMsg
+        } catch {
+            msg = error.localizedDescription
+        }
+
+        if let msg = msg, let title = title {
+            let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg)
+            present(alert, animated: true, completion: nil)
+        }
     }
 }
