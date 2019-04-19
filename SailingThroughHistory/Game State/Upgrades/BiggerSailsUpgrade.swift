@@ -13,7 +13,7 @@ class BiggerSailsUpgrade: AuxiliaryUpgrade {
         return .biggerSails
     }
     override var name: String {
-        return "Cargo extension"
+        return "Bigger sails"
     }
     override var cost: Int {
         return 1000

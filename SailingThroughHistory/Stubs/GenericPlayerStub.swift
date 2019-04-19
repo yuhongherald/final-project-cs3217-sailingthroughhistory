@@ -22,7 +22,7 @@ class GenericPlayerStub: GenericPlayer {
     var deviceId: String = ""
     var map: Map?
     var gameState: GenericGameState?
-    var playerShip: Ship?
+    var playerShip: ShipAPI?
     var homeNode: Int = 0
 
     private let errorMessage = "Stub cannot perform normal actions"

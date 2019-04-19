@@ -23,7 +23,7 @@ protocol GenericPlayer: class, Codable {
     var map: Map? { get set }
     var gameState: GenericGameState? { get set }
     // for events
-    var playerShip: Ship? { get }
+    var playerShip: ShipAPI? { get }
     var homeNode: Int { get }
 
     func addShipsToMap(map: Map)

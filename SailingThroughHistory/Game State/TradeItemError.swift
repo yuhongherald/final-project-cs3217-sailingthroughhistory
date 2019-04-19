@@ -23,7 +23,7 @@ enum TradeItemError: Error {
         case .insufficientItems(let amount, let sold):
             return "Short of \(amount) items! Only \(sold) were sold."
         case .insufficientCapacity(let amount):
-            return "Short of \(amount) capacity!"
+            return "Short of \(amount) weight capacity!"
         case .itemNotAvailable:
             return "Item not available at port!"
         case .notDocked:

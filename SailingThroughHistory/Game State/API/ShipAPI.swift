@@ -8,7 +8,11 @@
 
 import Foundation
 
-protocol ShipAPI {
+protocol ShipAPI: Pirate_WeatherEntity {
+    var itemManager: ItemStorage { get }
+    var upgradeManager: Upgradable { get }
+    var navigationManager: Navigatable { get }
+
     var name: String { get }
     var isChasedByPirates: Bool { get set }
     var turnsToBeingCaught: Int { get set }
@@ -16,6 +20,7 @@ protocol ShipAPI {
     var auxiliaryUpgrade: AuxiliaryUpgrade? { get set }
 
     var nodeId: Int { get set }
+    var node: Node { get }
     var currentCargoWeight: Int { get }
     var weightCapacity: Int { get set }
     var nodeIdVariable: GameVariable<Int> { get }
@@ -26,11 +31,8 @@ protocol ShipAPI {
     var shipObject: ShipUI? { get set }
     var map: Map? { get set }
 
-    init(node: Node, suppliesConsumed: [GenericItem])
-    func setOwner(owner: GenericPlayer)
-    func setMap(map: Map)
     func startTurn()
     func endTurn(speedMultiplier: Double) -> [InfoMessage]
-    func getCurrentNode() -> Node
+    func updateCargoWeight(items: [GenericItem])
 
 }
