@@ -216,9 +216,9 @@ class LevelEditorViewController: UIViewController {
         let endView = editingAreaWrapper.hitTest(endPoint, with: nil) as? NodeView
         if endView != nil {
             destination = endView
-            destination?.highlighted(true)
+            destination?.addGlow(colored: .white)
         } else {
-            destination?.highlighted(false)
+            destination?.removeGlow()
             destination = nil
         }
         let bazier = UIBezierPath()
@@ -227,14 +227,14 @@ class LevelEditorViewController: UIViewController {
         switch sender.state {
         case .began:
             lineLayer = PathView()
-            startingNode?.highlighted(true)
+            startingNode?.addGlow(colored: .white)
             editingAreaWrapper.layer.addSublayer(lineLayer)
         case .changed:
             bazier.addLine(to: endPoint)
             lineLayer.path = bazier.cgPath
         case .ended:
-            startingNode?.highlighted(false)
-            destination?.highlighted(false)
+            startingNode?.removeGlow()
+            destination?.removeGlow()
             destination = nil
 
             guard let toNode = endView else {
