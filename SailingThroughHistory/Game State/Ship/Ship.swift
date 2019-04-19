@@ -89,7 +89,7 @@ class Ship: ShipAPI, Codable {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         nodeIdVariable = GameVariable(value: try values.decode(Int.self, forKey: .nodeID))
-        itemsConsumed = try values.decode([Item].self, forKey: .suppliesConsumed)
+        itemsConsumed = try values.decode([Item].self, forKey: .itemsConsumed)
         items.value = try values.decode([Item].self, forKey: .items)
 
         if values.contains(.auxiliaryUpgrade) {
@@ -107,13 +107,13 @@ class Ship: ShipAPI, Codable {
     }
 
     func encode(to encoder: Encoder) throws {
-        guard let suppliesConsumed = itemsConsumed as? [Item],
+        guard let itemsConsumed = itemsConsumed as? [Item],
             let shipItems = items.value as? [Item] else {
                 return
         }
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(nodeId, forKey: .nodeID)
-        try container.encode(suppliesConsumed, forKey: .suppliesConsumed)
+        try container.encode(itemsConsumed, forKey: .itemsConsumed)
         try container.encode(shipItems, forKey: .items)
         if let shipChassis = shipChassis {
             try container.encode(shipChassis.type, forKey: .shipChassis)
@@ -125,7 +125,7 @@ class Ship: ShipAPI, Codable {
 
     private enum CodingKeys: String, CodingKey {
         case nodeID
-        case suppliesConsumed
+        case itemsConsumed
         case items
         case shipChassis
         case auxiliaryUpgrade
