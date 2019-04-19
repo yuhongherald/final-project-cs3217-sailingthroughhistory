@@ -8,6 +8,5 @@
 
 protocol Trigger {
     func hasTriggered() -> Bool
-    
     func resetTrigger()
 }

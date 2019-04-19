@@ -76,8 +76,8 @@ class EventPresets {
             return playerDeathEvents[player.name]
         }
     }
-    func getEvent(id: Int) -> PresetEvent? {
-        return eventTable.getEvent(identifier: id)
+    func getEvent(withId eventId: Int) -> PresetEvent? {
+        return eventTable.getEvent(identifier: eventId)
     }
     func getEvents() -> [PresetEvent] {
         return eventTable.getAllEvents()

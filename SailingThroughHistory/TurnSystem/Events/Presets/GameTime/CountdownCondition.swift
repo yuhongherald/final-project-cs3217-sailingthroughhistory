@@ -7,8 +7,8 @@
 //
 
 class CountdownCondition: EventCondition<GameTime> {
-    init(gameTime: GameVariable<GameTime>, to: GameTime) {
+    init(gameTime: GameVariable<GameTime>, to newValue: GameTime) {
         super.init(first: GameVariableEvaluatable(variable: gameTime),
-                   second: Evaluatable(to), change: EqualOperator<GameTime>())
+                   second: Evaluatable(newValue), change: EqualOperator<GameTime>())
     }
 }

@@ -61,7 +61,6 @@ enum PlayerAction: Codable {
             try container.encode(upgradeType, forKey: .upgrade)
         case .pirate:
             try container.encode(Identifier.pirate, forKey: .type)
-            break
         case .togglePresetEvent(let eventId, let enabled):
             try container.encode(Identifier.toggleEvent, forKey: .type)
             try container.encode(enabled, forKey: .enabled)

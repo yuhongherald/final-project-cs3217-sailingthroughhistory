@@ -13,15 +13,25 @@ import FirebaseFunctions
 import Foundation
 import os
 
+/// A room connection for a room with information stored on Firebase.
 class FirebaseRoomConnection: RoomConnection {
+    /// The time in seconds before an unresponsive device is removed from the room.
     static private let deadTime: TimeInterval = 60
+    /// The device id of this device.
     private let deviceId: String
+    /// The identifier of the room master device.
     private(set) var roomMasterId: String
+    /// The number of players in this room on this device.
     private var numOfPlayers: Int
+    /// The name of the room.
     private let roomName: String
+    /// The timer used to check and update device heartbeat.
     private var heartbeatTimer: Timer?
+    /// The callback to call when this device has been removed from the room.
     private var removalCallback: (() -> Void)?
+    /// The listeners used to listen to network changes.
     private var listeners = [ListenerRegistration]()
+
     private var roomDocumentRef: DocumentReference {
         return FirestoreConstants.roomCollection.document(roomName)
     }
@@ -46,6 +56,9 @@ class FirebaseRoomConnection: RoomConnection {
         return roomDocumentRef.collection(FirestoreConstants.playersCollectionName)
     }
 
+    /// Constructor for a connection to a room with the given name.
+    ///
+    /// - Parameter roomName: The name of the room.
     init(forRoom roomName: String) {
         self.roomName = roomName
         guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
@@ -57,6 +70,9 @@ class FirebaseRoomConnection: RoomConnection {
         self.numOfPlayers = 0
     }
 
+    /// Subscibe to the removal of this device from the room.
+    ///
+    /// - Parameter removalCallback: Callback is called when this device has been removed from the room.
     private func subscribeRemoval(removalCallback: (() -> Void)?) {
         listeners.append(roomDocumentRef.addSnapshotListener { [weak self] (document, _) in
             guard let document = document, !document.exists else {
@@ -113,6 +129,11 @@ class FirebaseRoomConnection: RoomConnection {
         })
     }
 
+    /// Get connection to the room with heartbeat scheduled and registers the device onto the room in the network.
+    ///
+    /// - Parameters:
+    ///   - room: The room to join
+    ///   - callback: The callback to be called once the connection has been established.
     static func getConnection(for room: FirestoreRoom,
                               completion callback: @escaping (RoomConnection?, Error?) -> Void) {
         let connection = FirebaseRoomConnection(forRoom: room.name)
@@ -177,6 +198,9 @@ class FirebaseRoomConnection: RoomConnection {
         return self.numOfPlayers + 1
     }
 
+    /// Create the room on the network.
+    ///
+    /// - Parameter completion: called when the room has been created, or failed to be created.
     private func createRoom(completion: @escaping (Error?) -> Void) {
         let currentTime = Date().timeIntervalSince1970
         let batch = Firestore.firestore().batch()
@@ -189,6 +213,9 @@ class FirebaseRoomConnection: RoomConnection {
         batch.commit(completion: completion)
     }
 
+    /// Carries out required actions after joining the room.
+    ///
+    /// - Parameter callback: called after actions have been carried out, either successfully or unsuccesfully.
     private func postJoinActions(completion callback: @escaping (RoomConnection?, Error?) -> Void) {
         self.sendAndCheckHeartBeat { [weak self] in
             self?.subscribeRemoval(removalCallback: nil)
@@ -203,6 +230,9 @@ class FirebaseRoomConnection: RoomConnection {
         callback(self, nil)
     }
 
+    /// Sends the heartbeat for this device and then checks the heartbeat of devices on the room.
+    ///
+    /// - Parameter callback: called after the heartbeat has been sent to the network.
     private func sendAndCheckHeartBeat(completion callback: (() -> Void)?) {
         let currentTime = Date().timeIntervalSince1970
         devicesCollectionRef.document(deviceId)
@@ -212,6 +242,10 @@ class FirebaseRoomConnection: RoomConnection {
         }
     }
 
+    /// Checks the heartbeat of devices on the network and removes any that have not been responsive for the predefined
+    /// amount of time.
+    ///
+    /// - Parameter currentTime: The current time.
     private func checkHeartBeat(currentTime: TimeInterval) {
         devicesCollectionRef.getDocuments { [weak self] (snapshot, error) in
             if let error = error {
@@ -267,6 +301,9 @@ class FirebaseRoomConnection: RoomConnection {
         }
     }
 
+    /// Deletes the room with the given name
+    ///
+    /// - Parameter name: The name of the room to delete.
     static func deleteRoom(named name: String) {
         Functions.functions()
             .httpsCallable("recursiveDelete")
@@ -333,13 +370,6 @@ class FirebaseRoomConnection: RoomConnection {
 
     }
 
-    private func push(initialState: GameState, completion callback: @escaping (Error?) -> Void) throws {
-        try push(initialState,
-                 to: modelCollectionRef.document(FirestoreConstants.initialStateDocumentName),
-                 encodeErrorMsg: FirestoreConstants.encodeStateErrorMsg,
-                 completion: callback)
-    }
-
     func push(currentState: GameState, forTurn turn: Int, completion callback: @escaping (Error?) -> Void) throws {
         try push(currentState,
                  to: modelCollectionRef.document(String(turn)),
@@ -365,6 +395,12 @@ class FirebaseRoomConnection: RoomConnection {
         })
     }
 
+    /// Gets turn actions from a given query snapshot.
+    ///
+    /// - Parameters:
+    ///   - query: The QuerySnapshot from Firestore.
+    ///   - error: The error from the queyr.
+    ///   - callback: The callback to call after the snapshot has been decoded.
     private func getTurnActions(from query: QuerySnapshot?, error: Error?,
                                 callback: ([(String, [PlayerAction])], Error?) -> Void) {
         guard let snapshot = query else {
@@ -518,7 +554,6 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func disconnect() {
-        print("disconnect")
         self.heartbeatTimer?.invalidate()
         self.removeDevice(withId: deviceId)
     }

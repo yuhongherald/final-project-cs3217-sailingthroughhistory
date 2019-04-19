@@ -8,6 +8,7 @@
 
 import FirebaseFirestore
 
+/// Collection of rooms on the Firestore database.
 class FirestoreRooms: NetworkRooms {
     private var rooms = [String]()
     private var callbacks = [([String]) -> Void]()
@@ -31,7 +32,6 @@ class FirestoreRooms: NetworkRooms {
 
                 self.callbacks.forEach { $0(self.rooms) }
             })
-        print("networkRooms: \(self.rooms.count)")
     }
 
     func subscribe(with callback: @escaping ([String]) -> Void) {

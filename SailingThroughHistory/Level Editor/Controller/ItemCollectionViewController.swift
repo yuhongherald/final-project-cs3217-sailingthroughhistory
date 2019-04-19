@@ -58,7 +58,7 @@ class ItemCollectionViewController: UIViewController, UICollectionViewDataSource
 
     func initWith(port: Port) {
         self.selectedPort = port
-        self.itemTypes = port.getAllItemParameters().sorted(by: { (lhs, rhs) -> Bool in
+        self.itemParameters = port.getAllItemParameters().sorted(by: { (lhs, rhs) -> Bool in
             return lhs.rawValue < rhs.rawValue
         })
         collectionView.reloadData()

@@ -18,7 +18,6 @@ protocol GenericTurnSystem {
     func sell(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws
     func toggle(eventId: Int, enabled: Bool, by player: GenericPlayer) throws
     func purchase(upgrade: Upgrade, by player: GenericPlayer) throws -> InfoMessage?
-    func watchMasterUpdate(gameState: GenericGameState)
     func endTurn()
     func subscribeToState(with callback: @escaping (TurnSystem.State) -> Void)
     func startGame()

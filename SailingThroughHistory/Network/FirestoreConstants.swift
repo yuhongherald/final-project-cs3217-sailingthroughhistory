@@ -8,7 +8,9 @@
 
 import FirebaseFirestore
 
+/// Constants used for connection to Firestore
 enum FirestoreConstants {
+    /// The maximum image size of game background in bytes.
     static let maxImageSize: Int64 = 104857600 // 100MB
     static let firestore = Firestore.firestore()
     static let rooms = firestore.collection("Rooms")

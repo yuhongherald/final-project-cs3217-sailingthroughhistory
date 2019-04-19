@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A room connection that is locally stored on the device.
 class LocalRoomConnection: RoomConnection {
     var roomMasterId: String
     var roomMemberCallbacks = [([RoomMember]) -> Void]()

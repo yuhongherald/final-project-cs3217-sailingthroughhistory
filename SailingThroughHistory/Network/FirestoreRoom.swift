@@ -7,10 +7,12 @@
 //
 
 import FirebaseFirestore
-import FirebaseFunctions
 
+/// A room stored on Firestore.
 class FirestoreRoom: Room {
+    /// The name of the room
     let name: String
+    /// Reference to Firestore
     private let firestore: Firestore
 
     init(named name: String) {
@@ -18,6 +20,12 @@ class FirestoreRoom: Room {
         self.firestore = FirestoreConstants.firestore
     }
 
+    /// Get Room objects from a QuerySnapshot
+    ///
+    /// - Parameters:
+    ///   - snapshot: The result of the query as a QuerySnapshot
+    ///   - error: The error from the query
+    /// - Returns: The array of rooms stored in the snapshot.
     private static func processRooms(snapshot: QuerySnapshot?, error: Error?) -> [Room] {
         guard let roomDocuments = snapshot?.documents else {
             fatalError("Failed to read rooms")
@@ -31,6 +39,10 @@ class FirestoreRoom: Room {
         FirebaseRoomConnection.getConnection(for: self, completion: callback)
     }
 
+    /// Deletes a room on the network if necessary.
+    /// i.e If all the devices in the room are not responsive or the room is empty.
+    ///
+    /// - Parameter name: The name of the room.
     static func deleteIfNecessary(named name: String) {
         let devicesCollectionReference = FirestoreConstants
             .roomCollection

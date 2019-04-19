@@ -60,10 +60,6 @@ enum ItemParameter: String, Codable, CaseIterable {
 }
 
 extension ItemParameter: Hashable {
-    static func == (lhs: ItemParameter, rhs: ItemParameter) -> Bool {
-        return lhs == rhs
-    }
-
     func hash(into hasher: inout Hasher) {
         hasher.combine(self)
     }

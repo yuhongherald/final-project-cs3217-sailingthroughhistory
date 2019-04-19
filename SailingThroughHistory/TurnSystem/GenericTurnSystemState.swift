@@ -18,7 +18,7 @@ protocol GenericTurnSystemState {
     func setEvents(events: [TurnSystemEvent]) -> Bool
     func checkForEvents() -> [GameMessage]
     func getPresetEvents() -> [PresetEvent]
-    
+
     func turnFinished()
     func processed(action: PlayerAction, from player: GenericPlayer)
 }

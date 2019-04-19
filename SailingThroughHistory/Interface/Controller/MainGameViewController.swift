@@ -88,20 +88,21 @@ class MainGameViewController: UIViewController {
         toggleTeamScoresButton: teamScoresWrapper,
         toggleMessagesButton: messagesView]
     private lazy var portItemsDataSource = PortItemTableController(delegate: self)
-    private lazy var availableUpgradesDataSource = AvailableUpgradesDataSource(mainController: self,
-                                                                               availableUpgrades: model.availableUpgrades)
+    private lazy var availableUpgradesDataSource =
+        AvailableUpgradesController(delegate: self,
+                                    availableUpgrades: model.availableUpgrades)
     private lazy var teamScoresController = TeamScoreTableController(tableView: teamScoreTableView,
                                                                      scores: Dictionary())
     private lazy var messagesController = MessagesTableController(tableView: messagesTableView)
-    private lazy var eventsController = EventTableController(tableView: eventTableView, events: [], mainController: self)
-    private lazy var alertController = AlertWindowController(delegate: self, wrapperView: alertPanel, messageView: alertMessageView, buttonView: acknoledgeButtonView)
+    private lazy var eventsController = EventTableController(tableView: eventTableView, events: [],
+                                                             delegate: self)
+    private lazy var alertController = AlertWindowController(delegate: self, wrapperView: alertPanel,
+                                                             messageView: alertMessageView,
+                                                             buttonView: acknoledgeButtonView)
     private var playerItemsDataSources = [PlayerItemsTableDataSource]()
 
     private let storage = LocalStorage()
     private var selectedPort: Port?
-    var turnSystem: GenericTurnSystem?
-    var network: RoomConnection?
-    var backgroundData: Data?
     private var alertQueue = [UIAlertController]()
     private var model: GenericGameState {
         guard let turnSystem = turnSystem else {
@@ -109,6 +110,10 @@ class MainGameViewController: UIViewController {
         }
         return turnSystem.gameState
     }
+
+    var turnSystem: GenericTurnSystem?
+    var network: RoomConnection?
+    var backgroundData: Data?
 
     var interfaceBounds: Rect {
         return model.map.bounds
@@ -145,6 +150,9 @@ class MainGameViewController: UIViewController {
         }
     }
 
+    /// Update the interface for the given turn system state.
+    ///
+    /// - Parameter state: The current TurnSystem state.
     private func updateForState(_ state: TurnSystem.State) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
@@ -158,6 +166,7 @@ class MainGameViewController: UIViewController {
             self.currentTurnOwner = nil
             self.objectsController.updatePathWeather()
             self.teamScoresController.set(scores: self.model.getTeamMoney())
+            self.gameMasterPanel.isHidden = true
             switch state {
             case .waitPlayerInput(let player):
                 self.alertController.show(withMessage: "\(player.name)'s turn has started.")
@@ -186,29 +195,9 @@ class MainGameViewController: UIViewController {
         }
     }
 
-    func buy(upgrade: Upgrade) {
-        guard let currentTurnOwner = currentTurnOwner else {
-            return
-        }
-
-        var msg: String?
-        var title: String? = "Error"
-        do {
-            let result = try turnSystem?.purchase(upgrade: upgrade, by: currentTurnOwner)
-            msg = result?.message
-            title = result?.title
-        } catch PlayerActionError.invalidAction(let errorMsg) {
-            msg = errorMsg
-        } catch {
-            msg = error.localizedDescription
-        }
-
-        if let msg = msg, let title = title {
-            let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg)
-            present(alert, animated: true, completion: nil)
-        }
-    }
-
+    /// Change the desired quantity for port trade actions.
+    ///
+    /// - Parameter sender: The sender of the actions.
     @IBAction private func portQuantityChange(_ sender: UIButton) {
         var quantity = Int(portQuantityLabel.text ?? "0") ?? 0
         switch sender {
@@ -222,10 +211,17 @@ class MainGameViewController: UIViewController {
         portQuantityLabel.text = String(quantity)
     }
 
+    /// Toggles the visibility of the panel that the sender is responsible for.
+    ///
+    /// - Parameter sender: The sender of this action.
     @IBAction private func togglePanelVisibility(_ sender: UIButtonRounded) {
         togglablePanels[sender]?.isHidden.toggle()
     }
 
+    /// Toggles the visibility of the action panel, depending on who's turn it currently is. If it is a game master,
+    /// then the game master panel will be shown. If it is a normal player, the normal player's interface will be shown.
+    ///
+    /// - Parameter sender: The sender of tihis action.
     @IBAction private func toggleActionPanelVisibility(_ sender: UIButtonRounded) {
         guard let currentTurnOwner = currentTurnOwner else {
             actionPanelView.isHidden = true
@@ -241,10 +237,16 @@ class MainGameViewController: UIViewController {
         }
     }
 
+    /// Hides the port information panel.
+    ///
+    /// - Parameter sender: The sender of this action.
     @IBAction private func hidePortInformationPressed(_ sender: Any) {
         portInformationView.isHidden = true
     }
 
+    /// Shows the set tax dialog for the user to change the tax of this port.
+    ///
+    /// - Parameter sender: The sender of this action.
     @IBAction private func setTaxButtonPressed(_ sender: UIButtonRounded) {
         guard let player = currentTurnOwner,
             let port = selectedPort else {
@@ -284,6 +286,9 @@ class MainGameViewController: UIViewController {
         present(alert2, animated: true, completion: nil)
     }
 
+    /// Roll dice and show the ports that the player can travel to.
+    ///
+    /// - Parameter sender: The sender of this action.
     @IBAction private func rollDiceButtonPressed(_ sender: UIButtonRounded) {
         let randomLength = 5
         sender.isEnabled = false
@@ -311,6 +316,10 @@ class MainGameViewController: UIViewController {
         }
     }
 
+    /// Called when game area is tapped, if a port is tapped, the information for that port is shown. If the current
+    /// player has rolled, then he will be shown a confirmation dialogue for moving to that node.
+    ///
+    /// - Parameter sender: <#sender description#>
     @IBAction private func onTapGameArea(_ sender: UITapGestureRecognizer) {
         let view = gameArea.hitTest(sender.location(in: gameArea), with: nil)
         guard let nodeView = view as? NodeView else {
@@ -320,7 +329,7 @@ class MainGameViewController: UIViewController {
         guard let currentTurnOwner = currentTurnOwner else {
             return
         }
-        if !currentTurnOwner.hasRolled {
+        if !currentTurnOwner.hasRolled || !currentTurnOwner.roll().1.contains(nodeId) {
             return
         }
         let name = nodeView.node.name
@@ -329,18 +338,25 @@ class MainGameViewController: UIViewController {
             okAction: { [weak self] in
                 do {
                     try self?.turnSystem?.selectForMovement(nodeId: nodeId, by: currentTurnOwner)
+                    self?.turnSystem?.endTurn()
                 } catch {
-                    let alert = ControllerUtils.getGenericAlert(titled: "Error", withMsg: "Please try again.")
+                    let alert = ControllerUtils.getGenericAlert(titled: "Error",
+                                                                withMsg: "Please try again with a glowing node.")
                     self?.present(alert, animated: true, completion: nil)
                 }
-                self?.turnSystem?.endTurn()
             }, cancelAction: nil)
 
         present(alert, animated: true, completion: nil)
     }
 
     @IBAction func gmEndTurnPressed(_ sender: Any) {
-        turnSystem?.endTurn()
+        let alert = ControllerUtils.getConfirmationAlert(title: "Confirmation",
+                                                         desc: "Are you sure you would like to end your turn?",
+            okAction: { [weak self] in
+                self?.turnSystem?.endTurn()
+            }, cancelAction: nil)
+
+        present(alert, animated: true, completion: nil)
     }
 
     private func initBackground() {
@@ -438,9 +454,13 @@ class MainGameViewController: UIViewController {
         func animatePlayerTurnStart() {
             if player.isGameMaster {
                 gameMasterPanel.isHidden = false
+                playerInfoWrapper.isHidden = true
+                togglePlayerInfoButton.isHidden = true
                 eventsController.set(events: turnSystem.getPresetEvents())
             } else {
                 gameMasterPanel.isHidden = true
+                playerInfoWrapper.isHidden = false
+                togglePlayerInfoButton.isHidden = false
                 actionPanelView.isHidden = false
                 objectsController.makeShipGlow(for: player)
                 availableUpgradesDataSource.enabled = player.canBuyUpgrade()
@@ -482,7 +502,7 @@ extension MainGameViewController: UIScrollViewDelegate {
     }
 }
 
-extension MainGameViewController {
+extension MainGameViewController: EventTableControllerDelegate {
     func toggle(event: PresetEvent, enabled: Bool) {
         guard let currentTurnOwner = currentTurnOwner else {
             return
@@ -553,5 +573,30 @@ extension MainGameViewController: ObjectsViewControllerDelegate {
             || port.owner != currentTurnOwner?.team
 
         portItemsTableView.reloadData()
+    }
+}
+
+extension MainGameViewController: AvailableUpgradesControllerDelegate {
+    func buy(upgrade: Upgrade) {
+        guard let currentTurnOwner = currentTurnOwner else {
+            return
+        }
+
+        var msg: String?
+        var title: String? = "Error"
+        do {
+            let result = try turnSystem?.purchase(upgrade: upgrade, by: currentTurnOwner)
+            msg = result?.message
+            title = result?.title
+        } catch PlayerActionError.invalidAction(let errorMsg) {
+            msg = errorMsg
+        } catch {
+            msg = error.localizedDescription
+        }
+
+        if let msg = msg, let title = title {
+            let alert = ControllerUtils.getGenericAlert(titled: title, withMsg: msg)
+            present(alert, animated: true, completion: nil)
+        }
     }
 }
