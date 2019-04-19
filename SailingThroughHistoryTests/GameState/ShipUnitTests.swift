@@ -28,6 +28,11 @@ class ShipUnitTests: XCTestCase {
         itemsConsumed.append(consumed1)
     }
 
+    override class func tearDown() {
+        Node.nextID = 0
+        Node.reuseID.removeAll()
+    }
+
     func testConstructor() {
         //init(node: Node, itemsConsumed: [GenericItem])
         let ship = Ship(node: node, itemsConsumed: itemsConsumed)
@@ -119,11 +124,6 @@ class ShipUnitTests: XCTestCase {
 
             message: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!"))
         }*/
-    }
-
-    override class func tearDown() {
-        Node.nextID = 0
-        Node.reuseID.removeAll()
     }
 
     private func testTwoGenericItemArray(_ array1: [GenericItem], _ array2: [GenericItem]) -> Bool {
