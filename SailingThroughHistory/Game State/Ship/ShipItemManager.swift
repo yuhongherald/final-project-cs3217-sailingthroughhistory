@@ -96,7 +96,7 @@ class ShipItemManager: ItemStorage {
     private func addItem(ship: ShipAPI, item: GenericItem) throws {
         let difference = getRemainingCapacity(ship: ship) - (item.weight ?? 0)
         guard difference >= 0 else {
-            throw TradeItemError.insufficientFunds(shortOf: difference)
+            throw TradeItemError.insufficientCapacity(shortOf: difference)
         }
         guard let sameType = ship.items.value.first(where: { $0.itemParameter == item.itemParameter }) else {
             ship.items.value.append(item)
