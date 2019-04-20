@@ -153,7 +153,7 @@ class MainGameViewController: UIViewController {
     /// Update the interface for the given turn system state.
     ///
     /// - Parameter state: The current TurnSystem state.
-    private func updateForState(_ state: TurnSystem.State) {
+    private func updateForState(_ state: TurnSystemNetwork.State) {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
                 let turnSystem = self.turnSystem else {
@@ -556,7 +556,7 @@ extension MainGameViewController: PortItemTableControllerDelegate {
 
 extension MainGameViewController: AlertWindowDelegate {
     func acknoledgePressed() {
-        turnSystem?.acknoledgeTurnStart()
+        turnSystem?.acknowledgeTurnStart()
     }
 }
 

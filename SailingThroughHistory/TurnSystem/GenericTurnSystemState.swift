@@ -20,5 +20,4 @@ protocol GenericTurnSystemState {
     func getPresetEvents() -> [PresetEvent]
 
     func turnFinished()
-    func processed(action: PlayerAction, from player: GenericPlayer)
 }

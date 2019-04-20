@@ -71,9 +71,4 @@ class TurnSystemState: GenericTurnSystemState {
         currentTurn += 1
         gameState.gameTime.value.addWeeks(4)
     }
-
-    // marked for deprecation
-    func processed(action: PlayerAction, from player: GenericPlayer) {
-        actionHistory.append((player: player, action: action))
-    }
 }

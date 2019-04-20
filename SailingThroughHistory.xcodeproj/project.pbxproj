@@ -49,9 +49,6 @@
 		751F8FE0224BA97A0071C057 /* GenericComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FDF224BA97A0071C057 /* GenericComparator.swift */; };
 		751F8FE2224BAA420071C057 /* SerializableGameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FE1224BAA420071C057 /* SerializableGameObject.swift */; };
 		751F8FE4224BAE100071C057 /* TurnSystemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FE3224BAE100071C057 /* TurnSystemState.swift */; };
-		751F8FE6224BAEA30071C057 /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FE5224BAEA30071C057 /* NetworkAdapter.swift */; };
-		751F8FE8224BAEBD0071C057 /* GenericNetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FE7224BAEBD0071C057 /* GenericNetworkAdapter.swift */; };
-		751F8FEA224BAF0E0071C057 /* GenericNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FE9224BAF0E0071C057 /* GenericNetworkSession.swift */; };
 		751F8FEC224BB11B0071C057 /* ComparableOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FEB224BB11B0071C057 /* ComparableOp.swift */; };
 		751F8FEE224BB2170071C057 /* Printable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FED224BB2170071C057 /* Printable.swift */; };
 		752D2BD8225F8E8900A3411C /* PresetEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752D2BD7225F8E8900A3411C /* PresetEvent.swift */; };
@@ -94,14 +91,17 @@
 		7559898522422493004037E6 /* Int+Lerp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7559898422422493004037E6 /* Int+Lerp.swift */; };
 		755FD973224E842000D83D4B /* EventAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD972224E842000D83D4B /* EventAction.swift */; };
 		755FD977224E85A600D83D4B /* GenericOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755FD976224E85A600D83D4B /* GenericOperator.swift */; };
+		75657242226AC6D8002CDB41 /* TurnSystemNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657241226AC6D8002CDB41 /* TurnSystemNetwork.swift */; };
+		75657244226AC77E002CDB41 /* GameMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657243226AC77E002CDB41 /* GameMessenger.swift */; };
+		75657246226AC8F9002CDB41 /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657245226AC8F9002CDB41 /* Messenger.swift */; };
+		75657248226AC907002CDB41 /* EventSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657247226AC907002CDB41 /* EventSystem.swift */; };
+		7565724A226AE28B002CDB41 /* PlayerActionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657249226AE28B002CDB41 /* PlayerActionAdapter.swift */; };
 		7581AED1225C4CF1001A8CC3 /* GameTime+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AED0225C4CF1001A8CC3 /* GameTime+Equatable.swift */; };
 		7581AED5225C4F63001A8CC3 /* MonthWithin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AED4225C4F62001A8CC3 /* MonthWithin.swift */; };
 		7581AEDB225C53D8001A8CC3 /* VolatileMonsoon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEDA225C53D8001A8CC3 /* VolatileMonsoon.swift */; };
 		7581AEDD225C5602001A8CC3 /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEDC225C5602001A8CC3 /* Trigger.swift */; };
 		7581AEDF225C563E001A8CC3 /* Evaluate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEDE225C563E001A8CC3 /* Evaluate.swift */; };
 		7581AEE1225C5664001A8CC3 /* Modify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEE0225C5664001A8CC3 /* Modify.swift */; };
-		7581AEE3225C5B84001A8CC3 /* TurnSystemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEE2225C5B84001A8CC3 /* TurnSystemController.swift */; };
-		7581AEE5225C5BEC001A8CC3 /* NetworkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEE4225C5BEC001A8CC3 /* NetworkInfo.swift */; };
 		7581AEE7225C5F6A001A8CC3 /* BAEEvaluatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEE6225C5F6A001A8CC3 /* BAEEvaluatable.swift */; };
 		7581AEE9225C6385001A8CC3 /* MultiplyOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEE8225C6385001A8CC3 /* MultiplyOperator.swift */; };
 		7581AEEB225C6392001A8CC3 /* DivideOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEEA225C6392001A8CC3 /* DivideOperator.swift */; };
@@ -311,9 +311,6 @@
 		751F8FDF224BA97A0071C057 /* GenericComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericComparator.swift; sourceTree = "<group>"; };
 		751F8FE1224BAA420071C057 /* SerializableGameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializableGameObject.swift; sourceTree = "<group>"; };
 		751F8FE3224BAE100071C057 /* TurnSystemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemState.swift; sourceTree = "<group>"; };
-		751F8FE5224BAEA30071C057 /* NetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAdapter.swift; sourceTree = "<group>"; };
-		751F8FE7224BAEBD0071C057 /* GenericNetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkAdapter.swift; sourceTree = "<group>"; };
-		751F8FE9224BAF0E0071C057 /* GenericNetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkSession.swift; sourceTree = "<group>"; };
 		751F8FEB224BB11B0071C057 /* ComparableOp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparableOp.swift; sourceTree = "<group>"; };
 		751F8FED224BB2170071C057 /* Printable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printable.swift; sourceTree = "<group>"; };
 		752D2BD7225F8E8900A3411C /* PresetEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetEvent.swift; sourceTree = "<group>"; };
@@ -356,14 +353,17 @@
 		7559898422422493004037E6 /* Int+Lerp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Lerp.swift"; sourceTree = "<group>"; };
 		755FD972224E842000D83D4B /* EventAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAction.swift; sourceTree = "<group>"; };
 		755FD976224E85A600D83D4B /* GenericOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericOperator.swift; sourceTree = "<group>"; };
+		75657241226AC6D8002CDB41 /* TurnSystemNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemNetwork.swift; sourceTree = "<group>"; };
+		75657243226AC77E002CDB41 /* GameMessenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMessenger.swift; sourceTree = "<group>"; };
+		75657245226AC8F9002CDB41 /* Messenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger.swift; sourceTree = "<group>"; };
+		75657247226AC907002CDB41 /* EventSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSystem.swift; sourceTree = "<group>"; };
+		75657249226AE28B002CDB41 /* PlayerActionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerActionAdapter.swift; sourceTree = "<group>"; };
 		7581AED0225C4CF1001A8CC3 /* GameTime+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameTime+Equatable.swift"; sourceTree = "<group>"; };
 		7581AED4225C4F62001A8CC3 /* MonthWithin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthWithin.swift; sourceTree = "<group>"; };
 		7581AEDA225C53D8001A8CC3 /* VolatileMonsoon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileMonsoon.swift; sourceTree = "<group>"; };
 		7581AEDC225C5602001A8CC3 /* Trigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
 		7581AEDE225C563E001A8CC3 /* Evaluate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluate.swift; sourceTree = "<group>"; };
 		7581AEE0225C5664001A8CC3 /* Modify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modify.swift; sourceTree = "<group>"; };
-		7581AEE2225C5B84001A8CC3 /* TurnSystemController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemController.swift; sourceTree = "<group>"; };
-		7581AEE4225C5BEC001A8CC3 /* NetworkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfo.swift; sourceTree = "<group>"; };
 		7581AEE6225C5F6A001A8CC3 /* BAEEvaluatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BAEEvaluatable.swift; sourceTree = "<group>"; };
 		7581AEE8225C6385001A8CC3 /* MultiplyOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplyOperator.swift; sourceTree = "<group>"; };
 		7581AEEA225C6392001A8CC3 /* DivideOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivideOperator.swift; sourceTree = "<group>"; };
@@ -619,6 +619,7 @@
 		751F8FDA224B9D600071C057 /* TurnSystem */ = {
 			isa = PBXGroup;
 			children = (
+				7565724B226AE6BB002CDB41 /* Messenger */,
 				752D2BDD225FA31B00A3411C /* GameMessage */,
 				75354485224CAF2A001B4F62 /* TurnSystem.md */,
 				75354459224CA552001B4F62 /* Events */,
@@ -633,8 +634,8 @@
 				9684669E2264AD2A00BDA989 /* EngineConstants.swift */,
 				751F8FDB224BA2A90071C057 /* GenericTurnSystem.swift */,
 				75354457224CA4AB001B4F62 /* GenericTurnSystemState.swift */,
-				7581AEE2225C5B84001A8CC3 /* TurnSystemController.swift */,
-				7581AEE4225C5BEC001A8CC3 /* NetworkInfo.swift */,
+				75657247226AC907002CDB41 /* EventSystem.swift */,
+				75657249226AE28B002CDB41 /* PlayerActionAdapter.swift */,
 			);
 			path = TurnSystem;
 			sourceTree = "<group>";
@@ -642,9 +643,7 @@
 		751F8FEF224BB2590071C057 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				751F8FE7224BAEBD0071C057 /* GenericNetworkAdapter.swift */,
-				751F8FE9224BAF0E0071C057 /* GenericNetworkSession.swift */,
-				751F8FE5224BAEA30071C057 /* NetworkAdapter.swift */,
+				75657241226AC6D8002CDB41 /* TurnSystemNetwork.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -673,6 +672,8 @@
 		752D2BDD225FA31B00A3411C /* GameMessage */ = {
 			isa = PBXGroup;
 			children = (
+				75657243226AC77E002CDB41 /* GameMessenger.swift */,
+				75657245226AC8F9002CDB41 /* Messenger.swift */,
 				752D2BDB225F976100A3411C /* GameMessage.swift */,
 				752D2BDE225FA35700A3411C /* Parsable.swift */,
 			);
@@ -815,6 +816,13 @@
 				7581AEEA225C6392001A8CC3 /* DivideOperator.swift */,
 			);
 			path = Arithmetic;
+			sourceTree = "<group>";
+		};
+		7565724B226AE6BB002CDB41 /* Messenger */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Messenger;
 			sourceTree = "<group>";
 		};
 		7581AECA225AF915001A8CC3 /* Supporting Classes */ = {
@@ -1500,7 +1508,6 @@
 				96E0745D225250E20068406B /* GameRoom.swift in Sources */,
 				1A7EFF24225E080D00B753D4 /* WaitingRoomCell.swift in Sources */,
 				BA6FBBD9225A22FE00B366DB /* InfoMessage.swift in Sources */,
-				7581AEE5225C5BEC001A8CC3 /* NetworkInfo.swift in Sources */,
 				BA485900223F89F7009ED2F6 /* Item.swift in Sources */,
 				96CEB957224DFA0E00B027BA /* NetworkFactory.swift in Sources */,
 				9603F782224A9748007D54E0 /* Room.swift in Sources */,
@@ -1512,7 +1519,6 @@
 				7538CAFD2255ECC600EB9B1F /* HeavyMonsoonEvent.swift in Sources */,
 				BA6FBBDD225C82A700B366DB /* MovementError.swift in Sources */,
 				1A9FF08C224030E000005FCB /* Map.swift in Sources */,
-				751F8FE8224BAEBD0071C057 /* GenericNetworkAdapter.swift in Sources */,
 				1ABBA2312265ADFE00222E7A /* UIImageView+Icon.swift in Sources */,
 				966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */,
 				BAB3379922624D7B007A0C05 /* GameMaster.swift in Sources */,
@@ -1557,6 +1563,7 @@
 				965E033E223A8EBA005F7D79 /* PirateIsland.swift in Sources */,
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
+				75657242226AC6D8002CDB41 /* TurnSystemNetwork.swift in Sources */,
 				BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */,
 				966FAD6A2268E1D8000B48AC /* AlertWindowDelegate.swift in Sources */,
 				9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */,
@@ -1616,25 +1623,24 @@
 				7538CAF02255137600EB9B1F /* TradeItemError.swift in Sources */,
 				9670E9202261D31600E8A01F /* MessagesTableController.swift in Sources */,
 				751F8FEE224BB2170071C057 /* Printable.swift in Sources */,
-				751F8FEA224BAF0E0071C057 /* GenericNetworkSession.swift in Sources */,
 				7535449E224CCB34001B4F62 /* BaseGameObject.swift in Sources */,
 				7581AEF7225C879A001A8CC3 /* GameVariableEvaluatable.swift in Sources */,
-				751F8FE6224BAEA30071C057 /* NetworkAdapter.swift in Sources */,
 				1A53D7C6224CA5FE00FAE214 /* Team.swift in Sources */,
 				753A0E86226055B700A1EA99 /* PirateAction.swift in Sources */,
 				1A53D7C82251C44A00FAE214 /* PathView.swift in Sources */,
 				9683C290225D284600E30387 /* AvailableUpgradesController.swift in Sources */,
 				7581AED1225C4CF1001A8CC3 /* GameTime+Equatable.swift in Sources */,
 				BAB3378222605D35007A0C05 /* HistoryFactAction.swift in Sources */,
-				7581AEE3225C5B84001A8CC3 /* TurnSystemController.swift in Sources */,
 				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */,
 				96707469226254810056D81D /* LocalRoomConnection.swift in Sources */,
 				7535447F224CAC72001B4F62 /* ConditionComparable.swift in Sources */,
 				1A9FF0962240C03A00005FCB /* PlayerTableViewCell.swift in Sources */,
+				75657246226AC8F9002CDB41 /* Messenger.swift in Sources */,
 				9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */,
 				1A53D7C4224CA45100FAE214 /* GenericTeam.swift in Sources */,
+				7565724A226AE28B002CDB41 /* PlayerActionAdapter.swift in Sources */,
 				752D2BDF225FA35700A3411C /* Parsable.swift in Sources */,
 				751F8FEC224BB11B0071C057 /* ComparableOp.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
@@ -1647,6 +1653,7 @@
 				BAB3379422624CA1007A0C05 /* Navigatable.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */,
+				75657248226AC907002CDB41 /* EventSystem.swift in Sources */,
 				7581AEEB225C6392001A8CC3 /* DivideOperator.swift in Sources */,
 				7581AEE9225C6385001A8CC3 /* MultiplyOperator.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
@@ -1667,6 +1674,7 @@
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
 				BA6FBBD5225A108900B366DB /* BiggerSailsUpgrade.swift in Sources */,
 				968D6F0A2264D42A009552B1 /* EventTableController.swift in Sources */,
+				75657244226AC77E002CDB41 /* GameMessenger.swift in Sources */,
 				96E0745922524FA10068406B /* WaitingRoomViewController.swift in Sources */,
 				755FD977224E85A600D83D4B /* GenericOperator.swift in Sources */,
 				1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */,

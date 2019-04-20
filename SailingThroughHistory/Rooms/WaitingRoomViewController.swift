@@ -100,10 +100,17 @@ class WaitingRoomViewController: UIViewController {
             return
         }
 
-        let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(),
-                                network: roomConnection,
-                                startingState: initialState,
-                                deviceId: self.getWaitingRoom().identifier)
+        let messenger = Messenger()
+        let isMaster = getWaitingRoom().isRoomMaster()
+        let turnSystemState = TurnSystemState(gameState: initialState, joinOnTurn: 0)
+        let system = TurnSystem(network: TurnSystemNetwork(
+                                    roomConnection: roomConnection,
+                                    isMaster: isMaster,
+                                    deviceId: self.getWaitingRoom().identifier,
+                                    turnSystemState: turnSystemState,
+                                    messenger: messenger),
+                                startingState: turnSystemState,
+                                messenger: messenger)
         gameController.turnSystem = system
         gameController.network = roomConnection
         gameController.backgroundData = imageData
