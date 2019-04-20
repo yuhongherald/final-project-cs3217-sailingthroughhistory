@@ -859,6 +859,9 @@
                                     <action selector="backButtonPressed:" destination="hud-2E-hMt" eventType="touchUpInside" id="ClM-Pm-vP0"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bEE-d9-lO9">
+                                <rect key="frame" x="0.0" y="24" width="1366" height="980"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -867,6 +870,7 @@
                             <constraint firstItem="hyP-nU-ABg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I1d-80-XYE" secondAttribute="bottom" constant="20" id="6ne-69-gwq"/>
                             <constraint firstItem="g2h-Qs-FWy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g0f-gp-77X" secondAttribute="trailing" constant="8" symbolic="YES" id="7dW-SV-XEr"/>
                             <constraint firstItem="I1d-80-XYE" firstAttribute="leading" secondItem="LsN-TD-6NW" secondAttribute="leading" id="Idf-wt-SdB"/>
+                            <constraint firstItem="bEE-d9-lO9" firstAttribute="leading" secondItem="LsN-TD-6NW" secondAttribute="leading" id="Llu-w7-qYC"/>
                             <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="g2h-Qs-FWy" secondAttribute="bottom" constant="20" id="MUB-HE-zbX"/>
                             <constraint firstItem="I1d-80-XYE" firstAttribute="top" secondItem="LsN-TD-6NW" secondAttribute="top" id="OWb-zV-Tzf"/>
                             <constraint firstItem="g0f-gp-77X" firstAttribute="top" secondItem="I1d-80-XYE" secondAttribute="bottom" constant="20" id="QAe-6Z-JCr"/>
@@ -874,15 +878,19 @@
                             <constraint firstItem="I1d-80-XYE" firstAttribute="trailing" secondItem="LsN-TD-6NW" secondAttribute="trailing" id="Sb8-Bo-Xft"/>
                             <constraint firstItem="hyP-nU-ABg" firstAttribute="leading" secondItem="LsN-TD-6NW" secondAttribute="leading" constant="20" id="Vwh-63-O4K"/>
                             <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="qrm-2o-EiA" secondAttribute="bottom" constant="20" id="aah-tv-QSI"/>
+                            <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="bEE-d9-lO9" secondAttribute="bottom" id="gEd-Nd-0ku"/>
                             <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="g0f-gp-77X" secondAttribute="bottom" constant="20" id="hLi-4E-3Dk"/>
                             <constraint firstItem="qrm-2o-EiA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I1d-80-XYE" secondAttribute="bottom" constant="20" id="hhh-Xa-M3S"/>
                             <constraint firstItem="LsN-TD-6NW" firstAttribute="bottom" secondItem="hyP-nU-ABg" secondAttribute="bottom" constant="20" id="hlT-um-g13"/>
                             <constraint firstItem="g2h-Qs-FWy" firstAttribute="top" relation="greaterThanOrEqual" secondItem="I1d-80-XYE" secondAttribute="bottom" constant="20" id="jFY-MU-jGo"/>
                             <constraint firstItem="qrm-2o-EiA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="g2h-Qs-FWy" secondAttribute="trailing" constant="8" symbolic="YES" id="ngC-9w-W9e"/>
+                            <constraint firstItem="bEE-d9-lO9" firstAttribute="top" secondItem="LsN-TD-6NW" secondAttribute="top" id="upN-fm-IG5"/>
+                            <constraint firstItem="bEE-d9-lO9" firstAttribute="trailing" secondItem="LsN-TD-6NW" secondAttribute="trailing" id="vx5-QF-6zh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LsN-TD-6NW"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="bEE-d9-lO9" id="fUg-KQ-qZe"/>
                         <outlet property="backButton" destination="hyP-nU-ABg" id="sxU-SJ-2YJ"/>
                         <outlet property="chooseLevelButton" destination="g0f-gp-77X" id="DS7-c6-FTB"/>
                         <outlet property="joinPlayerButton" destination="qrm-2o-EiA" id="gyh-9L-Yce"/>

@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-class PlayerActionAdapter {
+class PlayerActionAdapter: GenericPlayerActionAdapter {
     /// Throws if action is invalid
     /// For server actions only
 
@@ -94,7 +94,7 @@ class PlayerActionAdapter {
             return nil
         }
     }
-    
+
     func register(portTaxAction action: PlayerAction,
                   by player: GenericPlayer) throws -> GameMessage? {
         switch action {

@@ -19,18 +19,21 @@ class TurnSystem: GenericTurnSystem {
             data.messages = newValue
         }
     }
-
-    let network: TurnSystemNetwork
-    let data: GenericTurnSystemState
     var gameState: GenericGameState {
         return data.gameState
     }
 
-    init(network: TurnSystemNetwork,
-         startingState: GenericTurnSystemState) {
-        self.data = startingState
+    let network: GenericTurnSystemNetwork
+    let data: GenericTurnSystemState
+    let playerInputController: GenericPlayerInputController
+
+    init(network: GenericTurnSystemNetwork,
+         playerInputControllerFactory: GenericPlayerInputControllerFactory) {
+        self.data = network.data
         self.network = network
-        self.eventPresets = EventPresets(gameState: startingState.gameState, turnSystem: self)
+        self.playerInputController = playerInputControllerFactory.create(
+            network: network, data: self.data)
+        self.eventPresets = EventPresets(gameState: self.data.gameState, turnSystem: self)
 
         if let eventPresets = self.eventPresets {
             _ = self.data.addEvents(events: eventPresets.getEvents())
@@ -57,7 +60,7 @@ class TurnSystem: GenericTurnSystem {
 
     // MARK: - Player actions
     func roll(for player: GenericPlayer) throws -> (Int, [Int]) {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
 
         if player.hasRolled {
             throw PlayerActionError.invalidAction(message: "Player has already rolled!")
@@ -66,7 +69,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func selectForMovement(nodeId: Int, by player: GenericPlayer) throws {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         if !player.hasRolled {
             throw PlayerActionError.invalidAction(message: "Player has not rolled!")
         }
@@ -91,7 +94,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func setTax(for portId: Int, to amount: Int, by player: GenericPlayer) throws {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         guard let port = gameState.map.nodeIDPair[portId] as? Port else {
             throw PlayerActionError.invalidAction(message: "Port does not exist")
         }
@@ -103,7 +106,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func buy(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
         }
@@ -114,7 +117,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func sell(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
         }
@@ -132,7 +135,7 @@ class TurnSystem: GenericTurnSystem {
         guard let event = data.events[eventId] as? PresetEvent else {
             throw PlayerActionError.invalidAction(message: "Event does not exist")
         }
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         if !player.isGameMaster {
             throw PlayerActionError.invalidAction(message: "You are not a game master.")
         }
@@ -141,7 +144,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func purchase(upgrade: Upgrade, by player: GenericPlayer) throws -> InfoMessage? {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         if !player.canBuyUpgrade() {
             throw PlayerActionError.invalidAction(message: "Not allowed to buy upgrades now.")
         }
@@ -160,7 +163,7 @@ class TurnSystem: GenericTurnSystem {
         guard let player = network.currentPlayer else {
             return
         }
-        startPlayerInput(from: player)
+        playerInputController.startPlayerInput(from: player)
     }
 
     func endTurn() {
@@ -181,29 +184,5 @@ class TurnSystem: GenericTurnSystem {
 
     private func isSuccess(probability: Double) -> Bool {
         return Double(arc4random()) / Double(UINT32_MAX) < probability
-    }
-
-    // extract to InputController
-    private func checkInputAllowed(from player: GenericPlayer) throws {
-        switch network.state {
-        case .playerInput(let curPlayer, _):
-            if player != curPlayer {
-                throw PlayerActionError.wrongPhase(message: "Please wait for your turn")
-            }
-        default:
-            throw PlayerActionError.wrongPhase(message: "Action called on wrong phase")
-        }
-    }
-
-    private func startPlayerInput(from player: GenericPlayer) {
-        let endTime = Date().timeIntervalSince1970 + GameConstants.playerTurnDuration
-        let turnNum = data.currentTurn
-        DispatchQueue.global().asyncAfter(deadline: .now() + GameConstants.playerTurnDuration) { [weak self] in
-            if player == self?.network.currentPlayer && self?.data.currentTurn == turnNum {
-                self?.network.endTurn()
-            }
-        }
-
-        network.state = .playerInput(from: player, endTime: endTime)
     }
 }
