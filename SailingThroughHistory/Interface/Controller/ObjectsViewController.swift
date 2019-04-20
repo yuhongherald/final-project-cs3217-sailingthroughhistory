@@ -13,7 +13,7 @@ class ObjectsViewController {
     private var objectViews = [GameObject: UIImageView]()
     private weak var delegate: ObjectsViewControllerDelegate?
     private var nodeViews = [Int: NodeView]()
-    private var paths = ObjectPaths()
+    private var paths = NodePaths()
     private var pathLayers = [Path: CAShapeLayer]()
     private var objectQueues = [GameObject: DispatchQueue]()
     private let view: UIView

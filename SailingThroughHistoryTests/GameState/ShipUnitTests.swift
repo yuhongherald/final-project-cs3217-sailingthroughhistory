@@ -20,11 +20,11 @@ class ShipUnitTests: XCTestCase {
         node = NodeStub(name: "testNode", identifier: 0)
 
         items = [GenericItemStub]()
-        let item1 = GenericItemStub(name: "TestItem1", itemType: .opium, quantity: 1)
+        let item1 = GenericItemStub(name: "TestItem1", itemParameter: .opium, quantity: 1)
         items.append(item1)
 
         itemsConsumed = [GenericItemStub]()
-        let consumed1 = GenericItemStub(name: "TestConsume1", itemType: .food, quantity: 1)
+        let consumed1 = GenericItemStub(name: "TestConsume1", itemParameter: .food, quantity: 1)
         itemsConsumed.append(consumed1)
     }
 
