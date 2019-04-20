@@ -247,7 +247,7 @@ class ShipItemStorageUnitTests: XCTestCase {
             try itemStorage.buyItem(ship: ship7, itemParameter: itemParameter, quantity: quantity)
             let combinedItem = Item(itemParameter: itemParameter, quantity: quantity + item.quantity)
             XCTAssertTrue(testTwoGenericItemArray(ship7.items.value, [combinedItem]))
-            XCTAssertEqual(owner7.money.value, 100000 - item.quantity * itemValue)
+            XCTAssertEqual(owner7.money.value, 100000 - quantity * itemValue)
         }
     }
 
