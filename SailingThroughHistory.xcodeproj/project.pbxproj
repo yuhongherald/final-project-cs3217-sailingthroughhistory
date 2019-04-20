@@ -184,7 +184,7 @@
 		9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5D2223A4875005291EE /* LaunchScreen.storyboard */; };
 		9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */; };
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
-		9694C291226A50DC006913E0 /* ObjectPathTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C290226A50DC006913E0 /* ObjectPathTest.swift */; };
+		9694C291226A50DC006913E0 /* NodePathsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C290226A50DC006913E0 /* NodePathsTest.swift */; };
 		9694C294226A50ED006913E0 /* RectTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C293226A50ED006913E0 /* RectTest.swift */; };
 		9694C29A226A5145006913E0 /* LocalRoomConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C299226A5145006913E0 /* LocalRoomConnectionTest.swift */; };
 		969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */; };
@@ -454,7 +454,7 @@
 		9690F5E5223A4875005291EE /* SailingThroughHistoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailingThroughHistoryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SailingThroughHistoryUITests.swift; sourceTree = "<group>"; };
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9694C290226A50DC006913E0 /* ObjectPathTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPathTest.swift; sourceTree = "<group>"; };
+		9694C290226A50DC006913E0 /* NodePathsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodePathsTest.swift; sourceTree = "<group>"; };
 		9694C293226A50ED006913E0 /* RectTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectTest.swift; sourceTree = "<group>"; };
 		9694C299226A5145006913E0 /* LocalRoomConnectionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoomConnectionTest.swift; sourceTree = "<group>"; };
 		969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlurredBackgroundView.swift; sourceTree = "<group>"; };
@@ -1033,8 +1033,8 @@
 				9694C28E226A50B2006913E0 /* Interface */,
 				1ABBA2192263D5F800222E7A /* GameParameter */,
 				BAB3378C2262274D007A0C05 /* GameState */,
-				9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */,
 				9690F5E0223A4875005291EE /* Info.plist */,
+				9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */,
 				759A5EE422507E1100724BEB /* TurnSystemTest.swift */,
 			);
 			path = SailingThroughHistoryTests;
@@ -1060,7 +1060,7 @@
 		9694C28F226A50B9006913E0 /* ADT */ = {
 			isa = PBXGroup;
 			children = (
-				9694C290226A50DC006913E0 /* ObjectPathTest.swift */,
+				9694C290226A50DC006913E0 /* NodePathsTest.swift */,
 				9694C293226A50ED006913E0 /* RectTest.swift */,
 			);
 			path = ADT;
@@ -1738,7 +1738,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9694C291226A50DC006913E0 /* ObjectPathTest.swift in Sources */,
+				9694C291226A50DC006913E0 /* NodePathsTest.swift in Sources */,
 				BAB337A222625DBF007A0C05 /* ShipItemStorageUnitTests.swift in Sources */,
 				BAB337A422625DDD007A0C05 /* ShipUpgradableUnitTests.swift in Sources */,
 				9694C294226A50ED006913E0 /* RectTest.swift in Sources */,

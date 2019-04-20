@@ -125,6 +125,7 @@ class FirebaseRoomConnection: RoomConnection {
                     }
             }
 
+            self?.disconnect()
             self?.removalCallback?()
         })
     }
@@ -158,8 +159,11 @@ class FirebaseRoomConnection: RoomConnection {
                 return
             }
 
-            if let document = snapshot, document.exists,
-                let started = document.get(FirestoreConstants.roomStartedKey) as? Bool {
+            if let document = snapshot, document.exists {
+                guard let started = document.get(FirestoreConstants.roomStartedKey) as? Bool else {
+                    callback(nil, NetworkError.pullError(message: "Unable to read started."))
+                    return
+                }
                 if !started {
                     // join as usual player
                     connection.devicesCollectionRef.document(connection.deviceId)
@@ -167,11 +171,7 @@ class FirebaseRoomConnection: RoomConnection {
                             postConnectionActions(error: error)
                         }
                 } else {
-                    // join as spectator - during game play
-                    connection.devicesCollectionRef.document(connection.deviceId)
-                            .setData([FirestoreConstants.numPlayersKey: connection.numOfPlayers]) { error in
-                                postConnectionActions(error: error)
-                        }
+                    callback(nil, NetworkError.pushError(message: "Game has already started."))
                 }
             } else {
                 connection.createRoom(completion: postConnectionActions)
@@ -207,9 +207,9 @@ class FirebaseRoomConnection: RoomConnection {
         let data: [String: Any] = [FirestoreConstants.roomMasterKey: self.deviceId,
                                    FirestoreConstants.roomStartedKey: false]
         batch.setData(data, forDocument: self.roomDocumentRef)
-        self.roomDocumentRef.setData([FirestoreConstants.roomMasterKey: self.deviceId])
-        self.devicesCollectionRef.document(deviceId).setData([FirestoreConstants.numPlayersKey: self.numOfPlayers,
-            FirestoreConstants.lastHeartBeatKey: currentTime])
+        batch.setData([FirestoreConstants.numPlayersKey: self.numOfPlayers,
+                       FirestoreConstants.lastHeartBeatKey: currentTime],
+                      forDocument: self.devicesCollectionRef.document(deviceId))
         batch.commit(completion: completion)
     }
 
@@ -320,6 +320,7 @@ class FirebaseRoomConnection: RoomConnection {
         emptyConnection.devicesCollectionRef.getDocuments(completion: FirebaseRoomConnection.deleteDocuments)
         emptyConnection.playersCollectionRef.getDocuments(completion: FirebaseRoomConnection.deleteDocuments)
         emptyConnection.runTimeInfoCollectionRef.getDocuments(completion: FirebaseRoomConnection.deleteDocuments)
+        emptyConnection.modelCollectionRef.getDocuments(completion: FirebaseRoomConnection.deleteDocuments)
         func deleteTurnAction(from turn: Int) {
             emptyConnection.turnActionsDocumentRef.collection(String(turn)).getDocuments { (snapshot, error) in
                 guard let snapshot = snapshot else {
@@ -477,7 +478,7 @@ class FirebaseRoomConnection: RoomConnection {
     }
 
     func set(teams: [Team]) {
-        roomDocumentRef.setData([FirestoreConstants.teamsKey: teams.map { $0.name }])
+        roomDocumentRef.updateData([FirestoreConstants.teamsKey: teams.map { $0.name }])
     }
 
     func subscibeToTeamNames(with callback: @escaping ([String]) -> Void) {

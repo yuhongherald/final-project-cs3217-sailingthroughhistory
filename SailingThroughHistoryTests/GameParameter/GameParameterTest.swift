@@ -68,7 +68,7 @@ class GameParameterTest: XCTestCase {
     }
 
     func testCodableItemParameter() {
-        let itemParameter = ItemParameter(itemType: .opium, displayName: "Opium", weight: 100, isConsumable: true)
+        let itemParameter = ItemParameter.opium
         guard let encode = try? JSONEncoder().encode(itemParameter) else {
             XCTAssertThrowsError("Encode Failed")
             return

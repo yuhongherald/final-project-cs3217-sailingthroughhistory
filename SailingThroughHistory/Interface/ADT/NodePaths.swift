@@ -7,8 +7,8 @@
 //
 
 /// ADT used by ObjectsController to store paths that have been registered.
-struct ObjectPaths {
-    var paths = [Node: [Path]]()
+struct NodePaths {
+    private var paths = [Node: [Path]]()
     var allPaths: Set<Path> {
         return Set(paths.values
             .flatMap { $0 })
@@ -34,6 +34,9 @@ struct ObjectPaths {
     /// - Parameter path: The path to add
     mutating func add(path: Path) {
         assert(checkRep())
+        if allPaths.contains(path) {
+            return
+        }
         paths[path.fromNode, default: []].append(path)
         paths[path.toNode, default: []].append(path)
         assert(checkRep())
