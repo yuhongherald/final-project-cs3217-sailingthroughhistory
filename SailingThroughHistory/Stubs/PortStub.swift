@@ -14,7 +14,7 @@ class PortStub: Port {
     private var sellValueOfAllItems = 0
 
     required override init(team: Team?, name: String, originX: Double, originY: Double) {
-        super.init(team: nil, name: "", originX: 0, originY: 0)
+        super.init(team: nil, name: "", originX: originX, originY: originY)
         itemBuyValue.removeAll()
         itemSellValue.removeAll()
     }

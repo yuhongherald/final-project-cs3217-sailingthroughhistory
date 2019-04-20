@@ -59,7 +59,8 @@ class ItemTest: XCTestCase {
         // test remove with deficit
         deficit = item.remove(amount: 100)
         XCTAssertEqual(item.quantity, 0,
-                       "Item quantity is not successfully updated with remove. Quantity should be 0 when there is not enough remaining quantity.")
+                       "Item quantity is not successfully updated with remove. " +
+            "Quantity should be 0 when there is not enough remaining quantity.")
         XCTAssertEqual(deficit, 50, "Deficit should be returned when removing without enough remaining quantity.")
     }
 
@@ -74,8 +75,8 @@ class ItemTest: XCTestCase {
         // can buy item at port
         XCTAssertEqual(item.getBuyValue(at: port), price * quantity, "Get buy value returned false result.")
 
-        // cannot buy item at port
-        XCTAssertNil(item.getBuyValue(at: invPort), "Invalid buy action should return nil.")
+        XCTAssertEqual(item.getBuyValue(at: invPort), ItemParameter.defaultPrice * quantity,
+                       "Get buy value returned false result.")
     }
 
     func testSell() {
@@ -89,7 +90,6 @@ class ItemTest: XCTestCase {
         // can sell item at port
         XCTAssertEqual(item.sell(at: port), price * quantity, "Get sell value returned false result.")
 
-        // cannot buy item at port
-        XCTAssertNil(item.sell(at: invPort), "Invalid sell action should return nil.")
+        XCTAssertEqual(item.sell(at: invPort), 0, "Wrong sell value returned.")
     }
 }

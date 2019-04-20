@@ -143,6 +143,8 @@
 		9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F785224A990E007D54E0 /* FirestoreRoom.swift */; };
 		9603F78A224AAA06007D54E0 /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F789224AAA06007D54E0 /* FirestoreConstants.swift */; };
 		9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F78B224AB0E3007D54E0 /* NetworkError.swift */; };
+		9611A404226B050900E136E4 /* ObjectsViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9611A403226B050900E136E4 /* ObjectsViewControllerTest.swift */; };
+		9611A406226B15AF00E136E4 /* AlertWindowControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9611A405226B15AF00E136E4 /* AlertWindowControllerTest.swift */; };
 		9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B7702248F28100DA12C8 /* CGRect+Rect.swift */; };
 		9621CC092246C321008178FF /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC082246C321008178FF /* Rect.swift */; };
 		964EACD0224CF568004BA7C0 /* RoomsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964EACCF224CF568004BA7C0 /* RoomsMenuViewController.swift */; };
@@ -419,6 +421,8 @@
 		9603F785224A990E007D54E0 /* FirestoreRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRoom.swift; sourceTree = "<group>"; };
 		9603F789224AAA06007D54E0 /* FirestoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConstants.swift; sourceTree = "<group>"; };
 		9603F78B224AB0E3007D54E0 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		9611A403226B050900E136E4 /* ObjectsViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewControllerTest.swift; sourceTree = "<group>"; };
+		9611A405226B15AF00E136E4 /* AlertWindowControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlertWindowControllerTest.swift; path = SailingThroughHistoryTests/Interface/AlertWindowControllerTest.swift; sourceTree = SOURCE_ROOT; };
 		9615B7702248F28100DA12C8 /* CGRect+Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Rect.swift"; sourceTree = "<group>"; };
 		9621CC082246C321008178FF /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
 		964EACCF224CF568004BA7C0 /* RoomsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsMenuViewController.swift; sourceTree = "<group>"; };
@@ -1102,6 +1106,8 @@
 			isa = PBXGroup;
 			children = (
 				9694C28F226A50B9006913E0 /* ADT */,
+				9611A403226B050900E136E4 /* ObjectsViewControllerTest.swift */,
+				9611A405226B15AF00E136E4 /* AlertWindowControllerTest.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1174,8 +1180,8 @@
 				9670E91F2261D31600E8A01F /* MessagesTableController.swift */,
 				968D6F092264D42A009552B1 /* EventTableController.swift */,
 				96618F442267CC9200B41008 /* PortItemTableControllerDelegate.swift */,
-				966FAD672268E1BF000B48AC /* AlertWindowController.swift */,
 				966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */,
+				966FAD672268E1BF000B48AC /* AlertWindowController.swift */,
 				966FAD6B2268EB31000B48AC /* ObjectsViewControllerDelegate.swift */,
 				968A14B82269B6A60069E3C9 /* AvailableUpgradesControllerDelegate.swift */,
 				968A14BA2269B7AE0069E3C9 /* EventTableControllerDelegate.swift */,
@@ -1803,7 +1809,9 @@
 				BAB337A222625DBF007A0C05 /* ShipItemStorageUnitTests.swift in Sources */,
 				BA7D53C4226A3E4C00CA0A61 /* GameStateUnitTests.swift in Sources */,
 				BAB337A422625DDD007A0C05 /* ShipUpgradableUnitTests.swift in Sources */,
+				9611A404226B050900E136E4 /* ObjectsViewControllerTest.swift in Sources */,
 				9694C294226A50ED006913E0 /* RectTest.swift in Sources */,
+				9611A406226B15AF00E136E4 /* AlertWindowControllerTest.swift in Sources */,
 				1ABBA216226208F100222E7A /* TeamTest.swift in Sources */,
 				1ABBA2122261F6F800222E7A /* MapTest.swift in Sources */,
 				BA7D53BE226A3DE900CA0A61 /* NPCUnitTests.swift in Sources */,
