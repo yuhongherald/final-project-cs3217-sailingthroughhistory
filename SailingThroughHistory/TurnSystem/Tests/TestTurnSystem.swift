@@ -7,7 +7,7 @@
 //
 
 class TestTurnSystem: GenericTurnSystem {
-    var gameState: GenericGameState = TestClasses.createGame()
+    var gameState: GenericGameState = TestClasses.createGame(numPlayers: 1)
     var eventPresets: EventPresets?
     var messages: [GameMessage] = []
     func getPresetEvents() -> [PresetEvent] {

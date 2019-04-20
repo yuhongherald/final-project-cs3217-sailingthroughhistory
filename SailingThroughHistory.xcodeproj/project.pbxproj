@@ -144,6 +144,7 @@
 		75A72CC8225CED03003640D4 /* FlipFlopTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A72CC7225CED03003640D4 /* FlipFlopTrigger.swift */; };
 		75E8D107226B59EB0021CF3D /* TestTurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E8D106226B59EB0021CF3D /* TestTurnSystem.swift */; };
 		75E8D109226B5C720021CF3D /* TestClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E8D108226B5C720021CF3D /* TestClasses.swift */; };
+		75F43E89226B7D5400E16B15 /* TestRoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F43E88226B7D5400E16B15 /* TestRoomConnection.swift */; };
 		9603F774224A8254007D54E0 /* RoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F773224A8254007D54E0 /* RoomConnection.swift */; };
 		9603F77E224A95D2007D54E0 /* FirestoreRoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */; };
 		9603F782224A9748007D54E0 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F781224A9748007D54E0 /* Room.swift */; };
@@ -429,6 +430,7 @@
 		75A72CC7225CED03003640D4 /* FlipFlopTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipFlopTrigger.swift; sourceTree = "<group>"; };
 		75E8D106226B59EB0021CF3D /* TestTurnSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTurnSystem.swift; sourceTree = "<group>"; };
 		75E8D108226B5C720021CF3D /* TestClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClasses.swift; sourceTree = "<group>"; };
+		75F43E88226B7D5400E16B15 /* TestRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRoomConnection.swift; sourceTree = "<group>"; };
 		9603F773224A8254007D54E0 /* RoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomConnection.swift; sourceTree = "<group>"; };
 		9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRoomConnection.swift; sourceTree = "<group>"; };
 		9603F781224A9748007D54E0 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -973,6 +975,7 @@
 			children = (
 				75E8D106226B59EB0021CF3D /* TestTurnSystem.swift */,
 				75E8D108226B5C720021CF3D /* TestClasses.swift */,
+				75F43E88226B7D5400E16B15 /* TestRoomConnection.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -1699,6 +1702,7 @@
 				965E033E223A8EBA005F7D79 /* PirateIsland.swift in Sources */,
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
+				75F43E89226B7D5400E16B15 /* TestRoomConnection.swift in Sources */,
 				7565725C226B0944002CDB41 /* GenericPlayerInputController.swift in Sources */,
 				75657242226AC6D8002CDB41 /* TurnSystemNetwork.swift in Sources */,
 				BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */,
