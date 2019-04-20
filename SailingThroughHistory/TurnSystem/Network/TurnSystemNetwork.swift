@@ -20,16 +20,31 @@ class TurnSystemNetwork {
         case finished(winner: Team?)
     }
 
-    private var currentTurn: Int = 0
-    private var data: GenericTurnSystemState
-    private var setTaxActions = [Int: (PlayerAction, GenericPlayer, Bool)]()
+    private var currentTurn: Int {
+        return data.currentTurn
+    }
 
+    private var setTaxActions: [Int: (PlayerAction, GenericPlayer, Bool)] {
+        get {
+            return networkInfo.setTaxActions
+        }
+        set {
+            networkInfo.setTaxActions = newValue
+        }
+    }
+    private var deviceId: String {
+        return networkInfo.deviceId
+    }
+    private var isMaster: Bool {
+        return networkInfo.isMaster
+    }
+
+    private var networkInfo: NetworkInfo
+    private var data: GenericTurnSystemState
     private let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
     private let network: RoomConnection
     private let messenger: GameMessenger
 
-    private let deviceId: String
-    private let isMaster: Bool
 
     private var gameState: GenericGameState {
         return data.gameState
@@ -85,8 +100,7 @@ class TurnSystemNetwork {
         self.messenger = messenger
         self.stateVariable = GameVariable(value: .ready)
         self.data = turnSystemState
-        self.deviceId = deviceId
-        self.isMaster = isMaster
+        self.networkInfo = NetworkInfo(deviceId, isMaster)
 
         network.subscribeToMembers { [weak self] members in
             self?.players = members
@@ -131,6 +145,43 @@ class TurnSystemNetwork {
         return gameState.getPlayers()
             .filter { [weak self] in $0.deviceId == self?.deviceId }
             .first
+    }
+
+    func processNetworkTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
+        switch state {
+        case .waitForTurnFinish:
+            break
+        default:
+            return
+        }
+        if currentTurn != turnNum {
+            return
+        }
+        for player in players where
+            playerActionPairs.first(where: { player.playerName.hasPrefix($0.0) }) == nil {
+                return
+        }
+        
+    }
+    
+    func waitForTurnFinish() {
+        state = .waitForTurnFinish
+        let currentTurn = self.currentTurn
+        network.subscribeToActions(for: currentTurn) { [weak self] actionPair, _ in
+            self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
+        }
+    }
+    
+    func endTurn() {
+        if let currentPlayer = currentPlayer {
+            commitEndTurn()
+            pendingActions = []
+        }
+        guard let player = getNextPlayer() else {
+            waitForTurnFinish()
+            return
+        }
+        state = .waitPlayerInput(from: player)
     }
 
     /// MARK: Private funcs
@@ -280,43 +331,6 @@ class TurnSystemNetwork {
         gameState.distributeTeamMoney()
         
         updateStateMaster()
-    }
-
-    func processNetworkTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
-        switch state {
-        case .waitForTurnFinish:
-            break
-        default:
-            return
-        }
-        if currentTurn != turnNum {
-            return
-        }
-        for player in players where
-            playerActionPairs.first(where: { player.playerName.hasPrefix($0.0) }) == nil {
-                return
-        }
-
-    }
-
-    func waitForTurnFinish() {
-        state = .waitForTurnFinish
-        let currentTurn = self.currentTurn
-        network.subscribeToActions(for: currentTurn) { [weak self] actionPair, _ in
-            self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
-        }
-    }
-
-    func endTurn() {
-        if let currentPlayer = currentPlayer {
-            commitEndTurn()
-            pendingActions = []
-        }
-        guard let player = getNextPlayer() else {
-            waitForTurnFinish()
-            return
-        }
-        state = .waitPlayerInput(from: player)
     }
 
     private func commitEndTurn() {
