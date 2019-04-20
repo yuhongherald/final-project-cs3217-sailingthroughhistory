@@ -140,16 +140,14 @@ class Ship: ShipAPI, Codable {
         var messages = [InfoMessage]()
         if isChasedByPirates {
             turnsToBeingCaught -= 1
-            messages.append(InfoMessage(title: "Pirates!",
-                                         message: "\(turnsToBeingCaught) more turns to being caught!"))
+            messages.append(InfoMessage.pirates(turnsToBeingCaught: turnsToBeingCaught))
         }
 
         if isChasedByPirates && turnsToBeingCaught <= 0 && !isDocked {
             isChasedByPirates = false
             turnsToBeingCaught = 0
             items.value.removeAll()
-            messages.append(InfoMessage(title: "Pirates!",
-                                        message: "You have been caught by pirates!. You lost all your cargo"))
+            messages.append(InfoMessage.caughtByPirates)
         }
 
         for supply in itemsConsumed {
@@ -159,21 +157,9 @@ class Ship: ShipAPI, Codable {
                 let ports = owner.gameState?.map.nodes.value.map({ $0 as? Port }).compactMap({ $0 }) {
                 owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
                 if deficit > 0 {
-                    messages.append(InfoMessage(title: "deficit!",
-                               message: "You have exhausted \(parameter.rawValue) and have a deficit"
-                                    + "of \(deficit) and paid twice the normal amount for it."))
+                    messages.append(InfoMessage.deficit(itemName: parameter.rawValue, deficit: deficit))
                 }
             }
-        }
-
-        // decay remaining items
-        for item in items.value {
-            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
-                continue
-            }
-            messages.append(InfoMessage(title: "Lost Item",
-                        message: "You have lost \(lostQuantity) of \(item.name) from decay"
-                            + "and have \(item.quantity) remaining!"))
         }
         updateCargoWeight(items: self.items.value)
         return messages

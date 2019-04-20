@@ -586,8 +586,8 @@ extension MainGameViewController: AvailableUpgradesControllerDelegate {
         var title: String? = "Error"
         do {
             let result = try turnSystem?.purchase(upgrade: upgrade, by: currentTurnOwner)
-            msg = result?.message
-            title = result?.title
+            msg = result?.getMessage()
+            title = result?.getTitle()
         } catch PlayerActionError.invalidAction(let errorMsg) {
             msg = errorMsg
         } catch {

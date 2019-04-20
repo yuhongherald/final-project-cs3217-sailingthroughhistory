@@ -515,8 +515,7 @@ class TurnSystem: GenericTurnSystem {
             self.messages.append(contentsOf: playerActions)
             let messages = chosenPlayer.endTurn()
             if chosenPlayer.deviceId == deviceId {
-                self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
-                                                                                         message: $0.message)})
+                self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name, message: $0.getMessage())})
             }
         }
         gameState.map.npcs.forEach {

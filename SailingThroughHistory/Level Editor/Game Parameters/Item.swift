@@ -17,14 +17,13 @@ class Item: GenericItem, Codable {
         let unitWeight = itemParameter.unitWeight
         return quantity * unitWeight
     }
-    // TODO: prevent quantity from going below 0
     var quantity: Int {
         get {
             return realQuantity
         }
         set(value) {
             guard value >= 0 else {
-                // TODO error
+                print("Tried to set item quantity below 0.")
                 realQuantity = 0
                 return
             }
