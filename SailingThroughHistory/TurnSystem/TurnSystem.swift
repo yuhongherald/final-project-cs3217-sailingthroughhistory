@@ -469,7 +469,7 @@ class TurnSystem: GenericTurnSystem {
                 }
             }
             guard let player = self?.getFirstPlayer() else {
-                self?.state = .waitForTurnFinish
+                self?.waitForTurnFinish()
                 return
             }
             self?.state = .waitPlayerInput(from: player)

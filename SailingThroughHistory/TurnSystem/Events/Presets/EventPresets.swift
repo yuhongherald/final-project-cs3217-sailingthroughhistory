@@ -29,12 +29,12 @@ class EventPresets {
         var neutralTaxEvents: [String: PresetEvent] = [String: PresetEvent]()
         let itemPriceEvents: [String: [String: PresetEvent]] = [String: [String: PresetEvent]]()
         var playerDeathEvents: [String: PresetEvent] = [String: PresetEvent]()
-
+        /*
         monsoonEvents[true] = eventTable.pushEvent(
             event: HeavyMonsoonEvent(gameState: gameState,
                                      start: PresetConstants.monsoonStart,
                                      end: PresetConstants.monsoonEnd)) // call push on table for each construct
-
+        */
         var evaluators = 0.evaluators
         for index in 0..<evaluators.count {
             let key = evaluators[index].displayName

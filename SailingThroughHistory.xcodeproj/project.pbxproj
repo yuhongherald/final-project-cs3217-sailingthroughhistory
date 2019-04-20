@@ -149,7 +149,7 @@
 		96619E37224510310014E0C5 /* PortItemTableCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E36224510310014E0C5 /* PortItemTableCellDelegate.swift */; };
 		96619E39224510740014E0C5 /* PortItemButtonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E38224510740014E0C5 /* PortItemButtonAction.swift */; };
 		96619E3B224511A50014E0C5 /* UITradeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96619E3A224511A50014E0C5 /* UITradeTableCell.swift */; };
-		9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */; };
+		9665935E2245577700D14EB8 /* PlayerItemsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9665935D2245577700D14EB8 /* PlayerItemsTableController.swift */; };
 		966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966941DB22400FCB00F07A50 /* InterfaceConstants.swift */; };
 		966FAD682268E1BF000B48AC /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FAD672268E1BF000B48AC /* AlertWindowController.swift */; };
 		966FAD6A2268E1D8000B48AC /* AlertWindowDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */; };
@@ -184,6 +184,9 @@
 		9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9690F5D2223A4875005291EE /* LaunchScreen.storyboard */; };
 		9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */; };
 		9690F5EA223A4875005291EE /* SailingThroughHistoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */; };
+		9694C291226A50DC006913E0 /* ObjectPathTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C290226A50DC006913E0 /* ObjectPathTest.swift */; };
+		9694C294226A50ED006913E0 /* RectTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C293226A50ED006913E0 /* RectTest.swift */; };
+		9694C29A226A5145006913E0 /* LocalRoomConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C299226A5145006913E0 /* LocalRoomConnectionTest.swift */; };
 		969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */; };
 		96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemParameter.swift */; };
 		96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* GenericLevel.swift */; };
@@ -202,7 +205,6 @@
 		96E0745D225250E20068406B /* GameRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745C225250E20068406B /* GameRoom.swift */; };
 		96E0745F2252510C0068406B /* RoomMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E0745E2252510C0068406B /* RoomMember.swift */; };
 		96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F658472240E13E006CD412 /* View+SpecialEffects.swift */; };
-		96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F6584922412126006CD412 /* GenericPublishSubject.swift */; };
 		BA485900223F89F7009ED2F6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4858FF223F89F7009ED2F6 /* Item.swift */; };
 		BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485905223F959A009ED2F6 /* GenericPlayer.swift */; };
 		BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485907223FCB4B009ED2F6 /* PlayerState.swift */; };
@@ -411,7 +413,7 @@
 		96619E36224510310014E0C5 /* PortItemTableCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemTableCellDelegate.swift; sourceTree = "<group>"; };
 		96619E38224510740014E0C5 /* PortItemButtonAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortItemButtonAction.swift; sourceTree = "<group>"; };
 		96619E3A224511A50014E0C5 /* UITradeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITradeTableCell.swift; sourceTree = "<group>"; };
-		9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableDataSource.swift; sourceTree = "<group>"; };
+		9665935D2245577700D14EB8 /* PlayerItemsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerItemsTableController.swift; sourceTree = "<group>"; };
 		966941DB22400FCB00F07A50 /* InterfaceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceConstants.swift; sourceTree = "<group>"; };
 		966FAD672268E1BF000B48AC /* AlertWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowController.swift; sourceTree = "<group>"; };
 		966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWindowDelegate.swift; sourceTree = "<group>"; };
@@ -452,6 +454,9 @@
 		9690F5E5223A4875005291EE /* SailingThroughHistoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SailingThroughHistoryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9690F5E9223A4875005291EE /* SailingThroughHistoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SailingThroughHistoryUITests.swift; sourceTree = "<group>"; };
 		9690F5EB223A4875005291EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9694C290226A50DC006913E0 /* ObjectPathTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPathTest.swift; sourceTree = "<group>"; };
+		9694C293226A50ED006913E0 /* RectTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectTest.swift; sourceTree = "<group>"; };
+		9694C299226A5145006913E0 /* LocalRoomConnectionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoomConnectionTest.swift; sourceTree = "<group>"; };
 		969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlurredBackgroundView.swift; sourceTree = "<group>"; };
 		96A7D0AD225F8269001C18E4 /* CountdownLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownLabelView.swift; sourceTree = "<group>"; };
 		96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Arrow.swift"; sourceTree = "<group>"; };
@@ -468,7 +473,6 @@
 		96E0745C225250E20068406B /* GameRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoom.swift; sourceTree = "<group>"; };
 		96E0745E2252510C0068406B /* RoomMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomMember.swift; sourceTree = "<group>"; };
 		96F658472240E13E006CD412 /* View+SpecialEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SpecialEffects.swift"; sourceTree = "<group>"; };
-		96F6584922412126006CD412 /* GenericPublishSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPublishSubject.swift; sourceTree = "<group>"; };
 		9940A707D8BECA7B37E95F22 /* Pods-SailingThroughHistory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.release.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.release.xcconfig"; sourceTree = "<group>"; };
 		9E8EF1ED58F41F667A1319C7 /* Pods_SailingThroughHistory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SailingThroughHistory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4858FF223F89F7009ED2F6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -886,15 +890,12 @@
 		9603F772224A8005007D54E0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				9694C295226A5106006913E0 /* Firestore */,
 				96707463226253B40056D81D /* Local */,
 				9603F773224A8254007D54E0 /* RoomConnection.swift */,
-				9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */,
 				96CEB954224DF8EC00B027BA /* NetworkRooms.swift */,
-				96CEB950224DF14400B027BA /* FirestoreRooms.swift */,
 				96CEB956224DFA0E00B027BA /* NetworkFactory.swift */,
 				9603F781224A9748007D54E0 /* Room.swift */,
-				9603F785224A990E007D54E0 /* FirestoreRoom.swift */,
-				9603F789224AAA06007D54E0 /* FirestoreConstants.swift */,
 				9603F78B224AB0E3007D54E0 /* NetworkError.swift */,
 			);
 			path = Network;
@@ -963,7 +964,6 @@
 				967FAA7B2244B7F8005054B6 /* ADT */,
 				969F48222242CACD00F86D1E /* Controller */,
 				969F48212242CAB200F86D1E /* View */,
-				96F6584922412126006CD412 /* GenericPublishSubject.swift */,
 				966941DB22400FCB00F07A50 /* InterfaceConstants.swift */,
 				9689401622532A1500A56B36 /* ControllerUtils.swift */,
 			);
@@ -1029,6 +1029,8 @@
 		9690F5DD223A4875005291EE /* SailingThroughHistoryTests */ = {
 			isa = PBXGroup;
 			children = (
+				9694C297226A512B006913E0 /* Network */,
+				9694C28E226A50B2006913E0 /* Interface */,
 				1ABBA2192263D5F800222E7A /* GameParameter */,
 				BAB3378C2262274D007A0C05 /* GameState */,
 				9690F5DE223A4875005291EE /* SailingThroughHistoryTests.swift */,
@@ -1045,6 +1047,50 @@
 				9690F5EB223A4875005291EE /* Info.plist */,
 			);
 			path = SailingThroughHistoryUITests;
+			sourceTree = "<group>";
+		};
+		9694C28E226A50B2006913E0 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				9694C28F226A50B9006913E0 /* ADT */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		9694C28F226A50B9006913E0 /* ADT */ = {
+			isa = PBXGroup;
+			children = (
+				9694C290226A50DC006913E0 /* ObjectPathTest.swift */,
+				9694C293226A50ED006913E0 /* RectTest.swift */,
+			);
+			path = ADT;
+			sourceTree = "<group>";
+		};
+		9694C295226A5106006913E0 /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */,
+				96CEB950224DF14400B027BA /* FirestoreRooms.swift */,
+				9603F785224A990E007D54E0 /* FirestoreRoom.swift */,
+				9603F789224AAA06007D54E0 /* FirestoreConstants.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
+		9694C297226A512B006913E0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				9694C298226A512F006913E0 /* Local */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		9694C298226A512F006913E0 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				9694C299226A5145006913E0 /* LocalRoomConnectionTest.swift */,
+			);
+			path = Local;
 			sourceTree = "<group>";
 		};
 		969F48212242CAB200F86D1E /* View */ = {
@@ -1073,7 +1119,7 @@
 				9690F5CB223A4874005291EE /* MainGameViewController.swift */,
 				96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */,
 				967FAA7C2244BF1F005054B6 /* PortItemTableController.swift */,
-				9665935D2245577700D14EB8 /* PlayerItemsTableDataSource.swift */,
+				9665935D2245577700D14EB8 /* PlayerItemsTableController.swift */,
 				9683C28F225D284600E30387 /* AvailableUpgradesController.swift */,
 				1ABBA217226230B400222E7A /* TeamScoreTableController.swift */,
 				9670E91F2261D31600E8A01F /* MessagesTableController.swift */,
@@ -1517,10 +1563,7 @@
 				966941DC22400FCB00F07A50 /* InterfaceConstants.swift in Sources */,
 				BAB3379922624D7B007A0C05 /* GameMaster.swift in Sources */,
 				BA919069223F271700009F49 /* GameVariable.swift in Sources */,
-				96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */,
-				96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */,
 				752D2BDC225F976100A3411C /* GameMessage.swift in Sources */,
-				96F6584A22412126006CD412 /* GenericPublishSubject.swift in Sources */,
 				7581AEDD225C5602001A8CC3 /* Trigger.swift in Sources */,
 				759A5EF12250864500724BEB /* MapData.swift in Sources */,
 				759A5EF92250A81300724BEB /* ShipData.swift in Sources */,
@@ -1581,7 +1624,7 @@
 				9603F774224A8254007D54E0 /* RoomConnection.swift in Sources */,
 				75A72CC6225CEC38003640D4 /* ItemBuyPriceEvaluatable.swift in Sources */,
 				BAA0D044226388BA004417CA /* PortAdminError.swift in Sources */,
-				9665935E2245577700D14EB8 /* PlayerItemsTableDataSource.swift in Sources */,
+				9665935E2245577700D14EB8 /* PlayerItemsTableController.swift in Sources */,
 				9688D7762255F9BB000AD368 /* PlayerActionBatch.swift in Sources */,
 				7559898522422493004037E6 /* Int+Lerp.swift in Sources */,
 				96DF557C2242C14A00C1E809 /* ObjectsViewController.swift in Sources */,
@@ -1695,8 +1738,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9694C291226A50DC006913E0 /* ObjectPathTest.swift in Sources */,
 				BAB337A222625DBF007A0C05 /* ShipItemStorageUnitTests.swift in Sources */,
 				BAB337A422625DDD007A0C05 /* ShipUpgradableUnitTests.swift in Sources */,
+				9694C294226A50ED006913E0 /* RectTest.swift in Sources */,
 				1ABBA216226208F100222E7A /* TeamTest.swift in Sources */,
 				1ABBA2122261F6F800222E7A /* MapTest.swift in Sources */,
 				759A5EE522507E1100724BEB /* TurnSystemTest.swift in Sources */,
@@ -1704,6 +1749,7 @@
 				9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */,
 				BAB3378E2262295D007A0C05 /* ShipUnitTests.swift in Sources */,
 				1A53D7CB2251E81100FAE214 /* GameParameterTest.swift in Sources */,
+				9694C29A226A5145006913E0 /* LocalRoomConnectionTest.swift in Sources */,
 				BAB337A622625DFB007A0C05 /* ShipNavigatableUnitTests.swift in Sources */,
 				BAB337A822625E0E007A0C05 /* ShipPirateWeatherUnitTests.swift in Sources */,
 				1ABBA2142261FD2F00222E7A /* NodeTest.swift in Sources */,
