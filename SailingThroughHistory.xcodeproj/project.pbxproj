@@ -221,6 +221,7 @@
 		BA485908223FCB4B009ED2F6 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA485907223FCB4B009ED2F6 /* PlayerState.swift */; };
 		BA48590B2240A00E009ED2F6 /* GenericItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48590A2240A00E009ED2F6 /* GenericItem.swift */; };
 		BA48591122410CC7009ED2F6 /* ShipUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48591022410CC7009ED2F6 /* ShipUI.swift */; };
+		BA530C1E226B852B00AE7BBA /* WeatherStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA530C1D226B852B00AE7BBA /* WeatherStub.swift */; };
 		BA6FBBD3225A103200B366DB /* FasterShipUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD2225A103200B366DB /* FasterShipUpgrade.swift */; };
 		BA6FBBD5225A108900B366DB /* BiggerSailsUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD4225A108900B366DB /* BiggerSailsUpgrade.swift */; };
 		BA6FBBD7225A10D600B366DB /* MercernaryUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBD6225A10D600B366DB /* MercernaryUpgrade.swift */; };
@@ -505,6 +506,7 @@
 		BA485907223FCB4B009ED2F6 /* PlayerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		BA48590A2240A00E009ED2F6 /* GenericItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericItem.swift; sourceTree = "<group>"; };
 		BA48591022410CC7009ED2F6 /* ShipUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipUI.swift; sourceTree = "<group>"; };
+		BA530C1D226B852B00AE7BBA /* WeatherStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherStub.swift; sourceTree = "<group>"; };
 		BA6FBBD2225A103200B366DB /* FasterShipUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FasterShipUpgrade.swift; sourceTree = "<group>"; };
 		BA6FBBD4225A108900B366DB /* BiggerSailsUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggerSailsUpgrade.swift; sourceTree = "<group>"; };
 		BA6FBBD6225A10D600B366DB /* MercernaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MercernaryUpgrade.swift; sourceTree = "<group>"; };
@@ -1326,6 +1328,7 @@
 				BAA0D03F2262655C004417CA /* GenericItemStub.swift */,
 				1ABBA22E2265A15700222E7A /* PortStub.swift */,
 				BAA0D04122634925004417CA /* GenericPlayerStub.swift */,
+				BA530C1D226B852B00AE7BBA /* WeatherStub.swift */,
 			);
 			path = Stubs;
 			sourceTree = "<group>";
@@ -1636,6 +1639,7 @@
 				BAB3379022622B3F007A0C05 /* Upgradable.swift in Sources */,
 				1ABBA22F2265A15700222E7A /* PortStub.swift in Sources */,
 				75354456224C877F001B4F62 /* TurnSystemEvent.swift in Sources */,
+				BA530C1E226B852B00AE7BBA /* WeatherStub.swift in Sources */,
 				75657260226B098A002CDB41 /* PlayerInputControllerFactory.swift in Sources */,
 				96A7D0B0225F971D001C18E4 /* UIBezierPath+Arrow.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,

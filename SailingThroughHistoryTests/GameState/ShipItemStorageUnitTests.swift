@@ -41,6 +41,7 @@ class ShipItemStorageUnitTests: XCTestCase {
             map.removeNode(node)
         }
     }
+
     func testGetPurchasableItemTypes() {
         let ship1 = Ship(node: portWithItems, itemsConsumed: [])
         ship1.isDocked = true
