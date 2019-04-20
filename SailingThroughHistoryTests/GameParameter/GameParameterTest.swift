@@ -26,7 +26,7 @@ class GameParameterTest: XCTestCase {
         // test without node
         var playerParameter = PlayerParameter(name: "", teamName: "", node: nil)
         guard let encode1 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         var decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode1)
@@ -36,7 +36,7 @@ class GameParameterTest: XCTestCase {
         // test with node
         playerParameter = PlayerParameter(name: "", teamName: "", node: Sea(name: "sea", originX: 1, originY: 100))
         guard let encode2 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode2)
@@ -47,7 +47,7 @@ class GameParameterTest: XCTestCase {
         playerParameter = PlayerParameter(name: "", teamName: "",
                                           node: Port(team: nil, name: "NPCport", originX: 0, originY: 0))
         guard let encode3 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode3)
@@ -59,7 +59,7 @@ class GameParameterTest: XCTestCase {
         let port = Port(team: team, name: "selfport", originX: 0, originY: 0)
         port.assignOwner(team)
         guard let encode4 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode4)
@@ -82,7 +82,7 @@ class GameParameterTest: XCTestCase {
         let gameParameter = GameParameter(map: Map(
             map: "map", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100)), teams: ["team1", "team2"])
         guard let encode = try? JSONEncoder().encode(gameParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(GameParameter.self, from: encode)

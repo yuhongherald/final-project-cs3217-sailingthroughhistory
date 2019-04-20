@@ -93,7 +93,7 @@ class MapTest: XCTestCase {
 
     func testCodableMap() {
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -113,7 +113,7 @@ class MapTest: XCTestCase {
         map.addGameObject(gameObject: ShipUI(ship: Ship(node: selfport, itemsConsumed: [])))
 
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -125,7 +125,7 @@ class MapTest: XCTestCase {
         // test map with sea
         map.addNode(sea)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -137,7 +137,7 @@ class MapTest: XCTestCase {
     func testCodableMapWithPirate() {
         map.addNode(pirateSea)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -149,7 +149,7 @@ class MapTest: XCTestCase {
     func testCodableMapWithNPCPort() {
         map.addNode(NPCport)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -162,7 +162,7 @@ class MapTest: XCTestCase {
         // test map with player owned port added
         map.addNode(selfport)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -178,7 +178,7 @@ class MapTest: XCTestCase {
         path.modifiers.append(Weather())
         map.add(path: path)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)

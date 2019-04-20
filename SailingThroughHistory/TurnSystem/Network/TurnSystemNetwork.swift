@@ -159,7 +159,7 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
         }
     }
-    
+
     func endTurn() {
         if let currentPlayer = currentPlayer {
             commitEndTurn(currentPlayer)

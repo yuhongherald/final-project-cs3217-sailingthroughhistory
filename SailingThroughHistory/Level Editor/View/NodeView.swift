@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * UIImageView for Node, used for convenience to get UI representation of a node.
+ */
 class NodeView: UIImageView {
     var node: Node
     var nodeLabel: UILabel

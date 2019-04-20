@@ -94,6 +94,7 @@ class LevelEditorViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
+    /// Button action for toggle panel.
     @IBAction func editPressed(_ sender: Any) {
         if editPanel.isHidden {
             showPanel()
@@ -103,12 +104,20 @@ class LevelEditorViewController: UIViewController {
     }
 
     @IBAction func savePressed(_ sender: Any) {
-        let alert = UIAlert(title: "Save Level with Name: ", confirm: { name in
-            self.store(with: name)
-        }, textPlaceHolder: "Input level name here")
-        alert.present(in: self)
+        let alert = ControllerUtils.getTextfieldAlert(title: "Save Level with Name: ", desc: "",
+                                                      textPlaceHolder: "Input level name here",
+                                                      okAction: { name in
+                                                          self.store(with: name)
+                                                      }, cancelAction: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 
+    /// Deal with tapping on map action:
+    ///   Under erase mode: remove path
+    ///   Under add weather mode: add weather
+    ///   Under add node mode: add the corresponding node selected
+    /// - Parameters:
+    ///    - sender: tap gesture recognizer
     @objc func tapOnMap(_ sender: UITapGestureRecognizer) {
         hideTeamMenu()
         guard let mode = editMode, editPanel.isHidden else {
@@ -129,6 +138,12 @@ class LevelEditorViewController: UIViewController {
         }
     }
 
+    /// Deal with single tapping on node action:
+    ///   Under erase mode: remove node
+    ///   Under edit item mode: show item editor page
+    ///   Under add pirate mode: add pirate to the selected sea
+    /// - Parameters:
+    ///    - sender: tap gesture recognizer
     @objc func singleTapOnNode(_ sender: UITapGestureRecognizer) {
         hideTeamMenu()
         guard let mode = editMode else {
@@ -144,16 +159,16 @@ class LevelEditorViewController: UIViewController {
         case .item:
             guard let portView = sender.view as? NodeView,
                 let port = portView.node as? Port else {
-                let alert = UIAlert(errorMsg: "Please select a port!", msg: nil)
-                alert.present(in: self)
+                let alert = ControllerUtils.getGenericAlert(titled: "Please select a port!", withMsg: "")
+                self.present(alert, animated: true, completion: nil)
                 return
             }
 
             presentItemEditor(for: port)
         case .pirate:
             guard let nodeView = sender.view as? NodeView else {
-                let alert = UIAlert(errorMsg: "Please select a node!", msg: nil)
-                alert.present(in: self)
+                let alert = ControllerUtils.getGenericAlert(titled: "Please select a node!", withMsg: "")
+                self.present(alert, animated: true, completion: nil)
                 return
             }
             addPirate(to: nodeView)
@@ -163,10 +178,15 @@ class LevelEditorViewController: UIViewController {
 
     }
 
+    /// Deal with double tapping on node action:
+    ///   Show team menu view and set port ownership to the selected team.
+    /// - Parameters:
+    ///    - sender: tap gesture recognizer
     @objc func doubleTapOnNode(_ sender: UITapGestureRecognizer) {
         guard let node = sender.view as? NodeView, let port = node.node as? Port else {
-            let alert = UIAlert(errorMsg: "Double click on port to assign ownership.", msg: nil)
-            alert.present(in: self)
+            let alert = ControllerUtils.getGenericAlert(titled: "Double click on port to assign ownership.",
+                                                        withMsg: "")
+            self.present(alert, animated: true, completion: nil)
             return
         }
 
@@ -185,6 +205,10 @@ class LevelEditorViewController: UIViewController {
         teamMenuDataSource.set(node: port, for: sender)
     }
 
+    /// Deal with long pressing on node action:
+    ///   Show team menu view and set the node to starting point of the selected team.
+    /// - Parameters:
+    ///    - sender: long press gesture recognizer
     @objc func longPressOnNode(_ sender: UILongPressGestureRecognizer) {
         guard let node = sender.view as? NodeView else {
             return
@@ -203,6 +227,12 @@ class LevelEditorViewController: UIViewController {
         teamMenuDataSource.set(node: node.node, for: sender)
     }
 
+    /// Deal with long pressing on node action:
+    ///   Show the path to be added.
+    ///   Show glow of two ends of the path to be added.
+    ///   Add path to map.
+    /// - Parameters:
+    ///    - sender: pan gesture recognizer
     @objc func drawPath(_ sender: UIPanGestureRecognizer) {
         guard editMode == .path else {
             return
@@ -250,6 +280,10 @@ class LevelEditorViewController: UIViewController {
         }
     }
 
+    /// Attempt to store the level data with the input name.
+    /// - Parameters:
+    ///   - name: level name
+    ///   - replace: whether to replace the original level if a level with the same name already exists
     private func store(with name: String, replace: Bool = false) {
         var bounds = Rect(originX: 0, originY: 0,
                           height: Double(self.view.bounds.size.height),
@@ -259,10 +293,12 @@ class LevelEditorViewController: UIViewController {
         }
         self.gameParameter.map.changeBackground("\(name)background", with: bounds)
         guard let background = self.mapBackground.image, let preview = self.scrollView.screenShot else {
-            let alert = UIAlert(errorMsg: "Cannot save without background and preview image.", msg: "", confirm: { _ in
+            let alert = ControllerUtils.getConfirmationAlert(title: "Cannot save without background and preview image.",
+                                                             desc: "",
+                                                             okAction: {
                 self.store(with: name)
-            })
-            alert.present(in: self)
+            }, cancelAction: nil)
+            self.present(alert, animated: true, completion: nil)
             return
         }
 
@@ -270,18 +306,18 @@ class LevelEditorViewController: UIViewController {
             let result = try storage.save(self.gameParameter, background,
                                           preview: preview, with: name, replace: replace)
             if result == false {
-                let alert = UIAlert(errorMsg: "Save failed.", msg: "")
-                alert.present(in: self)
+                let alert = ControllerUtils.getGenericAlert(titled: "Save failed.", withMsg: "")
+                self.present(alert, animated: true, completion: nil)
             }
         } catch StorageError.fileExisted {
-            let alert = UIAlert(errorMsg: "File Existed. Are you sure to replace?", msg: "", confirm: { _ in
-                self.store(with: name, replace: true)
-            })
-            alert.present(in: self)
+            let alert = ControllerUtils.getGenericAlert(titled: "File Existed. Are you sure to replace?", withMsg: "",
+                                                        action: { self.store(with: name, replace: true)})
+            self.present(alert, animated: true, completion: nil)
         } catch {
             let error = error as? StorageError
-            let alert = UIAlert(errorMsg: "Store Failed.", msg: error?.getMessage() ?? "Unknown Error.")
-            alert.present(in: self)
+            let alert = ControllerUtils.getGenericAlert(titled: "Store Failed.",
+                                                        withMsg: error?.getMessage() ?? "Unknown Error.")
+            self.present(alert, animated: true, completion: nil)
         }
     }
 
@@ -325,13 +361,15 @@ class LevelEditorViewController: UIViewController {
     }
 
     private func addNode(at location: CGPoint) {
-        let alert = UIAlert(title: "Input name: ", confirm: { ownerName in
-            guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
-                return
-            }
-            nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
-        }, textPlaceHolder: "Input name here.")
-        alert.present(in: self)
+        let alert = ControllerUtils.getTextfieldAlert(title: "Input name: ", desc: "",
+                                                      textPlaceHolder: "Input name here.",
+                                                      okAction: { ownerName in
+        guard let nodeView = self.editMode?.getNodeView(name: ownerName, at: location) else {
+            return
+        }
+        nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
+        }, cancelAction: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 
     private func addPath(from fromNode: NodeView, to toNode: NodeView) {
@@ -356,8 +394,8 @@ class LevelEditorViewController: UIViewController {
 
     private func addPirate(to nodeView: NodeView) {
         if nodeView.node is Port {
-            let alert = UIAlert(errorMsg: "You cannot add pirate to a port!", msg: nil)
-            alert.present(in: self)
+            let alert = ControllerUtils.getGenericAlert(titled: "You cannot add pirate to a port!", withMsg: "")
+            self.present(alert, animated: true, completion: nil)
             return
         }
         nodeView.node.add(object: PirateIsland(in: nodeView.node))
