@@ -14,7 +14,12 @@ class TestClasses {
     static func createMap() -> Map {
         let map = Map(map: "test map", bounds: nil)
         let port = PortStub(buyValueOfAllItems: buyPrice, sellValueOfAllItems: sellPrice)
+        var nextId = port.identifier + 1
+        let node = NodeStub(name: "node", identifier: nextId)
         map.addNode(port)
+        map.addNode(node)
+        map.add(path: Path(from: port, to: node))
+        map.add(path: Path(from: node, to: port))
         return map
     }
     static func createLevel() -> GenericLevel {
@@ -32,13 +37,19 @@ class TestClasses {
         let testSystem = createTurnSystem()
         return EventPresets(gameState: testSystem.gameState, turnSystem: testSystem)
     }
+    static func createTestState(numPlayers: Int) -> TurnSystemState {
+        return TurnSystemState(
+            gameState: createGame(numPlayers: numPlayers), joinOnTurn: 0)
+    }
+    static func createNetworkInfo() -> NetworkInfo {
+        return NetworkInfo("testDevice", false)
+    }
     static func createTestSystemNetwork(numPlayers: Int) -> TurnSystemNetwork {
         return TurnSystemNetwork(roomConnection: TestRoomConnection(),
                                  playerActionAdapterFactory:
                                     PlayerActionAdapterFactory(),
-                                 networkInfo: NetworkInfo("testDevice", false),
-                                 turnSystemState: TurnSystemState(
-                                    gameState: createGame(numPlayers: numPlayers), joinOnTurn: 0))
+                                 networkInfo: createNetworkInfo(),
+                                 turnSystemState: createTestState(numPlayers: numPlayers))
     }
     static func createTestSystem(numPlayers: Int) -> TurnSystem {
         return TurnSystem(network: createTestSystemNetwork(numPlayers: numPlayers), playerInputControllerFactory: PlayerInputControllerFactory())
@@ -51,7 +62,24 @@ class TestClasses {
         }
         return result
     }
-}
-
-class TestBed {
+    static func createInputController(timer: Double) -> PlayerInputController {
+        let network = createTestSystemNetwork(numPlayers: 1)
+        let controller = PlayerInputController(
+            network: network,
+            data: network.data)
+        controller.duration = timer
+        return controller
+    }
+    static func createTestEvent(identifier: Int) -> TurnSystemEvent {
+        let event = TurnSystemEvent(triggers: [], conditions: [], actions: [],
+                        parsable: { "Test event" }, displayName: "Test event")
+        event.identifier = identifier
+        return event
+    }
+    static func createPresetEvent(identifier: Int) -> PresetEvent {
+        let result = TaxChangeEvent(gameState: TestClasses.createGame(numPlayers: 1),
+                       genericOperator: AddOperator<Int>(), modifier: 1)
+        result.identifier = identifier
+        return result
+    }
 }

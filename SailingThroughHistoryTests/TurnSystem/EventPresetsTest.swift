@@ -10,7 +10,7 @@ import XCTest
 @testable import SailingThroughHistory
 
 class EventPresetsTest: XCTestCase {
-    func uniqueIdentifierTest() {
+    func testUniqueIdentifier() {
         let presets = TestClasses.createEventPresets()
         var set: [Int: PresetEvent]
         for preset in presets {
