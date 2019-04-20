@@ -113,6 +113,7 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func tapOnMap(_ sender: UITapGestureRecognizer) {
+        hideTeamMenu()
         guard let mode = editMode, editPanel.isHidden else {
             return
         }
@@ -132,6 +133,7 @@ class LevelEditorViewController: UIViewController {
     }
 
     @objc func singleTapOnNode(_ sender: UITapGestureRecognizer) {
+        hideTeamMenu()
         guard let mode = editMode else {
             return
         }
@@ -170,6 +172,8 @@ class LevelEditorViewController: UIViewController {
             alert.present(in: self)
             return
         }
+
+        teamMenuDataSource.tableView = teamMenu
 
         if teamMenu.isHidden {
             UIView.animate(withDuration: 0, animations: {
@@ -243,21 +247,7 @@ class LevelEditorViewController: UIViewController {
             }
 
             bazier.addLine(to: toNode.center)
-
-            let path = Path(from: fromNode.node, to: toNode.node)
-            let pathReversed = Path(from: toNode.node, to: fromNode.node)
-            if gameParameter.map.getAllPaths().contains(path) {
-                lineLayer.removeFromSuperlayer()
-                return
-            }
-            lineLayer.set(path: path)
-            gameParameter.map.add(path: path)
-            gameParameter.map.add(path: pathReversed)
-            lineLayer.path = bazier.cgPath
-            lineLayerArr.append(lineLayer)
-            let lineLayerR = PathView(path: pathReversed)
-            lineLayerR.path = bazier.reversing().cgPath
-            lineLayerArr.append(lineLayerR)
+            addPath(from: fromNode, to: toNode)
         default:
             return
         }
@@ -345,6 +335,26 @@ class LevelEditorViewController: UIViewController {
             nodeView.addTo(self.editingAreaWrapper, map: self.gameParameter.map, with: self.initNodeGestures())
         }, textPlaceHolder: "Input name here.")
         alert.present(in: self)
+    }
+
+    private func addPath(from fromNode: NodeView, to toNode: NodeView) {
+        let bazier = UIBezierPath()
+        bazier.move(to: fromNode.center)
+        bazier.addLine(to: toNode.center)
+        let path = Path(from: fromNode.node, to: toNode.node)
+        let pathReversed = Path(from: toNode.node, to: fromNode.node)
+        if gameParameter.map.getAllPaths().contains(path) {
+            lineLayer.removeFromSuperlayer()
+            return
+        }
+        lineLayer.set(path: path)
+        gameParameter.map.add(path: path)
+        gameParameter.map.add(path: pathReversed)
+        lineLayer.path = bazier.cgPath
+        lineLayerArr.append(lineLayer)
+        let lineLayerR = PathView(path: pathReversed)
+        lineLayerR.path = bazier.reversing().cgPath
+        lineLayerArr.append(lineLayerR)
     }
 
     private func addPirate(to nodeView: NodeView) {

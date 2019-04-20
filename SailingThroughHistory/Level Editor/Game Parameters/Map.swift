@@ -161,7 +161,6 @@ class Map: Codable {
 
         Node.nextID = try container.decode(Int.self, forKey: .nodeNextId)
         Node.reuseID = try container.decode([Int].self, forKey: .nodeReuseId)
-        print(Node.nextID)
 
         self.map = try container.decode(String.self, forKey: .map)
         self.bounds = try container.decode(Rect.self, forKey: .bounds)
