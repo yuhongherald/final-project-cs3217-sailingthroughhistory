@@ -491,6 +491,9 @@ class MainGameViewController: UIViewController {
                 toggleActionPanelButton.isHidden = false
                 rollDiceButton.isEnabled = true
                 rollDiceButton.set(color: .red)
+                if let frame = objectsController.getShipFrame(for: player) {
+                    scrollView.zoom(to: frame, animated: true)
+                }
             }
             countdownLabel.set(isHidden: false)
             countdownLabel.setCountDownTime(seconds: endTime - Date().timeIntervalSince1970)
