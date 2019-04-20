@@ -6,4 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-import Foundation
+import XCTest
+@testable import SailingThroughHistory
+
+class PlayerInputControllerTest: XCTestCase {
+
+}
