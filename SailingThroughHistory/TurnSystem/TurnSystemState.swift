@@ -70,6 +70,6 @@ class TurnSystemState: GenericTurnSystemState {
 
     func turnFinished() {
         currentTurn += 1
-        gameState.gameTime.value.addWeeks(4)
+        //gameState.gameTime.value.addWeeks(4)
     }
 }
