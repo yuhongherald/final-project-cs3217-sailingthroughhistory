@@ -10,78 +10,33 @@ import Foundation
 
 class TurnSystem: GenericTurnSystem {
 
-    enum State {
-        case ready
-        case waitPlayerInput(from: GenericPlayer)
-        case playerInput(from: GenericPlayer, endTime: TimeInterval)
-        case waitForTurnFinish
-        case evaluateMoves(for: GenericPlayer)
-        case waitForStateUpdate
-        case invalid
-        case finished(winner: Team?)
-    }
-    private var state: State {
-        get {
-            return stateVariable.value
-        }
-
-        set {
-            stateVariable.value = newValue
-        }
-    }
-    // TODO: Move this into new class
-    private var stateVariable: GameVariable<State>
-    private let isMaster: Bool
-    private let deviceId: String
-    private var pendingActions = [PlayerAction]()
-    private let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
-    private var setTaxActions = [Int: (PlayerAction, GenericPlayer, Bool)]()
-    private let network: RoomConnection
-    private var players = [RoomMember]() {
-        didSet {
-            let turn = data.currentTurn
-            network.getTurnActions(for: turn) { [weak self] (actions, _) in
-                self?.processNetworkTurnActions(forTurnNumber: turn, playerActionPairs: actions)
-            }
-            for player in oldValue where players.first(where: { $0.playerName == player.playerName }) == nil {
-                self.messages.append(GameMessage.playerAction(name: player.playerName, message: "has left the game."))
-            }
-        }
-    }
-
-    // for events
     var eventPresets: EventPresets?
-    var messages: [GameMessage] = []
-    var data: GenericTurnSystemState
+    var messages: [GameMessage] {
+        get {
+            return data.messages
+        }
+        set {
+            data.messages = newValue
+        }
+    }
     var gameState: GenericGameState {
         return data.gameState
     }
 
-    private var currentPlayer: GenericPlayer? {
-        switch state {
-        case .playerInput(let player, _):
-            return player
-        case .waitPlayerInput(let player):
-            return player
-        default:
-            return nil
-        }
-    }
+    let network: GenericTurnSystemNetwork
+    let data: GenericTurnSystemState
+    let playerInputController: GenericPlayerInputController
 
-    init(isMaster: Bool, network: RoomConnection, startingState: GenericGameState, deviceId: String) {
-        self.deviceId = deviceId
+    init(network: GenericTurnSystemNetwork,
+         playerInputControllerFactory: GenericPlayerInputControllerFactory) {
+        self.data = network.data
         self.network = network
-        self.isMaster = isMaster
-        self.data = TurnSystemState(gameState: startingState, joinOnTurn: 0)
-        // TODO: Turn harcoded
-        self.stateVariable = GameVariable(value: .ready)
-        self.eventPresets = EventPresets(gameState: startingState, turnSystem: self)
+        self.playerInputController = playerInputControllerFactory.create(
+            network: network, data: self.data)
+        self.eventPresets = EventPresets(gameState: self.data.gameState, turnSystem: self)
+
         if let eventPresets = self.eventPresets {
             _ = self.data.addEvents(events: eventPresets.getEvents())
-        }
-
-        network.subscribeToMembers { [weak self] members in
-            self?.players = members
         }
     }
 
@@ -90,21 +45,22 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func startGame() {
-        guard let player = getFirstPlayer() else {
-            waitForTurnFinish()
+        guard let player = network.getFirstPlayer() else {
+            network.state = .waitForTurnFinish
+            network.waitForTurnFinish()
             return
         }
-        state = .waitPlayerInput(from: player)
+        network.state = .waitPlayerInput(from: player)
     }
 
     // for testing
-    func getState() -> TurnSystem.State {
-        return state
+    func getState() -> TurnSystemNetwork.State {
+        return network.state
     }
 
     // MARK: - Player actions
     func roll(for player: GenericPlayer) throws -> (Int, [Int]) {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
 
         if player.hasRolled {
             throw PlayerActionError.invalidAction(message: "Player has already rolled!")
@@ -113,7 +69,7 @@ class TurnSystem: GenericTurnSystem {
     }
 
     func selectForMovement(nodeId: Int, by player: GenericPlayer) throws {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         if !player.hasRolled {
             throw PlayerActionError.invalidAction(message: "Player has not rolled!")
         }
@@ -129,16 +85,16 @@ class TurnSystem: GenericTurnSystem {
         var path = player.getPath(to: nodeId)
         path.removeFirst()
         for (index, transitNode) in path.enumerated() {
-            pendingActions.append(.move(toNodeId: transitNode, isEnd: index == path.indices.last))
+            network.pendingActions.append(.move(toNodeId: transitNode, isEnd: index == path.indices.last))
         }
 
         if isSuccess(probability: player.getPirateEncounterChance(at: nodeId)) {
-            pendingActions.append(.pirate)
+            network.pendingActions.append(.pirate)
         }
     }
 
     func setTax(for portId: Int, to amount: Int, by player: GenericPlayer) throws {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         guard let port = gameState.map.nodeIDPair[portId] as? Port else {
             throw PlayerActionError.invalidAction(message: "Port does not exist")
         }
@@ -146,23 +102,22 @@ class TurnSystem: GenericTurnSystem {
             throw PlayerActionError.invalidAction(message: "Player does not own port!")
         }
 
-        pendingActions.append(.setTax(forPortId: portId, taxAmount: amount))
+        network.pendingActions.append(.setTax(forPortId: portId, taxAmount: amount))
     }
 
     func buy(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Bought quantity must be more than 0.")
         }
-        //TODO
         if quantity >= 0 {
             try player.buy(itemParameter: itemParameter, quantity: quantity)
-            pendingActions.append(.buyOrSell(itemParameter: itemParameter, quantity: quantity))
+            network.pendingActions.append(.buyOrSell(itemParameter: itemParameter, quantity: quantity))
         }
     }
 
     func sell(itemParameter: ItemParameter, quantity: Int, by player: GenericPlayer) throws {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         guard quantity > 0 else {
             throw PlayerActionError.invalidAction(message: "Sold quantity must be more than 0.")
         }
@@ -172,7 +127,7 @@ class TurnSystem: GenericTurnSystem {
             } catch let error as TradeItemError {
                 throw PlayerActionError.invalidAction(message: error.getMessage())
             }
-            pendingActions.append(.buyOrSell(itemParameter: itemParameter, quantity: -quantity))
+            network.pendingActions.append(.buyOrSell(itemParameter: itemParameter, quantity: -quantity))
         }
     }
 
@@ -180,167 +135,42 @@ class TurnSystem: GenericTurnSystem {
         guard let event = data.events[eventId] as? PresetEvent else {
             throw PlayerActionError.invalidAction(message: "Event does not exist")
         }
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         if !player.isGameMaster {
             throw PlayerActionError.invalidAction(message: "You are not a game master.")
         }
         event.active = enabled
-        pendingActions.append(.togglePresetEvent(eventId: eventId, enabled: enabled))
+        network.pendingActions.append(.togglePresetEvent(eventId: eventId, enabled: enabled))
     }
 
     func purchase(upgrade: Upgrade, by player: GenericPlayer) throws -> InfoMessage? {
-        try checkInputAllowed(from: player)
+        try playerInputController.checkInputAllowed(from: player)
         if !player.canBuyUpgrade() {
             throw PlayerActionError.invalidAction(message: "Not allowed to buy upgrades now.")
         }
         let (success, msg) = player.buyUpgrade(upgrade: upgrade)
         if success {
-            pendingActions.append(.purchaseUpgrade(type: upgrade.type))
+            network.pendingActions.append(.purchaseUpgrade(type: upgrade.type))
         }
         return msg
     }
 
-    private func checkInputAllowed(from player: GenericPlayer) throws {
-        switch state {
-        case .playerInput(let curPlayer, _):
-            if player != curPlayer {
-                throw PlayerActionError.wrongPhase(message: "Please wait for your turn")
-            }
-        default:
-            throw PlayerActionError.wrongPhase(message: "Action called on wrong phase")
-        }
+    func subscribeToState(with callback: @escaping (TurnSystemNetwork.State) -> Void) {
+        network.stateVariable.subscribe(with: callback)
     }
 
-    private func playerMove(_ player: GenericPlayer, _ nodeId: Int, isEnd: Bool) -> GameMessage? {
-        guard let ship = player.playerShip else {
-            return nil
+    func acknowledgeTurnStart() {
+        guard let player = network.currentPlayer else {
+            return
         }
-        let previous = ship.node.name
-        player.move(nodeId: nodeId)
-
-        if !isEnd {
-            return nil
-        }
-
-        let current = ship.node.name
-        return GameMessage.playerAction(name: player.name,
-                                        message: " has moved from \(previous) to \(current)")
+        playerInputController.startPlayerInput(from: player)
     }
 
-    /// Throws if action is invalid
-    /// For server actions only
-    private func process(action: PlayerAction, for player: GenericPlayer) throws -> GameMessage? {
-        switch state {
-        case .evaluateMoves(for: let currentPlayer):
-            if player != currentPlayer {
-                throw PlayerActionError.wrongPhase(message: "Evaluate move on wrong player!")
-            }
-        default:
-            throw PlayerActionError.wrongPhase(message: "Make action called on wrong phase")
-        }
-        switch action {
-        case .move(let nodeId, let isEnd):
-            return playerMove(player, nodeId, isEnd: isEnd)
-        case .forceMove(let nodeId): // quick hack for updating the player's position remotely
-            return playerMove(player, nodeId, isEnd: true)
-        case .setTax:
-            return try register(portTaxAction: action, by: player)
-        case .buyOrSell:
-            return try handle(tradeAction: action, by: player)
-        case .purchaseUpgrade(let upgradeType):
-            if player.deviceId == deviceId {
-                return GameMessage.playerAction(name: player.name, message: "You moved")
-            }
-            _ = player.buyUpgrade(upgrade: upgradeType.toUpgrade())
-            return GameMessage.playerAction(name: player.name,
-                                            message: " has purchased the \(upgradeType.toUpgrade().name)!")
-        case .pirate:
-            player.playerShip?.startPirateChase()
-            return GameMessage.playerAction(name: player.name, message: " is chased by pirates!")
-        case .togglePresetEvent(let eventId, let enabled):
-            if player.deviceId == deviceId {
-                return nil
-            }
-            guard let event = data.events[eventId] as? PresetEvent else {
-                return nil
-            }
-            event.active = enabled
-            return nil
-        }
+    func endTurn() {
+        network.endTurn()
     }
 
-    private func register(portTaxAction action: PlayerAction, by player: GenericPlayer) throws -> GameMessage? {
-        switch action {
-        case .setTax(let portId, _):
-            guard let port = gameState.map.nodeIDPair[portId] as? Port else {
-                throw PlayerActionError.invalidAction(message: "Port does not exist.")
-            }
-
-            if setTaxActions[portId] != nil {
-                setTaxActions[portId] = (action, player, false)
-            } else {
-                setTaxActions[portId] = (action, player, true)
-            }
-
-            return .playerAction(name: player.name, message: "Instructed \(port.name) to change tax.")
-        default:
-            return nil
-        }
-    }
-
-    private func handle(tradeAction: PlayerAction, by player: GenericPlayer) throws -> GameMessage? {
-        switch tradeAction {
-        case .buyOrSell(let itemParameter, let quantity):
-            let message = GameMessage.playerAction(
-                name: player.name,
-                message: " has \(quantity > 0 ? "purchased": "sold") \(quantity) \(itemParameter.rawValue)")
-            if player.deviceId == deviceId {
-                return message
-            }
-            do {
-                if quantity >= 0 {
-                    try player.buy(itemParameter: itemParameter, quantity: quantity)
-                } else {
-                    try player.sell(itemParameter: itemParameter, quantity: -quantity)
-                }
-            } catch let error as TradeItemError {
-                throw PlayerActionError.invalidAction(message: error.getMessage())
-            }
-            return message
-        default:
-            return nil
-        }
-    }
-
-    private func handleSetTax() {
-        for (action, player, success) in setTaxActions.values {
-            switch action {
-            case .setTax(let portId, let taxAmount):
-                guard let port = gameState.map.nodeIDPair[portId] as? Port else {
-                    return
-                }
-                guard player.team == port.owner else {
-                    return
-                }
-                guard success else {
-                    self.messages.append(
-                        GameMessage.playerAction(name: "",
-                                                 message: "Failed to change tax for \(port.name) " +
-                            "due to conflicting instructions."))
-                    return
-                }
-                let previous = port.taxAmount.value
-                port.taxAmount.value = taxAmount
-                self.messages.append(GameMessage.playerAction(
-                    name: player.name,
-                    message: " has set the tax for \(port.name) from \(previous) to \(taxAmount)"))
-            default:
-                return
-            }
-        }
-        setTaxActions = Dictionary()
-    }
-
+    // unused functionality setevents
     private func setEvents(changeType: ChangeType, events: [TurnSystemEvent]) -> Bool {
         switch changeType {
         case .add:
@@ -352,196 +182,7 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    func endTurn() {
-        let currentTurn = data.currentTurn
-        if let currentPlayer = currentPlayer {
-            do {
-                try network.push(
-                    actions: pendingActions, fromPlayer: currentPlayer,
-                    forTurnNumbered: currentTurn) { [weak self] error in
-                        guard let self = self, error != nil else {
-                            return
-                        }
-                        /// Usually firebase will resend after internet connection is re-established,
-                        /// but we resend it just in-case
-                        try? self.network.push(actions: self.pendingActions, fromPlayer: currentPlayer,
-                                               forTurnNumbered: currentTurn) { _ in }
-                }
-            } catch {
-                fatalError("Unable to encode actions.")
-            }
-            pendingActions = []
-        }
-        guard let player = getNextPlayer() else {
-            waitForTurnFinish()
-            return
-        }
-        state = .waitPlayerInput(from: player)
-    }
-
-    private func waitForTurnFinish() {
-        state = .waitForTurnFinish
-        let currentTurn = data.currentTurn
-        network.subscribeToActions(for: currentTurn) { [weak self] actionPair, _ in
-            self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
-        }
-    }
-
-    func getNextPlayer() -> GenericPlayer? {
-        let players = gameState.getPlayers()
-            .filter { [weak self] in $0.deviceId == self?.deviceId }
-        guard let currentPlayer = currentPlayer,
-            let currentIndex = players.firstIndex(where: { $0 == currentPlayer }) else {
-                return players.first
-        }
-
-        let nextIndex = currentIndex + 1
-
-        if !players.indices.contains(nextIndex) {
-            return nil
-        }
-
-        return players[nextIndex]
-    }
-
-    private func getFirstPlayer() -> GenericPlayer? {
-        return gameState.getPlayers()
-            .filter { [weak self] in $0.deviceId == self?.deviceId }
-            .first
-    }
-
-    func subscribeToState(with callback: @escaping (State) -> Void) {
-        stateVariable.subscribe(with: callback)
-    }
-
-    func acknoledgeTurnStart() {
-        guard let player = currentPlayer else {
-            return
-        }
-        startPlayerInput(from: player)
-    }
-
-    private func evaluateState(player: GenericPlayer, actions: [PlayerAction])
-        -> [GameMessage] {
-            var actions = actions
-            state = .evaluateMoves(for: player)
-            var result = [GameMessage]()
-            while !actions.isEmpty {
-                do {
-                    if let message = try process(action: actions.removeFirst(), for: player) {
-                        result.append(message)
-                    }
-                } catch {
-                    print("Invalid action from server, dropping action")
-                }
-            }
-            return result
-    }
-
-    private func updateStateMaster() {
-        state = .waitForStateUpdate
-        if isMaster {
-            // TODO: Change the typecast
-            guard let gameState = gameState as? GameState else {
-                return
-            }
-            do {
-                try network.push(currentState: gameState, forTurn: data.currentTurn) {
-                    guard let error = $0 else {
-                        return
-                    }
-                    print(error.localizedDescription)
-                }
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }
-        /// The game state parameter is ignored for now, validation can be added here
-        network.subscribeToMasterState(for: data.currentTurn) { [weak self] networkGameState in
-            self?.data.turnFinished()
-            if let data = self?.data, let gameState = self?.gameState {
-                if data.currentTurn >= gameState.numTurns {
-                    let winner = gameState.getTeamMoney().max { (first, second) -> Bool in
-                        return first.value < second.value
-                        }?.key
-                    self?.state = .finished(winner: winner)
-                    return
-                }
-            }
-            guard let player = self?.getFirstPlayer() else {
-                self?.state = .waitForTurnFinish
-                return
-            }
-            self?.state = .waitPlayerInput(from: player)
-            guard let gameState = self?.gameState else {
-                return
-            }
-            //assert(gameState.description == networkGameState.description)
-        }
-    }
-
     private func isSuccess(probability: Double) -> Bool {
         return Double(arc4random()) / Double(UINT32_MAX) < probability
-    }
-
-    private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
-        networkActionQueue.sync { [weak self] in
-            self?.processNetworkTurnActions(forTurnNumber: turnNum, playerActionPairs: playerActionPairs)
-        }
-    }
-
-    private func processNetworkTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
-        switch self.state {
-        case .waitForTurnFinish:
-            break
-        default:
-            return
-        }
-        if self.data.currentTurn != turnNum {
-            return
-        }
-
-        for player in players where
-            playerActionPairs.first(where: { player.playerName.hasPrefix($0.0) }) == nil {
-                return
-        }
-
-        for playerActionPair in playerActionPairs {
-            guard let chosenPlayer =
-                self.gameState.getPlayers().first(where: { $0.name == playerActionPair.0 }) else {
-                    continue
-            }
-            let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
-            self.messages.append(contentsOf: playerActions)
-            let messages = chosenPlayer.endTurn()
-            if chosenPlayer.deviceId == deviceId {
-                self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name, message: $0.getMessage())})
-            }
-        }
-        gameState.map.npcs.forEach {
-            guard let node = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000) else {
-                return
-            }
-            self.messages.append(GameMessage.playerAction(name: "NPC", message: "An npc has moved into \(node.name)"))
-        }
-        handleSetTax()
-        let eventResults = data.checkForEvents() // events will run here, non-recursive
-        self.messages.append(contentsOf: eventResults)
-        gameState.gameTime.value.addWeeks(4)
-        gameState.map.updateWeather(for: gameState.gameTime.value.month)
-        gameState.distributeTeamMoney()
-        updateStateMaster()
-    }
-
-    private func startPlayerInput(from player: GenericPlayer) {
-        let endTime = Date().timeIntervalSince1970 + GameConstants.playerTurnDuration
-        let turnNum = data.currentTurn
-        DispatchQueue.global().asyncAfter(deadline: .now() + GameConstants.playerTurnDuration) { [weak self] in
-            if player == self?.currentPlayer && self?.data.currentTurn == turnNum {
-                self?.endTurn()
-            }
-        }
-
-        self.state = .playerInput(from: player, endTime: endTime)
     }
 }

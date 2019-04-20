@@ -8,11 +8,12 @@
 
 import UIKit
 
+/// Controller responsible for nodes and objects on the map.
 class ObjectsViewController {
     private var objectViews = [GameObject: UIImageView]()
     private weak var delegate: ObjectsViewControllerDelegate?
     private var nodeViews = [Int: NodeView]()
-    private var paths = ObjectPaths()
+    private var paths = NodePaths()
     private var pathLayers = [Path: CAShapeLayer]()
     private var objectQueues = [GameObject: DispatchQueue]()
     private let view: UIView
@@ -25,6 +26,10 @@ class ObjectsViewController {
         self.modelBounds = modelBounds
     }
 
+    /// Called when a NodeView is tapped
+    ///
+    /// - Parameter nodeView: the view that has been tapped.
+    /// - Returns: The identifier for the node of the nodeview that has been tapped.
     func onTap(nodeView: NodeView) -> Int {
         if nodeView.node as? Port != nil {
             onTapPort(portView: nodeView)
@@ -33,6 +38,9 @@ class ObjectsViewController {
         return nodeView.node.identifier
     }
 
+    /// Subscibes to nodes on the given map.
+    ///
+    /// - Parameter map: the map that the nodes reside on.
     func subscribeToNodes(in map: Map) {
         map.subscribeToNodes { [weak self] nodes in
             guard let self = self else {
@@ -53,6 +61,9 @@ class ObjectsViewController {
         }
     }
 
+    /// Subscribes to paths on the given map.
+    ///
+    /// - Parameter map: The map that the paths reside on.
     func subscribeToPaths(in map: Map) {
         map.subscribeToPaths { [weak self] nodePaths in
             let mapPaths = Set(nodePaths.values.flatMap { $0 })
@@ -76,6 +87,9 @@ class ObjectsViewController {
         }
     }
 
+    /// Signify that nodes that match the input identifiers are choosable by making their associated views glow.
+    ///
+    /// - Parameter choosableNodes: The nodes to make choosable.
     func make(choosableNodes: [Int]) {
         for nodeId in choosableNodes {
             guard let view = nodeViews[nodeId] else {
@@ -86,6 +100,7 @@ class ObjectsViewController {
         }
     }
 
+    /// Resets any indication that the nodes are choosable.
     func resetChoosableNodes() {
         nodeViews.values
             .forEach {
@@ -93,6 +108,13 @@ class ObjectsViewController {
         }
     }
 
+    /// Adds the given path to view.
+    ///
+    /// - Parameters:
+    ///   - path: The path to add.
+    ///   - fromFrame: The frame where the path starts from.
+    ///   - toFrame: The frame where the path ends.
+    ///   - duration: The duration of the animation for drawing the path.
     private func addToView(path: Path, from fromFrame: CGRect,
                            to toFrame: CGRect, withDuration duration: TimeInterval) {
         let startPoint = CGPoint(x: fromFrame.midX, y: fromFrame.midY)
@@ -118,6 +140,9 @@ class ObjectsViewController {
         weatherView.initView()
     }
 
+    /// Subscibes to objects on the input map and any changes in their position.
+    ///
+    /// - Parameter map: The map that the objects reside on.
     func subscribeToObjects(in map: Map) {
         map.subscribeToObjects { [weak self] in
             guard let self = self else {
@@ -136,6 +161,7 @@ class ObjectsViewController {
         }
     }
 
+    /// Updates the views that represent each path with their current weather condition.
     func updatePathWeather() {
         for path in paths.allPaths {
             let isActive = path
@@ -151,6 +177,9 @@ class ObjectsViewController {
         }
     }
 
+    /// Make the input player's ship glow.
+    ///
+    /// - Parameter player: The player whose ship to make glow.
     func makeShipGlow(for player: GenericPlayer) {
         for (object, view) in objectViews {
             guard let ship = object as? ShipUI else {
@@ -165,6 +194,11 @@ class ObjectsViewController {
         }
     }
 
+    /// Updates the input object's frame to the input frame.
+    ///
+    /// - Parameters:
+    ///   - frame: The frame of the object in the model.
+    ///   - object: The object whose frame to change.
     private func update(frame: Rect, for object: GameObject) {
         guard let objectView = objectViews[object] else {
             return
@@ -189,6 +223,9 @@ class ObjectsViewController {
         }
     }
 
+    /// Registers and shows the view for a given object
+    ///
+    /// - Parameter object: The GameObject to register.
     private func register(object: GameObject) {
         if self.objectViews[object] != nil {
             return
@@ -213,16 +250,14 @@ class ObjectsViewController {
         self.view.addSubview(objectView)
     }
 
+    /// Called when a port has been tapped. Shows the information of the port on the delegate.
+    ///
+    /// - Parameter portView: The NodeView of the port.
     private func onTapPort(portView: NodeView) {
         guard let port = portView.node as? Port else {
             return
         }
 
         delegate?.showInformation(of: port)
-    }
-
-    private enum State {
-        case chooseDestination
-        case normal
     }
 }

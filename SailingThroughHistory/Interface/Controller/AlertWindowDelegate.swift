@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Delegate for AlertWindowController. Notified when the user acknowledges the message.
 protocol AlertWindowDelegate: class {
     func acknoledgePressed()
 }

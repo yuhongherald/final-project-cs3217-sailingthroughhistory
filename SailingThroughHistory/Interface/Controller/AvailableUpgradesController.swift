@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// The controller responsible for showing the available upgrades.
 class AvailableUpgradesController: NSObject, UITableViewDataSource {
     private static let reuseIdentifier: String = "upgradesTableCell"
     private static let header = "Available Upgrades"
@@ -17,6 +18,11 @@ class AvailableUpgradesController: NSObject, UITableViewDataSource {
 
     var enabled = false
 
+    /// Default constructor for the input available upgrades.
+    ///
+    /// - Parameters:
+    ///   - delegate: Delegate for this controller for when player attempts to buy an upgrade
+    ///   - availableUpgrades: Available upgrades for the user.
     init(delegate: AvailableUpgradesControllerDelegate, availableUpgrades: [Upgrade]) {
         self.delegate = delegate
         self.upgrades = availableUpgrades

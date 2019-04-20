@@ -8,7 +8,7 @@
 
 import URWeatherView
 
-protocol UILightningView: UIView {
+protocol UILightningView {
     func initView()
     func stop()
     func start()

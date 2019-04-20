@@ -13,6 +13,7 @@ class TurnSystemState: GenericTurnSystemState {
     let gameState: GenericGameState
     var currentPlayerIndex = 0
     var currentTurn: Int
+    var messages: [GameMessage] = []
 
     init(gameState: GenericGameState, joinOnTurn: Int) {
         self.gameState = gameState
@@ -70,10 +71,5 @@ class TurnSystemState: GenericTurnSystemState {
     func turnFinished() {
         currentTurn += 1
         gameState.gameTime.value.addWeeks(4)
-    }
-
-    // marked for deprecation
-    func processed(action: PlayerAction, from player: GenericPlayer) {
-        actionHistory.append((player: player, action: action))
     }
 }
