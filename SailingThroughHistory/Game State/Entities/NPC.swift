@@ -64,15 +64,15 @@ class NPC: GameObject {
 
     func moveToNextNode(map: Map, maxTaxAmount: Int) -> Node? {
         let nextNodeId = getNextNode(map: map, maxTaxAmount: maxTaxAmount)
-        guard let currentNode = map.nodeIDPair[nodeId], let nextNode = map.nodeIDPair[nodeId] else {
+        guard let currentNode = map.nodeIDPair[nodeId], let nextNode = map.nodeIDPair[nextNodeId] else {
             return nil
         }
-        nodeId = nextNodeId
         let path = currentNode.getCompleteShortestPath(to: nextNode, with: self, map: map)
         for node in path {
             frame.value = node.frame
         }
         frame.value = nextNode.frame
+        nodeId = nextNodeId
         if let port = nextNode as? Port {
             port.collectTax(from: self)
         }

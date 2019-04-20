@@ -143,7 +143,7 @@ class Player: GenericPlayer {
     }
 
     func getNodesInRange(roll: Int) -> [Node] {
-        guard let map = map else {
+        guard map != nil else {
             fatalError("Cannot check dock if map does not exist.")
         }
         return ship.navigationManager.getNodesInRange(ship: ship, roll: roll, speedMultiplier: speedMultiplier)
@@ -284,7 +284,6 @@ extension Player {
     }
 
     private func preventPlayerBankruptcy(amount: Int) {
-        // TODO: Show some message?
         team?.updateMoney(by: -amount)
         money.value = 0
     }
