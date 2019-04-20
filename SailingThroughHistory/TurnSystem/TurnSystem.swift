@@ -13,25 +13,23 @@ class TurnSystem: GenericTurnSystem {
     var eventPresets: EventPresets?
     var messages: [GameMessage] {
         get {
-            return messenger.messages
+            return data.messages
         }
         set {
-            messenger.messages = newValue
+            data.messages = newValue
         }
     }
 
-    private let network: TurnSystemNetwork
-    private let messenger: GameMessenger
-    private let data: GenericTurnSystemState
+    let network: TurnSystemNetwork
+    let data: GenericTurnSystemState
     var gameState: GenericGameState {
         return data.gameState
     }
 
-    init(network: TurnSystemNetwork, startingState: GenericTurnSystemState,
-         messenger: GameMessenger) {
+    init(network: TurnSystemNetwork,
+         startingState: GenericTurnSystemState) {
         self.data = startingState
         self.network = network
-        self.messenger = messenger
         self.eventPresets = EventPresets(gameState: startingState.gameState, turnSystem: self)
 
         if let eventPresets = self.eventPresets {
@@ -154,17 +152,6 @@ class TurnSystem: GenericTurnSystem {
         return msg
     }
 
-    private func checkInputAllowed(from player: GenericPlayer) throws {
-        switch network.state {
-        case .playerInput(let curPlayer, _):
-            if player != curPlayer {
-                throw PlayerActionError.wrongPhase(message: "Please wait for your turn")
-            }
-        default:
-            throw PlayerActionError.wrongPhase(message: "Action called on wrong phase")
-        }
-    }
-
     func subscribeToState(with callback: @escaping (TurnSystemNetwork.State) -> Void) {
         network.stateVariable.subscribe(with: callback)
     }
@@ -180,7 +167,7 @@ class TurnSystem: GenericTurnSystem {
         network.endTurn()
     }
 
-    // unused functionality
+    // unused functionality setevents
     private func setEvents(changeType: ChangeType, events: [TurnSystemEvent]) -> Bool {
         switch changeType {
         case .add:
@@ -196,6 +183,18 @@ class TurnSystem: GenericTurnSystem {
         return Double(arc4random()) / Double(UINT32_MAX) < probability
     }
 
+    // extract to InputController
+    private func checkInputAllowed(from player: GenericPlayer) throws {
+        switch network.state {
+        case .playerInput(let curPlayer, _):
+            if player != curPlayer {
+                throw PlayerActionError.wrongPhase(message: "Please wait for your turn")
+            }
+        default:
+            throw PlayerActionError.wrongPhase(message: "Action called on wrong phase")
+        }
+    }
+
     private func startPlayerInput(from player: GenericPlayer) {
         let endTime = Date().timeIntervalSince1970 + GameConstants.playerTurnDuration
         let turnNum = data.currentTurn
@@ -205,6 +204,6 @@ class TurnSystem: GenericTurnSystem {
             }
         }
 
-        self.network.state = .playerInput(from: player, endTime: endTime)
+        network.state = .playerInput(from: player, endTime: endTime)
     }
 }

@@ -9,9 +9,29 @@
 class PlayerActionAdapter {
     /// Throws if action is invalid
     /// For server actions only
-    func process(state: TurnSystemNetwork.State, networkInfo: NetworkInfo,
-                 data: TurnSystemState,
-                 action: PlayerAction, for player: GenericPlayer) throws -> GameMessage? {
+
+    let stateVariable: GameVariable<TurnSystemNetwork.State>
+    let networkInfo: NetworkInfo
+    let data: GenericTurnSystemState
+
+    var state: TurnSystemNetwork.State {
+        get {
+            return stateVariable.value
+        }
+        set {
+            stateVariable.value = newValue
+        }
+    }
+
+    init(stateVariable: GameVariable<TurnSystemNetwork.State>,
+         networkInfo: NetworkInfo, data: GenericTurnSystemState) {
+        self.stateVariable = stateVariable
+        self.networkInfo = networkInfo
+        self.data = data
+    }
+
+    func process(action: PlayerAction, for player: GenericPlayer)
+        throws -> GameMessage? {
         switch state {
         case .evaluateMoves(for: let currentPlayer):
             if player != currentPlayer {
@@ -26,9 +46,9 @@ class PlayerActionAdapter {
         case .forceMove(let nodeId): // quick hack for updating the player's position remotely
             return playerMove(player, nodeId, isEnd: true)
         case .setTax:
-            return try register(gameState: <#GenericGameState#>, portTaxAction: action, by: player)
+            return try register(portTaxAction: action, by: player)
         case .buyOrSell:
-            return try handle(networkInfo: <#NetworkInfo#>, tradeAction: action, by: player)
+            return try handle(tradeAction: action, by: player)
         case .purchaseUpgrade(let upgradeType):
             if player.deviceId == networkInfo.deviceId {
                 return GameMessage.playerAction(name: player.name, message: "You moved")
@@ -50,8 +70,8 @@ class PlayerActionAdapter {
             return nil
         }
     }
-    
-    func handle(networkInfo: NetworkInfo, tradeAction: PlayerAction, by player: GenericPlayer) throws -> GameMessage? {
+
+    func handle(tradeAction: PlayerAction, by player: GenericPlayer) throws -> GameMessage? {
         switch tradeAction {
         case .buyOrSell(let itemParameter, let quantity):
             let message = GameMessage.playerAction(
@@ -75,40 +95,38 @@ class PlayerActionAdapter {
         }
     }
     
-    func register(gameState: GenericGameState, networkInfo: NetworkInfo,
-                  portTaxAction action: PlayerAction,
+    func register(portTaxAction action: PlayerAction,
                   by player: GenericPlayer) throws -> GameMessage? {
         switch action {
         case .setTax(let portId, _):
-            guard let port = gameState.map.nodeIDPair[portId] as? Port else {
+            guard let port = data.gameState.map.nodeIDPair[portId] as? Port else {
                 throw PlayerActionError.invalidAction(message: "Port does not exist.")
             }
-            
+
             if networkInfo.setTaxActions[portId] != nil {
                 networkInfo.setTaxActions[portId] = (action, player, false)
             } else {
                 networkInfo.setTaxActions[portId] = (action, player, true)
             }
-            
+
             return .playerAction(name: player.name, message: "Instructed \(port.name) to change tax.")
         default:
             return nil
         }
     }
-    
-    // TODO: Messenger, gameState
-    func handleSetTax(gameState: GenericGameState, networkInfo: NetworkInfo) {
+
+    func handleSetTax() {
         for (action, player, success) in networkInfo.setTaxActions.values {
             switch action {
             case .setTax(let portId, let taxAmount):
-                guard let port = gameState.map.nodeIDPair[portId] as? Port else {
+                guard let port = data.gameState.map.nodeIDPair[portId] as? Port else {
                     return
                 }
                 guard player.team == port.owner else {
                     return
                 }
                 guard success else {
-                    self.messages.append(
+                    data.messages.append(
                         GameMessage.playerAction(name: "",
                                                  message: "Failed to change tax for \(port.name) " +
                             "due to conflicting instructions."))
@@ -116,7 +134,7 @@ class PlayerActionAdapter {
                 }
                 let previous = port.taxAmount.value
                 port.taxAmount.value = taxAmount
-                self.messages.append(GameMessage.playerAction(
+                data.messages.append(GameMessage.playerAction(
                     name: player.name,
                     message: " has set the tax for \(port.name) from \(previous) to \(taxAmount)"))
             default:
@@ -125,18 +143,18 @@ class PlayerActionAdapter {
         }
         networkInfo.setTaxActions = Dictionary()
     }
-    
+
     func playerMove(_ player: GenericPlayer, _ nodeId: Int, isEnd: Bool) -> GameMessage? {
         guard let ship = player.playerShip else {
             return nil
         }
         let previous = ship.node.name
         player.move(nodeId: nodeId)
-        
+
         if !isEnd {
             return nil
         }
-        
+
         let current = ship.node.name
         return GameMessage.playerAction(name: player.name,
                                         message: " has moved from \(previous) to \(current)")

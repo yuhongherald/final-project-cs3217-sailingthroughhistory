@@ -6,7 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-protocol GenericTurnSystemState {
+protocol GenericTurnSystemState: GameMessenger {
     var currentTurn: Int { get }
     var gameState: GenericGameState { get }
     var events: [Int: TurnSystemEvent] { get }
