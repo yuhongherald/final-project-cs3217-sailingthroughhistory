@@ -10,22 +10,37 @@ import XCTest
 @testable import SailingThroughHistory
 
 class ShipUnitTests: XCTestCase {
-    let speedMultiplier = 1.0
     var node = NodeStub(name: "testNode", identifier: 0)
+    var encodableItems = [Item]()
     var items = [GenericItemStub]()
     var itemsConsumed = [GenericItemStub]()
+    var ports = [PortStub]()
+    let map = Map(map: "testMap", bounds: Rect(originX: 0, originY: 0, height: 0, width: 0))
+    private var wasItemSubscribeCalled = false
 
     override func setUp() {
         super.setUp()
+        wasItemSubscribeCalled = false
         node = NodeStub(name: "testNode", identifier: 0)
 
+        encodableItems = [Item]()
+        let encodableItem1 = Item(itemParameter: .opium, quantity: 1)
+        encodableItems.append(encodableItem1)
+
         items = [GenericItemStub]()
-        let item1 = GenericItemStub(name: "TestItem1", itemType: .opium, quantity: 1)
+        let item1 = GenericItemStub(name: "TestItem1", itemParameter: .opium, quantity: 1)
         items.append(item1)
 
         itemsConsumed = [GenericItemStub]()
-        let consumed1 = GenericItemStub(name: "TestConsume1", itemType: .food, quantity: 1)
+        let consumed1 = GenericItemStub(name: "TestConsume1", itemParameter: .food, quantity: 1)
         itemsConsumed.append(consumed1)
+
+        let port1 = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100)
+        ports.append(port1)
+
+        for port in ports {
+            map.addNode(port)
+        }
     }
 
     override class func tearDown() {
@@ -33,21 +48,32 @@ class ShipUnitTests: XCTestCase {
         Node.reuseID.removeAll()
     }
 
+    override func tearDown() {
+        for node in map.nodes.value {
+            map.removeNode(node)
+        }
+    }
+
     func testConstructor() {
-        //init(node: Node, itemsConsumed: [GenericItem])
         let ship = Ship(node: node, itemsConsumed: itemsConsumed)
         XCTAssertEqual(ship.nodeId, node.identifier)
         XCTAssertTrue(testTwoGenericItemArray(ship.itemsConsumed, itemsConsumed))
         XCTAssertEqual(ship.isChasedByPirates, false)
         XCTAssertEqual(ship.turnsToBeingCaught, 0)
 
-        //subscribeToItems(with: updateCargoWeight)
-        //shipObject = ShipUI(ship: self)
+        ship.subscribeToItems(with: testSubscribeToItem)
+        ship.items.value = []
+        XCTAssertTrue(wasItemSubscribeCalled)
+        guard let embeddedShip = ship.shipObject?.ship else {
+            XCTFail("Ship object was not initialized correctly!")
+            return
+        }
+        XCTAssertTrue(embeddedShip === ship)
     }
 
     func testEncodeDecode() {
-        let ship1 = Ship(node: node, itemsConsumed: [])
-        //ship1.items.value = items
+        let ship1 = Ship(node: node, itemsConsumed: encodableItems)
+        ship1.items.value = encodableItems
         let shipChassis = BiggerShipUpgrade()
         let auxiliaryUpgrade = MercernaryUpgrade()
         ship1.shipChassis = shipChassis
@@ -61,7 +87,7 @@ class ShipUnitTests: XCTestCase {
             XCTFail("Decode failed")
             return
         }
-        //XCTAssertTrue(testTwoGenericItemArray(ship1Decoded.items.value, ship1.items.value))
+        XCTAssertTrue(testTwoGenericItemArray(ship1Decoded.items.value, ship1.items.value))
         XCTAssertEqual(ship1Decoded.nodeId, ship1.nodeId)
         XCTAssertTrue(testTwoGenericItemArray(ship1Decoded.itemsConsumed, ship1.itemsConsumed))
         XCTAssertEqual(ship1Decoded.shipChassis?.name,
@@ -74,56 +100,61 @@ class ShipUnitTests: XCTestCase {
     }
 
     func testEndTurn() {
-        //func endTurn(speedMultiplier: Double) -> [InfoMessage]
-        let ship1 = Ship(node: node, itemsConsumed: [])
-        let pirateTimer1 = 10
-        ship1.items.value = items
-        ship1.isChasedByPirates = true
-        ship1.turnsToBeingCaught = pirateTimer1
-        let messages1 = ship1.endTurn(speedMultiplier: speedMultiplier)
+        for num in 1...3 {
+            let speedMultiplier = Double(num)
+            let ship1 = Ship(node: node, itemsConsumed: [])
+            let pirateTimer1 = 10
+            ship1.items.value = items
+            ship1.isChasedByPirates = true
+            ship1.turnsToBeingCaught = pirateTimer1
+            let messages1 = ship1.endTurn(speedMultiplier: speedMultiplier)
 
-        XCTAssertTrue(testTwoGenericItemArray(ship1.items.value, items))
-        XCTAssertEqual(ship1.isChasedByPirates, true)
-        XCTAssertEqual(ship1.turnsToBeingCaught, pirateTimer1 - 1)
+            XCTAssertTrue(testTwoGenericItemArray(ship1.items.value, items))
+            XCTAssertEqual(ship1.isChasedByPirates, true)
+            XCTAssertEqual(ship1.turnsToBeingCaught, pirateTimer1 - 1)
+            XCTAssertEqual(infoMessagesToStrings(msgs: messages1), infoMessagesToStrings(msgs: [InfoMessage.pirates(turnsToBeingCaught: pirateTimer1 - 1)]))
 
-        let ship2 = Ship(node: node, itemsConsumed: [])
-        ship2.items.value = items
-        ship2.isChasedByPirates = true
-        ship2.turnsToBeingCaught = 1
-        let messages2 = ship2.endTurn(speedMultiplier: speedMultiplier)
+            let ship2 = Ship(node: node, itemsConsumed: [])
+            ship2.items.value = items
+            ship2.isChasedByPirates = true
+            ship2.turnsToBeingCaught = 1
+            let messages2 = ship2.endTurn(speedMultiplier: speedMultiplier)
 
-        XCTAssertTrue(testTwoGenericItemArray(ship2.items.value, [GenericItem]()))
-        XCTAssertEqual(ship2.isChasedByPirates, false)
-        XCTAssertEqual(ship2.turnsToBeingCaught, 0)
-        //messages.append(InfoMessage(title: "Pirates!", message: "You have
-        //been caught by pirates!. You lost all your cargo"))
+            XCTAssertTrue(testTwoGenericItemArray(ship2.items.value, [GenericItem]()))
+            XCTAssertEqual(ship2.isChasedByPirates, false)
+            XCTAssertEqual(ship2.turnsToBeingCaught, 0)
+            XCTAssertEqual(infoMessagesToStrings(msgs: messages2), infoMessagesToStrings(msgs: [InfoMessage.caughtByPirates]))
 
-        let ship3 = Ship(node: node, itemsConsumed: itemsConsumed)
-        let money3 = 1000
-        let owner3 = GenericPlayerStub()
-        ship3.owner = owner3
-        owner3.money.value = money3
-        ship3.items.value = itemsConsumed.map { $0.copy() }
-        let messages3 = ship3.endTurn(speedMultiplier: speedMultiplier)
-
-        XCTAssertTrue(testTwoGenericItemArray(ship3.items.value, [GenericItem]()))
-        XCTAssertEqual(ship3.owner?.money.value, money3)
-
-        //owner?.updateMoney(by: -deficit * parameter.getBuyValue())
-        /*messages.append(InfoMessage(title: "deficit!",
-
-         message: "You have exhausted \(parameter.displayName) and have a deficit of \(deficit) and paid for it."))*/
-
-        // decay remaining items
-        /*
-        for item in items.value {
-            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
-                continue
+            let ship3 = Ship(node: node, itemsConsumed: itemsConsumed)
+            let money3 = 1000
+            let owner3 = GenericPlayerStub()
+            ship3.owner = owner3
+            owner3.money.value = money3
+            ship3.items.value = itemsConsumed.map {
+                let item = $0.copy()
+                item.quantity *= Int(speedMultiplier)
+                return item
             }
-            messages.append(InfoMessage(title: "Lost Item",
+            let messages3 = ship3.endTurn(speedMultiplier: speedMultiplier)
 
-            message: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!"))
-        }*/
+            XCTAssertTrue(testTwoGenericItemArray(ship3.items.value, [GenericItem]()))
+            XCTAssertEqual(ship3.owner?.money.value, money3)
+            XCTAssertEqual(infoMessagesToStrings(msgs: messages3), infoMessagesToStrings(msgs: [InfoMessage]()))
+
+            let ship4 = Ship(node: node, itemsConsumed: itemsConsumed)
+            let money4 = 1000
+            let owner4 = GenericPlayerStub()
+            ship4.owner = owner4
+            owner4.money.value = money4
+            owner4.map = map
+            let messages4 = ship4.endTurn(speedMultiplier: speedMultiplier)
+
+            XCTAssertTrue(testTwoGenericItemArray(ship4.items.value, [GenericItem]()))
+            XCTAssertEqual(ship4.owner?.money.value, money4 - getTotalCostOfItemStubs(items: itemsConsumed) * Int(speedMultiplier) * 2)
+            XCTAssertEqual(infoMessagesToStrings(msgs: messages4), infoMessagesToStrings(msgs: itemsConsumed.map {
+                InfoMessage.deficit(itemName: $0.itemParameter.rawValue, deficit: $0.quantity * Int(speedMultiplier))
+                }))
+        }
     }
 
     private func testTwoGenericItemArray(_ array1: [GenericItem], _ array2: [GenericItem]) -> Bool {
@@ -136,5 +167,25 @@ class ShipUnitTests: XCTestCase {
             }
         }
         return true
+    }
+
+    private func testSubscribeToItem(items: [GenericItem]) {
+        wasItemSubscribeCalled = true
+    }
+
+    private func infoMessagesToStrings(msgs: [InfoMessage]) -> [String] {
+        var result = [String]()
+        for msg in msgs {
+            result.append(msg.getMessage())
+        }
+        return result
+    }
+
+    private func getTotalCostOfItemStubs(items: [GenericItemStub]) -> Int {
+        var total = 0
+        for item in items {
+            total += item.itemParameter.getBuyValue(ports: ports)
+        }
+        return total
     }
 }

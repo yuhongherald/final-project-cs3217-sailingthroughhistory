@@ -140,6 +140,8 @@ class Ship: ShipAPI, Codable {
         var messages = [InfoMessage]()
         if isChasedByPirates {
             turnsToBeingCaught -= 1
+        }
+        if turnsToBeingCaught > 0 {
             messages.append(InfoMessage.pirates(turnsToBeingCaught: turnsToBeingCaught))
         }
 
@@ -154,11 +156,9 @@ class Ship: ShipAPI, Codable {
             let parameter = supply.itemParameter
             let deficit = itemManager.removeItem(ship: self, by: parameter, with: Int(Double(supply.quantity) * speedMultiplier))
             if let owner = owner,
-                let ports = owner.gameState?.map.nodes.value.map({ $0 as? Port }).compactMap({ $0 }) {
+                let ports = owner.map?.nodes.value.map({ $0 as? Port }).compactMap({ $0 }), deficit > 0 {
                 owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
-                if deficit > 0 {
-                    messages.append(InfoMessage.deficit(itemName: parameter.rawValue, deficit: deficit))
-                }
+                messages.append(InfoMessage.deficit(itemName: parameter.rawValue, deficit: deficit))
             }
         }
         updateCargoWeight(items: self.items.value)

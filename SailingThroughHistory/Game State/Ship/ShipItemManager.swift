@@ -31,7 +31,7 @@ class ShipItemManager: ItemStorage {
         guard let port = ship.node as? Port, ship.isDocked else {
             throw TradeItemError.notDocked
         }
-        let item = itemParameter.createItem(quantity: quantity)
+        var item = itemParameter.createItem(quantity: quantity)
         guard let price = item.getBuyValue(at: port) else {
             throw TradeItemError.itemNotAvailable
         }
@@ -39,7 +39,7 @@ class ShipItemManager: ItemStorage {
         guard difference >= 0 else {
             throw TradeItemError.insufficientFunds(shortOf: difference)
         }
-        try addItem(ship: ship, item: item)
+        try addItem(ship: ship, item: &item)
         ship.owner?.updateMoney(by: -price)
         ship.updateCargoWeight(items: ship.items.value)
     }
@@ -93,7 +93,7 @@ class ShipItemManager: ItemStorage {
         return ship.weightCapacity - ship.currentCargoWeight
     }
 
-    private func addItem(ship: ShipAPI, item: GenericItem) throws {
+    private func addItem(ship: ShipAPI, item: inout GenericItem) throws {
         let difference = getRemainingCapacity(ship: ship) - (item.weight ?? 0)
         guard difference >= 0 else {
             throw TradeItemError.insufficientCapacity(shortOf: difference)
@@ -102,7 +102,7 @@ class ShipItemManager: ItemStorage {
             ship.items.value.append(item)
             return
         }
-        _ = sameType.combine(with: item)
+        _ = sameType.combine(with: &item)
         return
     }
 }

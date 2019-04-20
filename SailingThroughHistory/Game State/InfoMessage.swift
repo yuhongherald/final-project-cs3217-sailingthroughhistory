@@ -42,7 +42,7 @@ enum InfoMessage {
             return "You have been caught by pirates!. You lost all your cargo"
         case .deficit(let itemName, let deficit):
             return "You have exhausted \(itemName) and have a deficit"
-                + "of \(deficit) and paid twice the normal amount for it."
+                + " of \(deficit) and paid twice the normal amount for it."
         case .noOwner:
             return "Ship has no owner!"
         case .cannotAfford(let upgrade):

@@ -37,7 +37,7 @@ class GenericItemStub: GenericItem {
         }
     }
 
-    func combine(with item: GenericItem) -> Bool {
+    func combine(with item: inout GenericItem) -> Bool {
         return true
     }
 

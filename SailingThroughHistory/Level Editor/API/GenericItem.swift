@@ -15,9 +15,8 @@ protocol GenericItem: Codable {
     var quantity: Int { get set }
 
     func decayItem(with time: Double) -> Int?
-    func combine(with item: GenericItem) -> Bool
+    func combine(with item: inout GenericItem) -> Bool
     func remove(amount: Int) -> Int
-    func setQuantity(quantity: Int)
     func getBuyValue(at port: Port) -> Int?
     func sell(at port: Port) -> Int?
 }

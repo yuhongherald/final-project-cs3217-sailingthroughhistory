@@ -14,10 +14,10 @@ class ItemTest: XCTestCase {
     let uncItemParameter = ItemParameter.silk
 
     func testUpdateItem() {
-        let item = Item(itemParameter: cItemParameter, quantity: 200)
-        item.setQuantity(quantity: -100)
+        var item = Item(itemParameter: cItemParameter, quantity: 200)
+        item.quantity = -100
         XCTAssertEqual(item.quantity, 0, "Item quantity should not fall below 0.")
-        item.setQuantity(quantity: 100)
+        item.quantity = 100
         XCTAssertEqual(item.quantity, 100, "Item quantity is not successfully updated.")
     }
 
@@ -27,17 +27,17 @@ class ItemTest: XCTestCase {
         let uncItemQ = 300
         let cItemSum = cItemOneQ + cItemTwoQ
         let cItemOne = Item(itemParameter: cItemParameter, quantity: cItemOneQ)
-        let cItemTwo = Item(itemParameter: cItemParameter, quantity: cItemTwoQ)
-        let uncItem = Item(itemParameter: uncItemParameter, quantity: uncItemQ)
+        var cItemTwo: GenericItem = Item(itemParameter: cItemParameter, quantity: cItemTwoQ)
+        var uncItem: GenericItem = Item(itemParameter: uncItemParameter, quantity: uncItemQ)
 
         // test combine item - successfully
-        var res = cItemOne.combine(with: cItemTwo)
+        var res = cItemOne.combine(with: &cItemTwo)
         XCTAssertTrue(res, "Item with same ItemParameter should be combined.")
         XCTAssertEqual(cItemOne.quantity, cItemSum, "Item quantity is not successfuly combined.")
         XCTAssertEqual(cItemTwo.quantity, 0, "Item quantity is not successfuly combined.")
 
         // test combine item - fail
-        res = cItemOne.combine(with: uncItem)
+        res = cItemOne.combine(with: &uncItem)
         XCTAssertFalse(res, "Item with different ItemParameter should not be combined.")
         XCTAssertEqual(cItemOne.quantity, cItemSum, "Item quantity should not be combined.")
         XCTAssertEqual(uncItem.quantity, uncItemQ, "Item quantity should not be combined.")
