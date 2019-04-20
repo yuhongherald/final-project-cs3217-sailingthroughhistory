@@ -43,22 +43,6 @@ class ShipItemManager: ItemStorage {
         ship.updateCargoWeight(items: ship.items.value)
     }
 
-    func sellItem(ship: ShipAPI, item: GenericItem) throws {
-        guard let port = ship.node as? Port, ship.isDocked else {
-            throw TradeItemError.notDocked
-        }
-        guard let index = ship.items.value.firstIndex(where: {$0 == item}) else {
-            throw TradeItemError.itemNotAvailable
-        }
-        guard let profit = ship.items.value[index].sell(at: port) else {
-            throw TradeItemError.itemNotAvailable
-        }
-        ship.owner?.updateMoney(by: profit)
-        ship.items.value.remove(at: index)
-        ship.items.value = ship.items.value
-        ship.updateCargoWeight(items: ship.items.value)
-    }
-
     func sell(ship: ShipAPI, itemParameter: ItemParameter, quantity: Int) throws {
         guard let map = ship.map, let port = ship.node as? Port else {
             throw TradeItemError.notDocked
