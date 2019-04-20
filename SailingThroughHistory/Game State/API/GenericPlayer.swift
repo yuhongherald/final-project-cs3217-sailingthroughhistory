@@ -58,7 +58,6 @@ protocol GenericPlayer: class, Codable {
     func getPurchasableItemParameters() -> [ItemParameter]
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
     func buy(itemParameter: ItemParameter, quantity: Int) throws
-    func sell(item: GenericItem) throws
     func sell(itemParameter: ItemParameter, quantity: Int) throws
     func setTax(port: Port, amount: Int) throws
 

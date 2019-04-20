@@ -9,6 +9,15 @@
 import UIKit
 
 extension LevelEditorViewController {
+    func hideTeamMenu() {
+        UIView.transition(with: teamMenu, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            self.teamMenu.alpha = 0
+        }, completion: { _ in
+            self.teamMenu.isHidden = true
+            self.teamMenu.alpha = 1
+        })
+    }
+    
     /// Update views with updated game parameter.
     func reInit() {
         reInitScrollView()

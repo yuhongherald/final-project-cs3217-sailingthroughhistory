@@ -16,7 +16,7 @@ struct Rect: Codable, Equatable {
         return originX + width / 2
     }
     var midY: Double {
-        return originY + width / 2
+        return originY + height / 2
     }
 
     init() {

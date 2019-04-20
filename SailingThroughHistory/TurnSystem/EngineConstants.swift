@@ -88,7 +88,7 @@ enum Resources {
                 return Resources.Icon.pirate
             case is Weather:
                 return Resources.Icon.weather
-            case is Ship:
+            case is ShipUI:
                 return Resources.Icon.ship
             case is NPC:
                 return Resources.Icon.npc

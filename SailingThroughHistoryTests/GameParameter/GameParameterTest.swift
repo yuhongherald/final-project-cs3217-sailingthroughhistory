@@ -70,7 +70,7 @@ class GameParameterTest: XCTestCase {
     func testCodableItemParameter() {
         let itemParameter = ItemParameter.opium
         guard let encode = try? JSONEncoder().encode(itemParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(ItemParameter.self, from: encode)

@@ -52,8 +52,8 @@ class Ship: ShipAPI, Codable {
         get {
             return weightCapacityVariable.value
         }
-        set {
-            weightCapacityVariable.value = weightCapacity
+        set(value) {
+            weightCapacityVariable.value = value
         }
     }
     let nodeIdVariable: GameVariable<Int> // public for events
@@ -89,7 +89,7 @@ class Ship: ShipAPI, Codable {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         nodeIdVariable = GameVariable(value: try values.decode(Int.self, forKey: .nodeID))
-        itemsConsumed = try values.decode([Item].self, forKey: .suppliesConsumed)
+        itemsConsumed = try values.decode([Item].self, forKey: .itemsConsumed)
         items.value = try values.decode([Item].self, forKey: .items)
 
         if values.contains(.auxiliaryUpgrade) {
@@ -104,16 +104,17 @@ class Ship: ShipAPI, Codable {
 
         shipObject = ShipUI(ship: self)
         updateCargoWeight(items: items.value)
+        subscribeToItems(with: updateCargoWeight)
     }
 
     func encode(to encoder: Encoder) throws {
-        guard let suppliesConsumed = itemsConsumed as? [Item],
+        guard let itemsConsumed = itemsConsumed as? [Item],
             let shipItems = items.value as? [Item] else {
                 return
         }
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(nodeId, forKey: .nodeID)
-        try container.encode(suppliesConsumed, forKey: .suppliesConsumed)
+        try container.encode(itemsConsumed, forKey: .itemsConsumed)
         try container.encode(shipItems, forKey: .items)
         if let shipChassis = shipChassis {
             try container.encode(shipChassis.type, forKey: .shipChassis)
@@ -125,7 +126,7 @@ class Ship: ShipAPI, Codable {
 
     private enum CodingKeys: String, CodingKey {
         case nodeID
-        case suppliesConsumed
+        case itemsConsumed
         case items
         case shipChassis
         case auxiliaryUpgrade
@@ -140,40 +141,26 @@ class Ship: ShipAPI, Codable {
         var messages = [InfoMessage]()
         if isChasedByPirates {
             turnsToBeingCaught -= 1
-            messages.append(InfoMessage(title: "Pirates!",
-                                         message: "\(turnsToBeingCaught) more turns to being caught!"))
+        }
+        if turnsToBeingCaught > 0 {
+            messages.append(InfoMessage.pirates(turnsToBeingCaught: turnsToBeingCaught))
         }
 
         if isChasedByPirates && turnsToBeingCaught <= 0 && !isDocked {
             isChasedByPirates = false
             turnsToBeingCaught = 0
             items.value.removeAll()
-            messages.append(InfoMessage(title: "Pirates!",
-                                        message: "You have been caught by pirates!. You lost all your cargo"))
+            messages.append(InfoMessage.caughtByPirates)
         }
 
         for supply in itemsConsumed {
             let parameter = supply.itemParameter
             let deficit = itemManager.removeItem(ship: self, by: parameter, with: Int(Double(supply.quantity) * speedMultiplier))
             if let owner = owner,
-                let ports = owner.gameState?.map.nodes.value.map({ $0 as? Port }).compactMap({ $0 }) {
+                let ports = owner.map?.nodes.value.map({ $0 as? Port }).compactMap({ $0 }), deficit > 0 {
                 owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
-                if deficit > 0 {
-                    messages.append(InfoMessage(title: "deficit!",
-                               message: "You have exhausted \(parameter.rawValue) and have a deficit"
-                                    + "of \(deficit) and paid twice the normal amount for it."))
-                }
+                messages.append(InfoMessage.deficit(itemName: parameter.rawValue, deficit: deficit))
             }
-        }
-
-        // decay remaining items
-        for item in items.value {
-            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
-                continue
-            }
-            messages.append(InfoMessage(title: "Lost Item",
-                        message: "You have lost \(lostQuantity) of \(item.name) from decay"
-                            + "and have \(item.quantity) remaining!"))
         }
         updateCargoWeight(items: self.items.value)
         return messages
@@ -209,7 +196,7 @@ extension Ship {
     func updateCargoWeight(items: [GenericItem]) {
         var result = 0
         for item in items {
-            result += item.weight ?? 0
+            result += item.weight
         }
         currentCargoWeightVariable.value = result
     }
