@@ -11,28 +11,25 @@ import Foundation
 class ShipUpgradeManager: Upgradable {
     func installUpgrade(ship: inout ShipAPI, upgrade: Upgrade) -> (Bool, InfoMessage?) {
         guard let owner = ship.owner else {
-            return (false, InfoMessage(title: "Error", message: "Ship has no owner!"))
+            return (false, InfoMessage.noOwner)
         }
         guard owner.money.value >= upgrade.cost else {
-            return (false, InfoMessage(title: "Insufficient Money!",
-                                       message: "You do not have sufficient funds to buy \(upgrade.name)!"))
+            return (false, InfoMessage.cannotAfford(upgrade: upgrade))
         }
         if ship.shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
             owner.updateMoney(by: -upgrade.cost)
             ship.shipChassis = shipUpgrade
-            return (true, InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!"))
+            return (true, InfoMessage.upgradePurchased(upgrade: upgrade))
         }
         if ship.auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
             owner.updateMoney(by: -upgrade.cost)
             ship.auxiliaryUpgrade = auxiliary
-            return (true, InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!"))
+            return (true, InfoMessage.upgradePurchased(upgrade: upgrade))
         }
         if upgrade is ShipChassis {
-            return (false, InfoMessage(title: "Duplicate upgrade",
-                                       message: "You already have an upgrade of type \"Ship Upgrade\"!"))
+            return (false, InfoMessage.duplicateUpgrade(type: "Ship Upgrade"))
         } else if upgrade is AuxiliaryUpgrade {
-            return (false, InfoMessage(title: "Duplicate upgrade",
-                                       message: "You already have an upgrade of type \"Auxiliary Upgrade\"!"))
+            return (false, InfoMessage.duplicateUpgrade(type: "Auxiliary Upgrade"))
         }
         return (false, nil)
     }

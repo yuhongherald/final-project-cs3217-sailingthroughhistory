@@ -11,12 +11,11 @@ import Foundation
 protocol GenericItem: Codable {
     var name: String { get }
     var itemParameter: ItemParameter { get }
-    var weight: Int? { get }
+    var weight: Int { get }
     var quantity: Int { get set }
 
-    func combine(with item: GenericItem) -> Bool
+    func combine(with item: inout GenericItem) -> Bool
     func remove(amount: Int) -> Int
-    func setQuantity(quantity: Int)
     func getBuyValue(at port: Port) -> Int?
     func sell(at port: Port) -> Int?
 }

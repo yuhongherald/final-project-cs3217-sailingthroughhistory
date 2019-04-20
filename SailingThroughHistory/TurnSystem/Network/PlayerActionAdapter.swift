@@ -94,7 +94,7 @@ class PlayerActionAdapter: GenericPlayerActionAdapter {
             return nil
         }
     }
-    
+
     func register(portTaxAction action: PlayerAction,
                   by player: GenericPlayer) throws -> GameMessage? {
         switch action {

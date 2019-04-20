@@ -1,67 +1,27 @@
 //
-//  TurnSystemNetwork.swift
+//  TurnSystemActionAdapter.swift
 //  SailingThroughHistory
 //
-//  Created by Herald on 19/4/19.
+//  Created by Herald on 20/4/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
 import Foundation
 
-class TurnSystemNetwork: GenericTurnSystemNetwork {
-    enum State {
-        case ready
-        case waitPlayerInput(from: GenericPlayer)
-        case playerInput(from: GenericPlayer, endTime: TimeInterval)
-        case waitForTurnFinish
-        case evaluateMoves(for: GenericPlayer)
-        case waitForStateUpdate
-        case invalid
-        case finished(winner: Team?)
-    }
-
-    var pendingActions = [PlayerAction]()
-
+/*
+ class TurnSystemActionAdapter {
+    let stateVariable: GameVariable<TurnSystemNetwork.State>
     let playerActionAdapter: GenericPlayerActionAdapter
-    let stateVariable: GameVariable<State>
+    let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
     let networkInfo: NetworkInfo
     let data: GenericTurnSystemState
-    let networkActionQueue = DispatchQueue(label: "com.CS3217.networkActionQueue")
-    let network: RoomConnection
 
-    var currentTurn: Int {
-        return data.currentTurn
-    }
-
-    var setTaxActions: [Int: (PlayerAction, GenericPlayer, Bool)] {
-        get {
-            return networkInfo.setTaxActions
-        }
-        set {
-            networkInfo.setTaxActions = newValue
-        }
-    }
     var deviceId: String {
         return networkInfo.deviceId
-    }
-    var isMaster: Bool {
-        return networkInfo.isMaster
     }
 
     var gameState: GenericGameState {
         return data.gameState
-    }
-
-    var players = [RoomMember]() {
-        didSet {
-            let turn = currentTurn
-            network.getTurnActions(for: turn) { [weak self] (actions, _) in
-                self?.processNetworkTurnActions(forTurnNumber: turn, playerActionPairs: actions)
-            }
-            for player in oldValue where players.first(where: { $0.playerName == player.playerName }) == nil {
-                self.messages.append(GameMessage.playerAction(name: player.playerName, message: "has left the game."))
-            }
-        }
     }
 
     var messages: [GameMessage] {
@@ -73,107 +33,25 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
         }
     }
 
-    var state: State {
+    var state: TurnSystemNetwork.State {
         get {
-            return stateVariable.value
+            return stateVariable.state
         }
-
         set {
-            stateVariable.value = newValue
+            stateVariable.state = newValue
         }
     }
 
-    var currentPlayer: GenericPlayer? {
-        switch state {
-        case .playerInput(let player, _):
-            return player
-        case .waitPlayerInput(let player):
-            return player
-        default:
-            return nil
-        }
-    }
-
-    init(roomConnection: RoomConnection,
-         playerActionAdapterFactory: GenericPlayerActionAdapterFactory,
-         networkInfo: NetworkInfo,
-         turnSystemState: GenericTurnSystemState) {
-        self.network = roomConnection
-        self.data = turnSystemState
-        self.stateVariable = GameVariable<State>(value: .ready)
+    init(stateVariable: GameVariable<TurnSystemNetwork.State>,
+         playerActionAdapter: GenericPlayerActionAdapter,
+         networkInfo: NetworkInfo, data: GenericTurnSystemState) {
+        self.stateVariable = stateVariable
+        self.playerActionAdapter = playerActionAdapter
         self.networkInfo = networkInfo
-        self.playerActionAdapter = playerActionAdapterFactory.create(
-            stateVariable: self.stateVariable,
-            networkInfo: networkInfo,
-            data: turnSystemState)
-
-        network.subscribeToMembers { [weak self] members in
-            self?.players = members
-        }
+        self.data = data
     }
 
-    func getNextPlayer() -> GenericPlayer? {
-        let players = gameState.getPlayers()
-            .filter { [weak self] in $0.deviceId == self?.deviceId }
-        guard let currentPlayer = currentPlayer,
-            let currentIndex = players.firstIndex(where: { $0 == currentPlayer }) else {
-                return players.first
-        }
-
-        let nextIndex = currentIndex + 1
-
-        if !players.indices.contains(nextIndex) {
-            return nil
-        }
-
-        return players[nextIndex]
-    }
-
-    func getFirstPlayer() -> GenericPlayer? {
-        return gameState.getPlayers()
-            .filter { [weak self] in $0.deviceId == self?.deviceId }
-            .first
-    }
-
-    func processNetworkTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
-        switch state {
-        case .waitForTurnFinish:
-            break
-        default:
-            return
-        }
-        if currentTurn != turnNum {
-            return
-        }
-        for player in players where
-            playerActionPairs.first(where: { player.playerName.hasPrefix($0.0) }) == nil {
-                return
-        }
-
-    }
-
-    func waitForTurnFinish() {
-        state = .waitForTurnFinish
-        let currentTurn = self.currentTurn
-        network.subscribeToActions(for: currentTurn) { [weak self] actionPair, _ in
-            self?.processTurnActions(forTurnNumber: currentTurn, playerActionPairs: actionPair)
-        }
-    }
-    
-    func endTurn() {
-        if let currentPlayer = currentPlayer {
-            commitEndTurn(currentPlayer)
-            pendingActions = []
-        }
-        guard let player = getNextPlayer() else {
-            waitForTurnFinish()
-            return
-        }
-        state = .waitPlayerInput(from: player)
-    }
-
-    /// MARK: Private funcs
-    private func evaluateState(player: GenericPlayer, actions: [PlayerAction])
+    func evaluateState(player: GenericPlayer, actions: [PlayerAction])
         -> [GameMessage] {
             var actions = actions
             state = .evaluateMoves(for: player)
@@ -190,7 +68,24 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             return result
     }
 
-    private func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
+    func processNetworkTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
+        switch state {
+        case .waitForTurnFinish:
+            break
+        default:
+            return
+        }
+        if currentTurn != turnNum {
+            return
+        }
+        for player in players where
+            playerActionPairs.first(where: { player.playerName.hasPrefix($0.0) }) == nil {
+                return
+        }
+        
+    }
+
+    func processTurnActions(forTurnNumber turnNum: Int, playerActionPairs: [(String, [PlayerAction])]) {
         networkActionQueue.sync { [weak self] in
             self?.processNetworkTurnActions(forTurnNumber: turnNum, playerActionPairs: playerActionPairs)
         }
@@ -204,7 +99,7 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             let messages = chosenPlayer.endTurn()
             if chosenPlayer.deviceId == deviceId {
                 self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
-                                                                             message: $0.getMessage())})
+                                                                                         message: $0.message)})
             }
         }
         gameState.map.npcs.forEach {
@@ -219,11 +114,11 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
         gameState.gameTime.value.addWeeks(4)
         gameState.map.updateWeather(for: gameState.gameTime.value.month)
         gameState.distributeTeamMoney()
-
+        
         updateStateMaster()
     }
-
-    private func commitEndTurn(_ currentPlayer: GenericPlayer) {
+    
+    func commitEndTurn(_ currentPlayer: GenericPlayer) {
         let currentTurn = self.currentTurn
         let pendingActions = self.pendingActions
         do {
@@ -242,8 +137,8 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             fatalError("Unable to encode actions.")
         }
     }
-
-    private func updateStateMaster() {
+    
+    func updateStateMaster() {
         state = .waitForStateUpdate
         if isMaster {
             guard let gameState = gameState as? GameState else {
@@ -278,10 +173,11 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
                 return
             }
             self?.state = .waitPlayerInput(from: player)
-            guard (self?.gameState) != nil else {
+            guard let gameState = self?.gameState else {
                 return
             }
             //assert(gameState.description == networkGameState.description)
         }
     }
 }
+*/

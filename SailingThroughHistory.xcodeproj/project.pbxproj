@@ -95,13 +95,17 @@
 		75657242226AC6D8002CDB41 /* TurnSystemNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657241226AC6D8002CDB41 /* TurnSystemNetwork.swift */; };
 		75657244226AC77E002CDB41 /* GameMessenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657243226AC77E002CDB41 /* GameMessenger.swift */; };
 		75657246226AC8F9002CDB41 /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657245226AC8F9002CDB41 /* Messenger.swift */; };
-		75657248226AC907002CDB41 /* EventSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657247226AC907002CDB41 /* EventSystem.swift */; };
 		7565724A226AE28B002CDB41 /* PlayerActionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657249226AE28B002CDB41 /* PlayerActionAdapter.swift */; };
 		7565724D226AEB98002CDB41 /* NetworkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565724C226AEB98002CDB41 /* NetworkInfo.swift */; };
 		7565724F226B0015002CDB41 /* PlayerActionAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565724E226B0015002CDB41 /* PlayerActionAdapterFactory.swift */; };
 		75657251226B00A6002CDB41 /* GenericPlayerActionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657250226B00A6002CDB41 /* GenericPlayerActionAdapter.swift */; };
 		75657253226B00BF002CDB41 /* GenericPlayerActionAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657252226B00BF002CDB41 /* GenericPlayerActionAdapterFactory.swift */; };
 		75657255226B04DC002CDB41 /* GenericTurnSystemNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657254226B04DC002CDB41 /* GenericTurnSystemNetwork.swift */; };
+		75657257226B07DE002CDB41 /* TurnSystemActionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657256226B07DE002CDB41 /* TurnSystemActionAdapter.swift */; };
+		75657259226B082A002CDB41 /* PlayerInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657258226B082A002CDB41 /* PlayerInputController.swift */; };
+		7565725C226B0944002CDB41 /* GenericPlayerInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565725B226B0944002CDB41 /* GenericPlayerInputController.swift */; };
+		7565725E226B0974002CDB41 /* GenericPlayerInputControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565725D226B0974002CDB41 /* GenericPlayerInputControllerFactory.swift */; };
+		75657260226B098A002CDB41 /* PlayerInputControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565725F226B098A002CDB41 /* PlayerInputControllerFactory.swift */; };
 		7581AED1225C4CF1001A8CC3 /* GameTime+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AED0225C4CF1001A8CC3 /* GameTime+Equatable.swift */; };
 		7581AED5225C4F63001A8CC3 /* MonthWithin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AED4225C4F62001A8CC3 /* MonthWithin.swift */; };
 		7581AEDB225C53D8001A8CC3 /* VolatileMonsoon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7581AEDA225C53D8001A8CC3 /* VolatileMonsoon.swift */; };
@@ -140,6 +144,8 @@
 		9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F785224A990E007D54E0 /* FirestoreRoom.swift */; };
 		9603F78A224AAA06007D54E0 /* FirestoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F789224AAA06007D54E0 /* FirestoreConstants.swift */; };
 		9603F78C224AB0E3007D54E0 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F78B224AB0E3007D54E0 /* NetworkError.swift */; };
+		9611A404226B050900E136E4 /* ObjectsViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9611A403226B050900E136E4 /* ObjectsViewControllerTest.swift */; };
+		9611A406226B15AF00E136E4 /* AlertWindowControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9611A405226B15AF00E136E4 /* AlertWindowControllerTest.swift */; };
 		9615B7712248F28100DA12C8 /* CGRect+Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B7702248F28100DA12C8 /* CGRect+Rect.swift */; };
 		9621CC092246C321008178FF /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9621CC082246C321008178FF /* Rect.swift */; };
 		964EACD0224CF568004BA7C0 /* RoomsMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964EACCF224CF568004BA7C0 /* RoomsMenuViewController.swift */; };
@@ -223,6 +229,9 @@
 		BA6FBBDD225C82A700B366DB /* MovementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDC225C82A700B366DB /* MovementError.swift */; };
 		BA6FBBDF225FA91000B366DB /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */; };
 		BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */; };
+		BA7D53BE226A3DE900CA0A61 /* NPCUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D53BD226A3DE900CA0A61 /* NPCUnitTests.swift */; };
+		BA7D53C2226A3E3000CA0A61 /* PlayerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D53C1226A3E3000CA0A61 /* PlayerUnitTests.swift */; };
+		BA7D53C4226A3E4C00CA0A61 /* GameStateUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D53C3226A3E4C00CA0A61 /* GameStateUnitTests.swift */; };
 		BA91905B223F256300009F49 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = BA91905A223F256200009F49 /* Images */; };
 		BA91905E223F25CE00009F49 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905D223F25CE00009F49 /* GameState.swift */; };
 		BA919060223F25E400009F49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905F223F25E400009F49 /* Player.swift */; };
@@ -365,13 +374,17 @@
 		75657241226AC6D8002CDB41 /* TurnSystemNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemNetwork.swift; sourceTree = "<group>"; };
 		75657243226AC77E002CDB41 /* GameMessenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMessenger.swift; sourceTree = "<group>"; };
 		75657245226AC8F9002CDB41 /* Messenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger.swift; sourceTree = "<group>"; };
-		75657247226AC907002CDB41 /* EventSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSystem.swift; sourceTree = "<group>"; };
 		75657249226AE28B002CDB41 /* PlayerActionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerActionAdapter.swift; sourceTree = "<group>"; };
 		7565724C226AEB98002CDB41 /* NetworkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfo.swift; sourceTree = "<group>"; };
 		7565724E226B0015002CDB41 /* PlayerActionAdapterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerActionAdapterFactory.swift; sourceTree = "<group>"; };
 		75657250226B00A6002CDB41 /* GenericPlayerActionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerActionAdapter.swift; sourceTree = "<group>"; };
 		75657252226B00BF002CDB41 /* GenericPlayerActionAdapterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerActionAdapterFactory.swift; sourceTree = "<group>"; };
 		75657254226B04DC002CDB41 /* GenericTurnSystemNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTurnSystemNetwork.swift; sourceTree = "<group>"; };
+		75657256226B07DE002CDB41 /* TurnSystemActionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemActionAdapter.swift; sourceTree = "<group>"; };
+		75657258226B082A002CDB41 /* PlayerInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInputController.swift; sourceTree = "<group>"; };
+		7565725B226B0944002CDB41 /* GenericPlayerInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerInputController.swift; sourceTree = "<group>"; };
+		7565725D226B0974002CDB41 /* GenericPlayerInputControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerInputControllerFactory.swift; sourceTree = "<group>"; };
+		7565725F226B098A002CDB41 /* PlayerInputControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInputControllerFactory.swift; sourceTree = "<group>"; };
 		7581AED0225C4CF1001A8CC3 /* GameTime+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameTime+Equatable.swift"; sourceTree = "<group>"; };
 		7581AED4225C4F62001A8CC3 /* MonthWithin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthWithin.swift; sourceTree = "<group>"; };
 		7581AEDA225C53D8001A8CC3 /* VolatileMonsoon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolatileMonsoon.swift; sourceTree = "<group>"; };
@@ -410,6 +423,8 @@
 		9603F785224A990E007D54E0 /* FirestoreRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRoom.swift; sourceTree = "<group>"; };
 		9603F789224AAA06007D54E0 /* FirestoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreConstants.swift; sourceTree = "<group>"; };
 		9603F78B224AB0E3007D54E0 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		9611A403226B050900E136E4 /* ObjectsViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsViewControllerTest.swift; sourceTree = "<group>"; };
+		9611A405226B15AF00E136E4 /* AlertWindowControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlertWindowControllerTest.swift; path = SailingThroughHistoryTests/Interface/AlertWindowControllerTest.swift; sourceTree = SOURCE_ROOT; };
 		9615B7702248F28100DA12C8 /* CGRect+Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Rect.swift"; sourceTree = "<group>"; };
 		9621CC082246C321008178FF /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
 		964EACCF224CF568004BA7C0 /* RoomsMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsMenuViewController.swift; sourceTree = "<group>"; };
@@ -499,6 +514,9 @@
 		BA6FBBDC225C82A700B366DB /* MovementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementError.swift; sourceTree = "<group>"; };
 		BA6FBBDE225FA90F00B366DB /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparablePair.swift; sourceTree = "<group>"; };
+		BA7D53BD226A3DE900CA0A61 /* NPCUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCUnitTests.swift; sourceTree = "<group>"; };
+		BA7D53C1226A3E3000CA0A61 /* PlayerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUnitTests.swift; sourceTree = "<group>"; };
+		BA7D53C3226A3E4C00CA0A61 /* GameStateUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateUnitTests.swift; sourceTree = "<group>"; };
 		BA91905A223F256200009F49 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		BA91905D223F25CE00009F49 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BA91905F223F25E400009F49 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -651,6 +669,7 @@
 				7538CAF12255AD5F00EB9B1F /* Old */,
 				7535448E224CBB49001B4F62 /* Data */,
 				751F8FF1224BB29D0071C057 /* PlayerActions */,
+				7565725A226B090B002CDB41 /* InputController */,
 				751F8FEF224BB2590071C057 /* Network */,
 				7535448F224CBCBE001B4F62 /* UniqueObject.swift */,
 				751F8FD1224B9D5D0071C057 /* TurnSystem.swift */,
@@ -658,7 +677,6 @@
 				9684669E2264AD2A00BDA989 /* EngineConstants.swift */,
 				751F8FDB224BA2A90071C057 /* GenericTurnSystem.swift */,
 				75354457224CA4AB001B4F62 /* GenericTurnSystemState.swift */,
-				75657247226AC907002CDB41 /* EventSystem.swift */,
 			);
 			path = TurnSystem;
 			sourceTree = "<group>";
@@ -673,6 +691,7 @@
 				75657250226B00A6002CDB41 /* GenericPlayerActionAdapter.swift */,
 				75657252226B00BF002CDB41 /* GenericPlayerActionAdapterFactory.swift */,
 				75657254226B04DC002CDB41 /* GenericTurnSystemNetwork.swift */,
+				75657256226B07DE002CDB41 /* TurnSystemActionAdapter.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -852,6 +871,17 @@
 			children = (
 			);
 			path = Messenger;
+			sourceTree = "<group>";
+		};
+		7565725A226B090B002CDB41 /* InputController */ = {
+			isa = PBXGroup;
+			children = (
+				75657258226B082A002CDB41 /* PlayerInputController.swift */,
+				7565725B226B0944002CDB41 /* GenericPlayerInputController.swift */,
+				7565725D226B0974002CDB41 /* GenericPlayerInputControllerFactory.swift */,
+				7565725F226B098A002CDB41 /* PlayerInputControllerFactory.swift */,
+			);
+			path = InputController;
 			sourceTree = "<group>";
 		};
 		7581AECA225AF915001A8CC3 /* Supporting Classes */ = {
@@ -1086,6 +1116,8 @@
 			isa = PBXGroup;
 			children = (
 				9694C28F226A50B9006913E0 /* ADT */,
+				9611A403226B050900E136E4 /* ObjectsViewControllerTest.swift */,
+				9611A405226B15AF00E136E4 /* AlertWindowControllerTest.swift */,
 			);
 			path = Interface;
 			sourceTree = "<group>";
@@ -1158,8 +1190,8 @@
 				9670E91F2261D31600E8A01F /* MessagesTableController.swift */,
 				968D6F092264D42A009552B1 /* EventTableController.swift */,
 				96618F442267CC9200B41008 /* PortItemTableControllerDelegate.swift */,
-				966FAD672268E1BF000B48AC /* AlertWindowController.swift */,
 				966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */,
+				966FAD672268E1BF000B48AC /* AlertWindowController.swift */,
 				966FAD6B2268EB31000B48AC /* ObjectsViewControllerDelegate.swift */,
 				968A14B82269B6A60069E3C9 /* AvailableUpgradesControllerDelegate.swift */,
 				968A14BA2269B7AE0069E3C9 /* EventTableControllerDelegate.swift */,
@@ -1269,6 +1301,9 @@
 				BAB337A322625DDD007A0C05 /* ShipUpgradableUnitTests.swift */,
 				BAB337A522625DFB007A0C05 /* ShipNavigatableUnitTests.swift */,
 				BAB337A722625E0E007A0C05 /* ShipPirateWeatherUnitTests.swift */,
+				BA7D53BD226A3DE900CA0A61 /* NPCUnitTests.swift */,
+				BA7D53C1226A3E3000CA0A61 /* PlayerUnitTests.swift */,
+				BA7D53C3226A3E4C00CA0A61 /* GameStateUnitTests.swift */,
 			);
 			path = GameState;
 			sourceTree = "<group>";
@@ -1575,6 +1610,7 @@
 				BAA0D0402262655C004417CA /* GenericItemStub.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				7581AEDB225C53D8001A8CC3 /* VolatileMonsoon.swift in Sources */,
+				75657257226B07DE002CDB41 /* TurnSystemActionAdapter.swift in Sources */,
 				751F8FDC224BA2A90071C057 /* GenericTurnSystem.swift in Sources */,
 				751F8FD8224B9D5E0071C057 /* ChangeType.swift in Sources */,
 				751F8FD7224B9D5E0071C057 /* PlayerAction.swift in Sources */,
@@ -1611,6 +1647,7 @@
 				BAB3379022622B3F007A0C05 /* Upgradable.swift in Sources */,
 				1ABBA22F2265A15700222E7A /* PortStub.swift in Sources */,
 				75354456224C877F001B4F62 /* TurnSystemEvent.swift in Sources */,
+				75657260226B098A002CDB41 /* PlayerInputControllerFactory.swift in Sources */,
 				96A7D0B0225F971D001C18E4 /* UIBezierPath+Arrow.swift in Sources */,
 				BA91905E223F25CE00009F49 /* GameState.swift in Sources */,
 				752D2BD8225F8E8900A3411C /* PresetEvent.swift in Sources */,
@@ -1632,9 +1669,11 @@
 				96A7D0AE225F8269001C18E4 /* CountdownLabelView.swift in Sources */,
 				9684669D2264ACFB00BDA989 /* GameTime.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
+				75657259226B082A002CDB41 /* PlayerInputController.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* PirateIsland.swift in Sources */,
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
+				7565725C226B0944002CDB41 /* GenericPlayerInputController.swift in Sources */,
 				75657242226AC6D8002CDB41 /* TurnSystemNetwork.swift in Sources */,
 				BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */,
 				966FAD6A2268E1D8000B48AC /* AlertWindowDelegate.swift in Sources */,
@@ -1718,6 +1757,7 @@
 				7565724A226AE28B002CDB41 /* PlayerActionAdapter.swift in Sources */,
 				752D2BDF225FA35700A3411C /* Parsable.swift in Sources */,
 				751F8FEC224BB11B0071C057 /* ComparableOp.swift in Sources */,
+				7565725E226B0974002CDB41 /* GenericPlayerInputControllerFactory.swift in Sources */,
 				96737EAD223D77AD00D04C33 /* UIButtonRounded.swift in Sources */,
 				75354484224CAE1D001B4F62 /* Int+ConditionComparable.swift in Sources */,
 				965E0340223A9AD1005F7D79 /* Port.swift in Sources */,
@@ -1728,7 +1768,6 @@
 				BAB3379422624CA1007A0C05 /* Navigatable.swift in Sources */,
 				965E0339223A4BFA005F7D79 /* Weather.swift in Sources */,
 				BAED4B052253697B00A8D54A /* InGameMessage.swift in Sources */,
-				75657248226AC907002CDB41 /* EventSystem.swift in Sources */,
 				7581AEEB225C6392001A8CC3 /* DivideOperator.swift in Sources */,
 				7581AEE9225C6385001A8CC3 /* MultiplyOperator.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
@@ -1780,12 +1819,17 @@
 			files = (
 				9694C291226A50DC006913E0 /* NodePathsTest.swift in Sources */,
 				BAB337A222625DBF007A0C05 /* ShipItemStorageUnitTests.swift in Sources */,
+				BA7D53C4226A3E4C00CA0A61 /* GameStateUnitTests.swift in Sources */,
 				BAB337A422625DDD007A0C05 /* ShipUpgradableUnitTests.swift in Sources */,
+				9611A404226B050900E136E4 /* ObjectsViewControllerTest.swift in Sources */,
 				9694C294226A50ED006913E0 /* RectTest.swift in Sources */,
+				9611A406226B15AF00E136E4 /* AlertWindowControllerTest.swift in Sources */,
 				1ABBA216226208F100222E7A /* TeamTest.swift in Sources */,
 				1ABBA2122261F6F800222E7A /* MapTest.swift in Sources */,
+				BA7D53BE226A3DE900CA0A61 /* NPCUnitTests.swift in Sources */,
 				759A5EE522507E1100724BEB /* TurnSystemTest.swift in Sources */,
 				1ABBA22B2265951A00222E7A /* ItemTest.swift in Sources */,
+				BA7D53C2226A3E3000CA0A61 /* PlayerUnitTests.swift in Sources */,
 				9690F5DF223A4875005291EE /* SailingThroughHistoryTests.swift in Sources */,
 				BAB3378E2262295D007A0C05 /* ShipUnitTests.swift in Sources */,
 				1A53D7CB2251E81100FAE214 /* GameParameterTest.swift in Sources */,
