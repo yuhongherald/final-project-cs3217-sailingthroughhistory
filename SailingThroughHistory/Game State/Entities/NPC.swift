@@ -13,7 +13,7 @@ class NPC: GameObject {
     private static let NPCNodeHeight: Double = 50
     private static let NPCNodeWidth: Double = 50
 
-    private (set) static var nextId: UInt = 0
+    private(set) static var nextId: UInt = 0
     private static var reuseIds = [UInt]()
 
     let numDieSides = 12

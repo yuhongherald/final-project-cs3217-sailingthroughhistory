@@ -15,5 +15,4 @@ protocol Upgrade: Codable {
 
     func getNewSuppliesConsumed(baseConsumption: [GenericItem]) -> [GenericItem]
     func getMovementModifier() -> Double
-    func getWeatherModifier() -> Double
 }
