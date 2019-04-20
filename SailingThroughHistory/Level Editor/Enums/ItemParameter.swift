@@ -38,7 +38,6 @@ enum ItemParameter: String, Codable, CaseIterable {
 
     //let isConsumable: Bool
 
-
     // Create a quantized representation
     func createItem(quantity: Int) -> GenericItem {
         return Item(itemParameter: self, quantity: quantity)
