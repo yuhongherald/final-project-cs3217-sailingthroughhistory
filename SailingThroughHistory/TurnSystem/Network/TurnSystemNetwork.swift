@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TurnSystemNetwork {
+class TurnSystemNetwork: GenericTurnSystemNetwork {
     enum State {
         case ready
         case waitPlayerInput(from: GenericPlayer)
@@ -22,7 +22,7 @@ class TurnSystemNetwork {
 
     var pendingActions = [PlayerAction]()
 
-    let playerActionAdapter: PlayerActionAdapter
+    let playerActionAdapter: GenericPlayerActionAdapter
     let stateVariable: GameVariable<State>
     let networkInfo: NetworkInfo
     let data: GenericTurnSystemState
@@ -95,15 +95,17 @@ class TurnSystemNetwork {
     }
 
     init(roomConnection: RoomConnection,
-         playerActionAdapter: PlayerActionAdapter,
-         stateVariable: GameVariable<State>,
+         playerActionAdapterFactory: GenericPlayerActionAdapterFactory,
          networkInfo: NetworkInfo,
          turnSystemState: GenericTurnSystemState) {
         self.network = roomConnection
         self.data = turnSystemState
-        self.stateVariable = stateVariable
+        self.stateVariable = GameVariable<State>(value: .ready)
         self.networkInfo = networkInfo
-        self.playerActionAdapter = playerActionAdapter
+        self.playerActionAdapter = playerActionAdapterFactory.create(
+            stateVariable: self.stateVariable,
+            networkInfo: networkInfo,
+            data: turnSystemState)
 
         network.subscribeToMembers { [weak self] members in
             self?.players = members
