@@ -8,9 +8,13 @@
 
 import UIKit
 
+/// Protocol for menu view controller.
 protocol MenuViewDelegateProtocol: class {
+    /// Change ownership of port to team.
     func assign(port: Port, to team: Team?)
+    /// Change starting point of team to node.
     func start(from node: Node, for team: Team)
+    /// Get editing mode of the menu, i.e. whether the menu is called to set ownership or starting node.
     func getEditingMode(for gesture: UIGestureRecognizer) -> EditMode?
 }
 

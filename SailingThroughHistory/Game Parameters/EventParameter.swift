@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ * Event parameters for different events.
+ * Not implemented due to time constraints.
+ */
 struct EventParameter: Codable {
 
 }
