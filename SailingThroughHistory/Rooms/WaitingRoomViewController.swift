@@ -112,12 +112,15 @@ class WaitingRoomViewController: UIViewController {
     }
 
     @IBAction func startGamePressed(_ sender: Any) {
-        activityIndicator.startAnimating()
-        activityIndicator.isHidden = false
+        if !getWaitingRoom().isRoomMaster() {
+            showNotAuthorizedAlert()
+            return
+        }
         guard let (parameters, imageData) = getGameData() else {
             return
         }
         /// TODO: Remove hardcoded year
+        activityIndicator.startAnimating()
         activityIndicator.isHidden = false
         let state = GameState(baseYear: 1900, level: parameters, players: getWaitingRoom().players)
         do {

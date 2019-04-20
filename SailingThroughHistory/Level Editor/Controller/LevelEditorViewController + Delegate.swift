@@ -36,12 +36,11 @@ extension LevelEditorViewController: UIScrollViewDelegate {
     }
 
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        UIView.transition(with: teamMenu, duration: 0.5, options: .transitionCrossDissolve, animations: {
-            self.teamMenu.alpha = 0
-        }, completion: { _ in
-            self.teamMenu.isHidden = true
-            self.teamMenu.alpha = 1
-        })
+        hideTeamMenu()
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        hideTeamMenu()
     }
 }
 
