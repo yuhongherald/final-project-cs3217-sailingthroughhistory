@@ -47,7 +47,7 @@ class GenericPlayerStub: GenericPlayer {
     }
 
     func updateMoney(by amount: Int) {
-        fatalError(errorMessage)
+        money.value += amount
     }
 
     func canBuyUpgrade() -> Bool {

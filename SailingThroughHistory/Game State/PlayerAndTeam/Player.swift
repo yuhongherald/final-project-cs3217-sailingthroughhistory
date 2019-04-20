@@ -104,7 +104,7 @@ class Player: GenericPlayer {
         self.map = map
         hasRolled = false
         state.value = PlayerState.moving
-        return ship.startTurn()
+        ship.startTurn()
     }
 
     func buyUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
@@ -199,10 +199,6 @@ class Player: GenericPlayer {
 
     func buy(itemParameter: ItemParameter, quantity: Int) throws {
         try ship.itemManager.buyItem(ship: ship, itemParameter: itemParameter, quantity: quantity)
-    }
-
-    func sell(item: GenericItem) throws {
-        try ship.itemManager.sellItem(ship: ship, item: item)
     }
 
     func sell(itemParameter: ItemParameter, quantity: Int) throws {

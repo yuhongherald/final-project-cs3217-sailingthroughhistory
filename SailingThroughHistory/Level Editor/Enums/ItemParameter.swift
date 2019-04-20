@@ -36,9 +36,6 @@ enum ItemParameter: String, Codable, CaseIterable {
         return nil
     }
 
-    //let isConsumable: Bool
-
-
     // Create a quantized representation
     func createItem(quantity: Int) -> GenericItem {
         return Item(itemParameter: self, quantity: quantity)
@@ -61,6 +58,6 @@ enum ItemParameter: String, Codable, CaseIterable {
 
 extension ItemParameter: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self)
+        hasher.combine(rawValue)
     }
 }

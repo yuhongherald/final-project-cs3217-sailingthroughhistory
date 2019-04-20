@@ -13,18 +13,17 @@ class Item: GenericItem, Codable {
         return itemParameter.rawValue
     }
     let itemParameter: ItemParameter
-    var weight: Int? {
+    var weight: Int {
         let unitWeight = itemParameter.unitWeight
         return quantity * unitWeight
     }
-    // TODO: prevent quantity from going below 0
     var quantity: Int {
         get {
             return realQuantity
         }
         set(value) {
             guard value >= 0 else {
-                // TODO error
+                print("Tried to set item quantity below 0.")
                 realQuantity = 0
                 return
             }
@@ -66,12 +65,12 @@ class Item: GenericItem, Codable {
         return diff
     }
 
-    func combine(with item: GenericItem) -> Bool {
+    func combine(with item: inout GenericItem) -> Bool {
         guard itemParameter == item.itemParameter else {
             return false
         }
         quantity += item.quantity
-        item.setQuantity(quantity: 0)
+        item.quantity = 0
         return true
     }
 
@@ -89,10 +88,6 @@ class Item: GenericItem, Codable {
         return 0
     }
 
-    func setQuantity(quantity: Int) {
-        self.quantity = quantity
-    }
-
     func getBuyValue(at port: Port) -> Int? {
         guard let unitValue = port.getBuyValue(of: itemParameter) else {
             return nil
@@ -105,12 +100,12 @@ class Item: GenericItem, Codable {
             return nil
         }
         let value = unitValue * quantity
-        setQuantity(quantity: 0)
+        quantity = 0
         return value
     }
 
-    func getRemainingQuantity(port: Port) -> Int {
-        return quantity
+    func copy() -> Item {
+        return Item(itemParameter: itemParameter, quantity: quantity)
     }
 
     private enum CodingKeys: String, CodingKey {
