@@ -44,7 +44,7 @@ class ShipItemManager: ItemStorage {
     }
 
     func sell(ship: ShipAPI, itemParameter: ItemParameter, quantity: Int) throws {
-        guard let map = ship.map, let port = ship.node as? Port else {
+        guard let port = ship.node as? Port else {
             throw TradeItemError.notDocked
         }
         guard let value = port.getSellValue(of: itemParameter) else {

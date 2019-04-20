@@ -104,6 +104,10 @@ class Item: GenericItem, Codable {
         return value
     }
 
+    func copy() -> Item {
+        return Item(itemParameter: itemParameter, quantity: quantity)
+    }
+
     private enum CodingKeys: String, CodingKey {
         case quantity
         case itemParameter

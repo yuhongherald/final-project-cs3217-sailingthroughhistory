@@ -201,10 +201,6 @@ class Player: GenericPlayer {
         try ship.itemManager.buyItem(ship: ship, itemParameter: itemParameter, quantity: quantity)
     }
 
-    func sell(item: GenericItem) throws {
-        try ship.itemManager.sellItem(ship: ship, item: item)
-    }
-
     func sell(itemParameter: ItemParameter, quantity: Int) throws {
         try ship.itemManager.sell(ship: ship, itemParameter: itemParameter, quantity: quantity)
     }
