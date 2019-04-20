@@ -980,20 +980,6 @@
 			path = Rooms;
 			sourceTree = "<group>";
 		};
-		965E0331223A4B2F005F7D79 /* Parameters */ = {
-			isa = PBXGroup;
-			children = (
-				96877E53223EC7D80020F44C /* Path.swift */,
-				965E0332223A4B3C005F7D79 /* Node.swift */,
-				965E0334223A4B84005F7D79 /* Sea.swift */,
-				965E0336223A4BB3005F7D79 /* VolatileModifier.swift */,
-				965E0338223A4BFA005F7D79 /* Weather.swift */,
-				965E033D223A8EBA005F7D79 /* PirateIsland.swift */,
-				965E033F223A9AD1005F7D79 /* Port.swift */,
-			);
-			path = Parameters;
-			sourceTree = "<group>";
-		};
 		965E033A223A7110005F7D79 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1074,7 +1060,6 @@
 				751F8FDA224B9D600071C057 /* TurnSystem */,
 				96737EA2223D319A00D04C33 /* Interface */,
 				965E033A223A7110005F7D79 /* Common */,
-				965E0331223A4B2F005F7D79 /* Parameters */,
 				BA91905C223F259800009F49 /* Game State */,
 				BA91906C223F440700009F49 /* Level Editor */,
 				BAB337A922626055007A0C05 /* Stubs */,
@@ -1277,6 +1262,13 @@
 			isa = PBXGroup;
 			children = (
 				BA919073223F44A400009F49 /* GameParameter.swift */,
+				96877E53223EC7D80020F44C /* Path.swift */,
+				965E0332223A4B3C005F7D79 /* Node.swift */,
+				965E0334223A4B84005F7D79 /* Sea.swift */,
+				965E0336223A4BB3005F7D79 /* VolatileModifier.swift */,
+				965E0338223A4BFA005F7D79 /* Weather.swift */,
+				965E033D223A8EBA005F7D79 /* PirateIsland.swift */,
+				965E033F223A9AD1005F7D79 /* Port.swift */,
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
 				1A9FF08B224030E000005FCB /* Map.swift */,
 				1A9FF08F2240A52900005FCB /* PlayerParameter.swift */,

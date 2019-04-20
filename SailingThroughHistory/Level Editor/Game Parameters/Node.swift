@@ -158,7 +158,7 @@ extension Node {
                 pQueue.add(ComparablePair<[Node]>(object: path + [neighbor.toNode], weight: weight + cost))
             }
         }
-        return path
+        return path.map { $0 }
     }
 
     func getNumNodesTo(to node: Node, map: Map) -> Int? {
