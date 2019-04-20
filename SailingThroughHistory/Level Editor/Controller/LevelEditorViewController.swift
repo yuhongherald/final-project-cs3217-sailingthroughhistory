@@ -81,6 +81,7 @@ class LevelEditorViewController: UIViewController {
 
         reInitScrollView()
         initBackground()
+        showPanel()
 
         teamMenu.frame.size = CGSize(width: 200, height: 100)
         teamMenu.isHidden = true
@@ -95,13 +96,9 @@ class LevelEditorViewController: UIViewController {
 
     @IBAction func editPressed(_ sender: Any) {
         if editPanel.isHidden {
-            editPanel.isHidden = false
-            panelToggle.setTitle(hidePanelMsg, for: .normal)
-            view.bringSubviewToFront(editPanel)
+            showPanel()
         } else {
-            editPanel.isHidden = true
-            panelToggle.setTitle(showPanelMsg, for: .normal)
-            view.sendSubviewToBack(editPanel)
+            hidePanel()
         }
     }
 

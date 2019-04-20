@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIView {
+    /// Take screenshot of the view with its subviews. The size of screenshot is the same as frame of the UIView.
     var screenShot: UIImage? {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, UIScreen.main.scale)
 

@@ -71,16 +71,6 @@ class NodeView: UIImageView {
         self.removeFromSuperview()
     }
 
-    func highlighted(_ highlighted: Bool) {
-        if highlighted {
-            self.layer.borderColor = UIColor.white.cgColor
-            self.layer.borderWidth = 3.0
-        } else {
-            self.layer.borderColor = nil
-            self.layer.borderWidth = 0
-        }
-    }
-
     private static func getBlankLabel() -> UILabel {
         let label = UILabel()
         label.frame.origin = CGPoint(x: 0, y: -15)

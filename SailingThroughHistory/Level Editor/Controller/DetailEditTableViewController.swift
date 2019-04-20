@@ -12,7 +12,6 @@ class DetailEditTableViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var data = [[GameParameterItem]]()
     var numOfTurnMsg = "Number of Turn: "
-    var timeLimitMsg = "Time Limit Per Turn (sec): "
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -34,11 +33,11 @@ class DetailEditTableViewController: UIViewController {
 
             switch data[indexPath.section][indexPath.item].type {
             case .player:
-                guard let castedCell = cell as? PlayerTableViewCell,
-                    let item = castedCell.item as? PlayerParameterItem else {
+                guard let castedCell = cell as? TeamTableViewCell,
+                    let item = castedCell.item as? TeamParameterItem else {
                     continue
                 }
-                if let name = castedCell.nameField.text,
+                if let name = castedCell.nameLabel.text,
                     let moneyText = castedCell.moneyField.text {
                     item.playerParameter.set(name: name, money: Int(moneyText))
                 }
@@ -59,8 +58,6 @@ class DetailEditTableViewController: UIViewController {
                 switch castedCell.label.text {
                 case numOfTurnMsg:
                     item.game.numOfTurn = input
-                case timeLimitMsg:
-                    item.game.timeLimit = input
                 default:
                     continue
                 }
@@ -72,9 +69,8 @@ class DetailEditTableViewController: UIViewController {
 
     func initWith(game: GameParameter) {
         self.data.append(game.playerParameters.map {
-            PlayerParameterItem(playerParameter: $0)
+            TeamParameterItem(playerParameter: $0)
         })
-        self.data.append([TurnParameterItem(label: numOfTurnMsg, game: game, input: game.numOfTurn),
-                          TurnParameterItem(label: timeLimitMsg, game: game, input: game.timeLimit)])
+        self.data.append([TurnParameterItem(label: numOfTurnMsg, game: game, input: game.numOfTurn)])
     }
 }

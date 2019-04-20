@@ -9,6 +9,18 @@
 import UIKit
 
 extension LevelEditorViewController {
+    func showPanel() {
+        editPanel.isHidden = false
+        panelToggle.setTitle(hidePanelMsg, for: .normal)
+        view.bringSubviewToFront(editPanel)
+    }
+
+    func hidePanel() {
+        editPanel.isHidden = true
+        panelToggle.setTitle(showPanelMsg, for: .normal)
+        view.sendSubviewToBack(editPanel)
+    }
+
     func hideTeamMenu() {
         UIView.transition(with: teamMenu, duration: 0.5, options: .transitionCrossDissolve, animations: {
             self.teamMenu.alpha = 0
@@ -17,7 +29,7 @@ extension LevelEditorViewController {
             self.teamMenu.alpha = 1
         })
     }
-    
+
     /// Update views with updated game parameter.
     func reInit() {
         reInitScrollView()

@@ -28,7 +28,6 @@ class GameState: GenericGameState {
     init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
         gameTime = GameVariable(value: GameTime(baseYear: baseYear))
         teams = level.teams
-        //initializePlayersFromParameters(parameters: level.playerParameters)
         map = level.map
         availableUpgrades = level.upgrades
         maxTaxAmount = level.maxTaxAmount
