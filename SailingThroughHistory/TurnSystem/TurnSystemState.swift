@@ -13,6 +13,7 @@ class TurnSystemState: GenericTurnSystemState {
     let gameState: GenericGameState
     var currentPlayerIndex = 0
     var currentTurn: Int
+    var messages: [GameMessage] = []
 
     init(gameState: GenericGameState, joinOnTurn: Int) {
         self.gameState = gameState
