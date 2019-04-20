@@ -201,7 +201,7 @@ class Map: Codable {
                 let type = try volatile.decode(VolatileTypes.self, forKey: VolatileTypeKey.type)
 
                 switch type {
-                case .volatileMonsoom:
+                case .volatileMonsoon:
                     let volatile = try volatile.decode(VolatileMonsoon.self, forKey: VolatileTypeKey.volatile)
                     modifiers.append(volatile)
                 case .weather:
@@ -268,7 +268,7 @@ class Map: Codable {
             var volatileWithType = [VolatileWithType]()
             for volatile in pair.modifiers {
                 if volatile is VolatileMonsoon {
-                    volatileWithType.append(VolatileWithType(volatile: volatile, type: VolatileTypes.volatileMonsoom))
+                    volatileWithType.append(VolatileWithType(volatile: volatile, type: VolatileTypes.volatileMonsoon))
                 }
                 if volatile is Weather {
                     volatileWithType.append(VolatileWithType(volatile: volatile, type: VolatileTypes.weather))
@@ -338,7 +338,7 @@ class Map: Codable {
     }
 
     enum VolatileTypes: String, Codable {
-        case volatileMonsoom
+        case volatileMonsoon
         case weather
     }
 

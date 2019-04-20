@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * Class for setting of initial state of the game.
+ */
 class GameParameter: GenericLevel, Codable {
     let maxTaxAmount = 2000
     let defaultTaxAmount = 1000

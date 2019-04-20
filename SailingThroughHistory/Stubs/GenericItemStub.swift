@@ -28,15 +28,6 @@ class GenericItemStub: GenericItem {
     func setItemParameter(_ itemParameter: ItemParameter) {
     }
 
-    func decayItem(with time: Double) -> Int? {
-        if doesItemDecay {
-            quantity -= 1
-            return 1
-        } else {
-            return nil
-        }
-    }
-
     func combine(with item: GenericItem) -> Bool {
         return true
     }

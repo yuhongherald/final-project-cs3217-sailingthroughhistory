@@ -53,19 +53,6 @@ class Item: GenericItem, Codable {
         try container.encode(quantity, forKey: .quantity)
     }
 
-    func decayItem(with time: Double) -> Int? {
-        guard let halfLife = itemParameter.getHalfLife() else {
-            return nil
-        }
-        decimalQuantity /= pow(M_E, M_LN2 / Double(halfLife))
-        let diff = Int(realQuantity - Int(decimalQuantity))
-        guard diff >= 1 else {
-            return nil
-        }
-        realQuantity -= diff
-        return diff
-    }
-
     func combine(with item: GenericItem) -> Bool {
         guard itemParameter == item.itemParameter else {
             return false

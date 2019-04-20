@@ -31,14 +31,6 @@ enum ItemParameter: String, Codable, CaseIterable {
             return 5
         }
     }
-
-    private var halfLife: Int? {
-        return nil
-    }
-
-    //let isConsumable: Bool
-
-
     // Create a quantized representation
     func createItem(quantity: Int) -> GenericItem {
         return Item(itemParameter: self, quantity: quantity)
@@ -51,16 +43,5 @@ enum ItemParameter: String, Codable, CaseIterable {
 
     func getSellValue(ports: [Port]) -> Int {
         return ports.map({ $0.getSellValue(of: self) }).compactMap({ $0 }).min() ?? 0
-    }
-
-    func getHalfLife() -> Int? {
-        return halfLife
-    }
-
-}
-
-extension ItemParameter: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self)
     }
 }

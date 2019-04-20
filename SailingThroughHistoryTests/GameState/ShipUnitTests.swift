@@ -103,22 +103,6 @@ class ShipUnitTests: XCTestCase {
 
         XCTAssertTrue(testTwoGenericItemArray(ship3.items.value, [GenericItem]()))
         XCTAssertEqual(ship3.owner?.money.value, money3)
-
-        //owner?.updateMoney(by: -deficit * parameter.getBuyValue())
-        /*messages.append(InfoMessage(title: "deficit!",
-
-         message: "You have exhausted \(parameter.displayName) and have a deficit of \(deficit) and paid for it."))*/
-
-        // decay remaining items
-        /*
-        for item in items.value {
-            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
-                continue
-            }
-            messages.append(InfoMessage(title: "Lost Item",
-
-            message: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!"))
-        }*/
     }
 
     override class func tearDown() {
