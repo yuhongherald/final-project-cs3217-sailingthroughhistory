@@ -98,8 +98,7 @@ class ShipNavigatableUnitTests: XCTestCase {
         let ship3 = Ship(node: centralNode, itemsConsumed: [])
         ship3.shipChassis = FasterShipUpgrade()
         ship3.map = map
-        XCTAssertEqual(navigationManager.getNodesInRange(ship: ship3, roll: 1, speedMultiplier: 1.0), [centralNode])
-        for roll in 2...3 {
+        for roll in 1...3 {
             let bound = Int(Double(roll) * FasterShipUpgrade().getMovementModifier() - 2)
             var nodesInRange = [centralNode]
             for ind in 0...bound {
@@ -125,6 +124,7 @@ class ShipNavigatableUnitTests: XCTestCase {
 
         var ship2: ShipAPI = Ship(node: centralNode, itemsConsumed: [])
         ship2.map = map
+        ship2.isDocked = true
         navigationManager.move(ship: &ship2, node: endNode)
         XCTAssertEqual(ship2.isDocked, true)
         XCTAssertEqual(ship2.nodeId, endNode.identifier)
