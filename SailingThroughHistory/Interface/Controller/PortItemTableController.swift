@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Controller responsible for showing items that are sold/bought at a port.
 class PortItemTableController: NSObject, UITableViewDataSource, UITableViewDelegate {
     private static let reuseIdentifier: String = "itemsTableCell"
     private static let defaultPrice: Int = 100
@@ -22,10 +23,18 @@ class PortItemTableController: NSObject, UITableViewDataSource, UITableViewDeleg
     private var itemParametersSoldByPort = [ItemParameter]()
     private var itemParametersBoughtByPort = [ItemParameter]()
 
+    /// Default constructor with delegate for when user attempts to trade at the port.
+    ///
+    /// - Parameter delegate: Delegate for this controller.
     init(delegate: PortItemTableControllerDelegate) {
         self.delegate = delegate
     }
 
+    /// Called when user selects a port. Shows the items traded at this port along with their information.
+    ///
+    /// - Parameters:
+    ///   - port: The port selected
+    ///   - playerCanInteract: Whether the user can trade at the port.
     func didSelect(port: Port, playerCanInteract: Bool) {
         self.itemParametersSoldByPort = port.itemParametersSoldByPort
         self.itemParametersBoughtByPort = port.itemParametersBoughtByPort
