@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A3BF40B226BA1C700D1DA86 /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3BF40A226BA1C700D1DA86 /* ItemParameter.swift */; };
 		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
 		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
 		1A53D7C4224CA45100FAE214 /* GenericTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53D7C3224CA45100FAE214 /* GenericTeam.swift */; };
@@ -200,7 +201,6 @@
 		9694C294226A50ED006913E0 /* RectTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C293226A50ED006913E0 /* RectTest.swift */; };
 		9694C29A226A5145006913E0 /* LocalRoomConnectionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9694C299226A5145006913E0 /* LocalRoomConnectionTest.swift */; };
 		969F48202242C72800F86D1E /* UIBlurredBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969F481F2242C72800F86D1E /* UIBlurredBackgroundView.swift */; };
-		96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919071223F447F00009F49 /* ItemParameter.swift */; };
 		96A65ADB22491FE900D7512C /* GenericLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91906A223F429900009F49 /* GenericLevel.swift */; };
 		96A7D0AE225F8269001C18E4 /* CountdownLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AD225F8269001C18E4 /* CountdownLabelView.swift */; };
 		96A7D0B0225F971D001C18E4 /* UIBezierPath+Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A7D0AF225F971D001C18E4 /* UIBezierPath+Arrow.swift */; };
@@ -286,6 +286,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A3BF40A226BA1C700D1DA86 /* ItemParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemParameter.swift; sourceTree = "<group>"; };
 		1A49D237223E468300A419F4 /* LevelEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelEditorViewController.swift; sourceTree = "<group>"; };
 		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
 		1A53D7C3224CA45100FAE214 /* GenericTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTeam.swift; sourceTree = "<group>"; };
@@ -525,7 +526,6 @@
 		BA919068223F271700009F49 /* GameVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariable.swift; sourceTree = "<group>"; };
 		BA91906A223F429900009F49 /* GenericLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericLevel.swift; sourceTree = "<group>"; };
 		BA91906F223F446800009F49 /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
-		BA919071223F447F00009F49 /* ItemParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemParameter.swift; path = ../Enums/ItemParameter.swift; sourceTree = "<group>"; };
 		BA919073223F44A400009F49 /* GameParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameter.swift; sourceTree = "<group>"; };
 		BA919077223F4D0800009F49 /* ShipChassis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipChassis.swift; sourceTree = "<group>"; };
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
@@ -1053,6 +1053,7 @@
 				96737EA2223D319A00D04C33 /* Interface */,
 				965E033A223A7110005F7D79 /* Common */,
 				BA91905C223F259800009F49 /* Game State */,
+				BA91906E223F443600009F49 /* Game Parameters */,
 				BA91906C223F440700009F49 /* Level Editor */,
 				BAB337A922626055007A0C05 /* Stubs */,
 				9690F5C9223A4874005291EE /* AppDelegate.swift */,
@@ -1235,7 +1236,6 @@
 				1A749D662240FD6B00482CE5 /* Controller */,
 				1A9FF084223F6CE400005FCB /* Enums */,
 				BA91906D223F441900009F49 /* API */,
-				BA91906E223F443600009F49 /* Game Parameters */,
 			);
 			path = "Level Editor";
 			sourceTree = "<group>";
@@ -1252,7 +1252,7 @@
 		BA91906E223F443600009F49 /* Game Parameters */ = {
 			isa = PBXGroup;
 			children = (
-				BA919071223F447F00009F49 /* ItemParameter.swift */,
+				1A3BF40A226BA1C700D1DA86 /* ItemParameter.swift */,
 				BA919073223F44A400009F49 /* GameParameter.swift */,
 				96877E53223EC7D80020F44C /* Path.swift */,
 				965E0332223A4B3C005F7D79 /* Node.swift */,
@@ -1589,7 +1589,6 @@
 				BAA0D0482265C541004417CA /* String+Crypto.swift in Sources */,
 				75354467224CA7CC001B4F62 /* EqualOperator.swift in Sources */,
 				75354490224CBCBE001B4F62 /* UniqueObject.swift in Sources */,
-				96A65ADA22491FE900D7512C /* ItemParameter.swift in Sources */,
 				964EACD5224D13BD004BA7C0 /* RoomViewCell.swift in Sources */,
 				BAA0D0402262655C004417CA /* GenericItemStub.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
@@ -1655,6 +1654,7 @@
 				9684669D2264ACFB00BDA989 /* GameTime.swift in Sources */,
 				BA485906223F959A009ED2F6 /* GenericPlayer.swift in Sources */,
 				75657259226B082A002CDB41 /* PlayerInputController.swift in Sources */,
+				1A3BF40B226BA1C700D1DA86 /* ItemParameter.swift in Sources */,
 				965E033E223A8EBA005F7D79 /* PirateIsland.swift in Sources */,
 				96CEB959224DFAE200B027BA /* RoomsTableDataSource.swift in Sources */,
 				96F658482240E13E006CD412 /* View+SpecialEffects.swift in Sources */,
