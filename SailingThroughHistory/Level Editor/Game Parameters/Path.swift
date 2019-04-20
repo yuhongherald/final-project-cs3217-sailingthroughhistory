@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * Modal for path to store two ends of the path as well as volatiles in the path.
+ */
 class Path: Hashable, Codable {
     let fromNode: Node
     let toNode: Node
@@ -65,6 +68,7 @@ class Path: Hashable, Codable {
         hasher.combine(toNode)
     }
 
+    /// Compute the steps required for a player to go through the path. Influenced by volatile modifiers.
     func computeCostOfPath(baseCost: Double, with ship: Pirate_WeatherEntity) -> Double {
         var result = baseCost
         for modifier in modifiers {

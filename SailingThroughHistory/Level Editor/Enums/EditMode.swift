@@ -8,6 +8,11 @@
 
 import UIKit
 
+
+/**
+ * Enums for differenting mode of editing.
+ * Representing the expected behavior of the button selected or gesture done by users.
+ */
 enum EditMode {
     case sea
     case path

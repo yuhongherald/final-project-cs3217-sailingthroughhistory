@@ -8,7 +8,9 @@
 
 import UIKit
 
+/// Protocol for delegate of gallery.
 protocol GalleryViewDelegateProtocol: class {
+    /// Load decoded gameParameter.
     func load(_ gameParameter: GameParameter)
 }
 

@@ -25,7 +25,6 @@
 		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
 		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
 		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
-		1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08F2240A52900005FCB /* PlayerParameter.swift */; };
 		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
 		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
 		1A9FF0962240C03A00005FCB /* TeamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* TeamTableViewCell.swift */; };
@@ -41,6 +40,7 @@
 		1AE048BE226893FC006ABBA3 /* UIViewController + PointIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE048BD226893FC006ABBA3 /* UIViewController + PointIn.swift */; };
 		1AE048C1226B4180006ABBA3 /* TurnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE048C0226B4180006ABBA3 /* TurnTableViewCell.swift */; };
 		1AE048C4226B7A82006ABBA3 /* GameParameterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE048C3226B7A82006ABBA3 /* GameParameterItem.swift */; };
+		1AE048C6226B8B87006ABBA3 /* TeamParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE048C5226B8B87006ABBA3 /* TeamParameter.swift */; };
 		1AF01830224752FF008B468B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF0182F224752FE008B468B /* MenuViewController.swift */; };
 		3EC2FDF4A8A2C929B6156B79 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E8EF1ED58F41F667A1319C7 /* Pods_SailingThroughHistory.framework */; };
 		751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD1224B9D5D0071C057 /* TurnSystem.swift */; };
@@ -304,7 +304,6 @@
 		1A9FF085223F6DAB00005FCB /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
 		1A9FF08B224030E000005FCB /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		1A9FF08D224037AF00005FCB /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
-		1A9FF08F2240A52900005FCB /* PlayerParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerParameter.swift; sourceTree = "<group>"; };
 		1A9FF0912240AC9C00005FCB /* EventParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParameter.swift; sourceTree = "<group>"; };
 		1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEditTableViewController.swift; sourceTree = "<group>"; };
 		1A9FF0952240C03A00005FCB /* TeamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableViewCell.swift; sourceTree = "<group>"; };
@@ -319,7 +318,8 @@
 		1AE048BB2268922F006ABBA3 /* LevelEditorViewController + Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LevelEditorViewController + Layout.swift"; sourceTree = "<group>"; };
 		1AE048BD226893FC006ABBA3 /* UIViewController + PointIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + PointIn.swift"; sourceTree = "<group>"; };
 		1AE048C0226B4180006ABBA3 /* TurnTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnTableViewCell.swift; sourceTree = "<group>"; };
-		1AE048C3226B7A82006ABBA3 /* GameParameterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameterItem.swift; sourceTree = "<group>"; };
+		1AE048C3226B7A82006ABBA3 /* GameParameterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameParameterItem.swift; path = ../Model/GameParameterItem.swift; sourceTree = "<group>"; };
+		1AE048C5226B8B87006ABBA3 /* TeamParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamParameter.swift; sourceTree = "<group>"; };
 		1AF0182F224752FE008B468B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		6F0099311893FCDCE3BBA5C6 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		751F8FD1224B9D5D0071C057 /* TurnSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnSystem.swift; sourceTree = "<group>"; };
@@ -525,7 +525,7 @@
 		BA919068223F271700009F49 /* GameVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVariable.swift; sourceTree = "<group>"; };
 		BA91906A223F429900009F49 /* GenericLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericLevel.swift; sourceTree = "<group>"; };
 		BA91906F223F446800009F49 /* Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Upgrade.swift; sourceTree = "<group>"; };
-		BA919071223F447F00009F49 /* ItemParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemParameter.swift; sourceTree = "<group>"; };
+		BA919071223F447F00009F49 /* ItemParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ItemParameter.swift; path = ../Enums/ItemParameter.swift; sourceTree = "<group>"; };
 		BA919073223F44A400009F49 /* GameParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameter.swift; sourceTree = "<group>"; };
 		BA919077223F4D0800009F49 /* ShipChassis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipChassis.swift; sourceTree = "<group>"; };
 		BA919079223F4D5500009F49 /* AuxiliaryUpgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuxiliaryUpgrade.swift; sourceTree = "<group>"; };
@@ -610,7 +610,6 @@
 			isa = PBXGroup;
 			children = (
 				1A9FF085223F6DAB00005FCB /* EditMode.swift */,
-				BA919071223F447F00009F49 /* ItemParameter.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -638,16 +637,9 @@
 				1A53D7C72251C44A00FAE214 /* PathView.swift */,
 				1A749D7322440C3E00482CE5 /* GalleryCollectionViewCell.swift */,
 				1A749D7122440C0800482CE5 /* ItemCollectionViewCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		1AE048C2226B41B3006ABBA3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
 				1AE048C3226B7A82006ABBA3 /* GameParameterItem.swift */,
 			);
-			path = Model;
+			path = View;
 			sourceTree = "<group>";
 		};
 		2BF33E1D467651D7EF28C97F /* Frameworks */ = {
@@ -1238,7 +1230,6 @@
 		BA91906C223F440700009F49 /* Level Editor */ = {
 			isa = PBXGroup;
 			children = (
-				1AE048C2226B41B3006ABBA3 /* Model */,
 				1AE048BF2269D944006ABBA3 /* View */,
 				1A749D752244B5C700482CE5 /* Storage */,
 				1A749D662240FD6B00482CE5 /* Controller */,
@@ -1261,6 +1252,7 @@
 		BA91906E223F443600009F49 /* Game Parameters */ = {
 			isa = PBXGroup;
 			children = (
+				BA919071223F447F00009F49 /* ItemParameter.swift */,
 				BA919073223F44A400009F49 /* GameParameter.swift */,
 				96877E53223EC7D80020F44C /* Path.swift */,
 				965E0332223A4B3C005F7D79 /* Node.swift */,
@@ -1271,7 +1263,7 @@
 				965E033F223A9AD1005F7D79 /* Port.swift */,
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
 				1A9FF08B224030E000005FCB /* Map.swift */,
-				1A9FF08F2240A52900005FCB /* PlayerParameter.swift */,
+				1AE048C5226B8B87006ABBA3 /* TeamParameter.swift */,
 				1A9FF0912240AC9C00005FCB /* EventParameter.swift */,
 			);
 			path = "Game Parameters";
@@ -1775,7 +1767,6 @@
 				753A0E842260531A00A1EA99 /* UniqueTurnSystemEvent.swift in Sources */,
 				7581AEE1225C5664001A8CC3 /* Modify.swift in Sources */,
 				751F8FE4224BAE100071C057 /* TurnSystemState.swift in Sources */,
-				1A9FF0902240A52900005FCB /* PlayerParameter.swift in Sources */,
 				965E0337223A4BB3005F7D79 /* VolatileModifier.swift in Sources */,
 				96737EA4223D335100D04C33 /* View+Translate.swift in Sources */,
 				BA6FBBD5225A108900B366DB /* BiggerSailsUpgrade.swift in Sources */,
@@ -1801,6 +1792,7 @@
 				96CEB951224DF14400B027BA /* FirestoreRooms.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
 				751F8FE2224BAA420071C057 /* SerializableGameObject.swift in Sources */,
+				1AE048C6226B8B87006ABBA3 /* TeamParameter.swift in Sources */,
 				96E0745F2252510C0068406B /* RoomMember.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
