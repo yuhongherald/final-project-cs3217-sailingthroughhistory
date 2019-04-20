@@ -11,7 +11,6 @@ import XCTest
 
 class ShipNavigatableUnitTests: XCTestCase {
     let centralNode = NodeStub(name: "centralTestNode", identifier: 99)
-    let port = Port()
     let weatherStub = WeatherStub(windVelocity: 1.0)
     let navigationManager = ShipNavigationManager()
     var nodes1 = [NodeStub]()
@@ -132,7 +131,7 @@ class ShipNavigatableUnitTests: XCTestCase {
 
     func testCanDock() {
         Node.nextID = 1000
-        let port = Port(team: Team(name: "testTeam"), originX: 0, originY: 0)
+        let port = PortStub()
         map.addNode(port)
 
         let ship1: ShipAPI = Ship(node: centralNode, itemsConsumed: [])
@@ -153,7 +152,7 @@ class ShipNavigatableUnitTests: XCTestCase {
 
     func testDock() throws {
         Node.nextID = 1000
-        let port = Port(team: Team(name: "testTeam"), originX: 0, originY: 0)
+        let port = PortStub()
         map.addNode(port)
 
         //func dock() throws -> Port

@@ -208,7 +208,7 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             }
         }
         gameState.map.npcs.forEach {
-            guard let node = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000) else {
+            guard let node = $0.moveToNextNode(map: gameState.map) else {
                 return
             }
             self.messages.append(GameMessage.playerAction(name: "NPC", message: "An npc has moved into \(node.name)"))

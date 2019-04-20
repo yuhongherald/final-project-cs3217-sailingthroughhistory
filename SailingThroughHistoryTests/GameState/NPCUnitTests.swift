@@ -7,24 +7,80 @@
 //
 
 import XCTest
+@testable import SailingThroughHistory
 
 class NPCUnitTests: XCTestCase {
+    let maxTaxAmount = 2000
+    var node = NodeStub(name: "testNode", identifier: 99)
+    var port1 = PortStub()
+    var port2 = PortStub()
+    var port3 = PortStub()
+    var map = Map(map: "testMap", bounds: Rect(originX: 0, originY: 0, height: 0, width: 0))
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        Node.nextID = 0
+        Node.reuseID.removeAll()
+        map = Map(map: "testMap", bounds: Rect(originX: 0, originY: 0, height: 0, width: 0))
+        map.addNode(port1)
+        map.addNode(port2)
+        map.addNode(port3)
+        port1.taxAmount.value = 0
+        port2.taxAmount.value = 500
+        port3.taxAmount.value = 1000
+
+        map.add(path: Path(from: port1, to: port2))
+        map.add(path: Path(from: port2, to: port1))
+        map.add(path: Path(from: port1, to: port3))
+        map.add(path: Path(from: port3, to: port1))
+        map.add(path: Path(from: port2, to: port3))
+        map.add(path: Path(from: port3, to: port2))
+    }
+
+    override class func tearDown() {
+        Node.nextID = 0
+        Node.reuseID.removeAll()
+        NPC.nextId = 0
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        for node in map.nodes.value {
+            map.removeNode(node)
+        }
     }
 
     func testNPCConstructor() {
+        NPC.nextId = 0
+
+        let npc = NPC(node: node, maxTaxAmount: 1)
+        XCTAssertEqual(npc.nodeId, node.identifier)
+        XCTAssertEqual(npc.identifier, 0)
+        XCTAssertEqual(npc.maxTaxAmount, 1)
+        XCTAssertEqual(npc.nextSeed, npc.identifier)
+        XCTAssertEqual(npc.nextDestinationId, node.identifier)
     }
 
     func testNPCEncodeDecode() {
+        NPC.nextId = 0
+
+        let npc = NPC(node: node, maxTaxAmount: 1)
+        guard let npcEncoded = try? JSONEncoder().encode(npc) else {
+            XCTFail("Encode failed")
+            return
+        }
+        guard let npcDecoded = try? JSONDecoder().decode(NPC.self, from: npcEncoded) else {
+            XCTFail("Decode failed")
+            return
+        }
+        XCTAssertEqual(npcDecoded.nodeId, node.identifier)
+        XCTAssertEqual(npcDecoded.identifier, 0)
+        XCTAssertEqual(npc.maxTaxAmount, 1)
+        XCTAssertEqual(npcDecoded.nextSeed, npc.identifier)
+        XCTAssertEqual(npcDecoded.nextDestinationId, node.identifier)
     }
 
     func testNPCMoveToNextNode() {
+        let npc = NPC(node: port1, maxTaxAmount: 1000)
         /*
         func moveToNextNode(map: Map, maxTaxAmount: Int) -> Node? {
             let nextNodeId = getNextNode(map: map, maxTaxAmount: maxTaxAmount)
