@@ -8,12 +8,20 @@
 
 import UIKit
 
+/// The controller for the event table used in the GM panel.
 class EventTableController: NSObject {
     private static let reuseIdentifier = "eventCell"
     private var events: [PresetEvent]
     private weak var tableView: UITableView?
     private weak var delegate: EventTableControllerDelegate?
 
+    /// Constructor for a controller that uses the input table view to show events, the input events and a delegate to
+    /// notify when the user chooses to toggle events.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view to show the events on.
+    ///   - events: The current events.
+    ///   - delegate: The delegate to notify on user action.
     init(tableView: UITableView, events: [PresetEvent], delegate: EventTableControllerDelegate) {
         self.tableView = tableView
         self.events = events
@@ -21,6 +29,9 @@ class EventTableController: NSObject {
         self.tableView?.reloadData()
     }
 
+    /// Sets the events shown to the ones in the input
+    ///
+    /// - Parameter events: The array of PresetEvent to show
     func set(events: [PresetEvent]) {
         self.events = events
         self.tableView?.reloadData()

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// ADT used by ObjectsController to store paths that have been registered.
 struct ObjectPaths {
     var paths = [Node: [Path]]()
     var allPaths: Set<Path> {
@@ -28,6 +29,9 @@ struct ObjectPaths {
         return true
     }
 
+    /// Adds the given path
+    ///
+    /// - Parameter path: The path to add
     mutating func add(path: Path) {
         assert(checkRep())
         paths[path.fromNode, default: []].append(path)
@@ -35,6 +39,9 @@ struct ObjectPaths {
         assert(checkRep())
     }
 
+    /// Removes the given path
+    ///
+    /// - Parameter path: The path to remove
     mutating func remove(path: Path) {
         assert(checkRep())
         paths[path.toNode]?.removeAll { $0 == path }
@@ -42,16 +49,10 @@ struct ObjectPaths {
         assert(checkRep())
     }
 
-    mutating func removeAllPathsAssociated(with node: Node) {
-        assert(checkRep())
-        paths[node]?.forEach { path in
-            paths[path.toNode]?.removeAll { otherPath in path == otherPath }
-        }
-
-        paths[node] = nil
-        assert(checkRep())
-    }
-
+    /// Checks if the given path has already been added.
+    ///
+    /// - Parameter path: The path to check for
+    /// - Returns: true if the path already exists in this ADT, false otherwise.
     func contains(path: Path) -> Bool {
         return allPaths.contains(path)
     }

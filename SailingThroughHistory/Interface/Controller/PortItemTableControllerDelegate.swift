@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Delegate for PortItemTableController, notified when a user wishes to trade at the port.
 protocol PortItemTableControllerDelegate: class {
     func portItemButtonPressed(action: PortItemButtonAction)
 }
