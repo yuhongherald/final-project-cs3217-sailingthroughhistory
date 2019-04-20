@@ -73,6 +73,7 @@ class WaitingRoomViewCell: UITableViewCell {
     func enableButton(_ bool: Bool) {
         changeButton.isEnabled = bool
         removeButton.isEnabled = bool
+        renameButton.isEnabled = bool
     }
 
     func disableTextField() {

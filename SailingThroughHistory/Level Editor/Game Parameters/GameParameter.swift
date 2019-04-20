@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * Class for setting of initial state of the game.
+ */
 class GameParameter: GenericLevel, Codable {
     let maxTaxAmount = 2000
     let defaultTaxAmount = 1000
@@ -23,7 +26,7 @@ class GameParameter: GenericLevel, Codable {
     required init(map: Map, teams: [String]) {
         self.map = map
         self.teams = teams.map { Team(name: $0) }
-        self.playerParameters = teams.map { PlayerParameter(name: "\($0)-player", teamName: $0, node: nil) }
+        self.playerParameters = teams.map { PlayerParameter(name: "\($0) players", teamName: $0, node: nil) }
         self.itemParameters = ItemParameter.allCases
     }
 
