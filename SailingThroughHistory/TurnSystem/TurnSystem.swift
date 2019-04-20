@@ -20,13 +20,13 @@ class TurnSystem: GenericTurnSystem {
         }
     }
 
-    let network: TurnSystemNetwork
+    let network: GenericTurnSystemNetwork
     let data: GenericTurnSystemState
     var gameState: GenericGameState {
         return data.gameState
     }
 
-    init(network: TurnSystemNetwork,
+    init(network: GenericTurnSystemNetwork,
          startingState: GenericTurnSystemState) {
         self.data = startingState
         self.network = network
