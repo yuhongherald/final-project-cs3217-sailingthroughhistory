@@ -192,7 +192,7 @@ class ObjectsViewController {
         }
     }
 
-    /// Make the input player's ship glow.
+    /// Make the input player's ship glow and bring it to the front of its superview.
     ///
     /// - Parameter player: The player whose ship to make glow.
     func makeShipGlow(for player: GenericPlayer) {
@@ -203,10 +203,30 @@ class ObjectsViewController {
 
             if ship == player.playerShip?.shipObject {
                 view.addGlow(colored: .green)
+                self.view.bringSubviewToFront(view)
             } else {
                 view.removeGlow()
             }
         }
+    }
+
+    /// Gets the frame of the input player's ship.
+    ///
+    /// - Parameter player: The player whose ship to find.
+    /// - Returns: The frame of the player's ship, if any. If none is found, return nil
+    func getShipFrame(for player: GenericPlayer) -> CGRect? {
+        for object in objectViews.keys {
+            guard let ship = object as? ShipUI else {
+                continue
+            }
+
+            if ship == player.playerShip?.shipObject {
+                return CGRect.translatingFrom(otherBounds: self.modelBounds, otherFrame: ship.frame.value,
+                                              to: self.view.bounds)
+            }
+        }
+
+        return nil
     }
 
     /// Updates the input object's frame to the input frame.

@@ -32,10 +32,6 @@ enum ItemParameter: String, Codable, CaseIterable {
         }
     }
 
-    private var halfLife: Int? {
-        return nil
-    }
-
     // Create a quantized representation
     func createItem(quantity: Int) -> GenericItem {
         return Item(itemParameter: self, quantity: quantity)
@@ -48,10 +44,6 @@ enum ItemParameter: String, Codable, CaseIterable {
 
     func getSellValue(ports: [Port]) -> Int {
         return ports.map({ $0.getSellValue(of: self) }).compactMap({ $0 }).min() ?? 0
-    }
-
-    func getHalfLife() -> Int? {
-        return halfLife
     }
 
     init(from decoder: Decoder) throws {

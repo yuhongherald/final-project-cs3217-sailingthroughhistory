@@ -21,9 +21,9 @@ class LocalStorage {
             throw StorageError.invalidName(message: "Level name is too long.")
         }
 
-        guard name.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil else {
+        guard name.range(of: "[^a-zA-Z0-9-]", options: .regularExpression) == nil else {
             throw StorageError.invalidName(message:
-                "Room name contains invalid symbol. Only alphanumeric name is allowed.")
+                "Room name contains invalid symbol. Only alphanumeric and - is allowed.")
         }
     }
 
