@@ -1,5 +1,5 @@
 //
-//  Ship_Upgradable_Extension.swift
+//  ShipUpgradeManager.swift
 //  SailingThroughHistory
 //
 //  Created by henry on 13/4/19.
@@ -8,24 +8,23 @@
 
 import Foundation
 
-extension Ship: Upgradable {
-    func installUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
-        guard let owner = owner else {
+class ShipUpgradeManager: Upgradable {
+    func installUpgrade(ship: inout ShipAPI, upgrade: Upgrade) -> (Bool, InfoMessage?) {
+        guard let owner = ship.owner else {
             return (false, InfoMessage(title: "Error", message: "Ship has no owner!"))
         }
         guard owner.money.value >= upgrade.cost else {
             return (false, InfoMessage(title: "Insufficient Money!",
                                        message: "You do not have sufficient funds to buy \(upgrade.name)!"))
         }
-        if shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
+        if ship.shipChassis == nil, let shipUpgrade = upgrade as? ShipChassis {
             owner.updateMoney(by: -upgrade.cost)
-            shipChassis = shipUpgrade
-            weightCapacity = shipUpgrade.getNewCargoCapacity(baseCapacity: weightCapacity)
+            ship.shipChassis = shipUpgrade
             return (true, InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!"))
         }
-        if auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
+        if ship.auxiliaryUpgrade == nil, let auxiliary = upgrade as? AuxiliaryUpgrade {
             owner.updateMoney(by: -upgrade.cost)
-            auxiliaryUpgrade = auxiliary
+            ship.auxiliaryUpgrade = auxiliary
             return (true, InfoMessage(title: "Ship upgrade purchased!", message: "You have purchased \(upgrade.name)!"))
         }
         if upgrade is ShipChassis {

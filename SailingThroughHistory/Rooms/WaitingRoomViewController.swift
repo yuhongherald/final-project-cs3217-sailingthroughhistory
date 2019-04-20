@@ -100,10 +100,26 @@ class WaitingRoomViewController: UIViewController {
             return
         }
 
-        let system = TurnSystem(isMaster: getWaitingRoom().isRoomMaster(),
-                                network: roomConnection,
-                                startingState: initialState,
-                                deviceId: self.getWaitingRoom().identifier)
+        let turnSystemState = TurnSystemState(gameState: initialState, joinOnTurn: 0)
+
+        // TODO: Hide these in SetContext()
+        let stateVariable = GameVariable<TurnSystemNetwork.State>(value: .ready)
+        let networkInfo = NetworkInfo(self.getWaitingRoom().identifier,
+                                      getWaitingRoom().isRoomMaster())
+
+        // TODO: Create setContext() method instead of initializing
+        let playerActionAdapter = PlayerActionAdapter(
+            stateVariable: stateVariable,
+            networkInfo: networkInfo,
+            data: turnSystemState)
+        let network = TurnSystemNetwork(
+            roomConnection: roomConnection,
+            playerActionAdapter: playerActionAdapter,
+            stateVariable: stateVariable,
+            networkInfo: networkInfo,
+            turnSystemState: turnSystemState)
+        let system = TurnSystem(network: network,
+                                startingState: turnSystemState)
         gameController.turnSystem = system
         gameController.network = roomConnection
         gameController.backgroundData = imageData
