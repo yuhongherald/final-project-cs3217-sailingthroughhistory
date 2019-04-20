@@ -10,13 +10,14 @@ import XCTest
 @testable import SailingThroughHistory
 
 class EventPresetsTest: XCTestCase {
-    /*
     func uniqueIdentifierTest() {
-        //let presets = EventPresets()
-
+        let presets = TestClasses.createEventPresets()
         var set: [Int: PresetEvent]
         for preset in presets {
+            if set.contains(where: { $0.0 == preset.identifier }) {
+                XCTFail(message: "Non-unique keys")
+            }
+            set[preset.identifier] = preset
         }
     }
- */
 }

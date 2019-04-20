@@ -142,6 +142,8 @@
 		75A72CC4225CD8D2003640D4 /* MonthWithinCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A72CC3225CD8D2003640D4 /* MonthWithinCondition.swift */; };
 		75A72CC6225CEC38003640D4 /* ItemBuyPriceEvaluatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A72CC5225CEC38003640D4 /* ItemBuyPriceEvaluatable.swift */; };
 		75A72CC8225CED03003640D4 /* FlipFlopTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A72CC7225CED03003640D4 /* FlipFlopTrigger.swift */; };
+		75E8D107226B59EB0021CF3D /* TestTurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E8D106226B59EB0021CF3D /* TestTurnSystem.swift */; };
+		75E8D109226B5C720021CF3D /* TestClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E8D108226B5C720021CF3D /* TestClasses.swift */; };
 		9603F774224A8254007D54E0 /* RoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F773224A8254007D54E0 /* RoomConnection.swift */; };
 		9603F77E224A95D2007D54E0 /* FirestoreRoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */; };
 		9603F782224A9748007D54E0 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9603F781224A9748007D54E0 /* Room.swift */; };
@@ -425,6 +427,8 @@
 		75A72CC3225CD8D2003640D4 /* MonthWithinCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthWithinCondition.swift; sourceTree = "<group>"; };
 		75A72CC5225CEC38003640D4 /* ItemBuyPriceEvaluatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemBuyPriceEvaluatable.swift; sourceTree = "<group>"; };
 		75A72CC7225CED03003640D4 /* FlipFlopTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipFlopTrigger.swift; sourceTree = "<group>"; };
+		75E8D106226B59EB0021CF3D /* TestTurnSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTurnSystem.swift; sourceTree = "<group>"; };
+		75E8D108226B5C720021CF3D /* TestClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestClasses.swift; sourceTree = "<group>"; };
 		9603F773224A8254007D54E0 /* RoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomConnection.swift; sourceTree = "<group>"; };
 		9603F77D224A95D2007D54E0 /* FirestoreRoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreRoomConnection.swift; sourceTree = "<group>"; };
 		9603F781224A9748007D54E0 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -661,6 +665,7 @@
 		751F8FDA224B9D600071C057 /* TurnSystem */ = {
 			isa = PBXGroup;
 			children = (
+				75E8D105226B596D0021CF3D /* Tests */,
 				7565724B226AE6BB002CDB41 /* Messenger */,
 				752D2BDD225FA31B00A3411C /* GameMessage */,
 				75354459224CA552001B4F62 /* Events */,
@@ -961,6 +966,15 @@
 				759A5EEC2250833E00724BEB /* Arithmetic.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		75E8D105226B596D0021CF3D /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				75E8D106226B59EB0021CF3D /* TestTurnSystem.swift */,
+				75E8D108226B5C720021CF3D /* TestClasses.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		9603F772224A8005007D54E0 /* Network */ = {
@@ -1632,6 +1646,7 @@
 				96CEB957224DFA0E00B027BA /* NetworkFactory.swift in Sources */,
 				9603F782224A9748007D54E0 /* Room.swift in Sources */,
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
+				75E8D109226B5C720021CF3D /* TestClasses.swift in Sources */,
 				759A5EF32250A38700724BEB /* NodeData.swift in Sources */,
 				1ABBA218226230B400222E7A /* TeamScoreTableController.swift in Sources */,
 				96A7D0B2225FA8E0001C18E4 /* UILightningView.swift in Sources */,
@@ -1819,6 +1834,7 @@
 				96CEB951224DF14400B027BA /* FirestoreRooms.swift in Sources */,
 				96737EAB223D772900D04C33 /* UIVIew+Border.swift in Sources */,
 				751F8FE2224BAA420071C057 /* SerializableGameObject.swift in Sources */,
+				75E8D107226B59EB0021CF3D /* TestTurnSystem.swift in Sources */,
 				96E0745F2252510C0068406B /* RoomMember.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

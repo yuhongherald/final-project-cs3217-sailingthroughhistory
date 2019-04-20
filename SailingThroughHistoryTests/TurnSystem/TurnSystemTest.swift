@@ -10,7 +10,8 @@ import XCTest
 @testable import SailingThroughHistory
 
 class TurnSystemTest: XCTestCase {
-    func functionalityTest() {
+    func getPresetEventsTest() {
+        let turnSystem = TurnSystem(network: <#T##GenericTurnSystemNetwork#>, playerInputControllerFactory: PlayerInputControllerFactory())
         // construct a turnsystem
         // construct a network stub, for single player probably
         // construct some dummy map
