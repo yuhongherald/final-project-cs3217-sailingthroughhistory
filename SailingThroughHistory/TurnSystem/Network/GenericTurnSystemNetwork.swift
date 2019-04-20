@@ -10,6 +10,7 @@ protocol GenericTurnSystemNetwork: class {
     var pendingActions: [PlayerAction] { get set }
     var stateVariable: GameVariable<TurnSystemNetwork.State> { get }
     var state: TurnSystemNetwork.State { get set }
+    var data: GenericTurnSystemState { get }
     var currentPlayer: GenericPlayer? { get }
 
     func getNextPlayer() -> GenericPlayer?
