@@ -34,7 +34,6 @@ class TurnSystemEvent: Unique, Printable {
         }
         executeWithConditions()
         resetTrigger()
-        // TODO: Write a message parser, require on construction
         return GameMessage.event(name: displayName, message: parsable())
     }
 
