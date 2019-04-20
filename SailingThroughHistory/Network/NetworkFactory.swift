@@ -26,8 +26,8 @@ enum NetworkFactory {
             throw StorageError.invalidName(message: "Name is too long.")
         }
 
-        guard name.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil else {
-            throw StorageError.invalidName(message: "Name contains invalid symbol. Only alphanumeric name is allowed.")
+        guard name.range(of: "[^a-zA-Z0-9-]", options: .regularExpression) == nil else {
+            throw StorageError.invalidName(message: "Name contains invalid symbol. Only alphanumeric and - is allowed.")
         }
     }
 }

@@ -27,7 +27,6 @@ class WaitingRoomViewCell: UITableViewCell {
             makeGameMasterButton.isHidden = makeGameMasterButtonPressedCallback == nil
         }
     }
-    
 
     @IBAction func renameButtonPressed(_ sender: UIButton) {
         if playerNameTextField.isEnabled {
@@ -74,6 +73,7 @@ class WaitingRoomViewCell: UITableViewCell {
     func enableButton(_ bool: Bool) {
         changeButton.isEnabled = bool
         removeButton.isEnabled = bool
+        renameButton.isEnabled = bool
     }
 
     func disableTextField() {
