@@ -11,7 +11,7 @@ import XCTest
 @testable import SailingThroughHistory
 
 class PlayerInputControllerTest: XCTestCase {
-    func checkInputAllowedTest() {
+    func testCheckInputAllowed() {
         let inputController = TestClasses.createInputController(timer: 2)
         let player = inputController.data.gameState.getPlayers()[0]
         let otherPlayer = inputController.data.gameState.getPlayers()[1]
@@ -30,7 +30,7 @@ class PlayerInputControllerTest: XCTestCase {
         XCTFail("Should not allow player 2 to go")
     }
     
-    func startPlayerInputTest() {
+    func testStartPlayerInput() {
         let inputController = TestClasses.createInputController(timer: 2)
         let player = inputController.data.gameState.getPlayers()[0]
         let otherPlayer = inputController.data.gameState.getPlayers()[1]

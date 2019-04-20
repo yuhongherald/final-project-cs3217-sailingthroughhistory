@@ -10,7 +10,7 @@ import XCTest
 @testable import SailingThroughHistory
 
 class TurnSystemTest: XCTestCase {
-    func getPresetEventsTest() {
+    func testGetPresetEvents() {
         let turnSystem = TestClasses.createTestSystem(numPlayers: 0)
         guard let events = turnSystem.eventPresets?.getEvents() else {
             XCTFail("Turn system initialized without event presets")
@@ -20,7 +20,7 @@ class TurnSystemTest: XCTestCase {
         XCTAssertEqual(events.map { $0.displayName }, otherEvents.map { $0.displayName }, "Events not same!")
     }
     
-    func startGameTest() {
+    func testStartGame() {
         let turnSystem0 = TestClasses.createTestSystem(numPlayers: 0)
         let turnSystem1 = TestClasses.createTestSystem(numPlayers: 1)
         let turnSystem2 = TestClasses.createTestSystem(numPlayers: 2)
@@ -40,7 +40,7 @@ class TurnSystemTest: XCTestCase {
     }
     
     // to represent all the actions
-    func rollTest() {
+    func testRoll() {
         let turnSystem = TestClasses.createTestSystem(numPlayers: 2)
         rollOnWrongState()
         turnSystem.startGame()
@@ -62,7 +62,7 @@ class TurnSystemTest: XCTestCase {
         XCTFail("Managed to roll the dice, on wrong state")
     }
 
-    func subscribeToStateTest() {
+    func testSubscribeToState() {
         let result = GameVariable<Bool>(value: false)
         let turnSystem = TestClasses.createTestSystem(numPlayers: 1)
         turnSystem.subscribeToState {_ in
@@ -79,7 +79,7 @@ class TurnSystemTest: XCTestCase {
         XCTAssertFalse(result.value, "Notified when there is no change!")
     }
     
-    func endTurnTest() {
+    func testEndTurn() {
         let turnSystem = TestClasses.createTestSystem(numPlayers: 1)
         turnSystem.startGame()
         turnSystem.endTurn()

@@ -70,7 +70,16 @@ class TestClasses {
         controller.duration = timer
         return controller
     }
-}
-import Foundation
-class TestBed {
+    static func createTestEvent(identifier: Int) -> TurnSystemEvent {
+        let event = TurnSystemEvent(triggers: [], conditions: [], actions: [],
+                        parsable: { "Test event" }, displayName: "Test event")
+        event.identifier = identifier
+        return event
+    }
+    static func createPresetEvent(identifier: Int) -> PresetEvent {
+        let result = TaxChangeEvent(gameState: TestClasses.createGame(numPlayers: 1),
+                       genericOperator: AddOperator<Int>(), modifier: 1)
+        result.identifier = identifier
+        return result
+    }
 }
