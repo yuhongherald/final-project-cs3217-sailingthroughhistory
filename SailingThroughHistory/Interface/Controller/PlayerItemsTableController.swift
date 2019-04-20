@@ -8,13 +8,19 @@
 
 import UIKit
 
-class PlayerItemsTableDataSource: NSObject, UITableViewDataSource {
+/// Controller for table that shows items belonging to a player.
+class PlayerItemsTableController: NSObject, UITableViewDataSource {
     private static let reuseIdentifier = "playerItemsTableCell"
     private static let header = "Items"
     private weak var tableView: UITableView?
     private let player: GenericPlayer
     private var items = [GenericItem]()
 
+    /// Constructor for PlayerItemsTableController for a given player and view to show it on.
+    ///
+    /// - Parameters:
+    ///   - player: The player whose items to show
+    ///   - tableView: The view to show the items on
     init(player: GenericPlayer, tableView: UITableView) {
         self.player = player
         self.tableView = tableView
@@ -32,7 +38,7 @@ class PlayerItemsTableDataSource: NSObject, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1,
-                                   reuseIdentifier: PlayerItemsTableDataSource.reuseIdentifier)
+                                   reuseIdentifier: PlayerItemsTableController.reuseIdentifier)
 
         let item = items[indexPath.row]
 
@@ -51,6 +57,6 @@ class PlayerItemsTableDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return PlayerItemsTableDataSource.header
+        return PlayerItemsTableController.header
     }
 }

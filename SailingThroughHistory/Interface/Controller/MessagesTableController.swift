@@ -8,10 +8,14 @@
 
 import UIKit
 
+/// The controller to show messages.
 class MessagesTableController: NSObject {
     private weak var tableView: UITableView?
     private var messages = [GameMessage]()
 
+    /// Constructor for this controller which uses the input table view to show messages.
+    ///
+    /// - Parameter tableView: The table view to show the messages on.
     init(tableView: UITableView) {
         self.tableView = tableView
         super.init()
@@ -19,11 +23,15 @@ class MessagesTableController: NSObject {
         reloadMessages()
     }
 
+    /// Changes the messages shown to those in the input
+    ///
+    /// - Parameter messages: The new messages to show
     func set(messages: [GameMessage]) {
         self.messages = messages
         reloadMessages()
     }
 
+    /// Updates the table view to show the currently stored messages.
     private func reloadMessages() {
         tableView?.reloadData()
         guard let numRows = tableView?.numberOfRows(inSection: 0) else {
@@ -35,6 +43,10 @@ class MessagesTableController: NSObject {
         }
     }
 
+    /// Converts GameMessage to a string.
+    ///
+    /// - Parameter gameMessage: The GameMessage ot convert
+    /// - Returns: The string representing the GameMessage
     private func convertToString(from gameMessage: GameMessage) -> String {
         switch gameMessage {
         case .playerAction(let name, let message):
