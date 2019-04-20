@@ -13,7 +13,7 @@ class Item: GenericItem, Codable {
         return itemParameter.rawValue
     }
     let itemParameter: ItemParameter
-    var weight: Int? {
+    var weight: Int {
         let unitWeight = itemParameter.unitWeight
         return quantity * unitWeight
     }

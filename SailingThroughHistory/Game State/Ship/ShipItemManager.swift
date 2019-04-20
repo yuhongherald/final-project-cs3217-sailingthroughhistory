@@ -17,14 +17,13 @@ class ShipItemManager: ItemStorage {
     }
 
     func getMaxPurchaseAmount(ship: ShipAPI, itemParameter: ItemParameter) -> Int {
-        guard let map = ship.map else {
-            fatalError("Ship does not reside on any map.")
-        }
-        guard let port = map.nodeIDPair[ship.nodeId] as? Port, ship.isDocked,
+        guard let port = ship.node as? Port, ship.isDocked,
             let unitValue = port.getBuyValue(of: itemParameter) else {
                 return 0
         }
-        return min(ship.owner?.money.value ?? 0 / unitValue, getRemainingCapacity(ship: ship) / itemParameter.unitWeight)
+        let value1 = (ship.owner?.money.value ?? 0) / unitValue
+        let value2 = getRemainingCapacity(ship: ship) / itemParameter.unitWeight
+        return min(value1, value2)
     }
 
     func buyItem(ship: ShipAPI, itemParameter: ItemParameter, quantity: Int) throws {
@@ -37,7 +36,7 @@ class ShipItemManager: ItemStorage {
         }
         let difference = (ship.owner?.money.value ?? 0) - price
         guard difference >= 0 else {
-            throw TradeItemError.insufficientFunds(shortOf: difference)
+            throw TradeItemError.insufficientFunds(shortOf: -difference)
         }
         try addItem(ship: ship, item: &item)
         ship.owner?.updateMoney(by: -price)
@@ -61,7 +60,7 @@ class ShipItemManager: ItemStorage {
     }
 
     func sell(ship: ShipAPI, itemParameter: ItemParameter, quantity: Int) throws {
-        guard let map = ship.map, let port = map.nodeIDPair[ship.nodeId] as? Port else {
+        guard let map = ship.map, let port = ship.node as? Port else {
             throw TradeItemError.notDocked
         }
         guard let value = port.getSellValue(of: itemParameter) else {
@@ -94,9 +93,9 @@ class ShipItemManager: ItemStorage {
     }
 
     private func addItem(ship: ShipAPI, item: inout GenericItem) throws {
-        let difference = getRemainingCapacity(ship: ship) - (item.weight ?? 0)
+        let difference = getRemainingCapacity(ship: ship) - item.weight
         guard difference >= 0 else {
-            throw TradeItemError.insufficientCapacity(shortOf: difference)
+            throw TradeItemError.insufficientCapacity(shortOf: -difference)
         }
         guard let sameType = ship.items.value.first(where: { $0.itemParameter == item.itemParameter }) else {
             ship.items.value.append(item)

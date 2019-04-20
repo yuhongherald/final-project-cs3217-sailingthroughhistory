@@ -52,8 +52,8 @@ class Ship: ShipAPI, Codable {
         get {
             return weightCapacityVariable.value
         }
-        set {
-            weightCapacityVariable.value = weightCapacity
+        set(value) {
+            weightCapacityVariable.value = value
         }
     }
     let nodeIdVariable: GameVariable<Int> // public for events
@@ -104,6 +104,7 @@ class Ship: ShipAPI, Codable {
 
         shipObject = ShipUI(ship: self)
         updateCargoWeight(items: items.value)
+        subscribeToItems(with: updateCargoWeight)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -195,7 +196,7 @@ extension Ship {
     func updateCargoWeight(items: [GenericItem]) {
         var result = 0
         for item in items {
-            result += item.weight ?? 0
+            result += item.weight
         }
         currentCargoWeightVariable.value = result
     }

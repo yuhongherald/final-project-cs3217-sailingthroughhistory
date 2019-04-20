@@ -35,6 +35,7 @@ class ShipUnitTests: XCTestCase {
         let consumed1 = GenericItemStub(name: "TestConsume1", itemParameter: .food, quantity: 1)
         itemsConsumed.append(consumed1)
 
+        ports = [PortStub]()
         let port1 = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100)
         ports.append(port1)
 

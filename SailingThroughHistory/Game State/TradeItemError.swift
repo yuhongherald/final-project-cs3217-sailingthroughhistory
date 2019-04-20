@@ -19,7 +19,7 @@ enum TradeItemError: Error {
     func getMessage() -> String {
         switch self {
         case .insufficientFunds(let amount):
-            return "Short of \(amount) money!" // TODO: Get currency name
+            return "Short of \(amount) money!"
         case .insufficientItems(let amount, let sold):
             return "Short of \(amount) items! Only \(sold) were sold."
         case .insufficientCapacity(let amount):

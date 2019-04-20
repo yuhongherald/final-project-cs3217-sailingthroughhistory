@@ -11,7 +11,9 @@ import Foundation
 class GenericItemStub: GenericItem {
     let name: String
     var itemParameter: ItemParameter
-    var weight: Int?
+    var weight: Int {
+        return itemParameter.unitWeight * quantity
+    }
     var quantity: Int
 
     var isAvailableAtPort = true
@@ -66,7 +68,6 @@ class GenericItemStub: GenericItem {
     func copy() -> GenericItemStub {
         let newCopy = GenericItemStub(name: name, itemParameter: itemParameter, quantity: quantity)
         newCopy.itemParameter = itemParameter
-        newCopy.weight = weight
 
         newCopy.isAvailableAtPort = isAvailableAtPort
         newCopy.doesItemDecay = doesItemDecay

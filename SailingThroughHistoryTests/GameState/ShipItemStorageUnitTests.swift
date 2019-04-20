@@ -10,37 +10,25 @@ import XCTest
 @testable import SailingThroughHistory
 
 class ShipItemStorageUnitTests: XCTestCase {
+    static let itemParameters = [ItemParameter.opium]
+
     var node = NodeStub(name: "testNode", identifier: 0)
-    var encodableItems = [Item]()
-    var items = [GenericItemStub]()
-    var itemsConsumed = [GenericItemStub]()
-    var ports = [PortStub]()
-    let map = Map(map: "testMap", bounds: Rect(originX: 0, originY: 0, height: 0, width: 0))
-    private var wasItemSubscribeCalled = false
+    var items = ShipItemStorageUnitTests.itemParameters.map {
+        GenericItemStub(name: $0.rawValue, itemParameter: $0, quantity: 1)
+    }
+
+    let portWithItems = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100, itemParameters: ShipItemStorageUnitTests.itemParameters)
+    let portWithoutItems = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100, itemParameters: [])
+    let itemStorage = ShipItemManager()
+    var map = Map(map: "testMap", bounds: Rect(originX: 0, originY: 0, height: 0, width: 0))
 
     override func setUp() {
         super.setUp()
-        wasItemSubscribeCalled = false
         node = NodeStub(name: "testNode", identifier: 0)
-
-        encodableItems = [Item]()
-        let encodableItem1 = Item(itemParameter: .opium, quantity: 1)
-        encodableItems.append(encodableItem1)
-
-        items = [GenericItemStub]()
-        let item1 = GenericItemStub(name: "TestItem1", itemParameter: .opium, quantity: 1)
-        items.append(item1)
-
-        itemsConsumed = [GenericItemStub]()
-        let consumed1 = GenericItemStub(name: "TestConsume1", itemParameter: .food, quantity: 1)
-        itemsConsumed.append(consumed1)
-
-        let port1 = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100)
-        ports.append(port1)
-
-        for port in ports {
-            map.addNode(port)
-        }
+        map = Map(map: "testMap", bounds: Rect(originX: 0, originY: 0, height: 0, width: 0))
+        map.addNode(node)
+        map.addNode(portWithItems)
+        map.addNode(portWithoutItems)
     }
 
     override class func tearDown() {
@@ -54,15 +42,213 @@ class ShipItemStorageUnitTests: XCTestCase {
         }
     }
     func testGetPurchasableItemTypes() {
-        //getPurchasableItemTypes() -> [ItemType]
+        let ship1 = Ship(node: portWithItems, itemsConsumed: [])
+        ship1.isDocked = true
+        ship1.map = map
+        let itemParameters1 = itemStorage.getPurchasableItemParameters(ship: ship1)
+
+        XCTAssertEqual(itemParameters1, ShipItemStorageUnitTests.itemParameters)
+
+        let ship2 = Ship(node: node, itemsConsumed: [])
+        ship2.isDocked = true
+        ship2.map = map
+        let itemParameters2 = itemStorage.getPurchasableItemParameters(ship: ship2)
+
+        XCTAssertEqual(itemParameters2, [ItemParameter]())
     }
 
     func testGetMaxPurchaseAmount() {
-        //func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
+        guard let itemParameter = ShipItemStorageUnitTests.itemParameters.first else {
+            XCTFail("No item parameters defined for ItemStorage tests")
+            return
+        }
+        let ship1 = Ship(node: portWithItems, itemsConsumed: [])
+        ship1.map = map
+        ship1.isDocked = true
+        ship1.weightCapacity = 100000
+        let owner1 = GenericPlayerStub()
+        owner1.money.value = 1000
+        ship1.owner = owner1
+        let amount1 = itemStorage.getMaxPurchaseAmount(ship: ship1, itemParameter: itemParameter)
+        guard let portValue1 = portWithItems.getBuyValue(of: itemParameter) else {
+            XCTFail("Item not sold at port!")
+            return
+        }
+
+        XCTAssertEqual(amount1, owner1.money.value / portValue1)
+
+        let ship2 = Ship(node: portWithItems, itemsConsumed: [])
+        ship2.map = map
+        ship2.isDocked = true
+        ship2.weightCapacity = 1000
+        let owner2 = GenericPlayerStub()
+        owner2.money.value = 100000
+        ship2.owner = owner2
+        let amount2 = itemStorage.getMaxPurchaseAmount(ship: ship2, itemParameter: itemParameter)
+
+        XCTAssertEqual(amount2, ship2.weightCapacity / itemParameter.unitWeight)
+
+        let ship3 = Ship(node: node, itemsConsumed: [])
+        ship3.map = map
+        ship3.isDocked = true
+        ship3.weightCapacity = 100000
+        let owner3 = GenericPlayerStub()
+        owner3.money.value = 100000
+        ship3.owner = owner3
+        let amount3 = itemStorage.getMaxPurchaseAmount(ship: ship3, itemParameter: itemParameter)
+
+        XCTAssertEqual(amount3, 0)
+
+        let ship4 = Ship(node: node, itemsConsumed: [])
+        ship4.map = map
+        ship4.isDocked = true
+        ship4.weightCapacity = 100000
+        let amount4 = itemStorage.getMaxPurchaseAmount(ship: ship4, itemParameter: itemParameter)
+
+        XCTAssertEqual(amount4, 0)
     }
 
-    func testBuyItem() {
-        //func buyItem(itemType: ItemType, quantity: Int) throws
+    func testBuyItem() throws {
+        guard let itemParameter = ShipItemStorageUnitTests.itemParameters.first else {
+            XCTFail("No item parameters defined for ItemStorage tests")
+            return
+        }
+        for quantity in 1...3 {
+            let ship1 = Ship(node: node, itemsConsumed: [])
+            ship1.weightCapacity = 100000
+            ship1.map = map
+            ship1.isDocked = true
+            let owner1 = GenericPlayerStub()
+            owner1.money.value = 100000
+            ship1.owner = owner1
+
+            XCTAssertThrowsError(try itemStorage.buyItem(ship: ship1,
+                     itemParameter: itemParameter, quantity: quantity)) { error in
+                guard let notDockedError = error as? TradeItemError else {
+                    XCTFail("Error was not correct type")
+                    return
+                }
+                XCTAssertEqual(notDockedError.getMessage(), TradeItemError.notDocked.getMessage())
+            }
+            XCTAssertTrue(testTwoGenericItemArray(ship1.items.value, [GenericItem]()))
+
+            let ship2 = Ship(node: portWithoutItems, itemsConsumed: [])
+            ship2.weightCapacity = 100000
+            ship2.map = map
+            ship2.isDocked = true
+            let owner2 = GenericPlayerStub()
+            owner2.money.value = 100000
+            ship2.owner = owner2
+            XCTAssertThrowsError(try itemStorage.buyItem(ship: ship2,
+                         itemParameter: itemParameter, quantity: quantity)) { error in
+                guard let itemNotAvailableError = error as? TradeItemError else {
+                    XCTFail("Error was not correct type")
+                    return
+                }
+                XCTAssertEqual(itemNotAvailableError.getMessage(), TradeItemError.itemNotAvailable.getMessage())
+            }
+            XCTAssertTrue(testTwoGenericItemArray(ship2.items.value, [GenericItem]()))
+
+            let ship3 = Ship(node: portWithItems, itemsConsumed: [])
+            ship3.weightCapacity = 100000
+            ship3.map = map
+            ship3.isDocked = true
+            let owner3 = GenericPlayerStub()
+            owner3.money.value = 0
+            ship3.owner = owner3
+            guard let itemValue3 = portWithItems.getBuyValue(of: itemParameter) else {
+                XCTFail("Item not available at port!")
+                return
+            }
+            XCTAssertThrowsError(try itemStorage.buyItem(ship: ship3,
+                     itemParameter: itemParameter, quantity: quantity)) { error in
+                guard let insufficientFunds = error as? TradeItemError else {
+                    XCTFail("Error was not correct type")
+                    return
+                }
+                XCTAssertEqual(insufficientFunds.getMessage(),
+                   TradeItemError.insufficientFunds(shortOf: itemValue3 * quantity - owner3.money.value).getMessage())
+            }
+            XCTAssertTrue(testTwoGenericItemArray(ship3.items.value, [GenericItem]()))
+        }
+    }
+
+    func testBuyItem2() throws {
+        guard let itemParameter = ShipItemStorageUnitTests.itemParameters.first else {
+            XCTFail("No item parameters defined for ItemStorage tests")
+            return
+        }
+        let item = Item(itemParameter: itemParameter, quantity: 1)
+        for quantity in 1...3 {
+            let ship4 = Ship(node: portWithItems, itemsConsumed: [])
+            ship4.weightCapacity = 100000
+            ship4.isDocked = true
+            ship4.map = map
+            guard let itemValue4 = portWithItems.getBuyValue(of: itemParameter) else {
+                XCTFail("Item not available at port!")
+                return
+            }
+            XCTAssertThrowsError(try itemStorage.buyItem(ship: ship4,
+                 itemParameter: itemParameter, quantity: quantity)) { error in
+                guard let insufficientFunds = error as? TradeItemError else {
+                    XCTFail("Error was not correct type")
+                    return
+                }
+                XCTAssertEqual(insufficientFunds.getMessage(),
+                   TradeItemError.insufficientFunds(shortOf: itemValue4 * quantity).getMessage())
+            }
+            XCTAssertTrue(testTwoGenericItemArray(ship4.items.value, [GenericItem]()))
+
+            let ship5 = Ship(node: portWithItems, itemsConsumed: [])
+            ship5.weightCapacity = itemParameter.unitWeight * quantity - 1
+            ship5.isDocked = true
+            ship5.map = map
+            let owner5 = GenericPlayerStub()
+            owner5.money.value = 100000
+            ship5.owner = owner5
+            XCTAssertThrowsError(try itemStorage.buyItem(ship: ship5,
+                     itemParameter: itemParameter, quantity: quantity)) { error in
+                guard let insufficientCapacity = error as? TradeItemError else {
+                    XCTFail("Error was not correct type")
+                    return
+                }
+                XCTAssertEqual(insufficientCapacity.getMessage(),
+                   TradeItemError.insufficientCapacity(shortOf: itemParameter.unitWeight * quantity - ship5.weightCapacity).getMessage())
+            }
+            XCTAssertTrue(testTwoGenericItemArray(ship5.items.value, [GenericItem]()))
+
+            let ship6 = Ship(node: portWithItems, itemsConsumed: [])
+            ship6.weightCapacity = itemParameter.unitWeight * quantity
+            ship6.isDocked = true
+            ship6.map = map
+            ship6.items.value = [item]
+            let owner6 = GenericPlayerStub()
+            owner6.money.value = 100000
+            ship6.owner = owner6
+            XCTAssertThrowsError(try itemStorage.buyItem(ship: ship6,
+                     itemParameter: itemParameter, quantity: quantity)) { error in
+                guard let insufficientCapacity = error as? TradeItemError else {
+                    XCTFail("Error was not correct type")
+                    return
+                }
+                XCTAssertEqual(insufficientCapacity.getMessage(),
+                   TradeItemError.insufficientCapacity(shortOf: -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight).getMessage())
+            }
+            XCTAssertTrue(testTwoGenericItemArray(ship6.items.value, [item]))
+
+            let ship7 = Ship(node: portWithItems, itemsConsumed: [])
+            ship7.weightCapacity = 100000
+            ship7.isDocked = true
+            ship7.map = map
+            let newItem = Item(itemParameter: item.itemParameter, quantity: item.quantity)
+            ship7.items.value = [newItem]
+            let owner7 = GenericPlayerStub()
+            owner7.money.value = 100000
+            ship7.owner = owner7
+            try itemStorage.buyItem(ship: ship7, itemParameter: itemParameter, quantity: quantity)
+            let combinedItem = Item(itemParameter: itemParameter, quantity: quantity + item.quantity)
+            XCTAssertTrue(testTwoGenericItemArray(ship7.items.value, [combinedItem]))
+        }
     }
 
     func testSellItem() {
@@ -75,5 +261,17 @@ class ShipItemStorageUnitTests: XCTestCase {
 
     func testRemoveItem() {
         //func removeItem(by itemType: ItemType, with quantity: Int) -> Int
+    }
+
+    private func testTwoGenericItemArray(_ array1: [GenericItem], _ array2: [GenericItem]) -> Bool {
+        guard array1.count == array2.count else {
+            return false
+        }
+        for (item1, item2) in zip(array1, array2) {
+            guard item1 == item2 else {
+                return false
+            }
+        }
+        return true
     }
 }
