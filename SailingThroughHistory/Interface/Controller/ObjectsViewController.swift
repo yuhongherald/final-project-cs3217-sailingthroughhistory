@@ -46,6 +46,7 @@ class ObjectsViewController {
             guard let self = self else {
                 return
             }
+            var existingNodes = Set(self.nodeViews.keys)
             for node in nodes {
                 if self.nodeViews[node.identifier] != nil {
                     continue
@@ -57,6 +58,11 @@ class ObjectsViewController {
                                                         to: self.view.bounds)
                 self.view.addSubview(nodeView)
                 self.nodeViews[node.identifier] = nodeView
+                existingNodes.remove(node.identifier)
+            }
+            for node in existingNodes {
+                self.nodeViews[node]?.removeFromSuperview()
+                self.nodeViews[node] = nil
             }
         }
     }
@@ -67,7 +73,7 @@ class ObjectsViewController {
     func subscribeToPaths(in map: Map) {
         map.subscribeToPaths { [weak self] nodePaths in
             let mapPaths = Set(nodePaths.values.flatMap { $0 })
-            guard let existingPaths = self?.paths.allPaths else {
+            guard var existingPaths = self?.paths.allPaths else {
                 return
             }
 
@@ -83,6 +89,15 @@ class ObjectsViewController {
 
                 self?.paths.add(path: path)
                 self?.addToView(path: path, from: fromFrame, to: toFrame, withDuration: 1)
+                existingPaths.remove(path)
+            }
+
+            for path in existingPaths {
+                self?.paths.remove(path: path)
+                self?.pathLayers[path]?.removeFromSuperlayer()
+                self?.pathLayers[path] = nil
+                self?.pathWeathers[path]?.removeFromSuperview()
+                self?.pathWeathers[path] = nil
             }
         }
     }
