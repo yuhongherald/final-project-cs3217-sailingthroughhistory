@@ -41,15 +41,27 @@ class TurnSystemTest: XCTestCase {
     
     // to represent all the actions
     func rollTest() {
-        let turnSystem = TestClasses.createTestSystem(numPlayers: 1)
+        let turnSystem = TestClasses.createTestSystem(numPlayers: 2)
+        rollOnWrongState()
         turnSystem.startGame()
         do {
             _ = try turnSystem.roll(for: turnSystem.gameState.getPlayers()[0])
         } catch {
             XCTFail("Failed to roll the dice, wrong state")
         }
+        turnSystem.endTurn()
+        rollOnWrongState()
     }
-    
+
+    private func rollOnWrongState(turnSystem: TurnSystem) {
+        do {
+            _ = try turnSystem.roll(for: turnSystem.gameState.getPlayers()[0])
+        } catch {
+            return
+        }
+        XCTFail("Managed to roll the dice, on wrong state")
+    }
+
     func subscribeToStateTest() {
         let result = GameVariable<Bool>(value: false)
         let turnSystem = TestClasses.createTestSystem(numPlayers: 1)
@@ -58,6 +70,13 @@ class TurnSystemTest: XCTestCase {
         }
         turnSystem.startGame()
         XCTAssertTrue(result.value, "Not notified on subscription!")
+        result.value = false
+        do {
+            _ = try turnSystem.roll(for: turnSystem.gameState.getPlayers()[0])
+        } catch {
+            XCTFail("Failed to roll the dice, wrong state")
+        }
+        XCTAssertFalse(result.value, "Notified when there is no change!")
     }
     
     func endTurnTest() {
