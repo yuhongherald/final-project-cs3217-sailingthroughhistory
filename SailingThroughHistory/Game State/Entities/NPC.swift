@@ -65,7 +65,7 @@ class NPC: GameObject {
     }
 
     func moveToNextNode(map: Map) -> Node? {
-        let nextNodeId = getNextNode(map: map, maxTaxAmount: maxTaxAmount)
+        let nextNodeId = getNextNode(map: map)
         guard let currentNode = map.nodeIDPair[nodeId], let nextNode = map.nodeIDPair[nextNodeId] else {
             return nil
         }
@@ -81,7 +81,7 @@ class NPC: GameObject {
         return nextNode
     }
 
-    func getNextNode(map: Map, maxTaxAmount: Int) -> Int {
+    func getNextNode(map: Map) -> Int {
         var generator = GKMersenneTwisterRandomSource()
         generator.seed = UInt64(nextSeed)
         if nextDestinationId == nodeId {
