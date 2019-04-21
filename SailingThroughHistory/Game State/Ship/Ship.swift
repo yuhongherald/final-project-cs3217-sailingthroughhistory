@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a Ship in the game. Assumes a non-negative baseCapacity. This class
+/// supports only the main interactions between Player and Ship. The rest of the
+/// behaviors are defined by itemManager, upgradeManager and navigationManager.
 import Foundation
 
 class Ship: ShipAPI, Codable {

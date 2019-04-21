@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Used for encoding/decoding the various types of ship Upgrades.
 enum UpgradeType: Int, Codable {
     case biggerShip
     case fasterShip

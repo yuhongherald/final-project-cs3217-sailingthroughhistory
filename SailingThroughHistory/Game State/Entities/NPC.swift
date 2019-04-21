@@ -6,6 +6,14 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// An implementation of a Non-Player Controlled ship. This ship does not support the
+/// usual operations of a normal ship and is primarily used to represent a GameObject
+/// that objectively moves between ports, paying taxes to the owner whenever they stop
+/// at a port. They do not have actual money, do not buy/sell items and has a higher
+/// probability of stopping at a port with lower taxes.
+
+/// Assumes that there are at least 2 ports on the given map, and all ports are
+/// connected and accessible.
 import Foundation
 import GameKit
 

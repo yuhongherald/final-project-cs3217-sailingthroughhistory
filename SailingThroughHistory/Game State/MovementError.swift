@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents the various types of errors when moving a ship.
 import Foundation
 
 enum MovementError: Error {

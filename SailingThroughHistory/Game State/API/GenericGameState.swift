@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the various behaviors that a Game State in the game needs to support.
+/// Game State interacts with the TurnSystem and Level.
 import Foundation
 
 protocol GenericGameState: Codable, CustomStringConvertible {
@@ -22,5 +24,4 @@ protocol GenericGameState: Codable, CustomStringConvertible {
     func getNextPlayer() -> GenericPlayer?
     func getTeamMoney() -> [Team: Int]
     func distributeTeamMoney()
-    func endGame()
 }

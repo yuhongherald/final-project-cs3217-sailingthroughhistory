@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines operations for moving a ship around. Stateless.
 import Foundation
 
 protocol Navigatable {

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents the various error types that are thrown when trading items.
 enum TradeItemError: Error {
     case insufficientFunds(shortOf: Int)
     case insufficientItems(shortOf: Int, sold: Int)

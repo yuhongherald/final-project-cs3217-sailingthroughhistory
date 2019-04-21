@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines a generic message that can represent an error or information message, in
+/// the game.
 import Foundation
 
 enum InGameMessage {

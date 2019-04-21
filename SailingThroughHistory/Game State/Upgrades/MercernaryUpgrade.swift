@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// An Auxiliary Upgrade that gives ships immunity to pirates.
 import Foundation
 
 class MercernaryUpgrade: AuxiliaryUpgrade {
