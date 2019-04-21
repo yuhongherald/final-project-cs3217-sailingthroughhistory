@@ -11,8 +11,8 @@ import UIKit
 /// Controller for showing team scores. i.e Total team money.
 class TeamScoreTableController: NSObject {
     private static let header = "Total Team Money:"
-    weak var tableView: UITableView?
-    var scores: [(Team, Int)]
+    private weak var tableView: UITableView?
+    private var scores: [(Team, Int)]
 
     init(tableView: UITableView, scores: [Team: Int]) {
         self.tableView = tableView
