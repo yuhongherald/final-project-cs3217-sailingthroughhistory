@@ -158,7 +158,6 @@ class ShipNavigatableUnitTests: XCTestCase {
         Node.nextID = 1000
         let port = PortStub()
         map.addNode(port)
-        let team = Team(name: "testTeam")
 
         //func dock() throws -> Port
         var ship1: ShipAPI = Ship(node: centralNode, itemsConsumed: [])

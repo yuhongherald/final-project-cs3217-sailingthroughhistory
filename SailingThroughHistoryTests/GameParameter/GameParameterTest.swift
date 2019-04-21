@@ -108,7 +108,6 @@ class GameParameterTest: XCTestCase {
             return false
         }
         return  lhs.rawValue == rhs.rawValue && lhs.unitWeight == rhs.unitWeight
-        return true
     }
 
     private func isEqual(gameParameter: GameParameter?, _ rhs: GameParameter) -> Bool {

@@ -28,10 +28,10 @@ class EventPresets {
         // item price []
         // player death []
         eventTable = EventTable<PresetEvent>()
-        var monsoonEvents: [Bool: PresetEvent] = [Bool: PresetEvent]()
+        let monsoonEvents: [Bool: PresetEvent] = [Bool: PresetEvent]()
         var neutralTaxEvents: [String: PresetEvent] = [String: PresetEvent]()
         let itemPriceEvents: [String: [String: PresetEvent]] = [String: [String: PresetEvent]]()
-        var playerDeathEvents: [String: PresetEvent] = [String: PresetEvent]()
+        let playerDeathEvents: [String: PresetEvent] = [String: PresetEvent]()
         /*
         monsoonEvents[true] = eventTable.pushEvent(
             event: HeavyMonsoonEvent(gameState: gameState,
