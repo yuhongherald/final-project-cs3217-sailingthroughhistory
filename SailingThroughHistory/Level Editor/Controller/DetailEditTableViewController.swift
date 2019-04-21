@@ -68,7 +68,7 @@ class DetailEditTableViewController: UIViewController {
     }
 
     func initWith(game: GameParameter) {
-        self.data.append(game.teamParameter.map {
+        self.data.append(game.playerParameters.map {
             TeamParameterItem(playerParameter: $0)
         })
         self.data.append([TurnParameterItem(label: numOfTurnMsg, game: game, input: game.numOfTurn)])

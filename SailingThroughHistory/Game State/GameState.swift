@@ -36,7 +36,7 @@ class GameState: GenericGameState {
             itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
         }
         numTurns = level.numOfTurn
-        initializePlayers(from: level.playerParameter, for: players)
+        initializePlayers(from: level.playerParameters, for: players)
         self.players.forEach { player in
             player.map = map
             player.addShipsToMap(map: map)
