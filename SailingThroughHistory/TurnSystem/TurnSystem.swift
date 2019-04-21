@@ -104,6 +104,9 @@ class TurnSystem: GenericTurnSystem {
         if amount > GameConstants.maxTax {
             throw PlayerActionError.invalidAction(message: "Tax cannot be over \(GameConstants.maxTax)")
         }
+        if amount < 0 {
+            throw PlayerActionError.invalidAction(message: "Tax cannot be negative")
+        }
 
         network.pendingActions.append(.setTax(forPortId: portId, taxAmount: amount))
     }
