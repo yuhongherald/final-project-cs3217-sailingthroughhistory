@@ -190,3 +190,24 @@ Currently Events are only able to watch an object field changing, rather than cr
 The following is hierarchy of existing classes:
 
 ![Evaluatable](/Evaluatable.png)
+
+* **Evaluatable**: The base class. Stores a primitive value that can be retrieved and set using .value.
+* **BAEEvaluatable**: Evaluates the 2 child **Evaluatable**s with a **GenericOperator**.
+```
+return evaluator.evaluate(first: first.value, second: second.value) as? T ?? defaultValue
+```
+* **ConditionEvaluatable**: Evaluates a set of conditions, if *true*, returns trueValue, else returns falseValue.
+```
+for condition in conditions {
+                guard condition.evaluate() else {
+                    return falseValue.value
+                }
+            }
+            return trueValue.value
+```
+* **VariableEvaluatable**: Evaluates the value held by a **GameVariable**.
+
+#### Writing a Custom Evaluatable
+
+Look at [ItemBuyPriceEvaluatable](/SailingThroughHistory/TurnSystem/Events/Presets/ItemPrice/ItemBuyPriceEvaluatable.swift) for an example. This example extracts a value by calling a function.
+
