@@ -6,6 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * The base class for Actions. Sets the variable to be the value of the evaluatable.
+ * Evaluatable supports BAE, allowing for complex evaluations.
+ */
 class EventAction<T>: Printable, Modify {
     var displayName: String = "action"
 

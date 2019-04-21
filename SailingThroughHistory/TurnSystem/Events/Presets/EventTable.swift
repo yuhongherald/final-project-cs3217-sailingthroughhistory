@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * An class used to manage creation of events such that they have unique identifiers.
+ */
 class EventTable<T> where T: TurnSystemEvent {
     private var table: [Int: T] = [Int: T]()
     private var nextID: Int = Int.max

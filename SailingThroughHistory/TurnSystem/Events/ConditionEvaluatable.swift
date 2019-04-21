@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * Evaluates if a set of conditions is true. If true, returns true value, else returns false value.
+ */
 class ConditionEvaluatable<T>: Evaluatable<T> {
     override var value: T {
         get {

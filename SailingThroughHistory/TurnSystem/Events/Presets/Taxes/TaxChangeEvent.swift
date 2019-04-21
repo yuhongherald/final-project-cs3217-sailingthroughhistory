@@ -6,6 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * An event that changes all neutral port taxes by (operator) modifier.
+ * An example will be + 1
+ */
 class TaxChangeEvent: PresetEvent {
     init(gameState: GenericGameState, genericOperator: GenericOperator, modifier: Int) {
         let modifier = max(1, modifier)

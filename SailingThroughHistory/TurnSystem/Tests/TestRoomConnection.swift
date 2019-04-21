@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * A test variant of RoomConnection, with simplified logic, to check if certain methods are called.
+ */
 class TestRoomConnection: RoomConnection {
     var roomMasterId: String = "testRoom"
     var testCallback: () -> Void = {}

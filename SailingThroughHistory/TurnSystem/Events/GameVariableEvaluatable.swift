@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * Same as VariableEvaluatable.
+ */
 class GameVariableEvaluatable<T>: Evaluatable<T> {
     private let variable: GameVariable<T>
     override var value: T {

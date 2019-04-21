@@ -6,6 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * The base class for conditions. Compares 2 evaluatables and returns a Boolean.
+ * Evaluatables support BAE, allowing for complex evaluations.
+ */
 class EventCondition<T>: Printable, Evaluate {
     var displayName: String = "condition"
 

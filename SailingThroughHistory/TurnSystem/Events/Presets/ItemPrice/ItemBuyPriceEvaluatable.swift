@@ -6,10 +6,12 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * An evaluatable that creates an ItemParameter to a new price. Deprecated.
+ */
 class ItemBuyPriceEvaluatable: Evaluatable<ItemParameter> {
     private let itemParameter: GameVariable<ItemParameter>
     private let genericOperator: GenericOperator
-    //TODO
     private let ports = [Port]()
     private let modifier: Int
     override var value: ItemParameter {
@@ -19,7 +21,7 @@ class ItemBuyPriceEvaluatable: Evaluatable<ItemParameter> {
                     return itemParameter.value
             }
             var copy = itemParameter.value
-            //copy.setBuyValue(value: newValue)
+            // copy.setBuyValue(value: newValue)
             return copy
         }
         set {
