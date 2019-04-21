@@ -55,6 +55,12 @@ class Item: GenericItem, Codable {
         try container.encode(quantity, forKey: .quantity)
     }
 
+    /// Combine items with the same type.
+    /// - Parameters:
+    ///   - item: another item intend to be combined.
+    /// - Returns:
+    ///   If item is of the same type, return true.
+    ///   If item is of different type, return false.
     func combine(with item: inout GenericItem) -> Bool {
         guard itemParameter == item.itemParameter else {
             return false
@@ -78,6 +84,7 @@ class Item: GenericItem, Codable {
         return 0
     }
 
+    /// Get the money user needs to pay for buying the item at port.
     func getBuyValue(at port: Port) -> Int? {
         guard let unitValue = port.getBuyValue(of: itemParameter) else {
             return nil
@@ -85,6 +92,7 @@ class Item: GenericItem, Codable {
         return unitValue * quantity
     }
 
+    /// Get the money user can gain for selling the item to port.
     func sell(at port: Port) -> Int? {
         guard let unitValue = port.getSellValue(of: itemParameter) else {
             return nil
@@ -94,6 +102,7 @@ class Item: GenericItem, Codable {
         return value
     }
 
+    /// Get a copy of current item with the same itemParameter and quantity.
     func copy() -> Item {
         return Item(itemParameter: itemParameter, quantity: quantity)
     }

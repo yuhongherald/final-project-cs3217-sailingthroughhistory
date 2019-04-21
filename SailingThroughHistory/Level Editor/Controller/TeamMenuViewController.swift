@@ -84,6 +84,7 @@ class TeamMenuViewController: NSObject, UITableViewDataSource, UITableViewDelega
         }
     }
 
+    /// Associate the node and gesture with the controller for updating of information.
     func set(node: Node, for gesture: UIGestureRecognizer) {
         self.node = node
         self.tableView?.reloadData()

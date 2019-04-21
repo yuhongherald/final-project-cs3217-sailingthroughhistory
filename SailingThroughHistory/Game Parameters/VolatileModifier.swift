@@ -14,7 +14,9 @@ import UIKit
 protocol VolatileModifier: Codable {
     var isActive: Bool { get }
 
+    /// Update the oldVelocity with influence of volatile modifier.
     func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float
+    /// Update attributes of volatile modifier based on current month strength.
     func update(currentMonth: Int)
 }
 

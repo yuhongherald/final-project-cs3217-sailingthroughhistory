@@ -12,6 +12,7 @@ class Weather: Volatile {
     var windVelocity: Float = 0
     let strengths: [Float] = Default.Weather.strengths
 
+    /// Update the oldVelocity with influence of weather.
     override func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
         if isActive {
             return oldVelocity + windVelocity

@@ -61,6 +61,7 @@ class DetailEditTableViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
 
+    /// Associate controller with game parameter that it is supposed to edit.
     func initWith(game: GameParameter) {
         self.data.append(game.playerParameters.map {
             PlayerParameterItem(playerParameter: $0)

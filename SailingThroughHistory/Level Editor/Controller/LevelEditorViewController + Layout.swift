@@ -73,6 +73,7 @@ extension LevelEditorViewController {
         layoutBackground()
     }
 
+    /// Layout background with its image size.
     func layoutBackground() {
         guard let image = mapBackground.image, let editingAreaWrapper = self.editingAreaWrapper else {
             return
@@ -93,6 +94,7 @@ extension LevelEditorViewController {
         mapBackground.image = image
     }
 
+    /// Reinitializes the scroll view to allow for size changes.
     func reInitScrollView () {
         guard let oldScrollView = self.scrollView else {
             preconditionFailure("scrollView is nil.")
@@ -111,6 +113,7 @@ extension LevelEditorViewController {
         scrollView.addSubview(editingAreaWrapper)
     }
 
+    /// Add required gestures to node.
     func initNodeGestures() -> [UIGestureRecognizer] {
         let singleTapOnNodeGesture = UITapGestureRecognizer(target: self, action: #selector(singleTapOnNode(_:)))
         singleTapOnNodeGesture.numberOfTapsRequired = 1

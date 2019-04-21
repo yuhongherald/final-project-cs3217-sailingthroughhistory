@@ -7,9 +7,15 @@
 //
 
 import UIKit
+
+/// Protocol for delegate of edit panel, to help communication between edit panel
+/// and LevelEditorViewController.
 protocol EditPanelDelegateProtocol: class {
+    /// The game parameter that is associated with the panel.
     var gameParameter: GameParameter { get }
+    /// Send the button information that is clicked back to the parent controller.
     func clicked(_ select: EditMode)
+    /// Change map background to image.
     func addMapBackground(_ image: UIImage)
 }
 
