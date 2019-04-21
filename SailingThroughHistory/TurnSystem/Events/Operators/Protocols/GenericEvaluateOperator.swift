@@ -8,6 +8,6 @@
 
 // The operator works in the notion of a BAE
 protocol GenericOperator: Printable {
-    associatedtype T
-    func evaluate(first: T?, second: T?) -> T?
+    associatedtype Type
+    func evaluate(first: Type?, second: Type?) -> Type?
 }

@@ -18,8 +18,4 @@ class MercernaryUpgrade: AuxiliaryUpgrade {
     override var cost: Int {
         return 1000
     }
-
-    override func handleEvent() {
-        // TODO: Handle event to ignore pirate
-    }
 }

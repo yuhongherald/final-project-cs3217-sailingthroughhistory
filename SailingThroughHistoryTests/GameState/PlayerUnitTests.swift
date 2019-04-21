@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+//swiftlint:disable line_length
 import XCTest
 @testable import SailingThroughHistory
 
@@ -244,3 +245,4 @@ class PlayerUnitTests: XCTestCase {
         return true
     }
 }
+//swiftlint:enable line_length

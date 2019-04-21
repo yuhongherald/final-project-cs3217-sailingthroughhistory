@@ -7,7 +7,7 @@
 //
 
 extension Int: ConditionComparable {
-    typealias T = Int
+    typealias SomeType = Int
 }
 
 extension Int: Arithmetic {
