@@ -106,20 +106,7 @@ class Node: Codable {
             self.type = type
         }
     }
-}
 
-extension Node: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.identifier)
-    }
-
-    static func == (lhs: Node, rhs: Node) -> Bool {
-        return lhs.identifier == rhs.identifier
-    }
-}
-
-// Mark : - Information
-extension Node {
     /// Get nodes that can be acheived from the node.
     /// - Parameters:
     ///   - ship: ship that requires the acheivable nodes
@@ -201,5 +188,15 @@ extension Node {
             }
         }
         return weight < 0 ? nil : weight
+    }
+}
+
+extension Node: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.identifier)
+    }
+
+    static func == (lhs: Node, rhs: Node) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }
