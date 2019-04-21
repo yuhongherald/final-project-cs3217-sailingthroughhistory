@@ -12,7 +12,7 @@ import XCTest
 
 class PlayerInputControllerTest: XCTestCase {
     func testCheckInputAllowed() {
-        let inputController = TestClasses.createInputController(timer: 2)
+        let inputController = TestClasses.createInputController(timer: 2) { }
         let player = inputController.data.gameState.getPlayers()[0]
         let otherPlayer = inputController.data.gameState.getPlayers()[1]
         inputController.network.state = TurnSystemNetwork.State.playerInput(
@@ -31,13 +31,18 @@ class PlayerInputControllerTest: XCTestCase {
     }
     
     func testStartPlayerInput() {
-        let inputController = TestClasses.createInputController(timer: 2)
+        let expectation = XCTestExpectation(description: "End p1's turn")
+        let inputController = TestClasses.createInputController(timer: 2) { expectation.fulfill() }
         let player = inputController.data.gameState.getPlayers()[0]
         let otherPlayer = inputController.data.gameState.getPlayers()[1]
         inputController.startPlayerInput(from: player)
-        sleep(2)
-        XCTAssertEqual(inputController.network.state,
-                       TurnSystemNetwork.State.waitPlayerInput(from: otherPlayer),
-                       "Player 1's turn should be over!")
+        wait(for: [expectation], timeout: 3)
+        switch inputController.network.state {
+        case .waitPlayerInput(from: let player):
+            XCTAssertEqual(player.deviceId, otherPlayer.deviceId,
+                           "Player 1's turn should be over!")
+        default:
+            XCTFail("Wrong state!")
+        }
     }
 }

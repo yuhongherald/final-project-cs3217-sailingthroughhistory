@@ -9,12 +9,12 @@
 import XCTest
 @testable import SailingThroughHistory
 
-class PlayerInputControllerTest: XCTestCase {
+class PlayerActionAdapterTests: XCTestCase {
     func testProcess() {
         let state = GameVariable<TurnSystemNetwork.State>(
             value: TurnSystemNetwork.State.invalid)
         let networkInfo = TestClasses.createNetworkInfo()
-        let data = TestClasses.createTestState(numPlayers: 1)
+        let data = TestClasses.createTestState(numPlayers: 2)
         let adapter = PlayerActionAdapter(
             stateVariable: state,
             networkInfo: networkInfo,

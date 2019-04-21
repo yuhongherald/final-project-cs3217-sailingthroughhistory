@@ -12,10 +12,10 @@ import XCTest
 class EventPresetsTest: XCTestCase {
     func testUniqueIdentifier() {
         let presets = TestClasses.createEventPresets()
-        var set: [Int: PresetEvent]
-        for preset in presets {
+        var set = [Int: PresetEvent]()
+        for preset in presets.getEvents() {
             if set.contains(where: { $0.0 == preset.identifier }) {
-                XCTFail(message: "Non-unique keys")
+                XCTFail("Non-unique keys")
             }
             set[preset.identifier] = preset
         }

@@ -26,31 +26,47 @@ class TurnSystemTest: XCTestCase {
         let turnSystem2 = TestClasses.createTestSystem(numPlayers: 2)
         
          turnSystem0.startGame()
-         XCTAssertEqual(turnSystem0.network.state, TurnSystemNetwork.State.waitForTurnFinish, "Wrong state for 0 players")
+        switch turnSystem0.network.state {
+        case .waitForTurnFinish: break
+        default:
+            XCTFail("Wrong state for 0 players")
+        }
          turnSystem1.startGame()
-         XCTAssertEqual(turnSystem1.network.state,
-         TurnSystemNetwork.State.waitPlayerInput(
-         from: turnSystem1.gameState.getPlayers()[0]),
-         "Wrong state for 1 player")
+        switch turnSystem1.network.state {
+        case .waitPlayerInput(from: let player):
+            XCTAssertEqual(player.deviceId,
+                           turnSystem1.gameState.getPlayers()[0].deviceId,
+                           "Wrong state for 1 player")
+        default:
+            XCTFail("Wrong state for 1 player")
+        }
          turnSystem2.startGame()
-         XCTAssertEqual(turnSystem2.network.state,
-         TurnSystemNetwork.State.waitPlayerInput(
-         from: turnSystem2.gameState.getPlayers()[0]),
-         "Wrong state for 2 players")
+        switch turnSystem2.network.state {
+        case .waitPlayerInput(from: let player):
+        XCTAssertEqual(player.deviceId,
+                       turnSystem2.gameState.getPlayers()[0].deviceId,
+        "Wrong state for 1 player")
+        default:
+            XCTFail("Wrong state for 2 players")
+        }
     }
     
     // to represent all the actions
     func testRoll() {
         let turnSystem = TestClasses.createTestSystem(numPlayers: 2)
-        rollOnWrongState()
-        turnSystem.startGame()
+        rollOnWrongState(turnSystem: turnSystem)
+        turnSystem.network.state = .playerInput(
+            from: turnSystem.gameState.getPlayers()[0],
+            endTime: TimeInterval(2))
         do {
             _ = try turnSystem.roll(for: turnSystem.gameState.getPlayers()[0])
         } catch {
             XCTFail("Failed to roll the dice, wrong state")
         }
-        turnSystem.endTurn()
-        rollOnWrongState()
+        turnSystem.network.state = .playerInput(
+            from: turnSystem.gameState.getPlayers()[1],
+            endTime: TimeInterval(2))
+        rollOnWrongState(turnSystem: turnSystem)
     }
 
     private func rollOnWrongState(turnSystem: TurnSystem) {
@@ -64,11 +80,13 @@ class TurnSystemTest: XCTestCase {
 
     func testSubscribeToState() {
         let result = GameVariable<Bool>(value: false)
-        let turnSystem = TestClasses.createTestSystem(numPlayers: 1)
+        let turnSystem = TestClasses.createTestSystem(numPlayers: 2)
         turnSystem.subscribeToState {_ in
             result.value = true
         }
-        turnSystem.startGame()
+        turnSystem.network.state = .playerInput(
+            from: turnSystem.gameState.getPlayers()[0],
+            endTime: TimeInterval(2))
         XCTAssertTrue(result.value, "Not notified on subscription!")
         result.value = false
         do {
@@ -83,7 +101,10 @@ class TurnSystemTest: XCTestCase {
         let turnSystem = TestClasses.createTestSystem(numPlayers: 1)
         turnSystem.startGame()
         turnSystem.endTurn()
-        XCTAssertEqual(turnSystem.state, TurnSystemNetwork.State.waitForTurnFinish,
-                       "Should be waiting for turn to finish!")
+        switch turnSystem.network.state {
+        case .waitForTurnFinish: break
+        default:
+            XCTFail("Should be waiting for turn to finish!")
+        }
     }
 }

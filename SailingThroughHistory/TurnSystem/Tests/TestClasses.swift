@@ -12,7 +12,7 @@ class TestClasses {
     static let buyPrice: Int = 100
     static let sellPrice: Int = 100
     static func createMap() -> Map {
-        let map = Map(map: "test map", bounds: nil)
+        let map = Map(map: "test map", bounds: Rect())
         let port = PortStub(buyValueOfAllItems: buyPrice, sellValueOfAllItems: sellPrice)
         var nextId = port.identifier + 1
         let node = NodeStub(name: "node", identifier: nextId)
@@ -51,6 +51,15 @@ class TestClasses {
                                  networkInfo: createNetworkInfo(),
                                  turnSystemState: createTestState(numPlayers: numPlayers))
     }
+    static func createTestSystemNetwork(numPlayers: Int, callback: @escaping () -> Void) -> TurnSystemNetwork {
+        let connection = TestRoomConnection()
+        connection.testCallback = callback
+        return TurnSystemNetwork(roomConnection: connection,
+                                 playerActionAdapterFactory:
+            PlayerActionAdapterFactory(),
+                                 networkInfo: createNetworkInfo(),
+                                 turnSystemState: createTestState(numPlayers: numPlayers))
+    }
     static func createTestSystem(numPlayers: Int) -> TurnSystem {
         return TurnSystem(network: createTestSystemNetwork(numPlayers: numPlayers), playerInputControllerFactory: PlayerInputControllerFactory())
     }
@@ -58,12 +67,13 @@ class TestClasses {
         var result: [RoomMember] = []
         for index in 0..<numPlayers {
             result.append(RoomMember(identifier: String(index), playerName: String(index),
-                                     teamName: team, deviceId: String(index)))
+                                     teamName: team, deviceId: "testDevice"))
         }
         return result
     }
-    static func createInputController(timer: Double) -> PlayerInputController {
-        let network = createTestSystemNetwork(numPlayers: 1)
+    static func createInputController(timer: Double, callback: @escaping () -> Void)
+        -> PlayerInputController {
+        let network = createTestSystemNetwork(numPlayers: 2, callback: callback)
         let controller = PlayerInputController(
             network: network,
             data: network.data)

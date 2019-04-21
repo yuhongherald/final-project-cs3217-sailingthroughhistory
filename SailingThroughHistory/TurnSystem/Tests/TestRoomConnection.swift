@@ -10,6 +10,7 @@ import Foundation
 
 class TestRoomConnection: RoomConnection {
     var roomMasterId: String = "testRoom"
+    var testCallback: () -> Void = {}
     private(set) var hasStarted: Bool = false
     private(set) var actions: [(String, [PlayerAction])] = []
     private(set) var turn: Int = 0
@@ -38,6 +39,7 @@ class TestRoomConnection: RoomConnection {
     
     func push(actions: [PlayerAction], fromPlayer player: GenericPlayer, forTurnNumbered turn: Int, completion callback: @escaping (Error?) -> Void) throws {
         self.actions.append((player.deviceId, actions))
+        testCallback()
         callback(nil)
     }
     

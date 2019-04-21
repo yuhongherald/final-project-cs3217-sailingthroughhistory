@@ -18,19 +18,19 @@ class TurnSystemStateTest: XCTestCase {
         
         XCTAssertTrue(state.events.isEmpty, "Should be empty by default") // 0
         XCTAssertTrue(state.addEvents(events: [first]), "Should have no conflict")
-        XCTAssertEqual(Set<Int>([1]), Set(state.events.indices), "SHould be the same")
+        XCTAssertEqual(Set<Int>([0]), Set(Array(state.events.keys)), "SHould be the same")
         XCTAssertFalse(state.addEvents(events: [first, second]), "SHould have conflict")
-        XCTAssertEqual(Set<Int>([1, 2]), Set(state.events.indices), "SHould be the same")
+        XCTAssertEqual(Set<Int>([0, 1]), Set(Array(state.events.keys)), "SHould be the same")
         XCTAssertTrue(state.removeEvents(events: [second]), "Should have no conflict")
-        XCTAssertEqual(Set<Int>([1]), Set(state.events.indices), "SHould be the same")
+        XCTAssertEqual(Set<Int>([0]), Set(Array(state.events.keys)), "SHould be the same")
         XCTAssertFalse(state.removeEvents(events: [third]), "SHould have conflict")
-        XCTAssertEqual(Set<Int>([1]), Set(state.events.indices), "SHould be the same")
+        XCTAssertEqual(Set<Int>([0]), Set(Array(state.events.keys)), "SHould be the same")
         XCTAssertTrue(state.setEvents(events: [second, third]), "Should have no conflict")
-        XCTAssertEqual(Set<Int>([2, 3]), Set(state.events.indices), "SHould be the same")
-        XCTAssertTrue(state.removeEvents(events: []), "Should have no conflict")
-        XCTAssertEqual(Set<Int>([]), Set(state.events.indices), "SHould be the same")
-        XCTAssertTrue(state.removeEvents(events: [first]), "Should have no conflict")
-        XCTAssertEqual(Set<Int>([1]), Set(state.events.indices), "SHould be the same")
+        XCTAssertEqual(Set<Int>([1, 2]), Set(Array(state.events.keys)), "SHould be the same")
+        XCTAssertTrue(state.setEvents(events: []), "Should have no conflict")
+        XCTAssertEqual(Set<Int>([]), Set(Array(state.events.keys)), "SHould be the same")
+        XCTAssertTrue(state.setEvents(events: [first]), "Should have no conflict")
+        XCTAssertEqual(Set<Int>([0]), Set(Array(state.events.keys)), "SHould be the same")
     }
 
     func testTurnFinished() {
