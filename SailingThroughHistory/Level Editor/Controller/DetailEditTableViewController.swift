@@ -39,7 +39,7 @@ class DetailEditTableViewController: UIViewController {
                 }
                 if let name = castedCell.nameLabel.text,
                     let moneyText = castedCell.moneyField.text {
-                    item.playerParameter.set(name: name, money: Int(moneyText))
+                    item.playerParameter.set(money: Int(moneyText))
                 }
             case .turn:
                 guard let castedCell = cell as? TurnTableViewCell,

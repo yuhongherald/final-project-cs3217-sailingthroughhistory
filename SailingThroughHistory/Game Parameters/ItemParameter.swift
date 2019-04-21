@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * Enums to store item types, default prices and unit weights.
+ */
 enum ItemParameter: String, Codable, CaseIterable {
     case teaLeaves = "Tea Leaves"
     case silk = "Silk"

@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * CAShapeLayer for Path, used for convenience to get UI representation of a path.
+ */
 class PathView: CAShapeLayer {
     var shipPath: Path?
 
@@ -43,6 +46,9 @@ class PathView: CAShapeLayer {
         self.shipPath = path
     }
 
+    /// Add volatile to both the Path model and the UI.
+    /// - Parameters:
+    ///   - modifier: volatile to be added
     func add(_ modifier: Volatile) {
         guard let path = shipPath else {
             return

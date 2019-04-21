@@ -28,23 +28,3 @@ class TurnTableViewCell: UITableViewCell {
         }
     }
 }
-
-class TurnParameterItem: GameParameterItem {
-    var type: GameParameterItemType {
-        return .turn
-    }
-
-    var sectionTitle: String {
-        return "Game Turn"
-    }
-
-    var label: String
-    var input: Int?
-    var game: GameParameter
-
-    init(label: String, game: GameParameter, input: Int) {
-        self.label = label
-        self.input = input
-        self.game = game
-    }
-}
