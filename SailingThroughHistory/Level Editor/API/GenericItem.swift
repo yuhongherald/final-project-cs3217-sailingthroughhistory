@@ -25,9 +25,9 @@ protocol GenericItem: Codable {
     func combine(with item: inout GenericItem) -> Bool
     /// Decrease the quantity of the item by amount
     func remove(amount: Int) -> Int
-    /// Get import price of the item at the port
-    func getBuyValue(at port: Port) -> Int?
     /// Get export price of the item at the port
+    func getBuyValue(at port: Port) -> Int?
+    /// Get import price of the item at the port
     func sell(at port: Port) -> Int?
 }
 

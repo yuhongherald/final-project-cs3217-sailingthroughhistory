@@ -1229,7 +1229,6 @@
 				1A749D752244B5C700482CE5 /* Storage */,
 				1A749D662240FD6B00482CE5 /* Controller */,
 				1A9FF084223F6CE400005FCB /* Enums */,
-				BA91906D223F441900009F49 /* API */,
 			);
 			path = "Level Editor";
 			sourceTree = "<group>";
@@ -1240,7 +1239,8 @@
 				BA91906A223F429900009F49 /* GenericLevel.swift */,
 				BA48590A2240A00E009ED2F6 /* GenericItem.swift */,
 			);
-			path = API;
+			name = API;
+			path = "../Level Editor/API";
 			sourceTree = "<group>";
 		};
 		BA91906E223F443600009F49 /* Game Parameters */ = {
@@ -1258,6 +1258,7 @@
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
 				1A9FF08B224030E000005FCB /* Map.swift */,
 				1A3BF40E226C2CDB00D1DA86 /* PlayerParameter.swift */,
+				BA91906D223F441900009F49 /* API */,
 			);
 			path = "Game Parameters";
 			sourceTree = "<group>";
