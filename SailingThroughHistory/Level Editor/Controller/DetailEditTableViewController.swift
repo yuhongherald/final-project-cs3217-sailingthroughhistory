@@ -33,8 +33,8 @@ class DetailEditTableViewController: UIViewController {
 
             switch data[indexPath.section][indexPath.item].type {
             case .player:
-                guard let castedCell = cell as? TeamTableViewCell,
-                    let item = castedCell.item as? TeamParameterItem else {
+                guard let castedCell = cell as? PlayerTableViewCell,
+                    let item = castedCell.item as? PlayerParameterItem else {
                     continue
                 }
                 if let moneyText = castedCell.moneyField.text {
@@ -54,12 +54,7 @@ class DetailEditTableViewController: UIViewController {
                     continue
                 }
 
-                switch castedCell.label.text {
-                case numOfTurnMsg:
-                    item.game.numOfTurn = input
-                default:
-                    continue
-                }
+                item.game.numOfTurn = input
             }
 
         }
@@ -68,7 +63,7 @@ class DetailEditTableViewController: UIViewController {
 
     func initWith(game: GameParameter) {
         self.data.append(game.playerParameters.map {
-            TeamParameterItem(playerParameter: $0)
+            PlayerParameterItem(playerParameter: $0)
         })
         self.data.append([TurnParameterItem(label: numOfTurnMsg, game: game, input: game.numOfTurn)])
     }

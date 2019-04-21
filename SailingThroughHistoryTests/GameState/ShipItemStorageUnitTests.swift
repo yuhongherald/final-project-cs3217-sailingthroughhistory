@@ -5,6 +5,7 @@
 //  Created by henry on 13/4/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
+// swiftlint:disable function_body_length
 
 import XCTest
 @testable import SailingThroughHistory
@@ -237,7 +238,8 @@ class ShipItemStorageUnitTests: XCTestCase {
                 }
                 XCTAssertEqual(insufficientCapacity.getMessage(),
                    TradeItemError
-                    .insufficientCapacity(shortOf: -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight)
+                    .insufficientCapacity(shortOf:
+                        -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight)
                     .getMessage())
             }
             XCTAssertTrue(testTwoGenericItemArray(ship6.items.value, [item]))
@@ -352,10 +354,8 @@ class ShipItemStorageUnitTests: XCTestCase {
             return
         }
         let item1 = Item(itemParameter: itemParameter1, quantity: 1)
-        let item2 = Item(itemParameter: itemParameter2, quantity: 1)
         let item1More = Item(itemParameter: itemParameter1, quantity: 2)
 
-        //func removeItem(by itemType: ItemType, with quantity: Int) -> Int
         let ship1 = Ship(node: node, itemsConsumed: [])
         ship1.items.value = [item1.copy()]
         XCTAssertEqual(itemStorage.removeItem(ship: ship1, by: itemParameter2, with: 1), 1)
@@ -394,3 +394,4 @@ class ShipItemStorageUnitTests: XCTestCase {
         return true
     }
 }
+// swiftlint:enable function_body_length

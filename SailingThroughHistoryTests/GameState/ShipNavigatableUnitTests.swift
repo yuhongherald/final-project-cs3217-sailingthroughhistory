@@ -158,8 +158,6 @@ class ShipNavigatableUnitTests: XCTestCase {
         Node.nextID = 1000
         let port = PortStub()
         map.addNode(port)
-        let team = Team(name: "testTeam")
-        port.owner = team
 
         //func dock() throws -> Port
         var ship1: ShipAPI = Ship(node: centralNode, itemsConsumed: [])
@@ -178,9 +176,6 @@ class ShipNavigatableUnitTests: XCTestCase {
         XCTAssertEqual(ship1.isChasedByPirates, true)
         XCTAssertEqual(ship1.turnsToBeingCaught, 1)
 
-        port.taxAmount.value = 1000
-        port.owner = team
-        team.money.value = 0
         var ship2: ShipAPI = Ship(node: port, itemsConsumed: [])
         ship2.map = map
         ship2.isDocked = false
@@ -191,7 +186,6 @@ class ShipNavigatableUnitTests: XCTestCase {
         XCTAssertEqual(ship2.isDocked, true)
         XCTAssertEqual(ship2.isChasedByPirates, false)
         XCTAssertEqual(ship2.turnsToBeingCaught, 0)
-        XCTAssertEqual(team.money.value, port.taxAmount.value)
 
         map.removeNode(port)
         Node.nextID = 0

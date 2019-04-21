@@ -26,7 +26,7 @@ enum FieldType: Int {
     case number
 }
 
-class TeamParameterItem: GameParameterItem {
+class PlayerParameterItem: GameParameterItem {
     var type: GameParameterItemType {
         return .player
     }
