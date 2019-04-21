@@ -218,7 +218,7 @@ class GameState: GenericGameState {
         }
         map.removeAllNpcs()
         for _ in 0..<amount {
-            map.addGameObject(gameObject: NPC(node: node))
+            map.addGameObject(gameObject: NPC(node: node, maxTaxAmount: maxTaxAmount))
         }
     }
 

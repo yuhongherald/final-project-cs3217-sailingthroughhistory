@@ -13,6 +13,10 @@ class PortStub: Port {
     private var buyValueOfAllItems = 0
     private var sellValueOfAllItems = 0
 
+    convenience init() {
+        self.init(team: nil, name: "", originX: 0, originY: 0)
+    }
+
     required override init(team: Team?, name: String, originX: Double, originY: Double) {
         super.init(team: nil, name: "", originX: originX, originY: originY)
         itemBuyValue.removeAll()
