@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- * Modal for path to store two ends of the path as well as volatiles in the path.
+ * Model for path to store two ends of the path as well as volatiles in the path.
  */
 class Path: Hashable, Codable {
     let fromNode: Node

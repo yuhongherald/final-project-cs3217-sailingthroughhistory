@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- * Modal for node to store identifier, name, frame and objects in a node.
+ * Model for node to store identifier, name, frame and objects in a node.
  */
 class Node: Codable {
     static var nextID: Int = 0
@@ -106,20 +106,7 @@ class Node: Codable {
             self.type = type
         }
     }
-}
 
-extension Node: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.identifier)
-    }
-
-    static func == (lhs: Node, rhs: Node) -> Bool {
-        return lhs.identifier == rhs.identifier
-    }
-}
-
-// Mark : - Information
-extension Node {
     /// Get nodes that can be acheived from the node.
     /// - Parameters:
     ///   - ship: ship that requires the acheivable nodes
@@ -189,7 +176,7 @@ extension Node {
         var visited = Set<Int>()
         var next = self
         queue.append((next, 0))
-        var weight = -1
+        var weight = 0
         while next != node && !queue.isEmpty {
             (next, weight) = queue.removeFirst()
             if visited.contains(next.identifier) {
@@ -200,6 +187,16 @@ extension Node {
                 queue.append((neighbor.toNode, weight + 1))
             }
         }
-        return weight < 0 ? nil : weight
+        return next != node ? nil : weight
+    }
+}
+
+extension Node: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.identifier)
+    }
+
+    static func == (lhs: Node, rhs: Node) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }

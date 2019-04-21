@@ -73,6 +73,7 @@ class Map: Codable {
 
     /// Remove node from the map. Remove mapping from the node id to the node.
     func removeNode(_ node: Node) {
+        assert(checkRep())
         nodes.value.remove(node)
         nodeIDPair.removeValue(forKey: node.identifier)
 
@@ -90,6 +91,7 @@ class Map: Codable {
 
     /// Add path to the map. Path should be added to both fromNode and toNode.
     func add(path: Path) {
+        assert(checkRep())
         guard nodes.value.contains(path.toNode) && nodes.value.contains(path.fromNode)
             && path.toNode != path.fromNode else {
             NSLog("\(path) is not added to map due to absense of its nodes")

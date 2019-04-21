@@ -26,7 +26,7 @@ enum FieldType: Int {
     case number
 }
 
-class TeamParameterItem: GameParameterItem {
+class PlayerParameterItem: GameParameterItem {
     var type: GameParameterItemType {
         return .player
     }
@@ -35,9 +35,9 @@ class TeamParameterItem: GameParameterItem {
         return "Team Parameter"
     }
 
-    var playerParameter: TeamParameter
+    var playerParameter: PlayerParameter
 
-    init(playerParameter: TeamParameter) {
+    init(playerParameter: PlayerParameter) {
         self.playerParameter = playerParameter
     }
 }

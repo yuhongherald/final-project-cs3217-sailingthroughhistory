@@ -82,7 +82,6 @@ class WaitingRoomViewCell: UITableViewCell {
     }
 }
 
-
 extension WaitingRoomViewCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

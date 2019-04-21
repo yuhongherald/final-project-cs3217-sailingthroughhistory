@@ -17,7 +17,7 @@ class TurnSystemTest: XCTestCase {
             return
         }
         let otherEvents = turnSystem.getPresetEvents()
-        XCTAssertEqual(events.map { $0.displayName }, otherEvents.map { $0.displayName }, "Events not same!")
+        XCTAssertEqual(Set(events.map { $0.displayName }), Set(otherEvents.map { $0.displayName }), "Events not same!")
     }
 
     func testStartGame() {
@@ -50,7 +50,7 @@ class TurnSystemTest: XCTestCase {
             XCTFail("Wrong state for 2 players")
         }
     }
-    
+
     // to represent all the actions
     func testRoll() {
         let turnSystem = TestClasses.createTestSystem(numPlayers: 2)

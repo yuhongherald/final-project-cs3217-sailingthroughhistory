@@ -115,10 +115,6 @@ class MainGameViewController: UIViewController {
     var network: RoomConnection?
     var backgroundData: Data?
 
-    var interfaceBounds: Rect {
-        return model.map.bounds
-    }
-
     override var prefersStatusBarHidden: Bool {
         return true
     }

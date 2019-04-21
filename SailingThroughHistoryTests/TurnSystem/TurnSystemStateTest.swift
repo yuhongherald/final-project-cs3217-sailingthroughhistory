@@ -15,7 +15,7 @@ class TurnSystemStateTest: XCTestCase {
         let first = TestClasses.createTestEvent(identifier: 0)
         let second = TestClasses.createPresetEvent(identifier: 1)
         let third = TestClasses.createTestEvent(identifier: 2)
-        
+
         XCTAssertTrue(state.events.isEmpty, "Should be empty by default") // 0
         XCTAssertTrue(state.addEvents(events: [first]), "Should have no conflict")
         XCTAssertEqual(Set<Int>([0]), Set(Array(state.events.keys)), "SHould be the same")
@@ -39,26 +39,26 @@ class TurnSystemStateTest: XCTestCase {
         state.turnFinished()
         XCTAssertEqual(currentTurn + 1, state.currentTurn, "Turn should have incremented")
     }
-    
+
     func testGetPresetEvents() {
         let state = TestClasses.createTestState(numPlayers: 1)
         let first = TestClasses.createTestEvent(identifier: 0)
         let second = TestClasses.createPresetEvent(identifier: 1)
         let third = TestClasses.createPresetEvent(identifier: 2)
         XCTAssertTrue(state.getPresetEvents().isEmpty, "Should be empty by default") // 0
-        state.addEvents(events: [first])
+        _ = state.addEvents(events: [first])
         XCTAssertTrue(state.getPresetEvents().isEmpty, "Should be empty without presets") // 0
-        state.addEvents(events: [second, third])
+        _ = state.addEvents(events: [second, third])
         XCTAssertEqual(Set([1, 2]),
         Set(state.getPresetEvents().map { $0.identifier }),
         "List should have both presets") // 2
         let presets = TestClasses.createEventPresets().getEvents()
-        state.setEvents(events: presets)
-        XCTAssertEqual(Set(presets.map{ $0.identifier }),
+        _ = state.setEvents(events: presets)
+        XCTAssertEqual(Set(presets.map { $0.identifier }),
         Set(state.getPresetEvents().map { $0.identifier }),
         "List should be complete with from table") // all
     }
-    
+
     func testCheckForEvents() {
         let state = TestClasses.createTestState(numPlayers: 1)
         // simplified

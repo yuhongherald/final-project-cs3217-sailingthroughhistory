@@ -43,11 +43,6 @@ class ItemTest: XCTestCase {
         XCTAssertEqual(uncItem.quantity, uncItemQ, "Item quantity should not be combined.")
     }
 
-    func testDecay() {
-        let cItem = Item(itemParameter: cItemParameter, quantity: 100)
-        // TODO:
-    }
-
     func testRemove() {
         let item = Item(itemParameter: uncItemParameter, quantity: 100)
 

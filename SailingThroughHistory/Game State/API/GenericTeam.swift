@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the behaviors that a player Team needs to support.
+/// Players are part of a Team in the game
 import Foundation
 
 protocol GenericTeam: Codable {

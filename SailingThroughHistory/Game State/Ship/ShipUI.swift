@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// UI Representation of a ship in the game.
 import UIKit
 
 class ShipUI: GameObject {

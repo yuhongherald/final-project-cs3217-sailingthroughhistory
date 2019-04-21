@@ -11,7 +11,8 @@ import XCTest
 
 class NPCUnitTests: XCTestCase {
     let maxTaxAmount = 2000
-    var node = NodeStub(name: "testNode", identifier: 99)
+    var node1 = NodeStub(name: "testNode1", identifier: 99)
+    var node2 = NodeStub(name: "testNode2", identifier: 100)
     var port1 = PortStub()
     var port2 = PortStub()
     var port3 = PortStub()
@@ -25,16 +26,20 @@ class NPCUnitTests: XCTestCase {
         map.addNode(port1)
         map.addNode(port2)
         map.addNode(port3)
+        map.addNode(node1)
+        map.addNode(node2)
         port1.taxAmount.value = 0
-        port2.taxAmount.value = 500
-        port3.taxAmount.value = 1000
+        port2.taxAmount.value = 1000
+        port3.taxAmount.value = 2000
 
-        map.add(path: Path(from: port1, to: port2))
         map.add(path: Path(from: port2, to: port1))
-        map.add(path: Path(from: port1, to: port3))
-        map.add(path: Path(from: port3, to: port1))
-        map.add(path: Path(from: port2, to: port3))
-        map.add(path: Path(from: port3, to: port2))
+        map.add(path: Path(from: port1, to: port2))
+        map.add(path: Path(from: port1, to: node1))
+        map.add(path: Path(from: node1, to: port1))
+        map.add(path: Path(from: node1, to: node2))
+        map.add(path: Path(from: node2, to: node1))
+        map.add(path: Path(from: node2, to: port3))
+        map.add(path: Path(from: port3, to: node2))
     }
 
     override class func tearDown() {
@@ -52,18 +57,18 @@ class NPCUnitTests: XCTestCase {
     func testNPCConstructor() {
         NPC.nextId = 0
 
-        let npc = NPC(node: node, maxTaxAmount: 1)
-        XCTAssertEqual(npc.nodeId, node.identifier)
+        let npc = NPC(node: node1, maxTaxAmount: 1)
+        XCTAssertEqual(npc.nodeId, node1.identifier)
         XCTAssertEqual(npc.identifier, 0)
         XCTAssertEqual(npc.maxTaxAmount, 1)
         XCTAssertEqual(npc.nextSeed, npc.identifier)
-        XCTAssertEqual(npc.nextDestinationId, node.identifier)
+        XCTAssertEqual(npc.nextDestinationId, node1.identifier)
     }
 
     func testNPCEncodeDecode() {
         NPC.nextId = 0
 
-        let npc = NPC(node: node, maxTaxAmount: 1)
+        let npc = NPC(node: node1, maxTaxAmount: 1)
         guard let npcEncoded = try? JSONEncoder().encode(npc) else {
             XCTFail("Encode failed")
             return
@@ -72,70 +77,46 @@ class NPCUnitTests: XCTestCase {
             XCTFail("Decode failed")
             return
         }
-        XCTAssertEqual(npcDecoded.nodeId, node.identifier)
+        XCTAssertEqual(npcDecoded.nodeId, node1.identifier)
         XCTAssertEqual(npcDecoded.identifier, 0)
         XCTAssertEqual(npc.maxTaxAmount, 1)
         XCTAssertEqual(npcDecoded.nextSeed, npc.identifier)
-        XCTAssertEqual(npcDecoded.nextDestinationId, node.identifier)
+        XCTAssertEqual(npcDecoded.nextDestinationId, node1.identifier)
     }
 
     func testNPCMoveToNextNode() {
-        let npc = NPC(node: port1, maxTaxAmount: 1000)
-        /*
-        func moveToNextNode(map: Map, maxTaxAmount: Int) -> Node? {
-            let nextNodeId = getNextNode(map: map, maxTaxAmount: maxTaxAmount)
-            guard let currentNode = map.nodeIDPair[nodeId], let nextNode = map.nodeIDPair[nodeId] else {
-                return nil
-            }
-            nodeId = nextNodeId
-            let path = currentNode.getCompleteShortestPath(to: nextNode, with: self, map: map)
-            for node in path {
-                frame.value = node.frame
-            }
-            frame.value = nextNode.frame
-            if let port = nextNode as? Port {
-                port.collectTax(from: self)
-            }
-            return nextNode
-        }*/
+        let npc1 = NPC(node: port2, maxTaxAmount: maxTaxAmount)
+        npc1.nextSeed = 1000
+        npc1.nextDestinationId = node1.identifier
+        guard let result1 = npc1.moveToNextNode(map: map) else {
+            XCTFail("NPC failed to move")
+            return
+        }
+        XCTAssertEqual(result1, node1)
+
+        let npc2 = NPC(node: port1, maxTaxAmount: maxTaxAmount)
+        npc2.nextDestinationId = port3.identifier
+        let team = Team(name: "testTeam")
+        port3.owner = team
+        guard let result2 = npc2.moveToNextNode(map: map) else {
+            XCTFail("NPC failed to move")
+            return
+        }
+        XCTAssertEqual(result2, port3)
+        XCTAssertEqual(team.money.value, port3.taxAmount.value)
+        port3.owner = nil
     }
 
     func testGetNextNode() {
-        /*func getNextNode(map: Map, maxTaxAmount: Int) -> Int {
-         var generator = GKMersenneTwisterRandomSource()
-         generator.seed = UInt64(nextSeed)
-         if nextDestinationId == nodeId {
-         nextDestinationId = getNewDestinationPortId(generator: &generator, map: map)
-         }
-         guard let currentNode = map.nodeIDPair[nodeId] else {
-         fatalError("NPC ship is in invalid node")
-         }
-         guard let destinationNode = map.nodeIDPair[nextDestinationId] else {
-         fatalError("NPC ship has invalid destination node")
-         }
-         let path = currentNode.getCompleteShortestPath(to: destinationNode, with: self, map: map)
-         let movementRoll = 1 + generator.nextInt(upperBound: numDieSides)
+        map.removeNode(port3)
 
-         if movementRoll >= path.count - 1 {
-         nextSeed = UInt(generator.nextInt(upperBound: Int.max))
-         return nextDestinationId
-         }
-         let selectedPorts = Array(path[0..<movementRoll]).map({ $0 as? Port }).compactMap({ $0 })
-         var lowestTax = maxTaxAmount
-         var lowestTaxPort = selectedPorts.first
-         for port in selectedPorts {
-         lowestTax = min(lowestTax, port.taxAmount.value)
-         lowestTaxPort = port
-         }
+        let npc1 = NPC(node: port1, maxTaxAmount: maxTaxAmount)
+        _ = npc1.getNextNode(map: map)
+        XCTAssertEqual(npc1.nextDestinationId, port2.identifier)
 
-         let decidingRoll = generator.nextUniform()
-         nextSeed = UInt(generator.nextInt(upperBound: Int.max))
-         if decidingRoll > Float(lowestTax) / Float(maxTaxAmount),
-         let lowestTaxPortId = lowestTaxPort?.identifier {
-         return lowestTaxPortId
-         }
-         return path[movementRoll - 1].identifier
-         }*/
+        let npc2 = NPC(node: node1, maxTaxAmount: maxTaxAmount)
+        npc2.nextDestinationId = port1.identifier
+        XCTAssertEqual(npc2.getNextNode(map: map), port1.identifier)
     }
 
 }

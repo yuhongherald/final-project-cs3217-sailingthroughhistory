@@ -164,7 +164,7 @@ class LocalStorage {
         return url
     }
 
-    func isLevelExist(_ name: String) -> Bool {
+    private func isLevelExist(_ name: String) -> Bool {
         let fileURL = getFullURL(from: name, ".pList")
         let backgroundURL = getFullURL(from: name + Default.Suffix.background, ".png")
         let previewURL = getFullURL(from: name, ".png")

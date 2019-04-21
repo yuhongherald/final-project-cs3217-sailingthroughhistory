@@ -15,11 +15,11 @@ class WeatherStub: Weather {
         newWindVelocity = windVelocity
         super.init()
     }
-    
+
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
-    
+
     override func applyVelocityModifier(to oldVelocity: Float, with modifier: Float) -> Float {
         return oldVelocity + newWindVelocity
     }

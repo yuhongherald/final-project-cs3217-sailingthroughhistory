@@ -163,22 +163,22 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             let messages = chosenPlayer.endTurn()
             if chosenPlayer.deviceId == deviceId {
                 self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
-                                                                                         message: $0.message)})
+                                                                                         message: $0.getMessage())})
             }
         }
         gameState.map.npcs.forEach {
-            guard let node = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000) else {
+            guard let node = $0.moveToNextNode(map: gameState.map) else {
                 return
             }
             self.messages.append(GameMessage.playerAction(name: "NPC", message: "An npc has moved into \(node.name)"))
         }
-        handleSetTax()
+        playerActionAdapter.handleSetTax()
         let eventResults = data.checkForEvents() // events will run here, non-recursive
         self.messages.append(contentsOf: eventResults)
         gameState.gameTime.value.addWeeks(4)
         gameState.map.updateWeather(for: gameState.gameTime.value.month)
         gameState.distributeTeamMoney()
-        updateStateMaster()        
+        updateStateMaster()
     }
 
     func waitForTurnFinish() {
@@ -264,7 +264,7 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             }
         }
         /// The game state parameter is ignored for now, validation can be added here
-        network.subscribeToMasterState(for: currentTurn) { [weak self] networkGameState in
+        network.subscribeToMasterState(for: currentTurn) { [weak self] _ in
             self?.data.turnFinished()
             if let data = self?.data, let gameState = self?.gameState {
                 if data.currentTurn >= gameState.numTurns {

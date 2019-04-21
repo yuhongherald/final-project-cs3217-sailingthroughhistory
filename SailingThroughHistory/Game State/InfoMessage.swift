@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents various messages for interactions in the game.
 import Foundation
 
 enum InfoMessage {
@@ -17,7 +18,7 @@ enum InfoMessage {
     case upgradePurchased(upgrade: Upgrade)
     case duplicateUpgrade(type: String)
 
-    func getTitle() -> String{
+    func getTitle() -> String {
         switch self {
         case .pirates, .caughtByPirates:
             return "Pirates"

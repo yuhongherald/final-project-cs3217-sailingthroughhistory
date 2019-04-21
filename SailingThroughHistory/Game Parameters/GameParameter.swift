@@ -16,7 +16,7 @@ class GameParameter: GenericLevel, Codable {
     let defaultTaxAmount = 1000
     var upgrades: [Upgrade] = [BiggerShipUpgrade(), FasterShipUpgrade(), BiggerSailsUpgrade(), MercernaryUpgrade()]
 
-    var playerParameters = [TeamParameter]()
+    var playerParameters = [PlayerParameter]()
     var itemParameters = [ItemParameter]()
     var teams: [Team]
     var numOfTurn = GameConstants.numOfTurn
@@ -26,13 +26,13 @@ class GameParameter: GenericLevel, Codable {
     required init(map: Map, teams: [String]) {
         self.map = map
         self.teams = teams.map { Team(name: $0) }
-        self.playerParameters = teams.map { TeamParameter(name: "\($0) players", teamName: $0, node: nil) }
+        self.playerParameters = teams.map { PlayerParameter(name: "\($0) players", teamName: $0, node: nil) }
         self.itemParameters = ItemParameter.allCases
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        playerParameters = try values.decode([TeamParameter].self, forKey: .playerParameters)
+        playerParameters = try values.decode([PlayerParameter].self, forKey: .playerParameters)
         itemParameters = try values.decode([ItemParameter].self, forKey: .itemParameters)
         teams = try values.decode([Team].self, forKey: .teams)
         numOfTurn = try values.decode(Int.self, forKey: .numOfTurn)

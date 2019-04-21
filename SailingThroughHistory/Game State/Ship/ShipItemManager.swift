@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Manages Items in a ship, such as the buying/selling of Items. Stateless.
 import Foundation
 
 class ShipItemManager: ItemStorage {

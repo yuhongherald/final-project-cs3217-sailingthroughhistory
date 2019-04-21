@@ -14,7 +14,7 @@ class GameParameterTest: XCTestCase {
         let originName = "name"
 
         // test update name and money
-        let playerParameter = TeamParameter(name: originName, teamName: "team", node: nil)
+        let playerParameter = PlayerParameter(name: originName, teamName: "team", node: nil)
         playerParameter.set(money: 158)
         XCTAssertEqual(playerParameter.getMoney(), 158, "Money is not successfully changed")
         XCTAssertTrue(playerParameter.getTeam() == Team(name: "team"), "Team is accidently changed")
@@ -22,37 +22,37 @@ class GameParameterTest: XCTestCase {
 
     func testCodablePlayerParameter() {
         // test without node
-        var playerParameter = TeamParameter(name: "", teamName: "", node: nil)
+        var playerParameter = PlayerParameter(name: "", teamName: "", node: nil)
         guard let encode1 = try? JSONEncoder().encode(playerParameter) else {
             XCTFail("Encode Failed")
             return
         }
-        var decode = try? JSONDecoder().decode(TeamParameter.self, from: encode1)
+        var decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode1)
         XCTAssertNotNil(decode, "Decode Failed")
         XCTAssertTrue(isEqual(playerParameter: decode, playerParameter), "Decode result is different from original one")
 
         // test with node
-        playerParameter = TeamParameter(name: "", teamName: "", node: Sea(name: "sea", originX: 1, originY: 100))
+        playerParameter = PlayerParameter(name: "", teamName: "", node: Sea(name: "sea", originX: 1, originY: 100))
         guard let encode2 = try? JSONEncoder().encode(playerParameter) else {
             XCTFail("Encode Failed")
             return
         }
-        decode = try? JSONDecoder().decode(TeamParameter.self, from: encode2)
+        decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode2)
         XCTAssertNotNil(decode, "Decode Failed")
         XCTAssertTrue(isEqual(playerParameter: decode, playerParameter), "Decode result is different from original one")
 
         // test with port
-        playerParameter = TeamParameter(name: "", teamName: "",
+        playerParameter = PlayerParameter(name: "", teamName: "",
                                           node: Port(team: nil, name: "NPCport", originX: 0, originY: 0))
         guard let encode3 = try? JSONEncoder().encode(playerParameter) else {
             XCTFail("Encode Failed")
             return
         }
-        decode = try? JSONDecoder().decode(TeamParameter.self, from: encode3)
+        decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode3)
         XCTAssertNotNil(decode, "Decode Failed")
         XCTAssertTrue(isEqual(playerParameter: decode, playerParameter), "Decode result is different from original one")
 
-        playerParameter = TeamParameter(name: "", teamName: "", node: nil)
+        playerParameter = PlayerParameter(name: "", teamName: "", node: nil)
         let team = Team(name: "team")
         let port = Port(team: team, name: "selfport", originX: 0, originY: 0)
         port.assignOwner(team)
@@ -60,7 +60,7 @@ class GameParameterTest: XCTestCase {
             XCTFail("Encode Failed")
             return
         }
-        decode = try? JSONDecoder().decode(TeamParameter.self, from: encode4)
+        decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode4)
         XCTAssertNotNil(decode, "Decode Failed")
         XCTAssertTrue(isEqual(playerParameter: decode, playerParameter), "Decode result is different from original one")
     }
@@ -88,7 +88,7 @@ class GameParameterTest: XCTestCase {
         XCTAssertTrue(isEqual(gameParameter: decode, gameParameter), "Decode result is different from original one")
     }
 
-    private func isEqual(playerParameter: TeamParameter?, _ rhs: TeamParameter) -> Bool {
+    private func isEqual(playerParameter: PlayerParameter?, _ rhs: PlayerParameter) -> Bool {
         guard let lhs = playerParameter else {
             return false
         }
@@ -107,13 +107,7 @@ class GameParameterTest: XCTestCase {
         guard let lhs = itemParameter else {
             return false
         }
-        // TODO
-        /*
-        return lhs.getBuyValue() == rhs.getBuyValue() && lhs.getSellValue() == rhs.getSellValue()
-            && lhs.displayName == rhs.displayName
-            && lhs.isConsumable == rhs.isConsumable && lhs.unitWeight == rhs.unitWeight && lhs.itemType == rhs.itemType
-         */
-        return true
+        return  lhs.rawValue == rhs.rawValue && lhs.unitWeight == rhs.unitWeight
     }
 
     private func isEqual(gameParameter: GameParameter?, _ rhs: GameParameter) -> Bool {

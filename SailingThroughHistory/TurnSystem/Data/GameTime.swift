@@ -1,4 +1,3 @@
-
 /**
  * A class that represents the time of the game, in weeks.
  */

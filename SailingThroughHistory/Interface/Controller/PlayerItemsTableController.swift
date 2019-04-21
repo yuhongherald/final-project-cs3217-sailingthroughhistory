@@ -31,8 +31,10 @@ class PlayerItemsTableController: NSObject, UITableViewDataSource {
 
     private func subscribeToItems() {
         player.subscribeToItems { [weak self] _, items in
-            self?.items = items
-            self?.tableView?.reloadData()
+            DispatchQueue.main.async {
+                self?.items = items
+                self?.tableView?.reloadData()
+            }
         }
     }
 

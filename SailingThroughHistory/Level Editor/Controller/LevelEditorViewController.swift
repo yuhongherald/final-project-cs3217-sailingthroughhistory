@@ -26,8 +26,8 @@ class LevelEditorViewController: UIViewController {
     @IBOutlet weak var editingAreaWrapper: UIView!
     @IBOutlet weak var mapBackground: UIImageView!
     @IBOutlet weak var panelToggle: UIButton!
-    private var panelDest: EditPanelViewController?
-    private lazy var teamMenuDataSource = TeamMenuDataSource(data: gameParameter.teams, delegate: self)
+    private var panelDest: EditPanelViewController!
+    private lazy var teamMenuDataSource = TeamMenuViewController(data: gameParameter.teams, delegate: self)
 
     var showPanelMsg = "Show Panel"
     var hidePanelMsg = "Hide Panel"

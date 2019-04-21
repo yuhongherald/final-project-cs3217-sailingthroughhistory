@@ -6,6 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a normal Player in the game. The Player owns a Ship, can move their
+/// Ship and buy/sell Items.
+
+/// Assumes a non-negative speed multiplier.
 import Foundation
 
 class Player: GenericPlayer {
@@ -56,8 +60,12 @@ class Player: GenericPlayer {
     var gameState: GenericGameState?
     private var ship: Ship
     private var speedMultiplier = 1.0
-    private var shipChassis: ShipChassis?
-    private var auxiliaryUpgrade: AuxiliaryUpgrade?
+    private var shipChassis: ShipChassis? {
+        return ship.shipChassis
+    }
+    private var auxiliaryUpgrade: AuxiliaryUpgrade? {
+        return ship.auxiliaryUpgrade
+    }
 
     init(name: String, team: Team, map: Map, node: Node, itemsConsumed: [GenericItem],
          startingItems: [GenericItem], deviceId: String) {
@@ -130,11 +138,11 @@ class Player: GenericPlayer {
 
     func getPath(to nodeId: Int) -> [Int] {
         guard let map = map else {
-            fatalError("Player is not on a map")
+            return []
         }
 
         guard let toNode = map.nodeIDPair[nodeId] else {
-            fatalError("To node does not exist")
+            return []
         }
 
         return ship.node
@@ -284,7 +292,6 @@ extension Player {
     }
 
     private func preventPlayerBankruptcy(amount: Int) {
-        team?.updateMoney(by: -amount)
         money.value = 0
     }
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// An Auxiliary Upgrade that gives ships immunity to pirates.
 import Foundation
 
 class MercernaryUpgrade: AuxiliaryUpgrade {
@@ -17,9 +18,5 @@ class MercernaryUpgrade: AuxiliaryUpgrade {
     }
     override var cost: Int {
         return 1000
-    }
-
-    override func handleEvent() {
-        // TODO: Handle event to ignore pirate
     }
 }

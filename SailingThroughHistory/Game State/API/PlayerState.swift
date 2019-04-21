@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the current player state.
 import Foundation
 
 enum PlayerState {

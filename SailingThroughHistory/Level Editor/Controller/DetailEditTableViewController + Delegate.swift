@@ -21,7 +21,7 @@ extension DetailEditTableViewController: UITableViewDelegate, UITableViewDataSou
         switch item.type {
         case .player:
             guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: "playerIdentifier") as? TeamTableViewCell else {
+                    withIdentifier: "playerIdentifier") as? PlayerTableViewCell else {
                 fatalError("The dequeued cell is not an instance of PlayerTableViewCell.")
             }
             cell.item = item

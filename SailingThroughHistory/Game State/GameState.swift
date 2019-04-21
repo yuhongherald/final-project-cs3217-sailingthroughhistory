@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a Game State that interacts with TurnSystem and Level.
 import Foundation
 
 class GameState: GenericGameState {
@@ -25,6 +26,8 @@ class GameState: GenericGameState {
 
     private var playerTurnOrder = [GenericPlayer]()
 
+    /// Creates a GameState given a baseYear of the game time, a level to load
+    /// information from and a list of players.
     init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
         gameTime = GameVariable(value: GameTime(baseYear: baseYear))
         teams = level.teams
@@ -144,9 +147,6 @@ class GameState: GenericGameState {
         }
     }
 
-    func endGame() {
-    }
-
     func getTeamMoney() -> [Team: Int] {
         var result = [Team: Int]()
         for player in players {
@@ -159,7 +159,7 @@ class GameState: GenericGameState {
         return result
     }
 
-    private func initializePlayers(from parameters: [TeamParameter], for roomPlayers: [RoomMember]) {
+    private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {
             if roomPlayer.isGameMaster {
@@ -191,7 +191,8 @@ class GameState: GenericGameState {
                 node = defaultNode
             }
 
-            let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemParameterTupleToItem(tuple: $0) }).compactMap({ $0 })
+            let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemParameterTupleToItem(tuple: $0) })
+                .compactMap({ $0 })
             let startingItems = unwrappedParam.startingItems.map({ itemParameterTupleToItem(tuple:
                 $0) }).compactMap({ $0 })
             let player = Player(name: String(roomPlayer.playerName.prefix(8)),
@@ -230,6 +231,9 @@ class GameState: GenericGameState {
         return item
     }
 
+    /// Used to decode the various types of players: normal Player, spectators that
+    /// can only observe the game, and GameMasters that can manipulate the game with
+    /// events but cannot perform normal player actions.
     struct PlayerWithType: Codable {
         let type: PlayerType
         let player: GenericPlayer

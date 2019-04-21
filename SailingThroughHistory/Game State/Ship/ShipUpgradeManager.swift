@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Handles purchasing of Upgrades. Stateless.
 import Foundation
 
 class ShipUpgradeManager: Upgradable {

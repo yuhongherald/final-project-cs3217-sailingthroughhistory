@@ -7,7 +7,7 @@
 //
 
 /**
- * Modal for port to store owner, tax and items.
+ * Model for port to store owner, tax and items.
  */
 class Port: Node {
     var taxAmount: GameVariable<Int> = GameVariable(value: 0)
@@ -91,29 +91,29 @@ class Port: Node {
         owner?.updateMoney(by: taxAmount.value)
     }
 
-    /// Get import price of item.
+    /// Get export price of item.
     func getBuyValue(of type: ItemParameter) -> Int? {
         return itemBuyValue[type]
     }
 
-     /// Get export price of item.
+    /// Get import price of item.
     func getSellValue(of type: ItemParameter) -> Int? {
         return itemSellValue[type]
     }
 
-     /// Set import price of item to value.
+     /// Set export price of item to value.
     func setBuyValue(of type: ItemParameter, value: Int) {
         let finalValue = max(getSellValue(of: type) ?? 0, value)
         itemBuyValue[type] = finalValue
     }
 
-    /// Set export price of item to value.
+    /// Set import price of item to value.
     func setSellValue(of type: ItemParameter, value: Int) {
         let finalValue = min(getBuyValue(of: type) ?? value, value)
         itemSellValue[type] = finalValue
     }
 
-    // Availability at ports
+    /// Remove availability of items at ports
     func delete(_ type: ItemParameter) {
         if getBuyValue(of: type) != nil {
             itemBuyValue.removeValue(forKey: type)
@@ -123,6 +123,7 @@ class Port: Node {
         }
     }
 
+    /// Get item parameters of all available items
     func getAllItemParameters() -> [ItemParameter] {
         // default/placeholder for all items
         return Array(Set(itemParametersSoldByPort + itemParametersBoughtByPort))

@@ -7,18 +7,18 @@
 //
 
 protocol ConditionComparable: ComparableOp {
-    associatedtype T where T: Comparable
+    associatedtype SomeType where SomeType: Comparable
 }
 
 extension ConditionComparable {
     var operators: [GenericComparator] {
         return [
-        EqualOperator<T>(),
-        NotEqualOperator<T>(),
-        LessThanOperator<T>(),
-        GreaterThanOperator<T>(),
-        LessThanOrEqualOperator<T>(),
-        GreaterThanOrEqualOperator<T>(),
+        EqualOperator<SomeType>(),
+        NotEqualOperator<SomeType>(),
+        LessThanOperator<SomeType>(),
+        GreaterThanOperator<SomeType>(),
+        LessThanOrEqualOperator<SomeType>(),
+        GreaterThanOrEqualOperator<SomeType>(),
         TrueOperator()
         ]
     }

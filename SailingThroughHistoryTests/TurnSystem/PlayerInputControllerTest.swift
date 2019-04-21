@@ -29,7 +29,7 @@ class PlayerInputControllerTest: XCTestCase {
         }
         XCTFail("Should not allow player 2 to go")
     }
-    
+
     func testStartPlayerInput() {
         let expectation = XCTestExpectation(description: "End p1's turn")
         let inputController = TestClasses.createInputController(timer: 2) { expectation.fulfill() }
@@ -37,6 +37,8 @@ class PlayerInputControllerTest: XCTestCase {
         let otherPlayer = inputController.data.gameState.getPlayers()[1]
         inputController.startPlayerInput(from: player)
         wait(for: [expectation], timeout: 3)
+        Thread.sleep(forTimeInterval: 1)
+        // Ensure that turn system has finished processing player end turn before checking.
         switch inputController.network.state {
         case .waitPlayerInput(from: let player):
             XCTAssertEqual(player.deviceId, otherPlayer.deviceId,

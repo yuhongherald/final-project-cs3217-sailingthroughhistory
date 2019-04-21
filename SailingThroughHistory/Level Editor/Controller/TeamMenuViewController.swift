@@ -18,7 +18,7 @@ protocol MenuViewDelegateProtocol: class {
     func getEditingMode(for gesture: UIGestureRecognizer) -> EditMode?
 }
 
-class TeamMenuDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
+class TeamMenuViewController: NSObject, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView? {
         didSet {
             self.tableView?.isUserInteractionEnabled = true
