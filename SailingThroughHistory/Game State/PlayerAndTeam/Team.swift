@@ -46,6 +46,7 @@ class Team: GenericTeam {
     }
 
     func start(from node: Node) {
+        assert(checkRep())
         self.startingNode = node
         assert(checkRep())
     }

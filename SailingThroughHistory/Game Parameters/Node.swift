@@ -9,7 +9,7 @@
 import UIKit
 
 /**
- * Modal for node to store identifier, name, frame and objects in a node.
+ * Model for node to store identifier, name, frame and objects in a node.
  */
 class Node: Codable {
     static var nextID: Int = 0

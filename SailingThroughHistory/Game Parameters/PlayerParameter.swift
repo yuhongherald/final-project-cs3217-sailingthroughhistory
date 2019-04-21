@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- * Initial state of each team.
+ * Initial state of players of each team.
  */
 class PlayerParameter: Codable {
     let itemsConsumed: [(ItemParameter, Int)] = [(.food, 1)]
