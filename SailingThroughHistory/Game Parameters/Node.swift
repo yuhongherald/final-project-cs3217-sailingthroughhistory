@@ -176,7 +176,7 @@ class Node: Codable {
         var visited = Set<Int>()
         var next = self
         queue.append((next, 0))
-        var weight = -1
+        var weight = 0
         while next != node && !queue.isEmpty {
             (next, weight) = queue.removeFirst()
             if visited.contains(next.identifier) {
@@ -187,7 +187,7 @@ class Node: Codable {
                 queue.append((neighbor.toNode, weight + 1))
             }
         }
-        return weight < 0 ? nil : weight
+        return next != node ? nil : weight
     }
 }
 
