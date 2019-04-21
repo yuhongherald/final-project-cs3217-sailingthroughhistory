@@ -7,8 +7,12 @@
 //
 
 import XCTest
+@testable import SailingThroughHistory
 
 class PlayerUnitTests: XCTestCase {
+    var node = NodeStub(name: "testNode", identifier: 99)
+    let team = Team(name: "testTeam")
+    let playerName = "testPlayer"
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -19,6 +23,20 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testPlayerConstructor() {
+        /*
+        init(name: String, team: Team, map: Map, node: Node, itemsConsumed: [GenericItem],
+        startingItems: [GenericItem], deviceId: String) {
+            self.name = name
+            self.team = team
+            self.map = map
+            self.deviceId = deviceId
+            self.homeNode = node.identifier
+            ship = Ship(node: node, itemsConsumed: itemsConsumed)
+            ship.owner = self
+            ship.map = map
+            ship.items.value.append(contentsOf: startingItems)
+            ship.updateCargoWeight(items: ship.items.value)
+        }*/
     }
 
     func testPlayerEncodeDecode() {
