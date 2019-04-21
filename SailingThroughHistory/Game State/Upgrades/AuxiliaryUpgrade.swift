@@ -29,7 +29,4 @@ class AuxiliaryUpgrade: Upgrade {
     func getWeatherModifier() -> Double {
         return 1.0
     }
-
-    func handleEvent() {
-    }
 }

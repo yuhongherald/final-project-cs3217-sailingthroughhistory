@@ -46,14 +46,14 @@ class TurnSystemStateTest: XCTestCase {
         let second = TestClasses.createPresetEvent(identifier: 1)
         let third = TestClasses.createPresetEvent(identifier: 2)
         XCTAssertTrue(state.getPresetEvents().isEmpty, "Should be empty by default") // 0
-        state.addEvents(events: [first])
+        _ = state.addEvents(events: [first])
         XCTAssertTrue(state.getPresetEvents().isEmpty, "Should be empty without presets") // 0
-        state.addEvents(events: [second, third])
+        _ = state.addEvents(events: [second, third])
         XCTAssertEqual(Set([1, 2]),
         Set(state.getPresetEvents().map { $0.identifier }),
         "List should have both presets") // 2
         let presets = TestClasses.createEventPresets().getEvents()
-        state.setEvents(events: presets)
+        _ = state.setEvents(events: presets)
         XCTAssertEqual(Set(presets.map { $0.identifier }),
         Set(state.getPresetEvents().map { $0.identifier }),
         "List should be complete with from table") // all
