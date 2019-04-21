@@ -163,16 +163,16 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             let messages = chosenPlayer.endTurn()
             if chosenPlayer.deviceId == deviceId {
                 self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
-                                                                                         message: $0.message)})
+                                                                                         message: $0.getMessage())})
             }
         }
         gameState.map.npcs.forEach {
-            guard let node = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000) else {
+            guard let node = $0.moveToNextNode(map: gameState.map) else {
                 return
             }
             self.messages.append(GameMessage.playerAction(name: "NPC", message: "An npc has moved into \(node.name)"))
         }
-        handleSetTax()
+        playerActionAdapter.handleSetTax()
         let eventResults = data.checkForEvents() // events will run here, non-recursive
         self.messages.append(contentsOf: eventResults)
         gameState.gameTime.value.addWeeks(4)

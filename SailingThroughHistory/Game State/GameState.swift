@@ -159,7 +159,7 @@ class GameState: GenericGameState {
         return result
     }
 
-    private func initializePlayers(from parameters: [TeamParameter], for roomPlayers: [RoomMember]) {
+    private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {
             if roomPlayer.isGameMaster {

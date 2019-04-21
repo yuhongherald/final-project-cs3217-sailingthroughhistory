@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1A3BF40B226BA1C700D1DA86 /* ItemParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3BF40A226BA1C700D1DA86 /* ItemParameter.swift */; };
+		1A3BF40D226BBF5200D1DA86 /* TeamMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3BF40C226BBF5200D1DA86 /* TeamMenuViewController.swift */; };
+		1A3BF40F226C2CDB00D1DA86 /* PlayerParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3BF40E226C2CDB00D1DA86 /* PlayerParameter.swift */; };
 		1A49D238223E468300A419F4 /* LevelEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D237223E468300A419F4 /* LevelEditorViewController.swift */; };
 		1A49D23A223F644F00A419F4 /* EditPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A49D239223F644F00A419F4 /* EditPanelViewController.swift */; };
 		1A53D7C4224CA45100FAE214 /* GenericTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A53D7C3224CA45100FAE214 /* GenericTeam.swift */; };
@@ -26,7 +28,6 @@
 		1A9FF086223F6DAB00005FCB /* EditMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF085223F6DAB00005FCB /* EditMode.swift */; };
 		1A9FF08C224030E000005FCB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08B224030E000005FCB /* Map.swift */; };
 		1A9FF08E224037AF00005FCB /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF08D224037AF00005FCB /* NodeView.swift */; };
-		1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0912240AC9C00005FCB /* EventParameter.swift */; };
 		1A9FF0942240AF9700005FCB /* DetailEditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */; };
 		1A9FF0962240C03A00005FCB /* TeamTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9FF0952240C03A00005FCB /* TeamTableViewCell.swift */; };
 		1ABBA2122261F6F800222E7A /* MapTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABBA2112261F6F700222E7A /* MapTest.swift */; };
@@ -41,8 +42,6 @@
 		1AE048BE226893FC006ABBA3 /* UIViewController + PointIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE048BD226893FC006ABBA3 /* UIViewController + PointIn.swift */; };
 		1AE048C1226B4180006ABBA3 /* TurnTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE048C0226B4180006ABBA3 /* TurnTableViewCell.swift */; };
 		1AE048C4226B7A82006ABBA3 /* GameParameterItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE048C3226B7A82006ABBA3 /* GameParameterItem.swift */; };
-		1AE048C6226B8B87006ABBA3 /* TeamParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE048C5226B8B87006ABBA3 /* TeamParameter.swift */; };
-		1AF01830224752FF008B468B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF0182F224752FE008B468B /* MenuViewController.swift */; };
 		3EC2FDF4A8A2C929B6156B79 /* Pods_SailingThroughHistory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E8EF1ED58F41F667A1319C7 /* Pods_SailingThroughHistory.framework */; };
 		751F8FD6224B9D5E0071C057 /* TurnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD1224B9D5D0071C057 /* TurnSystem.swift */; };
 		751F8FD7224B9D5E0071C057 /* PlayerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751F8FD2224B9D5D0071C057 /* PlayerAction.swift */; };
@@ -296,6 +295,8 @@
 
 /* Begin PBXFileReference section */
 		1A3BF40A226BA1C700D1DA86 /* ItemParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemParameter.swift; sourceTree = "<group>"; };
+		1A3BF40C226BBF5200D1DA86 /* TeamMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamMenuViewController.swift; sourceTree = "<group>"; };
+		1A3BF40E226C2CDB00D1DA86 /* PlayerParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerParameter.swift; sourceTree = "<group>"; };
 		1A49D237223E468300A419F4 /* LevelEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelEditorViewController.swift; sourceTree = "<group>"; };
 		1A49D239223F644F00A419F4 /* EditPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPanelViewController.swift; sourceTree = "<group>"; };
 		1A53D7C3224CA45100FAE214 /* GenericTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTeam.swift; sourceTree = "<group>"; };
@@ -314,7 +315,6 @@
 		1A9FF085223F6DAB00005FCB /* EditMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMode.swift; sourceTree = "<group>"; };
 		1A9FF08B224030E000005FCB /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		1A9FF08D224037AF00005FCB /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
-		1A9FF0912240AC9C00005FCB /* EventParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParameter.swift; sourceTree = "<group>"; };
 		1A9FF0932240AF9700005FCB /* DetailEditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEditTableViewController.swift; sourceTree = "<group>"; };
 		1A9FF0952240C03A00005FCB /* TeamTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableViewCell.swift; sourceTree = "<group>"; };
 		1ABBA2112261F6F700222E7A /* MapTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTest.swift; sourceTree = "<group>"; };
@@ -329,8 +329,6 @@
 		1AE048BD226893FC006ABBA3 /* UIViewController + PointIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + PointIn.swift"; sourceTree = "<group>"; };
 		1AE048C0226B4180006ABBA3 /* TurnTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnTableViewCell.swift; sourceTree = "<group>"; };
 		1AE048C3226B7A82006ABBA3 /* GameParameterItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameParameterItem.swift; path = ../Model/GameParameterItem.swift; sourceTree = "<group>"; };
-		1AE048C5226B8B87006ABBA3 /* TeamParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamParameter.swift; sourceTree = "<group>"; };
-		1AF0182F224752FE008B468B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		6F0099311893FCDCE3BBA5C6 /* Pods-SailingThroughHistory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SailingThroughHistory.debug.xcconfig"; path = "Target Support Files/Pods-SailingThroughHistory/Pods-SailingThroughHistory.debug.xcconfig"; sourceTree = "<group>"; };
 		751F8FD1224B9D5D0071C057 /* TurnSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnSystem.swift; sourceTree = "<group>"; };
 		751F8FD2224B9D5D0071C057 /* PlayerAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAction.swift; sourceTree = "<group>"; };
@@ -611,7 +609,7 @@
 				1A49D239223F644F00A419F4 /* EditPanelViewController.swift */,
 				1A749D672240FE7900482CE5 /* ItemCollectionViewController.swift */,
 				1A749D6F224409E300482CE5 /* GalleryViewController.swift */,
-				1AF0182F224752FE008B468B /* MenuViewController.swift */,
+				1A3BF40C226BBF5200D1DA86 /* TeamMenuViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1297,8 +1295,7 @@
 				965E033F223A9AD1005F7D79 /* Port.swift */,
 				BA4858FF223F89F7009ED2F6 /* Item.swift */,
 				1A9FF08B224030E000005FCB /* Map.swift */,
-				1AE048C5226B8B87006ABBA3 /* TeamParameter.swift */,
-				1A9FF0912240AC9C00005FCB /* EventParameter.swift */,
+				1A3BF40E226C2CDB00D1DA86 /* PlayerParameter.swift */,
 			);
 			path = "Game Parameters";
 			sourceTree = "<group>";
@@ -1641,6 +1638,7 @@
 				BA919078223F4D0800009F49 /* ShipChassis.swift in Sources */,
 				75E8D109226B5C720021CF3D /* TestClasses.swift in Sources */,
 				759A5EF32250A38700724BEB /* NodeData.swift in Sources */,
+				1A3BF40F226C2CDB00D1DA86 /* PlayerParameter.swift in Sources */,
 				1ABBA218226230B400222E7A /* TeamScoreTableController.swift in Sources */,
 				96A7D0B2225FA8E0001C18E4 /* UILightningView.swift in Sources */,
 				7538CB0A2255EDE800EB9B1F /* NegativeMoneyEvent.swift in Sources */,
@@ -1675,6 +1673,7 @@
 				7538CAF72255B8B300EB9B1F /* VariableEvaluatable.swift in Sources */,
 				7535449A224CC532001B4F62 /* WeakBox.swift in Sources */,
 				7581AEDF225C563E001A8CC3 /* Evaluate.swift in Sources */,
+				1A3BF40D226BBF5200D1DA86 /* TeamMenuViewController.swift in Sources */,
 				9603F786224A990E007D54E0 /* FirestoreRoom.swift in Sources */,
 				7538CB022255ED2C00EB9B1F /* TaxChangeEvent.swift in Sources */,
 				BA91907C223F531A00009F49 /* GenericGameState.swift in Sources */,
@@ -1766,7 +1765,6 @@
 				9683C290225D284600E30387 /* AvailableUpgradesController.swift in Sources */,
 				7581AED1225C4CF1001A8CC3 /* GameTime+Equatable.swift in Sources */,
 				BAB3378222605D35007A0C05 /* HistoryFactAction.swift in Sources */,
-				1AF01830224752FF008B468B /* MenuViewController.swift in Sources */,
 				96737E9F223CF1CB00D04C33 /* GameObject.swift in Sources */,
 				7538CB062255ED6C00EB9B1F /* ItemPriceEvent.swift in Sources */,
 				96707469226254810056D81D /* LocalRoomConnection.swift in Sources */,
@@ -1793,7 +1791,6 @@
 				7581AEE9225C6385001A8CC3 /* MultiplyOperator.swift in Sources */,
 				BA919064223F260A00009F49 /* Ship.swift in Sources */,
 				968A14B92269B6A60069E3C9 /* AvailableUpgradesControllerDelegate.swift in Sources */,
-				1A9FF0922240AC9C00005FCB /* EventParameter.swift in Sources */,
 				7581AEE7225C5F6A001A8CC3 /* BAEEvaluatable.swift in Sources */,
 				96877E54223EC7D80020F44C /* Path.swift in Sources */,
 				9683C28E225D256600E30387 /* UpgradeType.swift in Sources */,
