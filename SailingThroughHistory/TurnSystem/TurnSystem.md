@@ -1,11 +1,15 @@
 # A quick guide in using the TurnSystem to make a turn-based game
 
-<Insert diagram here>
 
 ## Creating an instance of the TurnSystem for using in the game
-To construct a **TurnSystem**, ...
+**TurnSystem**: A class that runs the game in a turn-based fashion.
+Construction:
+* Network: An intermediate controller that sits between the Network and the **TurnSystemState**.
+* PlayerInputControllFactory: To create a template to facilitate turn management.
+Functionalities:
+* Player actions - roll, selectForMovement, setTax, buy, sell, toggle, purchase
+* Turn management - startGame, endTurn, acknowledgeTurnStart.
 
-A **TurnSystem** provides the following functionalities.
 
 ## Supporting components required to use the TurnSystem
 
@@ -14,7 +18,12 @@ A **TurnSystem** provides the following functionalities.
 ### Interface
 Refer to **Interface** for more details.
 ### Network
+#### TurnSystemNetwork
+#### PlayerActionAdapter
 #### RoomConnection
+
+### PlayerInputController
+
 ### TurnSystemState
 #### GameState
 Any class that conforms to *GenericGameState* will work, as long as they have:
@@ -88,10 +97,6 @@ To use the trigger:
 * call *hasTriggered() -> Bool* to check if it triggered
 * call *resetTrigger()* so for next use
 
-#### Writing a custom trigger
-
-You can extend the Protocol **Trigger** if you want your event to activate in a different way.
-
 An example will be ...
 
 ```
@@ -99,6 +104,9 @@ EventTrigger<Int>(variable: player.money, comparator: GreaterThanOperator<Int>()
 ```
 
 The above trigger activates when the player's money decreases.
+#### Writing a custom trigger
+
+You can extend the Protocol **Trigger** if you want your event to activate in a different way.
 
 ### Conditions
 
@@ -114,21 +122,21 @@ changeOperator.compare(firstEvaluatable, secondEvaluatable)
 To use the condition:
 * call *evaluate() -> Bool*.
 
-#### Writing a custom Condition
-
- By relying on the *Binary Arithmetic Expression* structure supported by **Evaluatable**s, a condition can be used widely in many cases, and even support *OR* to make up for the limitations of the **TurnSystemEvent**.
-
-You can extend the Protocol **Evaluate** if you want your condition to evaluate in a different way.
-
-An example will be ...
+An example will be
 
 ```
 EventCondition<Int>(
 first: GameVariableEvaluatable<Int>(variable: player.money),
 second: Evaluatable<Int>(0), change: LessThanOperator<Int>())
 ```
-
 The above condition evaluates to true if player's money is below zero.
+
+#### Writing a custom Condition
+
+By relying on the *Binary Arithmetic Expression* structure supported by **Evaluatable**s, a condition can be used widely in many cases, and even support *OR* to make up for the limitations of the **TurnSystemEvent**.
+
+You can extend the Protocol **Evaluate** if you want your condition to evaluate in a different way.
+
 
 ### Actions
 
@@ -136,6 +144,16 @@ The above condition evaluates to true if player's money is below zero.
 An **EvenetAction** has a **GameVariable** and an **Evaluatable**.
 
 Calling modify sets the **GameVariable**'s value to the **Evaluatable**'s value.
+
+An example will be
+```
+EventAction<Int>(variable: player.money, value: Evaluatable<Int>(0))
+```
+This sets the player's money to 0.
+
+#### Writing a custon Action
+
+You can extend the Protocol **Modify** if you want your action to be function-based rather than value-based.
 
 ## Supporting classes
 
