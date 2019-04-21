@@ -8,13 +8,13 @@
 
 import UIKit
 
-class TeamTableViewCell: UITableViewCell {
+class PlayerTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var moneyField: UITextField!
 
     var item: GameParameterItem? {
         didSet {
-            guard let item = item as? TeamParameterItem else {
+            guard let item = item as? PlayerParameterItem else {
                 return
             }
 

@@ -46,7 +46,8 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testPlayerConstructor() {
-        let player = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                            node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         XCTAssertEqual(player.name, player.name)
         XCTAssertEqual(player.team, PlayerUnitTests.team)
         XCTAssertTrue(player.map === map)
@@ -58,7 +59,8 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testPlayerEncodeDecode() {
-        let player = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                            node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         player.money.value = 1000
 
         guard let playerEncoded = try? JSONEncoder().encode(player) else {
@@ -80,7 +82,8 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testUpdateMoney() {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         player1.money.value = 1000
         player1.updateMoney(to: 2000)
         XCTAssertEqual(player1.money.value, 2000)
@@ -99,7 +102,8 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testRoll() {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         player1.hasRolled = false
         let roll1 = player1.roll().0
         XCTAssertEqual(player1.hasRolled, true)
@@ -107,7 +111,8 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testCanBuyUpgrade() throws {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: port, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: port, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         XCTAssertNotNil(player1.playerShip)
         XCTAssertEqual(player1.canBuyUpgrade(), false)
         try player1.dock()
@@ -115,17 +120,20 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testGetPath() {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         player1.map = nil
         XCTAssertEqual(player1.getPath(to: node.identifier), [Int]())
 
-        let player2 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player2 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: node, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         XCTAssertEqual(player2.getPath(to: node2.identifier), [Int]())
         XCTAssertEqual(player2.getPath(to: node.identifier), [node.identifier])
     }
 
     func testDock() throws {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: port, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: port, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         port.taxAmount.value = 1000
         port.owner = nil
         player1.money.value = 3000
@@ -134,7 +142,8 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testGetPirateEncounterChance() {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: port, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: port, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
         player1.map = nil
         XCTAssertEqual(player1.getPirateEncounterChance(at: node.identifier), 0)
         player1.map = map
@@ -142,15 +151,19 @@ class PlayerUnitTests: XCTestCase {
         XCTAssertEqual(player1.getPirateEncounterChance(at: port.identifier), 0)
         XCTAssertEqual(player1.getPirateEncounterChance(at: node.identifier), map.basePirateRate)
 
-        let player2 = Player(name: playerName, team: PlayerUnitTests.team, map: pirateMap, node: PlayerUnitTests.pirateNode, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
-        XCTAssertEqual(player2.getPirateEncounterChance(at: PlayerUnitTests.pirateNode.identifier), PlayerUnitTests.pirateIsland.chance)
+        let player2 = Player(name: playerName, team: PlayerUnitTests.team, map: pirateMap,
+                             node: PlayerUnitTests.pirateNode, itemsConsumed: [item1],
+                             startingItems: [item2], deviceId: deviceName)
+        XCTAssertEqual(player2.getPirateEncounterChance(at: PlayerUnitTests.pirateNode.identifier),
+                       PlayerUnitTests.pirateIsland.chance)
         player2.money.value = 10000
         _ = player2.buyUpgrade(upgrade: MercernaryUpgrade())
         XCTAssertEqual(player2.getPirateEncounterChance(at: PlayerUnitTests.pirateNode.identifier), 0)
     }
 
     func testSetTax() throws {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: port, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: port, itemsConsumed: [item1], startingItems: [item2], deviceId: deviceName)
 
         XCTAssertThrowsError(try player1.setTax(port: port, amount: 1)) { error in
             guard let exceedMaxTax = error as? PortAdminError else {
@@ -170,7 +183,8 @@ class PlayerUnitTests: XCTestCase {
                     XCTFail("Error was not correct type")
                     return
                 }
-            XCTAssertEqual(exceedMaxTax.getMessage(), PortAdminError.exceedMaxTax(maxTaxAmount: gameState.maxTaxAmount).getMessage())
+            XCTAssertEqual(exceedMaxTax.getMessage(),
+                           PortAdminError.exceedMaxTax(maxTaxAmount: gameState.maxTaxAmount).getMessage())
         }
 
         XCTAssertThrowsError(try player1.setTax(port: port, amount: -1)) { error in
@@ -199,7 +213,8 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testEndTurn() {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: port, itemsConsumed: [], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: port, itemsConsumed: [], startingItems: [item2], deviceId: deviceName)
         player1.hasRolled = true
         player1.money.value = 3000
         port.taxAmount.value = 1000
@@ -210,7 +225,8 @@ class PlayerUnitTests: XCTestCase {
     }
 
     func testCanTradeAt() throws {
-        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map, node: port, itemsConsumed: [], startingItems: [item2], deviceId: deviceName)
+        let player1 = Player(name: playerName, team: PlayerUnitTests.team, map: map,
+                             node: port, itemsConsumed: [], startingItems: [item2], deviceId: deviceName)
         XCTAssertEqual(player1.canTradeAt(port: port), false)
         try player1.dock()
         XCTAssertEqual(player1.canTradeAt(port: port), true)
