@@ -17,7 +17,8 @@ class ShipItemStorageUnitTests: XCTestCase {
         GenericItemStub(name: $0.rawValue, itemParameter: $0, quantity: 1)
     }
 
-    let portWithItems = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100, itemParameters: ShipItemStorageUnitTests.itemParameters)
+    let portWithItems = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100,
+                                 itemParameters: ShipItemStorageUnitTests.itemParameters)
     let portWithoutItems = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100, itemParameters: [])
     let itemStorage = ShipItemManager()
     var map = Map(map: "testMap", bounds: Rect(originX: 0, originY: 0, height: 0, width: 0))
@@ -214,7 +215,9 @@ class ShipItemStorageUnitTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(insufficientCapacity.getMessage(),
-                   TradeItemError.insufficientCapacity(shortOf: itemParameter.unitWeight * quantity - ship5.weightCapacity).getMessage())
+                   TradeItemError
+                    .insufficientCapacity(shortOf: itemParameter.unitWeight * quantity - ship5.weightCapacity)
+                    .getMessage())
             }
             XCTAssertTrue(testTwoGenericItemArray(ship5.items.value, [GenericItem]()))
 
@@ -233,7 +236,9 @@ class ShipItemStorageUnitTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(insufficientCapacity.getMessage(),
-                   TradeItemError.insufficientCapacity(shortOf: -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight).getMessage())
+                   TradeItemError
+                    .insufficientCapacity(shortOf: -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight)
+                    .getMessage())
             }
             XCTAssertTrue(testTwoGenericItemArray(ship6.items.value, [item]))
 
@@ -331,7 +336,9 @@ class ShipItemStorageUnitTests: XCTestCase {
                     XCTFail("Error was not correct type")
                     return
                 }
-                XCTAssertEqual(insufficientItems.getMessage(), TradeItemError.insufficientItems(shortOf: quantity - item.quantity, sold: item.quantity).getMessage())
+                XCTAssertEqual(insufficientItems.getMessage(),
+                               TradeItemError.insufficientItems(shortOf: quantity - item.quantity,
+                                                                sold: item.quantity).getMessage())
         }
         XCTAssertTrue(testTwoGenericItemArray(ship4.items.value, [GenericItem]()))
         XCTAssertEqual(owner4.money.value, item.quantity * itemValue)

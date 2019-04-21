@@ -37,8 +37,7 @@ class DetailEditTableViewController: UIViewController {
                     let item = castedCell.item as? TeamParameterItem else {
                     continue
                 }
-                if let name = castedCell.nameLabel.text,
-                    let moneyText = castedCell.moneyField.text {
+                if let moneyText = castedCell.moneyField.text {
                     item.playerParameter.set(money: Int(moneyText))
                 }
             case .turn:

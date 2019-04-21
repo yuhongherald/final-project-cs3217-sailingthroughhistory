@@ -17,7 +17,7 @@ enum InfoMessage {
     case upgradePurchased(upgrade: Upgrade)
     case duplicateUpgrade(type: String)
 
-    func getTitle() -> String{
+    func getTitle() -> String {
         switch self {
         case .pirates, .caughtByPirates:
             return "Pirates"

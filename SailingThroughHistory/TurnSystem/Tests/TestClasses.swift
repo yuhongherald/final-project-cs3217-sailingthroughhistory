@@ -64,7 +64,8 @@ class TestClasses {
                                  turnSystemState: createTestState(numPlayers: numPlayers))
     }
     static func createTestSystem(numPlayers: Int) -> TurnSystem {
-        return TurnSystem(network: createTestSystemNetwork(numPlayers: numPlayers), playerInputControllerFactory: PlayerInputControllerFactory())
+        return TurnSystem(network: createTestSystemNetwork(numPlayers: numPlayers),
+                          playerInputControllerFactory: PlayerInputControllerFactory())
     }
     static func createPlayers(numPlayers: Int) -> [RoomMember] {
         var result: [RoomMember] = []

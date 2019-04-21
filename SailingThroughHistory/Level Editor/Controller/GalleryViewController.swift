@@ -52,6 +52,9 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         let levelName = levelNames[indexPath.item]
         cell.label.text = levelName
 
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(remove(_:)))
+        cell.addGestureRecognizer(gesture)
+
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             let image = self?.storage.readImage(levelName)
             DispatchQueue.main.async {
@@ -75,5 +78,17 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
             self.collectionView.removeFromSuperview()
         })
         selectedCallback?(gameParameter)
+    }
+
+    @objc func remove(_ sender: UILongPressGestureRecognizer) {
+        guard let cell = sender.view as? GalleryCollectionViewCell, let name = cell.label.text else {
+            return
+        }
+        let alert = ControllerUtils.getConfirmationAlert(title: "Are you sure to delete \(name)?", desc: "", okAction: {
+            self.storage.deleteLevel(name)
+            self.levelNames = self.storage.getAllRecords()
+            self.collectionView.reloadData()
+        }, cancelAction: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 }

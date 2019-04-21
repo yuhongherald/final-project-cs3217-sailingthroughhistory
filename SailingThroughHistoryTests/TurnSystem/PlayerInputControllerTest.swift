@@ -29,7 +29,7 @@ class PlayerInputControllerTest: XCTestCase {
         }
         XCTFail("Should not allow player 2 to go")
     }
-    
+
     func testStartPlayerInput() {
         let expectation = XCTestExpectation(description: "End p1's turn")
         let inputController = TestClasses.createInputController(timer: 2) { expectation.fulfill() }

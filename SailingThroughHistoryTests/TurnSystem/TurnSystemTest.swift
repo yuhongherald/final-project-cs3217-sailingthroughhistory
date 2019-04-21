@@ -50,7 +50,7 @@ class TurnSystemTest: XCTestCase {
             XCTFail("Wrong state for 2 players")
         }
     }
-    
+
     // to represent all the actions
     func testRoll() {
         let turnSystem = TestClasses.createTestSystem(numPlayers: 2)
