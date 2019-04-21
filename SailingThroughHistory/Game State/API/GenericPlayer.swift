@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the behaviors that a Player needs to support. These behaviors are mostly
+/// player actions, such as buying/selling items, moving their ship, or interactions
+/// with the game, such as being chased by pirates.
 import Foundation
 
 protocol GenericPlayer: class, Codable {

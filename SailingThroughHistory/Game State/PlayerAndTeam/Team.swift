@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a team in the game.
 import Foundation
 
 class Team: GenericTeam {

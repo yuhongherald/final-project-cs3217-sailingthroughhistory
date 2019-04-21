@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the operations of managing items on a ship. Stateless.
 import Foundation
 
 protocol ItemStorage {

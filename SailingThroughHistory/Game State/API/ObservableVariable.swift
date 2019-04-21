@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Serves as an adapter for observable containers
+
 import Foundation
 
 protocol ObservableVariable {

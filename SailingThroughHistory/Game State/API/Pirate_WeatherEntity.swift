@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines interactions with pirates and weather.
 import Foundation
 
 protocol Pirate_WeatherEntity {

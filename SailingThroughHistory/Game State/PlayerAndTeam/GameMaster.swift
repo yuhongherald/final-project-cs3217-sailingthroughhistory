@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a Game Master in the game. The Game Master is a Player without normal
+/// Player Actions, such as moving a Ship or buying/selling Items. A Game Master can
+/// set events in the game.
 import Foundation
 
 class GameMaster: GenericPlayer {

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// An Auxiliary upgrade that causes the ship experience greater weather effects.
 import Foundation
 
 class BiggerSailsUpgrade: AuxiliaryUpgrade {

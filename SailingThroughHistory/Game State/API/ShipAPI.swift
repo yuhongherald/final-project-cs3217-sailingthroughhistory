@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the behaviors that a Ship needs to support. A ship can be owned by a
+/// player.
 import Foundation
 
 protocol ShipAPI: Pirate_WeatherEntity {

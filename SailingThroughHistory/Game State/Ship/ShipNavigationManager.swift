@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Manages the movement behavior of a ship. Computes movement and handles docking.
 import Foundation
 
 class ShipNavigationManager: Navigatable {

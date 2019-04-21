@@ -6,6 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a normal Player in the game. The Player owns a Ship, can move their
+/// Ship and buy/sell Items.
+
+/// Assumes a non-negative speed multiplier.
 import Foundation
 
 class Player: GenericPlayer {
