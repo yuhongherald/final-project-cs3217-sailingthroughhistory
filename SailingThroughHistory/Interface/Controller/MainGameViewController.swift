@@ -204,7 +204,7 @@ class MainGameViewController: UIViewController {
         default:
             break
         }
-        portQuantityLabel.text = String(quantity)
+        portQuantityLabel.text = String(quantity < 0 ? 0 : quantity)
     }
 
     /// Toggles the visibility of the panel that the sender is responsible for.
