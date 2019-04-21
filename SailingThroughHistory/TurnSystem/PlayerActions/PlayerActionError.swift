@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * An error enum that reports why a player action has failed.
+ */
 enum PlayerActionError: Error {
     case invalidAction(message: String)
     case wrongPhase(message: String)

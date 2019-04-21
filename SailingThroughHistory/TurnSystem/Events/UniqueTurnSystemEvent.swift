@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * A variant of TurnSystemEvent with auto-managed ids.
+ */
 class UniqueTurnSystemEvent: TurnSystemEvent, Hashable {
     override var identifier: Int {
         get {

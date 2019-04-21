@@ -30,9 +30,4 @@ class ShipChassis: Upgrade {
     func getMovementModifier() -> Double {
         return 1.0
     }
-
-    func getWeatherModifier() -> Double {
-        return 1.0
-    }
-
 }

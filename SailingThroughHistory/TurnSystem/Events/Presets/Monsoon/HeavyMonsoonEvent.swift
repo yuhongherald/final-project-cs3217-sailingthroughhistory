@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * A class that activates all VolatileMonsoon.
+ */
 class HeavyMonsoonEvent: PresetEvent {
     init(gameState: GenericGameState, start: Int, end: Int) {
         var actions: [EventAction<Bool>?] = []

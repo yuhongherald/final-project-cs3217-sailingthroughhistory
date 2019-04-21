@@ -10,10 +10,10 @@ import Foundation
 
 class ShipNavigationManager: Navigatable {
     func getNodesInRange(ship: ShipAPI, roll: Int, speedMultiplier: Double) -> [Node] {
-        guard let map = ship.map, let startNode = map.nodeIDPair[ship.nodeId] else {
-            fatalError("Ship has invalid node id.")
+        guard let map = ship.map else {
+            fatalError("Ship does not reside on map.")
         }
-
+        let startNode = ship.node
         let movement = computeMovement(ship: ship, roll: roll, speedMultiplier: speedMultiplier)
         let nodesFromStart = startNode.getNodesInRange(ship: ship, range: movement, map: map)
         return nodesFromStart
@@ -28,13 +28,13 @@ class ShipNavigationManager: Navigatable {
         if node is Sea {
             ship.isDocked = false
         }
-        ship.shipObject?.frame.value = currentFrame.movedTo(originX: nodeFrame.originX,
-                                                       originY: nodeFrame.originY)
+        ship.shipObject?.frame.value = currentFrame.movedTo(
+            originX: nodeFrame.originX, originY: nodeFrame.originY)
     }
 
     func canDock(ship: ShipAPI) -> Bool {
         guard let map = ship.map else {
-            fatalError("Ship does not reside on any map.")
+            return false
         }
         return map.nodeIDPair[ship.nodeId] as? Port != nil
     }

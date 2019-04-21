@@ -10,21 +10,20 @@ import Foundation
 import GameKit
 
 class NPC: GameObject {
-    private static let NPCNodeHeight: Double = 50
-    private static let NPCNodeWidth: Double = 50
-
-    private (set) static var nextId: UInt = 0
-    private static var reuseIds = [UInt]()
+    static var nextId: UInt = 0
+    static var reuseIds = [UInt]()
 
     let numDieSides = 12
     let identifier: UInt
+    let maxTaxAmount: Int
     var nodeId: Int
     var nextSeed: UInt
     var nextDestinationId: Int
 
-    required init(node: Node) {
+    required init(node: Node, maxTaxAmount: Int) {
         nodeId = node.identifier
         identifier = NPC.getNextId()
+        self.maxTaxAmount = maxTaxAmount
         nextSeed = identifier
         nextDestinationId = nodeId
         super.init(frame: node.frame)
@@ -34,6 +33,7 @@ class NPC: GameObject {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         nodeId = try values.decode(Int.self, forKey: .nodeId)
         identifier = try values.decode(UInt.self, forKey: .identifier)
+        maxTaxAmount = try values.decode(Int.self, forKey: .maxTaxAmount)
         nextSeed = try values.decode(UInt.self, forKey: .nextSeed)
         nextDestinationId = try values.decode(Int.self, forKey: .nextDestinationId)
         let superDecoder = try values.superDecoder()
@@ -44,6 +44,7 @@ class NPC: GameObject {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(nodeId, forKey: .nodeId)
         try container.encode(identifier, forKey: .identifier)
+        try container.encode(maxTaxAmount, forKey: .maxTaxAmount)
         try container.encode(nextSeed, forKey: .nextSeed)
         try container.encode(nextDestinationId, forKey: .nextDestinationId)
 
@@ -54,6 +55,7 @@ class NPC: GameObject {
     private enum CodingKeys: String, CodingKey {
         case nodeId
         case identifier
+        case maxTaxAmount
         case nextSeed
         case nextDestinationId
     }
@@ -62,7 +64,7 @@ class NPC: GameObject {
         NPC.reuseIds.append(identifier)
     }
 
-    func moveToNextNode(map: Map, maxTaxAmount: Int) -> Node? {
+    func moveToNextNode(map: Map) -> Node? {
         let nextNodeId = getNextNode(map: map, maxTaxAmount: maxTaxAmount)
         guard let currentNode = map.nodeIDPair[nodeId], let nextNode = map.nodeIDPair[nextNodeId] else {
             return nil
@@ -125,6 +127,7 @@ class NPC: GameObject {
 
     private func getNewDestinationPortId(generator: inout GKMersenneTwisterRandomSource, map: Map) -> Int {
         let ports = map.getNodes().map({ $0 as? Port }).compactMap({ $0 })
+            .filter({ $0.identifier != nextDestinationId })
         let index = generator.nextInt(upperBound: ports.count)
         return ports[index].identifier
     }

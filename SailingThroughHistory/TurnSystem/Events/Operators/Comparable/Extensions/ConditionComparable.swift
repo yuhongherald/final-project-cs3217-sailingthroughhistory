@@ -19,7 +19,7 @@ extension ConditionComparable {
         GreaterThanOperator<T>(),
         LessThanOrEqualOperator<T>(),
         GreaterThanOrEqualOperator<T>(),
-        ChangeOperator()
+        TrueOperator()
         ]
     }
 }

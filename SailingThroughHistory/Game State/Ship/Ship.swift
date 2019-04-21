@@ -212,9 +212,6 @@ extension Ship {
         turnsToBeingCaught = 4
     }
     func getWeatherModifier() -> Double {
-        var multiplier = 1.0
-        multiplier *= shipChassis?.getWeatherModifier() ?? 1
-        multiplier *= auxiliaryUpgrade?.getWeatherModifier() ?? 1
-        return multiplier
+        return auxiliaryUpgrade?.getWeatherModifier() ?? 1.0
     }
 }

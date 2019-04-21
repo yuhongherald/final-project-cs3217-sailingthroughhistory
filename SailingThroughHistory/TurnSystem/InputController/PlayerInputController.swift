@@ -8,9 +8,14 @@
 
 import Foundation
 
+/**
+ * The default implementation of a GenericPlayerInputController.
+ * Runs a timer whenever a player starts a turn, and ends the turn when the timer is over.
+ */
 class PlayerInputController: GenericPlayerInputController {
     let network: GenericTurnSystemNetwork
     let data: GenericTurnSystemState
+    var duration: Double = GameConstants.playerTurnDuration
 
     init(network: GenericTurnSystemNetwork, data: GenericTurnSystemState) {
         self.network = network
@@ -29,9 +34,10 @@ class PlayerInputController: GenericPlayerInputController {
     }
 
     func startPlayerInput(from player: GenericPlayer) {
-        let endTime = Date().timeIntervalSince1970 + GameConstants.playerTurnDuration
+        let duration = self.duration
+        let endTime = Date().timeIntervalSince1970 + duration
         let turnNum = data.currentTurn
-        DispatchQueue.global().asyncAfter(deadline: .now() + GameConstants.playerTurnDuration) { [weak self] in
+        DispatchQueue.global().asyncAfter(deadline: .now() + duration) { [weak self] in
             if player == self?.network.currentPlayer && self?.data.currentTurn == turnNum {
                 self?.network.endTurn()
             }

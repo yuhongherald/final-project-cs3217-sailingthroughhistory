@@ -1,7 +1,9 @@
+
+/**
+ * A class that represents the time of the game, in weeks.
+ */
 class GameTime: Codable {
-    // TODO
     let baseYear: Int
-    // 1-based index
     var week: Int {
         return Int(actualWeeks) % GameConstants.weeksInMonth
     }
