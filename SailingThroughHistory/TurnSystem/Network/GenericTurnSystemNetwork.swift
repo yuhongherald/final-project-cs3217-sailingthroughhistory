@@ -26,17 +26,17 @@ protocol GenericTurnSystemNetwork: class {
     /// Gets the first player in a turn
     func getFirstPlayer() -> GenericPlayer?
 
-    /// Processes the actions
+    /// Processes the actions from the network and appends the corresponding messages to
+    /// data.
     /// - Parameters:
-    ///     - stateVariable: A reference to the TurnSystemNetwork's state.
-    ///     - networkInfo: Information about the network connection.
-    ///     - data: The data which the PlayerActions take effect on.
-    /// - Returns:
-    ///     - The actionAdapter for the given context.
+    ///     - turnNum: The turn which the action is performed
+    ///     - playerActionPairs: The actions made by each player.
     func processNetworkTurnActions(forTurnNumber turnNum: Int,
                                    playerActionPairs: [(String, [PlayerAction])])
 
+    /// Waits for the other players on the network to finish their turn
     func waitForTurnFinish()
 
+    /// Ends the current player's turn
     func endTurn()
 }

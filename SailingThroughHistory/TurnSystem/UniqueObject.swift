@@ -8,6 +8,10 @@
 
 import Foundation
 
+/**
+ * A class with an internal identifier queue that manages unique identifiers
+ * asynchronously.
+ */
 class UniqueObject: Unique, Hashable {
     var identifier: Int {
         return _identifier

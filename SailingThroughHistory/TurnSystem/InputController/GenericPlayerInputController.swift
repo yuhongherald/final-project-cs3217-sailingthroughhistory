@@ -7,7 +7,7 @@
 //
 
 /**
- * A protocol that manages the input window for each player.
+ * A protocol that manages the input time window for each player.
  */
 protocol GenericPlayerInputController: class {
     /// Checks if a player can make a move.

@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * The default implementation of GenericTurnSystem.
+ */
 class TurnSystem: GenericTurnSystem {
 
     var eventPresets: EventPresets?
