@@ -1028,6 +1028,18 @@
 			path = ADT;
 			sourceTree = "<group>";
 		};
+		968BB235226B8AF4004EE32E /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				96618F442267CC9200B41008 /* PortItemTableControllerDelegate.swift */,
+				966FAD6B2268EB31000B48AC /* ObjectsViewControllerDelegate.swift */,
+				968A14B82269B6A60069E3C9 /* AvailableUpgradesControllerDelegate.swift */,
+				966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */,
+				968A14BA2269B7AE0069E3C9 /* EventTableControllerDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		9690F5BD223A4874005291EE = {
 			isa = PBXGroup;
 			children = (
@@ -1166,20 +1178,16 @@
 		969F48222242CACD00F86D1E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				968BB235226B8AF4004EE32E /* Delegates */,
 				9690F5CB223A4874005291EE /* MainGameViewController.swift */,
 				96DF557B2242C14A00C1E809 /* ObjectsViewController.swift */,
 				967FAA7C2244BF1F005054B6 /* PortItemTableController.swift */,
 				9665935D2245577700D14EB8 /* PlayerItemsTableController.swift */,
 				9683C28F225D284600E30387 /* AvailableUpgradesController.swift */,
 				1ABBA217226230B400222E7A /* TeamScoreTableController.swift */,
+				966FAD672268E1BF000B48AC /* AlertWindowController.swift */,
 				9670E91F2261D31600E8A01F /* MessagesTableController.swift */,
 				968D6F092264D42A009552B1 /* EventTableController.swift */,
-				96618F442267CC9200B41008 /* PortItemTableControllerDelegate.swift */,
-				966FAD692268E1D8000B48AC /* AlertWindowDelegate.swift */,
-				966FAD672268E1BF000B48AC /* AlertWindowController.swift */,
-				966FAD6B2268EB31000B48AC /* ObjectsViewControllerDelegate.swift */,
-				968A14B82269B6A60069E3C9 /* AvailableUpgradesControllerDelegate.swift */,
-				968A14BA2269B7AE0069E3C9 /* EventTableControllerDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

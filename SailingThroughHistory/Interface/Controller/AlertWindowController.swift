@@ -26,6 +26,7 @@ class AlertWindowController {
     init(delegate: AlertWindowDelegate, wrapperView: UIView, messageView: UILabel, buttonView: UIButton) {
         self.delegate = delegate
         self.messageView = messageView
+        messageView.adjustsFontSizeToFitWidth = true
         self.buttonView = buttonView
         buttonView.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         self.wrapperView = wrapperView
@@ -47,7 +48,7 @@ class AlertWindowController {
     /// Called when the acknowledge button is pressed. Hides the window and notifies the delegate of this event.
     ///
     /// - Parameter sender: The sender of this action.
-    @objc func buttonAction(sender: UIButton!) {
+    @objc func buttonAction(sender: UIButton?) {
         wrapperView?.isHidden = true
         delegate?.acknoledgePressed()
     }
