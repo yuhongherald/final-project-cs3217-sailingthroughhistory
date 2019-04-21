@@ -19,7 +19,7 @@ protocol GenericLevel {
     /// Upgrades that players can buy for their ship. Upgard types are predefined.
     var upgrades: [Upgrade] { get }
     /// Initial state of players. Including the initial amount of money.
-    var playerParameters: [TeamParameter] { get set }
+    var playerParameter: [PlayerParameter] { get set }
     /// States of items. Including buy and sell price at each port, unit weight, and item types.
     var itemParameters: [ItemParameter] { get set }
     /// Teams of the game level.

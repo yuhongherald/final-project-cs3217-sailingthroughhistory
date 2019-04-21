@@ -36,7 +36,7 @@ class GameState: GenericGameState {
             itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
         }
         numTurns = level.numOfTurn
-        initializePlayers(from: level.playerParameters, for: players)
+        initializePlayers(from: level.playerParameter, for: players)
         self.players.forEach { player in
             player.map = map
             player.addShipsToMap(map: map)
@@ -159,7 +159,7 @@ class GameState: GenericGameState {
         return result
     }
 
-    private func initializePlayers(from parameters: [TeamParameter], for roomPlayers: [RoomMember]) {
+    private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {
             if roomPlayer.isGameMaster {

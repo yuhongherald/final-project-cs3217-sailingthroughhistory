@@ -35,9 +35,9 @@ class TeamParameterItem: GameParameterItem {
         return "Team Parameter"
     }
 
-    var playerParameter: TeamParameter
+    var playerParameter: PlayerParameter
 
-    init(playerParameter: TeamParameter) {
+    init(playerParameter: PlayerParameter) {
         self.playerParameter = playerParameter
     }
 }
