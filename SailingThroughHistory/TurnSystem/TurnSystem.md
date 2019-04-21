@@ -199,11 +199,11 @@ return evaluator.evaluate(first: first.value, second: second.value) as? T ?? def
 * **ConditionEvaluatable**: Evaluates a set of conditions, if *true*, returns trueValue, else returns falseValue.
 ```
 for condition in conditions {
-                guard condition.evaluate() else {
-                    return falseValue.value
-                }
-            }
-            return trueValue.value
+    guard condition.evaluate() else {
+        return falseValue.value
+    }
+}
+return trueValue.value
 ```
 * **VariableEvaluatable**: Evaluates the value held by a **GameVariable**.
 
