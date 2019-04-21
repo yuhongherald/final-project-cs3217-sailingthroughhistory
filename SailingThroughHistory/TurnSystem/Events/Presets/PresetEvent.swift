@@ -6,6 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * The base class for PresetEvents. PresetEvents can be activated by toggling the active
+ * Boolean.
+ */
 class PresetEvent: TurnSystemEvent, Activatable {
     private var activeVariable: GameVariable<Bool> = GameVariable<Bool>(value: false)
     var active: Bool {

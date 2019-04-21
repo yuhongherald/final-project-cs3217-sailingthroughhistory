@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * A comparator than returns true when the month is within start to end
+ */
 class MonthWithin: GenericComparator {
     private let start: Int
     private let end: Int

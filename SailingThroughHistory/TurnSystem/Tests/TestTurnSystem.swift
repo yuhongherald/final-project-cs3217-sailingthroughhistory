@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * A stub of TurnSystem, to be used for testing.
+ */
 class TestTurnSystem: GenericTurnSystem {
     var gameState: GenericGameState = TestClasses.createGame(numPlayers: 1)
     var eventPresets: EventPresets?

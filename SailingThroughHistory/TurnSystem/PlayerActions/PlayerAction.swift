@@ -6,6 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * An enum that stores information on a player's possible action. Does not check for
+ * validity.
+ */
 enum PlayerAction: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

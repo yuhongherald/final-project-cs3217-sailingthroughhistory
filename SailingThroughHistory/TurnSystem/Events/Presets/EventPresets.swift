@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * A class used to initialize the PresetEvents used in the game, with unique identifiers.
+ */
 class EventPresets {
     enum Event {
         case monsoon(activate: Bool)

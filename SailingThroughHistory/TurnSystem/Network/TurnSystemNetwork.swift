@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * The default implementation of GenericTurnSystemNetwork, specific for RoomConnections.
+ */
 class TurnSystemNetwork: GenericTurnSystemNetwork {
     enum State {
         case ready
@@ -150,6 +153,32 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
                 return
         }
 
+        for playerActionPair in playerActionPairs {
+            guard let chosenPlayer =
+                self.gameState.getPlayers().first(where: { $0.name == playerActionPair.0 }) else {
+                    continue
+            }
+            let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
+            self.messages.append(contentsOf: playerActions)
+            let messages = chosenPlayer.endTurn()
+            if chosenPlayer.deviceId == deviceId {
+                self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
+                                                                                         message: $0.message)})
+            }
+        }
+        gameState.map.npcs.forEach {
+            guard let node = $0.moveToNextNode(map: gameState.map, maxTaxAmount: 2000) else {
+                return
+            }
+            self.messages.append(GameMessage.playerAction(name: "NPC", message: "An npc has moved into \(node.name)"))
+        }
+        handleSetTax()
+        let eventResults = data.checkForEvents() // events will run here, non-recursive
+        self.messages.append(contentsOf: eventResults)
+        gameState.gameTime.value.addWeeks(4)
+        gameState.map.updateWeather(for: gameState.gameTime.value.month)
+        gameState.distributeTeamMoney()
+        updateStateMaster()        
     }
 
     func waitForTurnFinish() {
@@ -194,33 +223,6 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
         networkActionQueue.sync { [weak self] in
             self?.processNetworkTurnActions(forTurnNumber: turnNum, playerActionPairs: playerActionPairs)
         }
-        for playerActionPair in playerActionPairs {
-            guard let chosenPlayer =
-                self.gameState.getPlayers().first(where: { $0.name == playerActionPair.0 }) else {
-                    continue
-            }
-            let playerActions = self.evaluateState(player: chosenPlayer, actions: playerActionPair.1)
-            self.messages.append(contentsOf: playerActions)
-            let messages = chosenPlayer.endTurn()
-            if chosenPlayer.deviceId == deviceId {
-                self.messages.append(contentsOf: messages.map { GameMessage.playerAction(name: chosenPlayer.name,
-                                                                             message: $0.getMessage())})
-            }
-        }
-        gameState.map.npcs.forEach {
-            guard let node = $0.moveToNextNode(map: gameState.map) else {
-                return
-            }
-            self.messages.append(GameMessage.playerAction(name: "NPC", message: "An npc has moved into \(node.name)"))
-        }
-        playerActionAdapter.handleSetTax()
-        let eventResults = data.checkForEvents() // events will run here, non-recursive
-        self.messages.append(contentsOf: eventResults)
-        gameState.gameTime.value.addWeeks(4)
-        gameState.map.updateWeather(for: gameState.gameTime.value.month)
-        gameState.distributeTeamMoney()
-
-        updateStateMaster()
     }
 
     private func commitEndTurn(_ currentPlayer: GenericPlayer) {

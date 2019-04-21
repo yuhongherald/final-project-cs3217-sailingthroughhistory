@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * A condition that evaluates to true when the GameTime is within start to end.
+ */
 class MonthWithinCondition: Evaluate {
     private let gameTime: GameVariable<GameTime>
     private let start: Int

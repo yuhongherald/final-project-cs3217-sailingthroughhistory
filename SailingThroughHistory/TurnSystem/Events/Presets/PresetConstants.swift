@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * Constants used for PresetEvents
+ */
 enum PresetConstants {
     static let monsoonStart: Int = 6
     static let monsoonEnd: Int = 9

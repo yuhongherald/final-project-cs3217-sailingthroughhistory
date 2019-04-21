@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * A class that holds static constructors that are used for testing.
+ */
 class TestClasses {
     static let baseYear: Int = 1800
     static let team: String = "British"
@@ -14,7 +17,7 @@ class TestClasses {
     static func createMap() -> Map {
         let map = Map(map: "test map", bounds: Rect())
         let port = PortStub(buyValueOfAllItems: buyPrice, sellValueOfAllItems: sellPrice)
-        var nextId = port.identifier + 1
+        let nextId = port.identifier + 1
         let node = NodeStub(name: "node", identifier: nextId)
         map.addNode(port)
         map.addNode(node)
