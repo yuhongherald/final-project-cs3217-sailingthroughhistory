@@ -38,7 +38,7 @@ class PlayerActionAdapterTests: XCTestCase {
             XCTFail("Player's move unable to be evaluated, wrong phase")
         }
     }
-    
+
     private func moveFail(adapter: PlayerActionAdapter, playerAction: PlayerAction,
                           player: GenericPlayer) {
         do {
@@ -48,6 +48,6 @@ class PlayerActionAdapterTests: XCTestCase {
         }
         XCTFail("Player 2 should not be able to move!")
     }
-    
+
     // not testing the other functionality
 }

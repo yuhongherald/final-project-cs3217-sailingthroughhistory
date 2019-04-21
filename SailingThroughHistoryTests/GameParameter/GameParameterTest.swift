@@ -107,12 +107,7 @@ class GameParameterTest: XCTestCase {
         guard let lhs = itemParameter else {
             return false
         }
-        // TODO
-        /*
-        return lhs.getBuyValue() == rhs.getBuyValue() && lhs.getSellValue() == rhs.getSellValue()
-            && lhs.displayName == rhs.displayName
-            && lhs.isConsumable == rhs.isConsumable && lhs.unitWeight == rhs.unitWeight && lhs.itemType == rhs.itemType
-         */
+        return  lhs.rawValue == rhs.rawValue && lhs.unitWeight == rhs.unitWeight
         return true
     }
 
@@ -121,17 +116,17 @@ class GameParameterTest: XCTestCase {
             return false
         }
 
-        guard lhs.teamParameter.count == rhs.teamParameter.count, lhs.upgrades.count == rhs.upgrades.count else {
+        guard lhs.playerParameters.count == rhs.playerParameters.count, lhs.upgrades.count == rhs.upgrades.count else {
             return false
         }
 
-        for parameter in lhs.teamParameter {
-            guard let index = rhs.teamParameter.firstIndex(where: { isEqual(playerParameter: $0, parameter) }) else {
+        for parameter in lhs.playerParameters {
+            guard let index = rhs.playerParameters.firstIndex(where: { isEqual(playerParameter: $0, parameter) }) else {
                 return false
             }
-            rhs.teamParameter.remove(at: index)
+            rhs.playerParameters.remove(at: index)
         }
-        if !rhs.teamParameter.isEmpty {
+        if !rhs.playerParameters.isEmpty {
             return false
         }
 

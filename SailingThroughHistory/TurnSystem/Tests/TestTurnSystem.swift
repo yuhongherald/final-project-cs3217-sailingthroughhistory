@@ -16,7 +16,7 @@ class TestTurnSystem: GenericTurnSystem {
     func getPresetEvents() -> [PresetEvent] {
         fatalError("This should not be called")
     }
-    
+
     func roll(for player: GenericPlayer) throws -> (Int, [Int]) {
         fatalError("This should not be called")
     }
@@ -35,9 +35,10 @@ class TestTurnSystem: GenericTurnSystem {
     func toggle(eventId: Int, enabled: Bool, by player: GenericPlayer) throws {
         fatalError("This should not be called")
     }
-    func purchase(upgrade: Upgrade, by player: GenericPlayer) throws -> InfoMessage? {        fatalError("This should not be called")
+    func purchase(upgrade: Upgrade, by player: GenericPlayer) throws -> InfoMessage? {
+        fatalError("This should not be called")
     }
-    
+
     func subscribeToState(with callback: @escaping (TurnSystemNetwork.State) -> Void) {
         fatalError("This should not be called")
     }

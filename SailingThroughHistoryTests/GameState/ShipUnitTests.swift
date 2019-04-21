@@ -113,7 +113,8 @@ class ShipUnitTests: XCTestCase {
             XCTAssertTrue(testTwoGenericItemArray(ship1.items.value, items))
             XCTAssertEqual(ship1.isChasedByPirates, true)
             XCTAssertEqual(ship1.turnsToBeingCaught, pirateTimer1 - 1)
-            XCTAssertEqual(infoMessagesToStrings(msgs: messages1), infoMessagesToStrings(msgs: [InfoMessage.pirates(turnsToBeingCaught: pirateTimer1 - 1)]))
+            XCTAssertEqual(infoMessagesToStrings(msgs: messages1),
+                           infoMessagesToStrings(msgs: [InfoMessage.pirates(turnsToBeingCaught: pirateTimer1 - 1)]))
 
             let ship2 = Ship(node: node, itemsConsumed: [])
             ship2.items.value = items
@@ -124,7 +125,8 @@ class ShipUnitTests: XCTestCase {
             XCTAssertTrue(testTwoGenericItemArray(ship2.items.value, [GenericItem]()))
             XCTAssertEqual(ship2.isChasedByPirates, false)
             XCTAssertEqual(ship2.turnsToBeingCaught, 0)
-            XCTAssertEqual(infoMessagesToStrings(msgs: messages2), infoMessagesToStrings(msgs: [InfoMessage.caughtByPirates]))
+            XCTAssertEqual(infoMessagesToStrings(msgs: messages2),
+                           infoMessagesToStrings(msgs: [InfoMessage.caughtByPirates]))
 
             let ship3 = Ship(node: node, itemsConsumed: itemsConsumed)
             let money3 = 1000
@@ -151,7 +153,8 @@ class ShipUnitTests: XCTestCase {
             let messages4 = ship4.endTurn(speedMultiplier: speedMultiplier)
 
             XCTAssertTrue(testTwoGenericItemArray(ship4.items.value, [GenericItem]()))
-            XCTAssertEqual(ship4.owner?.money.value, money4 - getTotalCostOfItemStubs(items: itemsConsumed) * Int(speedMultiplier) * 2)
+            XCTAssertEqual(ship4.owner?.money.value,
+                           money4 - getTotalCostOfItemStubs(items: itemsConsumed) * Int(speedMultiplier) * 2)
             XCTAssertEqual(infoMessagesToStrings(msgs: messages4), infoMessagesToStrings(msgs: itemsConsumed.map {
                 InfoMessage.deficit(itemName: $0.itemParameter.rawValue, deficit: $0.quantity * Int(speedMultiplier))
                 }))

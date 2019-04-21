@@ -69,7 +69,8 @@ class ShipNavigatableUnitTests: XCTestCase {
                 nodesInRange.append(nodes1[ind])
                 nodesInRange.append(nodes2[ind])
             }
-            XCTAssertEqual(Set(navigationManager.getNodesInRange(ship: ship1, roll: roll, speedMultiplier: 1.0)), Set(nodesInRange))
+            XCTAssertEqual(Set(navigationManager.getNodesInRange(ship: ship1, roll: roll, speedMultiplier: 1.0)),
+                           Set(nodesInRange))
         }
         for roll in 1...3 {
             let bound = roll * 2 - 2
@@ -78,7 +79,8 @@ class ShipNavigatableUnitTests: XCTestCase {
                 nodesInRange.append(nodes1[ind])
                 nodesInRange.append(nodes2[ind])
             }
-            XCTAssertEqual(Set(navigationManager.getNodesInRange(ship: ship1, roll: roll, speedMultiplier: 2.0)), Set(nodesInRange))
+            XCTAssertEqual(Set(navigationManager.getNodesInRange(ship: ship1, roll: roll, speedMultiplier: 2.0)),
+                           Set(nodesInRange))
         }
 
         let ship2 = Ship(node: centralNode, itemsConsumed: [])
@@ -91,7 +93,8 @@ class ShipNavigatableUnitTests: XCTestCase {
                 nodesInRange.append(nodes1[ind])
                 nodesInRange.append(nodes2[ind])
             }
-            XCTAssertEqual(Set(navigationManager.getNodesInRange(ship: ship2, roll: roll, speedMultiplier: 1.0)), Set(nodesInRange))
+            XCTAssertEqual(Set(navigationManager.getNodesInRange(ship: ship2, roll: roll, speedMultiplier: 1.0)),
+                           Set(nodesInRange))
         }
 
         let ship3 = Ship(node: centralNode, itemsConsumed: [])
@@ -104,7 +107,8 @@ class ShipNavigatableUnitTests: XCTestCase {
                 nodesInRange.append(nodes1[ind])
                 nodesInRange.append(nodes2[ind])
             }
-            XCTAssertEqual(Set(navigationManager.getNodesInRange(ship: ship3, roll: roll, speedMultiplier: 1.0)), Set(nodesInRange))
+            XCTAssertEqual(Set(navigationManager.getNodesInRange(ship: ship3, roll: roll, speedMultiplier: 1.0)),
+                           Set(nodesInRange))
         }
     }
 

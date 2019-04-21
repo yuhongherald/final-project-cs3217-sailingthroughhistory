@@ -36,11 +36,15 @@ class ItemPriceEvent: PresetEvent {
                             cOperator: genericOperator, modifier: modifier))
             neutralPorts.append(port)
         }
-        
+
         super.init(triggers: [FlipFlopTrigger()],
                    conditions: [],
                    actions: actions,
-                   parsable: { return "\(itemParameter.value.rawValue)'s price has been set to \(itemParameter.value.getBuyValue(ports: neutralPorts))" },
+                   parsable: { return
+                    """
+                    \(itemParameter.value.rawValue)'s price has been set to
+                    \(itemParameter.value.getBuyValue(ports: neutralPorts))
+                    """ },
                    displayName: "Set \(itemParameter.value.rawValue) price \(genericOperator.displayName) \(modifier)")
     }
 }

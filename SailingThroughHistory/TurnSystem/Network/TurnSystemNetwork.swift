@@ -178,7 +178,7 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
         gameState.gameTime.value.addWeeks(4)
         gameState.map.updateWeather(for: gameState.gameTime.value.month)
         gameState.distributeTeamMoney()
-        updateStateMaster()        
+        updateStateMaster()
     }
 
     func waitForTurnFinish() {
@@ -264,7 +264,7 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
             }
         }
         /// The game state parameter is ignored for now, validation can be added here
-        network.subscribeToMasterState(for: currentTurn) { [weak self] networkGameState in
+        network.subscribeToMasterState(for: currentTurn) { [weak self] _ in
             self?.data.turnFinished()
             if let data = self?.data, let gameState = self?.gameState {
                 if data.currentTurn >= gameState.numTurns {
