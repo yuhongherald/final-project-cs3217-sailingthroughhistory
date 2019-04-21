@@ -288,7 +288,6 @@ extension Player {
     }
 
     private func preventPlayerBankruptcy(amount: Int) {
-        team?.updateMoney(by: -amount)
         money.value = 0
     }
 }

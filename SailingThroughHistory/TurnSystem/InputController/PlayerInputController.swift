@@ -37,7 +37,7 @@ class PlayerInputController: GenericPlayerInputController {
         let duration = self.duration
         let endTime = Date().timeIntervalSince1970 + duration
         let turnNum = data.currentTurn
-        DispatchQueue.global().asyncAfter(deadline: .now() + duration) { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + duration) { [weak self] in
             if player == self?.network.currentPlayer && self?.data.currentTurn == turnNum {
                 self?.network.endTurn()
             }

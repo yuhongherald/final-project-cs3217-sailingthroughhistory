@@ -37,6 +37,8 @@ class PlayerInputControllerTest: XCTestCase {
         let otherPlayer = inputController.data.gameState.getPlayers()[1]
         inputController.startPlayerInput(from: player)
         wait(for: [expectation], timeout: 3)
+        Thread.sleep(forTimeInterval: 1)
+        // Ensure that turn system has finished processing player end turn before checking.
         switch inputController.network.state {
         case .waitPlayerInput(from: let player):
             XCTAssertEqual(player.deviceId, otherPlayer.deviceId,
