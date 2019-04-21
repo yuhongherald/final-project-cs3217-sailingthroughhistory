@@ -1,5 +1,6 @@
 # A quick guide in using the TurnSystem to make a turn-based game
 
+![Architecture diagram](/architecture.png)
 
 ## Creating an instance of the TurnSystem for using in the game
 **TurnSystem**: A class that runs the game in a turn-based fashion.
@@ -13,7 +14,7 @@ Functionalities:
 
 ## Supporting components required to use the TurnSystem
 
-<Insert diagram here>
+![TurnSystem overview](/TurnSystemOverview.png)
 
 ### Interface
 Refer to **Interface** for more details.
@@ -33,9 +34,10 @@ Any class that conforms to *GenericGameState* will work, as long as they have:
 ### EventPresets
 A class that 
 
-<Insert diagram here>
 
 ##  Using Events in TurnSystem
+
+![Events overview](/events.png)
 
 ### Structure of an event
 
@@ -186,5 +188,5 @@ Currently Events are only able to watch an object field changing, rather than cr
 * An Evaluatable is a class that has a computed value property. It is used like a primitive in events.
 
 The following is hierarchy of existing classes:
-<Insert diagram here>
 
+![Evaluatable](/Evaluatable.png)
