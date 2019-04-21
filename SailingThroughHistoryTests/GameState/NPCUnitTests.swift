@@ -92,7 +92,7 @@ class NPCUnitTests: XCTestCase {
             XCTFail("NPC failed to move")
             return
         }
-        XCTAssertEqual(result1, port1)
+        XCTAssertEqual(result1, node1)
 
         let npc2 = NPC(node: port1, maxTaxAmount: maxTaxAmount)
         npc2.nextDestinationId = port3.identifier

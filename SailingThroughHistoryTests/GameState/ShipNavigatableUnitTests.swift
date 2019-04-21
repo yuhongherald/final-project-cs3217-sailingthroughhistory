@@ -179,6 +179,7 @@ class ShipNavigatableUnitTests: XCTestCase {
         XCTAssertEqual(ship1.turnsToBeingCaught, 1)
 
         port.taxAmount.value = 1000
+        port.owner = team
         team.money.value = 0
         var ship2: ShipAPI = Ship(node: port, itemsConsumed: [])
         ship2.map = map
