@@ -19,19 +19,19 @@ class TurnSystemTest: XCTestCase {
         let otherEvents = turnSystem.getPresetEvents()
         XCTAssertEqual(events.map { $0.displayName }, otherEvents.map { $0.displayName }, "Events not same!")
     }
-    
+
     func testStartGame() {
         let turnSystem0 = TestClasses.createTestSystem(numPlayers: 0)
         let turnSystem1 = TestClasses.createTestSystem(numPlayers: 1)
         let turnSystem2 = TestClasses.createTestSystem(numPlayers: 2)
-        
-         turnSystem0.startGame()
+
+        turnSystem0.startGame()
         switch turnSystem0.network.state {
         case .waitForTurnFinish: break
         default:
             XCTFail("Wrong state for 0 players")
         }
-         turnSystem1.startGame()
+        turnSystem1.startGame()
         switch turnSystem1.network.state {
         case .waitPlayerInput(from: let player):
             XCTAssertEqual(player.deviceId,
@@ -96,7 +96,7 @@ class TurnSystemTest: XCTestCase {
         }
         XCTAssertFalse(result.value, "Notified when there is no change!")
     }
-    
+
     func testEndTurn() {
         let turnSystem = TestClasses.createTestSystem(numPlayers: 1)
         turnSystem.startGame()
