@@ -238,7 +238,8 @@ class ShipItemStorageUnitTests: XCTestCase {
                 }
                 XCTAssertEqual(insufficientCapacity.getMessage(),
                    TradeItemError
-                    .insufficientCapacity(shortOf: -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight)
+                    .insufficientCapacity(shortOf:
+                        -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight)
                     .getMessage())
             }
             XCTAssertTrue(testTwoGenericItemArray(ship6.items.value, [item]))
