@@ -191,7 +191,8 @@ class GameState: GenericGameState {
                 node = defaultNode
             }
 
-            let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemParameterTupleToItem(tuple: $0) }).compactMap({ $0 })
+            let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemParameterTupleToItem(tuple: $0) })
+                .compactMap({ $0 })
             let startingItems = unwrappedParam.startingItems.map({ itemParameterTupleToItem(tuple:
                 $0) }).compactMap({ $0 })
             let player = Player(name: String(roomPlayer.playerName.prefix(8)),
@@ -218,7 +219,7 @@ class GameState: GenericGameState {
         }
         map.removeAllNpcs()
         for _ in 0..<amount {
-            map.addGameObject(gameObject: NPC(node: node))
+            map.addGameObject(gameObject: NPC(node: node, maxTaxAmount: maxTaxAmount))
         }
     }
 

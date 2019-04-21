@@ -19,4 +19,8 @@ class NodeStub: Node {
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
+
+    override func getCompleteShortestPath(to node: Node, with ship: Pirate_WeatherEntity, map: Map) -> [Node] {
+        return [node]
+    }
 }

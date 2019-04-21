@@ -10,14 +10,15 @@ import XCTest
 @testable import SailingThroughHistory
 
 class ShipItemStorageUnitTests: XCTestCase {
-    static let itemParameters = [ItemParameter.opium]
+    static let itemParameters = [ItemParameter.opium, ItemParameter.food]
 
     var node = NodeStub(name: "testNode", identifier: 0)
     var items = ShipItemStorageUnitTests.itemParameters.map {
         GenericItemStub(name: $0.rawValue, itemParameter: $0, quantity: 1)
     }
 
-    let portWithItems = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100, itemParameters: ShipItemStorageUnitTests.itemParameters)
+    let portWithItems = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100,
+                                 itemParameters: ShipItemStorageUnitTests.itemParameters)
     let portWithoutItems = PortStub(buyValueOfAllItems: 100, sellValueOfAllItems: 100, itemParameters: [])
     let itemStorage = ShipItemManager()
     var map = Map(map: "testMap", bounds: Rect(originX: 0, originY: 0, height: 0, width: 0))
@@ -41,13 +42,14 @@ class ShipItemStorageUnitTests: XCTestCase {
             map.removeNode(node)
         }
     }
+
     func testGetPurchasableItemTypes() {
         let ship1 = Ship(node: portWithItems, itemsConsumed: [])
         ship1.isDocked = true
         ship1.map = map
         let itemParameters1 = itemStorage.getPurchasableItemParameters(ship: ship1)
 
-        XCTAssertEqual(itemParameters1, ShipItemStorageUnitTests.itemParameters)
+        XCTAssertEqual(Set(itemParameters1), Set(ShipItemStorageUnitTests.itemParameters))
 
         let ship2 = Ship(node: node, itemsConsumed: [])
         ship2.isDocked = true
@@ -213,7 +215,9 @@ class ShipItemStorageUnitTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(insufficientCapacity.getMessage(),
-                   TradeItemError.insufficientCapacity(shortOf: itemParameter.unitWeight * quantity - ship5.weightCapacity).getMessage())
+                   TradeItemError
+                    .insufficientCapacity(shortOf: itemParameter.unitWeight * quantity - ship5.weightCapacity)
+                    .getMessage())
             }
             XCTAssertTrue(testTwoGenericItemArray(ship5.items.value, [GenericItem]()))
 
@@ -232,7 +236,9 @@ class ShipItemStorageUnitTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(insufficientCapacity.getMessage(),
-                   TradeItemError.insufficientCapacity(shortOf: -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight).getMessage())
+                   TradeItemError
+                    .insufficientCapacity(shortOf: -itemParameter.unitWeight * quantity + ship6.weightCapacity + item.weight)
+                    .getMessage())
             }
             XCTAssertTrue(testTwoGenericItemArray(ship6.items.value, [item]))
 
@@ -247,7 +253,7 @@ class ShipItemStorageUnitTests: XCTestCase {
             try itemStorage.buyItem(ship: ship7, itemParameter: itemParameter, quantity: quantity)
             let combinedItem = Item(itemParameter: itemParameter, quantity: quantity + item.quantity)
             XCTAssertTrue(testTwoGenericItemArray(ship7.items.value, [combinedItem]))
-            XCTAssertEqual(owner7.money.value, 100000 - item.quantity * itemValue)
+            XCTAssertEqual(owner7.money.value, 100000 - quantity * itemValue)
         }
     }
 
@@ -330,14 +336,50 @@ class ShipItemStorageUnitTests: XCTestCase {
                     XCTFail("Error was not correct type")
                     return
                 }
-                XCTAssertEqual(insufficientItems.getMessage(), TradeItemError.insufficientItems(shortOf: quantity - item.quantity, sold: item.quantity).getMessage())
+                XCTAssertEqual(insufficientItems.getMessage(),
+                               TradeItemError.insufficientItems(shortOf: quantity - item.quantity,
+                                                                sold: item.quantity).getMessage())
         }
         XCTAssertTrue(testTwoGenericItemArray(ship4.items.value, [GenericItem]()))
         XCTAssertEqual(owner4.money.value, item.quantity * itemValue)
     }
 
     func testRemoveItem() {
+        guard let itemParameter1 = ShipItemStorageUnitTests.itemParameters.first,
+            let itemParameter2 = ShipItemStorageUnitTests.itemParameters.last,
+            itemParameter1 != itemParameter2 else {
+            XCTFail("One or less item parameters defined for ItemStorage tests")
+            return
+        }
+        let item1 = Item(itemParameter: itemParameter1, quantity: 1)
+        let item2 = Item(itemParameter: itemParameter2, quantity: 1)
+        let item1More = Item(itemParameter: itemParameter1, quantity: 2)
+
         //func removeItem(by itemType: ItemType, with quantity: Int) -> Int
+        let ship1 = Ship(node: node, itemsConsumed: [])
+        ship1.items.value = [item1.copy()]
+        XCTAssertEqual(itemStorage.removeItem(ship: ship1, by: itemParameter2, with: 1), 1)
+        XCTAssertTrue(testTwoGenericItemArray(ship1.items.value, [item1]))
+
+        let ship2 = Ship(node: node, itemsConsumed: [])
+        ship2.items.value = [item1.copy()]
+        XCTAssertEqual(itemStorage.removeItem(ship: ship2, by: itemParameter1, with: 1), 0)
+        XCTAssertTrue(testTwoGenericItemArray(ship2.items.value, [GenericItemStub]()))
+
+        let ship3 = Ship(node: node, itemsConsumed: [])
+        ship3.items.value = [item1More.copy()]
+        XCTAssertEqual(itemStorage.removeItem(ship: ship3, by: itemParameter1, with: 1), 0)
+        XCTAssertTrue(testTwoGenericItemArray(ship3.items.value, [item1]))
+
+        let ship4 = Ship(node: node, itemsConsumed: [])
+        ship4.items.value = [item1.copy()]
+        XCTAssertEqual(itemStorage.removeItem(ship: ship4, by: itemParameter1, with: 2), 1)
+        XCTAssertTrue(testTwoGenericItemArray(ship4.items.value, [GenericItemStub]()))
+
+        let ship5 = Ship(node: node, itemsConsumed: [])
+        ship5.items.value = [item1.copy(), item1.copy()]
+        XCTAssertEqual(itemStorage.removeItem(ship: ship5, by: itemParameter1, with: 2), 0)
+        XCTAssertTrue(testTwoGenericItemArray(ship5.items.value, [GenericItemStub]()))
     }
 
     private func testTwoGenericItemArray(_ array1: [GenericItem], _ array2: [GenericItem]) -> Bool {

@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * Model to store initial position of nodes, paths, objects.
+ */
 class Map: Codable {
     let basePirateRate = 0.03
     var map: String
@@ -39,6 +42,9 @@ class Map: Codable {
         nodeIDPair = [Int: Node]()
     }
 
+    /// Update weather information to the month.
+    /// - Parameters:
+    ///   - month: current month
     func updateWeather(for month: Int) {
         for path in paths.values.flatMap({ $0 }) {
             for weather in path.modifiers {
@@ -47,6 +53,10 @@ class Map: Codable {
         }
     }
 
+    /// Change map background.
+    /// - Parameters:
+    ///   - map: image name of the new background
+    ///   - bounds: bounds of the new background
     func changeBackground(_ map: String, with bounds: Rect?) {
         guard let unwrappedBounds = bounds else {
             fatalError("Map bounds shouldn't be nil.")
@@ -55,11 +65,13 @@ class Map: Codable {
         self.bounds = unwrappedBounds
     }
 
+    /// Add node to the map. Map node id to the node.
     func addNode(_ node: Node) {
         nodes.value.insert(node)
         nodeIDPair[node.identifier] = node
     }
 
+    /// Remove node from the map. Remove mapping from the node id to the node.
     func removeNode(_ node: Node) {
         nodes.value.remove(node)
         nodeIDPair.removeValue(forKey: node.identifier)
@@ -76,6 +88,7 @@ class Map: Codable {
         assert(checkRep())
     }
 
+    /// Add path to the map. Path should be added to both fromNode and toNode.
     func add(path: Path) {
         guard nodes.value.contains(path.toNode) && nodes.value.contains(path.fromNode)
             && path.toNode != path.fromNode else {
@@ -95,19 +108,23 @@ class Map: Codable {
         assert(checkRep())
     }
 
+    /// Remove path from the map.
     func removePath(_ path: Path) {
         pathsVariable.value[path.fromNode]?.removeAll(where: { $0 == path })
         pathsVariable.value[path.toNode]?.removeAll(where: { $0 == path })
     }
 
+    /// Return all nodes in the map.
     func getNodes() -> Set<Node> {
         return nodes.value
     }
 
+    /// Return all paths related to node.
     func getPaths(of node: Node) -> [Path] {
         return paths[node] ?? [Path]()
     }
 
+    /// Return all paths in the map.
     func getAllPaths() -> Set<Path> {
         var pathSet = Set<Path>()
 
@@ -118,14 +135,7 @@ class Map: Codable {
         return pathSet
     }
 
-    func findNode(at point: CGPoint) -> Node? {
-        for node in nodes.value where CGFloat(node.frame.originX) == point.x &&
-            CGFloat(node.frame.originY) == point.y {
-            return node
-        }
-        return nil
-    }
-
+    /// Add gameobject to the map
     func addGameObject(gameObject: GameObject) {
         gameObjects.value.append(gameObject)
     }
@@ -142,6 +152,7 @@ class Map: Codable {
         gameObjects.subscribe(with: callback)
     }
 
+    /// Get all pirates island in the map.
     func getPiratesIslands() -> [(Node, PirateIsland)] {
         return getNodes().map { node in
             node.objects
@@ -150,6 +161,7 @@ class Map: Codable {
             }.flatMap { $0 }
     }
 
+    /// Remove all NPCs in the map.
     func removeAllNpcs() {
         gameObjects.value = gameObjects
             .value

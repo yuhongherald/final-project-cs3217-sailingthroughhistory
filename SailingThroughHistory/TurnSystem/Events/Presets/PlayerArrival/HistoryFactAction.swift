@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * An action that is supposed to show a history fact to the player.
+ */
 class HistoryFactAction: Modify {
     init() {
 

@@ -104,13 +104,13 @@ struct PriorityQueue<Type: Comparable> {
     }
 
     /// Returns if original has lower priority than comparedTo.
-    private func isLowerPriority(from: Type, to: Type) -> Bool {
-        return isMin ? from > to : from < to
+    private func isLowerPriority(from fromType: Type, to toType: Type) -> Bool {
+        return isMin ? fromType > toType : fromType < toType
     }
 
     /// Returns if original has higher priority than comparedTo.
-    private func isHigherPriority(from: Type, to: Type) -> Bool {
-        return isMin ? from < to : from > to
+    private func isHigherPriority(from fromType: Type, to toType: Type) -> Bool {
+        return isMin ? fromType < toType : fromType > toType
     }
 
 }

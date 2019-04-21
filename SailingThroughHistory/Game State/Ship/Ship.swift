@@ -155,7 +155,8 @@ class Ship: ShipAPI, Codable {
 
         for supply in itemsConsumed {
             let parameter = supply.itemParameter
-            let deficit = itemManager.removeItem(ship: self, by: parameter, with: Int(Double(supply.quantity) * speedMultiplier))
+            let deficit = itemManager.removeItem(ship: self, by: parameter,
+                                                 with: Int(Double(supply.quantity) * speedMultiplier))
             if let owner = owner,
                 let ports = owner.map?.nodes.value.map({ $0 as? Port }).compactMap({ $0 }), deficit > 0 {
                 owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
@@ -212,9 +213,6 @@ extension Ship {
         turnsToBeingCaught = 4
     }
     func getWeatherModifier() -> Double {
-        var multiplier = 1.0
-        multiplier *= shipChassis?.getWeatherModifier() ?? 1
-        multiplier *= auxiliaryUpgrade?.getWeatherModifier() ?? 1
-        return multiplier
+        return auxiliaryUpgrade?.getWeatherModifier() ?? 1.0
     }
 }

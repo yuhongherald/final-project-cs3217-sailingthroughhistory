@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * Initial state of each team.
+ */
 class PlayerParameter: Codable {
     let itemsConsumed: [(ItemParameter, Int)] = [(.food, 1)]
     let startingItems: [(ItemParameter, Int)] = [(.food, 5)]
@@ -53,11 +56,7 @@ class PlayerParameter: Codable {
         return startingNode
     }
 
-    func set(name: String, money: Int?) {
-        if name != "" {
-            self.name = name
-        }
-
+    func set(money: Int?) {
         if let unwrappedMoney = money {
             self.money = GameVariable(value: unwrappedMoney)
         }

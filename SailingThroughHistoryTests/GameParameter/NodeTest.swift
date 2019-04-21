@@ -39,7 +39,7 @@ class NodeTest: XCTestCase {
 
     func testCodableSea() {
         guard let encode = try? JSONEncoder().encode(sea) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Sea.self, from: encode)
@@ -49,7 +49,7 @@ class NodeTest: XCTestCase {
 
     func testCodableSeaWithObjects() {
         guard let encode = try? JSONEncoder().encode(pirateSea) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Sea.self, from: encode)
@@ -59,7 +59,7 @@ class NodeTest: XCTestCase {
 
     func testCodableNPCPort() {
         guard let encode = try? JSONEncoder().encode(NPCport) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Port.self, from: encode)
@@ -69,7 +69,7 @@ class NodeTest: XCTestCase {
 
     func testCodableSelfPort() {
         guard let encode = try? JSONEncoder().encode(selfport) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Port.self, from: encode)

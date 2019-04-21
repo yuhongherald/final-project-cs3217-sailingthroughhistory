@@ -8,7 +8,9 @@
 
 import UIKit
 
+/// Protocol for delegate of gallery.
 protocol GalleryViewDelegateProtocol: class {
+    /// Load decoded gameParameter.
     func load(_ gameParameter: GameParameter)
 }
 
@@ -50,6 +52,9 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         let levelName = levelNames[indexPath.item]
         cell.label.text = levelName
 
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(remove(_:)))
+        cell.addGestureRecognizer(gesture)
+
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             let image = self?.storage.readImage(levelName)
             DispatchQueue.main.async {
@@ -63,8 +68,8 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let levelName = levelNames[indexPath.item]
         guard let gameParameter: GameParameter = storage.readLevelData(levelName) else {
-            let alert = UIAlert(errorMsg: "Level broken. Level data is deleted.", msg: nil)
-            alert.present(in: self)
+            let alert = ControllerUtils.getGenericAlert(titled: "Level broken. Level data is deleted.", withMsg: "")
+            self.present(alert, animated: true, completion: nil)
             levelNames = storage.getAllRecords()
             self.collectionView.reloadData()
             return
@@ -73,5 +78,17 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
             self.collectionView.removeFromSuperview()
         })
         selectedCallback?(gameParameter)
+    }
+
+    @objc func remove(_ sender: UILongPressGestureRecognizer) {
+        guard let cell = sender.view as? GalleryCollectionViewCell, let name = cell.label.text else {
+            return
+        }
+        let alert = ControllerUtils.getConfirmationAlert(title: "Are you sure to delete \(name)?", desc: "", okAction: {
+            self.storage.deleteLevel(name)
+            self.levelNames = self.storage.getAllRecords()
+            self.collectionView.reloadData()
+        }, cancelAction: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 }

@@ -8,7 +8,13 @@
 
 import Foundation
 
-// The base class for turn system events with manual-generated ids
+/**
+ * The base class for events in TurnSystem, with a collection of triggers,
+ * conditions and actions. Ids are expected to be managed manually.
+ * The event runs the actions sequentially if:
+ * evaluateEvent finds that it has been triggered, and all conditions evaluate to true.
+ * Evaluating the event will reset the firing of all triggers.
+ */
 class TurnSystemEvent: Unique, Printable {
     var identifier: Int = -1
 

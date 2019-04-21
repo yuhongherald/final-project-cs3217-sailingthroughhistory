@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * Modal for node to store identifier, name, frame and objects in a node.
+ */
 class Node: Codable {
     static var nextID: Int = 0
     static var reuseID: [Int] = []
@@ -27,6 +30,7 @@ class Node: Codable {
         }
     }
 
+    /// Indicate removal of a node to reuse its identifier.
     func remove() {
         Node.reuseID.append(self.identifier)
     }
@@ -70,6 +74,7 @@ class Node: Codable {
         try container.encode(objectsWithType, forKey: .objects)
     }
 
+    /// Add game object into the node.
     func add(object: GameObject) {
         self.objects.append(object)
     }
@@ -101,20 +106,14 @@ class Node: Codable {
             self.type = type
         }
     }
-}
 
-extension Node: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.identifier)
-    }
-
-    static func == (lhs: Node, rhs: Node) -> Bool {
-        return lhs.identifier == rhs.identifier
-    }
-}
-
-// Mark : - Information
-extension Node {
+    /// Get nodes that can be acheived from the node.
+    /// - Parameters:
+    ///   - ship: ship that requires the acheivable nodes
+    ///   - range: range that that can be achieved from the node
+    ///   - map: map contains the node
+    /// - Returns:
+    ///   The nodes that can be acheieved from the node.
     func getNodesInRange(ship: Pirate_WeatherEntity, range: Double, map: Map) -> [Node] {
         var pQueue = PriorityQueue<ComparablePair<Node>>()
         var visited = Set<Int>()
@@ -138,6 +137,13 @@ extension Node {
         return nodesInRange
     }
 
+    /// Get shortest path to another node.
+    /// - Parameters:
+    ///   - node: destination node
+    ///   - ship: ship that requires the path
+    ///   - map: map that contains the nodes
+    /// - Returns:
+    ///   The nodes on the shortest path.
     func getCompleteShortestPath(to node: Node, with ship: Pirate_WeatherEntity, map: Map) -> [Node] {
         var pQueue = PriorityQueue<ComparablePair<[Node]>>()
         var visited = Set<Int>()
@@ -161,12 +167,16 @@ extension Node {
         return path.map { $0 }
     }
 
+    /// Get num of nodes to the destination node.
+    /// - Parameters:
+    ///   - node: destination node
+    ///   - map: map contains the nodes
     func getNumNodesTo(to node: Node, map: Map) -> Int? {
         var queue = [(Node, Int)]()
         var visited = Set<Int>()
         var next = self
         queue.append((next, 0))
-        var weight = -1
+        var weight = 0
         while next != node && !queue.isEmpty {
             (next, weight) = queue.removeFirst()
             if visited.contains(next.identifier) {
@@ -177,6 +187,16 @@ extension Node {
                 queue.append((neighbor.toNode, weight + 1))
             }
         }
-        return weight < 0 ? nil : weight
+        return next != node ? nil : weight
+    }
+}
+
+extension Node: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.identifier)
+    }
+
+    static func == (lhs: Node, rhs: Node) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }

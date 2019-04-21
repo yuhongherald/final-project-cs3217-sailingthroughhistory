@@ -6,6 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * The base class for triggers. Watches the variable and fires when comparing the
+ * old value with the new value returns true. Can be resetted after firing.
+ */
 class EventTrigger<T>: Printable, Trigger {
     var displayName: String = "trigger"
 

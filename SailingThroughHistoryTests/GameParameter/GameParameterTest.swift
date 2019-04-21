@@ -12,12 +12,10 @@ import XCTest
 class GameParameterTest: XCTestCase {
     func testUpdatePlayerParameter() {
         let originName = "name"
-        let changedName = "changedName"
 
         // test update name and money
         let playerParameter = PlayerParameter(name: originName, teamName: "team", node: nil)
-        playerParameter.set(name: changedName, money: 158)
-        XCTAssertEqual(playerParameter.getName(), changedName, "Name is not successfully changed")
+        playerParameter.set(money: 158)
         XCTAssertEqual(playerParameter.getMoney(), 158, "Money is not successfully changed")
         XCTAssertTrue(playerParameter.getTeam() == Team(name: "team"), "Team is accidently changed")
     }
@@ -26,7 +24,7 @@ class GameParameterTest: XCTestCase {
         // test without node
         var playerParameter = PlayerParameter(name: "", teamName: "", node: nil)
         guard let encode1 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         var decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode1)
@@ -36,7 +34,7 @@ class GameParameterTest: XCTestCase {
         // test with node
         playerParameter = PlayerParameter(name: "", teamName: "", node: Sea(name: "sea", originX: 1, originY: 100))
         guard let encode2 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode2)
@@ -47,7 +45,7 @@ class GameParameterTest: XCTestCase {
         playerParameter = PlayerParameter(name: "", teamName: "",
                                           node: Port(team: nil, name: "NPCport", originX: 0, originY: 0))
         guard let encode3 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode3)
@@ -59,7 +57,7 @@ class GameParameterTest: XCTestCase {
         let port = Port(team: team, name: "selfport", originX: 0, originY: 0)
         port.assignOwner(team)
         guard let encode4 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode4)
@@ -82,7 +80,7 @@ class GameParameterTest: XCTestCase {
         let gameParameter = GameParameter(map: Map(
             map: "map", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100)), teams: ["team1", "team2"])
         guard let encode = try? JSONEncoder().encode(gameParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(GameParameter.self, from: encode)
@@ -109,12 +107,7 @@ class GameParameterTest: XCTestCase {
         guard let lhs = itemParameter else {
             return false
         }
-        // TODO
-        /*
-        return lhs.getBuyValue() == rhs.getBuyValue() && lhs.getSellValue() == rhs.getSellValue()
-            && lhs.displayName == rhs.displayName
-            && lhs.isConsumable == rhs.isConsumable && lhs.unitWeight == rhs.unitWeight && lhs.itemType == rhs.itemType
-         */
+        return  lhs.rawValue == rhs.rawValue && lhs.unitWeight == rhs.unitWeight
         return true
     }
 

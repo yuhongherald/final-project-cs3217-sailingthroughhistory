@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * Modal for port to store owner, tax and items.
+ */
 class Port: Node {
     var taxAmount: GameVariable<Int> = GameVariable(value: 0)
     var owner: Team? {
@@ -62,10 +65,16 @@ class Port: Node {
         try super.encode(to: superencoder)
     }
 
+    /// Assign the ownership of the port to the team.
+    /// - Parameters:
+    ///   - team: new owner of the port
     public func assignOwner(_ team: Team?) {
         owner = team
     }
 
+    /// Collecte tax from the player and pay tax to port owner.
+    /// - Parameters:
+    ///   - player: player to collect tax from
     public func collectTax(from player: GenericPlayer) {
         // Prevent event listeners from firing unneccessarily
         if player.team == owner {
@@ -75,23 +84,30 @@ class Port: Node {
         owner?.updateMoney(by: taxAmount.value)
     }
 
+    /// Collecte tax from the NPC and pay tax to port owner.
+    /// - Parameters:
+    ///   - npc: NPC to collect tax from
     public func collectTax(from npc: NPC) {
         owner?.updateMoney(by: taxAmount.value)
     }
 
+    /// Get import price of item.
     func getBuyValue(of type: ItemParameter) -> Int? {
         return itemBuyValue[type]
     }
 
+     /// Get export price of item.
     func getSellValue(of type: ItemParameter) -> Int? {
         return itemSellValue[type]
     }
 
+     /// Set import price of item to value.
     func setBuyValue(of type: ItemParameter, value: Int) {
         let finalValue = max(getSellValue(of: type) ?? 0, value)
         itemBuyValue[type] = finalValue
     }
 
+    /// Set export price of item to value.
     func setSellValue(of type: ItemParameter, value: Int) {
         let finalValue = min(getBuyValue(of: type) ?? value, value)
         itemSellValue[type] = finalValue

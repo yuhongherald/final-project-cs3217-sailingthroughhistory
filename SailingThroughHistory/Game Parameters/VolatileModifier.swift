@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ * Protocol for volatiles.
+ */
 protocol VolatileModifier: Codable {
     var isActive: Bool { get }
 

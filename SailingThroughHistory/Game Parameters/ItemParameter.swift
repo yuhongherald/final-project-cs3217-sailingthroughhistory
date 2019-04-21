@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * Enums to store item types, default prices and unit weights.
+ */
 enum ItemParameter: String, Codable, CaseIterable {
     case teaLeaves = "Tea Leaves"
     case silk = "Silk"
@@ -38,10 +41,12 @@ enum ItemParameter: String, Codable, CaseIterable {
     }
 
     // Global pricing information
+    /// Get maximum buy values among all ports.
     func getBuyValue(ports: [Port]) -> Int {
         return ports.map({ $0.getBuyValue(of: self) }).compactMap({ $0 }).max() ?? 0
     }
 
+    /// Get minimum sell values among all ports.
     func getSellValue(ports: [Port]) -> Int {
         return ports.map({ $0.getSellValue(of: self) }).compactMap({ $0 }).min() ?? 0
     }
