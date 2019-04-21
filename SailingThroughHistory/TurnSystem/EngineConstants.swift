@@ -5,6 +5,10 @@
 //  Created by Herald on 18/3/19.
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
+
+/**
+ * Constants used by the GameEngine (discontinued).
+ */
 enum EngineConstants {
     static let largestTimeStep: Double = 1
     static let forecastDuration: Double = 1
@@ -15,6 +19,9 @@ enum EngineConstants {
 
 }
 
+/**
+ * Constants used by the Game.
+ */
 enum GameConstants {
     static let weeksInMonth: Int = 4
     static let monthsInYear: Int = 12
@@ -25,6 +32,9 @@ enum GameConstants {
     static let dutchTeam: String = "Dutch"
 }
 
+/**
+ * Game resources paths..
+ */
 enum Resources {
     enum Weather {
         static let monsoon: [String] = ["sea-node.png"]
@@ -99,6 +109,9 @@ enum Resources {
     }
 }
 
+/**
+ * Some other game defaults.
+ */
 enum Default {
     enum Item {
         static let buyValue: Int = 100

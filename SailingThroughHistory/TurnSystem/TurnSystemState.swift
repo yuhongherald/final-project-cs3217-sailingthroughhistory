@@ -6,7 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
-// A class used to hold the state of the turn based game
+/**
+ * The default implementation of GenericTurnSystemState.
+ */
 class TurnSystemState: GenericTurnSystemState {
     private(set) var events: [Int: TurnSystemEvent] = [Int: TurnSystemEvent]()
     private var actionHistory = [(player: GenericPlayer, action: PlayerAction)]()
@@ -70,6 +72,5 @@ class TurnSystemState: GenericTurnSystemState {
 
     func turnFinished() {
         currentTurn += 1
-        //gameState.gameTime.value.addWeeks(4)
     }
 }
