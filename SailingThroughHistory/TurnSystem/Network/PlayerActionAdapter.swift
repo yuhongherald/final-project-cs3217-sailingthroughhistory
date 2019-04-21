@@ -6,9 +6,10 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/**
+ * The default implementation of GenericPlayerActionAdapter.
+ */
 class PlayerActionAdapter: GenericPlayerActionAdapter {
-    /// Throws if action is invalid
-    /// For server actions only
 
     let stateVariable: GameVariable<TurnSystemNetwork.State>
     let networkInfo: NetworkInfo
@@ -30,6 +31,8 @@ class PlayerActionAdapter: GenericPlayerActionAdapter {
         self.data = data
     }
 
+    /// Throws if action is invalid
+    /// For server actions only
     func process(action: PlayerAction, for player: GenericPlayer)
         throws -> GameMessage? {
         switch state {

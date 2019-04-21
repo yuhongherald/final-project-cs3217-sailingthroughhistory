@@ -9,7 +9,8 @@
 import Foundation
 
 /**
- *
+ * The default implementation of a GenericPlayerInputController.
+ * Runs a timer whenever a player starts a turn, and ends the turn when the timer is over.
  */
 class PlayerInputController: GenericPlayerInputController {
     let network: GenericTurnSystemNetwork

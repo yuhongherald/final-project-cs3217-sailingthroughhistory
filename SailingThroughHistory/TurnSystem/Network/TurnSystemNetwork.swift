@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ * The default implementation of GenericTurnSystemNetwork, specific for RoomConnections.
+ */
 class TurnSystemNetwork: GenericTurnSystemNetwork {
     enum State {
         case ready
@@ -150,6 +153,7 @@ class TurnSystemNetwork: GenericTurnSystemNetwork {
                 return
         }
 
+        
     }
 
     func waitForTurnFinish() {

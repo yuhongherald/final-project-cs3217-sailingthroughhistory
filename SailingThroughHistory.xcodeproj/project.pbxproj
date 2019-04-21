@@ -103,7 +103,6 @@
 		75657251226B00A6002CDB41 /* GenericPlayerActionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657250226B00A6002CDB41 /* GenericPlayerActionAdapter.swift */; };
 		75657253226B00BF002CDB41 /* GenericPlayerActionAdapterFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657252226B00BF002CDB41 /* GenericPlayerActionAdapterFactory.swift */; };
 		75657255226B04DC002CDB41 /* GenericTurnSystemNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657254226B04DC002CDB41 /* GenericTurnSystemNetwork.swift */; };
-		75657257226B07DE002CDB41 /* TurnSystemActionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657256226B07DE002CDB41 /* TurnSystemActionAdapter.swift */; };
 		75657259226B082A002CDB41 /* PlayerInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75657258226B082A002CDB41 /* PlayerInputController.swift */; };
 		7565725C226B0944002CDB41 /* GenericPlayerInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565725B226B0944002CDB41 /* GenericPlayerInputController.swift */; };
 		7565725E226B0974002CDB41 /* GenericPlayerInputControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7565725D226B0974002CDB41 /* GenericPlayerInputControllerFactory.swift */; };
@@ -392,7 +391,6 @@
 		75657250226B00A6002CDB41 /* GenericPlayerActionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerActionAdapter.swift; sourceTree = "<group>"; };
 		75657252226B00BF002CDB41 /* GenericPlayerActionAdapterFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerActionAdapterFactory.swift; sourceTree = "<group>"; };
 		75657254226B04DC002CDB41 /* GenericTurnSystemNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTurnSystemNetwork.swift; sourceTree = "<group>"; };
-		75657256226B07DE002CDB41 /* TurnSystemActionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnSystemActionAdapter.swift; sourceTree = "<group>"; };
 		75657258226B082A002CDB41 /* PlayerInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerInputController.swift; sourceTree = "<group>"; };
 		7565725B226B0944002CDB41 /* GenericPlayerInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerInputController.swift; sourceTree = "<group>"; };
 		7565725D226B0974002CDB41 /* GenericPlayerInputControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPlayerInputControllerFactory.swift; sourceTree = "<group>"; };
@@ -703,7 +701,6 @@
 				75657250226B00A6002CDB41 /* GenericPlayerActionAdapter.swift */,
 				75657252226B00BF002CDB41 /* GenericPlayerActionAdapterFactory.swift */,
 				75657254226B04DC002CDB41 /* GenericTurnSystemNetwork.swift */,
-				75657256226B07DE002CDB41 /* TurnSystemActionAdapter.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -1630,7 +1627,6 @@
 				BAA0D0402262655C004417CA /* GenericItemStub.swift in Sources */,
 				9690F5CC223A4874005291EE /* MainGameViewController.swift in Sources */,
 				7581AEDB225C53D8001A8CC3 /* VolatileMonsoon.swift in Sources */,
-				75657257226B07DE002CDB41 /* TurnSystemActionAdapter.swift in Sources */,
 				751F8FDC224BA2A90071C057 /* GenericTurnSystem.swift in Sources */,
 				1AE048C4226B7A82006ABBA3 /* GameParameterItem.swift in Sources */,
 				751F8FD8224B9D5E0071C057 /* ChangeType.swift in Sources */,
