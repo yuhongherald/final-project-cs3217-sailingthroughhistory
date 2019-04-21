@@ -104,6 +104,9 @@ class TurnSystem: GenericTurnSystem {
         guard player.team == port.owner else {
             throw PlayerActionError.invalidAction(message: "Player does not own port!")
         }
+        if amount > GameConstants.maxTax {
+            throw PlayerActionError.invalidAction(message: "Tax cannot be over \(GameConstants.maxTax)")
+        }
 
         network.pendingActions.append(.setTax(forPortId: portId, taxAmount: amount))
     }

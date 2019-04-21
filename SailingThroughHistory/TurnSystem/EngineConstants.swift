@@ -30,6 +30,7 @@ enum GameConstants {
     static let monsoonMultiplier: Double = 2
     static let britishTeam: String = "British"
     static let dutchTeam: String = "Dutch"
+    static let maxTax: Int = 2000
 }
 
 /**

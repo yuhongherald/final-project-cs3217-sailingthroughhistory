@@ -12,7 +12,7 @@ import Foundation
  * Class for setting of initial state of the game.
  */
 class GameParameter: GenericLevel, Codable {
-    let maxTaxAmount = 2000
+    let maxTaxAmount = GameConstants.maxTax
     let defaultTaxAmount = 1000
     var upgrades: [Upgrade] = [BiggerShipUpgrade(), FasterShipUpgrade(), BiggerSailsUpgrade(), MercernaryUpgrade()]
 
