@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- * Modal for item to store item parameter, total weight and quantity.
+ * Model for item to store item parameter, total weight and quantity.
  */
 class Item: GenericItem, Codable {
     var name: String {

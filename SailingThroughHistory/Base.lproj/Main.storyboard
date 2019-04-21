@@ -1203,18 +1203,18 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxy-Vg-SyH">
-                                <rect key="frame" x="0.0" y="24" width="339" height="100"/>
+                                <rect key="frame" x="0.0" y="24" width="366" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdf-0n-E5y">
-                                        <rect key="frame" x="20" y="-0.5" width="86" height="60"/>
+                                        <rect key="frame" x="20" y="-0.5" width="113" height="60"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <state key="normal" title="Back"/>
                                         <connections>
                                             <action selector="backPressed:" destination="fZz-0J-H6I" eventType="touchUpInside" id="kft-g1-xmf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-V9-wW8">
-                                        <rect key="frame" x="126" y="0.0" width="213" height="59"/>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-V9-wW8">
+                                        <rect key="frame" x="153" y="0.0" width="213" height="59"/>
                                         <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="40"/>
                                         <state key="normal" title="Show Panel"/>
                                         <connections>
@@ -1281,7 +1281,7 @@
                             <constraint firstItem="IkU-lw-ATW" firstAttribute="leading" secondItem="m5A-Sd-kWE" secondAttribute="leading" id="ZVx-dn-sd1"/>
                             <constraint firstItem="Vlw-8p-cVm" firstAttribute="top" secondItem="m5A-Sd-kWE" secondAttribute="top" id="abu-VQ-eNI"/>
                             <constraint firstItem="Eve-zd-5jg" firstAttribute="leading" secondItem="m5A-Sd-kWE" secondAttribute="leading" id="hhu-1h-OXj"/>
-                            <constraint firstItem="m5A-Sd-kWE" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fxy-Vg-SyH" secondAttribute="trailing" constant="700" id="nal-XV-ghR"/>
+                            <constraint firstItem="m5A-Sd-kWE" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="fxy-Vg-SyH" secondAttribute="trailing" constant="1000" id="nal-XV-ghR"/>
                             <constraint firstItem="Eve-zd-5jg" firstAttribute="trailing" secondItem="m5A-Sd-kWE" secondAttribute="trailing" id="rYv-AN-r8v"/>
                             <constraint firstItem="Eve-zd-5jg" firstAttribute="bottom" secondItem="m5A-Sd-kWE" secondAttribute="bottom" id="tTf-rD-GXi"/>
                             <constraint firstItem="fxy-Vg-SyH" firstAttribute="top" secondItem="m5A-Sd-kWE" secondAttribute="top" id="uU4-6s-EgK"/>
