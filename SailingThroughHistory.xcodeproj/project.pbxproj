@@ -228,7 +228,6 @@
 		BA6FBBE1225FA9DC00B366DB /* ComparablePair.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */; };
 		BA7D53BE226A3DE900CA0A61 /* NPCUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D53BD226A3DE900CA0A61 /* NPCUnitTests.swift */; };
 		BA7D53C2226A3E3000CA0A61 /* PlayerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7D53C1226A3E3000CA0A61 /* PlayerUnitTests.swift */; };
-		BA91905B223F256300009F49 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = BA91905A223F256200009F49 /* Images */; };
 		BA91905E223F25CE00009F49 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905D223F25CE00009F49 /* GameState.swift */; };
 		BA919060223F25E400009F49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA91905F223F25E400009F49 /* Player.swift */; };
 		BA919064223F260A00009F49 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA919063223F260A00009F49 /* Ship.swift */; };
@@ -510,7 +509,6 @@
 		BA6FBBE0225FA9DC00B366DB /* ComparablePair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparablePair.swift; sourceTree = "<group>"; };
 		BA7D53BD226A3DE900CA0A61 /* NPCUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCUnitTests.swift; sourceTree = "<group>"; };
 		BA7D53C1226A3E3000CA0A61 /* PlayerUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUnitTests.swift; sourceTree = "<group>"; };
-		BA91905A223F256200009F49 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 		BA91905D223F25CE00009F49 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		BA91905F223F25E400009F49 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		BA919063223F260A00009F49 /* Ship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
@@ -1024,7 +1022,6 @@
 		9690F5BD223A4874005291EE = {
 			isa = PBXGroup;
 			children = (
-				BA91905A223F256200009F49 /* Images */,
 				9690F5C8223A4874005291EE /* SailingThroughHistory */,
 				9690F5DD223A4875005291EE /* SailingThroughHistoryTests */,
 				9690F5E8223A4875005291EE /* SailingThroughHistoryUITests */,
@@ -1439,7 +1436,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA91905B223F256300009F49 /* Images in Resources */,
 				9690F5D4223A4875005291EE /* LaunchScreen.storyboard in Resources */,
 				9690F5D1223A4875005291EE /* Assets.xcassets in Resources */,
 				75354486224CAF2A001B4F62 /* TurnSystem.md in Resources */,
