@@ -5,8 +5,8 @@
 ## Creating an instance of the TurnSystem for using in the game
 **TurnSystem**: A class that runs the game in a turn-based fashion.
 Construction:
-* Network: An intermediate controller that sits between the Network and the **TurnSystemState**.
-* PlayerInputControllFactory: To create a template to facilitate turn management.
+* TurnSystemNetwork: An intermediate controller that sits between the Network and the **TurnSystemState**.
+* GenericPlayerInputControllerFactory: To create a template to facilitate turn management.
 Functionalities:
 * Player actions - roll, selectForMovement, setTax, buy, sell, toggle, purchase
 * Turn management - startGame, endTurn, acknowledgeTurnStart.
@@ -16,23 +16,69 @@ Functionalities:
 
 ![TurnSystem overview](/TurnSystemOverview.png)
 
+Most class dependencies are constructed by passing a factory into init to manage coupling, then casted to protocols to limit access.
+
 ### Interface
-Refer to **Interface** for more details.
+Refer to [Interface](/SailingThroughHistory/Interface/) for more details.
 ### Network
 #### TurnSystemNetwork
+**TurnSystemNetwork**: A class used to manage the interfacing of the underlying network with the **GenericTurnSystem**.
+Construction:
+* RoomConnection: An external class that manages networking.
+* GenericPlayerActionAdapterFactory: To create a template that governs how player actions are handled.
+* NetworkInfo: The network information pertaining to **RoomConnection**.
+* GenericTurnSystemState: The underlying data of the game.
+Functionalities:
+* getting the player for a turn: getFirstPlayer/getNextPlayer
+* processNetworkTurnActions: Processes actions received from the Network
+* turn signalling: waitForTurnFinish/endTurn
+
 #### PlayerActionAdapter
+**PlayerActionAdapter**: A class that controls how **PlayerActions** are executed in the context of a **GenericTurnSystemNetwork**.
+Construction:
+* GameVariable<TurnSystemNetwork.State>: A reference to **TurnSystemNetwork**'s state.
+* NetworkInfo: The shared network information from **TurnSystemNetwork**.
+* GenericTurnSystemState: The underlying data of the game.
+Functionalities:
+* process: Attempts to process the player's actions for a given player.
+* handle: Attempts to process the player's trade actions for a given player.
+* register: Attempts to process the player's tax setting actions for a given player.
+* handleSetTax: Handles the setting of the tax using networkInfo
+* playerMove: Attempts to process the player's movement actions for a given player.
+
 #### RoomConnection
+Refer to [RoomConnection](/SailingThroughHistory/Network/RoomConnection.swift) for more details.
 
 ### PlayerInputController
+**PlayerInputController**: A class that controls how **PlayerActions** are executed in the context of a **GenericTurnSystemNetwork**.
+Construction:
+* GenericTurnSystemNetwork: Underlying network used for the game.
+* GenericTurnSystemState: Underlying state used for the game.
+Functionalities:
+* process: Attempts to process the player's actions for a given player.
+* handle: Attempts to process the player's trade actions for a given player.
+* register: Attempts to process the player's tax setting actions for a given player.
+* handleSetTax: Handles the setting of the tax using networkInfo
+* playerMove: Attempts to process the player's movement actions for a given player.
 
 ### TurnSystemState
+**TurnSystemState**: A class used to hold the state of the turn based game.
+Construction:
+* GenericGameState: The game state used for the game.
+* joinOnTurn: Int: The turn which the game starts on.
+Functionalities:
+* checkInputAllowed: Checks if a player can make a move.
+* startPlayerInput: Starts a player's movement phase.
+
 #### GameState
 Any class that conforms to *GenericGameState* will work, as long as they have:
 * A *Map*
 * At least 1 *GenericPlayer*
 * A *Port* that buys/sells *Item*s
+For more details, refer to [GameState](/SailingThroughHistory/Game State/GameState.swift)
+
 ### EventPresets
-A class that 
+A class that ......
 
 
 ##  Using Events in TurnSystem
