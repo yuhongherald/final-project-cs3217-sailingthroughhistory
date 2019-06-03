@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:SailingThroughHistory/New Group/Data/GameTime.swift">
+   </FileRef>
+   <FileRef
+      location = "group:SailingThroughHistory/TurnSystem">
+   </FileRef>
+   <FileRef
       location = "group:SailingThroughHistory.xcodeproj">
    </FileRef>
    <FileRef

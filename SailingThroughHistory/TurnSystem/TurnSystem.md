@@ -256,4 +256,3 @@ return trueValue.value
 #### Writing a Custom Evaluatable
 
 Look at [ItemBuyPriceEvaluatable](/SailingThroughHistory/TurnSystem/Events/Presets/ItemPrice/ItemBuyPriceEvaluatable.swift) for an example. This example extracts a value by calling a function.
-
