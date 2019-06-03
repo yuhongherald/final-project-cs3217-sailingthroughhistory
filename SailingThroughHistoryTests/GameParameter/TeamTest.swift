@@ -44,8 +44,6 @@ class TeamTest: XCTestCase {
     }
 
     func testCodableTeamWithSea() {
-        setUp()
-
         // test sea without objects
         team.start(from: sea)
         check(team)
@@ -65,7 +63,7 @@ class TeamTest: XCTestCase {
 
     private func check(_ team: Team) {
         guard let encode = try? JSONEncoder().encode(team) else {
-        XCTAssertThrowsError("Encode Failed")
+        XCTFail("Encode Failed")
         return
         }
         let decode = try? JSONDecoder().decode(Team.self, from: encode)

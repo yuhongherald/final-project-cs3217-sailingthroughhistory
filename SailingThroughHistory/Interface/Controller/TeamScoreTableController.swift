@@ -8,10 +8,11 @@
 
 import UIKit
 
+/// Controller for showing team scores. i.e Total team money.
 class TeamScoreTableController: NSObject {
     private static let header = "Total Team Money:"
-    weak var tableView: UITableView?
-    var scores: [(Team, Int)]
+    private weak var tableView: UITableView?
+    private var scores: [(Team, Int)]
 
     init(tableView: UITableView, scores: [Team: Int]) {
         self.tableView = tableView
@@ -21,6 +22,9 @@ class TeamScoreTableController: NSObject {
         tableView.reloadData()
     }
 
+    /// Updates the team scores displayed to the ones in the input
+    ///
+    /// - Parameter scores: A dictionary of team as keys and their score as the associated value.
     func set(scores: [Team: Int]) {
         self.scores = Array(scores)
         tableView?.reloadData()

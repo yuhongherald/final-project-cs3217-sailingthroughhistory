@@ -17,4 +17,5 @@ enum InterfaceConstants {
     static let defaultAnimationDuration: TimeInterval = 0.25
     static let unownedPortOwner = "Neutral"
     static let taxPrefix = "Tax: "
+    static let weightSuffix = "kg"
 }

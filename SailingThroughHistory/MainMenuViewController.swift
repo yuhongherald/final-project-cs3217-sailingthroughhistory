@@ -9,6 +9,12 @@
 import UIKit
 
 class MainMenuViewController: UIViewController {
+    var message: String?
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -16,6 +22,11 @@ class MainMenuViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         self.view.window?.rootViewController = self
+        if let message = message {
+            let alert = ControllerUtils.getGenericAlert(titled: message, withMsg: "")
+            present(alert, animated: true, completion: nil)
+            self.message = nil
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -23,7 +34,7 @@ class MainMenuViewController: UIViewController {
             guard let roomController = segue.destination as? WaitingRoomViewController,
                 let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
                     let alert = ControllerUtils.getGenericAlert(titled: "Error",
-                                                                withMsg: "An error has occured. Please try again later.")
+                        withMsg: "An error has occured. Please try again later.")
                     present(alert, animated: true)
                     return
             }

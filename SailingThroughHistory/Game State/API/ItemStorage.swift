@@ -6,13 +6,13 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the operations of managing items on a ship. Stateless.
 import Foundation
 
 protocol ItemStorage {
-    func getPurchasableItemTypes() -> [ItemType]
-    func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
-    func buyItem(itemType: ItemType, quantity: Int) throws
-    func sellItem(item: GenericItem) throws
-    func sell(itemType: ItemType, quantity: Int) throws
-    func removeItem(by itemType: ItemType, with quantity: Int) -> Int
+    func getPurchasableItemParameters(ship: ShipAPI) -> [ItemParameter]
+    func getMaxPurchaseAmount(ship: ShipAPI, itemParameter: ItemParameter) -> Int
+    func buyItem(ship: ShipAPI, itemParameter: ItemParameter, quantity: Int) throws
+    func sell(ship: ShipAPI, itemParameter: ItemParameter, quantity: Int) throws
+    func removeItem(ship: ShipAPI, by itemParameter: ItemParameter, with quantity: Int) -> Int
 }

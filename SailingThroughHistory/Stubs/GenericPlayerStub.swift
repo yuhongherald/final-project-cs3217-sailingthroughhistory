@@ -8,7 +8,8 @@
 
 import Foundation
 
-class GenericPlayerStub {
+class GenericPlayerStub: GenericPlayer {
+    var isGameMaster = false
     var name: String = ""
     var team: Team?
     var money: GameVariable<Int> = GameVariable(value: 0)
@@ -21,10 +22,10 @@ class GenericPlayerStub {
     var deviceId: String = ""
     var map: Map?
     var gameState: GenericGameState?
-    var playerShip: Ship?
+    var playerShip: ShipAPI?
     var homeNode: Int = 0
 
-    private let errorMessage = "GameMaster cannot perform normal actions"
+    private let errorMessage = "Stub cannot perform normal actions"
 
     required init() {
     }
@@ -37,10 +38,6 @@ class GenericPlayerStub {
         fatalError(errorMessage)
     }
 
-    func getItemParameter(itemType: ItemType) -> ItemParameter? {
-        fatalError(errorMessage)
-    }
-
     func addShipsToMap(map: Map) {
         fatalError(errorMessage)
     }
@@ -50,7 +47,7 @@ class GenericPlayerStub {
     }
 
     func updateMoney(by amount: Int) {
-        fatalError(errorMessage)
+        money.value += amount
     }
 
     func canBuyUpgrade() -> Bool {
@@ -105,11 +102,11 @@ class GenericPlayerStub {
         fatalError(errorMessage)
     }
 
-    func getPirateEncounterChance() -> Double {
+    func getPirateEncounterChance(at node: Int) -> Double {
         fatalError(errorMessage)
     }
 
-    func getPurchasableItemTypes() -> [ItemType] {
+    func getPurchasableItemParameters() -> [ItemParameter] {
         fatalError(errorMessage)
     }
 
@@ -117,7 +114,7 @@ class GenericPlayerStub {
         fatalError(errorMessage)
     }
 
-    func buy(itemType: ItemType, quantity: Int) throws {
+    func buy(itemParameter: ItemParameter, quantity: Int) throws {
         fatalError(errorMessage)
     }
 
@@ -125,7 +122,7 @@ class GenericPlayerStub {
         fatalError(errorMessage)
     }
 
-    func sell(itemType: ItemType, quantity: Int) throws {
+    func sell(itemParameter: ItemParameter, quantity: Int) throws {
         fatalError(errorMessage)
     }
 

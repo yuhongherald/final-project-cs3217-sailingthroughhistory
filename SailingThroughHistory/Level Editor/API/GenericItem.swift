@@ -8,19 +8,26 @@
 
 import Foundation
 
+/**
+ * Protocol for items' attributes.
+ */
 protocol GenericItem: Codable {
-    var name: String? { get }
-    var itemType: ItemType { get }
-    var itemParameter: ItemParameter? { get }
-    var weight: Int? { get }
+    /// Display name of the item
+    var name: String { get }
+    /// ItemParameter of the item, i.e. buy/sell value, unit weight
+    var itemParameter: ItemParameter { get }
+    /// Total weight of the item
+    var weight: Int { get }
+    /// Quantity of the item
     var quantity: Int { get set }
 
-    func setItemParameter(_ itemParameter: ItemParameter)
-    func decayItem(with time: Double) -> Int?
-    func combine(with item: GenericItem) -> Bool
+    /// Combine quantities of items with the same ItemParameter
+    func combine(with item: inout GenericItem) -> Bool
+    /// Decrease the quantity of the item by amount
     func remove(amount: Int) -> Int
-    func setQuantity(quantity: Int)
+    /// Get export price of the item at the port
     func getBuyValue(at port: Port) -> Int?
+    /// Get import price of the item at the port
     func sell(at port: Port) -> Int?
 }
 

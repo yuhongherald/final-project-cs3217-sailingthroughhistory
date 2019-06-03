@@ -6,11 +6,15 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the behaviors that a Player needs to support. These behaviors are mostly
+/// player actions, such as buying/selling items, moving their ship, or interactions
+/// with the game, such as being chased by pirates.
 import Foundation
 
 protocol GenericPlayer: class, Codable {
     var name: String { get }
     var team: Team? { get }
+    var isGameMaster: Bool { get }
     var money: GameVariable<Int> { get }
     var currentCargoWeight: Int { get }
     var weightCapacity: Int { get }
@@ -22,10 +26,9 @@ protocol GenericPlayer: class, Codable {
     var map: Map? { get set }
     var gameState: GenericGameState? { get set }
     // for events
-    var playerShip: Ship? { get }
+    var playerShip: ShipAPI? { get }
     var homeNode: Int { get }
 
-    func getItemParameter(itemType: ItemType) -> ItemParameter?
     func addShipsToMap(map: Map)
 
     // update money
@@ -52,14 +55,13 @@ protocol GenericPlayer: class, Codable {
     // After moving can choose to dock
     func canDock() -> Bool
     func dock() throws
-    func getPirateEncounterChance() -> Double
+    func getPirateEncounterChance(at nodeId: Int) -> Double
 
     // Docked - End turn is manual here
-    func getPurchasableItemTypes() -> [ItemType]
+    func getPurchasableItemParameters() -> [ItemParameter]
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int
-    func buy(itemType: ItemType, quantity: Int) throws
-    func sell(item: GenericItem) throws
-    func sell(itemType: ItemType, quantity: Int) throws
+    func buy(itemParameter: ItemParameter, quantity: Int) throws
+    func sell(itemParameter: ItemParameter, quantity: Int) throws
     func setTax(port: Port, amount: Int) throws
 
     // End turn - supplies are removed here

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a Game State that interacts with TurnSystem and Level.
 import Foundation
 
 class GameState: GenericGameState {
@@ -16,6 +17,7 @@ class GameState: GenericGameState {
     let maxTaxAmount: Int
     let availableUpgrades: [Upgrade]
     var itemParameters: [GameVariable<ItemParameter>]
+    let numTurns: Int
 
     private(set) var map: Map
     private var teams = [Team]()
@@ -24,10 +26,11 @@ class GameState: GenericGameState {
 
     private var playerTurnOrder = [GenericPlayer]()
 
+    /// Creates a GameState given a baseYear of the game time, a level to load
+    /// information from and a list of players.
     init(baseYear: Int, level: GenericLevel, players: [RoomMember]) {
         gameTime = GameVariable(value: GameTime(baseYear: baseYear))
         teams = level.teams
-        //initializePlayersFromParameters(parameters: level.playerParameters)
         map = level.map
         availableUpgrades = level.upgrades
         maxTaxAmount = level.maxTaxAmount
@@ -35,6 +38,7 @@ class GameState: GenericGameState {
         for itemParameter in level.itemParameters {
             itemParameters.append(GameVariable<ItemParameter>(value: itemParameter))
         }
+        numTurns = level.numOfTurn
         initializePlayers(from: level.playerParameters, for: players)
         self.players.forEach { player in
             player.map = map
@@ -42,7 +46,7 @@ class GameState: GenericGameState {
             player.gameState = self
         }
         initializePortTaxes(to: level.defaultTaxAmount)
-        initializeNPCs(amount: level.numNPC)
+        initializeNPCs(amount: players.count)
     }
 
     required init(from decoder: Decoder) throws {
@@ -56,8 +60,9 @@ class GameState: GenericGameState {
         }
 
         try teams = values.decode([Team].self, forKey: .teams)
-        try players = values.decode([Player].self, forKey: .players)
+        try players = values.decode([PlayerWithType].self, forKey: .players).map { $0.player }
         try speedMultiplier = values.decode(Double.self, forKey: .speedMultiplier)
+        try numTurns = values.decode(Int.self, forKey: .numTurns)
 
         let upgradeTypes = try values.decode([UpgradeType].self, forKey: .availableUpgrades)
         availableUpgrades = upgradeTypes.map { $0.toUpgrade() }
@@ -79,18 +84,16 @@ class GameState: GenericGameState {
     }
 
     func encode(to encoder: Encoder) throws {
-        guard let players = players as? [Player] else {
-            return
-        }
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(gameTime.value, forKey: .gameTime)
         try container.encode(map, forKey: .map)
         let itemParameters = self.itemParameters.map {
             return $0.value
         }
+        try container.encode(numTurns, forKey: .numTurns)
         try container.encode(itemParameters, forKey: .itemParameters)
         try container.encode(teams, forKey: .teams)
-        try container.encode(players, forKey: .players)
+        try container.encode(players.map { PlayerWithType(from: $0) }, forKey: .players)
         try container.encode(speedMultiplier, forKey: .speedMultiplier)
         let upgradeTypes = availableUpgrades.map { $0.type }
         try container.encode(upgradeTypes, forKey: .availableUpgrades)
@@ -106,6 +109,7 @@ class GameState: GenericGameState {
         case speedMultiplier
         case availableUpgrades
         case maxTaxAmount
+        case numTurns
     }
 
     func getPlayers() -> [GenericPlayer] {
@@ -126,7 +130,21 @@ class GameState: GenericGameState {
         }
     }
 
-    func endGame() {
+    func distributeTeamMoney() {
+        var teamPlayers = [Team: [GenericPlayer]]()
+        for player in players {
+            guard let team = player.team else {
+                continue
+            }
+            teamPlayers[team, default: []].append(player)
+        }
+        for (team, players) in teamPlayers {
+            let moneyPerPlayer = team.money.value / players.count
+            for player in players {
+                player.updateMoney(by: moneyPerPlayer)
+            }
+            team.money.value = 0
+        }
     }
 
     func getTeamMoney() -> [Team: Int] {
@@ -144,10 +162,14 @@ class GameState: GenericGameState {
     private func initializePlayers(from parameters: [PlayerParameter], for roomPlayers: [RoomMember]) {
         players.removeAll()
         for roomPlayer in roomPlayers {
+            if roomPlayer.isGameMaster {
+                let player = GameMaster(name: roomPlayer.playerName, deviceId: roomPlayer.deviceId)
+                players.append(player)
+                continue
+            }
             let parameter = parameters.first {
                 $0.getTeam().name == roomPlayer.teamName
             }
-            print(parameters.map { $0.getTeam().name })
             guard let unwrappedParam = parameter, roomPlayer.hasTeam else {
                 preconditionFailure("Player has invalid team.")
             }
@@ -160,19 +182,22 @@ class GameState: GenericGameState {
             }
 
             let node: Node
-
             if let startingNode = team.startingNode {
                 node = startingNode
             } else {
                 guard let defaultNode = map.getNodes().first else {
                     fatalError("No nodes to start from")
                 }
-
                 node = defaultNode
             }
 
-            let player = Player(name: String(roomPlayer.playerName.prefix(5)), team: team, map: map,
-                                node: node, deviceId: roomPlayer.deviceId)
+            let itemsConsumed = unwrappedParam.itemsConsumed.map({ itemParameterTupleToItem(tuple: $0) })
+                .compactMap({ $0 })
+            let startingItems = unwrappedParam.startingItems.map({ itemParameterTupleToItem(tuple:
+                $0) }).compactMap({ $0 })
+            let player = Player(name: String(roomPlayer.playerName.prefix(8)),
+                                team: team, map: map, node: node, itemsConsumed: itemsConsumed,
+                                startingItems: startingItems, deviceId: roomPlayer.deviceId)
             player.updateMoney(to: unwrappedParam.getMoney())
             player.gameState = self
             players.append(player)
@@ -192,9 +217,77 @@ class GameState: GenericGameState {
         guard let node = map.getNodes().first else {
             return
         }
-        map.npcs.removeAll()
+        map.removeAllNpcs()
         for _ in 0..<amount {
-            map.npcs.append(NPC(node: node))
+            map.addGameObject(gameObject: NPC(node: node, maxTaxAmount: maxTaxAmount))
         }
+    }
+
+    private func itemParameterTupleToItem(tuple: (ItemParameter, Int)) -> GenericItem? {
+        guard let itemParameter = itemParameters.first(where: { $0.value == tuple.0 })?.value else {
+            return nil
+        }
+        let item = Item(itemParameter: itemParameter, quantity: tuple.1)
+        return item
+    }
+
+    /// Used to decode the various types of players: normal Player, spectators that
+    /// can only observe the game, and GameMasters that can manipulate the game with
+    /// events but cannot perform normal player actions.
+    struct PlayerWithType: Codable {
+        let type: PlayerType
+        let player: GenericPlayer
+
+        init(from player: GenericPlayer) {
+            if player is Player {
+                self.type = .player
+            } else if player is GameMaster {
+                self.type = .gameMaster
+            } else {
+                fatalError("Unsupported player type.")
+            }
+            self.player = player
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.type = try container.decode(PlayerType.self, forKey: .type)
+            switch self.type {
+            case .gameMaster:
+                self.player = try container.decode(GameMaster.self, forKey: .player)
+            case .player:
+                self.player = try container.decode(Player.self, forKey: .player)
+            }
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(type, forKey: .type)
+            if let master = player as? GameMaster {
+                try container.encode(master, forKey: .player)
+            } else if let player = player as? Player {
+                try container.encode(player, forKey: .player)
+            }
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case type
+            case player
+        }
+    }
+
+    enum PlayerType: String, Codable {
+        case gameMaster
+        case player
+    }
+}
+
+// String convertible
+extension GameState {
+    var description: String {
+        guard let string = try? JSONEncoder().encode(self).hashed(.sha256) else {
+            return ""
+        }
+        return string ?? ""
     }
 }

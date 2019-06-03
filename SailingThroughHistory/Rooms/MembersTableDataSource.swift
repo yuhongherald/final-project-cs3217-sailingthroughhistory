@@ -13,9 +13,9 @@ class MembersTableDataSource: NSObject, UITableViewDataSource {
     private let mainController: WaitingRoomViewController
     private static let reuseIdentifier = "waitingRoomCell"
     private let view: UITableView
-    private var waitingRoom: WaitingRoom
+    private var waitingRoom: GameRoom
 
-    init(withView view: UITableView, withRoom waitingRoom: WaitingRoom, mainController: WaitingRoomViewController) {
+    init(withView view: UITableView, withRoom waitingRoom: GameRoom, mainController: WaitingRoomViewController) {
         guard let deviceId = UIDevice.current.identifierForVendor?.uuidString else {
             fatalError("Device has no uuid")
         }
@@ -41,15 +41,36 @@ class MembersTableDataSource: NSObject, UITableViewDataSource {
         }
         let player = waitingRoom.players[indexPath.row]
         cell.changeButtonPressedCallback = { [weak self] in
-            self?.waitingRoom.changeTeam(of: player.playerName)
+            self?.waitingRoom.changeTeam(of: player.identifier)
         }
         cell.removeButtonPressedCallback = { [weak self] in
-            self?.waitingRoom.remove(player: player.playerName)
+            self?.waitingRoom.remove(player: player.identifier)
+        }
+        cell.set(playerName: player.playerName)
+        cell.renameButtonPressedCallback = { [weak self] name in
+            do {
+                try self?.waitingRoom.changeName(of: player.identifier, to: name)
+            } catch {
+                let error = error as? StorageError
+                let alert = ControllerUtils.getGenericAlert(titled: "Rename Failed.",
+                                                            withMsg: error?.getMessage() ?? "Error renaming player.",
+                                                            action: { cell.set(playerName: player.playerName) })
+                self?.mainController.present(alert, animated: true, completion: nil)
+            }
         }
         let isMaster = waitingRoom.isRoomMaster()
+        if isMaster {
+            cell.makeGameMasterButtonPressedCallback = { [weak self] in
+                self?.waitingRoom.makeGameMaster(player.identifier)
+            }
+        }
         cell.enableButton( isMaster || player.deviceId == self.deviceId)
-        cell.set(playerName: player.playerName)
-        cell.set(teamName: player.teamName ?? "No team")
+        cell.disableTextField()
+        if player.isGameMaster {
+            cell.set(teamName: "Game Master")
+        } else {
+            cell.set(teamName: player.teamName ?? "No team")
+        }
         return cell
     }
 }

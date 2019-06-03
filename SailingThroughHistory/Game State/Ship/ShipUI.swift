@@ -6,13 +6,16 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// UI Representation of a ship in the game.
 import UIKit
 
 class ShipUI: GameObject {
     private let shipWidth: Double = 50
+    private(set) weak var ship: Ship?
 
     init(ship: Ship) {
-        let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth) 
+        self.ship = ship
+        let frame = Rect(originX: 0, originY: 0, height: shipWidth, width: shipWidth)
         super.init(frame: frame)
         ship.subscribeToLocation(with: moveShip)
     }

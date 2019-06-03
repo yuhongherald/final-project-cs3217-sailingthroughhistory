@@ -6,11 +6,15 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a Game Master in the game. The Game Master is a Player without normal
+/// Player Actions, such as moving a Ship or buying/selling Items. A Game Master can
+/// set events in the game.
 import Foundation
 
 class GameMaster: GenericPlayer {
     var name: String
     var team: Team?
+    let isGameMaster = true
     var money: GameVariable<Int> = GameVariable(value: 0)
     var currentCargoWeight: Int = 0
     var weightCapacity: Int = 0
@@ -21,70 +25,70 @@ class GameMaster: GenericPlayer {
     var deviceId: String = ""
     var map: Map?
     var gameState: GenericGameState?
-    var playerShip: Ship?
+    var playerShip: ShipAPI?
     var homeNode: Int = 0
 
     private let errorMessage = "GameMaster cannot perform normal actions"
 
-    required init(name: String) {
+    required init(name: String, deviceId: String) {
         self.name = name
+        self.deviceId = deviceId
     }
 
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(String.self, forKey: .name)
+        deviceId = try values.decode(String.self, forKey: .deviceId)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
+        try container.encode(deviceId, forKey: .deviceId)
     }
     private enum CodingKeys: String, CodingKey {
         case name
-    }
-
-    func getItemParameter(itemType: ItemType) -> ItemParameter? {
-        fatalError(errorMessage)
+        case deviceId
     }
 
     func addShipsToMap(map: Map) {
-        fatalError(errorMessage)
+        return
     }
 
     func updateMoney(to amount: Int) {
-        fatalError(errorMessage)
+        return
     }
 
     func updateMoney(by amount: Int) {
-        fatalError(errorMessage)
+        return
     }
 
     func canBuyUpgrade() -> Bool {
-        fatalError(errorMessage)
+        return false
     }
 
     func subscribeToItems(with observer: @escaping (GenericPlayer, [GenericItem]) -> Void) {
-        fatalError(errorMessage)
+        return
     }
 
     func subscribeToCargoWeight(with observer: @escaping (GenericPlayer, Int) -> Void) {
-        fatalError(errorMessage)
+        return
     }
 
     func subscribeToWeightCapcity(with observer: @escaping (GenericPlayer, Int) -> Void) {
-        fatalError(errorMessage)
+        return
     }
 
     func subscribeToMoney(with observer: @escaping (GenericPlayer, Int) -> Void) {
-        fatalError(errorMessage)
+        return
     }
 
     func startTurn(speedMultiplier: Double, map: Map?) {
-        fatalError(errorMessage)
+        return
     }
 
     func buyUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
-        fatalError(errorMessage)
+        return (false, nil)
     }
 
     func roll() -> (Int, [Int]) {
@@ -92,7 +96,7 @@ class GameMaster: GenericPlayer {
     }
 
     func move(nodeId: Int) {
-        fatalError(errorMessage)
+        return
     }
 
     func getPath(to nodeId: Int) -> [Int] {
@@ -104,18 +108,18 @@ class GameMaster: GenericPlayer {
     }
 
     func canDock() -> Bool {
-        fatalError(errorMessage)
+        return false
     }
 
     func dock() throws {
-        fatalError(errorMessage)
+        return
     }
 
-    func getPirateEncounterChance() -> Double {
-        fatalError(errorMessage)
+    func getPirateEncounterChance(at nodeId: Int) -> Double {
+        return 0
     }
 
-    func getPurchasableItemTypes() -> [ItemType] {
+    func getPurchasableItemParameters() -> [ItemParameter] {
         fatalError(errorMessage)
     }
 
@@ -123,27 +127,27 @@ class GameMaster: GenericPlayer {
         fatalError(errorMessage)
     }
 
-    func buy(itemType: ItemType, quantity: Int) throws {
-        fatalError(errorMessage)
+    func buy(itemParameter: ItemParameter, quantity: Int) throws {
+        return
     }
 
     func sell(item: GenericItem) throws {
-        fatalError(errorMessage)
+        return
     }
 
-    func sell(itemType: ItemType, quantity: Int) throws {
-        fatalError(errorMessage)
+    func sell(itemParameter: ItemParameter, quantity: Int) throws {
+        return
     }
 
     func setTax(port: Port, amount: Int) {
-        fatalError(errorMessage)
+        return
     }
 
     func endTurn() -> [InfoMessage] {
-        fatalError(errorMessage)
+        return []
     }
 
     func canTradeAt(port: Port) -> Bool {
-        fatalError(errorMessage)
+        return false
     }
 }

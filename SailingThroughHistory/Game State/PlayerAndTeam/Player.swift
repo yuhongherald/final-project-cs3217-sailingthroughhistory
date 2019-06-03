@@ -6,10 +6,15 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a normal Player in the game. The Player owns a Ship, can move their
+/// Ship and buy/sell Items.
+
+/// Assumes a non-negative speed multiplier.
 import Foundation
 
 class Player: GenericPlayer {
     let deviceId: String
+    let isGameMaster = false
     var hasRolled: Bool = false
     private var rollResult: Int = 0
 
@@ -29,7 +34,7 @@ class Player: GenericPlayer {
             guard let map = map else {
                 return
             }
-            ship.map = map
+            self.ship.map = map
             if canDock() {
                 do {
                     try dock()
@@ -47,26 +52,33 @@ class Player: GenericPlayer {
     }
 
     // for events
-    var playerShip: Ship? {
+    var playerShip: ShipAPI? {
         return ship
     }
     let homeNode: Int
 
     var gameState: GenericGameState?
-    private let ship: Ship
+    private var ship: Ship
     private var speedMultiplier = 1.0
-    private var shipChassis: ShipChassis?
-    private var auxiliaryUpgrade: AuxiliaryUpgrade?
+    private var shipChassis: ShipChassis? {
+        return ship.shipChassis
+    }
+    private var auxiliaryUpgrade: AuxiliaryUpgrade? {
+        return ship.auxiliaryUpgrade
+    }
 
-    init(name: String, team: Team, map: Map, node: Node, deviceId: String) {
+    init(name: String, team: Team, map: Map, node: Node, itemsConsumed: [GenericItem],
+         startingItems: [GenericItem], deviceId: String) {
         self.name = name
         self.team = team
         self.map = map
         self.deviceId = deviceId
         self.homeNode = node.identifier
-        ship = Ship(node: node, suppliesConsumed: [])
+        ship = Ship(node: node, itemsConsumed: itemsConsumed)
         ship.owner = self
         ship.map = map
+        ship.items.value.append(contentsOf: startingItems)
+        ship.updateCargoWeight(items: ship.items.value)
     }
 
     required init(from decoder: Decoder) throws {
@@ -78,6 +90,7 @@ class Player: GenericPlayer {
         deviceId = try values.decode(String.self, forKey: .deviceId)
         homeNode = try values.decode(Int.self, forKey: .homeNode)
         ship.owner = self
+        ship.updateCargoWeight(items: ship.items.value)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -90,11 +103,6 @@ class Player: GenericPlayer {
         try container.encode(homeNode, forKey: .homeNode)
     }
 
-    func getItemParameter(itemType: ItemType) -> ItemParameter? {
-        let parameters = gameState?.itemParameters ?? []
-        return parameters.first(where: { $0.value.itemType == itemType })?.value
-    }
-
     func addShipsToMap(map: Map) {
         ship.map = map
     }
@@ -104,11 +112,12 @@ class Player: GenericPlayer {
         self.map = map
         hasRolled = false
         state.value = PlayerState.moving
-        return ship.startTurn()
+        ship.startTurn()
     }
 
     func buyUpgrade(upgrade: Upgrade) -> (Bool, InfoMessage?) {
-        return ship.installUpgrade(upgrade: upgrade)
+        var shipAPI = ship as ShipAPI
+        return ship.upgradeManager.installUpgrade(ship: &shipAPI, upgrade: upgrade)
     }
 
     func roll() -> (Int, [Int]) {
@@ -123,16 +132,17 @@ class Player: GenericPlayer {
         guard let node = map?.nodeIDPair[nodeId] else {
             return
         }
-        ship.move(node: node)
+        var shipAPI = ship as ShipAPI
+        ship.navigationManager.move(ship: &shipAPI, node: node)
     }
 
     func getPath(to nodeId: Int) -> [Int] {
         guard let map = map else {
-            fatalError("Player is not on a map")
+            return []
         }
 
         guard let toNode = map.nodeIDPair[nodeId] else {
-            fatalError("To node does not exist")
+            return []
         }
 
         return ship.node
@@ -141,30 +151,35 @@ class Player: GenericPlayer {
     }
 
     func getNodesInRange(roll: Int) -> [Node] {
-        guard let map = map else {
+        guard map != nil else {
             fatalError("Cannot check dock if map does not exist.")
         }
-        return ship.getNodesInRange(roll: roll, speedMultiplier: speedMultiplier, map: map)
+        return ship.navigationManager.getNodesInRange(ship: ship, roll: roll, speedMultiplier: speedMultiplier)
     }
 
     func canDock() -> Bool {
         guard map != nil else {
             fatalError("Cannot check dock if map does not exist.")
         }
-        return ship.canDock()
+        return ship.navigationManager.canDock(ship: ship)
     }
 
     func dock() throws {
-        let port = try ship.dock()
+        var shipAPI = ship as ShipAPI
+        let port = try ship.navigationManager.dock(ship: &shipAPI)
         port.collectTax(from: self)
     }
 
-    func getPirateEncounterChance() -> Double {
+    func getPirateEncounterChance(at nodeId: Int) -> Double {
         guard let map = map,
             !(auxiliaryUpgrade is MercernaryUpgrade) else {
             return 0
         }
-        let position = ship.node
+
+        guard let position = map.nodeIDPair[nodeId] else {
+            return 0
+        }
+
         if position is Port {
             return 0
         }
@@ -182,24 +197,20 @@ class Player: GenericPlayer {
         return chance
     }
 
-    func getPurchasableItemTypes() -> [ItemType] {
-        return ship.getPurchasableItemTypes()
+    func getPurchasableItemParameters() -> [ItemParameter] {
+        return ship.itemManager.getPurchasableItemParameters(ship: ship)
     }
 
     func getMaxPurchaseAmount(itemParameter: ItemParameter) -> Int {
-        return ship.getMaxPurchaseAmount(itemParameter: itemParameter)
+        return ship.itemManager.getMaxPurchaseAmount(ship: ship, itemParameter: itemParameter)
     }
 
-    func buy(itemType: ItemType, quantity: Int) throws {
-        try ship.buyItem(itemType: itemType, quantity: quantity)
+    func buy(itemParameter: ItemParameter, quantity: Int) throws {
+        try ship.itemManager.buyItem(ship: ship, itemParameter: itemParameter, quantity: quantity)
     }
 
-    func sell(item: GenericItem) throws {
-        try ship.sellItem(item: item)
-    }
-
-    func sell(itemType: ItemType, quantity: Int) throws {
-        try ship.sell(itemType: itemType, quantity: quantity)
+    func sell(itemParameter: ItemParameter, quantity: Int) throws {
+        try ship.itemManager.sell(ship: ship, itemParameter: itemParameter, quantity: quantity)
     }
 
     func setTax(port: Port, amount: Int) throws {
@@ -218,7 +229,6 @@ class Player: GenericPlayer {
 
     func updateMoney(by amount: Int) {
         money.value += amount
-        team?.updateMoney(by: amount)
         guard money.value >= 0 else {
             preventPlayerBankruptcy(amount: money.value)
             return
@@ -235,6 +245,9 @@ class Player: GenericPlayer {
 
     func endTurn() -> [InfoMessage] {
         hasRolled = false
+        if canDock() {
+            try? dock()
+        }
         return ship.endTurn(speedMultiplier: speedMultiplier)
     }
 
@@ -279,8 +292,6 @@ extension Player {
     }
 
     private func preventPlayerBankruptcy(amount: Int) {
-        // TODO: Show some message?
-        team?.updateMoney(by: -amount)
         money.value = 0
     }
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents the various types of errors when setting a port's tax.
 import Foundation
 
 enum PortAdminError: Error {

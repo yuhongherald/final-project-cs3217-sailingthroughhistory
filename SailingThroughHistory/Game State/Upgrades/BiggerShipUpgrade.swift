@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// A Ship Chassis upgrade that gives a bigger cargo capacity at the cost of movement.
 import Foundation
 
 class BiggerShipUpgrade: ShipChassis {
@@ -21,7 +22,7 @@ class BiggerShipUpgrade: ShipChassis {
     override func getNewCargoCapacity(baseCapacity: Int) -> Int {
         return baseCapacity * 2
     }
-    
+
     override func getMovementModifier() -> Double {
         return 0.8
     }

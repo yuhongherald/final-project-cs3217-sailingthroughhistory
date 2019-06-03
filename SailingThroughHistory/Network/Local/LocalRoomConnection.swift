@@ -8,16 +8,17 @@
 
 import Foundation
 
+/// A room connection that is locally stored on the device.
 class LocalRoomConnection: RoomConnection {
     var roomMasterId: String
-    var roomMemberCallbacks = [([RoomMember]) -> Void]()
-    var roomMembers = [RoomMember]() {
+    private var roomMemberCallbacks = [([RoomMember]) -> Void]()
+    private var roomMembers = [RoomMember]() {
         didSet {
             roomMemberCallbacks.forEach { $0(roomMembers) }
         }
     }
-    var gameStartCallbacks = [(GameState, Data) -> Void]()
-    var initialState: (state: GameState, background: Data)? {
+    private var gameStartCallbacks = [(GameState, Data) -> Void]()
+    private var initialState: (state: GameState, background: Data)? {
         didSet {
             guard let initialState = initialState else {
                 return
@@ -25,11 +26,11 @@ class LocalRoomConnection: RoomConnection {
             gameStartCallbacks.forEach { $0(initialState.state, initialState.background) }
         }
     }
-    var currentState = [Int: GameState]()
-    var currentStateCallbacks = [Int: [(GameState) -> Void]]()
-    var actionCallbacks = [Int: [([(String, [PlayerAction])], Error?) -> Void]]()
-    var actions = [Int: [(String, [PlayerAction])]]()
-    var teams = [String]() {
+    private var currentState = [Int: GameState]()
+    private var currentStateCallbacks = [Int: [(GameState) -> Void]]()
+    private var actionCallbacks = [Int: [([(String, [PlayerAction])], Error?) -> Void]]()
+    private var actions = [Int: [(String, [PlayerAction])]]()
+    private var teams = [String]() {
         didSet {
             teamCallbacks.forEach { $0(teams) }
         }
@@ -41,7 +42,8 @@ class LocalRoomConnection: RoomConnection {
     }
 
     func addPlayer() {
-        let member = RoomMember(playerName: "\(roomMembers.count)-Play", teamName: nil, deviceId: roomMasterId)
+        let member = RoomMember(identifier: "\(roomMembers.count)-Play",
+            playerName: nil, teamName: nil, deviceId: roomMasterId)
         roomMembers.append(member)
     }
 
@@ -69,11 +71,7 @@ class LocalRoomConnection: RoomConnection {
     func subscribeToActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
         actionCallbacks[turn, default: []].append(callback)
 
-        guard let actions = actions[turn] else {
-            return
-        }
-
-        callback(actions, nil)
+        callback(actions[turn, default: []], nil)
     }
 
     func subscribeToMembers(with callback: @escaping ([RoomMember]) -> Void) {
@@ -82,7 +80,7 @@ class LocalRoomConnection: RoomConnection {
     }
 
     func push(actions: [PlayerAction], fromPlayer player: GenericPlayer, forTurnNumbered turn: Int,
-              completion callback: @escaping (Error?) -> ()) throws {
+              completion callback: @escaping (Error?) -> Void) throws {
         self.actions[turn, default: []].append((player.name, actions))
         self.actionCallbacks[turn, default: []].forEach { $0(self.actions[turn, default: []], nil) }
         callback(nil)
@@ -106,20 +104,40 @@ class LocalRoomConnection: RoomConnection {
         callback(initialState.state, initialState.background)
     }
 
-    func changeTeamName(for identifier: String, to teamName: String) {
-        for (index, member) in roomMembers.enumerated() where member.playerName == identifier {
-            roomMembers[index] = RoomMember(playerName: member.playerName,
+    func changeTeamName(for identifier: String, to teamName: String) throws {
+        for (index, member) in roomMembers.enumerated() where member.identifier == identifier {
+            roomMembers[index] = RoomMember(identifier: member.identifier,
+                                            playerName: member.playerName,
                                             teamName: teamName,
                                             deviceId: member.deviceId)
         }
     }
 
+    func changePlayerName(for identifier: String, to playerName: String) throws {
+        for (index, member) in roomMembers.enumerated() where member.identifier == identifier {
+            roomMembers[index] = RoomMember(identifier: member.identifier,
+                                            playerName: playerName,
+                                            teamName: member.teamName,
+                                            deviceId: member.deviceId)
+        }
+    }
+
     func remove(player: String) {
-        roomMembers = roomMembers.filter { $0.playerName != player }
+        roomMembers = roomMembers.filter { $0.identifier != player }
     }
 
     func changeRemovalCallback(to callback: @escaping () -> Void) {
         // Removal callback should never be triggered in a local game.
         return
+    }
+
+    func getTurnActions(for turn: Int, callback: @escaping ([(String, [PlayerAction])], Error?) -> Void) {
+        callback(actions[turn] ?? [], nil)
+    }
+
+    func verify(reference: String) throws {
+    }
+
+    func disconnect() {
     }
 }

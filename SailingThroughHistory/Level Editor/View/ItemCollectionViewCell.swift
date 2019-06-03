@@ -10,15 +10,6 @@ import UIKit
 
 class ItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var consumableToggle: UISwitch!
-    @IBOutlet weak var lifeField: UITextField!
     @IBOutlet weak var sellField: UITextField!
     @IBOutlet weak var buyField: UITextField!
-    @IBAction func switchClicked(_ sender: Any) {
-        if consumableToggle.isOn {
-            lifeField.isEnabled = true
-        } else {
-            lifeField.isEnabled = false
-        }
-    }
 }

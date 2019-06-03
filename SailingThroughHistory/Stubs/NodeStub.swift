@@ -9,8 +9,8 @@
 import Foundation
 
 class NodeStub: Node {
-    required init(name: String, id: Int) {
-        Node.nextID = id
+    required init(name: String, identifier: Int) {
+        Node.nextID = identifier
         Node.reuseID.removeAll()
         let frame = Rect(originX: 0, originY: 0, height: 0, width: 0)
         super.init(name: name, frame: frame)
@@ -18,5 +18,9 @@ class NodeStub: Node {
 
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
+    }
+
+    override func getCompleteShortestPath(to node: Node, with ship: Pirate_WeatherEntity, map: Map) -> [Node] {
+        return [node]
     }
 }

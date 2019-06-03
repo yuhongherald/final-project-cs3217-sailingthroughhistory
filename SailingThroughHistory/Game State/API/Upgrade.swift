@@ -6,6 +6,7 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Defines the requirements of an upgrade for a ship.
 import Foundation
 
 protocol Upgrade: Codable {
@@ -15,5 +16,4 @@ protocol Upgrade: Codable {
 
     func getNewSuppliesConsumed(baseConsumption: [GenericItem]) -> [GenericItem]
     func getMovementModifier() -> Double
-    func getWeatherModifier() -> Double
 }

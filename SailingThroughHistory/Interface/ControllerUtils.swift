@@ -29,6 +29,40 @@ enum ControllerUtils {
             return confirmationAlert
     }
 
+    /// Generates a controller for a textfield alert.
+    ///
+    /// - Parameters:
+    ///   - title: The title of the alert.
+    ///   - desc: The description to show in the alert.
+    ///   - textPlaceHolder: The placeholder for the textfield.
+    ///   - okAction: The function to call if ok is pressed.
+    ///   - cancelAction: The function to call if cancel is pressed.
+    /// - Returns: The generated controller.
+    static func getTextfieldAlert(title: String, desc: String, textPlaceHolder: String,
+                                  okAction: ((String) -> Void)?, cancelAction: (() -> Void)?) -> UIAlertController {
+        let textfieldAlert = UIAlertController(title: title, message: desc, preferredStyle: .alert)
+
+        textfieldAlert.addAction(UIAlertAction(title: "Ok", style: .default,
+                                               handler: { _ in
+                                                   guard let name = textfieldAlert.textFields?.first?.text else {
+                                                       return
+                                                   }
+                                               okAction?(name)
+        }))
+
+        textfieldAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in cancelAction?()
+            }))
+
+        textfieldAlert.addTextField { (textFiled: UITextField) in
+            textFiled.keyboardAppearance = .default
+            textFiled.keyboardType = .default
+            textFiled.placeholder = textPlaceHolder
+            textFiled.clearButtonMode = .whileEditing
+        }
+
+        return textfieldAlert
+    }
+
     /// Generates a controller for a generic alert.
     ///
     /// - Parameters:

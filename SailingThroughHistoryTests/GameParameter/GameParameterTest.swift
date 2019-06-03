@@ -12,12 +12,10 @@ import XCTest
 class GameParameterTest: XCTestCase {
     func testUpdatePlayerParameter() {
         let originName = "name"
-        let changedName = "changedName"
 
         // test update name and money
         let playerParameter = PlayerParameter(name: originName, teamName: "team", node: nil)
-        playerParameter.set(name: changedName, money: 158)
-        XCTAssertEqual(playerParameter.getName(), changedName, "Name is not successfully changed")
+        playerParameter.set(money: 158)
         XCTAssertEqual(playerParameter.getMoney(), 158, "Money is not successfully changed")
         XCTAssertTrue(playerParameter.getTeam() == Team(name: "team"), "Team is accidently changed")
     }
@@ -26,7 +24,7 @@ class GameParameterTest: XCTestCase {
         // test without node
         var playerParameter = PlayerParameter(name: "", teamName: "", node: nil)
         guard let encode1 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         var decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode1)
@@ -36,7 +34,7 @@ class GameParameterTest: XCTestCase {
         // test with node
         playerParameter = PlayerParameter(name: "", teamName: "", node: Sea(name: "sea", originX: 1, originY: 100))
         guard let encode2 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode2)
@@ -47,7 +45,7 @@ class GameParameterTest: XCTestCase {
         playerParameter = PlayerParameter(name: "", teamName: "",
                                           node: Port(team: nil, name: "NPCport", originX: 0, originY: 0))
         guard let encode3 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode3)
@@ -59,7 +57,7 @@ class GameParameterTest: XCTestCase {
         let port = Port(team: team, name: "selfport", originX: 0, originY: 0)
         port.assignOwner(team)
         guard let encode4 = try? JSONEncoder().encode(playerParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         decode = try? JSONDecoder().decode(PlayerParameter.self, from: encode4)
@@ -67,29 +65,10 @@ class GameParameterTest: XCTestCase {
         XCTAssertTrue(isEqual(playerParameter: decode, playerParameter), "Decode result is different from original one")
     }
 
-    func testUpdateItemParameter() {
-        // test valid update
-        var itemParameter = ItemParameter(itemType: .opium, displayName: "Opium", weight: 100, isConsumable: true)
-        itemParameter.setBuyValue(value: 1234)
-        itemParameter.setSellValue(value: 5678)
-        itemParameter.setHalfLife(to: 20)
-        XCTAssertEqual(itemParameter.getBuyValue(), 1234, "BuyValue is not successfully updated.")
-        XCTAssertEqual(itemParameter.getSellValue(), 5678, "SellValue is not successfully updated.")
-        XCTAssertEqual(itemParameter.getHalfLife(), 20, "HalfLife is not successfully updated.")
-
-        // test invalid update
-        itemParameter.setBuyValue(value: -1234)
-        itemParameter.setSellValue(value: -5678)
-        itemParameter.setHalfLife(to: -20)
-        XCTAssertEqual(itemParameter.getBuyValue(), 1234, "BuyValue should not be updated to invalid value.")
-        XCTAssertEqual(itemParameter.getSellValue(), 5678, "SellValue should not be updated to invalid value.")
-        XCTAssertEqual(itemParameter.getHalfLife(), 20, "HalfLift should not be updated to invalid value.")
-    }
-
     func testCodableItemParameter() {
-        let itemParameter = ItemParameter(itemType: .opium, displayName: "Opium", weight: 100, isConsumable: true)
+        let itemParameter = ItemParameter.opium
         guard let encode = try? JSONEncoder().encode(itemParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(ItemParameter.self, from: encode)
@@ -98,9 +77,10 @@ class GameParameterTest: XCTestCase {
     }
 
     func testCodableGameParameter() {
-        let gameParameter = GameParameter(map: Map(map: "map", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100)), teams: ["team1", "team2"])
+        let gameParameter = GameParameter(map: Map(
+            map: "map", bounds: Rect(originX: 0, originY: 0, height: 100, width: 100)), teams: ["team1", "team2"])
         guard let encode = try? JSONEncoder().encode(gameParameter) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(GameParameter.self, from: encode)
@@ -127,9 +107,7 @@ class GameParameterTest: XCTestCase {
         guard let lhs = itemParameter else {
             return false
         }
-        return lhs.getBuyValue() == rhs.getBuyValue() && lhs.getSellValue() == rhs.getSellValue()
-            && lhs.getHalfLife() == rhs.getHalfLife() && lhs.displayName == rhs.displayName
-            && lhs.isConsumable == rhs.isConsumable && lhs.unitWeight == rhs.unitWeight && lhs.itemType == rhs.itemType
+        return  lhs.rawValue == rhs.rawValue && lhs.unitWeight == rhs.unitWeight
     }
 
     private func isEqual(gameParameter: GameParameter?, _ rhs: GameParameter) -> Bool {
@@ -161,7 +139,7 @@ class GameParameterTest: XCTestCase {
             return false
         }
 
-        return lhs.eventParameters == rhs.eventParameters && lhs.itemParameters == rhs.itemParameters
+        return lhs.itemParameters == rhs.itemParameters
              && lhs.numOfTurn == rhs.numOfTurn && lhs.timeLimit == rhs.timeLimit
             && lhs.teams == rhs.teams && isEqual(map: lhs.map, rhs.map)
     }

@@ -13,7 +13,7 @@ class LocalStorage {
     /// - Parameters:
     ///   - name: the proposed level name.
     func verify(name: String) throws {
-        guard name != "" else {
+        guard !name.isEmpty else {
             throw StorageError.invalidName(message: "Empty level name.")
         }
 
@@ -21,21 +21,23 @@ class LocalStorage {
             throw StorageError.invalidName(message: "Level name is too long.")
         }
 
-        guard !name.contains("/") else {
-            throw StorageError.invalidName(message: "Level name contains invalid symbol.")
+        guard name.range(of: "[^a-zA-Z0-9-]", options: .regularExpression) == nil else {
+            throw StorageError.invalidName(message:
+                "Room name contains invalid symbol. Only alphanumeric and - is allowed.")
         }
     }
 
-    /// Attempt to encode level data into json file. A complete level data set should contains data, background image and preview image.
+    /// Attempt to encode level data into json file. A complete level data set
+    /// should contains data, background image and preview image.
     /// On failure, all the related level data should be deleted.
     /// - Parameters:
     ///   - data: encodable data to be save into a JSON file
     ///   - background: the background image to be saved
     ///   - screenShot: the preview of level
     ///   - name: proposed level name
-    func save<T: Encodable>(_ data: T, _ background: UIImage, preview screenShot: UIImage, with name: String, replace: Bool = false) throws -> Bool {
+    func save<T: Encodable>(_ data: T, _ background: UIImage,
+                            preview screenShot: UIImage, with name: String, replace: Bool = false) throws -> Bool {
         try verify(name: name)
-        print("\(replace), \(isLevelExist(name))")
         guard replace || !isLevelExist(name) else {
             throw StorageError.fileExisted(message: "Level already exists.")
         }
@@ -162,7 +164,7 @@ class LocalStorage {
         return url
     }
 
-    func isLevelExist(_ name: String) -> Bool {
+    private func isLevelExist(_ name: String) -> Bool {
         let fileURL = getFullURL(from: name, ".pList")
         let backgroundURL = getFullURL(from: name + Default.Suffix.background, ".png")
         let previewURL = getFullURL(from: name, ".png")

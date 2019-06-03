@@ -7,6 +7,6 @@
 //
 
 enum PortItemButtonAction {
-    case playerBuy(item: ItemType)
-    case playerSell(item: ItemType)
+    case playerBuy(itemParameter: ItemParameter)
+    case playerSell(itemParameter: ItemParameter)
 }

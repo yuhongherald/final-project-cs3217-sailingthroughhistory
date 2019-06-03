@@ -6,6 +6,9 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents the base Ship Chassis upgrade for a ship. All Ship Chassis upgrades
+/// should extend this. Upgrade costs are assumed to be non-negative. Affects Cargo
+/// Capacity, Item Consumption and Ship Movement.
 import Foundation
 
 class ShipChassis: Upgrade {
@@ -30,9 +33,4 @@ class ShipChassis: Upgrade {
     func getMovementModifier() -> Double {
         return 1.0
     }
-
-    func getWeatherModifier() -> Double {
-        return 1.0
-    }
-
 }

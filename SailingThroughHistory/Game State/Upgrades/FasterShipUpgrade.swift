@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// A Ship Chassis upgrade that gives Faster Movement at the cost of Ship Cargo
+/// Capacity.
 import Foundation
 
 class FasterShipUpgrade: ShipChassis {

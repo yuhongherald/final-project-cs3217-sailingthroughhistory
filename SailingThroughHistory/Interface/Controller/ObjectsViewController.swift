@@ -8,24 +8,28 @@
 
 import UIKit
 
+/// Controller responsible for nodes and objects on the map.
 class ObjectsViewController {
     private var objectViews = [GameObject: UIImageView]()
-    private let mainController: MainGameViewController
+    private weak var delegate: ObjectsViewControllerDelegate?
     private var nodeViews = [Int: NodeView]()
-    private var paths = ObjectPaths()
+    private var paths = NodePaths()
     private var pathLayers = [Path: CAShapeLayer]()
     private var objectQueues = [GameObject: DispatchQueue]()
     private let view: UIView
     private var pathWeathers = [Path: UILightningView]()
-    private var modelBounds: Rect {
-        return mainController.interfaceBounds
-    }
+    private var modelBounds: Rect
 
-    init(view: UIView, mainController: MainGameViewController) {
+    init(view: UIView, modelBounds: Rect, delegate: ObjectsViewControllerDelegate) {
         self.view = view
-        self.mainController = mainController
+        self.delegate = delegate
+        self.modelBounds = modelBounds
     }
 
+    /// Called when a NodeView is tapped
+    ///
+    /// - Parameter nodeView: the view that has been tapped.
+    /// - Returns: The identifier for the node of the nodeview that has been tapped.
     func onTap(nodeView: NodeView) -> Int {
         if nodeView.node as? Port != nil {
             onTapPort(portView: nodeView)
@@ -34,11 +38,15 @@ class ObjectsViewController {
         return nodeView.node.identifier
     }
 
+    /// Subscibes to nodes on the given map.
+    ///
+    /// - Parameter map: the map that the nodes reside on.
     func subscribeToNodes(in map: Map) {
         map.subscribeToNodes { [weak self] nodes in
             guard let self = self else {
                 return
             }
+            var existingNodes = Set(self.nodeViews.keys)
             for node in nodes {
                 if self.nodeViews[node.identifier] != nil {
                     continue
@@ -48,17 +56,24 @@ class ObjectsViewController {
                 nodeView.isUserInteractionEnabled = true
                 nodeView.frame = CGRect.translatingFrom(otherBounds: self.modelBounds, otherFrame: node.frame,
                                                         to: self.view.bounds)
-                nodeView.image = self.getImageFor(node: node)
                 self.view.addSubview(nodeView)
                 self.nodeViews[node.identifier] = nodeView
+                existingNodes.remove(node.identifier)
+            }
+            for node in existingNodes {
+                self.nodeViews[node]?.removeFromSuperview()
+                self.nodeViews[node] = nil
             }
         }
     }
 
+    /// Subscribes to paths on the given map.
+    ///
+    /// - Parameter map: The map that the paths reside on.
     func subscribeToPaths(in map: Map) {
         map.subscribeToPaths { [weak self] nodePaths in
             let mapPaths = Set(nodePaths.values.flatMap { $0 })
-            guard let existingPaths = self?.paths.allPaths else {
+            guard var existingPaths = self?.paths.allPaths else {
                 return
             }
 
@@ -74,10 +89,22 @@ class ObjectsViewController {
 
                 self?.paths.add(path: path)
                 self?.addToView(path: path, from: fromFrame, to: toFrame, withDuration: 1)
+                existingPaths.remove(path)
+            }
+
+            for path in existingPaths {
+                self?.paths.remove(path: path)
+                self?.pathLayers[path]?.removeFromSuperlayer()
+                self?.pathLayers[path] = nil
+                self?.pathWeathers[path]?.removeFromSuperview()
+                self?.pathWeathers[path] = nil
             }
         }
     }
 
+    /// Signify that nodes that match the input identifiers are choosable by making their associated views glow.
+    ///
+    /// - Parameter choosableNodes: The nodes to make choosable.
     func make(choosableNodes: [Int]) {
         for nodeId in choosableNodes {
             guard let view = nodeViews[nodeId] else {
@@ -88,6 +115,7 @@ class ObjectsViewController {
         }
     }
 
+    /// Resets any indication that the nodes are choosable.
     func resetChoosableNodes() {
         nodeViews.values
             .forEach {
@@ -95,6 +123,13 @@ class ObjectsViewController {
         }
     }
 
+    /// Adds the given path to view.
+    ///
+    /// - Parameters:
+    ///   - path: The path to add.
+    ///   - fromFrame: The frame where the path starts from.
+    ///   - toFrame: The frame where the path ends.
+    ///   - duration: The duration of the animation for drawing the path.
     private func addToView(path: Path, from fromFrame: CGRect,
                            to toFrame: CGRect, withDuration duration: TimeInterval) {
         let startPoint = CGPoint(x: fromFrame.midX, y: fromFrame.midY)
@@ -116,10 +151,13 @@ class ObjectsViewController {
         layer.add(animation, forKey: "drawLineAnimation")
         let weatherView = UILightningViewFactory.getLightningView(frame: bezierPath.bounds)
         pathWeathers[path] = weatherView
-        //view.addSubview(weatherView)
+        view.addSubview(weatherView)
         weatherView.initView()
     }
 
+    /// Subscibes to objects on the input map and any changes in their position.
+    ///
+    /// - Parameter map: The map that the objects reside on.
     func subscribeToObjects(in map: Map) {
         map.subscribeToObjects { [weak self] in
             guard let self = self else {
@@ -138,6 +176,7 @@ class ObjectsViewController {
         }
     }
 
+    /// Updates the views that represent each path with their current weather condition.
     func updatePathWeather() {
         for path in paths.allPaths {
             let isActive = path
@@ -153,6 +192,9 @@ class ObjectsViewController {
         }
     }
 
+    /// Make the input player's ship glow and bring it to the front of its superview.
+    ///
+    /// - Parameter player: The player whose ship to make glow.
     func makeShipGlow(for player: GenericPlayer) {
         for (object, view) in objectViews {
             guard let ship = object as? ShipUI else {
@@ -161,12 +203,37 @@ class ObjectsViewController {
 
             if ship == player.playerShip?.shipObject {
                 view.addGlow(colored: .green)
+                self.view.bringSubviewToFront(view)
             } else {
                 view.removeGlow()
             }
         }
     }
 
+    /// Gets the frame of the input player's ship.
+    ///
+    /// - Parameter player: The player whose ship to find.
+    /// - Returns: The frame of the player's ship, if any. If none is found, return nil
+    func getShipFrame(for player: GenericPlayer) -> CGRect? {
+        for object in objectViews.keys {
+            guard let ship = object as? ShipUI else {
+                continue
+            }
+
+            if ship == player.playerShip?.shipObject {
+                return CGRect.translatingFrom(otherBounds: self.modelBounds, otherFrame: ship.frame.value,
+                                              to: self.view.bounds)
+            }
+        }
+
+        return nil
+    }
+
+    /// Updates the input object's frame to the input frame.
+    ///
+    /// - Parameters:
+    ///   - frame: The frame of the object in the model.
+    ///   - object: The object whose frame to change.
     private func update(frame: Rect, for object: GameObject) {
         guard let objectView = objectViews[object] else {
             return
@@ -191,6 +258,9 @@ class ObjectsViewController {
         }
     }
 
+    /// Registers and shows the view for a given object
+    ///
+    /// - Parameter object: The GameObject to register.
     private func register(object: GameObject) {
         if self.objectViews[object] != nil {
             return
@@ -201,33 +271,28 @@ class ObjectsViewController {
         object.subscibeToFrame { [weak self] frame in
             self?.update(frame: frame, for: object)
         }
-        if object as? ShipUI != nil {
-            objectView.image = UIImage(named: "ship.png")
+        if let shipUI = object as? ShipUI {
+            objectView.image = UIImage(named: Resources.Icon.ship)
+            if let team = shipUI.ship?.owner?.team {
+                let icon = Icon(image: UIImage(named: Resources.Flag.of(team)))
+                icon.addIcon(to: objectView)
+            }
+        }
+        if object as? NPC != nil {
+            objectView.image = UIImage(named: Resources.Icon.npc)
         }
         self.objectViews[object] = objectView
         self.view.addSubview(objectView)
     }
 
-    private func getImageFor(node: Node) -> UIImage? {
-        if node as? Sea != nil {
-            return UIImage(named: "sea-node")
-        } else if node as? Port != nil {
-            return UIImage(named: "port-node")
-        }
-
-        return nil
-    }
-
+    /// Called when a port has been tapped. Shows the information of the port on the delegate.
+    ///
+    /// - Parameter portView: The NodeView of the port.
     private func onTapPort(portView: NodeView) {
         guard let port = portView.node as? Port else {
             return
         }
 
-        mainController.showInformation(ofPort: port)
-    }
-
-    private enum State {
-        case chooseDestination
-        case normal
+        delegate?.showInformation(of: port)
     }
 }

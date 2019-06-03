@@ -37,11 +37,11 @@ class MapTest: XCTestCase {
         // test udpate map
         map.changeBackground("", with: Rect(originX: 100, originY: 100, height: 100, width: 100))
         XCTAssertEqual(map.map, "", "Map is not successfully updated")
-        XCTAssertEqual(map.bounds, Rect(originX: 100, originY: 100, height: 100, width: 100), "Bounds is not successfully updated")
+        XCTAssertEqual(map.bounds, Rect(originX: 100, originY: 100,
+                                        height: 100, width: 100), "Bounds is not successfully updated")
     }
 
     func testUpdateNodePath() {
-        setUp()
         // test add node
         let node1 = Sea(name: "sea1", originX: 0, originY: 0)
         map.addNode(node1)
@@ -83,19 +83,17 @@ class MapTest: XCTestCase {
     }
 
     func testUpdateObject() {
-        setUp()
         // test add object
         var objects = [GameObject]()
-        let ship = ShipUI(ship: Ship(node: sea, suppliesConsumed: []))
+        let ship = ShipUI(ship: Ship(node: sea, itemsConsumed: []))
         map.addGameObject(gameObject: ship)
         objects.append(ship)
         XCTAssertEqual(map.gameObjects.value, objects, "Objects are not successfully added")
     }
 
     func testCodableMap() {
-        setUp()
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -104,7 +102,6 @@ class MapTest: XCTestCase {
     }
 
     func testCodableMapFull() {
-        setUp()
         map.addNode(sea)
         map.addNode(pirateSea)
         map.addNode(selfport)
@@ -113,10 +110,10 @@ class MapTest: XCTestCase {
         map.add(path: Path(from: pirateSea, to: NPCport))
         map.add(path: Path(from: NPCport, to: sea))
         map.addGameObject(gameObject: PirateIsland(in: pirateSea))
-        map.addGameObject(gameObject: ShipUI(ship: Ship(node: selfport, suppliesConsumed: [])))
+        map.addGameObject(gameObject: ShipUI(ship: Ship(node: selfport, itemsConsumed: [])))
 
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -126,10 +123,9 @@ class MapTest: XCTestCase {
 
     func testCodableMapWithSea() {
         // test map with sea
-        setUp()
         map.addNode(sea)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -139,10 +135,9 @@ class MapTest: XCTestCase {
     }
 
     func testCodableMapWithPirate() {
-        setUp()
         map.addNode(pirateSea)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -152,10 +147,9 @@ class MapTest: XCTestCase {
     }
 
     func testCodableMapWithNPCPort() {
-        setUp()
         map.addNode(NPCport)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -166,10 +160,9 @@ class MapTest: XCTestCase {
 
     func testCodableMapWithPlayerPort() {
         // test map with player owned port added
-        setUp()
         map.addNode(selfport)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
@@ -181,12 +174,15 @@ class MapTest: XCTestCase {
         // test map with path added
         map.addNode(sea)
         map.addNode(pirateSea)
-        map.add(path: Path(from: sea, to: pirateSea))
+        let path = Path(from: sea, to: pirateSea)
+        path.modifiers.append(Weather())
+        map.add(path: path)
         guard let encode = try? JSONEncoder().encode(map) else {
-            XCTAssertThrowsError("Encode Failed")
+            XCTFail("Encode Failed")
             return
         }
         let decode = try? JSONDecoder().decode(Map.self, from: encode)
+        print(String(data: encode, encoding: String.Encoding.utf8) ?? "Data could not be printed")
         XCTAssertNotNil(decode, "Decode Failed")
         XCTAssertTrue(isEqual(map: decode, map), "Decode result is different from original one")
     }

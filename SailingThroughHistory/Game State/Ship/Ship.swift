@@ -6,17 +6,32 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Represents a Ship in the game. Assumes a non-negative baseCapacity. This class
+/// supports only the main interactions between Player and Ship. The rest of the
+/// behaviors are defined by itemManager, upgradeManager and navigationManager.
 import Foundation
 
-class Ship: Codable {
-    let suppliesConsumed: [GenericItem]
+class Ship: ShipAPI, Codable {
+    private static let baseCapacity = 100
 
+    let itemManager: ItemStorage = ShipItemManager()
+    let upgradeManager: Upgradable = ShipUpgradeManager()
+    let navigationManager: Navigatable = ShipNavigationManager()
+
+    let itemsConsumed: [GenericItem]
     var name: String {
         return owner?.name ?? "NPC Ship"
     }
     var isChasedByPirates = false
     var turnsToBeingCaught = 0
-    var shipChassis: ShipChassis?
+    var shipChassis: ShipChassis? {
+        didSet {
+            guard let newCapacity = shipChassis?.getNewCargoCapacity(baseCapacity: Ship.baseCapacity) else {
+                return
+            }
+            weightCapacity = newCapacity
+        }
+    }
     var auxiliaryUpgrade: AuxiliaryUpgrade?
 
     var nodeId: Int {
@@ -41,15 +56,16 @@ class Ship: Codable {
             return weightCapacityVariable.value
         }
         set(value) {
-            weightCapacityVariable.value = weightCapacity
+            weightCapacityVariable.value = value
         }
     }
     let nodeIdVariable: GameVariable<Int> // public for events
     weak var owner: GenericPlayer?
     var items = GameVariable<[GenericItem]>(value: []) // public for events
     var isDocked = false
+
     private var currentCargoWeightVariable = GameVariable<Int>(value: 0)
-    private var weightCapacityVariable = GameVariable<Int>(value: 100)
+    private var weightCapacityVariable = GameVariable<Int>(value: Ship.baseCapacity)
 
     var shipObject: ShipUI?
 
@@ -65,9 +81,9 @@ class Ship: Codable {
         }
     }
 
-    init(node: Node, suppliesConsumed: [GenericItem]) {
+    init(node: Node, itemsConsumed: [GenericItem]) {
         self.nodeIdVariable = GameVariable(value: node.identifier)
-        self.suppliesConsumed = suppliesConsumed
+        self.itemsConsumed = itemsConsumed
 
         subscribeToItems(with: updateCargoWeight)
         shipObject = ShipUI(ship: self)
@@ -76,7 +92,7 @@ class Ship: Codable {
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         nodeIdVariable = GameVariable(value: try values.decode(Int.self, forKey: .nodeID))
-        suppliesConsumed = try values.decode([Item].self, forKey: .items)
+        itemsConsumed = try values.decode([Item].self, forKey: .itemsConsumed)
         items.value = try values.decode([Item].self, forKey: .items)
 
         if values.contains(.auxiliaryUpgrade) {
@@ -90,16 +106,18 @@ class Ship: Codable {
         }
 
         shipObject = ShipUI(ship: self)
+        updateCargoWeight(items: items.value)
+        subscribeToItems(with: updateCargoWeight)
     }
 
     func encode(to encoder: Encoder) throws {
-        guard let suppliesConsumed = suppliesConsumed as? [Item],
+        guard let itemsConsumed = itemsConsumed as? [Item],
             let shipItems = items.value as? [Item] else {
                 return
         }
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(nodeId, forKey: .nodeID)
-        try container.encode(suppliesConsumed, forKey: .suppliesConsumed)
+        try container.encode(itemsConsumed, forKey: .itemsConsumed)
         try container.encode(shipItems, forKey: .items)
         if let shipChassis = shipChassis {
             try container.encode(shipChassis.type, forKey: .shipChassis)
@@ -111,7 +129,7 @@ class Ship: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case nodeID
-        case suppliesConsumed
+        case itemsConsumed
         case items
         case shipChassis
         case auxiliaryUpgrade
@@ -127,38 +145,31 @@ class Ship: Codable {
         if isChasedByPirates {
             turnsToBeingCaught -= 1
         }
+        if turnsToBeingCaught > 0 {
+            messages.append(InfoMessage.pirates(turnsToBeingCaught: turnsToBeingCaught))
+        }
 
-        if isChasedByPirates && turnsToBeingCaught <= 0 {
+        if isChasedByPirates && turnsToBeingCaught <= 0 && !isDocked {
             isChasedByPirates = false
             turnsToBeingCaught = 0
             items.value.removeAll()
-            messages.append(InfoMessage(title: "Pirates!", message: "You have been caught by pirates!. You lost all your cargo"))
+            messages.append(InfoMessage.caughtByPirates)
         }
 
-        for supply in suppliesConsumed {
-            guard let parameter = supply.itemParameter else {
-                continue
+        for supply in itemsConsumed {
+            let parameter = supply.itemParameter
+            let deficit = itemManager.removeItem(ship: self, by: parameter,
+                                                 with: Int(Double(supply.quantity) * speedMultiplier))
+            if let owner = owner,
+                let ports = owner.map?.nodes.value.map({ $0 as? Port }).compactMap({ $0 }), deficit > 0 {
+                owner.updateMoney(by: -deficit * 2 * parameter.getBuyValue(ports: ports))
+                messages.append(InfoMessage.deficit(itemName: parameter.rawValue, deficit: deficit))
             }
-            let type = supply.itemType
-            let deficit = removeItem(by: type, with: Int(Double(supply.quantity) * speedMultiplier))
-            owner?.updateMoney(by: -deficit * parameter.getBuyValue())
-            messages.append(InfoMessage(title: "deficit!",
-                               message: "You have exhausted \(parameter.displayName) and have a deficit of \(deficit) and paid for it."))
         }
-
-        // decay remaining items
-        for item in items.value {
-            guard let lostQuantity = item.decayItem(with: speedMultiplier) else {
-                continue
-            }
-            messages.append(InfoMessage(title: "Lost Item",
-                        message: "You have lost \(lostQuantity) of \(item.itemParameter?.displayName ?? "") from decay and have \(item.quantity) remaining!"))
-        }
+        updateCargoWeight(items: self.items.value)
         return messages
     }
 }
-
-
 
 // MARK: - Observable values
 extension Ship {
@@ -186,11 +197,25 @@ extension Ship {
         weightCapacityVariable.subscribe(with: observer)
     }
 
-    private func updateCargoWeight(items: [GenericItem]) {
+    func updateCargoWeight(items: [GenericItem]) {
         var result = 0
         for item in items {
-            result += item.weight ?? 0
+            result += item.weight
         }
         currentCargoWeightVariable.value = result
+    }
+}
+
+// MARK: - Affected by Pirates and Weather
+extension Ship {
+    func startPirateChase() {
+        if isChasedByPirates {
+            return
+        }
+        isChasedByPirates = true
+        turnsToBeingCaught = 4
+    }
+    func getWeatherModifier() -> Double {
+        return auxiliaryUpgrade?.getWeatherModifier() ?? 1.0
     }
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2019 Sailing Through History Team. All rights reserved.
 //
 
+/// Serves as an adapter between RxSwift and what is required by the project.
+
 import Foundation
 import RxSwift
 
